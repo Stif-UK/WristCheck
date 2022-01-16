@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
+import 'package:wristcheck/ui/PrivacyPolicy.dart';
+import 'package:wristcheck/ui/SettingsPage.dart';
+
 
 class WristCheckHome extends StatefulWidget{
 
@@ -44,12 +47,13 @@ class _WristCheckHomeState extends State<WristCheckHome> {
             textBaseline: TextBaseline.ideographic,
 
             children: [
+
               Container(
                 alignment: Alignment.topLeft,
-                child: const Text("Settings",
+                child: const Text("WristCheck",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  //fontWeight: FontWeight.bold,
                   fontSize: 20.0
 
                 ),),
@@ -79,14 +83,22 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
             ),
             Divider(),
-            const ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
+             ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text("Settings"),
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  SettingsPage()));
+              },
             ),
             Divider(),
-            const ListTile(
-              leading: Icon(Icons.warning_amber_rounded),
-              title: Text("Privacy Policy"),
+            ListTile(
+              leading: const Icon(Icons.warning_amber_rounded),
+              title: const Text("Privacy Policy"),
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  PrivacyPolicy()));
+              },
             ),
             Divider(),
              ListTile(
