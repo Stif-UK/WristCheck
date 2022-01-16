@@ -10,7 +10,7 @@ void main() {
 
         theme: lightTheme ,
         darkTheme: darkTheme,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         //ThemeMode.light,
         //ThemeMode.system,
 

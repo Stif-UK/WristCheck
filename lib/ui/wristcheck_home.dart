@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wristcheck/ui/AboutApp.dart';
 
 class WristCheckHome extends StatefulWidget{
 
@@ -16,6 +17,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   Widget build(BuildContext context) {
 
 
+    bool _darkModeToggle = false;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -28,24 +31,75 @@ class _WristCheckHomeState extends State<WristCheckHome> {
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         );
         }),
-        actions: [
-          IconButton(onPressed: onSettingsPressed, icon: const Icon(Icons.settings)),
-        ],
+
       ),
 
       drawer:  Drawer(
         backgroundColor: Theme.of(context).backgroundColor,
         child: ListView(
           children:  [
-            DrawerHeader(child: Container(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: const Icon(Icons.close), onPressed: () { Navigator.of(context).pop(); },
+            DrawerHeader(child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.ideographic,
+
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: const Text("Settings",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0
+
+                ),),
               ),
-            )),
-            ListTile(),
+
+              Container(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: const Icon(Icons.close, size: 20.0,), onPressed: () { Navigator.of(context).pop(); },
+                ),
+              ),
+            ],
+            )
+            ),
+            SwitchListTile(
+              title: const Text("Dark Mode"),
+              secondary: const Icon(Icons.wb_sunny),
+              //activeThumbImage: Icon(Icons.dark_mode),
+
+              value: _darkModeToggle,
+              onChanged: (bool value){
+                setState(() {
+                  _darkModeToggle = value;
+                });
+
+              },
+
+            ),
             Divider(),
-            ListTile(),
+            const ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Settings"),
+            ),
+            Divider(),
+            const ListTile(
+              leading: Icon(Icons.warning_amber_rounded),
+              title: Text("Privacy Policy"),
+            ),
+            Divider(),
+             ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text("About"),
+              onTap: (){
+                Navigator.push(context, 
+                MaterialPageRoute(builder: (context) =>  AboutApp()));
+              },
+            ),
+
+            Divider(),
+
           ],
 
         ),
