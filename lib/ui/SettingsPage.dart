@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SettingsPage extends StatefulWidget{
 
@@ -25,8 +26,12 @@ class _SettingsPageState extends State<SettingsPage> {
             secondary: const Icon(Icons.dark_mode_rounded),
             value: _darkModeToggle,
             onChanged: (bool value){
+              Get.changeTheme(
+                  Get.isDarkMode ? ThemeData.light() : ThemeData.dark()
+              );
               setState(() {
                 _darkModeToggle = value;
+
                 print(_darkModeToggle);
               });
 

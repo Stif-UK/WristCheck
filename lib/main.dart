@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/theme/theme_constants.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(
-      MaterialApp(
+      GetMaterialApp(
           title: 'WristCheck',
 
         theme: lightTheme ,
         darkTheme: darkTheme,
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.system,
         //ThemeMode.light,
         //ThemeMode.system,
 

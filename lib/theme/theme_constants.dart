@@ -8,5 +8,6 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  primaryColor: Colors.pink,
 
 );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:get/get.dart';
 
 
 class WristCheckHome extends StatefulWidget{
@@ -68,27 +69,14 @@ class _WristCheckHomeState extends State<WristCheckHome> {
             ],
             )
             ),
-            SwitchListTile(
-              title: const Text("Dark Mode"),
-              secondary: const Icon(Icons.wb_sunny),
-              //activeThumbImage: Icon(Icons.dark_mode),
 
-              value: _darkModeToggle,
-              onChanged: (bool value){
-                setState(() {
-                  _darkModeToggle = value;
-                });
-
-              },
-
-            ),
             Divider(),
              ListTile(
               leading: const Icon(Icons.settings),
               title: const Text("Settings"),
               onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>  SettingsPage()));
+                Get.to(() => SettingsPage());
+
               },
             ),
             Divider(),
@@ -96,8 +84,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
               leading: const Icon(Icons.warning_amber_rounded),
               title: const Text("Privacy Policy"),
               onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>  PrivacyPolicy()));
+                Get.to(() => PrivacyPolicy());
               },
             ),
             Divider(),
@@ -105,8 +92,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
               leading: const Icon(Icons.info),
               title: const Text("About"),
               onTap: (){
-                Navigator.push(context, 
-                MaterialPageRoute(builder: (context) =>  AboutApp()));
+                Get.to(() => AboutApp());
               },
             ),
 
