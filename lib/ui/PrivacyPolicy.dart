@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wristcheck/Copy/PrivacyPolicyCopy.dart';
 
 class PrivacyPolicy extends StatelessWidget{
 
@@ -9,6 +10,29 @@ class PrivacyPolicy extends StatelessWidget{
         title: const Text("PrivacyPolicy"),
         leading:  IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
       ),
+      body: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              child: Text("Version: ${PrivacyPolicyCopy.versionNumber} ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),),
+            ),
+
+
+            Text("${PrivacyPolicyCopy.privacyWording}"),
+
+
+          ],),
+
+      ),
+
 
 
     );
