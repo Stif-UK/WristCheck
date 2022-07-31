@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:wristcheck/ui/WatchBoxWidget.dart';
+import 'package:wristcheck/ui/StatsWidget.dart';
+import 'package:wristcheck/ui/ServicingWidget.dart';
 import 'package:get/get.dart';
 
 
@@ -14,6 +17,11 @@ class WristCheckHome extends StatefulWidget{
 class _WristCheckHomeState extends State<WristCheckHome> {
 
   int _currentIndex = 0;
+  final List<Widget> _children =[
+    WatchBoxWidget(),
+    StatsWidget(),
+    ServicingWidget()
+  ];
 
 
 
@@ -38,6 +46,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       ),
 
+      body: _children[_currentIndex],
       drawer:  Drawer(
         backgroundColor: Theme.of(context).backgroundColor,
         child: ListView(
@@ -104,6 +113,15 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       ),
 
 
+      //hide FAB except on collection screen
+      floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
+        child: Icon(Icons.add_chart),
+        backgroundColor: Colors.red,
+        onPressed: (){},): null,
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
+
 
 
 
@@ -120,7 +138,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
             label: "Stats",
           ),
           BottomNavigationBarItem(
-            icon:  Icon(Icons.schedule),
+            icon:  Icon(Icons.manage_history),
             label: "Service",
           )
         ],
