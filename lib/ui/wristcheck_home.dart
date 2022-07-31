@@ -5,6 +5,7 @@ import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/WatchBoxWidget.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
+import 'package:wristcheck/ui/addWatch.dart';
 import 'package:get/get.dart';
 
 
@@ -117,7 +118,16 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
         child: Icon(Icons.add_chart),
         backgroundColor: Colors.red,
-        onPressed: (){},): null,
+        onPressed: (){Get.to(() => AddWatch());},
+
+        //     (){Get.snackbar(
+        //   "ADD WATCH",//title
+        //   "Add watches here!",//content text
+        // icon: Icon(Icons.watch),
+        // snackPosition: SnackPosition.BOTTOM);
+        //   },
+
+      ): null,
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
