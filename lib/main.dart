@@ -3,8 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/theme/theme_constants.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wristcheck/model/watches.dart';
 
-void main() {
+Future main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(WatchesAdapter());
+
   runApp(
       GetMaterialApp(
           title: 'WristCheck',
