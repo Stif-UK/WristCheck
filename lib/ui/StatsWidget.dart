@@ -12,7 +12,7 @@ class _StatsWidgetState extends State<StatsWidget> {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        child: Text("Stats show here"),
+        child: Text("Nothing to show yet!\n\nTrack wearing your watches to display graphs.", textAlign: TextAlign.center,),
     );
   }
 }

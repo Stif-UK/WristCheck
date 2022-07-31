@@ -13,7 +13,8 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text("Nothing to show here"),
+      child: Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection",
+      textAlign: TextAlign.center,),
     );
   }
 

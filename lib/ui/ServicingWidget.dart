@@ -12,7 +12,12 @@ class _ServicingWidgetState extends State<ServicingWidget> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text("Servicing!"),
-    );
+      child:
+          Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
+          textAlign: TextAlign.center,),
+      );
+
+
+
   }
 }
