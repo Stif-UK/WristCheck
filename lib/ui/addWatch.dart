@@ -10,9 +10,9 @@ class AddWatch extends StatefulWidget {
 class _AddWatchState extends State<AddWatch> {
 
   //setup input parameters and create form key
-  String? _manufacturer;
-  String? _model;
-  String? _serialNumber;
+  String? _manufacturer = "";
+  String? _model = "";
+  String? _serialNumber = "";
   bool favourite = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -22,12 +22,13 @@ class _AddWatchState extends State<AddWatch> {
   Widget _buildManufacturerField(){
     return TextFormField(
       decoration: InputDecoration(labelText: "Manufacturer"),
-      validator: (value){
+      validator: (String? value){
         if(value == null || value.isEmpty){
           return "Manufacturer is required";
         }
     },
-    onSaved: (value){
+
+    onSaved: (String? value){
         _manufacturer = value;
     },
     );
@@ -36,12 +37,12 @@ class _AddWatchState extends State<AddWatch> {
   Widget _buildModelField(){
     return TextFormField(
       decoration: InputDecoration(labelText: "Model"),
-      validator: (value){
+      validator: (String? value){
         if(value == null || value.isEmpty){
           return "Model is required";
         }
       },
-      onSaved: (value){
+      onSaved: (String? value){
         _model = value;
       },
     );
@@ -51,16 +52,13 @@ class _AddWatchState extends State<AddWatch> {
     return TextFormField(
       decoration: InputDecoration(labelText: "Serial Number"),
       // No validation as null is acceptable
-      onSaved: (value){
+      onSaved: (String? value){
         _serialNumber = value;
       },
     );
   }
 
-  // //ToDo:This is a bool field? I think I can remove and replace with a toggle?
-  // Widget _buildFavouriteField(){
-  //   return null;
-  // };
+
 
 
   @override
@@ -76,16 +74,14 @@ class _AddWatchState extends State<AddWatch> {
         children: [
 
           Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildManufacturerField(),
               _buildModelField(),
               _buildSerialNumberField(),
-              // _buildFavouriteField(),
-              // Switch(value: _favourite, onChanged: (value){
-              //   _favourite = true;
-              // }),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -107,7 +103,27 @@ class _AddWatchState extends State<AddWatch> {
               SizedBox(height: 100,),
               RaisedButton(
                   child: Text("Add Watch"),
-                  onPressed: () => {})
+                  onPressed: () => {
+                    //some prints to validate activity
+
+                    if(_formKey.currentState!.validate()){
+                      print("Validation output: ${_formKey.currentState!.validate()}"),
+                      _formKey.currentState!.save(),
+                      print("form saved")
+                    },
+                    print("button pressed.\n"
+                        "manufacturer: $_manufacturer\n"
+                        "model: $_model\n"
+                        "serial number: $_serialNumber\n"
+                        "favourite: $favourite"),
+
+
+                  }),
+              TextButton(
+                  onPressed: (){
+                    _formKey.currentState!.reset();
+                  },
+                  child: Text("Reset Form"))
 
               ],
           ),
