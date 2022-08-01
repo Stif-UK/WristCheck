@@ -70,12 +70,14 @@ class _AddWatchState extends State<AddWatch> {
       appBar: AppBar(
         title: Text("Add a watch")
       ),
-      body: Column(
-
+      body: Padding(
+        padding: EdgeInsets.all(20),
+      child: Column(
         children: [
 
           Form(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildManufacturerField(),
               _buildModelField(),
@@ -112,6 +114,7 @@ class _AddWatchState extends State<AddWatch> {
     )
         ],
       ),
+      )
     );
   }
 }
