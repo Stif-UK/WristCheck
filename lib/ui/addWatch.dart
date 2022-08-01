@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddWatch extends StatefulWidget {
   const AddWatch({Key? key}) : super(key: key);
@@ -109,13 +110,22 @@ class _AddWatchState extends State<AddWatch> {
                     if(_formKey.currentState!.validate()){
                       print("Validation output: ${_formKey.currentState!.validate()}"),
                       _formKey.currentState!.save(),
-                      print("form saved")
+                      print("form saved"),
+                      Navigator.pop(context),
+                      Get.snackbar(
+                        "Watch Added",
+                        "$_manufacturer $_model has been added to your watch box",
+                        icon: Icon(Icons.watch),
+                        snackPosition: SnackPosition.BOTTOM,
+                      )
+
                     },
                     print("button pressed.\n"
                         "manufacturer: $_manufacturer\n"
                         "model: $_model\n"
                         "serial number: $_serialNumber\n"
                         "favourite: $favourite"),
+
 
 
                   }),
