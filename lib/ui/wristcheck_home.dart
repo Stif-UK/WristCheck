@@ -7,6 +7,8 @@ import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
 import 'package:wristcheck/ui/addWatch.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 
 class WristCheckHome extends StatefulWidget{
@@ -30,7 +32,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   Widget build(BuildContext context) {
 
 
-    bool _darkModeToggle = false;
+    //bool _darkModeToggle = false;
 
     return Scaffold(
       appBar: AppBar(
@@ -155,6 +157,14 @@ class _WristCheckHomeState extends State<WristCheckHome> {
         
       ),
     );
+  }
+
+
+  @override
+  void dispose() {
+    //close all Hive boxes when the homescreen is disposed.
+    Hive.close();
+    print("Hive box closed");
   }
 
   void onSettingsPressed() {

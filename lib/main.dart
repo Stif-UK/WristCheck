@@ -13,6 +13,8 @@ Future main() async{
   await Hive.initFlutter();
 
   Hive.registerAdapter(WatchesAdapter());
+  await Hive.openBox<Watches>("WatchBox");
+  print("Hive box opened");
 
   runApp(
       GetMaterialApp(

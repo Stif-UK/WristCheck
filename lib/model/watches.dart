@@ -12,7 +12,7 @@ class Watches extends HiveObject{
   late String model;
   
   @HiveField(2)
-  late String serialNumber;
+  late String? serialNumber;
   
   @HiveField(3)
   late bool favourite;

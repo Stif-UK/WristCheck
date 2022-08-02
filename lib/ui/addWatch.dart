@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/boxes.dart';
+
 
 class AddWatch extends StatefulWidget {
   const AddWatch({Key? key}) : super(key: key);
@@ -69,7 +74,10 @@ class _AddWatchState extends State<AddWatch> {
       appBar: AppBar(
         title: Text("Add a watch")
       ),
-      body: Padding(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Padding(
         padding: EdgeInsets.all(20),
       child: Column(
         children: [
@@ -111,6 +119,7 @@ class _AddWatchState extends State<AddWatch> {
                       print("Validation output: ${_formKey.currentState!.validate()}"),
                       _formKey.currentState!.save(),
                       print("form saved"),
+                      addWatch(_manufacturer,_model,_serialNumber,favourite),
                       Navigator.pop(context),
                       Get.snackbar(
                         "Watch Added",
@@ -140,7 +149,30 @@ class _AddWatchState extends State<AddWatch> {
     )
         ],
       ),
+      ),
+    ),
       )
+
     );
+  }
+
+  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite){
+    String m = manufacturer!;
+    String mo = model!;
+    String? sn = serialNumber;
+    bool fv = favourite;
+
+
+    final watch = Watches()
+        ..manufacturer = m
+        ..model = mo
+        ..serialNumber = sn
+        ..favourite = fv;
+
+    final box = Boxes.getWatches();
+    final String key = m+mo;
+    return box.put(key, watch);
+    print("watch added to database: ${box.get(key)}");
+
   }
 }
