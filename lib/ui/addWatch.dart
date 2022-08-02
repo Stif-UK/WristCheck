@@ -116,11 +116,9 @@ class _AddWatchState extends State<AddWatch> {
                     //some prints to validate activity
 
                     if(_formKey.currentState!.validate()){
-                      print("Validation output: ${_formKey.currentState!.validate()}"),
                       _formKey.currentState!.save(),
-                      print("form saved"),
                       addWatch(_manufacturer,_model,_serialNumber,favourite),
-                      Navigator.pop(context),
+                      Get.back(),
                       Get.snackbar(
                         "Watch Added",
                         "$_manufacturer $_model has been added to your watch box",
@@ -129,11 +127,7 @@ class _AddWatchState extends State<AddWatch> {
                       )
 
                     },
-                    print("button pressed.\n"
-                        "manufacturer: $_manufacturer\n"
-                        "model: $_model\n"
-                        "serial number: $_serialNumber\n"
-                        "favourite: $favourite"),
+
 
 
 
