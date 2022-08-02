@@ -36,10 +36,13 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
             itemBuilder: (BuildContext context, int index){
               var watch = watchBox.getAt(index);
               String? _title = "${watch?.manufacturer} ${watch?.model}";
+              bool fav = watch?.favourite ?? false;
+
 
               return ListTile(
                 leading: Icon(Icons.watch),
-                title: Text("$_title")
+                title: Text("$_title"),
+                trailing:  fav? Icon(Icons.star): Icon(Icons.star_border)
               );
             },
           separatorBuilder: (context, index){
