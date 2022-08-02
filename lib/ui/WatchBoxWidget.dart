@@ -35,17 +35,20 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
       
       ValueListenableBuilder<Box<Watches>>(valueListenable: watchBox.listenable(),
           builder: (context, box, _){
-        return ListView.builder(
+        return ListView.separated(
             itemCount: watchBox.length,
             itemBuilder: (BuildContext context, int index){
               var watch = watchBox.getAt(index);
-              String? _title = "${watch?.manufacturer} - ${watch?.model}";
+              String? _title = "${watch?.manufacturer} ${watch?.model}";
 
               return ListTile(
                 leading: Icon(Icons.watch),
                 title: Text("$_title")
               );
-            }
+            },
+          separatorBuilder: (context, index){
+              return Divider();
+          },
             );
           }
 
