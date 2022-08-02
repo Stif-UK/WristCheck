@@ -172,7 +172,6 @@ class _AddWatchState extends State<AddWatch> {
     final box = Boxes.getWatches();
     final String key = m+mo;
     return box.put(key, watch);
-    print("watch added to database: ${box.get(key)}");
 
   }
 }
