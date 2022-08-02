@@ -24,6 +24,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
     return Scaffold(
       body:
       //check if watchbox is empty, if true display the 'empty screen'
+      //ToDo: if box goes from empty to 1 entry, the view doesn't auto refresh
       watchBox.isEmpty?
       Container(
           alignment: Alignment.center,
@@ -37,9 +38,12 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
         return ListView.builder(
             itemCount: watchBox.length,
             itemBuilder: (BuildContext context, int index){
+              var watch = watchBox.getAt(index);
+              String? _title = "${watch?.manufacturer} - ${watch?.model}";
+
               return ListTile(
                 leading: Icon(Icons.watch),
-                title: Text("$index")
+                title: Text("$_title")
               );
             }
             );
