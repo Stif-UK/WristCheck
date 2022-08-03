@@ -23,20 +23,21 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
     return Scaffold(
       body: ValueListenableBuilder<Box<Watches>>(valueListenable: watchBox.listenable(),
           builder: (context, box, _){
+        List<Watches> filteredList = Boxes.getCollectionWatches();
 
-        return watchBox.isEmpty?Container(
+        return filteredList.isEmpty?Container(
           alignment: Alignment.center,
           child: Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
             textAlign: TextAlign.center,),
         ):
 
          ListView.separated(
-            itemCount: watchBox.length,
+            itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index){
-              var watch = watchBox.getAt(index);
-              String? _title = "${watch?.manufacturer} ${watch?.model}";
-              bool fav = watch?.favourite ?? false;
-              String? _status = "${watch?.status}";
+              var watch = filteredList.elementAt(index);
+              String? _title = "${watch.manufacturer} ${watch.model}";
+              bool fav = watch.favourite; // ?? false;
+              String? _status = "${watch.status}";
 
 
               return ListTile(
