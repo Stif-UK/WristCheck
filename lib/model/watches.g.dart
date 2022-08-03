@@ -21,7 +21,7 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..model = fields[1] as String
       ..serialNumber = fields[2] as String?
       ..favourite = fields[3] as bool
-      ..status = fields[4] as String;
+      ..status = fields[4] as String?;
   }
 
   @override

@@ -37,11 +37,13 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
               var watch = watchBox.getAt(index);
               String? _title = "${watch?.manufacturer} ${watch?.model}";
               bool fav = watch?.favourite ?? false;
+              String? _status = "${watch?.status}";
 
 
               return ListTile(
                 leading: Icon(Icons.watch),
                 title: Text("$_title"),
+                subtitle: Text("$_status"),
                 trailing:  fav? Icon(Icons.star): Icon(Icons.star_border)
               );
             },

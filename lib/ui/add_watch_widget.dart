@@ -15,12 +15,13 @@ class AddWatch extends StatefulWidget {
 
 class _AddWatchState extends State<AddWatch> {
 
+
   //setup input parameters and create form key
   String? _manufacturer = "";
   String? _model = "";
   String? _serialNumber = "";
   bool favourite = false;
-  String _status = "";
+  String _status = "In Collection";
 
   //Setup options for watch collection status
   List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -128,8 +129,11 @@ class _AddWatchState extends State<AddWatch> {
                         child: Text(status))
 
                     ).toList(),
-                    onChanged: (status) => setState(() => _selectedItem = status.toString())
-
+                    onChanged: (status) {
+                      _status = status.toString();
+                      setState(() => _selectedItem = status.toString());
+                      print(_status);
+                    }
                 ),
 
 
@@ -147,7 +151,7 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      addWatch(_manufacturer,_model,_serialNumber,favourite),
+                      addWatch(_manufacturer,_model,_serialNumber,favourite, _status),
                       Get.back(),
                       Get.snackbar(
                         "Watch Added",
@@ -180,18 +184,22 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
-  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite){
+  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
     bool fv = favourite;
+    String st = status;
 
 
     final watch = Watches()
         ..manufacturer = m
         ..model = mo
         ..serialNumber = sn
-        ..favourite = fv;
+        ..favourite = fv
+        ..status = st;
+
+    print("Received $status, writing: $st");
 
     final box = Boxes.getWatches();
     final String key = m+mo;
