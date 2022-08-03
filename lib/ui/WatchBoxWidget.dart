@@ -17,7 +17,6 @@ class WatchBoxWidget extends StatefulWidget {
 class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
   final watchBox = Boxes.getWatches();
-  // final watchBox = Hive.box<Map>("WatchBox");
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +54,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
 
       )
-      
-      
-      
-      // Container(
-      //   alignment: Alignment.center,
-      //   child: Text("The Watchbox is not empty! Yay!",
-      //     textAlign: TextAlign.center,),
-      // )
 
-          
     );
 
   }
