@@ -16,4 +16,7 @@ class Watches extends HiveObject{
   
   @HiveField(3)
   late bool favourite;
+
+  @HiveField(4)
+  late String status;
 }

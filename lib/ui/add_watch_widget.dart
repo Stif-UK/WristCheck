@@ -20,6 +20,11 @@ class _AddWatchState extends State<AddWatch> {
   String? _model = "";
   String? _serialNumber = "";
   bool favourite = false;
+  String _status = "";
+
+  //Setup options for watch collection status
+  List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
+  String? _selectedItem = "In Collection";
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -91,6 +96,7 @@ class _AddWatchState extends State<AddWatch> {
               _buildModelField(),
               _buildSerialNumberField(),
 
+              //Row to allow 'favourite' toggle
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -106,6 +112,29 @@ class _AddWatchState extends State<AddWatch> {
                         );
                       }),
                 ]
+
+              ),
+              //Dropdown selector to capture watch status
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Status: "),
+
+                DropdownButton(
+                    value: _selectedItem,
+                    items: _statusList
+                        .map((status) => DropdownMenuItem(
+                        value: status,
+                        child: Text(status))
+
+                    ).toList(),
+                    onChanged: (status) => setState(() => _selectedItem = status.toString())
+
+                ),
+
+
+              ]
+
 
               ),
 
