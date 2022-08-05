@@ -3,6 +3,8 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:get/get.dart';
 
 
 
@@ -14,6 +16,8 @@ class WatchBoxWidget extends StatefulWidget {
   State<WatchBoxWidget> createState() => _WatchBoxWidgetState();
 }
 
+final FilterController filterController = Get.put(FilterController());
+
 class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
   final watchBox = Boxes.getWatches();
@@ -21,9 +25,35 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder<Box<Watches>>(valueListenable: watchBox.listenable(),
+      body: ValueListenableBuilder<Box<Watches>>(
+          valueListenable: watchBox.listenable(),
           builder: (context, box, _){
-        List<Watches> filteredList = Boxes.getCollectionWatches();
+
+        List<Watches> filteredList = Boxes.getAllWatches();
+
+        ever (filterController.filterName,(_) {
+          switch (filterController.filterName.toString()) {
+            case "Show All":
+              {
+                filteredList = Boxes.getAllWatches();
+                print("List: Get all watches");
+              }
+              break;
+            case "In Collection":
+              {
+                filteredList = Boxes.getCollectionWatches();
+                print("List: Get collection watches");
+              }
+              break;
+            default:
+              {
+                filteredList = Boxes.getAllWatches();
+                print("List default: all watches");
+              }
+              break;
+          }
+        }
+        );
 
         return filteredList.isEmpty?Container(
           alignment: Alignment.center,
