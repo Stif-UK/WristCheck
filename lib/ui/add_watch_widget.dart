@@ -202,8 +202,9 @@ class _AddWatchState extends State<AddWatch> {
     print("Received $status, writing: $st");
 
     final box = Boxes.getWatches();
-    final String key = m+mo;
-    return box.put(key, watch);
+    // final String key = m+mo;
+    // return box.put(key, watch);
+    return box.add(watch);
 
   }
 }

@@ -8,6 +8,13 @@ class FilterController extends GetxController{
 
 updateFilterName(String name){
     filterName(name);
-    print(name);
+    print("Updating filterName to $name");
+    print("filterName is now $filterName");
   }
+
+  getFilterName(){
+  print("Returning filterName: ${filterName.toString()}");
+  return filterName.toString();
+  }
+
 }

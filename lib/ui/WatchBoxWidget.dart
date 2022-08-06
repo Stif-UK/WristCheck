@@ -12,6 +12,7 @@ class WatchBoxWidget extends StatefulWidget {
   const WatchBoxWidget({Key? key}) : super(key: key);
 
 
+
   @override
   State<WatchBoxWidget> createState() => _WatchBoxWidgetState();
 }
@@ -28,32 +29,10 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
       body: ValueListenableBuilder<Box<Watches>>(
           valueListenable: watchBox.listenable(),
           builder: (context, box, _){
+            List<Watches> filteredList = Boxes.getFilteredWatches(
+                FilterController().getFilterName());
 
-        List<Watches> filteredList = Boxes.getAllWatches();
 
-        ever (filterController.filterName,(_) {
-          switch (filterController.filterName.toString()) {
-            case "Show All":
-              {
-                filteredList = Boxes.getAllWatches();
-                print("List: Get all watches");
-              }
-              break;
-            case "In Collection":
-              {
-                filteredList = Boxes.getCollectionWatches();
-                print("List: Get collection watches");
-              }
-              break;
-            default:
-              {
-                filteredList = Boxes.getAllWatches();
-                print("List default: all watches");
-              }
-              break;
-          }
-        }
-        );
 
         return filteredList.isEmpty?Container(
           alignment: Alignment.center,
