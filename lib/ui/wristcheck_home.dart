@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
-import 'package:wristcheck/ui/WatchBoxWidget.dart';
-import 'package:wristcheck/ui/watchbox_parent.dart';
+import 'package:wristcheck/ui/watchbox/WatchBoxWidget.dart';
+import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
 import 'package:wristcheck/ui/add_watch_widget.dart';
@@ -22,7 +22,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   int _currentIndex = 0;
   final List<Widget> _children =[
-    //WatchBoxWidget(),
     WatchBoxParent(),
     StatsWidget(),
     ServicingWidget()
