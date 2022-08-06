@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/view_watch.dart';
 
 
 
@@ -53,7 +54,8 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
                 leading: Icon(Icons.watch),
                 title: Text("$_title"),
                 subtitle: Text("$_status"),
-                trailing:  fav? Icon(Icons.star): Icon(Icons.star_border)
+                trailing:  fav? Icon(Icons.star): Icon(Icons.star_border),
+                onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
               );
             },
           separatorBuilder: (context, index){
