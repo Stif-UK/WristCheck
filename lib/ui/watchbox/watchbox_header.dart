@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wishlist.dart';
+import 'package:wristcheck/ui/sold.dart';
 
 class WatchBoxHeader extends StatefulWidget {
   const WatchBoxHeader({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _WatchBoxHeaderState extends State<WatchBoxHeader> {
             title: Text("Show Sold"),
             trailing: Icon(Icons.attach_money),
             onTap:(){
-              // filterController.updateFilterName("Sold");
+              Get.to(SoldView());
             }
         )
       ]

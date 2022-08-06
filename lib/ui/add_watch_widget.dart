@@ -153,6 +153,14 @@ class _AddWatchState extends State<AddWatch> {
                       _formKey.currentState!.save(),
                       addWatch(_manufacturer,_model,_serialNumber,favourite, _status),
                       Get.back(),
+                      //Display an acknowlegement snackbar - copy changes based on watch status
+                      _status == "Wishlist"?
+                      Get.snackbar(
+                        "Watch Wishlisted",
+                        "$_manufacturer $_model has been added to your wishlist",
+                        icon: Icon(Icons.watch),
+                        snackPosition: SnackPosition.BOTTOM,
+                      ) :
                       Get.snackbar(
                         "Watch Added",
                         "$_manufacturer $_model has been added to your watch box",
@@ -202,8 +210,7 @@ class _AddWatchState extends State<AddWatch> {
     print("Received $status, writing: $st");
 
     final box = Boxes.getWatches();
-    // final String key = m+mo;
-    // return box.put(key, watch);
+
     return box.add(watch);
 
   }
