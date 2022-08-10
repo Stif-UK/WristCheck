@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:provider/provider.dart';
+import 'package:wristcheck/provider/db_provider.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,10 @@ Future main() async{
   print("Hive box opened");
 
   runApp(
-      GetMaterialApp(
+      ChangeNotifierProvider<DatabaseProvider>(
+          create: (_) => DatabaseProvider(),
+
+          child: GetMaterialApp(
           title: 'WristCheck',
 
         theme: lightTheme ,
@@ -27,7 +32,7 @@ Future main() async{
         //ThemeMode.system,
 
         home:  WristCheckHome(),
-      )
+      ))
 
   );
   //Make the app full-screen
