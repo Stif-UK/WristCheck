@@ -21,6 +21,11 @@ class Boxes {
     return Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.status == "Wishlist").toList();
   }
 
+  static List<Watches> getFavouriteWatches() {
+    return Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.favourite == true && Watches.status != "Sold").toList();
+  }
+
+
   static List<Watches>  getFilteredWatches(String filter){
     switch (filter) {
       case "Show All":

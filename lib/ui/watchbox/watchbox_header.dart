@@ -3,6 +3,7 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wishlist.dart';
 import 'package:wristcheck/ui/sold.dart';
+import 'package:wristcheck/ui/favourites.dart';
 
 class WatchBoxHeader extends StatefulWidget {
   const WatchBoxHeader({Key? key}) : super(key: key);
@@ -19,17 +20,24 @@ class _WatchBoxHeaderState extends State<WatchBoxHeader> {
       leading: Icon(Icons.filter_alt),
       children:[
         ListTile(
+            title: Text("Show Favourites"),
+            trailing: Icon(Icons.star),
+            onTap:(){
+              Get.to(() => Favourites());
+            }
+        ),
+        ListTile(
           title: Text("Show Wishlist"),
           trailing: Icon(Icons.cake_outlined),
           onTap:(){
-            Get.to(Wishlist());
+            Get.to(() => Wishlist());
           }
         ),
         ListTile(
             title: Text("Show Sold"),
             trailing: Icon(Icons.attach_money),
             onTap:(){
-              Get.to(SoldView());
+              Get.to(() => SoldView());
             }
         )
       ]

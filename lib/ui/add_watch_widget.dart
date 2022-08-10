@@ -22,6 +22,7 @@ class _AddWatchState extends State<AddWatch> {
   String? _serialNumber = "";
   bool favourite = false;
   String _status = "In Collection";
+  DateTime? _purchaseDate;
 
   //Setup options for watch collection status
   List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -69,6 +70,21 @@ class _AddWatchState extends State<AddWatch> {
       },
     );
   }
+  
+  Widget _buildPurchaseDateField(){
+    return InputDatePickerFormField(
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2050),
+      fieldLabelText: "Purchase Date",
+      errorFormatText: "Please re-enter date in the correct format",
+    errorInvalidText: "Please enter a valid date",
+    //ToDo: needs to be updated for localised date format - seems to default to US format,
+      //ToDo: Can I make this field optional
+    keyboardType: TextInputType.datetime,
+    onDateSaved: (DateTime? value){
+        _purchaseDate = value;
+    },);
+  }
 
 
 
@@ -96,6 +112,7 @@ class _AddWatchState extends State<AddWatch> {
               _buildManufacturerField(),
               _buildModelField(),
               _buildSerialNumberField(),
+              _buildPurchaseDateField(),
 
               //Row to allow 'favourite' toggle
               Row(
@@ -206,8 +223,6 @@ class _AddWatchState extends State<AddWatch> {
         ..serialNumber = sn
         ..favourite = fv
         ..status = st;
-
-    print("Received $status, writing: $st");
 
     final box = Boxes.getWatches();
 

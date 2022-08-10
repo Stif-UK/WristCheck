@@ -52,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onPressed: (){
                 Get.defaultDialog(
                   title: "Warning",
-                  middleText: "Pressing ok will delete all watch data.\n \n THIS CANNOT BE UNDONE",
+                  middleText: "Pressing OK will delete all watch data, including your wishlist\n \n THIS CANNOT BE UNDONE",
                   textConfirm: "OK",
                   textCancel: "Cancel",
                   onConfirm: (){
