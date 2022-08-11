@@ -6,6 +6,7 @@ import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/view_watch.dart';
+import 'package:get/get.dart';
 
 
 
@@ -44,19 +45,7 @@ class SearchFinder extends StatelessWidget {
 
             return ListTile(
               onTap: () {
-                ///* This is where we update index so that we could go to that screen
-              //   var selectedWatchIndex =
-              //   Provider.of<DatabaseProvider>(context, listen: false)
-              //       .watchesBox
-              //       .values
-              //       .toList()
-              //       .indexOf(results[index]);
-              //   databaseProvider
-              //       .updateSelectedIndex(selectedWatchIndex);
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => ContactDetailsScreen()));
+                Get.to(() => ViewWatch(currentWatch: watchesListItem));
               },
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
