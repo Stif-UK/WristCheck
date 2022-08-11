@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:intl/intl.dart';
 
 
 class AddWatch extends StatefulWidget {
@@ -72,18 +73,47 @@ class _AddWatchState extends State<AddWatch> {
   }
   
   Widget _buildPurchaseDateField(){
-    return InputDatePickerFormField(
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2050),
-      fieldLabelText: "Purchase Date",
-      errorFormatText: "Please re-enter date in the correct format",
-    errorInvalidText: "Please enter a valid date",
-    //ToDo: needs to be updated for localised date format - seems to default to US format,
-      //ToDo: Can I make this field optional
-    keyboardType: TextInputType.datetime,
-    onDateSaved: (DateTime? value){
-        _purchaseDate = value;
-    },);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 3,
+          child: Text("Purchase Date:"),
+        ),
+        // SizedBox(width: 1.0,),
+        Expanded(
+            flex: 6,
+            child: _purchaseDate == null ? Text("Click button to enter date (optional)",
+            style: TextStyle(fontStyle: FontStyle.italic),) :Text("${DateFormat.yMMMd().format(_purchaseDate!)}"),
+    ),
+
+
+        // SizedBox(width: 1.0,),
+        Expanded(
+        flex: 3,
+        child: OutlinedButton(
+          style: ButtonStyle(alignment: Alignment.topCenter, ),
+
+            onPressed: () async {
+            DateTime? pDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                lastDate: DateTime(2100));
+                //if cancelled then date == null
+                if(pDate == null) return;
+                //if ok then set the value
+                // _purchaseDate = purchaseDate;
+                setState(() {
+                  _purchaseDate = pDate;
+                });
+                },
+            child: Text("Select Date")),
+        ),
+
+        
+      ],
+    );
   }
 
   Widget _buildFavouriteRow(){
