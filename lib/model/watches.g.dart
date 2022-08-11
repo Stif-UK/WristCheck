@@ -21,13 +21,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..model = fields[1] as String
       ..serialNumber = fields[2] as String?
       ..favourite = fields[3] as bool
-      ..status = fields[4] as String?;
+      ..status = fields[4] as String?
+      ..purchaseDate = fields[5] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -37,7 +38,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(3)
       ..write(obj.favourite)
       ..writeByte(4)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(5)
+      ..write(obj.purchaseDate);
   }
 
   @override

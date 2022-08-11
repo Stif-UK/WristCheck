@@ -201,7 +201,7 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      addWatch(_manufacturer,_model,_serialNumber,favourite, _status),
+                      addWatch(_manufacturer,_model,_serialNumber,favourite, _status, _purchaseDate),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?
@@ -242,12 +242,13 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
-  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status){
+  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status, DateTime? purchaseDate){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
     bool fv = favourite;
     String st = status;
+    DateTime? pd = purchaseDate;
 
 
     final watch = Watches()
@@ -255,7 +256,8 @@ class _AddWatchState extends State<AddWatch> {
         ..model = mo
         ..serialNumber = sn
         ..favourite = fv
-        ..status = st;
+        ..status = st
+    ..purchaseDate = pd;
 
     final box = Boxes.getWatches();
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:intl/intl.dart';
 
 class ViewWatch extends StatelessWidget {
   //const ViewWatch({Key? key}) : super(key: key);
@@ -28,6 +29,8 @@ class ViewWatch extends StatelessWidget {
           Text("Serial Number: ${currentWatch.serialNumber}"),
           SizedBox(height: 10),
           Text("Status: ${currentWatch.status}"),
+          SizedBox(height: 10),
+          currentWatch.purchaseDate != null? Text("Purchase Date: ${DateFormat.yMMMd().format(currentWatch.purchaseDate!)}"): Text("Purchase Date: Not Recorded")
 
 
 
