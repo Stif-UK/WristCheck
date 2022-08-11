@@ -86,6 +86,50 @@ class _AddWatchState extends State<AddWatch> {
     },);
   }
 
+  Widget _buildFavouriteRow(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("Favourite:"),
+
+          Switch(
+              value: favourite,
+              onChanged: (value){
+                setState(
+                        (){
+                      favourite = value;
+                    }
+                );
+              }),
+        ]
+
+    );
+  }
+
+  Widget _buildStatusDropdown(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("Status: "),
+
+          DropdownButton(
+              value: _selectedItem,
+              items: _statusList
+                  .map((status) => DropdownMenuItem(
+                  value: status,
+                  child: Text(status))
+
+              ).toList(),
+              onChanged: (status) {
+                _status = status.toString();
+                setState(() => _selectedItem = status.toString());
+                print(_status);
+              }
+          ),
+        ]
+    );
+  }
+
 
 
 
@@ -113,51 +157,10 @@ class _AddWatchState extends State<AddWatch> {
               _buildModelField(),
               _buildSerialNumberField(),
               _buildPurchaseDateField(),
+              _buildFavouriteRow(),
+              _buildStatusDropdown(),
 
-              //Row to allow 'favourite' toggle
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("Favourite:"),
-
-                  Switch(
-                      value: favourite,
-                      onChanged: (value){
-                        setState(
-                                (){
-                              favourite = value;
-                            }
-                        );
-                      }),
-                ]
-
-              ),
               //Dropdown selector to capture watch status
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Status: "),
-
-                DropdownButton(
-                    value: _selectedItem,
-                    items: _statusList
-                        .map((status) => DropdownMenuItem(
-                        value: status,
-                        child: Text(status))
-
-                    ).toList(),
-                    onChanged: (status) {
-                      _status = status.toString();
-                      setState(() => _selectedItem = status.toString());
-                      print(_status);
-                    }
-                ),
-
-
-              ]
-
-
-              ),
 
 
               SizedBox(height: 100,),
