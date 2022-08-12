@@ -4,6 +4,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/util/list_tile_helper.dart';
 
 
 class ServicingWidget extends StatefulWidget {
@@ -42,7 +43,8 @@ class _ServicingWidgetState extends State<ServicingWidget> {
 
 
                   return ListTile(
-                    leading: Icon(Icons.manage_history_rounded),
+                    leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+                      // Icon(Icons.manage_history_rounded),
                     title: Text("$_title"),
                     subtitle: Text("Next Service: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
                     // trailing:  fav? Icon(Icons.star): Icon(Icons.star_border),
