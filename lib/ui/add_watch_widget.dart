@@ -25,6 +25,7 @@ class _AddWatchState extends State<AddWatch> {
   bool favourite = false;
   String _status = "In Collection";
   DateTime? _purchaseDate;
+  DateTime? _lastServicedDate;
   int _serviceInterval = 0;
 
   //Setup options for watch collection status
@@ -87,12 +88,12 @@ class _AddWatchState extends State<AddWatch> {
       children: [
         Expanded(
           flex: 3,
-          child: Text("Purchase Date:"),
+          child: Text("Purchased:"),
         ),
         // SizedBox(width: 1.0,),
         Expanded(
             flex: 6,
-            child: _purchaseDate == null ? Text("Click button to enter date (optional)",
+            child: _purchaseDate == null ? Text("No date entered",
             style: TextStyle(fontStyle: FontStyle.italic),) :Text("${DateFormat.yMMMd().format(_purchaseDate!)}"),
     ),
 
@@ -111,8 +112,7 @@ class _AddWatchState extends State<AddWatch> {
                 lastDate: DateTime(2100));
                 //if cancelled then date == null
                 if(pDate == null) return;
-                //if ok then set the value
-                // _purchaseDate = purchaseDate;
+
                 setState(() {
                   _purchaseDate = pDate;
                 });
@@ -124,6 +124,51 @@ class _AddWatchState extends State<AddWatch> {
       ],
     );
   }
+
+  //Purchase date date picker
+  Widget _buildLastServicedDateField(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 3,
+          child: Text("Last Serviced:"),
+        ),
+        // SizedBox(width: 1.0,),
+        Expanded(
+          flex: 6,
+          child: _lastServicedDate == null ? Text("No date entered",
+            style: TextStyle(fontStyle: FontStyle.italic),) :Text("${DateFormat.yMMMd().format(_lastServicedDate!)}"),
+        ),
+
+
+        // SizedBox(width: 1.0,),
+        Expanded(
+          flex: 3,
+          child: OutlinedButton(
+              style: ButtonStyle(alignment: Alignment.topCenter, ),
+
+              onPressed: () async {
+                DateTime? pDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2100));
+                //if cancelled then date == null
+                if(pDate == null) return;
+
+                setState(() {
+                  _lastServicedDate = pDate;
+                });
+              },
+              child: Text("Select Date")),
+        ),
+
+
+      ],
+    );
+  }
+
 
   //Favourite selector toggle
   Widget _buildFavouriteRow(){
@@ -184,7 +229,7 @@ class _AddWatchState extends State<AddWatch> {
         children: [
           Expanded(
             flex: 8,
-              child:Text("Service Interval: ")
+              child:Text("Service Interval (years): ")
           ),
 
           Expanded(
@@ -239,11 +284,19 @@ class _AddWatchState extends State<AddWatch> {
             children: [
               _buildManufacturerField(),
               _buildModelField(),
-              _buildSerialNumberField(),
-              _buildPurchaseDateField(),
-              _buildFavouriteRow(),
               _buildStatusDropdown(),
-              _buildServiceIntervalDropdown(),
+              _buildFavouriteRow(),
+              ExpansionTile(title: Text("Additional information (optional)"),
+              children: [
+                _buildSerialNumberField(),
+                _buildPurchaseDateField(),
+                Divider(),
+                _buildLastServicedDateField(),
+                Divider(),
+                _buildServiceIntervalDropdown(),
+              ],
+              ),
+
 
               //Dropdown selector to capture watch status
 
