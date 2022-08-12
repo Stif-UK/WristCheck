@@ -24,15 +24,20 @@ class _AddWatchState extends State<AddWatch> {
   bool favourite = false;
   String _status = "In Collection";
   DateTime? _purchaseDate;
+  int _serviceInterval = 0;
 
   //Setup options for watch collection status
   List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
-  String? _selectedItem = "In Collection";
+  String? _selectedStatus = "In Collection";
+  //Setup options for service interval
+  List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10];
+  int _selectedInterval = 0;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   //create widgets for the individual form fields
 
+  //Manufacturer form field
   Widget _buildManufacturerField(){
     return TextFormField(
       decoration: InputDecoration(labelText: "Manufacturer"),
@@ -48,6 +53,7 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Model form field
   Widget _buildModelField(){
     return TextFormField(
       decoration: InputDecoration(labelText: "Model"),
@@ -62,6 +68,7 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Serial Number form field
   Widget _buildSerialNumberField(){
     return TextFormField(
       decoration: InputDecoration(labelText: "Serial Number"),
@@ -71,7 +78,8 @@ class _AddWatchState extends State<AddWatch> {
       },
     );
   }
-  
+
+  //Purchase date date picker
   Widget _buildPurchaseDateField(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -116,6 +124,7 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Favourite selector toggle
   Widget _buildFavouriteRow(){
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -136,6 +145,7 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Watch collection status dropdown menu
   Widget _buildStatusDropdown(){
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -143,7 +153,7 @@ class _AddWatchState extends State<AddWatch> {
           Text("Status: "),
 
           DropdownButton(
-              value: _selectedItem,
+              value: _selectedStatus,
               items: _statusList
                   .map((status) => DropdownMenuItem(
                   value: status,
@@ -152,7 +162,7 @@ class _AddWatchState extends State<AddWatch> {
               ).toList(),
               onChanged: (status) {
                 _status = status.toString();
-                setState(() => _selectedItem = status.toString());
+                setState(() => _selectedStatus = status.toString());
                 print(_status);
               }
           ),
@@ -160,6 +170,30 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Service Interval selector
+  Widget _buildServiceIntervalDropdown(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("Service Interval: "),
+
+          DropdownButton(
+              value: _selectedInterval,
+              items: _serviceList
+                  .map((status) => DropdownMenuItem(
+                  value: status,
+                  child: Text(status.toString()))
+
+              ).toList(),
+              onChanged: (status) {
+                _serviceInterval = status as int;
+                setState(() => _selectedInterval = status as int);
+                print("Service Interval selected: $_serviceInterval");
+              }
+          ),
+        ]
+    );
+  }
 
 
 
@@ -189,6 +223,7 @@ class _AddWatchState extends State<AddWatch> {
               _buildPurchaseDateField(),
               _buildFavouriteRow(),
               _buildStatusDropdown(),
+              _buildServiceIntervalDropdown(),
 
               //Dropdown selector to capture watch status
 
