@@ -22,7 +22,7 @@ class _AddWatchState extends State<AddWatch> {
   //setup input parameters and create form key
   String? _manufacturer = "";
   String? _model = "";
-  String? _serialNumber = "";
+  String? _serialNumber;
   bool favourite = false;
   String _status = "In Collection";
   DateTime? _purchaseDate;
@@ -310,8 +310,7 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate),
-                      // addWatch(_manufacturer,_model,_serialNumber,favourite, _status, _purchaseDate),
+                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?

@@ -22,4 +22,14 @@ class Watches extends HiveObject{
 
   @HiveField(5)
   late DateTime? purchaseDate;
+
+  @HiveField(6)
+  late DateTime? lastServicedDate;
+
+  @HiveField(7)
+  late int serviceInterval;
+
+  @HiveField(8)
+  late DateTime? nextServiceDue;
+
 }
