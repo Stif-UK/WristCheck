@@ -25,6 +25,9 @@ class Boxes {
     return Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.favourite == true && Watches.status != "Sold").toList();
   }
 
+  static List<Watches> getServiceSchedule(){
+    return Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.nextServiceDue != null).toList();
+  }
 
   static List<Watches>  getFilteredWatches(String filter){
     switch (filter) {
