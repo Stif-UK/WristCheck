@@ -26,7 +26,9 @@ class Boxes {
   }
 
   static List<Watches> getServiceSchedule(){
-    return Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.nextServiceDue != null && Watches.status == "In Collection").toList();
+    var returnList = Hive.box<Watches>("WatchBox").values.where((Watches) => Watches.nextServiceDue != null && Watches.status == "In Collection").toList();
+    returnList.sort((a, b) => a.nextServiceDue!.compareTo(b.nextServiceDue!));
+    return returnList;
   }
 
   static List<Watches>  getFilteredWatches(String filter){
