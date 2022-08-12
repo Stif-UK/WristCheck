@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 
 
 class AddWatch extends StatefulWidget {
@@ -150,9 +151,14 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Status: "),
+          Expanded(
+            flex: 6,
+              child: Text("Status: ")
+          ),
 
-          DropdownButton(
+          Expanded(
+            flex: 4,
+            child:DropdownButton(
               value: _selectedStatus,
               items: _statusList
                   .map((status) => DropdownMenuItem(
@@ -166,6 +172,7 @@ class _AddWatchState extends State<AddWatch> {
                 print(_status);
               }
           ),
+          )
         ]
     );
   }
@@ -175,9 +182,14 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Service Interval: "),
+          Expanded(
+            flex: 8,
+              child:Text("Service Interval: ")
+          ),
 
-          DropdownButton(
+          Expanded(
+            flex: 2,
+              child:DropdownButton(
               value: _selectedInterval,
               items: _serviceList
                   .map((status) => DropdownMenuItem(
@@ -190,7 +202,15 @@ class _AddWatchState extends State<AddWatch> {
                 setState(() => _selectedInterval = status as int);
                 print("Service Interval selected: $_serviceInterval");
               }
+          )
           ),
+          Expanded(
+          flex: 1,
+    child: InkWell(
+    child: Icon(Icons.help_outline),
+    onTap: () => WristCheckDialogs.getServiceIntervalTooltipDialog()
+    )
+    )
         ]
     );
   }
