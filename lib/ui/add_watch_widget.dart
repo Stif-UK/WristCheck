@@ -6,6 +6,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 
 
 class AddWatch extends StatefulWidget {
@@ -309,7 +310,8 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      addWatch(_manufacturer,_model,_serialNumber,favourite, _status, _purchaseDate),
+                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate),
+                      // addWatch(_manufacturer,_model,_serialNumber,favourite, _status, _purchaseDate),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?
@@ -350,26 +352,26 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
-  Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status, DateTime? purchaseDate){
-    String m = manufacturer!;
-    String mo = model!;
-    String? sn = serialNumber;
-    bool fv = favourite;
-    String st = status;
-    DateTime? pd = purchaseDate;
-
-
-    final watch = Watches()
-        ..manufacturer = m
-        ..model = mo
-        ..serialNumber = sn
-        ..favourite = fv
-        ..status = st
-    ..purchaseDate = pd;
-
-    final box = Boxes.getWatches();
-
-    return box.add(watch);
-
-  }
+  // Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status, DateTime? purchaseDate){
+  //   String m = manufacturer!;
+  //   String mo = model!;
+  //   String? sn = serialNumber;
+  //   bool fv = favourite;
+  //   String st = status;
+  //   DateTime? pd = purchaseDate;
+  //
+  //
+  //   final watch = Watches()
+  //       ..manufacturer = m
+  //       ..model = mo
+  //       ..serialNumber = sn
+  //       ..favourite = fv
+  //       ..status = st
+  //   ..purchaseDate = pd;
+  //
+  //   final box = Boxes.getWatches();
+  //
+  //   return box.add(watch);
+  //
+  // }
 }
