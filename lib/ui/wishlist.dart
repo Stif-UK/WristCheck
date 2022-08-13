@@ -36,7 +36,6 @@ class Wishlist extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index){
                   var watch = wishList.elementAt(index);
                   String? _title = "${watch.manufacturer} ${watch.model}";
-                  bool fav = watch.favourite; // ?? false;
                   String? _status = "${watch.status}";
 
 
