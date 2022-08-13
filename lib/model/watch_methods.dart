@@ -5,7 +5,7 @@ import 'package:jiffy/jiffy.dart';
 class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
-      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval){
+      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -14,6 +14,7 @@ class WatchMethods {
     DateTime? pd = purchaseDate;
     DateTime? ls = lastServicedDate;
     int si = serviceInterval;
+    String? n = notes;
 
 
     final watch = Watches()
@@ -25,7 +26,8 @@ class WatchMethods {
       ..purchaseDate = pd
     ..lastServicedDate = ls
     ..serviceInterval = si
-    ..nextServiceDue = calculateNextService(pd, ls, si);
+    ..nextServiceDue = calculateNextService(pd, ls, si)
+    ..notes = n;
 
     final box = Boxes.getWatches();
 

@@ -32,4 +32,7 @@ class Watches extends HiveObject{
   @HiveField(8)
   late DateTime? nextServiceDue;
 
+  @HiveField(9)
+  late String? notes;
+
 }

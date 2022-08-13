@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/boxes.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
@@ -28,6 +24,7 @@ class _AddWatchState extends State<AddWatch> {
   DateTime? _purchaseDate;
   DateTime? _lastServicedDate;
   int _serviceInterval = 0;
+  String? _notes ="";
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -261,6 +258,19 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
+  //Build multi-line notes field
+  Widget _buildNotesField(){
+    return TextFormField(
+      decoration: const InputDecoration(labelText: "Notes"),
+      keyboardType: TextInputType.multiline,
+      minLines: 1,
+      maxLines: 10,
+      onSaved: (String? value){
+        _notes = value;
+      },
+    );
+  }
+
 
 
   @override
@@ -297,6 +307,7 @@ class _AddWatchState extends State<AddWatch> {
                 _buildServiceIntervalDropdown(),
               ],
               ),
+              _buildNotesField(),
 
 
               //Dropdown selector to capture watch status
@@ -310,7 +321,7 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval),
+                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?
@@ -351,26 +362,4 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
-  // Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status, DateTime? purchaseDate){
-  //   String m = manufacturer!;
-  //   String mo = model!;
-  //   String? sn = serialNumber;
-  //   bool fv = favourite;
-  //   String st = status;
-  //   DateTime? pd = purchaseDate;
-  //
-  //
-  //   final watch = Watches()
-  //       ..manufacturer = m
-  //       ..model = mo
-  //       ..serialNumber = sn
-  //       ..favourite = fv
-  //       ..status = st
-  //   ..purchaseDate = pd;
-  //
-  //   final box = Boxes.getWatches();
-  //
-  //   return box.add(watch);
-  //
-  // }
 }

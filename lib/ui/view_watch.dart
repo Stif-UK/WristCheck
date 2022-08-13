@@ -38,7 +38,9 @@ class ViewWatch extends StatelessWidget {
           SizedBox(height: 10),
           currentWatch.serviceInterval != 0? Text("Service every ${currentWatch.serviceInterval} years") : Text("Service interval not recorded"),
           SizedBox(height: 10),
-          currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(currentWatch.nextServiceDue!)}"): Text("Next Service date: N/A")
+          currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(currentWatch.nextServiceDue!)}"): Text("Next Service date: N/A"),
+          SizedBox(height: 10),
+          currentWatch.notes != null? Text("Notes: \n${currentWatch.notes}") : Text("Notes:")
 
 
 
