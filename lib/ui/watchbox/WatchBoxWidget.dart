@@ -37,7 +37,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
         return filteredList.isEmpty?Container(
           alignment: Alignment.center,
-          child: Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
+          child: const Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
             textAlign: TextAlign.center,),
         ):
 
@@ -51,11 +51,19 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
 
               return ListTile(
-                leading: Icon(Icons.watch),
-                title: Text("$_title"),
-                subtitle: Text("$_status"),
-                trailing:  fav? Icon(Icons.star): Icon(Icons.star_border),
-                onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
+                leading: const Icon(Icons.watch),
+                title: Text(_title),
+                subtitle: Text(_status),
+                trailing:  InkWell(
+                    child: fav? const Icon(Icons.star): const Icon(Icons.star_border),
+                  onTap: () {
+                      setState(() {
+                    watch.favourite = !fav;
+                    watch.save();
+                      });
+                  },
+                ),
+                onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
               );
             },
           separatorBuilder: (context, index){
