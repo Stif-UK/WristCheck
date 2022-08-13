@@ -30,10 +30,10 @@ class _AddWatchState extends State<AddWatch> {
   int _serviceInterval = 0;
 
   //Setup options for watch collection status
-  List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
+  final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
   String? _selectedStatus = "In Collection";
   //Setup options for service interval
-  List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10];
+  final List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10];
   int _selectedInterval = 0;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -43,7 +43,7 @@ class _AddWatchState extends State<AddWatch> {
   //Manufacturer form field
   Widget _buildManufacturerField(){
     return TextFormField(
-      decoration: InputDecoration(labelText: "Manufacturer"),
+      decoration: const InputDecoration(labelText: "Manufacturer"),
       validator: (String? value){
         if(value == null || value.isEmpty){
           return "Manufacturer is required";
@@ -59,7 +59,7 @@ class _AddWatchState extends State<AddWatch> {
   //Model form field
   Widget _buildModelField(){
     return TextFormField(
-      decoration: InputDecoration(labelText: "Model"),
+      decoration: const InputDecoration(labelText: "Model"),
       validator: (String? value){
         if(value == null || value.isEmpty){
           return "Model is required";
@@ -74,7 +74,7 @@ class _AddWatchState extends State<AddWatch> {
   //Serial Number form field
   Widget _buildSerialNumberField(){
     return TextFormField(
-      decoration: InputDecoration(labelText: "Serial Number"),
+      decoration: const InputDecoration(labelText: "Serial Number"),
       // No validation as null is acceptable
       onSaved: (String? value){
         _serialNumber = value;
@@ -87,14 +87,14 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Expanded(
+        const Expanded(
           flex: 3,
           child: Text("Purchased:"),
         ),
         // SizedBox(width: 1.0,),
         Expanded(
             flex: 6,
-            child: _purchaseDate == null ? Text("No date entered",
+            child: _purchaseDate == null ? const Text("No date entered",
             style: TextStyle(fontStyle: FontStyle.italic),) :Text("${DateFormat.yMMMd().format(_purchaseDate!)}"),
     ),
 
@@ -103,7 +103,7 @@ class _AddWatchState extends State<AddWatch> {
         Expanded(
         flex: 3,
         child: OutlinedButton(
-          style: ButtonStyle(alignment: Alignment.topCenter, ),
+          style: const ButtonStyle(alignment: Alignment.topCenter, ),
 
             onPressed: () async {
             DateTime? pDate = await showDatePicker(
@@ -118,7 +118,7 @@ class _AddWatchState extends State<AddWatch> {
                   _purchaseDate = pDate;
                 });
                 },
-            child: Text("Select Date")),
+            child: const Text("Select Date")),
         ),
 
         
@@ -131,14 +131,14 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Expanded(
+        const Expanded(
           flex: 3,
           child: Text("Last Serviced:"),
         ),
         // SizedBox(width: 1.0,),
         Expanded(
           flex: 6,
-          child: _lastServicedDate == null ? Text("No date entered",
+          child: _lastServicedDate == null ? const Text("No date entered",
             style: TextStyle(fontStyle: FontStyle.italic),) :Text("${DateFormat.yMMMd().format(_lastServicedDate!)}"),
         ),
 
@@ -162,7 +162,7 @@ class _AddWatchState extends State<AddWatch> {
                   _lastServicedDate = pDate;
                 });
               },
-              child: Text("Select Date")),
+              child: const Text("Select Date")),
         ),
 
 
@@ -197,7 +197,7 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(
+          const Expanded(
             flex: 6,
               child: Text("Status: ")
           ),
@@ -228,7 +228,7 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(
+          const Expanded(
             flex: 8,
               child:Text("Service Interval (years): ")
           ),
@@ -253,7 +253,7 @@ class _AddWatchState extends State<AddWatch> {
           Expanded(
           flex: 1,
     child: InkWell(
-    child: Icon(Icons.help_outline),
+    child: const Icon(Icons.help_outline),
     onTap: () => WristCheckDialogs.getServiceIntervalTooltipDialog()
     )
     )
@@ -268,13 +268,13 @@ class _AddWatchState extends State<AddWatch> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text("Add a watch")
+        title: const Text("Add a watch")
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
       child: Column(
         children: [
 
@@ -291,9 +291,9 @@ class _AddWatchState extends State<AddWatch> {
               children: [
                 _buildSerialNumberField(),
                 _buildPurchaseDateField(),
-                Divider(),
+                const Divider(),
                 _buildLastServicedDateField(),
-                Divider(),
+                const Divider(),
                 _buildServiceIntervalDropdown(),
               ],
               ),

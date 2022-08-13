@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/view_watch.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 
 
 
@@ -34,7 +35,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
 
               return filteredList.isEmpty?Container(
                 alignment: Alignment.center,
-                child: Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
+                child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
                   textAlign: TextAlign.center,),
               ):
 
@@ -44,12 +45,16 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               flex:1,
                   child: ListTile(
                     title: Text("Service Schedule"),
-                    trailing: Icon(Icons.help),
                     leading: Icon(Icons.schedule),
+                    trailing: InkWell(
+                        child: Icon(Icons.help),
+                      onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
+
+                    ),
                   )
 
               ),
-                    Divider(
+                    const Divider(
                       thickness: 2.0,
                     ),
 
@@ -72,7 +77,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               );
               },
               separatorBuilder: (context, index){
-              return Divider();
+              return const Divider();
               },
               )
               )
