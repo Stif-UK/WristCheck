@@ -15,7 +15,7 @@ class Wishlist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wishlist"),
+        title: const Text("Wishlist"),
 
       ),
         body: ValueListenableBuilder<Box<Watches>>(
@@ -27,7 +27,7 @@ class Wishlist extends StatelessWidget {
 
               return wishList.isEmpty?Container(
                 alignment: Alignment.center,
-                child: Text("Your wishlist is currently empty\n \n Add watches to populate your wishlist",
+                child: const Text("Your wishlist is currently empty\n \n Add watches to populate your wishlist",
                   textAlign: TextAlign.center,),
               ):
 
@@ -41,15 +41,14 @@ class Wishlist extends StatelessWidget {
 
 
                   return ListTile(
-                    leading: Icon(Icons.watch),
-                    title: Text("$_title"),
-                    subtitle: Text("$_status"),
-                    trailing:  fav? Icon(Icons.star): Icon(Icons.star_border),
-                    onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
+                    leading: const Icon(Icons.watch),
+                    title: Text(_title),
+                    subtitle: Text(_status),
+                    onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
                   );
                 },
                 separatorBuilder: (context, index){
-                  return Divider();
+                  return const Divider();
                 },
               );
             }
