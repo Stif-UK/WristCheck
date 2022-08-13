@@ -15,7 +15,7 @@ class SoldView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sold Watches"),
+        title: const Text("Sold Watches"),
 
       ),
         body: ValueListenableBuilder<Box<Watches>>(
@@ -27,7 +27,7 @@ class SoldView extends StatelessWidget {
 
               return soldList.isEmpty?Container(
                 alignment: Alignment.center,
-                child: Text("No sold watches tracked\n \n Mark watches as 'sold' to populate this list",
+                child: const Text("No sold watches tracked\n \n Mark watches as 'sold' to populate this list",
                   textAlign: TextAlign.center,),
               ):
 
@@ -41,15 +41,14 @@ class SoldView extends StatelessWidget {
 
 
                   return ListTile(
-                    leading: Icon(Icons.watch),
-                    title: Text("$_title"),
-                    subtitle: Text("$_status"),
-                    trailing:  fav? Icon(Icons.star): Icon(Icons.star_border),
+                    leading: const Icon(Icons.watch),
+                    title: Text(_title),
+                    subtitle: Text(_status),
                     onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
                   );
                 },
                 separatorBuilder: (context, index){
-                  return Divider();
+                  return const Divider();
                 },
               );
             }
