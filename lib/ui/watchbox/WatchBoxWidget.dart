@@ -30,6 +30,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
       body: ValueListenableBuilder<Box<Watches>>(
           valueListenable: watchBox.listenable(),
           builder: (context, box, _){
+            //TODO: No need to call getFilteredWatches here! This view should call getCollectionWatches()
             List<Watches> filteredList = Boxes.getFilteredWatches(
                 FilterController().getFilterName());
 
