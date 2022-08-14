@@ -16,6 +16,7 @@ class ViewWatch extends StatefulWidget {
 
 class _ViewWatchState extends State<ViewWatch> {
   String serialNo = "Not Provided";
+  bool editSerial = false;
 
 
   @override
@@ -40,15 +41,18 @@ class _ViewWatchState extends State<ViewWatch> {
           const SizedBox(height: 10),
           _buildFavouriteRow(widget.currentWatch),
           const SizedBox(height: 10),
+          const Text("Serial Number:"),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+
             children: [
               Expanded(
                 flex: 8,
-                child: TextField(
-                  enabled: false,
+                child: TextFormField(
+                  initialValue: widget.currentWatch.serialNumber,
+                  enabled: editSerial,
                   decoration: InputDecoration(
-                    hintText: getSerialNumberToDisplay(widget.currentWatch),
+                    // label: Text("Serial Number:"),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Theme.of(context).disabledColor,
@@ -62,11 +66,19 @@ class _ViewWatchState extends State<ViewWatch> {
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 2,
-                  child:  Icon(Icons.edit))
+                  child:  InkWell(
+                      child: getEditIcon(editSerial),
+                    onTap: () => setState(() {
+                      editSerial = !editSerial;
+                    })
+                  )
+              )
             ],
           ),
+          // const SizedBox(height: 10),
+          // Text("Serial Number: ${widget.currentWatch.serialNumber}"),
           const SizedBox(height: 10),
           Text("Status: ${widget.currentWatch.status}"),
           const SizedBox(height: 10),
@@ -92,6 +104,11 @@ class _ViewWatchState extends State<ViewWatch> {
 
   String getSerialNumberToDisplay(Watches watch){
     return watch.serialNumber != null || watch.serialNumber == "" ? "Serial Number: ${widget.currentWatch.serialNumber}" : "Serial Number: Not provided";
+
+  }
+
+  Icon getEditIcon(bool editable){
+    return !editable ? const Icon(Icons.edit) : const Icon(Icons.save);
 
   }
 
