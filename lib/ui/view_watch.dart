@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
 
 class ViewWatch extends StatefulWidget {
@@ -16,9 +17,9 @@ class ViewWatch extends StatefulWidget {
 
 class _ViewWatchState extends State<ViewWatch> {
   String serialNo = "Not Provided";
-  bool editSerial = false;
+  bool canEditSerialNo = false;
+  bool canEditNotes = false;
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
-  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
   @override
@@ -34,27 +35,24 @@ class _ViewWatchState extends State<ViewWatch> {
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.all(20.0),
-        margin: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
+        //margin: const EdgeInsets.all(10.0),
         child: Form(
           key: _editKey,
           child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
             _buildFavouriteRow(widget.currentWatch),
-            const SizedBox(height: 10),
             const Text("Serial Number:"),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-
               children: [
                 Expanded(
                   flex: 8,
                   child: TextFormField(
                     initialValue: widget.currentWatch.serialNumber,
-                    enabled: editSerial,
+                    enabled: canEditSerialNo,
                     onSaved: (String? value){
                       value != null? serialNo = value : serialNo = "Not Provided";
                     } ,
@@ -77,24 +75,23 @@ class _ViewWatchState extends State<ViewWatch> {
                 Expanded(
                   flex: 2,
                     child:  InkWell(
-                        child: getEditIcon(editSerial),
+                        child: ViewWatchHelper.getEditIcon(canEditSerialNo),
                       onTap: () => setState(() {
                         //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
                         _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-                        //if save is hit, we then trigger the update on the database
-                        if(editSerial) {
-                          print("Saving: $serialNo");
+                        //if save is hit, we then trigger the update on the database only if it has changed
+                        if(canEditSerialNo && widget.currentWatch.serialNumber != serialNo) {
+                          print("updating serial number");
                           widget.currentWatch.serialNumber = serialNo;
                           widget.currentWatch.save();
                         }
-                        editSerial = !editSerial;
+                        canEditSerialNo = !canEditSerialNo;
                       })
                     )
                 )
               ],
             ),
             // const SizedBox(height: 10),
-            // Text("Serial Number: ${widget.currentWatch.serialNumber}"),
             const SizedBox(height: 10),
             Text("Status: ${widget.currentWatch.status}"),
             const SizedBox(height: 10),
@@ -106,27 +103,60 @@ class _ViewWatchState extends State<ViewWatch> {
             const SizedBox(height: 10),
             widget.currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service date: N/A"),
             const SizedBox(height: 10),
-            widget.currentWatch.notes != null? Text("Notes: \n${widget.currentWatch.notes}") : const Text("Notes:")
-
-
-
-
-
+            widget.currentWatch.notes != null? Text("Notes: \n${widget.currentWatch.notes}") : const Text("Notes:"),
+            const SizedBox(height: 10),
+            const Text("Notes:"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: TextFormField(
+                    initialValue: widget.currentWatch.serialNumber,
+                    enabled: canEditSerialNo,
+                    onSaved: (String? value){
+                      value != null? serialNo = value : serialNo = "Not Provided";
+                    } ,
+                    //() => widget.currentWatch.serialNumber = ,
+                    decoration: InputDecoration(
+                      // label: Text("Serial Number:"),
+                        disabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).disabledColor,
+                            )
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.red
+                            )
+                        )
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 2,
+                    child:  InkWell(
+                        child: ViewWatchHelper.getEditIcon(canEditSerialNo),
+                        onTap: () => setState(() {
+                          //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+                          _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                          //if save is hit, we then trigger the update on the database only if it has changed
+                          if(canEditSerialNo && widget.currentWatch.serialNumber != serialNo) {
+                            print("updating serial number");
+                            widget.currentWatch.serialNumber = serialNo;
+                            widget.currentWatch.save();
+                          }
+                          canEditSerialNo = !canEditSerialNo;
+                        })
+                    )
+                )
+              ],
+            ),
 
           ],
       ),
         ),)
     );
-  }
-
-  String getSerialNumberToDisplay(Watches watch){
-    return watch.serialNumber != null || watch.serialNumber == "" ? "Serial Number: ${widget.currentWatch.serialNumber}" : "Serial Number: Not provided";
-
-  }
-
-  Icon getEditIcon(bool editable){
-    return !editable ? const Icon(Icons.edit) : const Icon(Icons.save);
-
   }
 
   //Favourite selector toggle
