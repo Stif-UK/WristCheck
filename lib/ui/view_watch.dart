@@ -40,21 +40,32 @@ class _ViewWatchState extends State<ViewWatch> {
           const SizedBox(height: 10),
           _buildFavouriteRow(widget.currentWatch),
           const SizedBox(height: 10),
-          TextField(
-            enabled: false,
-            decoration: InputDecoration(
-              hintText: getSerialNumberToDisplay(widget.currentWatch),
-              disabledBorder:const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey
-                )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 8,
+                child: TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                    hintText: getSerialNumberToDisplay(widget.currentWatch),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).disabledColor,
+                      )
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.red
+                        )
+                    )
+                  ),
+                ),
               ),
-              enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.blueAccent
-                  )
-              )
-            ),
+              const Expanded(
+                flex: 2,
+                  child:  Icon(Icons.edit))
+            ],
           ),
           const SizedBox(height: 10),
           Text("Status: ${widget.currentWatch.status}"),
