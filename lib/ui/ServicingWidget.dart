@@ -44,10 +44,10 @@ class _ServicingWidgetState extends State<ServicingWidget> {
                     Expanded(
               flex:1,
                   child: ListTile(
-                    title: Text("Service Schedule"),
-                    leading: Icon(Icons.schedule),
+                    title: const Text("Service Schedule"),
+                    leading: const Icon(Icons.schedule),
                     trailing: InkWell(
-                        child: Icon(Icons.help),
+                        child: const Icon(Icons.help),
                       onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
 
                     ),
@@ -70,8 +70,8 @@ class _ServicingWidgetState extends State<ServicingWidget> {
 
               return ListTile(
               leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
-              title: Text("$_title"),
-              subtitle: Text("Next Service: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
+              title: Text(_title),
+              subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
               //ToDo: Update and create service view page?
               onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
               );
