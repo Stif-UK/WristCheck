@@ -73,6 +73,13 @@ class _ViewWatchState extends State<ViewWatch> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              //Placeholder image picker
+              _displayWatchImage(),
+
+              //Wear button
+              _addWearButton(),
+
               //build Manufacturer row
               const Text("Manufacturer:"),
               _buildManufacturerRow(),
@@ -547,6 +554,39 @@ class _ViewWatchState extends State<ViewWatch> {
 
 
         ]
+    );
+  }
+
+  Widget _displayWatchImage(){
+    //TODO: Implement image picker and data model
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:  [
+        Container(
+            margin: EdgeInsets.all(20),
+            padding: EdgeInsets.all(40),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(width: 2, color: Colors.white)),
+            child: Icon(Icons.camera_alt,size: 100)),
+
+
+      ],
+    );
+  }
+
+  Widget _addWearButton(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+            child: const Text("Wear this watch today"),
+          onPressed: (){
+              //implement code to track wearing
+          },
+
+        ),
+      ],
     );
   }
 
