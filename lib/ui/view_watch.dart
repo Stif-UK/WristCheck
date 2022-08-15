@@ -27,6 +27,7 @@ class _ViewWatchState extends State<ViewWatch> {
   String _status = "In Collection";
   int _serviceInterval = 0;
   DateTime? _purchaseDate;
+  DateTime? _lastServiceDate;
   //variables for status dropdown
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
   String? _selectedStatus = "In Collection";
@@ -42,6 +43,8 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditStatus = false;
   bool canEditServiceInterval = false;
   bool canEditPurchaseDate = false;
+  bool canEditLastServiceDate = false;
+  //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable
 
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
@@ -93,17 +96,17 @@ class _ViewWatchState extends State<ViewWatch> {
               _buildPurchaseDateRow(),
               const SizedBox(height: 10),
 
-              widget.currentWatch.purchaseDate != null? Text("Purchased: ${DateFormat.yMMMd().format(widget.currentWatch.purchaseDate!)}"): const Text("Purchase Date: Not Recorded"),
-              const SizedBox(height: 10),
-              widget.currentWatch.lastServicedDate != null? Text("Last Serviced: ${DateFormat.yMMMd().format(widget.currentWatch.lastServicedDate!)}"): const Text("Last serviced: N/A"),
-              const SizedBox(height: 10),
-
               //build service interval selector
               _buildServiceIntervalDropdown(),
               const SizedBox(height: 10),
 
-              //next service due updates automatically - make it editable/overwritable?
-              widget.currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service date: N/A"),
+              //build last serviced date field
+              _buildLastServicedDateRow(),
+              const SizedBox(height: 10,),
+
+
+              //Next service due by field is not editable
+              widget.currentWatch.nextServiceDue != null? Text("Next service date by: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service due by: N/A"),
               const SizedBox(height: 10),
 
               //Build Notes Row
@@ -444,16 +447,6 @@ class _ViewWatchState extends State<ViewWatch> {
               flex: 2,
               child:  InkWell(
                   child: ViewWatchHelper.getEditIcon(canEditPurchaseDate),
-    //               () => setState(() {
-    // //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-    // _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-    // //if save is hit, we then trigger the update on the database only if it has changed
-    // if(canEditManufacturer && widget.currentWatch.manufacturer != _manufacturer) {
-    // widget.currentWatch.manufacturer = _manufacturer;
-    // widget.currentWatch.save();
-    // }
-    // canEditManufacturer = !canEditManufacturer;
-    // })
                   onTap: ()  async {
                     if(!canEditPurchaseDate) {
                   DateTime? pDate = await showDatePicker(
@@ -486,13 +479,71 @@ class _ViewWatchState extends State<ViewWatch> {
 
                     }
               }
-              //if save is hit, we then trigger the update on the database only if it has changed
-                    // if(canEditStatus && widget.currentWatch.status != _status) {
-                    //   widget.currentWatch.status = _status;
-                    //   widget.currentWatch.save();
-                    // }
+
                   )
               )
+
+
+        ]
+    );
+  }
+
+  Widget _buildLastServicedDateRow(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Expanded(
+              flex: 4,
+              child: Text("Last Serviced: ")
+          ),
+
+          Expanded(
+              flex: 3,
+              //need to udpate to lastServicedDate - need method to determind which version to return
+              child: Text(ViewWatchHelper.getServiceDateToDisplay(widget.currentWatch, _lastServiceDate, canEditLastServiceDate))
+              // _lastServiceDate != null ?  Text(DateFormat
+              //     .yMMMd().format(_lastServiceDate!)) : const Text("Not Recorded"),
+              //
+            // Text(ViewWatchHelper.getPurchaseDateToDisplay(widget.currentWatch, _purchaseDate, canEditPurchaseDate))
+          ),
+          Expanded(
+              flex: 2,
+              child:  InkWell(
+                  child: ViewWatchHelper.getEditIcon(canEditLastServiceDate),
+                  onTap: ()  async {
+                    if(!canEditLastServiceDate) {
+                      DateTime? pDate = await showDatePicker(
+                          context: context,
+                          initialDate: widget.currentWatch.lastServicedDate != null
+                              ? widget.currentWatch.lastServicedDate!
+                              : DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100));
+                      //if cancelled then date == null
+                      if (pDate == null) return;
+
+                      setState(() {
+                        _lastServiceDate = pDate;
+                        canEditLastServiceDate = !canEditLastServiceDate;
+                      });
+                    } else {
+                      //code to save to database
+                      setState(() {
+                        if (canEditLastServiceDate &&
+                            widget.currentWatch.lastServicedDate != _lastServiceDate) {
+                          widget.currentWatch.lastServicedDate = _lastServiceDate;
+                          //With the purchase date updated, should also now re-calculate the next service date
+                          widget.currentWatch.nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch.purchaseDate, widget.currentWatch.lastServicedDate, widget.currentWatch.serviceInterval);
+                          widget.currentWatch.save();
+                          canEditLastServiceDate = !canEditLastServiceDate;
+                        }
+                      }
+                      );
+
+                    }
+                  }
+              )
+          )
 
 
         ]

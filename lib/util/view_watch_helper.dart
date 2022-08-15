@@ -22,4 +22,14 @@ class ViewWatchHelper{
           .yMMMd().format(currentWatch.purchaseDate!) : "Not Recorded";
     }
   }
+
+  static String getServiceDateToDisplay(Watches currentWatch, DateTime? lastServiceDate, bool canEditServiceDate){
+    if(canEditServiceDate){
+      return lastServiceDate != null ?  DateFormat
+          .yMMMd().format(lastServiceDate) : "N/A";
+    }else {
+      return currentWatch.lastServicedDate != null ? DateFormat
+          .yMMMd().format(currentWatch.lastServicedDate!) : "N/A";
+    }
+  }
 }
