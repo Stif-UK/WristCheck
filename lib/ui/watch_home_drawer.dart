@@ -41,7 +41,7 @@ class WatchHomeDrawer extends StatelessWidget {
           )
           ),
 
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Settings"),
@@ -50,7 +50,7 @@ class WatchHomeDrawer extends StatelessWidget {
 
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.warning_amber_rounded),
             title: const Text("Privacy Policy"),
@@ -58,7 +58,7 @@ class WatchHomeDrawer extends StatelessWidget {
               Get.to(() => PrivacyPolicy());
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.info),
             title: const Text("About"),
@@ -67,7 +67,7 @@ class WatchHomeDrawer extends StatelessWidget {
             },
           ),
 
-          Divider(),
+          const Divider(),
 
         ],
 
