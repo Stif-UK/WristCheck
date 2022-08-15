@@ -225,52 +225,7 @@ class _ViewWatchState extends State<ViewWatch> {
               const SizedBox(height: 10),
               const Text("Notes:"),
               //Build Notes Row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: TextFormField(
-                      initialValue: widget.currentWatch.notes,
-                      enabled: canEditNotes,
-                      maxLines: 10,
-                      onSaved: (String? value){
-                        value != null? _notes = value : _notes = "";
-                      } ,
-                      decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).disabledColor,
-                              )
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.red
-                              )
-                          )
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 2,
-                      child:  InkWell(
-                          child: ViewWatchHelper.getEditIcon(canEditNotes),
-                          onTap: () => setState(() {
-                            //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-                            _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-                            //if save is hit, we then trigger the update on the database only if it has changed
-                            if(canEditNotes && widget.currentWatch.notes != _notes) {
-                              print("updating notes");
-                              widget.currentWatch.notes = _notes;
-                              widget.currentWatch.save();
-                            }
-                            canEditNotes = !canEditNotes;
-                          })
-                      )
-                  )
-                ],
-              ),
+              _buildNotesRow(),
 
             ],
         ),
@@ -399,6 +354,55 @@ class _ViewWatchState extends State<ViewWatch> {
               )
           )
         ]
+    );
+  }
+
+  Widget _buildNotesRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 8,
+          child: TextFormField(
+            initialValue: widget.currentWatch.notes,
+            enabled: canEditNotes,
+            maxLines: 10,
+            onSaved: (String? value){
+              value != null? _notes = value : _notes = "";
+            } ,
+            decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).disabledColor,
+                    )
+                ),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                )
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child:  InkWell(
+                child: ViewWatchHelper.getEditIcon(canEditNotes),
+                onTap: () => setState(() {
+                  //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+                  _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                  //if save is hit, we then trigger the update on the database only if it has changed
+                  if(canEditNotes && widget.currentWatch.notes != _notes) {
+                    print("updating notes");
+                    widget.currentWatch.notes = _notes;
+                    widget.currentWatch.save();
+                  }
+                  canEditNotes = !canEditNotes;
+                })
+            )
+        )
+      ],
     );
   }
 }
