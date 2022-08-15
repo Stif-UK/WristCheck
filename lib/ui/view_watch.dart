@@ -26,6 +26,7 @@ class _ViewWatchState extends State<ViewWatch> {
   String _model ="";
   String _status = "In Collection";
   int _serviceInterval = 0;
+  DateTime? _purchaseDate;
   //variables for status dropdown
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
   String? _selectedStatus = "In Collection";
@@ -40,6 +41,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditNotes = false;
   bool canEditStatus = false;
   bool canEditServiceInterval = false;
+  bool canEditPurchaseDate = false;
 
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
@@ -63,6 +65,7 @@ class _ViewWatchState extends State<ViewWatch> {
           //margin: const EdgeInsets.all(10.0),
           child: Form(
             key: _editKey,
+            //Build the page layout
             child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,6 +89,10 @@ class _ViewWatchState extends State<ViewWatch> {
               _buildStatusDropdownRow(),
 
               const SizedBox(height: 10),
+              //build purchase date row
+              _buildPurchaseDateRow(),
+              const SizedBox(height: 10),
+
               widget.currentWatch.purchaseDate != null? Text("Purchased: ${DateFormat.yMMMd().format(widget.currentWatch.purchaseDate!)}"): const Text("Purchase Date: Not Recorded"),
               const SizedBox(height: 10),
               widget.currentWatch.lastServicedDate != null? Text("Last Serviced: ${DateFormat.yMMMd().format(widget.currentWatch.lastServicedDate!)}"): const Text("Last serviced: N/A"),
@@ -419,4 +426,77 @@ class _ViewWatchState extends State<ViewWatch> {
       ],
     );
   }
+
+  Widget _buildPurchaseDateRow(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Expanded(
+              flex: 4,
+              child: Text("Purchased: ")
+          ),
+
+          Expanded(
+              flex: 3,
+              child: Text(ViewWatchHelper.getPurchaseDateToDisplay(widget.currentWatch, _purchaseDate, canEditPurchaseDate))
+          ),
+          Expanded(
+              flex: 2,
+              child:  InkWell(
+                  child: ViewWatchHelper.getEditIcon(canEditPurchaseDate),
+    //               () => setState(() {
+    // //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+    // _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+    // //if save is hit, we then trigger the update on the database only if it has changed
+    // if(canEditManufacturer && widget.currentWatch.manufacturer != _manufacturer) {
+    // widget.currentWatch.manufacturer = _manufacturer;
+    // widget.currentWatch.save();
+    // }
+    // canEditManufacturer = !canEditManufacturer;
+    // })
+                  onTap: ()  async {
+                    if(!canEditPurchaseDate) {
+                  DateTime? pDate = await showDatePicker(
+                      context: context,
+                      initialDate: widget.currentWatch.purchaseDate != null
+                          ? widget.currentWatch.purchaseDate!
+                          : DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100));
+                  //if cancelled then date == null
+                  if (pDate == null) return;
+
+                  setState(() {
+                    _purchaseDate = pDate;
+                    canEditPurchaseDate = !canEditPurchaseDate;
+                  });
+                } else {
+                      //code to save to database
+                      setState(() {
+                        if (canEditPurchaseDate &&
+                            widget.currentWatch.purchaseDate != _purchaseDate) {
+                          widget.currentWatch.purchaseDate = _purchaseDate;
+                          //With the purchase date updated, should also now re-calculate the next service date
+                          widget.currentWatch.nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch.purchaseDate, widget.currentWatch.lastServicedDate, widget.currentWatch.serviceInterval);
+                          widget.currentWatch.save();
+                          canEditPurchaseDate = !canEditPurchaseDate;
+                        }
+                      }
+                        );
+
+                    }
+              }
+              //if save is hit, we then trigger the update on the database only if it has changed
+                    // if(canEditStatus && widget.currentWatch.status != _status) {
+                    //   widget.currentWatch.status = _status;
+                    //   widget.currentWatch.save();
+                    // }
+                  )
+              )
+
+
+        ]
+    );
+  }
+
 }

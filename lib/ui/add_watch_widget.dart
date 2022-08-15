@@ -144,7 +144,7 @@ class _AddWatchState extends State<AddWatch> {
         Expanded(
           flex: 3,
           child: OutlinedButton(
-              style: ButtonStyle(alignment: Alignment.topCenter, ),
+              style: const ButtonStyle(alignment: Alignment.topCenter, ),
 
               onPressed: () async {
                 DateTime? pDate = await showDatePicker(
@@ -173,7 +173,7 @@ class _AddWatchState extends State<AddWatch> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Favourite:"),
+          const Text("Favourite:"),
 
           Switch(
               value: favourite,
@@ -212,7 +212,6 @@ class _AddWatchState extends State<AddWatch> {
               onChanged: (status) {
                 _status = status.toString();
                 setState(() => _selectedStatus = status.toString());
-                print(_status);
               }
           ),
           )
@@ -243,7 +242,6 @@ class _AddWatchState extends State<AddWatch> {
               onChanged: (status) {
                 _serviceInterval = status as int;
                 setState(() => _selectedInterval = status as int);
-                print("Service Interval selected: $_serviceInterval");
               }
           )
           ),
@@ -297,7 +295,7 @@ class _AddWatchState extends State<AddWatch> {
               _buildModelField(),
               _buildStatusDropdown(),
               _buildFavouriteRow(),
-              ExpansionTile(title: Text("Additional information (optional)"),
+              ExpansionTile(title: const Text("Additional information (optional)"),
               children: [
                 _buildSerialNumberField(),
                 _buildPurchaseDateField(),
@@ -313,9 +311,9 @@ class _AddWatchState extends State<AddWatch> {
               //Dropdown selector to capture watch status
 
 
-              SizedBox(height: 100,),
-              RaisedButton(
-                  child: Text("Add Watch"),
+              const SizedBox(height: 100,),
+              ElevatedButton(
+                  child: const Text("Add Watch"),
                   onPressed: () => {
                     //some prints to validate activity
 
@@ -328,13 +326,13 @@ class _AddWatchState extends State<AddWatch> {
                       Get.snackbar(
                         "Watch Wishlisted",
                         "$_manufacturer $_model has been added to your wishlist",
-                        icon: Icon(Icons.watch),
+                        icon: const Icon(Icons.watch),
                         snackPosition: SnackPosition.BOTTOM,
                       ) :
                       Get.snackbar(
                         "Watch Added",
                         "$_manufacturer $_model has been added to your watch box",
-                        icon: Icon(Icons.watch),
+                        icon: const Icon(Icons.watch),
                         snackPosition: SnackPosition.BOTTOM,
                       )
 
@@ -348,7 +346,7 @@ class _AddWatchState extends State<AddWatch> {
                   onPressed: (){
                     _formKey.currentState!.reset();
                   },
-                  child: Text("Reset Form"))
+                  child: const Text("Reset Form"))
 
               ],
           ),
