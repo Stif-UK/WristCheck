@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 
 class ViewWatch extends StatefulWidget {
   //const ViewWatch({Key? key}) : super(key: key);
@@ -23,9 +25,13 @@ class _ViewWatchState extends State<ViewWatch> {
   String _manufacturer = "";
   String _model ="";
   String _status = "In Collection";
+  int _serviceInterval = 0;
   //variables for status dropdown
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
   String? _selectedStatus = "In Collection";
+  //variables for service schedule dropdown
+  final List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10];
+  int _selectedInterval = 0;
 
   //create bools to confirm if field is in an editable state
   bool canEditManufacturer = false;
@@ -33,6 +39,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditSerialNo = false;
   bool canEditNotes = false;
   bool canEditStatus = false;
+  bool canEditServiceInterval = false;
 
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
@@ -210,14 +217,17 @@ class _ViewWatchState extends State<ViewWatch> {
               const SizedBox(height: 10),
               widget.currentWatch.lastServicedDate != null? Text("Last Serviced: ${DateFormat.yMMMd().format(widget.currentWatch.lastServicedDate!)}"): const Text("Last serviced: N/A"),
               const SizedBox(height: 10),
-              widget.currentWatch.serviceInterval != 0? Text("Service every ${widget.currentWatch.serviceInterval} years") : const Text("Service interval not recorded"),
+
+              _buildServiceIntervalDropdown(),
               const SizedBox(height: 10),
+
               widget.currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service date: N/A"),
               const SizedBox(height: 10),
               const Text("Notes:"),
               //Build Notes Row
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 8,
@@ -291,6 +301,7 @@ class _ViewWatchState extends State<ViewWatch> {
     );
   }
 
+  //Widget to build collection status dropdown
   Widget _buildStatusDropdownRow(){
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -322,8 +333,6 @@ class _ViewWatchState extends State<ViewWatch> {
               child:  InkWell(
                   child: ViewWatchHelper.getEditIcon(canEditStatus),
                   onTap: () => setState(() {
-                    //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-                    // _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
                     //if save is hit, we then trigger the update on the database only if it has changed
                     if(canEditStatus && widget.currentWatch.status != _status) {
                       widget.currentWatch.status = _status;
@@ -334,6 +343,61 @@ class _ViewWatchState extends State<ViewWatch> {
               )
           )
 
+        ]
+    );
+  }
+
+  //Widget to create service Interval selector
+  Widget _buildServiceIntervalDropdown(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Expanded(
+              flex: 4,
+              child:Text("Service Interval: ")
+          ),
+
+          //If not editable the display text, otherwise display dropdown
+          Expanded(
+              flex: 3,
+              child:canEditServiceInterval? DropdownButton(
+                  value: _selectedInterval,
+                  items: _serviceList
+                      .map((status) => DropdownMenuItem(
+                      value: status,
+                      child: Text(status.toString()))
+
+                  ).toList(),
+                  onChanged: (status) {
+                    _serviceInterval = status as int;
+                    setState(() => _selectedInterval = status as int);
+                  }
+              ) :
+                  Text(ViewWatchHelper.getScheduleText(widget.currentWatch.serviceInterval, widget.currentWatch))
+          ),
+          Expanded(
+              flex: 1,
+              child: InkWell(
+                  child: const Icon(Icons.help_outline),
+                  onTap: () => WristCheckDialogs.getServiceIntervalTooltipDialog()
+              )
+          ),
+          Expanded(
+              flex: 2,
+              child:  InkWell(
+                  child: ViewWatchHelper.getEditIcon(canEditServiceInterval),
+                  onTap: () => setState(() {
+                    //if save is hit, we then trigger the update on the database only if it has changed
+                    if(canEditServiceInterval && widget.currentWatch.serviceInterval != _serviceInterval) {
+                      widget.currentWatch.serviceInterval = _serviceInterval;
+                      //if we update the service interval we also have to re-calculate the next service date
+                      widget.currentWatch.nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch.purchaseDate, widget.currentWatch.lastServicedDate, _serviceInterval);
+                      widget.currentWatch.save();
+                    }
+                    canEditServiceInterval = !canEditServiceInterval;
+                  })
+              )
+          )
         ]
     );
   }
