@@ -11,7 +11,6 @@ class AddWatch extends StatefulWidget {
   @override
   State<AddWatch> createState() => _AddWatchState();
 }
-//ToDO: trim whitespace from all database entry fields
 
 class _AddWatchState extends State<AddWatch> {
 

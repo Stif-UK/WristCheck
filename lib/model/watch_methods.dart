@@ -19,8 +19,8 @@ class WatchMethods {
 
 
     final watch = Watches()
-      ..manufacturer = m
-      ..model = mo
+      ..manufacturer = m.trim()
+      ..model = mo.trim()
       ..serialNumber = sn
       ..favourite = fv
       ..status = st
