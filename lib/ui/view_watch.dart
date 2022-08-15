@@ -69,148 +69,21 @@ class _ViewWatchState extends State<ViewWatch> {
             children: [
               //build Manufacturer row
               const Text("Manufacturer:"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: TextFormField(
-                      initialValue: widget.currentWatch.manufacturer,
-                      enabled: canEditManufacturer,
-                      onSaved: (String? value){
-                        value != null? _manufacturer = value : _manufacturer = widget.currentWatch.manufacturer;
-                      } ,
-                      decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).disabledColor,
-                              )
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.red
-                              )
-                          )
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 2,
-                      child:  InkWell(
-                          child: ViewWatchHelper.getEditIcon(canEditManufacturer),
-                          onTap: () => setState(() {
-                            //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-                            _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-                            //if save is hit, we then trigger the update on the database only if it has changed
-                            if(canEditManufacturer && widget.currentWatch.manufacturer != _manufacturer) {
-                              widget.currentWatch.manufacturer = _manufacturer;
-                              widget.currentWatch.save();
-                            }
-                            canEditManufacturer = !canEditManufacturer;
-                          })
-                      )
-                  )
-                ],
-              ),
+              _buildManufacturerRow(),
 
               //build model row
               const Text("Model:"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: TextFormField(
-                      initialValue: widget.currentWatch.model,
-                      enabled: canEditModel,
-                      onSaved: (String? value){
-                        value != null? _model = value : _model = widget.currentWatch.model;
-                      } ,
-                      decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).disabledColor,
-                              )
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.red
-                              )
-                          )
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 2,
-                      child:  InkWell(
-                          child: ViewWatchHelper.getEditIcon(canEditModel),
-                          onTap: () => setState(() {
-                            //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-                            _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-                            //if save is hit, we then trigger the update on the database only if it has changed
-                            if(canEditModel && widget.currentWatch.model != _model) {
-                              widget.currentWatch.model = _model;
-                              widget.currentWatch.save();
-                            }
-                            canEditModel = !canEditModel;
-                          })
-                      )
-                  )
-                ],
-              ),
-
+              _buildModelRow(),
 
               //Build Serial Number row
               const Text("Serial Number:"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: TextFormField(
-                      initialValue: widget.currentWatch.serialNumber,
-                      enabled: canEditSerialNo,
-                      onSaved: (String? value){
-                        value != null? _serialNo = value : _serialNo = "Not Provided";
-                      } ,
-                      decoration: InputDecoration(
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).disabledColor,
-                          )
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.red
-                            )
-                        )
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                      child:  InkWell(
-                          child: ViewWatchHelper.getEditIcon(canEditSerialNo),
-                        onTap: () => setState(() {
-                          //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
-                          _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
-                          //if save is hit, we then trigger the update on the database only if it has changed
-                          if(canEditSerialNo && widget.currentWatch.serialNumber != _serialNo) {
-                            widget.currentWatch.serialNumber = _serialNo;
-                            widget.currentWatch.save();
-                          }
-                          canEditSerialNo = !canEditSerialNo;
-                        })
-                      )
-                  )
-                ],
-              ),
+              _buildSerialNumberRow(),
 
               //build favourite toggle
               _buildFavouriteRow(widget.currentWatch),
 
+              //build collection status toggle
               _buildStatusDropdownRow(),
-
 
               const SizedBox(height: 10),
               widget.currentWatch.purchaseDate != null? Text("Purchased: ${DateFormat.yMMMd().format(widget.currentWatch.purchaseDate!)}"): const Text("Purchase Date: Not Recorded"),
@@ -218,13 +91,16 @@ class _ViewWatchState extends State<ViewWatch> {
               widget.currentWatch.lastServicedDate != null? Text("Last Serviced: ${DateFormat.yMMMd().format(widget.currentWatch.lastServicedDate!)}"): const Text("Last serviced: N/A"),
               const SizedBox(height: 10),
 
+              //build service interval selector
               _buildServiceIntervalDropdown(),
               const SizedBox(height: 10),
 
+              //next service due updates automatically - make it editable/overwritable?
               widget.currentWatch.nextServiceDue != null? Text("Next service date: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service date: N/A"),
               const SizedBox(height: 10),
-              const Text("Notes:"),
+
               //Build Notes Row
+              const Text("Notes:"),
               _buildNotesRow(),
 
             ],
@@ -399,6 +275,144 @@ class _ViewWatchState extends State<ViewWatch> {
                     widget.currentWatch.save();
                   }
                   canEditNotes = !canEditNotes;
+                })
+            )
+        )
+      ],
+    );
+  }
+
+  Widget _buildSerialNumberRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 8,
+          child: TextFormField(
+            initialValue: widget.currentWatch.serialNumber,
+            enabled: canEditSerialNo,
+            onSaved: (String? value){
+              value != null? _serialNo = value : _serialNo = "Not Provided";
+            } ,
+            decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).disabledColor,
+                    )
+                ),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                )
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child:  InkWell(
+                child: ViewWatchHelper.getEditIcon(canEditSerialNo),
+                onTap: () => setState(() {
+                  //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+                  _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                  //if save is hit, we then trigger the update on the database only if it has changed
+                  if(canEditSerialNo && widget.currentWatch.serialNumber != _serialNo) {
+                    widget.currentWatch.serialNumber = _serialNo;
+                    widget.currentWatch.save();
+                  }
+                  canEditSerialNo = !canEditSerialNo;
+                })
+            )
+        )
+      ],
+    );
+  }
+
+  Widget _buildModelRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 8,
+          child: TextFormField(
+            initialValue: widget.currentWatch.model,
+            enabled: canEditModel,
+            onSaved: (String? value){
+              value != null? _model = value : _model = widget.currentWatch.model;
+            } ,
+            decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).disabledColor,
+                    )
+                ),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                )
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child:  InkWell(
+                child: ViewWatchHelper.getEditIcon(canEditModel),
+                onTap: () => setState(() {
+                  //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+                  _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                  //if save is hit, we then trigger the update on the database only if it has changed
+                  if(canEditModel && widget.currentWatch.model != _model) {
+                    widget.currentWatch.model = _model;
+                    widget.currentWatch.save();
+                  }
+                  canEditModel = !canEditModel;
+                })
+            )
+        )
+      ],
+    );
+  }
+
+  Widget _buildManufacturerRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 8,
+          child: TextFormField(
+            initialValue: widget.currentWatch.manufacturer,
+            enabled: canEditManufacturer,
+            onSaved: (String? value){
+              value != null? _manufacturer = value : _manufacturer = widget.currentWatch.manufacturer;
+            } ,
+            decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).disabledColor,
+                    )
+                ),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                )
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child:  InkWell(
+                child: ViewWatchHelper.getEditIcon(canEditManufacturer),
+                onTap: () => setState(() {
+                  //if the field isn't empty, trigger it's save() method which sets the instance variable serialNo
+                  _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                  //if save is hit, we then trigger the update on the database only if it has changed
+                  if(canEditManufacturer && widget.currentWatch.manufacturer != _manufacturer) {
+                    widget.currentWatch.manufacturer = _manufacturer;
+                    widget.currentWatch.save();
+                  }
+                  canEditManufacturer = !canEditManufacturer;
                 })
             )
         )
