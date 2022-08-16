@@ -80,11 +80,11 @@ class _ViewWatchState extends State<ViewWatch> {
 
               //Wear button
               _addWearButton(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               //Show last worn date
               _displayLastWearDate(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
 
               //build Manufacturer row
@@ -603,8 +603,7 @@ class _ViewWatchState extends State<ViewWatch> {
           onPressed: (){
               var wearDate = DateTime.now();
               WatchMethods.recordWear(widget.currentWatch, wearDate);
-              // WristCheckSnackBars.addWearSnackbar(widget.currentWatch, wearDate);
-              //implement code to track wearing
+              WristCheckSnackBars.addWearSnackbar(widget.currentWatch, wearDate);
           },
 
         ),
@@ -616,7 +615,10 @@ class _ViewWatchState extends State<ViewWatch> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch)}"),
+        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch)}",
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),),
       ],
     );
   }
