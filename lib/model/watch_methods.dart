@@ -57,22 +57,20 @@ class WatchMethods {
   }
 
   static _recordWear(Watches watch, DateTime date){
-    //ToDo: Need to check for duplicates and gain acknowledgement to track the same date twice
-
     watch.wearList.add(date);
     watch.save();
     WristCheckSnackBars.addWearSnackbar(watch, date);
 
   }
 
-  static attemptToRecordWear(Watches watch, DateTime date, bool acceptDuplicate) async {
+  static Future<void> attemptToRecordWear(Watches watch, DateTime date, bool acceptDuplicate) async {
     if(acceptDuplicate){
       _recordWear(watch, date);
-      return true;
     } else {
       if(checkForDuplicateWear(watch, date)){
         //if there is a duplicate trigger a dialog
-        WristCheckDialogs.getDuplicateWearDialog(watch, date);
+        await WristCheckDialogs.getDuplicateWearDialog(watch, date);
+        print("Dialog closed");
       } else {
         _recordWear(watch, date);
 

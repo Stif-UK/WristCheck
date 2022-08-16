@@ -22,7 +22,7 @@ class WristCheckDialogs {
     );
   }
 
-  static getDuplicateWearDialog(Watches currentWatch, DateTime date){
+  static getDuplicateWearDialog(Watches currentWatch, DateTime date)   {
     Get.defaultDialog(
       title: "Duplicate Date Warning",
       barrierDismissible: false,
@@ -31,7 +31,6 @@ class WristCheckDialogs {
           "otherwise cancel to go back",
 
       onConfirm: (){
-        //WatchMethods.attemptToRecordWear(currentWatch, date, true);
         Get.back();
         WatchMethods.attemptToRecordWear(currentWatch, date, true);
       },

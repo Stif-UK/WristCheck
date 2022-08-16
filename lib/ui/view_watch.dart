@@ -604,7 +604,11 @@ class _ViewWatchState extends State<ViewWatch> {
           onPressed: () {
 
                 var wearDate = DateTime.now();
-                WatchMethods.attemptToRecordWear(widget.currentWatch, wearDate, false);
+                WatchMethods.attemptToRecordWear(widget.currentWatch, wearDate, false).then((_) =>
+                {
+                  //ToDo: Defect where if a watch is worn more than once in a day the UI doesn't refresh on submission
+                  setState(() {})
+                });
 
 
           },
@@ -627,10 +631,11 @@ class _ViewWatchState extends State<ViewWatch> {
   }
 
   Widget _displayWearCount(){
+    var wearCount = widget.currentWatch.wearList.length;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Worn: ${widget.currentWatch.wearList.length} times",
+        wearCount == 1? const Text("Worn 1 time"): Text("Worn: $wearCount times",
           ),
       ],
     );
