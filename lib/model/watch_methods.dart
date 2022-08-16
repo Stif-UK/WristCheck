@@ -4,7 +4,7 @@ import 'package:jiffy/jiffy.dart';
 
 class WatchMethods {
 
-  //TODO: Update addWatch() to check for unique watch
+  //TODO: Update addWatch() to check for unique watch - watch already exists exception trigger dialog
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes){
     String m = manufacturer!;

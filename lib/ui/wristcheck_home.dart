@@ -54,12 +54,12 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       //hide FAB except on collection screen
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
-        child: Icon(Icons.add_chart),
+        child: Icon(Icons.add_rounded),
         backgroundColor: Colors.red,
         onPressed: (){Get.to(() => AddWatch());},
       ): null,
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
 
 

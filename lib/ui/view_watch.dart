@@ -570,7 +570,7 @@ class _ViewWatchState extends State<ViewWatch> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(width: 2, color: Colors.white)),
-            child: const Icon(Icons.camera_alt,size: 100)),
+            child: const Icon(Icons.add_a_photo_outlined,size: 100)),
 
 
       ],
