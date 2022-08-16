@@ -4,6 +4,9 @@ import 'package:wristcheck/ui/wishlist.dart';
 import 'package:wristcheck/ui/sold.dart';
 import 'package:wristcheck/ui/favourites.dart';
 import 'package:wristcheck/ui/search_widget.dart';
+import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/ui/view_watch.dart';
+import 'dart:math';
 
 
 class WatchBoxHeader extends StatefulWidget {
@@ -14,6 +17,9 @@ class WatchBoxHeader extends StatefulWidget {
 }
 
 class _WatchBoxHeaderState extends State<WatchBoxHeader> {
+
+  final watchList = Boxes.getCollectionWatches();
+
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
@@ -30,6 +36,19 @@ class _WatchBoxHeaderState extends State<WatchBoxHeader> {
     );
     },
         ),
+        ListTile(
+            title: const Text("Random Watch"),
+            trailing: const Icon(Icons.lightbulb_outline),
+            onTap:(){
+              //get size of collection
+              var collectionSize = watchList.length;
+              //generate a random number in that range
+              Random ran = Random();
+              int randomNo = ran.nextInt(collectionSize);
+              Get.to(() => ViewWatch(currentWatch: watchList[randomNo]));
+            }
+        ),
+
         ListTile(
             title: const Text("Show Favourites"),
             trailing: const Icon(Icons.star),

@@ -15,7 +15,7 @@ class Favourites extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Wishlist"),
+          title: const Text("Favourites"),
 
         ),
         body: ValueListenableBuilder<Box<Watches>>(
@@ -27,7 +27,7 @@ class Favourites extends StatelessWidget {
 
               return favourites.isEmpty?Container(
                 alignment: Alignment.center,
-                child: Text("Your watchbox has no favourites\n \n Mark watches as favourite to display in this filter",
+                child: const Text("Your watchbox has no favourites\n \n Mark watches as favourite to display in this filter",
                   textAlign: TextAlign.center,),
               ):
 
@@ -49,7 +49,7 @@ class Favourites extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (context, index){
-                  return Divider();
+                  return const Divider();
                 },
               );
             }
