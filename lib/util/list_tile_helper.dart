@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 /**
  * ListTileHelper provides helper methods to generate dynamic elements of List Tiles throughout the app
@@ -13,5 +15,20 @@ class ListTileHelper {
 
     return nextServicingDate.isBefore(Jiffy().add(months: 3).dateTime)?  dueSoon :  standard;
   }
+
+  static String getWatchboxListSubtitle(Watches watch){
+
+    if(watch.wearList.isNotEmpty) {
+      int _wearCount = watch.wearList.length;
+      watch.wearList.sort();
+      String _lastWorn =
+          WristCheckFormatter.getFormattedDate(watch.wearList.last);
+
+      return "Last worn: $_lastWorn  \nWorn $_wearCount times";
+    }else{
+      return "Not worn yet";
+    }
+  }
+
 
 }

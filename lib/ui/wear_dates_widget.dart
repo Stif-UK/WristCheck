@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WearDatesWidget extends StatefulWidget {
   // const WearDatesWidget({Key? key} ) : super(key: key);
@@ -17,10 +18,61 @@ class WearDatesWidget extends StatefulWidget {
 class _WearDatesWidgetState extends State<WearDatesWidget> {
   @override
   Widget build(BuildContext context) {
+    var wearList = widget.currentWatch.wearList;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
+        actions:  [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: InkWell(
+                child: const Icon(Icons.add),
+            onTap: (){},
+            ),
+          ),
+        ],
       ),
+      body: wearList.isNotEmpty? ListView.builder(
+        itemCount: wearList.length,
+        prototypeItem: ListTile(
+          title: Text(wearList.first.toString()),
+        ),
+        itemBuilder: (context, index) {
+          final item = wearList[index].toString();
+          return Dismissible(
+            
+            key: Key(item),
+            onDismissed: (direction) {
+              // Remove the item from the data source.
+              setState(() {
+                wearList.removeAt(index);
+              });
+
+              // Then show a snackbar.
+              //ToDo: Add snackbar on deletion of date
+            },
+            // Show a red background as the item is swiped away.
+            background: Container(
+              alignment: Alignment.center,color: Colors.red,
+            child: const Text("Deleting"),),
+            child: ListTile(
+              leading: Icon(Icons.calendar_today_outlined),
+              title: Text(WristCheckFormatter.getFormattedDate(wearList[index])),
+            ),
+          );
+        },
+      ):
+      Container(
+        padding: const EdgeInsets.all(20),
+        alignment: Alignment.center,
+        child: const Text("No wear dates are tracked yet for this watch\n\nSelect the 'Wear this watch today' button on the watch info screen to add dates.\n",
+          textAlign: TextAlign.center,),
+      )
     );
+
+
+      
+
   }
 }
