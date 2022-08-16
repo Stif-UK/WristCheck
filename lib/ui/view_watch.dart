@@ -48,6 +48,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditServiceInterval = false;
   bool canEditPurchaseDate = false;
   bool canEditLastServiceDate = false;
+  bool canRecordWear = false;
   //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable. Would need to make this list of variables into a map
 
   //form key to allow access to the form state
@@ -56,6 +57,10 @@ class _ViewWatchState extends State<ViewWatch> {
 
   @override
   Widget build(BuildContext context) {
+
+    //check if wear button should be enabled
+    widget.currentWatch.status == "In Collection"? canRecordWear = true : canRecordWear = false;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
@@ -598,16 +603,21 @@ class _ViewWatchState extends State<ViewWatch> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        //ToDo: Disable this button unless status is 'In Collection'
         ElevatedButton(
             child: const Text("Wear this watch today"),
           onPressed: () {
-
+              if(canRecordWear) {
                 var wearDate = DateTime.now();
-                WatchMethods.attemptToRecordWear(widget.currentWatch, wearDate, false).then((_) =>
+                WatchMethods.attemptToRecordWear(
+                    widget.currentWatch, wearDate, false).then((_) =>
                 {
                   //ToDo: Defect where if a watch is worn more than once in a day the UI doesn't refresh on submission
                   setState(() {})
                 });
+              } else { null; }
+
+
 
 
           },
