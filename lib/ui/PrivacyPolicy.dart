@@ -18,24 +18,16 @@ class PrivacyPolicy extends StatelessWidget{
 
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: Text("Version: ${PrivacyPolicyCopy.versionNumber} ",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),),
             ),
 
-
-            Text("${PrivacyPolicyCopy.privacyWording}"),
-
-
+            Text(PrivacyPolicyCopy.privacyWording),
           ],),
-
       ),
-
-
-
     );
   }
-
 }
