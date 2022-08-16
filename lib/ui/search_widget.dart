@@ -7,7 +7,7 @@ class SearchWidget extends SearchDelegate{
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
         },
@@ -18,7 +18,7 @@ class SearchWidget extends SearchDelegate{
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         //ToDo: Should this be updated to use Get routing for consistency
         close(context, null); // for closing the search page and going back
