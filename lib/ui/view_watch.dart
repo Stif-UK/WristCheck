@@ -559,18 +559,30 @@ class _ViewWatchState extends State<ViewWatch> {
     );
   }
 
+
   Widget _displayWatchImage(){
     //TODO: Implement image picker and data model
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children:  [
-        Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.all(40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                border: Border.all(width: 2, color: Colors.white)),
-            child: const Icon(Icons.add_a_photo_outlined,size: 100)),
+        const Expanded(
+          flex: 2,
+            child: SizedBox(height: 10)),
+        Expanded(
+          flex: 6,
+          child: Container(
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.all(40),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(width: 2, color: Colors.white)),
+              child: const Icon(Icons.camera_alt,size: 100)),
+
+          ),
+        const Expanded(
+          flex: 2,
+          child: Icon(Icons.add_a_photo_outlined),
+        ),
 
 
       ],
