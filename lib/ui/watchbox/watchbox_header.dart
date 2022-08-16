@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wishlist.dart';
 import 'package:wristcheck/ui/sold.dart';
@@ -18,12 +17,12 @@ class _WatchBoxHeaderState extends State<WatchBoxHeader> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text("Filters & Search"),
-      leading: Icon(Icons.filter_alt),
+      title: const Text("Filters & Search"),
+      leading: const Icon(Icons.filter_alt),
       children:[
         ListTile(
-            title: Text("Search Collection"),
-            trailing: Icon(Icons.search),
+            title: const Text("Search Collection"),
+            trailing: const Icon(Icons.search),
             onTap:() {
     showSearch(
     context: context,
@@ -32,22 +31,22 @@ class _WatchBoxHeaderState extends State<WatchBoxHeader> {
     },
         ),
         ListTile(
-            title: Text("Show Favourites"),
-            trailing: Icon(Icons.star),
+            title: const Text("Show Favourites"),
+            trailing: const Icon(Icons.star),
             onTap:(){
               Get.to(() => Favourites());
             }
         ),
         ListTile(
-          title: Text("Show Wishlist"),
-          trailing: Icon(Icons.cake_outlined),
+          title: const Text("Show Wishlist"),
+          trailing: const Icon(Icons.cake_outlined),
           onTap:(){
             Get.to(() => Wishlist());
           }
         ),
         ListTile(
-            title: Text("Show Sold"),
-            trailing: Icon(Icons.attach_money),
+            title: const Text("Show Sold"),
+            trailing: const Icon(Icons.attach_money),
             onTap:(){
               Get.to(() => SoldView());
             }
