@@ -44,7 +44,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditServiceInterval = false;
   bool canEditPurchaseDate = false;
   bool canEditLastServiceDate = false;
-  //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable
+  //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable. Would need to make this list of variables into a map
 
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
@@ -79,6 +79,8 @@ class _ViewWatchState extends State<ViewWatch> {
 
               //Wear button
               _addWearButton(),
+              const SizedBox(height: 20),
+
 
               //build Manufacturer row
               const Text("Manufacturer:"),
@@ -568,7 +570,7 @@ class _ViewWatchState extends State<ViewWatch> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(width: 2, color: Colors.white)),
-            child: Icon(Icons.camera_alt,size: 100)),
+            child: const Icon(Icons.camera_alt,size: 100)),
 
 
       ],

@@ -72,7 +72,6 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
               title: Text(_title),
               subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
-              //ToDo: Update and create service view page?
               onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
               );
               },
