@@ -4,6 +4,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:flutter/material.dart';
 
 class WatchMethods {
 
@@ -97,10 +98,8 @@ class WatchMethods {
       }
 
     }
-
     return false;
-
-
   }
+
 
 }

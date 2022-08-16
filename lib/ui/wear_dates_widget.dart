@@ -28,7 +28,20 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
                 child: const Icon(Icons.add),
-            onTap: (){},
+            onTap: () async {
+                  DateTime? historicDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100));
+                  //if cancelled then date == null
+                  if(historicDate == null) return;
+                  widget.currentWatch.wearList.add(historicDate);
+                  widget.currentWatch.save();
+                    setState(() {
+
+                    });
+                  },
             ),
           ),
         ],
@@ -47,6 +60,7 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
               // Remove the item from the data source.
               setState(() {
                 wearList.removeAt(index);
+                widget.currentWatch.save();
               });
 
               // Then show a snackbar.
