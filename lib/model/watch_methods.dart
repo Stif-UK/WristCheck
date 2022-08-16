@@ -1,6 +1,7 @@
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
 class WatchMethods {
 
@@ -53,10 +54,14 @@ class WatchMethods {
 
   }
 
-  static recordWear(Watches watch, DateTime date){
+  static recordWear(Watches watch, DateTime date, bool acceptDuplicate){
     //ToDo: Need to check for duplicates and gain acknowledgement to track the same date twice
+
+
+
     watch.wearList.add(date);
     watch.save();
+    WristCheckSnackBars.addWearSnackbar(watch, date);
 
   }
 

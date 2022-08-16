@@ -602,8 +602,7 @@ class _ViewWatchState extends State<ViewWatch> {
             child: const Text("Wear this watch today"),
           onPressed: (){
               var wearDate = DateTime.now();
-              WatchMethods.recordWear(widget.currentWatch, wearDate);
-              WristCheckSnackBars.addWearSnackbar(widget.currentWatch, wearDate);
+              WatchMethods.recordWear(widget.currentWatch, wearDate, false);
           },
 
         ),
