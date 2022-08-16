@@ -4,7 +4,10 @@ import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
-import 'package:wristcheck/copy/snackbars.dart';
+// import 'package:wristcheck/copy/snackbars.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/ui/wear_dates_widget.dart';
+
 
 class ViewWatch extends StatefulWidget {
   //const ViewWatch({Key? key}) : super(key: key);
@@ -78,13 +81,9 @@ class _ViewWatchState extends State<ViewWatch> {
               //Placeholder image picker
               _displayWatchImage(),
 
-              //Wear button
-              _addWearButton(),
-              const SizedBox(height: 10),
+              //Wear button and stats
+              _buildWearRow(),
 
-              //Show last worn date
-              _displayLastWearDate(),
-              _displayWearCount(),
               const SizedBox(height: 20),
 
 
@@ -637,6 +636,43 @@ class _ViewWatchState extends State<ViewWatch> {
       children: [
         wearCount == 1? const Text("Worn 1 time"): Text("Worn: $wearCount times",
           ),
+      ],
+    );
+  }
+
+  Widget _buildWearRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Column(),
+        ),
+        Expanded(
+          flex:6,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _addWearButton(),
+              const SizedBox(height: 10),
+              //Show last worn date
+              _displayLastWearDate(),
+              _displayWearCount(),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                    child: Icon(Icons.calendar_month),
+                  onTap: () => Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch,)),
+                )
+              ],
+            ))
       ],
     );
   }
