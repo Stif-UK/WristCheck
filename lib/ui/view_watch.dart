@@ -84,6 +84,7 @@ class _ViewWatchState extends State<ViewWatch> {
 
               //Show last worn date
               _displayLastWearDate(),
+              _displayWearCount(),
               const SizedBox(height: 20),
 
 
@@ -600,9 +601,12 @@ class _ViewWatchState extends State<ViewWatch> {
       children: [
         ElevatedButton(
             child: const Text("Wear this watch today"),
-          onPressed: (){
-              var wearDate = DateTime.now();
-              WatchMethods.recordWear(widget.currentWatch, wearDate, false);
+          onPressed: () {
+
+                var wearDate = DateTime.now();
+                WatchMethods.attemptToRecordWear(widget.currentWatch, wearDate, false);
+
+
           },
 
         ),
@@ -618,6 +622,16 @@ class _ViewWatchState extends State<ViewWatch> {
         style: const TextStyle(
           fontWeight: FontWeight.bold,
         ),),
+      ],
+    );
+  }
+
+  Widget _displayWearCount(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Worn: ${widget.currentWatch.wearList.length} times",
+          ),
       ],
     );
   }

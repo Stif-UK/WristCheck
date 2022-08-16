@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/watch_methods.dart';
+import 'package:wristcheck/model/watches.dart';
 
 class WristCheckDialogs {
 
@@ -20,6 +22,22 @@ class WristCheckDialogs {
     );
   }
 
+  static getDuplicateWearDialog(Watches currentWatch, DateTime date){
+    Get.defaultDialog(
+      title: "Duplicate Date Warning",
+      barrierDismissible: false,
+      middleText: "It looks like you've already worn this watch today! \n \n"
+          "if you want to track an additional wear, select 'Add Again' to track. \n \n"
+          "otherwise cancel to go back",
 
+      onConfirm: (){
+        //WatchMethods.attemptToRecordWear(currentWatch, date, true);
+        Get.back();
+        WatchMethods.attemptToRecordWear(currentWatch, date, true);
+      },
+      textCancel: "Cancel",
+      textConfirm: "Add Again"
+    );
+  }
 
 }

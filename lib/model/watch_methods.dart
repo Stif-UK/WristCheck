@@ -2,6 +2,8 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
+import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchMethods {
 
@@ -54,14 +56,52 @@ class WatchMethods {
 
   }
 
-  static recordWear(Watches watch, DateTime date, bool acceptDuplicate){
+  static _recordWear(Watches watch, DateTime date){
     //ToDo: Need to check for duplicates and gain acknowledgement to track the same date twice
-
-
 
     watch.wearList.add(date);
     watch.save();
     WristCheckSnackBars.addWearSnackbar(watch, date);
+
+  }
+
+  static attemptToRecordWear(Watches watch, DateTime date, bool acceptDuplicate) async {
+    if(acceptDuplicate){
+      _recordWear(watch, date);
+      return true;
+    } else {
+      if(checkForDuplicateWear(watch, date)){
+        //if there is a duplicate trigger a dialog
+        WristCheckDialogs.getDuplicateWearDialog(watch, date);
+      } else {
+        _recordWear(watch, date);
+
+      }
+    }
+
+  }
+
+  static bool checkForDuplicateWear(Watches watch, DateTime date){
+    if(watch.wearList ==null || watch.wearList.isEmpty){
+      return false;
+    }
+    //check if the date already exists in our list
+    var inputDate = WristCheckFormatter.getFormattedDate(date);
+
+    for (var date2 in watch.wearList.reversed) {
+      var selectedDate = WristCheckFormatter.getFormattedDate(date2);
+      if(inputDate == selectedDate){
+        print("These dates match: $inputDate ($date)& $selectedDate ($date2)");
+        return true;
+      }else{
+        print("no matches found");
+        return false;
+      }
+
+    }
+
+    return false;
+
 
   }
 
