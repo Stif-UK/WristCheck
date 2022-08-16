@@ -28,7 +28,8 @@ class WatchMethods {
     ..lastServicedDate = ls
     ..serviceInterval = si
     ..nextServiceDue = calculateNextService(pd, ls, si)
-    ..notes = n;
+    ..notes = n
+    ..wearList = <DateTime>[];
 
     final box = Boxes.getWatches();
 
@@ -49,6 +50,13 @@ class WatchMethods {
       return nextServiceDate;
     }
 
+
+  }
+
+  static recordWear(Watches watch, DateTime date){
+    //ToDo: Need to check for duplicates and gain acknowledgement to track the same date twice
+    watch.wearList.add(date);
+    watch.save();
 
   }
 

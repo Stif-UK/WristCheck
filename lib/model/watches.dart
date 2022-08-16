@@ -35,4 +35,7 @@ class Watches extends HiveObject{
   @HiveField(9)
   late String? notes;
 
+  @HiveField(10)
+  late List<DateTime> wearList;
+
 }

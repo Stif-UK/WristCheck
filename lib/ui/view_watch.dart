@@ -4,6 +4,7 @@ import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
 class ViewWatch extends StatefulWidget {
   //const ViewWatch({Key? key}) : super(key: key);
@@ -80,6 +81,10 @@ class _ViewWatchState extends State<ViewWatch> {
               //Wear button
               _addWearButton(),
               const SizedBox(height: 20),
+
+              //Show last worn date
+              _displayLastWearDate(),
+              const SizedBox(height: 10),
 
 
               //build Manufacturer row
@@ -596,10 +601,22 @@ class _ViewWatchState extends State<ViewWatch> {
         ElevatedButton(
             child: const Text("Wear this watch today"),
           onPressed: (){
+              var wearDate = DateTime.now();
+              WatchMethods.recordWear(widget.currentWatch, wearDate);
+              // WristCheckSnackBars.addWearSnackbar(widget.currentWatch, wearDate);
               //implement code to track wearing
           },
 
         ),
+      ],
+    );
+  }
+
+  Widget _displayLastWearDate(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch)}"),
       ],
     );
   }
