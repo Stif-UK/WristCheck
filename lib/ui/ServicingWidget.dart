@@ -29,11 +29,11 @@ class _ServicingWidgetState extends State<ServicingWidget> {
         body: ValueListenableBuilder<Box<Watches>>(
             valueListenable: watchBox.listenable(),
             builder: (context, box, _){
-              List<Watches> filteredList = Boxes.getServiceSchedule();
+              List<Watches> serviceList = Boxes.getServiceSchedule();
 
 
 
-              return filteredList.isEmpty?Container(
+              return serviceList.isEmpty?Container(
                 alignment: Alignment.center,
                 child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
                   textAlign: TextAlign.center,),
@@ -62,9 +62,9 @@ class _ServicingWidgetState extends State<ServicingWidget> {
                     Expanded(
               flex: 9,
               child:ListView.separated(
-              itemCount: filteredList.length,
+              itemCount: serviceList.length,
               itemBuilder: (BuildContext context, int index){
-              var watch = filteredList.elementAt(index);
+              var watch = serviceList.elementAt(index);
               String? _title = "${watch.manufacturer} ${watch.model}";
 
 

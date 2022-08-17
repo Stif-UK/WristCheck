@@ -15,5 +15,14 @@ class WristCheckSnackBars{
     );
   }
 
+  static removeWearSnackbar(Watches watch, DateTime date){
+    Get.snackbar(
+      "Date Deleted",
+      "${WristCheckFormatter.getFormattedDate(date)} was removed from the record for ${watch.manufacturer} ${watch.model}",
+      icon: const Icon(Icons.watch),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
 
 }

@@ -585,6 +585,7 @@ class _ViewWatchState extends State<ViewWatch> {
               padding: EdgeInsets.all(40),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
+                  //ToDo: Ensure border colour works on both light and dark theme
                   border: Border.all(width: 2, color: Colors.white)),
               child: const Icon(Icons.camera_alt,size: 100)),
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
 class WearDatesWidget extends StatefulWidget {
   // const WearDatesWidget({Key? key} ) : super(key: key);
@@ -53,6 +54,7 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
         ),
         itemBuilder: (context, index) {
           final item = wearList[index].toString();
+          var date = wearList[index];
           return Dismissible(
             
             key: Key(item),
@@ -65,6 +67,8 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
 
               // Then show a snackbar.
               //ToDo: Add snackbar on deletion of date
+              WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
+
             },
             // Show a red background as the item is swiped away.
             background: Container(
