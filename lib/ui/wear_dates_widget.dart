@@ -66,7 +66,6 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
               });
 
               // Then show a snackbar.
-              //ToDo: Add snackbar on deletion of date
               WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
 
             },
