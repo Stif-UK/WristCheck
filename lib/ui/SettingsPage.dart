@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
 
 
@@ -43,12 +43,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title:Text("Delete collection"),
-            leading: Icon(Icons.warning),
+            title:const Text("Delete collection"),
+            leading: const Icon(Icons.warning),
             trailing: OutlinedButton(
-              child: Icon(Icons.delete, color: Colors.red),
+              child: const Icon(Icons.delete, color: Colors.redAccent),
               onPressed: (){
                 Get.defaultDialog(
                   title: "Warning",
@@ -59,19 +59,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     //On pressing ok, call the .clear() method on the watchbox
                     watchBox.clear();
                     Get.back();
-                    Get.snackbar(
-                      "Watches Cleared",
-                      "Your watch collection is now empty",
-                      icon: Icon(Icons.delete),
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
+                    WristCheckSnackBars.collectionDeletedSnackbar();
                   }
 
                 );
               }
             )
           ),
-          Divider()
+          const Divider()
         ],
       ),
 

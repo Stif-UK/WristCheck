@@ -27,7 +27,7 @@ class _WearStatsState extends State<WearStats> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              icon: barChart? Icon(Icons.pie_chart) : Icon(Icons.bar_chart),
+              icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
             onPressed: (){
                 setState(() {
                   barChart = !barChart;
@@ -37,13 +37,20 @@ class _WearStatsState extends State<WearStats> {
         ],
       ),
         body: Column(
+
           children: [
-            const SizedBox(height: 10),
+            // const SizedBox(height: 10),
             Expanded(
-              flex: 8,
+              flex: 7,
                 //Switch between a bar chart and pie chart with the press of a button
                 child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
-            const SizedBox(height: 10)
+            Expanded(
+              flex: 2,
+                child: Container(
+                  child: Text ("stuff"), //ToDo: populate with filter buttons
+                ),
+            )
+            // const SizedBox(height: 10)
           ],
         ));
   }

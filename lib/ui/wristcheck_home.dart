@@ -34,7 +34,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
         title: const Text("WristCheck"),
         leading: Builder(
           builder: (BuildContext context) {

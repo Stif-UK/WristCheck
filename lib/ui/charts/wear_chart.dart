@@ -20,7 +20,8 @@ class WearChart extends StatelessWidget {
         data: data,
         domainFn: (Watches series, _) => series.model,
         measureFn: (Watches series, _) => series.wearList.length,
-        // colorFn: code to re-colour bars - function to give random colours!
+          //alternate colours between orange and blue
+          // fillColorFn: (Watches series,_)=> series.key%2==0? charts.ColorUtil.fromDartColor(Colors.orange):charts.ColorUtil.fromDartColor(Colors.blue) , //column color.
           // Set a label accessor to control the text of the bar label.
           labelAccessorFn: (Watches series, _) =>
     // '${series.model}: \$${sales.sales.toString()}',
@@ -38,7 +39,7 @@ class WearChart extends StatelessWidget {
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       // Hide domain axis.
       domainAxis:
-      charts.OrdinalAxisSpec(renderSpec: const charts.NoneRenderSpec()),
+      const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
 
 

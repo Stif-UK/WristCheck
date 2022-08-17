@@ -24,5 +24,16 @@ class WristCheckSnackBars{
     );
   }
 
+  static collectionDeletedSnackbar(){
+    Get.snackbar(
+      "Watches Cleared",
+      "Your watch collection is now empty",
+      icon: const Icon(Icons.delete),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+
+
 
 }

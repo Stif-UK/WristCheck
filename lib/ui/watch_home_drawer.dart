@@ -10,7 +10,6 @@ class WatchHomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).backgroundColor,
       child: ListView(
         children:  [
           DrawerHeader(child: Row(
