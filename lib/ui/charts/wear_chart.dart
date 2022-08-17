@@ -19,24 +19,28 @@ class WearChart extends StatelessWidget {
         id: "Watches",
         data: data,
         domainFn: (Watches series, _) => series.model,
-        measureFn: (Watches series, _) => series.wearList.length
+        measureFn: (Watches series, _) => series.wearList.length,
         // colorFn: code to re-colour bars - function to give random colours!
+          // Set a label accessor to control the text of the bar label.
+          labelAccessorFn: (Watches series, _) =>
+    // '${series.model}: \$${sales.sales.toString()}',
+        "${series.manufacturer} ${series.model}: ${series.wearList.length}"
       )
     ];
 
-    return charts.BarChart(series);
+    return charts.BarChart(series,
+    vertical: false,
+      // Set a bar label decorator.
+      // Example configuring different styles for inside/outside:
+      //       barRendererDecorator: new charts.BarLabelDecorator(
+      //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
+      //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
+      barRendererDecorator: charts.BarLabelDecorator<String>(),
+      // Hide domain axis.
+      domainAxis:
+      charts.OrdinalAxisSpec(renderSpec: const charts.NoneRenderSpec()),
+    );
 
 
-    // List<charts.Series<DeveloperSeries, String>> series = [
-    //   charts.Series(
-    //       id: "developers",
-    //       data: data,
-    //       domainFn: (DeveloperSeries series, _) => series.year,
-    //       measureFn: (DeveloperSeries series, _) => series.developers,
-    //       colorFn: (DeveloperSeries series, _) => series.barColor
-    //   )
-    // ];
-    //
-    // Return charts.Barchart(series, animate: true);
   }
 }
