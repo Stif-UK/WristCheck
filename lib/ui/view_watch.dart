@@ -581,8 +581,8 @@ class _ViewWatchState extends State<ViewWatch> {
         Expanded(
           flex: 6,
           child: Container(
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(40),
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(40),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   //ToDo: Ensure border colour works on both light and dark theme
@@ -679,8 +679,13 @@ class _ViewWatchState extends State<ViewWatch> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                    child: Icon(Icons.calendar_month),
-                  onTap: () => Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch,)),
+                    child: const Icon(Icons.calendar_month),
+                  // onTap: () => Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch,)),
+                  onTap: (){
+                      Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch))!.then((_) => setState(
+                          (){}
+                      ));
+                  },
                 )
               ],
             ))

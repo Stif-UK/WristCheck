@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:wristcheck/model/watches.dart';
+import 'package:get/get.dart';
+
 
 class WearChart extends StatelessWidget {
   // const WearChart({Key? key}) : super(key: key);
@@ -20,8 +22,6 @@ class WearChart extends StatelessWidget {
         data: data,
         domainFn: (Watches series, _) => series.model,
         measureFn: (Watches series, _) => series.wearList.length,
-          //alternate colours between orange and blue
-          // fillColorFn: (Watches series,_)=> series.key%2==0? charts.ColorUtil.fromDartColor(Colors.orange):charts.ColorUtil.fromDartColor(Colors.blue) , //column color.
           // Set a label accessor to control the text of the bar label.
           labelAccessorFn: (Watches series, _) =>
     // '${series.model}: \$${sales.sales.toString()}',
@@ -33,10 +33,10 @@ class WearChart extends StatelessWidget {
     vertical: false,
       // Set a bar label decorator.
       // Example configuring different styles for inside/outside:
-      //       barRendererDecorator: new charts.BarLabelDecorator(
-      //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
+            barRendererDecorator: charts.BarLabelDecorator(
+               insideLabelStyleSpec: Get.isDarkMode? const charts.TextStyleSpec(fontSize: 12, color: charts.Color.white):const charts.TextStyleSpec(fontSize: 12, color: charts.Color.black)) ,
       //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-      barRendererDecorator: charts.BarLabelDecorator<String>(),
+      // barRendererDecorator: charts.BarLabelDecorator<String>(),
       // Hide domain axis.
       domainAxis:
       const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
