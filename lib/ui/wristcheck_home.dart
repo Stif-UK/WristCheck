@@ -91,7 +91,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   void dispose() {
     //close all Hive boxes when the homescreen is disposed.
     Hive.close();
-    print("Hive box closed");
+    super.dispose();
   }
 
   void onSettingsPressed() {
