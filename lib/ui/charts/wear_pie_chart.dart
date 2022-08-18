@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:wristcheck/model/watches.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class WearPieChart extends StatelessWidget {
   // const WearChart({Key? key}) : super(key: key);
@@ -14,32 +14,18 @@ class WearPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<Watches, String>> series =[
-      charts.Series(
-          id: "Watches",
-          data: data,
-          domainFn: (Watches series, _) => series.model,
-          measureFn: (Watches series, _) => series.wearList.length,
-          // colorFn: code to re-colour bars - function to give random colours!
-          // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (Watches series, _) =>
-          // '${series.model}: \$${sales.sales.toString()}',
-          "${series.manufacturer} ${series.model}: ${series.wearList.length}"
-      )
-    ];
 
-    return charts.PieChart<String>(series,
-        animate: animate,
-        defaultRenderer: charts.ArcRendererConfig(
-          arcWidth: 80,
-          arcRendererDecorators: [
-            charts.ArcLabelDecorator(),
-          ]
-        ),
-
+    return SfCircularChart(
+        series: <PieSeries<Watches, String>>[
+          PieSeries<Watches, String>(
+              dataSource:  data,
+              explode: true,
+              explodeIndex: 0,
+              xValueMapper: (Watches series, _) => series.model,
+              yValueMapper: (Watches series, _) => series.wearList.length,
+        dataLabelMapper: (watch, _) => "${watch.model}: ${watch.wearList.length}",
+        dataLabelSettings: const DataLabelSettings(isVisible: true)),
+        ]
     );
-
-
-
   }
 }
