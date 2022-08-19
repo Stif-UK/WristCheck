@@ -14,13 +14,43 @@ class WearStats extends StatefulWidget {
   State<WearStats> createState() => _WearStatsState();
 }
 
-List<Watches> data = Boxes.getCollectionWatches();
+List<Watches> data = Boxes.getCollectionWatches(true);
 // List<Watches> data = Boxes.getWatchesWornThisYear(2020);
 bool barChart = true;
+enum ChartFilter { allTime, year, month }
+
+
 
 class _WearStatsState extends State<WearStats> {
+  ChartFilter _filter = ChartFilter.allTime;
+
   @override
   Widget build(BuildContext context) {
+
+
+    switch (_filter){
+      case ChartFilter.allTime: {
+        data = Boxes.getCollectionWatches(true);
+      }
+      break;
+
+      case ChartFilter.year: {
+        //ToDo: Remove hardcoded 2020 value!
+        data = Boxes.getWatchesWornThisYear(2020);
+      }
+      break;
+
+      case ChartFilter.month: {
+        //ToDo: Update to include month filter, using year as testing placeholder
+        data = Boxes.getWatchesWornThisYear(2021);
+      }
+      break;
+
+      default: {
+        data = Boxes.getCollectionWatches(true);
+      }
+      break;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Wear to Date"),
@@ -42,16 +72,56 @@ class _WearStatsState extends State<WearStats> {
           children: [
             // const SizedBox(height: 10),
             Expanded(
-              flex: 7,
+              flex: 6,
                 //Switch between a bar chart and pie chart with the press of a button
                 child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
             Expanded(
-              flex: 2,
+              flex: 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text ("This chart generated with WristCheck"),
-                    SizedBox(height: 20,)
+                  children: [
+                    ListTile(
+                      title: const Text('All Time'),
+                      dense: true,
+                      leading: Radio<ChartFilter>(
+                        value: ChartFilter.allTime,
+                        groupValue: _filter,
+                        onChanged: (ChartFilter? value) {
+                          setState(() {
+                            _filter = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Year'),
+                      dense: true,
+                      leading: Radio<ChartFilter>(
+                        value: ChartFilter.year,
+                        groupValue: _filter,
+                        onChanged: (ChartFilter? value) {
+                          setState(() {
+                            _filter = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Month'),
+                      dense: true,
+                      leading: Radio<ChartFilter>(
+                        value: ChartFilter.month,
+                        groupValue: _filter,
+                        onChanged: (ChartFilter? value) {
+                          setState(() {
+                            _filter = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text ("This chart generated with WristCheck"),
+                    const SizedBox(height: 20,)
                   ],
                 ),
             )

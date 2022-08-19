@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 class FilterController extends GetxController{
 
-  //filterName can be set to "In Collection", "Sold", "Wishlist", "Show All"
+  //filterName can be set to "All Time", "Year"
   //ToDo: create enums
-  final filterName = "In Collection".obs;
+  final filterName = "All Time".obs;
 
 updateFilterName(String name){
     filterName(name);
