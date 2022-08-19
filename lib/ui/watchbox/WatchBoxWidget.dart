@@ -31,7 +31,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
       body: ValueListenableBuilder<Box<Watches>>(
           valueListenable: watchBox.listenable(),
           builder: (context, box, _){
-            List<Watches> filteredList = Boxes.getCollectionWatches(false);
+            List<Watches> filteredList = Boxes.getCollectionWatches();
 
 
 

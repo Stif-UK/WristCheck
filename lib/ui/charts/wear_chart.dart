@@ -50,8 +50,8 @@ class _WearChartState extends State<WearChart> {
         BarSeries(
             dataSource: widget.data,
           xValueMapper: (Watches series, _) => series.model,
-          yValueMapper: (Watches series, _) => series.filteredWearList!.length,
-          dataLabelMapper: (watch, _) => "${watch.model}: ${watch.filteredWearList!.length}",
+          yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
+          dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.model}: ${watch.wearList.length}":"${watch.model}: ${watch.filteredWearList!.length}",
           dataLabelSettings: const DataLabelSettings(isVisible: true)
       )
 

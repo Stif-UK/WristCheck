@@ -18,7 +18,7 @@ class WatchBoxHeader extends StatefulWidget {
 
 class _WatchBoxHeaderState extends State<WatchBoxHeader> {
 
-  final watchList = Boxes.getCollectionWatches(false);
+  final watchList = Boxes.getCollectionWatches();
 
   @override
   Widget build(BuildContext context) {

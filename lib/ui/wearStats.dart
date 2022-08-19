@@ -14,7 +14,7 @@ class WearStats extends StatefulWidget {
   State<WearStats> createState() => _WearStatsState();
 }
 
-List<Watches> data = Boxes.getCollectionWatches(true);
+List<Watches> data = Boxes.getCollectionWatches();
 // List<Watches> data = Boxes.getWatchesWornThisYear(2020);
 bool barChart = true;
 enum ChartFilter { allTime, year, month }
@@ -30,24 +30,24 @@ class _WearStatsState extends State<WearStats> {
 
     switch (_filter){
       case ChartFilter.allTime: {
-        data = Boxes.getCollectionWatches(true);
+        data = Boxes.getCollectionWatches();
       }
       break;
 
       case ChartFilter.year: {
         //ToDo: Remove hardcoded 2020 value!
-        data = Boxes.getWatchesWornThisYear(2020);
+        data = Boxes.getWatchesWornFilter(3, 2018);
       }
       break;
 
       case ChartFilter.month: {
         //ToDo: Update to include month filter, using year as testing placeholder
-        data = Boxes.getWatchesWornThisYear(2021);
+        data = Boxes.getWatchesWornFilter(null, 2021);
       }
       break;
 
       default: {
-        data = Boxes.getCollectionWatches(true);
+        data = Boxes.getCollectionWatches();
       }
       break;
     }
@@ -94,7 +94,7 @@ class _WearStatsState extends State<WearStats> {
                       ),
                     ),
                     ListTile(
-                      title: const Text('Year'),
+                      title: const Text('filter1 (current: Year = 2021)'),
                       dense: true,
                       leading: Radio<ChartFilter>(
                         value: ChartFilter.year,
@@ -107,7 +107,7 @@ class _WearStatsState extends State<WearStats> {
                       ),
                     ),
                     ListTile(
-                      title: const Text('Month'),
+                      title: const Text('filter2 (current: Year = 2020'),
                       dense: true,
                       leading: Radio<ChartFilter>(
                         value: ChartFilter.month,
