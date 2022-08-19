@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:wristcheck/model/watches.dart';
-import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 
@@ -57,23 +55,6 @@ class _WearChartState extends State<WearChart> {
 
       ],
     );
-
-    //   charts.BarChart(series,
-    // vertical: false,
-    //   // Set a bar label decorator.
-    //   // Example configuring different styles for inside/outside:
-    //         barRendererDecorator: charts.BarLabelDecorator(
-    //           outsideLabelStyleSpec: Get.isDarkMode? const charts.TextStyleSpec(fontSize: 12, color: charts.Color.white):const charts.TextStyleSpec(fontSize: 12, color: charts.Color.black)) ,
-    //            // insideLabelStyleSpec: Get.isDarkMode? const charts.TextStyleSpec(fontSize: 12, color: charts.Color.white):const charts.TextStyleSpec(fontSize: 12, color: charts.Color.black)) ,
-    //   //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-    //   // barRendererDecorator: charts.BarLabelDecorator<String>(),
-    //   // Hide domain axis.
-    //   domainAxis:
-    //   const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
-    // );
-
-
-
   }
 }
 

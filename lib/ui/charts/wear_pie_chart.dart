@@ -22,8 +22,8 @@ class WearPieChart extends StatelessWidget {
               explode: true,
               explodeIndex: 0,
               xValueMapper: (Watches series, _) => series.model,
-              yValueMapper: (Watches series, _) => series.wearList.length,
-        dataLabelMapper: (watch, _) => "${watch.model}: ${watch.wearList.length}",
+              yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
+        dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.model}: ${watch.wearList.length}":"${watch.model}: ${watch.filteredWearList!.length}",
         dataLabelSettings: const DataLabelSettings(isVisible: true)),
         ]
     );

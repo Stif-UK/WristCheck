@@ -35,6 +35,10 @@ class Boxes {
   static List<Watches> getWatchesWornFilter(int? month, int? year){
     //start by making the return list the whole box
       var returnList = Hive.box<Watches>("WatchBox").values.toList();
+      //Zero the filter list for all watches
+      for(var watch in returnList){
+        watch.filteredWearList = [];
+      }
     //if a year is provided, then reduce returnList to only those watches that have the year in their wearlist
     if(year != null){
       returnList = returnList.where((watch) => watch.wearList.any((element) => element.year == year)).toList();
@@ -42,6 +46,7 @@ class Boxes {
     //next if a month is provided, then further reduce list to only those months
       if(month != null){
         returnList = returnList.where((watch) => watch.wearList.any((element) => element.month == month)).toList();
+
       }
 
       //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable
@@ -53,7 +58,6 @@ class Boxes {
     if(year != null){
       for (var watch in returnList) {
         //instantiate an empty list in the watches filteredWearList variable
-
         watch.filteredWearList!.removeWhere((date) => date.year != year);
       }
     }
@@ -65,45 +69,9 @@ class Boxes {
         }
       }
     //finally we return this result
+      for (var watch in returnList) {
+    }
     return returnList;
 
   }
-
-  // static List<Watches>  getFilteredWatches(String filter){
-  //   switch (filter) {
-  //     case "Show All":
-  //       {
-  //         print("Received $filter, returning all watches");
-  //         return Boxes.getAllWatches();
-  //       }
-  //       break;
-  //     case "In Collection":
-  //       {
-  //         print("Received $filter, returning collection watches");
-  //         return Boxes.getCollectionWatches();
-  //       }
-  //       break;
-  //     case "Sold":
-  //       {
-  //         print("Received $filter, returning sold watches");
-  //         return Boxes.getSoldWatches();
-  //       }
-  //       break;
-  //     case "Wishlist":
-  //       {
-  //         print("Received $filter, returning wishlist watches");
-  //         return Boxes.getWishlistWatches();
-  //       }
-  //       break;
-  //     default:
-  //       {
-  //         print("Received $filter, returning default");
-  //         return Boxes.getAllWatches();
-  //       }
-  //       break;
-  //   };
-  // }
-
-
-
 }

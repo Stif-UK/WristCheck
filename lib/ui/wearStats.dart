@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
 import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
@@ -14,11 +16,43 @@ class WearStats extends StatefulWidget {
   State<WearStats> createState() => _WearStatsState();
 }
 
-List<Watches> data = Boxes.getCollectionWatches();
-// List<Watches> data = Boxes.getWatchesWornThisYear(2020);
+String _monthValue = "All";
+String _yearValue = "All";
+
+List _monthList = ["All","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+//yearValues and yearMap will need to BOTH be updated to enable additional years to be selected
+//ToDo: There's a tidier way of dealing with years, the map is not necessary!
+List _yearValues =  ["All","2019", "2020", "2021", "2022"];
+
+Map _yearMap = {
+  "All":null,
+  "2019": 2019,
+  "2020": 2020,
+  "2021": 2021,
+  "2022": 2022
+};
+
+Map _monthMap = {
+  "All": null,
+  "January":1,
+  "February":2,
+  "March":3,
+  "April":4,
+  "May":5,
+  "June":6,
+  "July":7,
+  "August":8,
+  "September":9,
+  "October":10,
+  "November":11,
+  "December":12
+
+};
+
+
+List<Watches> data = Boxes.getWatchesWornFilter(null, null);
 bool barChart = true;
 enum ChartFilter { allTime, year, month }
-
 
 
 class _WearStatsState extends State<WearStats> {
@@ -72,53 +106,16 @@ class _WearStatsState extends State<WearStats> {
           children: [
             // const SizedBox(height: 10),
             Expanded(
-              flex: 6,
+              flex: 7,
                 //Switch between a bar chart and pie chart with the press of a button
                 child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
             Expanded(
-              flex: 3,
+              flex: 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ListTile(
-                      title: const Text('All Time'),
-                      dense: true,
-                      leading: Radio<ChartFilter>(
-                        value: ChartFilter.allTime,
-                        groupValue: _filter,
-                        onChanged: (ChartFilter? value) {
-                          setState(() {
-                            _filter = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: const Text('filter1 (current: Year = 2021)'),
-                      dense: true,
-                      leading: Radio<ChartFilter>(
-                        value: ChartFilter.year,
-                        groupValue: _filter,
-                        onChanged: (ChartFilter? value) {
-                          setState(() {
-                            _filter = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: const Text('filter2 (current: Year = 2020'),
-                      dense: true,
-                      leading: Radio<ChartFilter>(
-                        value: ChartFilter.month,
-                        groupValue: _filter,
-                        onChanged: (ChartFilter? value) {
-                          setState(() {
-                            _filter = value!;
-                          });
-                        },
-                      ),
-                    ),
+
+                    _buildFilterRow(),
                     const SizedBox(height: 10),
                     const Text ("This chart generated with WristCheck"),
                     const SizedBox(height: 20,)
@@ -129,4 +126,67 @@ class _WearStatsState extends State<WearStats> {
           ],
         ));
   }
+
+  Widget _buildFilterRow(){
+    return ExpansionTile(
+      title: const Text("Filter Graph"),
+      children: [Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Month: "),
+          DropdownButton(
+              value: _monthValue,
+              items: _monthList
+                  .map((status) => DropdownMenuItem(
+                  value: status,
+                  child: Text(status))
+
+              ).toList(),
+              onChanged: (status) {
+                setState(() => _monthValue = status.toString());
+              }
+          ),
+          const Text("Year: "),
+          DropdownButton(
+              value: _yearValue,
+              items: _yearValues
+                  .map((status) => DropdownMenuItem(
+                  value: status,
+                  child: Text(status))
+
+              ).toList(),
+              onChanged: (status) {
+                setState(() => _yearValue = status.toString());
+              }
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: InkWell(
+                child: const Icon(Icons.send),
+              onTap: (){
+                  setState(() {
+                    data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+                  });
+              }
+            ),
+          ),
+          InkWell(
+              child: const Icon(Icons.clear),
+              onTap: (){
+                setState(() {
+                  _monthValue = "All";
+                  _yearValue = "All";
+                  data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+                });
+              }
+          )
+        ],
+
+      ),
+      ]
+    );
+  }
+
 }
+
+
