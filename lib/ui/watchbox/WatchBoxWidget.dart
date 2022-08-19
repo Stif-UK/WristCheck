@@ -18,8 +18,8 @@ class WatchBoxWidget extends StatefulWidget {
   @override
   State<WatchBoxWidget> createState() => _WatchBoxWidgetState();
 }
-
-final FilterController filterController = Get.put(FilterController());
+//ToDo: Remove reference to FilterController as not required here
+//final FilterController filterController = Get.put(FilterController());
 
 class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 

@@ -17,6 +17,8 @@ class WearDatesWidget extends StatefulWidget {
 }
 
 class _WearDatesWidgetState extends State<WearDatesWidget> {
+bool _locked = true;
+
   @override
   Widget build(BuildContext context) {
     var wearList = widget.currentWatch.wearList;
@@ -25,11 +27,19 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
       appBar: AppBar(
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
         actions:  [
+          //Show lock icon - page cannot be edited if locked (default state)
+          InkWell(child: _locked? const Icon(Icons.lock) :  const Icon(Icons.lock_open),
+          onTap: (){
+            setState(() {
+            _locked = !_locked;
+            });
+            },),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
-                child: const Icon(Icons.add),
-            onTap: () async {
+                child: const Icon(Icons.add,),
+            //If page is 'locked' the 'add' butto does nothing
+            onTap: _locked? null: () async {
                   DateTime? historicDate = await showDatePicker(
                   context: context,
                   initialDate: DateTime.now(),
@@ -39,6 +49,7 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
                   if(historicDate == null) return;
                   widget.currentWatch.wearList.add(historicDate);
                   widget.currentWatch.save();
+                  WristCheckSnackBars.addWearSnackbar(widget.currentWatch, historicDate);
                     setState(() {
 
                     });
@@ -58,15 +69,16 @@ class _WearDatesWidgetState extends State<WearDatesWidget> {
           return Dismissible(
             
             key: Key(item),
+            //If page is locked then dates cannot be dismissed, else require a right to left swipe
+            direction: _locked? DismissDirection.none : DismissDirection.endToStart,
+
             onDismissed: (direction) {
-              // Remove the item from the data source.
               setState(() {
                 wearList.removeAt(index);
                 widget.currentWatch.save();
+                // Then show a snackbar.
+                WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
               });
-
-              // Then show a snackbar.
-              WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
 
             },
             // Show a red background as the item is swiped away.

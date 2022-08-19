@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 
-class WearChart extends StatelessWidget {
+class WearChart extends StatefulWidget {
   // const WearChart({Key? key}) : super(key: key);
 
   //Create data for the chart - we need a list of watch objects and wear counts
@@ -16,6 +16,11 @@ class WearChart extends StatelessWidget {
 
   WearChart({required this.data, required this.animate});
 
+  @override
+  State<WearChart> createState() => _WearChartState();
+}
+
+class _WearChartState extends State<WearChart> {
   @override
   Widget build(BuildContext context) {
 
@@ -43,7 +48,7 @@ class WearChart extends StatelessWidget {
       primaryYAxis: NumericAxis(),
       series: <BarSeries<Watches, String>>[
         BarSeries(
-            dataSource: data,
+            dataSource: widget.data,
           xValueMapper: (Watches series, _) => series.model,
           yValueMapper: (Watches series, _) => series.wearList.length,
           dataLabelMapper: (watch, _) => "${watch.model}: ${watch.wearList.length}",
@@ -70,6 +75,5 @@ class WearChart extends StatelessWidget {
 
 
   }
-
 }
 

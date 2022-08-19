@@ -47,8 +47,12 @@ class _WearStatsState extends State<WearStats> {
                 child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
             Expanded(
               flex: 2,
-                child: Container(
-                  child: Text ("stuff"), //ToDo: populate with filter buttons
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: const [
+                    Text ("This chart generated with WristCheck"),
+                    SizedBox(height: 20,)
+                  ],
                 ),
             )
             // const SizedBox(height: 10)

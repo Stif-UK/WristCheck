@@ -23,7 +23,7 @@ class _StatsWidgetState extends State<StatsWidget> {
           child: ElevatedButton(
             child: const Padding(
               padding: EdgeInsets.all(12.0),
-              child: Text("All-time Wear Stats",
+              child: Text("Wear Stats",
               style: TextStyle(
                 fontSize: 30,
               ),),
@@ -33,13 +33,36 @@ class _StatsWidgetState extends State<StatsWidget> {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
-                          side: BorderSide(color: Colors.black)
+                          side: const BorderSide(color: Colors.black)
                       )
 
     )
     )
     ),
           ),
+        const SizedBox(height: 20),
+        Align(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text("Watch Stats",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),),
+              ),
+              onPressed: (){ },
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          side: const BorderSide(color: Colors.black)
+                      )
+
+                  )
+              )
+          ),
+        )
 
       ],
     );
