@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
 import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
@@ -50,41 +48,16 @@ Map _monthMap = {
 };
 
 
-List<Watches> data = Boxes.getWatchesWornFilter(null, null);
+List<Watches> data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
 bool barChart = true;
-enum ChartFilter { allTime, year, month }
-
 
 class _WearStatsState extends State<WearStats> {
-  ChartFilter _filter = ChartFilter.allTime;
 
   @override
   Widget build(BuildContext context) {
 
 
-    switch (_filter){
-      case ChartFilter.allTime: {
-        data = Boxes.getCollectionWatches();
-      }
-      break;
 
-      case ChartFilter.year: {
-        //ToDo: Remove hardcoded 2020 value!
-        data = Boxes.getWatchesWornFilter(3, 2018);
-      }
-      break;
-
-      case ChartFilter.month: {
-        //ToDo: Update to include month filter, using year as testing placeholder
-        data = Boxes.getWatchesWornFilter(null, 2021);
-      }
-      break;
-
-      default: {
-        data = Boxes.getCollectionWatches();
-      }
-      break;
-    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Wear to Date"),
