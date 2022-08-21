@@ -33,7 +33,8 @@ class WatchMethods {
     ..serviceInterval = si
     ..nextServiceDue = calculateNextService(pd, ls, si)
     ..notes = n
-    ..wearList = <DateTime>[];
+    ..wearList = <DateTime>[]
+    ..filteredWearList = <DateTime>[];
 
     final box = Boxes.getWatches();
 
