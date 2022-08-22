@@ -45,5 +45,9 @@
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To allow selection of watch images</string>
+	<key>NSCameraUsageDescription</key>
+    <string>To allow camera to take pictures of watches</string>
 </dict>
 </plist>
