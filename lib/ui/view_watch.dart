@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +10,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 // import 'package:wristcheck/copy/snackbars.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class ViewWatch extends StatefulWidget {
@@ -22,6 +26,47 @@ class ViewWatch extends StatefulWidget {
 }
 
 class _ViewWatchState extends State<ViewWatch> {
+
+  //Temporary file to display watch image
+  File? image;
+
+  //ToDo: Refactor out into utility class?
+//pickImage() allows the user to pick the image from either the gallery or camera
+  Future pickImage({required ImageSource source,
+  }) async {
+    //required Future<File> Function(File file) cropImage}
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return null;
+
+      final imageTemporary = File(image.path);
+      var croppedImage = await cropImage(imageTemporary);
+      var returnImage;
+     // croppedImage == null? var returnImage = File(croppedImage.path) : return null;
+      if(croppedImage == null){
+        return null;
+    } else{
+         returnImage = File(croppedImage.path);
+         setState(() => this.image = returnImage);
+      }
+
+
+      // return cropSquareImage(File(imageTemporary.path)) as File;
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+      //ToDo: Implement error handling
+      return null;
+    }
+  }
+
+  Future<CroppedFile?> cropImage(File imageFile) async{
+    return await ImageCropper.platform.cropImage(sourcePath: imageFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      aspectRatioPresets: [CropAspectRatioPreset.square]
+    );
+  }
+
+
 
   //create instance variables to hold element values of the given watch element
   String _serialNo = "Not Provided";
@@ -582,17 +627,24 @@ class _ViewWatchState extends State<ViewWatch> {
           flex: 6,
           child: Container(
               margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(40),
-              decoration: BoxDecoration(
+              //Padding and borderradius not required once image is selected
+              padding: image == null? const EdgeInsets.all(40): null,
+              decoration: image == null? BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   //ToDo: Ensure border colour works on both light and dark theme
-                  border: Border.all(width: 2, color: Colors.white)),
-              child: const Icon(Icons.camera_alt,size: 100)),
+                  border: Border.all(width: 2, color: Colors.white)) : null,
+              child: image == null? const Icon(Icons.camera_alt, size: 100): Image.file(image!)),
+              // child: image == null? const Icon(Icons.camera_alt,size: 100)):,
 
           ),
-        const Expanded(
+        Expanded(
           flex: 2,
-          child: Icon(Icons.add_a_photo_outlined),
+          child: InkWell(
+              child: const Icon(Icons.add_a_photo_outlined),
+          onTap: (){
+                pickImage(source: ImageSource.gallery);
+          }
+          ),
         ),
 
 
