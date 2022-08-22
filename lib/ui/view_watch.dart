@@ -62,9 +62,21 @@ class _ViewWatchState extends State<ViewWatch> {
   Future<CroppedFile?> cropImage(File imageFile) async{
     return await ImageCropper.platform.cropImage(sourcePath: imageFile.path,
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-      aspectRatioPresets: [CropAspectRatioPreset.square]
+      aspectRatioPresets: [CropAspectRatioPreset.square],
+      compressQuality: 70,
+      compressFormat: ImageCompressFormat.jpg,
+      uiSettings: [androidUIsettingsForCrop(),iOSUIsettingsForCrop()]
     );
   }
+
+//create UI settings for the crop
+  AndroidUiSettings androidUIsettingsForCrop() => AndroidUiSettings(
+    toolbarTitle: "Crop watch image",
+  );
+
+  IOSUiSettings iOSUIsettingsForCrop() => IOSUiSettings(
+    title: "Crop Image"
+  );
 
 
 
@@ -633,7 +645,12 @@ class _ViewWatchState extends State<ViewWatch> {
                   borderRadius: BorderRadius.circular(100),
                   //ToDo: Ensure border colour works on both light and dark theme
                   border: Border.all(width: 2, color: Colors.white)) : null,
-              child: image == null? const Icon(Icons.camera_alt, size: 100): Image.file(image!)),
+              //If we have an image display it (ClipRRect used to round corners to soften the image)
+              child: image == null? const Icon(Icons.camera_alt, size: 100): ClipRRect(
+                  child: Image.file(image!),
+                borderRadius: BorderRadius.circular(16),
+              )
+          ),
               // child: image == null? const Icon(Icons.camera_alt,size: 100)):,
 
           ),
@@ -641,8 +658,10 @@ class _ViewWatchState extends State<ViewWatch> {
           flex: 2,
           child: InkWell(
               child: const Icon(Icons.add_a_photo_outlined),
-          onTap: (){
-                pickImage(source: ImageSource.gallery);
+          onTap: () async {
+
+                var imageSource = await _imageSourcePopUp();
+                pickImage(source: imageSource!);
           }
           ),
         ),
@@ -743,6 +762,27 @@ class _ViewWatchState extends State<ViewWatch> {
             ))
       ],
     );
+  }
+
+  //Triggers a bottom sheet giving the user the option to select the picture from the camera or gallery
+  Future<ImageSource?> _imageSourcePopUp() async {
+    return showModalBottomSheet(context: context,
+        builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined),
+              title: const Text("Take with Camera"),
+              onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
+            ),
+            ListTile(
+                leading: const Icon(Icons.camera_roll_outlined),
+                title: const Text("Select from Gallery"),
+                onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
+            )
+          ],
+
+        ));
   }
 
 }
