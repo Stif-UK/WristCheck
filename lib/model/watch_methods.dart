@@ -130,9 +130,7 @@ class WatchMethods {
     print("image name set to $name");
 
     //if no image path has been saved return null? otherwise give the path name
-    return name == ""? File("") : File("${directory.path}/$name");
-
-
+    return name == ""? null : File("${directory.path}/$name");
   }
 
 

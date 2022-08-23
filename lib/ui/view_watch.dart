@@ -40,7 +40,7 @@ class _ViewWatchState extends State<ViewWatch> {
 
       final imageTemporary = File(image.path);
       var croppedImage = await cropImage(imageTemporary);
-      var returnImage;
+      File returnImage;
      // croppedImage == null? var returnImage = File(croppedImage.path) : return null;
       if(croppedImage == null){
         return null;
@@ -126,7 +126,7 @@ class _ViewWatchState extends State<ViewWatch> {
     return FutureBuilder<File?>(
         future: WatchMethods.getImage(widget.currentWatch),
         builder: (context, AsyncSnapshot<File?> snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData || snapshot.data == null) {
             try {
               snapshot.data == File("")? image = null :
               image = snapshot.data;
@@ -218,7 +218,10 @@ class _ViewWatchState extends State<ViewWatch> {
                 )
             );
           } else {
-            return const CircularProgressIndicator();
+            return Container(
+              alignment: Alignment.center,
+                child:  const CircularProgressIndicator()
+            );
           }
         }
           );
