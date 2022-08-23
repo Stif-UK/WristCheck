@@ -133,5 +133,18 @@ class WatchMethods {
     return name == ""? null : File("${directory.path}/$name");
   }
 
+  static Watches? getOldestorNewestWatch(List<Watches> watchBox, bool oldest){
+    List<Watches> datedWatches = watchBox.where((watch) => watch.purchaseDate != null).toList();
+    if(datedWatches.isEmpty ){
+      return null;
+    }
+    datedWatches.sort((a, b) => b.purchaseDate!.compareTo(a.purchaseDate!));
+
+    return oldest? datedWatches.last : datedWatches.first;
+
+
+
+  }
+
 
 }
