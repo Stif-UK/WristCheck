@@ -682,8 +682,7 @@ class _ViewWatchState extends State<ViewWatch> {
               padding: image == null? const EdgeInsets.all(40): null,
               decoration: image == null? BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  //ToDo: Ensure border colour works on both light and dark theme
-                  border: Border.all(width: 2, color: Colors.white)) : null,
+                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
               //If we have an image display it (ClipRRect used to round corners to soften the image)
               child: image == null? const Icon(Icons.camera_alt, size: 100): ClipRRect(
                   child: Image.file(image!),
@@ -714,7 +713,6 @@ class _ViewWatchState extends State<ViewWatch> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        //ToDo: Disable this button unless status is 'In Collection'
         ElevatedButton(
             child: const Text("Wear this watch today"),
           onPressed: () {
