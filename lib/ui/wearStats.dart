@@ -60,7 +60,7 @@ class _WearStatsState extends State<WearStats> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Wear to Date"),
+        title: const Text("Wear Stats"),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
