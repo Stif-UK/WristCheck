@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
@@ -101,6 +104,35 @@ class WatchMethods {
 
     }
     return false;
+  }
+
+  //Helper method to save the watch image to the file system and add a reference
+  //to the instance variable of the given watch
+  static Future<File> saveImage(String imagePath, Watches currentWatch) async {
+    //Get the directory and save the file
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final image = File('${directory.path}/$name');
+    print("creating image file at ${directory.path}/$name");
+    //save the filename to the watches instance variable and save it
+    currentWatch.frontImagePath = "/$name";
+    print("updating instance variable to ${currentWatch.frontImagePath}");
+    currentWatch.save();
+
+    return File(imagePath).copy(image.path);
+  }
+
+  //Helper method to return the watch image
+  static Future<File?> getImage(Watches currentWatch) async {
+    print("getImage() called");
+    final directory = await getApplicationDocumentsDirectory();
+    final name = currentWatch.frontImagePath ?? "";
+    print("image name set to $name");
+
+    //if no image path has been saved return null? otherwise give the path name
+    return name == ""? File("") : File("${directory.path}/$name");
+
+
   }
 
 

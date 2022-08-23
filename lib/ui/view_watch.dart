@@ -27,8 +27,7 @@ class ViewWatch extends StatefulWidget {
 
 class _ViewWatchState extends State<ViewWatch> {
 
-  //Temporary file to display watch image
-  File? image;
+
 
   //ToDo: Refactor out into utility class?
 //pickImage() allows the user to pick the image from either the gallery or camera
@@ -47,6 +46,7 @@ class _ViewWatchState extends State<ViewWatch> {
         return null;
     } else{
          returnImage = File(croppedImage.path);
+         WatchMethods.saveImage(croppedImage.path, widget.currentWatch);
          setState(() => this.image = returnImage);
       }
 
@@ -108,6 +108,9 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canRecordWear = false;
   //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable. Would need to make this list of variables into a map
 
+  //Temporary file to display watch image
+  File? image;
+
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
 
@@ -117,84 +120,117 @@ class _ViewWatchState extends State<ViewWatch> {
 
     //check if wear button should be enabled
     widget.currentWatch.status == "In Collection"? canRecordWear = true : canRecordWear = false;
+    //If there is a saved image, get it
+    // image = WatchMethods.getImage(widget.currentWatch)
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Icon(Icons.edit),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          //margin: const EdgeInsets.all(10.0),
-          child: Form(
-            key: _editKey,
-            //Build the page layout
-            child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+    return FutureBuilder<File?>(
+        future: WatchMethods.getImage(widget.currentWatch),
+        builder: (context, AsyncSnapshot<File?> snapshot) {
+          if (snapshot.hasData) {
+            try {
+              snapshot.data == File("")? image = null :
+              image = snapshot.data;
+            } on Exception catch(e){
+              print("Exception caught in implementing file: $e");
+              image = null;
+          }
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                      "${widget.currentWatch.manufacturer} ${widget.currentWatch
+                          .model}"),
+                  actions: const [
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(Icons.edit),
+                    )
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    //margin: const EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _editKey,
+                      //Build the page layout
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
 
-              //Placeholder image picker
-              _displayWatchImage(),
+                          //Placeholder image picker
+                          _displayWatchImage(),
 
-              //Wear button and stats
-              _buildWearRow(),
+                          //Wear button and stats
+                          _buildWearRow(),
 
-              const SizedBox(height: 20),
-
-
-              //build Manufacturer row
-              const Text("Manufacturer:"),
-              _buildManufacturerRow(),
-
-              //build model row
-              const Text("Model:"),
-              _buildModelRow(),
-
-              //Build Serial Number row
-              const Text("Serial Number:"),
-              _buildSerialNumberRow(),
-
-              //build favourite toggle
-              _buildFavouriteRow(widget.currentWatch),
-
-              //build collection status toggle
-              _buildStatusDropdownRow(),
-
-              const SizedBox(height: 10),
-              //build purchase date row
-              _buildPurchaseDateRow(),
-              const SizedBox(height: 10),
-
-              //build service interval selector
-              _buildServiceIntervalDropdown(),
-              const SizedBox(height: 10),
-
-              //build last serviced date field
-              _buildLastServicedDateRow(),
-              const SizedBox(height: 10,),
+                          const SizedBox(height: 20),
 
 
-              //Next service due by field is not editable
-              widget.currentWatch.nextServiceDue != null? Text("Next service date by: ${DateFormat.yMMMd().format(widget.currentWatch.nextServiceDue!)}"): const Text("Next Service due by: N/A"),
-              const SizedBox(height: 10),
+                          //build Manufacturer row
+                          const Text("Manufacturer:"),
+                          _buildManufacturerRow(),
 
-              //Build Notes Row
-              const Text("Notes:"),
-              _buildNotesRow(),
+                          //build model row
+                          const Text("Model:"),
+                          _buildModelRow(),
 
-            ],
-        ),
-          ),),
-      )
-    );
+                          //Build Serial Number row
+                          const Text("Serial Number:"),
+                          _buildSerialNumberRow(),
+
+                          //build favourite toggle
+                          _buildFavouriteRow(widget.currentWatch),
+
+                          //build collection status toggle
+                          _buildStatusDropdownRow(),
+
+                          const SizedBox(height: 10),
+                          //build purchase date row
+                          _buildPurchaseDateRow(),
+                          const SizedBox(height: 10),
+
+                          //build service interval selector
+                          _buildServiceIntervalDropdown(),
+                          const SizedBox(height: 10),
+
+                          //build last serviced date field
+                          _buildLastServicedDateRow(),
+                          const SizedBox(height: 10,),
+
+
+                          //Next service due by field is not editable
+                          widget.currentWatch.nextServiceDue != null
+                              ? Text(
+                              "Next service date by: ${DateFormat.yMMMd()
+                                  .format(
+                                  widget.currentWatch.nextServiceDue!)}")
+                              : const Text("Next Service due by: N/A"),
+                          const SizedBox(height: 10),
+
+                          //Build Notes Row
+                          const Text("Notes:"),
+                          _buildNotesRow(),
+
+                        ],
+                      ),
+                    ),),
+                )
+            );
+          } else {
+            return const CircularProgressIndicator();
+          }
+        }
+          );
+
+
+        //end FutureBuilder here
   }
+
+
+
+
+
 
   //Favourite selector toggle
   Widget _buildFavouriteRow(Watches watch){
