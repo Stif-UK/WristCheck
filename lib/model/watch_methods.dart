@@ -34,7 +34,8 @@ class WatchMethods {
     ..nextServiceDue = calculateNextService(pd, ls, si)
     ..notes = n
     ..wearList = <DateTime>[]
-    ..filteredWearList = <DateTime>[];
+    ..filteredWearList = <DateTime>[]
+    ..frontImagePath = "";
 
     final box = Boxes.getWatches();
 
