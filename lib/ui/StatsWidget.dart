@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/collection_stats.dart';
 import 'package:wristcheck/ui/wearStats.dart';
 
 class StatsWidget extends StatefulWidget {
@@ -62,7 +63,9 @@ class _StatsWidgetState extends State<StatsWidget> {
                       fontSize: 30,
                     ),),
                 ),
-                onPressed: (){ },
+                onPressed: (){
+                  Get.to(()=>const CollectionStats());
+                },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
