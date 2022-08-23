@@ -667,7 +667,6 @@ class _ViewWatchState extends State<ViewWatch> {
 
 
   Widget _displayWatchImage(){
-    //TODO: Implement image picker and data model
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children:  [
@@ -677,6 +676,7 @@ class _ViewWatchState extends State<ViewWatch> {
         Expanded(
           flex: 6,
           child: Container(
+            height: 180,
               margin: const EdgeInsets.all(20),
               //Padding and borderradius not required once image is selected
               padding: image == null? const EdgeInsets.all(40): null,
@@ -689,7 +689,6 @@ class _ViewWatchState extends State<ViewWatch> {
                 borderRadius: BorderRadius.circular(16),
               )
           ),
-              // child: image == null? const Icon(Icons.camera_alt,size: 100)):,
 
           ),
         Expanded(
