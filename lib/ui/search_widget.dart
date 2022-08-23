@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/ui/search_finder.dart';
 
 class SearchWidget extends SearchDelegate{
@@ -20,8 +21,7 @@ class SearchWidget extends SearchDelegate{
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
-        //ToDo: Should this be updated to use Get routing for consistency
-        close(context, null); // for closing the search page and going back
+        Get.back(); // for closing the search page and going back
       },
     );
   }
