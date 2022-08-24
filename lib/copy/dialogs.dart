@@ -39,4 +39,13 @@ class WristCheckDialogs {
     );
   }
 
+  static getCollectionStatsDialog(){
+    Get.defaultDialog(
+      title: "Collection Stats",
+      barrierDismissible: true,
+      middleText: "All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as 'oldest watch') the data is only as accurate as the data provided to the application.\n"
+          "\nYou can edit data associated with individual watches by navigating to them via the main watch box screens."
+    );
+  }
+
 }

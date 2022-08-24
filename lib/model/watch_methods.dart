@@ -146,5 +146,29 @@ class WatchMethods {
 
   }
 
+  static List<Watches> getMostOrLeastWornWatch(List<Watches> watchBox, bool most){
+    //create a copy list to sort and iterate over
+    List<Watches> orderedByWearCount = List.from(watchBox);
+    orderedByWearCount.sort((a, b) => a.wearList.length.compareTo(b.wearList.length));
+
+
+    //get the wear count of the last watch in the ordered collection
+    int comparable = 0;
+    most? comparable = orderedByWearCount.last.wearList.length : orderedByWearCount.first.wearList.length;
+
+    // int longest = orderedByWearCount.last.wearList.length;
+    // int shortest = orderedByWearCount.first.wearList.length;
+    //create a list to return
+    List<Watches> returnlist = [];
+    //now check if any other watches have been worn the same amount of times - if so add them to the list
+    for (var watch in orderedByWearCount) {
+      if(watch.wearList.length == comparable){
+        returnlist.add(watch);
+      }
+
+    }
+    return returnlist;
+  }
+
 
 }
