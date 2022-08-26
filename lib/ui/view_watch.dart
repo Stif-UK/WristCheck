@@ -90,7 +90,7 @@ class _ViewWatchState extends State<ViewWatch> {
   DateTime? _purchaseDate;
   DateTime? _lastServiceDate;
   //variables for status dropdown
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
+  final List<String> _statusList = ["In Collection", "Sold", "Wishlist","Archived"];
   String? _selectedStatus = "In Collection";
   //variables for service schedule dropdown
   final List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10];
@@ -139,11 +139,12 @@ class _ViewWatchState extends State<ViewWatch> {
                   title: Text(
                       "${widget.currentWatch.manufacturer} ${widget.currentWatch
                           .model}"),
-                  actions: const [
+                  actions: [
                     Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Icon(Icons.edit),
-                    )
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(icon: Icon(Icons.help_outline),
+                      onPressed: (){WristCheckDialogs.getViewWatchDialog();},),
+                    ),
                   ],
                 ),
                 body: SingleChildScrollView(

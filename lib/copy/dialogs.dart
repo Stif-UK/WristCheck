@@ -48,4 +48,15 @@ class WristCheckDialogs {
     );
   }
 
+  static getViewWatchDialog(){
+    Get.defaultDialog(
+        title: "Watch Info",
+        barrierDismissible: true,
+        middleText: "This page allows viewing and editing of watch information. \n\n"
+            "Select 'Wear Today' to record that the watch has been worn today - the calendar icon allows editing of the wear history"
+            "\n\nSet a purchase date and service interval to create a service schedule for this watch."
+            "\n\nChange the status to move the watch between your Wish List, Collection and Sold lists, or chose Archive to remove the watch from the main views (Archived watches can still be found under app settings)"
+    );
+  }
+
 }
