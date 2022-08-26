@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/Copy/PrivacyPolicyCopy.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
 
 class PrivacyPolicy extends StatelessWidget{
 
@@ -11,7 +13,7 @@ class PrivacyPolicy extends StatelessWidget{
         leading:  IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
       ),
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
 
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,8 +26,15 @@ class PrivacyPolicy extends StatelessWidget{
                   fontWeight: FontWeight.bold,
                 ),),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+              child: Text("Date: ${PrivacyPolicyCopy.policyDate}"),
+            ),
+            const Divider(thickness: 2.0,),
 
-            Text(PrivacyPolicyCopy.privacyWording),
+            Expanded(
+                child: Markdown(data: PrivacyPolicyCopy.privacyWording,)
+            ),
           ],),
       ),
     );
