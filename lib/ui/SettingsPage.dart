@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/ui/archived.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 
 
@@ -43,7 +44,15 @@ class _SettingsPageState extends State<SettingsPage> {
 
             },
           ),
-          const Divider(),
+          const Divider(thickness: 2,),
+           ListTile(
+            title: const Text("Show Archived Watches"),
+              leading: const Icon(Icons.archive_outlined),
+            onTap: (){
+              Get.to(()=> Archived());
+            }
+          ),
+          const Divider(thickness: 2,),
           ListTile(
             title:const Text("Delete collection"),
             leading: const Icon(Icons.warning),
@@ -66,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
               }
             )
           ),
-          const Divider()
+          const Divider(thickness: 2,),
         ],
       ),
 

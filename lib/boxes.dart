@@ -22,6 +22,10 @@ class Boxes {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Wishlist").toList();
   }
 
+  static List<Watches> getArchivedWatches() {
+    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Archived").toList();
+  }
+
   static List<Watches> getFavouriteWatches() {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.favourite == true && watch.status != "Sold").toList();
   }
