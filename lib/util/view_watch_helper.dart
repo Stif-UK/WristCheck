@@ -41,7 +41,7 @@ class ViewWatchHelper{
     }else {
       var wearList = currentWatch.wearList;
       wearList.sort();
-      return WristCheckFormatter.getFormattedDate(wearList.last);
+      return wearList.last.difference(DateTime.now()).inDays == 0? "Today" : WristCheckFormatter.getFormattedDate(wearList.last);
     }
   }
 }
