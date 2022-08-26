@@ -19,6 +19,7 @@ class CollectionStats extends StatelessWidget {
     List<Watches> longestWorn = WatchMethods.getMostOrLeastWornWatch(watchBox, true);
     List<Watches> shortestWorn = WatchMethods.getMostOrLeastWornWatch(watchBox, false);
     List<Watches> wishList = Boxes.getWishlistWatches();
+    List<Watches> soldList = Boxes.getSoldWatches();
 
     return Scaffold(
       appBar: AppBar(
@@ -81,9 +82,18 @@ class CollectionStats extends StatelessWidget {
 
                   ListTile(
                       isThreeLine: true,
-                      leading: const Icon(Icons.stacked_bar_chart_outlined),
-                      title: const Text("Wishlisted Watches"),
-                      subtitle: wishList.length == 1? Text("${wishList.length} watche") : Text("${wishList.length} watches")
+                      leading: const Icon(Icons.cake_outlined),
+                      title: const Text("Wish listed Watches"),
+                      subtitle: wishList.length == 1? Text("${wishList.length} watch") : Text("${wishList.length} watches")
+
+                  ),
+                  const Divider(thickness: 2,),
+
+                  ListTile(
+                      isThreeLine: true,
+                      leading: const Icon(Icons.monetization_on_outlined),
+                      title: const Text("Sold Watches"),
+                      subtitle: soldList.length == 1? Text("${soldList.length} watch") : Text("${soldList.length} watches")
 
                   ),
                   const Divider(thickness: 2,),

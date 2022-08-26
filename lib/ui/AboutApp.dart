@@ -20,7 +20,10 @@ class AboutApp extends StatelessWidget{
             children: [
               AboutAppCopy.getAboutWristCheckCopy(),
             ],),
-            const ExpansionTile(title: Text("About StifDEV")),
+            ExpansionTile(title: const Text("About StifDEV"),
+            children: [
+              AboutAppCopy.getAboutDeveloperCopy(),
+            ],),
             ExpansionTile(title: const Text("Acknowledgements"),
             children: [
               AboutAppCopy.getAcknowledgementCopy(),

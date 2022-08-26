@@ -14,6 +14,17 @@ class AboutAppCopy{
     );
   }
 
+  static Widget getAboutDeveloperCopy(){
+    return const Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Text("Who or what is a StifDEV? \n"
+          "\nStifDEV is simply the name I use to release my applications, essentially a 'nom de plume'. There's a long, and not very interesting, story behind the name,"
+          "but in short I'm just a guy who likes to play around with code in my spare time.\n"
+          "\nWith a busy full time job and young children my time to do so is limited, but hopefully I've managed to build an application that others will get some value from - if you do like the app, please consider leaving a review to let me know!"
+      ),
+    );
+  }
+
   static Widget getAcknowledgementCopy(){
     return Padding(
       padding: const EdgeInsets.all(12.0),
