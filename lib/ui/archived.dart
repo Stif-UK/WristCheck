@@ -5,10 +5,16 @@ import 'package:wristcheck/boxes.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
-class Archived extends StatelessWidget {
+class Archived extends StatefulWidget {
   Archived({Key? key}) : super(key: key);
 
+  @override
+  State<Archived> createState() => _ArchivedState();
+}
+
+class _ArchivedState extends State<Archived> {
   var watchBox = Boxes.getWatches();
 
   @override
@@ -26,29 +32,50 @@ class Archived extends StatelessWidget {
         body: ValueListenableBuilder<Box<Watches>>(
             valueListenable: watchBox.listenable(),
             builder: (context, box, _){
-              List<Watches> wishList = Boxes.getArchivedWatches();
+              List<Watches> archiveList = Boxes.getArchivedWatches();
 
 
 
-              return wishList.isEmpty?Container(
+              return archiveList.isEmpty?Container(
                 alignment: Alignment.center,
                 child: const Text("Your Archive is currently empty",
                   textAlign: TextAlign.center,),
               ):
 
               ListView.separated(
-                itemCount: wishList.length,
+                itemCount: archiveList.length,
                 itemBuilder: (BuildContext context, int index){
-                  var watch = wishList.elementAt(index);
+                  final item = archiveList[index].toString();
+                  var watch = archiveList.elementAt(index);
                   String? _title = "${watch.manufacturer} ${watch.model}";
                   String? _status = "${watch.status}";
 
 
-                  return ListTile(
-                    leading: const Icon(Icons.watch),
-                    title: Text(_title),
-                    subtitle: Text(_status),
-                    onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
+                  return Dismissible(
+                    key: Key(item),
+                    direction: DismissDirection.endToStart,
+
+                    onDismissed: (direction) {
+                      setState(() {
+                        archiveList.removeAt(index);
+                        var watchInfo = "${watch.manufacturer} ${watch.model}";
+                        watchBox.delete(watch.key);
+                        // Then show a snackbar.
+                        WristCheckSnackBars.deleteWatch(watchInfo);
+                      });
+
+                    },
+
+                    child: ListTile(
+                      leading: const Icon(Icons.watch),
+                      title: Text(_title),
+                      subtitle: Text(_status),
+                      onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
+                    ),
+
+                    background: Container(
+                    alignment: Alignment.center,color: Colors.red,
+                    child: const Text("Deleting"),),
                   );
                 },
                 separatorBuilder: (context, index){

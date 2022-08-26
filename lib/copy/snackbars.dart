@@ -33,6 +33,15 @@ class WristCheckSnackBars{
     );
   }
 
+  static deleteWatch(String info){
+    Get.snackbar(
+      "Watch Deleted",
+      "$info has been permanently deleted",
+      icon: const Icon(Icons.archive_rounded),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
 
 
 
