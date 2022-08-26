@@ -48,6 +48,10 @@ class AboutAppCopy{
           Text("Syncfusion Charts have been used to draw charts."
               "\nAvailable at pub.dev/packages/syncfusion_flutter_charts \n"
               "Distributed and used under the Syncfusion Community Licence."),
+          Divider(thickness: 2),
+          Text("Image_Cropper library has been used to allow cropping images uploaded to the app"
+              "\nAvailable at pub.dev/packages/image_cropper  \n"
+              "Distributed under the BSD-3-clause licence."),
           Divider(thickness: 2)
         ],
       ),
