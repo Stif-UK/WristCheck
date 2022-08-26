@@ -81,33 +81,33 @@ class _StatsWidgetState extends State<StatsWidget> {
 
 
         //Button 3: Link to Watch Stats
-        const SizedBox(height: 20),
-        Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: (MediaQuery.of(context).size.width)*0.8,
-            height: (MediaQuery.of(context).size.height)*0.15,
-            child: ElevatedButton(
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text("Watch Stats",
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),),
-                ),
-                onPressed: (){ },
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            side: const BorderSide(color: Colors.black)
-                        )
-
-                    )
-                )
-            ),
-          ),
-        )
+        // const SizedBox(height: 20),
+        // Align(
+        //   alignment: Alignment.center,
+        //   child: SizedBox(
+        //     width: (MediaQuery.of(context).size.width)*0.8,
+        //     height: (MediaQuery.of(context).size.height)*0.15,
+        //     child: ElevatedButton(
+        //         child: const Padding(
+        //           padding: EdgeInsets.all(12.0),
+        //           child: Text("Watch Stats",
+        //             style: TextStyle(
+        //               fontSize: 30,
+        //             ),),
+        //         ),
+        //         onPressed: (){ },
+        //         style: ButtonStyle(
+        //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //                 RoundedRectangleBorder(
+        //                     borderRadius: BorderRadius.circular(20.0),
+        //                     side: const BorderSide(color: Colors.black)
+        //                 )
+        //
+        //             )
+        //         )
+        //     ),
+        //   ),
+        // )
 
       ],
     );
