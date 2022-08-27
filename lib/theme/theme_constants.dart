@@ -10,6 +10,11 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  disabledColor: Colors.grey
+  disabledColor: Colors.grey,
+  canvasColor: Colors.black,
+  backgroundColor: Colors.black12,
+  primaryColor: Colors.black,
+  accentColor: Colors.lightBlue,
+
 
 );
