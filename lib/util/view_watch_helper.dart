@@ -41,7 +41,14 @@ class ViewWatchHelper{
     }else {
       var wearList = currentWatch.wearList;
       wearList.sort();
-      return wearList.last.difference(DateTime.now()).inDays == 0? "Today" : WristCheckFormatter.getFormattedDate(wearList.last);
+      return ViewWatchHelper.isDateToday(wearList.last)? "Today" : WristCheckFormatter.getFormattedDate(wearList.last);
     }
+  }
+  
+  static bool isDateToday(DateTime submittedDate){
+    final now = DateTime.now();
+    return now.day == submittedDate.day &&
+    now.month == submittedDate.month &&
+    now.year == submittedDate.year;
   }
 }
