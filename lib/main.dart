@@ -23,6 +23,7 @@ Future main() async{
           create: (_) => DatabaseProvider(),
 
           child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
           title: 'WristCheck',
 
         theme: lightTheme ,

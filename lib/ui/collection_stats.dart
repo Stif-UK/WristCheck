@@ -74,6 +74,7 @@ class CollectionStats extends StatelessWidget {
                       isThreeLine: true,
                       leading: const Icon(Icons.stacked_bar_chart_outlined),
                       title: const Text("Least Worn"),
+                      //TODO: Bug here for least worn?
                       subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].model}\nWorn ${shortestWorn[0].wearList.length} times") : const Text("We've got a tie!")
 
                   ),
