@@ -14,7 +14,7 @@ class _WatchBoxParentState extends State<WatchBoxParent> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      children:[
+      children:const [
         WatchBoxHeader(),
 
         Expanded(
