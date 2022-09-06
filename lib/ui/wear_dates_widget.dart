@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/copy/snackbars.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 
 class WearDatesWidget extends StatefulWidget {
   // const WearDatesWidget({Key? key} ) : super(key: key);
@@ -38,7 +39,7 @@ bool _locked = true;
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
                 child: const Icon(Icons.add,),
-            //If page is 'locked' the 'add' butto does nothing
+            //If page is 'locked' the 'add' button does nothing
             onTap: _locked? null: () async {
                   DateTime? historicDate = await showDatePicker(
                   context: context,
@@ -47,9 +48,8 @@ bool _locked = true;
                   lastDate: DateTime(2100));
                   //if cancelled then date == null
                   if(historicDate == null) return;
-                  widget.currentWatch.wearList.add(historicDate);
-                  widget.currentWatch.save();
-                  WristCheckSnackBars.addWearSnackbar(widget.currentWatch, historicDate);
+                  WatchMethods.attemptToRecordWear(widget.currentWatch, historicDate, false);
+
                     setState(() {
 
                     });
@@ -86,7 +86,7 @@ bool _locked = true;
               alignment: Alignment.center,color: Colors.red,
             child: const Text("Deleting"),),
             child: ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
+              leading: const Icon(Icons.calendar_today_outlined),
               title: Text(WristCheckFormatter.getFormattedDate(wearList[index])),
             ),
           );

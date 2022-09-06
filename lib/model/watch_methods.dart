@@ -7,7 +7,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:flutter/material.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 
 class WatchMethods {
 
@@ -63,9 +63,13 @@ class WatchMethods {
   }
 
   static _recordWear(Watches watch, DateTime date){
-    watch.wearList.add(date);
-    watch.save();
-    WristCheckSnackBars.addWearSnackbar(watch, date);
+    if(!date.isAfter(DateTime.now())){
+      watch.wearList.add(date);
+      watch.save();
+      WristCheckSnackBars.addWearSnackbar(watch, date);
+    } else{
+      WristCheckDialogs.getFutureDateDialog();
+    }
 
   }
 
@@ -76,7 +80,6 @@ class WatchMethods {
       if(checkForDuplicateWear(watch, date)){
         //if there is a duplicate trigger a dialog
         await WristCheckDialogs.getDuplicateWearDialog(watch, date);
-        print("Dialog closed");
       } else {
         _recordWear(watch, date);
 
@@ -86,7 +89,7 @@ class WatchMethods {
   }
 
   static bool checkForDuplicateWear(Watches watch, DateTime date){
-    if(watch.wearList ==null || watch.wearList.isEmpty){
+    if(watch.wearList == null || watch.wearList.isEmpty){
       return false;
     }
     //check if the date already exists in our list
@@ -95,10 +98,8 @@ class WatchMethods {
     for (var date2 in watch.wearList.reversed) {
       var selectedDate = WristCheckFormatter.getFormattedDate(date2);
       if(inputDate == selectedDate){
-        print("These dates match: $inputDate ($date)& $selectedDate ($date2)");
         return true;
       }else{
-        print("no matches found");
         return false;
       }
 
@@ -124,10 +125,8 @@ class WatchMethods {
 
   //Helper method to return the watch image
   static Future<File?> getImage(Watches currentWatch) async {
-    print("getImage() called");
     final directory = await getApplicationDocumentsDirectory();
     final name = currentWatch.frontImagePath ?? "";
-    print("image name set to $name");
 
     //if no image path has been saved return null? otherwise give the path name
     return name == ""? null : File("${directory.path}/$name");

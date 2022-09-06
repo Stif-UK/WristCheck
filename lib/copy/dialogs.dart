@@ -81,4 +81,11 @@ class WristCheckDialogs {
     );
   }
 
+  static getFutureDateDialog(){
+    Get.defaultDialog(
+      title: "Error",
+      middleText: "Wear dates must be in the past, please select a different date."
+    );
+  }
+
 }
