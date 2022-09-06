@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/copy/aboutapp_copy.dart';
+import 'package:wristcheck/copy/whats_new_copy.dart';
 
 class AboutApp extends StatelessWidget{
 
@@ -28,7 +29,12 @@ class AboutApp extends StatelessWidget{
             children: [
               AboutAppCopy.getAcknowledgementCopy(),
 
-            ],)
+            ],),
+            ExpansionTile(title: const Text("Version History"),
+              children: [
+                WhatsNewCopy.getVersionHistory(context),
+
+              ],)
           ],
         ),
       ),
