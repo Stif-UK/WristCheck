@@ -1,6 +1,9 @@
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/copy/whats_new_copy.dart';
+import 'package:flutter/material.dart';
 
 class WristCheckDialogs {
 
@@ -65,6 +68,16 @@ class WristCheckDialogs {
         barrierDismissible: true,
         middleText: "When a watch status is marked as 'Archived' it is removed from the main collection and stored here."
             "\n\nWatches in the archive can be permanently deleted with a swipe to the left."
+    );
+  }
+
+  static getWhatsNewDialog(BuildContext context){
+    Get.defaultDialog(
+      title: "What's New?",
+      content: SizedBox(
+          width: (MediaQuery.of(context).size.width)*0.7,
+          height:(MediaQuery.of(context).size.width)*0.5,
+          child: Markdown(data: WhatsNewCopy.getLatestVersionCopy(),))
     );
   }
 

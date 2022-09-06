@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/theme/theme_constants.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,10 @@ Future main() async{
 
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
-  print("Hive box opened");
+
+  //Get SharedPreferences for watches
+  await WristCheckPreferences.init();
+
 
   runApp(
       ChangeNotifierProvider<DatabaseProvider>(
