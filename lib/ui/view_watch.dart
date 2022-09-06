@@ -772,7 +772,7 @@ class _ViewWatchState extends State<ViewWatch> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _addWearButton(),
+              widget.currentWatch.status == "In Collection"? _addWearButton() : const SizedBox(height: 10),
               const SizedBox(height: 10),
               //Show last worn date
               _displayLastWearDate(),
