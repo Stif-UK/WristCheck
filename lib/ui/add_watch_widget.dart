@@ -25,6 +25,7 @@ class _AddWatchState extends State<AddWatch> {
   DateTime? _lastServicedDate;
   int _serviceInterval = 0;
   String? _notes ="";
+  String? _referenceNumber = "";
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -75,6 +76,17 @@ class _AddWatchState extends State<AddWatch> {
       // No validation as null is acceptable
       onSaved: (String? value){
         _serialNumber = value;
+      },
+    );
+  }
+
+  //Serial Number form field
+  Widget _referenceNumberFormField(){
+    return TextFormField(
+      decoration: const InputDecoration(labelText: "Reference Number"),
+      // No validation as null is acceptable
+      onSaved: (String? value){
+        _referenceNumber = value;
       },
     );
   }
@@ -298,6 +310,7 @@ class _AddWatchState extends State<AddWatch> {
               ExpansionTile(title: const Text("Additional information (optional)"),
               children: [
                 _buildSerialNumberField(),
+                _referenceNumberFormField(),
                 _buildPurchaseDateField(),
                 const Divider(),
                 _buildLastServicedDateField(),
@@ -319,7 +332,7 @@ class _AddWatchState extends State<AddWatch> {
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes),
+                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?

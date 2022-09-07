@@ -13,7 +13,7 @@ class WatchMethods {
 
   //TODO: Update addWatch() to check for unique watch - watch already exists exception trigger dialog
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
-      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes){
+      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -23,6 +23,7 @@ class WatchMethods {
     DateTime? ls = lastServicedDate;
     int si = serviceInterval;
     String? n = notes;
+    String? rn = referenceNumber;
 
 
     final watch = Watches()
@@ -38,7 +39,8 @@ class WatchMethods {
     ..notes = n
     ..wearList = <DateTime>[]
     ..filteredWearList = <DateTime>[]
-    ..frontImagePath = "";
+    ..frontImagePath = ""
+    ..referenceNumber = rn;
 
     final box = Boxes.getWatches();
 
