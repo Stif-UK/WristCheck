@@ -88,10 +88,11 @@ class WristCheckDialogs {
     );
   }
 
-  static getHiddenStats(int openCount){
+  static getHiddenStats(int? _openCount, int? _wearCount){
     Get.defaultDialog(
         title: "Hidden Stats",
-        middleText: "You have opened this application $openCount times"
+        middleText: "You have opened this application $_openCount times\n\n"
+            "You have tracked wearing your watches $_wearCount times"
     );
   }
 

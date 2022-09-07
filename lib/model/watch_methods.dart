@@ -6,6 +6,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 
@@ -68,6 +69,10 @@ class WatchMethods {
     if(!date.isAfter(DateTime.now())){
       watch.wearList.add(date);
       watch.save();
+      //increment the lifetime tracked wear count
+      int? _wearCount = WristCheckPreferences.getWearCount();
+      _wearCount == null? WristCheckPreferences.setWearCount(1) : WristCheckPreferences.setWearCount(_wearCount+1);
+      //Trigger a snackbar
       WristCheckSnackBars.addWearSnackbar(watch, date);
     } else{
       WristCheckDialogs.getFutureDateDialog();

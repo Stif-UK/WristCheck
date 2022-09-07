@@ -6,6 +6,7 @@ class WristCheckPreferences {
 
   static const _keyLatestVersion = 'latestAppVersion';
   static const _keyOpenCount = 'openCount';
+  static const _keyWearCount = 'wearCount';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -21,6 +22,13 @@ class WristCheckPreferences {
 
   static Future setOpenCount(int openCount) async =>
       await _preferences.setInt(_keyOpenCount, openCount);
+
+  //Getter and setter for track wear count
+  static int? getWearCount() => _preferences.getInt(_keyWearCount);
+
+  static Future setWearCount(int wearCount) async =>
+      await _preferences.setInt(_keyWearCount, wearCount);
+
 
 
 }
