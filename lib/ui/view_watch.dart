@@ -82,6 +82,7 @@ class _ViewWatchState extends State<ViewWatch> {
 
   //create instance variables to hold element values of the given watch element
   String _serialNo = "Not Provided";
+  String _referenceNo = "Not Provided";
   String _notes = "";
   String _manufacturer = "";
   String _model ="";
@@ -100,6 +101,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canEditManufacturer = false;
   bool canEditModel = false;
   bool canEditSerialNo = false;
+  bool canEditReferenceNo = false;
   bool canEditNotes = false;
   bool canEditStatus = false;
   bool canEditServiceInterval = false;
@@ -179,6 +181,10 @@ class _ViewWatchState extends State<ViewWatch> {
                           //Build Serial Number row
                           const Text("Serial Number:"),
                           _buildSerialNumberRow(),
+
+                          //Build Reference Number row
+                          const Text("Reference Number:"),
+                          _buildReferenceNumberRow(),
 
                           //build favourite toggle
                           _buildFavouriteRow(widget.currentWatch),
@@ -447,6 +453,52 @@ class _ViewWatchState extends State<ViewWatch> {
                     widget.currentWatch.save();
                   }
                   canEditSerialNo = !canEditSerialNo;
+                })
+            )
+        )
+      ],
+    );
+  }
+
+  Widget _buildReferenceNumberRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 8,
+          child: TextFormField(
+            initialValue: widget.currentWatch.referenceNumber,
+            enabled: canEditReferenceNo,
+            onSaved: (String? value){
+              value != null? _referenceNo = value : _referenceNo = "Not Provided";
+            } ,
+            decoration: InputDecoration(
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).disabledColor,
+                    )
+                ),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                )
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child:  InkWell(
+                child: ViewWatchHelper.getEditIcon(canEditReferenceNo),
+                onTap: () => setState(() {
+                  //if the field isn't empty, trigger it's save() method which sets the instance variable referenceNo
+                  _editKey.currentState != null? _editKey.currentState!.save(): print("state is null");
+                  //if save is hit, we then trigger the update on the database only if it has changed
+                  if(canEditReferenceNo && widget.currentWatch.referenceNumber != _referenceNo) {
+                    widget.currentWatch.referenceNumber = _referenceNo;
+                    widget.currentWatch.save();
+                  }
+                  canEditReferenceNo = !canEditReferenceNo;
                 })
             )
         )
