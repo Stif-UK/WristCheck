@@ -88,4 +88,11 @@ class WristCheckDialogs {
     );
   }
 
+  static getHiddenStats(int openCount){
+    Get.defaultDialog(
+        title: "Hidden Stats",
+        middleText: "You have opened this application $openCount times"
+    );
+  }
+
 }

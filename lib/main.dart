@@ -19,7 +19,8 @@ Future main() async{
   await Hive.openBox<Watches>("WatchBox");
 
   //Get SharedPreferences for watches
-  await WristCheckPreferences.init();
+  await WristCheckPreferences.init().then((_) => _updateOpenCount());
+  
 
 
   runApp(
@@ -44,4 +45,9 @@ Future main() async{
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+}
+
+void _updateOpenCount(){
+  int? currentCount = WristCheckPreferences.getOpenCount();
+  currentCount == null? WristCheckPreferences.setOpenCount(1) : WristCheckPreferences.setOpenCount(currentCount+1);
 }

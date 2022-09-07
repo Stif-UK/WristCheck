@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -23,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _darkModeToggle = false;
   final watchBox = Boxes.getWatches();
   String _buildVersion = "Not Determined";
+  int _clickCount = 0;
 
 
   @override
@@ -99,9 +102,18 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
 
-          SizedBox(
-            height: 50,
-            child: Text("App Version: $_buildVersion")
+          GestureDetector(
+            onTap: (){
+              _clickCount = _clickCount+1;
+              if(_clickCount > 5){
+                int? _count = WristCheckPreferences.getOpenCount();
+                _count == null? WristCheckDialogs.getHiddenStats(0) : WristCheckDialogs.getHiddenStats(_count);
+              }
+            },
+            child: SizedBox(
+              height: 50,
+              child: Text("App Version: $_buildVersion")
+            ),
           )
         ],
       ),
