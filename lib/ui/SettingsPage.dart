@@ -7,6 +7,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:wristcheck/ui/backup_restore.dart';
 
 
 
@@ -73,6 +74,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: (){
                     Get.to(()=> Archived());
                   }
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                    title: const Text("Backup / Restore Database"),
+                    leading: const Icon(Icons.save_alt),
+                    onTap: (){
+                      Get.to(()=> BackupRestore());
+                    }
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
