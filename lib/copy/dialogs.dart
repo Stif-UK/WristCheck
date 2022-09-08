@@ -71,6 +71,17 @@ class WristCheckDialogs {
     );
   }
 
+  static getBackupHelpDialog(){
+    Get.defaultDialog(
+        title: "Backup / Restore",
+        barrierDismissible: true,
+        middleText: "Getting a new phone or just want a backup incase the worst happens?\n You're in the right place!"
+            "\n\nWhen you create a backup a file is stored on your phone that you can then transfer elsewhere."
+            "\n\nTo restore the database on a new device simply open the file via the 'restore' option"
+            "\n\nNote: Restoring a database will clear down your existing data and REPLACE it with the backup"
+    );
+  }
+
   static getWhatsNewDialog(BuildContext context){
     Get.defaultDialog(
       title: "What's New?",

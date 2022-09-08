@@ -62,7 +62,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       _darkModeToggle = value;
 
-                      print(_darkModeToggle);
                     });
 
                   },
