@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:hive/hive.dart';
+import 'package:file_picker/file_picker.dart';
 
 Future<void> backupHiveBox<T>(String boxName, String backupPath) async {
   final box = await Hive.openBox<T>(boxName);
