@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/boxes.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -12,29 +15,58 @@ class BackupRestoreMethods {
     }
   }
 
-  static Future<void> backupHiveBox<T>(String boxName, String backupPath) async {
-    final box = await Hive.openBox<T>(boxName);
+  static Future<void> backupWatchBox<Watches>(String backupPath) async {
+    print("Backup watchbox called");
+    // DateTime backupTime = DateTime.now();
+    // int year = backupTime.year;
+    // int month = backupTime.month;
+    // int day = backupTime.day;
+    final box = Boxes.getWatches();
     final boxPath = box.path;
     await box.close();
 
     try {
+      backupPath = backupPath+"/watchbox.hive";
       File(boxPath!).copy(backupPath);
-    } catch (e) {
+
+    } catch(e) {
       print("Caught exception: $e");
     } finally {
-      await Hive.openBox<T>(boxName);
+      await Hive.openBox<Watches>("WatchBox");
+
+    }
+
+
+  }
+
+  static Future<void> restoreWatchBox<Watches>() async {
+    final File? backupFile = await pickBackupFile();
+    if(backupFile == null){
+    }
+
+    final box = Boxes.getWatches();
+    final boxPath = box.path;
+    await box.close();
+
+    try {
+      backupFile!.copy(boxPath!);
+    } finally {
+      await Hive.openBox<Watches>("WatchBox");
     }
   }
 
-  static Future<void> restoreHiveBox<T>(String boxName, String backupPath) async {
-    final box = await Hive.openBox<T>(boxName);
-    final boxPath = box.path;
-    await box.close();
+  static Future<File?> pickBackupFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    File? file;
 
-    try {
-      File(backupPath).copy(boxPath!);
-    } finally {
-      await Hive.openBox<T>(boxName);
+    if (result != null) {
+      file = File(result.files.single.path!);
+    } else {
+
     }
+
+    return file;
+
+
   }
 }

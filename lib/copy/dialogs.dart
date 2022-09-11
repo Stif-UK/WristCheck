@@ -82,6 +82,22 @@ class WristCheckDialogs {
     );
   }
 
+  static getBackupLocationNullDialog(){
+    Get.defaultDialog(
+        title: "Backup / Restore",
+        barrierDismissible: true,
+        middleText: "No Backup location is specified. Please first select where to store the backup file"
+    );
+  }
+
+  static getBackupFailedDialog(){
+    Get.defaultDialog(
+        title: "Error",
+        barrierDismissible: true,
+        middleText: "Backup Failed"
+    );
+  }
+
   static getWhatsNewDialog(BuildContext context){
     Get.defaultDialog(
       title: "What's New?",
