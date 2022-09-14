@@ -70,7 +70,7 @@ class _BackupRestore2State extends State<BackupRestore2> {
                           lastBackup = WristCheckFormatter.getFormattedDate(DateTime.now());
                           setState(() {});
                     } on Exception catch (e) {
-                      WristCheckDialogs.getBackupFailedDialog();
+                      WristCheckDialogs.getBackupFailedDialog("Null");
                       print(e.toString());
                     }
 

@@ -90,11 +90,22 @@ class WristCheckDialogs {
     );
   }
 
-  static getBackupFailedDialog(){
+  static getBackupFailedDialog(String error){
     Get.defaultDialog(
         title: "Error",
         barrierDismissible: true,
-        middleText: "Backup Failed"
+        middleText: "Backup Failed\n\n"
+            "$error\n\n"
+            "Some errors can be resolved by killing and restarting the application.\n\n"
+            "If this doesn't work, please provide feedback to the developer via the app store."
+    );
+  }
+
+  static getBackupSuccessDialog(){
+    Get.defaultDialog(
+        title: "Backup Complete",
+        barrierDismissible: true,
+        middleText: "WatchBox Data has been saved."
     );
   }
 

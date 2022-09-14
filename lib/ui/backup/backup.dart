@@ -12,7 +12,10 @@ class Backup extends StatefulWidget {
 
 class _BackupState extends State<Backup> {
   String? _backupLocation;
-  bool _loaded = false;
+  bool _backupComplete = false;
+  bool _loadedLocation = false;
+  bool _loadedBackup = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +43,12 @@ class _BackupState extends State<Backup> {
                 const SizedBox(
                   height: 20,
                 ),
+
+                //Section 1: Select Backup Location - no other sections are displayed until a backup location is selected.
                 const Text("Please Select Backup Location"),
-                Platform.isAndroid? const Text("(Backup location must be a sub-folder of the OS 'Documents' folder)") : const Text(""),
+                //If Platform is Android give some guidance on backup location to minimise errors
+                Platform.isAndroid? const Text("(Backup location must be a sub-folder of the OS 'Documents' folder)",
+                    textAlign: TextAlign.center) : const Text(""),
                 ElevatedButton(
                     child: const Text("Select Backup Location"),
                     onPressed: () async {
@@ -52,12 +59,14 @@ class _BackupState extends State<Backup> {
                       });
                     }, ),
 
-                 //Only show icon if backup location is set
-                _backupLocation == null? const SizedBox(height: 40,) : getSuccessIcon(_loaded),
+                 //Only show icon if backup location is set, getSuccessIcon returns a loading spinner for a short time, then a tick
+                _backupLocation == null? const SizedBox(height: 40,) : getSuccessIconLocation(_loadedLocation),
 
                 const Divider(height: 15,
                   thickness: 2,),
-                _backupLocation == null || _loaded == false? SizedBox(height: 20,): Column(
+
+                //Section 2: Backup. Only displays if the backup location is selected and the 'tick' icon has had time to load
+                _backupLocation == null || _loadedLocation == false? const SizedBox(height: 20,): Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -66,9 +75,28 @@ class _BackupState extends State<Backup> {
                           padding: EdgeInsets.all(8.0),
                           child: Text("Backup Database",style: TextStyle(fontSize: 30,),),
                         ),
-                        onPressed: (){}, ),
+                        onPressed: () async {
+                          setState(() {
+                            _backupComplete = true;
+                          });
+
+                          Future.delayed(const Duration(seconds: 2),() async {
+                            await BackupRestoreMethods.backupWatchBox(_backupLocation!).then((_){
+                              setState((
+                                  ) {
+                                _loadedBackup = true;
+                              });
+                            }
+
+                            ).onError((error, stackTrace) => WristCheckDialogs.getBackupFailedDialog(error.toString()));
+                          } );
+
+
+                          
+                          
+                        }, ),
                     ),
-                    const Icon(Icons.done, color: Colors.green,size: 40,),
+                    _backupComplete? getSuccessIconBackup(_loadedBackup): const SizedBox(height: 40,),
                     const Divider(height: 15,
                       thickness: 2,),
                   ],
@@ -88,14 +116,28 @@ class _BackupState extends State<Backup> {
     );
   }
 
-  Widget getSuccessIcon(bool loaded){
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        _loaded = true;
+  Widget getSuccessIconLocation(bool loaded){
+    Future.delayed(const Duration(seconds: 2), () {
 
-      });
+        setState(() {
+          _loadedLocation = true;
+        });
+
     }
       );
+    return loaded? const Icon(Icons.done, color: Colors.green,size: 40,): const CircularProgressIndicator();
+
+  }
+
+  Widget getSuccessIconBackup(bool loaded){
+    // Future.delayed(const Duration(seconds: 2), () {
+    //
+    //   setState(() {
+    //     _loadedBackup = true;
+    //   });
+    //
+    // }
+    // );
     return loaded? const Icon(Icons.done, color: Colors.green,size: 40,): const CircularProgressIndicator();
 
   }

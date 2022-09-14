@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -29,10 +30,16 @@ class BackupRestoreMethods {
       backupPath = backupPath+"/watchbox.hive";
       File(boxPath!).copy(backupPath);
 
+      //Check file now exists then notify user
+      var file = File(backupPath);
+      await file.exists().then((_) => WristCheckDialogs.getBackupSuccessDialog());
+
+
+
     } catch(e) {
       print("Caught exception: $e");
     } finally {
-      await Hive.openBox<Watches>("WatchBox");
+      await Hive.openBox<Watches>("WatchBox").onError((error, stackTrace) => WristCheckDialogs.getBackupFailedDialog(error.toString()));
 
     }
 
