@@ -27,19 +27,24 @@ class BackupRestoreMethods {
     await box.close();
 
     try {
+      bool _errored = false;
       backupPath = backupPath+"/watchbox.hive";
-      File(boxPath!).copy(backupPath);
+      await File(boxPath!).copy(backupPath).onError((error, stackTrace) {
+        _errored = true;
+        WristCheckDialogs.getBackupFailedDialog(error.toString());
+        throw Exception();
+      }
+      );
 
       //Check file now exists then notify user
-      var file = File(backupPath);
-      await file.exists().then((_) => WristCheckDialogs.getBackupSuccessDialog());
+      _errored? print("errored"):File(backupPath).exists().then((_) => WristCheckDialogs.getBackupSuccessDialog());
 
 
 
     } catch(e) {
       print("Caught exception: $e");
     } finally {
-      await Hive.openBox<Watches>("WatchBox").onError((error, stackTrace) => WristCheckDialogs.getBackupFailedDialog(error.toString()));
+      await Hive.openBox<Watches>("WatchBox").onError((error, stackTrace) => WristCheckDialogs.getOpenWatchBoxFailed(error.toString()));
 
     }
 

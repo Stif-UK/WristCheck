@@ -96,6 +96,17 @@ class WristCheckDialogs {
         barrierDismissible: true,
         middleText: "Backup Failed\n\n"
             "$error\n\n"
+            "It could be that the selected location is not accessible to the application. Try with a different location.\n\n"
+            "If this doesn't work, please provide feedback to the developer via the app store."
+    );
+  }
+
+  static getOpenWatchBoxFailed(String error){
+    Get.defaultDialog(
+        title: "Error",
+        barrierDismissible: true,
+        middleText: "Failed to re-open watchbox\n\n"
+            "$error\n\n"
             "Some errors can be resolved by killing and restarting the application.\n\n"
             "If this doesn't work, please provide feedback to the developer via the app store."
     );

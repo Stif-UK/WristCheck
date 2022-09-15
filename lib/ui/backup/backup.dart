@@ -46,9 +46,12 @@ class _BackupState extends State<Backup> {
 
                 //Section 1: Select Backup Location - no other sections are displayed until a backup location is selected.
                 const Text("Please Select Backup Location"),
+                const SizedBox(height: 20,),
+
                 //If Platform is Android give some guidance on backup location to minimise errors
-                Platform.isAndroid? const Text("(Backup location must be a sub-folder of the OS 'Documents' folder)",
-                    textAlign: TextAlign.center) : const Text(""),
+                Platform.isAndroid? const Text("(Backup location must be a sub-folder of the Android OS 'Documents' folder)",
+                    textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),) : const Text(""),
+                const SizedBox(height: 20,),
                 ElevatedButton(
                     child: const Text("Select Backup Location"),
                     onPressed: () async {
