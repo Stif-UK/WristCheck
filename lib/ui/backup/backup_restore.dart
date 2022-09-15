@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/backup/backup.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/backup/restore.dart';
 
 class BackupRestore extends StatelessWidget {
   const BackupRestore({Key? key}) : super(key: key);
@@ -69,7 +70,7 @@ class BackupRestore extends StatelessWidget {
                       ),),
                   ),
                   onPressed: (){
-                    //Get.to(() => const WearStats());
+                    Get.to(() => const Restore());
                   },
                   style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

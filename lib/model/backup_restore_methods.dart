@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:path/path.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -71,7 +72,8 @@ class BackupRestoreMethods {
     File? file;
 
     if (result != null) {
-      file = File(result.files.single.path!);
+      String fileName = basename(result.files.single.path!);
+      fileName == "watchbox.hive"? file = File(fileName): WristCheckDialogs.getIncorrectFilenameDialog(fileName);
     } else {
 
     }

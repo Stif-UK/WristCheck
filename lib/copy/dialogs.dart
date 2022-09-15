@@ -73,14 +73,25 @@ class WristCheckDialogs {
 
   static getBackupHelpDialog(){
     Get.defaultDialog(
-        title: "Backup / Restore",
+        title: "Backup Database Help",
         barrierDismissible: true,
-        middleText: "Getting a new phone or just want a backup incase the worst happens?\n You're in the right place!"
+        middleText: "Getting a new phone or just want a backup in case the worst happens?\n You're in the right place!"
             "\n\nWhen you create a backup a file is stored on your phone that you can then transfer elsewhere."
             "\n\nTo restore the database on a new device simply open the file via the 'restore' option"
-            "\n\nNote: Restoring a database will clear down your existing data and REPLACE it with the backup"
+            "\n\nNote: Restoring a database will clear down your existing data and REPLACE it with the backup."
+            "\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application."
     );
   }
+
+  static getIncorrectFilenameDialog(String filename){
+    Get.defaultDialog(
+      title: "Incorrect file",
+      barrierDismissible: true,
+      middleText: "The file $filename does not match the expected file of watchbox.hive\n\n"
+          "Please select a watchbox.hive file"
+    );
+  }
+
 
   static getBackupLocationNullDialog(){
     Get.defaultDialog(
