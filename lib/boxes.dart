@@ -3,8 +3,18 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 
 class Boxes {
-  static Box<Watches> getWatches() =>
-    Hive.box<Watches>("WatchBox");
+  // static Box<Watches> getWatches() =>
+  //   Hive.box<Watches>("WatchBox");
+
+  static Box<Watches> getWatches() {
+    //Check first that box is open, if it isn't re-open it before returning.
+    return Hive.box<Watches>("WatchBox").isOpen? Hive.box<Watches>("WatchBox") : openAndReturn();
+  }
+
+  static Box<Watches> openAndReturn(){
+    Hive.openBox<Watches>("WatchBox");
+    return Hive.box<Watches>("WatchBox");
+  }
 
   static List<Watches> getAllWatches() {
     return Hive.box<Watches>("WatchBox").values.toList();
