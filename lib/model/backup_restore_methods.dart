@@ -18,13 +18,11 @@ class BackupRestoreMethods {
 
   static Future<void> backupWatchBox<Watches>(String backupPath) async {
     print("Backup watchbox called");
-    // DateTime backupTime = DateTime.now();
-    // int year = backupTime.year;
-    // int month = backupTime.month;
-    // int day = backupTime.day;
+
+    // final box = Hive.box<Watches>("WatchBox");
     final box = Boxes.getWatches();
     final boxPath = box.path;
-    await box.close();
+    //await box.close();
 
     try {
       bool _errored = false;
@@ -34,19 +32,20 @@ class BackupRestoreMethods {
         WristCheckDialogs.getBackupFailedDialog(error.toString());
         throw Exception();
       }
-      );
+      ).whenComplete(() => _errored? print("errored"):File(backupPath).exists().then((_) => WristCheckDialogs.getBackupSuccessDialog()));
 
       //Check file now exists then notify user
-      _errored? print("errored"):File(backupPath).exists().then((_) => WristCheckDialogs.getBackupSuccessDialog());
+      // _errored? print("errored"):File(backupPath).exists().then((_) => WristCheckDialogs.getBackupSuccessDialog());
 
 
 
     } catch(e) {
       print("Caught exception: $e");
-    } finally {
-      await Hive.openBox<Watches>("WatchBox").onError((error, stackTrace) => WristCheckDialogs.getOpenWatchBoxFailed(error.toString()));
-
-    }
+    } 
+    // finally {
+    //   await Hive.openBox<Watches>("WatchBox").onError((error, stackTrace) => WristCheckDialogs.getOpenWatchBoxFailed(error.toString()));
+    //
+    // }
 
 
   }
