@@ -51,29 +51,44 @@ class BackupRestoreMethods {
 
   }
 
-  static Future<void> restoreWatchBox<Watches>() async {
-    final File? backupFile = await pickBackupFile();
-    if(backupFile == null){
-    }
-
+  static restoreWatchBox(File watchbox) async {
     final box = Boxes.getWatches();
-    final boxPath = box.path;
-    await box.close();
-
-    try {
-      backupFile!.copy(boxPath!);
-    } finally {
-      await Hive.openBox<Watches>("WatchBox");
+    final _boxPath = box.path;
+    bool _errored = false;
+    try{
+      await watchbox.copy(_boxPath!).onError((error, stackTrace) => WristCheckDialogs.getRestoreFailedDialog(error.toString()));
+    } catch(e) {
+      _errored = true;
+      WristCheckDialogs.getRestoreFailedDialog(e.toString());
+    } finally{
+      _errored? print("Finally called") : WristCheckDialogs.getRestoreSuccessDialog();
     }
   }
+
+  // static Future<void> restoreWatchBox<Watches>() async {
+  //   final File? backupFile = await pickBackupFile();
+  //   if(backupFile == null){
+  //   }
+  //
+  //   final box = Boxes.getWatches();
+  //   final boxPath = box.path;
+  //   await box.close();
+  //
+  //   try {
+  //     backupFile!.copy(boxPath!);
+  //   } finally {
+  //     await Hive.openBox<Watches>("WatchBox");
+  //   }
+  // }
 
   static Future<File?> pickBackupFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     File? file;
+    print(result);
 
     if (result != null) {
       String fileName = basename(result.files.single.path!);
-      fileName == "watchbox.hive"? file = File(fileName): WristCheckDialogs.getIncorrectFilenameDialog(fileName);
+      fileName == "watchbox.hive"? file = File(result.files.single.path!): WristCheckDialogs.getIncorrectFilenameDialog(fileName);
     } else {
 
     }

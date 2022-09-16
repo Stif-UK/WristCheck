@@ -11,7 +11,7 @@ class Restore extends StatefulWidget {
 }
 
 class _RestoreState extends State<Restore> {
-  File? backupFile;
+  File? _backupFile;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +39,22 @@ class _RestoreState extends State<Restore> {
           onPressed: () async{
               await BackupRestoreMethods.pickBackupFile().then((value) {
                 setState(() {
-                  backupFile = value;
+                  _backupFile = value;
                 });
 
               });
           },
           ),
           const SizedBox(height: 20,),
-          backupFile != null? Text("File selected: $backupFile. Ready to load"): const Text(""),
-          const Divider(thickness: 2,)
+          _backupFile != null? Text("File selected: $_backupFile. Ready to load"): const Text(""),
+          const Divider(thickness: 2,),
+          const SizedBox(height: 20,),
+          _backupFile == null? const SizedBox(height: 20,): ElevatedButton(
+              child: const Text("Restore from Backup"),
+              onPressed: (){
+                WristCheckDialogs.getConfirmRestoreDialog(_backupFile!);
+              }
+           ),
         ],
       ),
     );

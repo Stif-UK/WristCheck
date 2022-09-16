@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/whats_new_copy.dart';
@@ -89,6 +92,38 @@ class WristCheckDialogs {
       barrierDismissible: true,
       middleText: "The file $filename does not match the expected file of watchbox.hive\n\n"
           "Please select a watchbox.hive file"
+    );
+  }
+
+  static getConfirmRestoreDialog(File watchbox){
+    Get.defaultDialog(
+      title: "Restore from Backup",
+      barrierDismissible: false,
+      middleText: "Restoring this backup will over-write your current watch-box.\n\n"
+          "Do you want to continue?",
+      onCancel: (){},
+      onConfirm: (){
+        BackupRestoreMethods.restoreWatchBox(watchbox);
+        Get.back();
+      }
+    );
+  }
+
+  static getRestoreFailedDialog(String error){
+    Get.defaultDialog(
+      title: "Restore Failed",
+      barrierDismissible: true,
+      middleText: "Failed to restore from backup, an error occurred:\n\n"
+          "$error\n\n"
+          "Please try again - if the issue persists please contact the app developer"
+    );
+  }
+
+  static getRestoreSuccessDialog(){
+    Get.defaultDialog(
+      title: "Restore Successful",
+      barrierDismissible: true,
+      middleText: "Database successfully restored!"
     );
   }
 
