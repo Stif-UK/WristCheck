@@ -79,9 +79,9 @@ class WristCheckDialogs {
         title: "Backup Database Help",
         barrierDismissible: true,
         middleText: "Getting a new phone or just want a backup in case the worst happens?\n You're in the right place!"
-            "\n\nWhen you create a backup a file is stored on your phone that you can then transfer elsewhere."
-            "\n\nTo restore the database on a new device simply open the file via the 'restore' option"
-            "\n\nNote: Restoring a database will clear down your existing data and REPLACE it with the backup."
+            "\n\nCreate a backup of your watchbox or restore an existing copy."
+            "\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup."
+            "\n\nWatch pictures are NOT currently backed up!"
             "\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application."
     );
   }
@@ -123,7 +123,8 @@ class WristCheckDialogs {
     Get.defaultDialog(
       title: "Restore Successful",
       barrierDismissible: true,
-      middleText: "Database successfully restored!"
+      middleText: "Database successfully restored!\n\n"
+          "You may need to kill and re-open the application for changes to take effect."
     );
   }
 

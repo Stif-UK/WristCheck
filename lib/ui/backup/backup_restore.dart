@@ -23,34 +23,32 @@ class BackupRestore extends StatelessWidget {
       ),
 
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: (MediaQuery.of(context).size.width)*0.8,
-              height: (MediaQuery.of(context).size.height)*0.15,
-              child: ElevatedButton(
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text("Backup",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),),
-                  ),
-                  onPressed: (){
-                    Get.to(() => const Backup());
-                    },
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(color: Colors.black)
-                          )
+          const SizedBox(height: 60,),
+          SizedBox(
+            width: (MediaQuery.of(context).size.width)*0.8,
+            height: (MediaQuery.of(context).size.height)*0.15,
+            child: ElevatedButton(
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text("Backup",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),),
+                ),
+                onPressed: (){
+                  Get.to(() => const Backup());
+                  },
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            side: const BorderSide(color: Colors.black)
+                        )
 
-                      )
-                  )
-              ),
+                    )
+                )
             ),
           ),
           const SizedBox(

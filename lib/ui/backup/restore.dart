@@ -46,7 +46,7 @@ class _RestoreState extends State<Restore> {
           },
           ),
           const SizedBox(height: 20,),
-          _backupFile != null? Text("File selected: $_backupFile. Ready to load"): const Text(""),
+          _backupFile != null? Text("File selected: $_backupFile. \n\nReady to load"): const Text(""),
           const Divider(thickness: 2,),
           const SizedBox(height: 20,),
           _backupFile == null? const SizedBox(height: 20,): ElevatedButton(
