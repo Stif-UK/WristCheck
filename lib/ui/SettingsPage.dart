@@ -7,6 +7,7 @@ import 'package:wristcheck/ui/archived.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
+import 'package:wristcheck/ui/notifications.dart';
 
 
 
@@ -49,6 +50,14 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: ListView(
               children: [
+                ListTile(
+                    title: const Text("Notifications"),
+                    leading: const Icon(Icons.notifications_active_outlined),
+                    onTap: (){
+                      Get.to(()=> Notifications());
+                    }
+                ),
+                const Divider(thickness: 2,),
                 ListTile(
                   title: const Text("Show Archived Watches"),
                     leading: const Icon(Icons.archive_outlined),
