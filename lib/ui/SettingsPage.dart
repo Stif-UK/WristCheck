@@ -22,7 +22,6 @@ class SettingsPage extends StatefulWidget{
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  bool _darkModeToggle = false;
   final watchBox = Boxes.getWatches();
   String _buildVersion = "Not Determined";
   int _clickCount = 0;
@@ -50,23 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: ListView(
               children: [
-                SwitchListTile(
-                  title: const Text("Dark Mode"),
-                  secondary: const Icon(Icons.dark_mode_rounded),
-                  value: _darkModeToggle,
-                  onChanged: (bool value){
-                    Get.changeTheme(
-                        Get.isDarkMode ? ThemeData.light() : ThemeData.dark()
-                    );
-                    setState(() {
-                      _darkModeToggle = value;
-
-                    });
-
-                  },
-                ),
-                const Divider(thickness: 2,),
-                 ListTile(
+                ListTile(
                   title: const Text("Show Archived Watches"),
                     leading: const Icon(Icons.archive_outlined),
                   onTap: (){
