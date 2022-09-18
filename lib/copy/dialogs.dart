@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
@@ -7,6 +6,8 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
+import 'package:wristcheck/boxes.dart';
+import 'package:hive/hive.dart';
 
 class WristCheckDialogs {
 
@@ -83,6 +84,7 @@ class WristCheckDialogs {
             "\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup."
             "\n\nWatch pictures are NOT currently backed up!"
             "\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application."
+
     );
   }
 
@@ -124,7 +126,12 @@ class WristCheckDialogs {
       title: "Restore Successful",
       barrierDismissible: true,
       middleText: "Database successfully restored!\n\n"
-          "You may need to kill and re-open the application for changes to take effect."
+          "If watches don't show immediately try navigating between the main tabs.",
+      onConfirm: () async {
+        var box = Boxes.getWatches();
+        await box.close().then((_) => Hive.openBox<Watches>("WatchBox"));
+        Get.back();
+      }
     );
   }
 

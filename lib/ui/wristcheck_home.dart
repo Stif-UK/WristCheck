@@ -89,8 +89,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       body: _children[_currentIndex],
       drawer: const WatchHomeDrawer(),
 
-
-
       //hide FAB except on collection screen
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
         child: const Icon(Icons.add_rounded),
