@@ -199,4 +199,17 @@ class WristCheckDialogs {
     );
   }
 
+  static getNotificationSettingsHelpDialog(){
+    //If the platform is Android help text clarifies the potential for some manufacturers to block background notifications
+    Platform.isAndroid? Get.defaultDialog(
+      title: "Notification Settings",
+      middleText: "Once enabled a notification will trigger daily at the selected time.\n\n"
+          "Note: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications"
+    ):
+        Get.defaultDialog(
+            title: "Notification Settings",
+            middleText: "Once enabled a notification will trigger daily at the selected time."
+        );
+  }
+
 }

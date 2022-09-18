@@ -51,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               children: [
                 ListTile(
-                    title: const Text("Notifications"),
+                    title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),
                     onTap: (){
                       Get.to(()=> Notifications());
