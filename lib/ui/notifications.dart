@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/services/local_notification_service.dart';
 
 enum NotificationTimeOptions {morning, afternoon, evening, custom}
 
@@ -11,6 +12,16 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  late final WristCheckLocalNotificationService notificationService;
+
+
+  @override
+  void initState() {
+    notificationService = WristCheckLocalNotificationService();
+    notificationService.initialize();
+    super.initState();
+  }
+
   //TODO: Implement shared pref
   bool _notificationsEnabled = false;
   NotificationTimeOptions _notificationTime = NotificationTimeOptions.morning;
@@ -45,6 +56,12 @@ class _NotificationsState extends State<Notifications> {
               }
           ),
           const Divider(thickness: 2,),
+
+          //ToDo: Remove this once tested
+          ElevatedButton(onPressed: () async {
+            await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
+          }, child: const Text("Press to see a test notification")),
+
           //If notifications have been enabled, show time picker
           _notificationsEnabled? Column(
             mainAxisAlignment: MainAxisAlignment.start,
