@@ -91,13 +91,15 @@ class _NotificationsState extends State<Notifications> {
                   value: NotificationTimeOptions.custom,
                   groupValue: _notificationTime ,
                   onChanged: (NotificationTimeOptions? value){
+                    Future<TimeOfDay?> selectedTime = showTimePicker(context: context, initialTime: TimeOfDay.now());
+
                     setState(() {
                       _notificationTime = value!;
                     });
                   },
                 ),
               ),
-              const Divider(thickness: 2,)
+              const Divider(thickness: 2,),
             ],
           ):
               //If notifications are off, just show a blank space

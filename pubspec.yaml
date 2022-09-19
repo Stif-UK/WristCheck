@@ -51,6 +51,7 @@ dependencies:
   package_info_plus: ^1.4.3+1
   shared_preferences: ^2.0.15
   file_picker: ^3.0.4
+  flutter_local_notifications: ^11.0.0
 
 dev_dependencies:
   flutter_test:
