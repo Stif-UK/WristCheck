@@ -42,6 +42,14 @@ class WristCheckSnackBars{
     );
   }
 
+  static dailyNotification(String selectedTime){
+    Get.snackbar(
+    "Reminder Set",
+        "You'll get a reminder every day at $selectedTime",
+    icon: const Icon(Icons.add_alert_outlined),
+    snackPosition: SnackPosition.BOTTOM);
+  }
+
 
 
 

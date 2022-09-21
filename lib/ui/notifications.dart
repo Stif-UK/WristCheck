@@ -4,6 +4,7 @@ import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/services/local_notification_service.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
+import 'package:wristcheck/copy/snackbars.dart';
 
 // enum NotificationTimeOptions {morning, afternoon, evening, custom}
 
@@ -91,7 +92,7 @@ class _NotificationsState extends State<Notifications> {
                 ),
               ),
               ListTile(
-                title: const Text("Afternoon (12pm"),
+                title: const Text("Afternoon (12pm)"),
                 leading: Radio<NotificationTimeOptions>(
                   value: NotificationTimeOptions.afternoon,
                   groupValue: _notificationTime ,
@@ -153,7 +154,7 @@ class _NotificationsState extends State<Notifications> {
                 ElevatedButton(onPressed: () async {
                   await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
                 }, child: const Text("Press to see a test notification")),
-                const SizedBox(height: 40,)
+                const SizedBox(height: 120,)
               ],
             ),
           ),
@@ -167,6 +168,8 @@ class _NotificationsState extends State<Notifications> {
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
     _selectedTime = customTime.toString();
     await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
-    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "$selectedTime + ${customTime.toString()}", time: customTime!);
+    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "Don't forget to track what's on your wrist today!", time: customTime!);
+    String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
+    WristCheckSnackBars.dailyNotification(timeString);
   }
 }
