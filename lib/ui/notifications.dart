@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/services/local_notification_service.dart';
+import 'package:wristcheck/model/enums/notification_time_options.dart';
 
-enum NotificationTimeOptions {morning, afternoon, evening, custom}
+// enum NotificationTimeOptions {morning, afternoon, evening, custom}
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -23,8 +25,8 @@ class _NotificationsState extends State<Notifications> {
   }
 
   //TODO: Implement shared pref
-  bool _notificationsEnabled = false;
-  NotificationTimeOptions _notificationTime = NotificationTimeOptions.morning;
+  bool _notificationsEnabled = WristCheckPreferences.getDailyNotificationStatus() ?? false;
+  NotificationTimeOptions _notificationTime = WristCheckPreferences.getNotificationTime() ??NotificationTimeOptions.morning;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,10 @@ class _NotificationsState extends State<Notifications> {
               secondary: const Icon(Icons.notification_add_outlined),
               value: _notificationsEnabled,
               onChanged: (bool value) async {
+                WristCheckPreferences.setDailyNotificationStatus(value);
               if(value == true){
                 _notificationTime = NotificationTimeOptions.morning;
+                await WristCheckPreferences.setNotificationTime(_notificationTime);
                 await _setNotification(_notificationTime, const TimeOfDay(hour: 8, minute: 00));
               } else{
                 await notificationService.cancelNotification(1);
@@ -79,6 +83,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await WristCheckPreferences.setNotificationTime(value!);
                     await _setNotification(_notificationTime, const TimeOfDay(hour: 8, minute: 00));
                   },
                 ),
@@ -92,6 +97,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await WristCheckPreferences.setNotificationTime(value!);
                     await _setNotification(_notificationTime, const TimeOfDay(hour: 12, minute: 00));
                   },
                 ),
@@ -105,6 +111,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await WristCheckPreferences.setNotificationTime(value!);
                     await _setNotification(_notificationTime, const TimeOfDay(hour: 18, minute: 00));
                   },
                 ),
@@ -121,6 +128,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await WristCheckPreferences.setNotificationTime(value!);
                     await _setNotification(_notificationTime, selectedTime);
                   },
 

@@ -1,0 +1,1 @@
+enum NotificationTimeOptions {morning, afternoon, evening, custom}
