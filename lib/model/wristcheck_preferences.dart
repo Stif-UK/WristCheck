@@ -8,8 +8,11 @@ class WristCheckPreferences {
   static const _keyLatestVersion = 'latestAppVersion';
   static const _keyOpenCount = 'openCount';
   static const _keyWearCount = 'wearCount';
+  //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
+  static const _keyNotificationTime = 'notificationTime';
+
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -39,7 +42,7 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyDailyNotificationStatus, notificationStatus);
 
   //Getter and setter for notification time options
-  static NotificationTimeOptions? getNotificationTime() {
+  static NotificationTimeOptions? getNotificationTimeOption() {
     String? value = _preferences.getString(_keyNotificationTimeOption);
     NotificationTimeOptions returnValue;
     switch (value){
@@ -66,8 +69,15 @@ class WristCheckPreferences {
     return returnValue;
   }
 
-  static Future setNotificationTime(NotificationTimeOptions notifyTime) async {
+  static Future setNotificationTimeOption(NotificationTimeOptions notifyTime) async {
     await _preferences.setString(_keyNotificationTimeOption, notifyTime.toString());
   }
+
+  //Getter and setter for notification time
+  static String? getDailyNotificationTime () => _preferences.getString(_keyNotificationTime);
+
+  static Future setDailyNotificationTime(String notificationTime) async =>
+      await _preferences.setString(_keyNotificationTime, notificationTime);
+
 
 }
