@@ -47,9 +47,15 @@ class _NotificationsState extends State<Notifications> {
             title: const Text("Enable Daily Wear Reminder"),
               secondary: const Icon(Icons.notification_add_outlined),
               value: _notificationsEnabled,
-              onChanged: (bool value) {
-              setState((){
-                //TODO: Implement notification toggle
+              onChanged: (bool value) async {
+              if(value == true){
+                _notificationTime = NotificationTimeOptions.morning;
+                await _setNotification(_notificationTime, null);
+              } else{
+                await notificationService.cancelNotification(1);
+              }
+                //value == true? await _setNotification(_notificationTime, null) : await notificationService.cancelNotification(1);
+                setState(() {
                 _notificationsEnabled = value;
               });
 
@@ -57,10 +63,8 @@ class _NotificationsState extends State<Notifications> {
           ),
           const Divider(thickness: 2,),
 
-          //ToDo: Remove this once tested
-          ElevatedButton(onPressed: () async {
-            await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
-          }, child: const Text("Press to see a test notification")),
+
+
 
           //If notifications have been enabled, show time picker
           _notificationsEnabled? Column(
@@ -71,10 +75,11 @@ class _NotificationsState extends State<Notifications> {
                 leading: Radio<NotificationTimeOptions>(
                   value: NotificationTimeOptions.morning,
                   groupValue: _notificationTime ,
-                  onChanged: (NotificationTimeOptions? value){
+                  onChanged: (NotificationTimeOptions? value) async {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await _setNotification(_notificationTime, null);
                   },
                 ),
               ),
@@ -83,10 +88,11 @@ class _NotificationsState extends State<Notifications> {
                 leading: Radio<NotificationTimeOptions>(
                   value: NotificationTimeOptions.afternoon,
                   groupValue: _notificationTime ,
-                  onChanged: (NotificationTimeOptions? value){
+                  onChanged: (NotificationTimeOptions? value) async {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await _setNotification(_notificationTime, null);
                   },
                 ),
               ),
@@ -95,10 +101,11 @@ class _NotificationsState extends State<Notifications> {
                 leading: Radio<NotificationTimeOptions>(
                   value: NotificationTimeOptions.evening,
                   groupValue: _notificationTime ,
-                  onChanged: (NotificationTimeOptions? value){
+                  onChanged: (NotificationTimeOptions? value) async {
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await _setNotification(_notificationTime, null);
                   },
                 ),
               ),
@@ -107,13 +114,16 @@ class _NotificationsState extends State<Notifications> {
                 leading: Radio<NotificationTimeOptions>(
                   value: NotificationTimeOptions.custom,
                   groupValue: _notificationTime ,
-                  onChanged: (NotificationTimeOptions? value){
-                    Future<TimeOfDay?> selectedTime = showTimePicker(context: context, initialTime: TimeOfDay.now());
+                  onChanged: (NotificationTimeOptions? value) async {
+                   // Future<TimeOfDay?> selectedTime = showTimePicker(context: context, initialTime: TimeOfDay.now());
+                    TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
                     setState(() {
                       _notificationTime = value!;
                     });
+                    await _setNotification(_notificationTime, selectedTime);
                   },
+
                 ),
               ),
               const Divider(thickness: 2,),
@@ -121,9 +131,17 @@ class _NotificationsState extends State<Notifications> {
           ):
               //If notifications are off, just show a blank space
               const SizedBox(height: 20,),
+          ElevatedButton(onPressed: () async {
+            await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
+          }, child: const Text("Press to see a test notification")),
 
         ],
       ),
     );
+  }
+
+  //_setNotification takes the enum input (plus an optional custom time) and passes this to the local notification service to set up the scheduled message
+  Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
+    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "$selectedTime + ${customTime.toString()}", seconds: 3);
   }
 }
