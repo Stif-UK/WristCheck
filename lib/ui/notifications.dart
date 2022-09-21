@@ -50,7 +50,7 @@ class _NotificationsState extends State<Notifications> {
               onChanged: (bool value) async {
               if(value == true){
                 _notificationTime = NotificationTimeOptions.morning;
-                await _setNotification(_notificationTime, null);
+                await _setNotification(_notificationTime, const TimeOfDay(hour: 8, minute: 00));
               } else{
                 await notificationService.cancelNotification(1);
               }
@@ -79,7 +79,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
-                    await _setNotification(_notificationTime, null);
+                    await _setNotification(_notificationTime, const TimeOfDay(hour: 8, minute: 00));
                   },
                 ),
               ),
@@ -92,7 +92,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
-                    await _setNotification(_notificationTime, null);
+                    await _setNotification(_notificationTime, const TimeOfDay(hour: 12, minute: 00));
                   },
                 ),
               ),
@@ -105,7 +105,7 @@ class _NotificationsState extends State<Notifications> {
                     setState(() {
                       _notificationTime = value!;
                     });
-                    await _setNotification(_notificationTime, null);
+                    await _setNotification(_notificationTime, const TimeOfDay(hour: 18, minute: 00));
                   },
                 ),
               ),
@@ -116,7 +116,7 @@ class _NotificationsState extends State<Notifications> {
                   groupValue: _notificationTime ,
                   onChanged: (NotificationTimeOptions? value) async {
                    // Future<TimeOfDay?> selectedTime = showTimePicker(context: context, initialTime: TimeOfDay.now());
-                    TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                    TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? const TimeOfDay(hour: 12, minute: 00);
 
                     setState(() {
                       _notificationTime = value!;
@@ -142,6 +142,7 @@ class _NotificationsState extends State<Notifications> {
 
   //_setNotification takes the enum input (plus an optional custom time) and passes this to the local notification service to set up the scheduled message
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
-    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "$selectedTime + ${customTime.toString()}", seconds: 3);
+    // customTime ?? const TimeOfDay(hour: 12, minute: 00);
+    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "$selectedTime + ${customTime.toString()}", time: customTime!);
   }
 }

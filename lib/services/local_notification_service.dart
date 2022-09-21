@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -66,22 +67,29 @@ class WristCheckLocalNotificationService{
     required int id,
     required String title,
     required String body,
-    required int seconds,
+    required TimeOfDay time,
 }) async {
     if(Platform.isIOS){
       await _getIOSNotificationPermissions();
     }
+    //Create Datetime
+    DateTime now = DateTime.now();
+    DateTime tomorrow = now.add(const Duration(days: 1));
+    DateTime notificationTime = DateTime(tomorrow.year, tomorrow.month, tomorrow.day, time.hour, time.minute);
+
+
     final details = await _notificationDetails();
     await _localNotificationService.zonedSchedule(
         id,
         title,
         body,
-        tz.TZDateTime.from(DateTime.now().add(Duration(seconds: 3)), tz.local),
+        tz.TZDateTime.from(notificationTime, tz.local),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
         androidAllowWhileIdle: true,
-        //matchDateTimeComponents: DateTimeComponents.time // use this to set as daily
+        matchDateTimeComponents: DateTimeComponents.time
     );
+    print("Notification scheduled for $notificationTime every day");
   }
 
   void _onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) {
