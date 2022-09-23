@@ -5,24 +5,16 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return "Wristcheck just updated!\n"
-        "### Version 1.0.0 \n"
+        "### Version 1.1.0 \n"
         "\n"
 
-        "* Create Watch box\n"
-        "* Create Wish list\n"
-        "* Capture dates watches worn\n"
-        "* Draw cool graphs";
+        "* See what's new when the app updates\n"
+        "* Backup & Restore the watch database\n"
+        "* Set up daily wear reminders\n"
+        "* Reference number field added to watch model\n"
+        "* Minor bug fixes and improvements";
   }
 
-  // static String getVersionHistory(){
-  //   return "### Version 1.0.0 \n"
-  //       "\n"
-  //
-  //       "* Create Watch box\n"
-  //       "* Create Wish list\n"
-  //       "* Capture dates watches worn\n"
-  //       "* Draw cool graphs";
-  // }
 
   static Widget getVersionHistory(BuildContext context){
     return  Padding(
@@ -32,6 +24,16 @@ class WhatsNewCopy{
         child: const Markdown(
           physics: ClampingScrollPhysics(),
             data:
+            "### Version 1.1.0 \n"
+                "\n"
+
+                "* See what's new when the app updates\n"
+                "* Backup & Restore the watch database\n"
+                "* Set up daily wear reminders\n"
+                "* Reference number field added to watch model\n"
+                "* Minor bug fixes and improvements"
+                "\n"
+
         "### Version 1.0.0 \n"
             "\n"
 
