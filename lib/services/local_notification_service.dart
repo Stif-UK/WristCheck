@@ -61,7 +61,6 @@ class WristCheckLocalNotificationService{
     await _localNotificationService.show(id, title, body, details);
 }
 
-//TODO: Modify this example method to set up recurring daily notification
   //Show a scheduled notification
   Future<void> showScheduledNotification({
     required int id,
@@ -89,7 +88,6 @@ class WristCheckLocalNotificationService{
         androidAllowWhileIdle: true,
         matchDateTimeComponents: DateTimeComponents.time
     );
-    print("Notification scheduled for $notificationTime every day");
   }
 
   void _onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) {
@@ -110,6 +108,5 @@ class WristCheckLocalNotificationService{
 
   Future<void> cancelNotification(int id) async {
     _localNotificationService.cancel(id);
-    print("Notifications cancelled for id: $id");
   }
 }
