@@ -46,12 +46,14 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIBackgroundModes</key>
-    <array>
-       <string>fetch</string>
-       <string>remote-notification</string>
-    </array>
-    <key>UISupportsDocumentBrowser</key>
-    <true/>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-5693473214019178~6620076918</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>
