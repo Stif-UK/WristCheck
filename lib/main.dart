@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/theme/theme_constants.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,8 @@ import 'package:wristcheck/provider/db_provider.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
 
   await Hive.initFlutter();
 
@@ -24,23 +28,30 @@ Future main() async{
 
 
   runApp(
-      ChangeNotifierProvider<DatabaseProvider>(
-          create: (_) => DatabaseProvider(),
 
-          child: GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-          title: 'WristCheck',
+      MultiProvider(
+        providers: [ChangeNotifierProvider<DatabaseProvider>(
+            create: (_) => DatabaseProvider(),
+        ),
+          Provider.value(value: adState)
 
-        theme: lightTheme ,
-        darkTheme: darkTheme,
-        themeMode: ThemeMode.system,
-        //ThemeMode.light,
-        //ThemeMode.system,
 
-        home:  WristCheckHome(),
-      ))
+        ],
+            child: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+            title: 'WristCheck',
 
-  );
+          theme: lightTheme ,
+          darkTheme: darkTheme,
+          themeMode: ThemeMode.system,
+          //ThemeMode.light,
+          //ThemeMode.system,
+
+          home:  WristCheckHome(),
+        )),
+      );
+
+
   //Make the app full-screen
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
