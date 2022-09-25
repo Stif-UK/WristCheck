@@ -5,6 +5,7 @@ import 'package:wristcheck/model/enums/notification_time_options.dart';
 class WristCheckPreferences {
   static late SharedPreferences _preferences;
 
+  static const _keyAppPurchased = 'appPurchased';
   static const _keyLatestVersion = 'latestAppVersion';
   static const _keyOpenCount = 'openCount';
   static const _keyWearCount = 'wearCount';
@@ -78,6 +79,12 @@ class WristCheckPreferences {
 
   static Future setDailyNotificationTime(String notificationTime) async =>
       await _preferences.setString(_keyNotificationTime, notificationTime);
+
+  //Getter and setter for purchased bool
+  static bool? getAppPurchasedStatus() => _preferences.getBool(_keyAppPurchased);
+
+  static Future setAppPurchasedStatus(bool appPurchased) async =>
+      await _preferences.setBool(_keyAppPurchased, appPurchased);
 
 
 }
