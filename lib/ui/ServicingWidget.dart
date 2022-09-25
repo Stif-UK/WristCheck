@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/view_watch.dart';
@@ -21,7 +25,30 @@ class ServicingWidget extends StatefulWidget {
 class _ServicingWidgetState extends State<ServicingWidget> {
 
   final watchBox = Boxes.getWatches();
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+              adUnitId: adState.statsPageBannerAdUnitId,
+              //If the device screen is large enough display a larger ad on this screen
+              size: MediaQuery.of(context).size.height > 500.0
+                  ? AdSize.mediumRectangle
+                  : AdSize.largeBanner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +106,8 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               return const Divider();
               },
               )
-              )
+              ),
+                    purchaseStatus? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
                   ]
                   );
             }
@@ -90,4 +118,13 @@ class _ServicingWidgetState extends State<ServicingWidget> {
     );
 
   }
+}
+
+Widget _buildAdSpace(BannerAd? banner, BuildContext context){
+  return banner == null
+      ? const SizedBox(height: 50,)
+      : SizedBox(
+    height: 50,
+    child: AdWidget(ad: banner!),
+  );
 }
