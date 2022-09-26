@@ -49,7 +49,7 @@ class _ViewWatchState extends State<ViewWatch> {
       adState.initialization.then((status) {
         setState(() {
           banner = BannerAd(
-              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : AdUnits.viewWatchBannerAdUnitId,
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.viewWatchBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
               size: AdSize.banner,
               request: const AdRequest(),

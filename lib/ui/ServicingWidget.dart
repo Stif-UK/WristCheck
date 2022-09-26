@@ -40,7 +40,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
       adState.initialization.then((status) {
         setState(() {
           banner = BannerAd(
-              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : AdUnits.servicePageBannerAdUnitId,
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.servicePageBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
               size: AdSize.banner,
               request: const AdRequest(),
