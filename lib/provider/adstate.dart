@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter/material.dart';
+
 
 class AdState {
   Future<InitializationStatus> initialization;
@@ -27,5 +29,6 @@ class AdState {
     onAdImpression: (ad) => print('Ad Impression: ${ad.adUnitId}.'),
     onAdWillDismissScreen: (ad) => print('Ad dismissed: ${ad.adUnitId}.'),
   );
+
 
 }

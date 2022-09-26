@@ -1,13 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:provider/provider.dart';
+import 'package:wristcheck/config.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
-// import 'package:wristcheck/copy/snackbars.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,14 +24,41 @@ class ViewWatch extends StatefulWidget {
 
   final Watches currentWatch;
 
-  ViewWatch({
-    required this.currentWatch});
+
+  const ViewWatch({
+    Key? key,
+    required this.currentWatch}): super(key: key);
+
+
 
   @override
   State<ViewWatch> createState() => _ViewWatchState();
 }
 
 class _ViewWatchState extends State<ViewWatch> {
+
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : AdUnits.viewWatchBannerAdUnitId,
+              //If the device screen is large enough display a larger ad on this screen
+              size: AdSize.banner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
 
 
 
@@ -144,84 +177,91 @@ class _ViewWatchState extends State<ViewWatch> {
                   actions: [
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: IconButton(icon: Icon(Icons.help_outline),
+                      child: IconButton(icon: const Icon(Icons.help_outline),
                       onPressed: (){WristCheckDialogs.getViewWatchDialog();},),
                     ),
                   ],
                 ),
-                body: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(10.0),
-                    //margin: const EdgeInsets.all(10.0),
-                    child: Form(
-                      key: _editKey,
-                      //Build the page layout
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                body: Column(
+                  children: [
+                    purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          //margin: const EdgeInsets.all(10.0),
+                          child: Form(
+                            key: _editKey,
+                            //Build the page layout
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                          //Placeholder image picker
-                          _displayWatchImage(),
+                                //Placeholder image picker
+                                _displayWatchImage(),
 
-                          //Wear button and stats
-                          _buildWearRow(),
+                                //Wear button and stats
+                                _buildWearRow(),
 
-                          const SizedBox(height: 20),
-
-
-                          //build Manufacturer row
-                          const Text("Manufacturer:"),
-                          _buildManufacturerRow(),
-
-                          //build model row
-                          const Text("Model:"),
-                          _buildModelRow(),
-
-                          //Build Serial Number row
-                          const Text("Serial Number:"),
-                          _buildSerialNumberRow(),
-
-                          //Build Reference Number row
-                          const Text("Reference Number:"),
-                          _buildReferenceNumberRow(),
-
-                          //build favourite toggle
-                          _buildFavouriteRow(widget.currentWatch),
-
-                          //build collection status toggle
-                          _buildStatusDropdownRow(),
-
-                          const SizedBox(height: 10),
-                          //build purchase date row
-                          _buildPurchaseDateRow(),
-                          const SizedBox(height: 10),
-
-                          //build service interval selector
-                          _buildServiceIntervalDropdown(),
-                          const SizedBox(height: 10),
-
-                          //build last serviced date field
-                          _buildLastServicedDateRow(),
-                          const SizedBox(height: 10,),
+                                const SizedBox(height: 20),
 
 
-                          //Next service due by field is not editable
-                          widget.currentWatch.nextServiceDue != null
-                              ? Text(
-                              "Next service date by: ${DateFormat.yMMMd()
-                                  .format(
-                                  widget.currentWatch.nextServiceDue!)}")
-                              : const Text("Next Service due by: N/A"),
-                          const SizedBox(height: 10),
+                                //build Manufacturer row
+                                const Text("Manufacturer:"),
+                                _buildManufacturerRow(),
 
-                          //Build Notes Row
-                          const Text("Notes:"),
-                          _buildNotesRow(),
+                                //build model row
+                                const Text("Model:"),
+                                _buildModelRow(),
 
-                        ],
+                                //Build Serial Number row
+                                const Text("Serial Number:"),
+                                _buildSerialNumberRow(),
+
+                                //Build Reference Number row
+                                const Text("Reference Number:"),
+                                _buildReferenceNumberRow(),
+
+                                //build favourite toggle
+                                _buildFavouriteRow(widget.currentWatch),
+
+                                //build collection status toggle
+                                _buildStatusDropdownRow(),
+
+                                const SizedBox(height: 10),
+                                //build purchase date row
+                                _buildPurchaseDateRow(),
+                                const SizedBox(height: 10),
+
+                                //build service interval selector
+                                _buildServiceIntervalDropdown(),
+                                const SizedBox(height: 10),
+
+                                //build last serviced date field
+                                _buildLastServicedDateRow(),
+                                const SizedBox(height: 10,),
+
+
+                                //Next service due by field is not editable
+                                widget.currentWatch.nextServiceDue != null
+                                    ? Text(
+                                    "Next service date by: ${DateFormat.yMMMd()
+                                        .format(
+                                        widget.currentWatch.nextServiceDue!)}")
+                                    : const Text("Next Service due by: N/A"),
+                                const SizedBox(height: 10),
+
+                                //Build Notes Row
+                                const Text("Notes:"),
+                                _buildNotesRow(),
+
+                              ],
+                            ),
+                          ),),
                       ),
-                    ),),
+                    ),
+                  ],
                 )
             );
           } else {

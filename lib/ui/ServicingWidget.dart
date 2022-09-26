@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/view_watch.dart';
@@ -107,7 +108,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               },
               )
               ),
-                    purchaseStatus? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+                    purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
                   ]
                   );
             }
@@ -120,11 +121,11 @@ class _ServicingWidgetState extends State<ServicingWidget> {
   }
 }
 
-Widget _buildAdSpace(BannerAd? banner, BuildContext context){
-  return banner == null
-      ? const SizedBox(height: 50,)
-      : SizedBox(
-    height: 50,
-    child: AdWidget(ad: banner!),
-  );
-}
+// Widget _buildAdSpace(BannerAd? banner, BuildContext context){
+//   return banner == null
+//       ? const SizedBox(height: 50,)
+//       : SizedBox(
+//     height: 50,
+//     child: AdWidget(ad: banner!),
+//   );
+// }
