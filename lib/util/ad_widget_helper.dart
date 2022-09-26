@@ -11,4 +11,14 @@ class AdWidgetHelper{
               child: AdWidget(ad: banner),
     );
   }
+
+  static Widget buildLargeAdSpace(BannerAd? banner, BuildContext context){
+    return banner == null
+        ? const SizedBox(height: 100,)
+        : SizedBox(
+      height: 100,
+      child: AdWidget(ad: banner),
+    );
+  }
+
 }
