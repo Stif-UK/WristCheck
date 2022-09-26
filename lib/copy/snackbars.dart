@@ -47,7 +47,8 @@ class WristCheckSnackBars{
     "Reminder Set",
         "You'll get a reminder every day at $selectedTime",
     icon: const Icon(Icons.add_alert_outlined),
-    snackPosition: SnackPosition.BOTTOM);
+    snackPosition: SnackPosition.TOP,
+    shouldIconPulse: true);
   }
 
 
