@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
 import 'package:wristcheck/ui/wearStats.dart';
@@ -30,7 +31,8 @@ class _StatsWidgetState extends State<StatsWidget> {
       adState.initialization.then((status) {
         setState(() {
           banner = BannerAd(
-              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds :adState.statsPageBannerAdUnitId,
+            //Check config to confirm if this is a prod or test app build
+              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : AdUnits.statsPageBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
               size: MediaQuery.of(context).size.height > 500.0
                   ? AdSize.mediumRectangle

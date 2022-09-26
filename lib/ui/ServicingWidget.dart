@@ -3,6 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -38,7 +39,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
       adState.initialization.then((status) {
         setState(() {
           banner = BannerAd(
-              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : adState.servicePageBannerAdUnitId,
+              adUnitId: WristCheckConfig.prodBuild? adState.getTestAds : AdUnits.servicePageBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
               size: AdSize.banner,
               request: const AdRequest(),
