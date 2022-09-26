@@ -21,4 +21,14 @@ class AdWidgetHelper{
     );
   }
 
+  static Widget buildRectangleSpace(BannerAd? banner, BuildContext context){
+    double size = MediaQuery.of(context).size.height > 500.0? 250 : 100;
+    return banner == null
+        ? SizedBox(height: size,)
+        : SizedBox(
+      height: size,
+      child: AdWidget(ad: banner),
+    );
+  }
+
 }

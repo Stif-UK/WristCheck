@@ -1,12 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:wristcheck/config.dart';
+import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/backup/backup.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/ui/backup/restore.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 
-class BackupRestore extends StatelessWidget {
+import '../../provider/adstate.dart';
+
+class BackupRestore extends StatefulWidget {
   const BackupRestore({Key? key}) : super(key: key);
 
+  @override
+  State<BackupRestore> createState() => _BackupRestoreState();
+}
+
+class _BackupRestoreState extends State<BackupRestore> {
+
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.wishlistPageBannerAdUnitId,
+              //If the device screen is large enough display a larger ad on this screen
+              size: MediaQuery.of(context).size.height > 500.0
+                  ? AdSize.mediumRectangle
+                  : AdSize.largeBanner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,65 +62,73 @@ class BackupRestore extends StatelessWidget {
       ),
 
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 60,),
-          SizedBox(
-            width: (MediaQuery.of(context).size.width)*0.8,
-            height: (MediaQuery.of(context).size.height)*0.15,
-            child: ElevatedButton(
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text("Backup",
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),),
-                ),
-                onPressed: (){
-                  Get.to(() => const Backup());
-                  },
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            side: const BorderSide(color: Colors.black)
-                        )
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 60,),
+                SizedBox(
+                  width: (MediaQuery.of(context).size.width)*0.8,
+                  height: (MediaQuery.of(context).size.height)*0.15,
+                  child: ElevatedButton(
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text("Backup",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),),
+                      ),
+                      onPressed: (){
+                        Get.to(() => const Backup());
+                        },
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  side: const BorderSide(color: Colors.black)
+                              )
 
-                    )
-                )
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: (MediaQuery.of(context).size.width)*0.8,
-              height: (MediaQuery.of(context).size.height)*0.15,
-              child: ElevatedButton(
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text("Restore",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),),
-                  ),
-                  onPressed: (){
-                    Get.to(() => const Restore());
-                  },
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(color: Colors.black)
                           )
-
                       )
-                  )
-              ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: (MediaQuery.of(context).size.width)*0.8,
+                    height: (MediaQuery.of(context).size.height)*0.15,
+                    child: ElevatedButton(
+                        child: const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text("Restore",
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),),
+                        ),
+                        onPressed: (){
+                          Get.to(() => const Restore());
+                        },
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    side: const BorderSide(color: Colors.black)
+                                )
+
+                            )
+                        )
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildRectangleSpace(banner, context),
+          const SizedBox(height: 50,)
         ],
       ),
 
