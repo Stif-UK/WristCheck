@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:wristcheck/config.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/model/watch_methods.dart';
@@ -19,6 +26,28 @@ class WearDatesWidget extends StatefulWidget {
 
 class _WearDatesWidgetState extends State<WearDatesWidget> {
 bool _locked = true;
+BannerAd? banner;
+bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+@override
+void didChangeDependencies() {
+  super.didChangeDependencies();
+  if(!purchaseStatus)
+  {
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        banner = BannerAd(
+            adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.datelistBannerAdUnitID,
+            //If the device screen is large enough display a larger ad on this screen
+            size: AdSize.banner,
+            request: const AdRequest(),
+            listener: adState.adListener)
+          ..load();
+      });
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -58,45 +87,55 @@ bool _locked = true;
           ),
         ],
       ),
-      body: wearList.isNotEmpty? ListView.builder(
-        itemCount: wearList.length,
-        prototypeItem: ListTile(
-          title: Text(wearList.first.toString()),
-        ),
-        itemBuilder: (context, index) {
-          final item = wearList[index].toString();
-          var date = wearList[index];
-          return Dismissible(
-            
-            key: Key(item),
-            //If page is locked then dates cannot be dismissed, else require a right to left swipe
-            direction: _locked? DismissDirection.none : DismissDirection.endToStart,
+      body: Column(
+        children: [
+          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          Expanded(
+            child: Container(
+              child:
+              wearList.isNotEmpty? ListView.builder(
+                itemCount: wearList.length,
+                prototypeItem: ListTile(
+                  title: Text(wearList.first.toString()),
+                ),
+                itemBuilder: (context, index) {
+                  final item = wearList[index].toString();
+                  var date = wearList[index];
+                  return Dismissible(
 
-            onDismissed: (direction) {
-              setState(() {
-                wearList.removeAt(index);
-                widget.currentWatch.save();
-                // Then show a snackbar.
-                WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
-              });
+                    key: Key(item),
+                    //If page is locked then dates cannot be dismissed, else require a right to left swipe
+                    direction: _locked? DismissDirection.none : DismissDirection.endToStart,
 
-            },
-            // Show a red background as the item is swiped away.
-            background: Container(
-              alignment: Alignment.center,color: Colors.red,
-            child: const Text("Deleting"),),
-            child: ListTile(
-              leading: const Icon(Icons.calendar_today_outlined),
-              title: Text(WristCheckFormatter.getFormattedDate(wearList[index])),
+                    onDismissed: (direction) {
+                      setState(() {
+                        wearList.removeAt(index);
+                        widget.currentWatch.save();
+                        // Then show a snackbar.
+                        WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
+                      });
+
+                    },
+                    // Show a red background as the item is swiped away.
+                    background: Container(
+                      alignment: Alignment.center,color: Colors.red,
+                    child: const Text("Deleting"),),
+                    child: ListTile(
+                      leading: const Icon(Icons.calendar_today_outlined),
+                      title: Text(WristCheckFormatter.getFormattedDate(wearList[index])),
+                    ),
+                  );
+                },
+              ):
+              Container(
+                padding: const EdgeInsets.all(20),
+                alignment: Alignment.center,
+                child: const Text("No wear dates are tracked yet for this watch\n\nSelect the 'Wear this watch today' button on the watch info screen to add dates.\n",
+                  textAlign: TextAlign.center,),
+              ),
             ),
-          );
-        },
-      ):
-      Container(
-        padding: const EdgeInsets.all(20),
-        alignment: Alignment.center,
-        child: const Text("No wear dates are tracked yet for this watch\n\nSelect the 'Wear this watch today' button on the watch info screen to add dates.\n",
-          textAlign: TextAlign.center,),
+          ),
+        ],
       )
     );
 
