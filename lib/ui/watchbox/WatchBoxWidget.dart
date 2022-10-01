@@ -3,7 +3,6 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
@@ -18,8 +17,7 @@ class WatchBoxWidget extends StatefulWidget {
   @override
   State<WatchBoxWidget> createState() => _WatchBoxWidgetState();
 }
-//ToDo: Remove reference to FilterController as not required here
-//final FilterController filterController = Get.put(FilterController());
+
 
 class _WatchBoxWidgetState extends State<WatchBoxWidget> {
 
@@ -71,7 +69,7 @@ class _WatchBoxWidgetState extends State<WatchBoxWidget> {
               );
             },
           separatorBuilder: (context, index){
-              return Divider();
+              return const Divider(thickness: 2,);
           },
             );
           }
