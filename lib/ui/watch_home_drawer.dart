@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
+import 'package:wristcheck/ui/remove_ads.dart';
 
 class WatchHomeDrawer extends StatelessWidget {
   const WatchHomeDrawer({Key? key}) : super(key: key);
@@ -56,6 +57,14 @@ class WatchHomeDrawer extends StatelessWidget {
             onTap: (){
               Get.to(() => PrivacyPolicy());
             },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.ad_units_outlined),
+            title: const Text("Remove Ads"),
+            onTap: (){
+              Get.to(() => const RemoveAds());
+            }
           ),
           const Divider(),
           ListTile(
