@@ -4,6 +4,6 @@ class WristCheckConfig{
   for example, this can be set to false and then checked by the app to show test
   ads rather than using the prod ad units.
    */
-  static bool prodBuild = false;
+  static bool prodBuild = true;
 
 }
