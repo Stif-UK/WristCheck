@@ -914,4 +914,15 @@ class _ViewWatchState extends State<ViewWatch> {
         ));
   }
 
+  Image? _getImageFromPath(File imageFile){
+    try {
+      return Image.file(imageFile);
+    } on Exception catch (e) {
+      setState(() {
+        image == null;
+      });
+      return null;
+    }
+  }
+
 }

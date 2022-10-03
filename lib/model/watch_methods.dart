@@ -134,9 +134,10 @@ class WatchMethods {
   static Future<File?> getImage(Watches currentWatch) async {
     final directory = await getApplicationDocumentsDirectory();
     final name = currentWatch.frontImagePath ?? "";
+    final exists = await File("${directory.path}/$name").exists();
 
-    //if no image path has been saved return null? otherwise give the path name
-    return name == ""? null : File("${directory.path}/$name");
+    //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
+    return name == "" || !exists ? null : File("${directory.path}/$name");
   }
 
   static Watches? getOldestorNewestWatch(List<Watches> watchBox, bool oldest){
