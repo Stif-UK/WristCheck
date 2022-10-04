@@ -178,17 +178,17 @@ class _NotificationsState extends State<Notifications> {
                 _selectedTime == null? const SizedBox(height: 20,): Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
                 style: const TextStyle(fontSize: 16, ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(onPressed: () async {
-                        await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
-                      }, child: const Text("Press to see a test notification")),
-                      const SizedBox(height: 120,)
-                    ],
-                  ),
-                ),
+                // Expanded(
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: [
+                //       ElevatedButton(onPressed: () async {
+                //         await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
+                //       }, child: const Text("Press to see a test notification")),
+                //       const SizedBox(height: 120,)
+                //     ],
+                //   ),
+                // ),
 
               ],
             ),
@@ -206,6 +206,7 @@ class _NotificationsState extends State<Notifications> {
     await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
     notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "Don't forget to track what's on your wrist today!", time: customTime!);
     String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
+    notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Your notifications have now been scheduled for $timeString every day!");
     WristCheckSnackBars.dailyNotification(timeString);
   }
 }
