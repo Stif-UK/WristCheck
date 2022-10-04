@@ -161,7 +161,7 @@ class WatchMethods {
 
     //get the wear count of the last watch in the ordered collection
     int comparable = 0;
-    most? comparable = orderedByWearCount.last.wearList.length : orderedByWearCount.first.wearList.length;
+    most? comparable = orderedByWearCount.last.wearList.length : comparable = orderedByWearCount.first.wearList.length;
 
     // int longest = orderedByWearCount.last.wearList.length;
     // int shortest = orderedByWearCount.first.wearList.length;
@@ -170,10 +170,12 @@ class WatchMethods {
     //now check if any other watches have been worn the same amount of times - if so add them to the list
     for (var watch in orderedByWearCount) {
       if(watch.wearList.length == comparable){
+        print("Most: $most. Comparable $comparable");
         returnlist.add(watch);
       }
 
     }
+    print("getting most: ($most) worn watches: List: ${returnlist} ");
     return returnlist;
   }
 
