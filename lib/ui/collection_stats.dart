@@ -20,6 +20,14 @@ class CollectionStats extends StatelessWidget {
     List<Watches> shortestWorn = WatchMethods.getMostOrLeastWornWatch(watchBox, false);
     List<Watches> wishList = Boxes.getWishlistWatches();
     List<Watches> soldList = Boxes.getSoldWatches();
+    String? longestWornWatches;
+    String? shortestWornWatches;
+    if(longestWorn.length != 1){
+      longestWornWatches = _findLongestWornModels(longestWorn);
+    }
+    if(shortestWorn.length != 1){
+      shortestWornWatches = _findLongestWornModels(shortestWorn);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +73,7 @@ class CollectionStats extends StatelessWidget {
                     isThreeLine: true,
                     leading: const Icon(Icons.star_border),
                     title: const Text("Most Worn"),
-                    subtitle: longestWorn.length == 1? Text("${longestWorn[0].model}\nWorn ${longestWorn[0].wearList.length} times") : const Text("We've got a tie!")
+                    subtitle: longestWorn.length == 1? Text("${longestWorn[0].model}\nWorn ${longestWorn[0].wearList.length} times") : Text("$longestWornWatches \nWorn ${longestWorn[0].wearList.length} times")
 
                   ),
                   const Divider(thickness: 2,),
@@ -74,8 +82,7 @@ class CollectionStats extends StatelessWidget {
                       isThreeLine: true,
                       leading: const Icon(Icons.stacked_bar_chart_outlined),
                       title: const Text("Least Worn"),
-                      //TODO: Bug here for least worn?
-                      subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].model}\nWorn ${shortestWorn[0].wearList.length} times") : const Text("We've got a tie!")
+                      subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].model}\nWorn ${shortestWorn[0].wearList.length} times") : Text("$shortestWornWatches \nWorn ${shortestWorn[0].wearList.length} times")
 
                   ),
                   const Divider(thickness: 2,),
@@ -120,6 +127,15 @@ class CollectionStats extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _findLongestWornModels(List<Watches> longestWorn){
+    String returnString = "";
+    for (var watch in longestWorn) {
+      returnString = "$returnString & \n${watch.model}";
+    }
+    return returnString.replaceFirst(" & \n", "");
+
   }
 
 }
