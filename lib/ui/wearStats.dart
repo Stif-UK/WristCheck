@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
 import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
-
+import 'package:screenshot/screenshot.dart';
+import 'dart:typed_data';
+import 'package:share_plus/share_plus.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
@@ -53,51 +58,75 @@ bool barChart = true;
 
 class _WearStatsState extends State<WearStats> {
 
+  ScreenshotController screenshotController = ScreenshotController();
+
+  var _imageFile;
+
   @override
   Widget build(BuildContext context) {
 
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Wear Stats"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+    return Screenshot(
+      controller: screenshotController,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Wear Stats"),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,0,4,0),
+              child: IconButton(
+                icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
+              onPressed: (){
+                  setState(() {
+                    barChart = !barChart;
+                  });
+              },),
+            ),
+            Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
             child: IconButton(
-              icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
-            onPressed: (){
-                setState(() {
-                  barChart = !barChart;
-                });
-            },),
-          )
-        ],
-      ),
-        body: Column(
+              icon: const Icon(Icons.add_a_photo_outlined),
+              onPressed: () async {
+                final image = await screenshotController.capture();
+                saveAndShare(image!);
 
-          children: [
-            // const SizedBox(height: 10),
-            Expanded(
-              flex: 7,
-                //Switch between a bar chart and pie chart with the press of a button
-                child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
-            Expanded(
-              flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-
-                    _buildFilterRow(),
-                    const SizedBox(height: 10),
-                    const Text ("This chart generated with WristCheck"),
-                    const SizedBox(height: 20,)
-                  ],
-                ),
-            )
-            // const SizedBox(height: 10)
+                // screenshotController.capture().then((Uint8List image) {
+                //   //Capture Done
+                //   setState(() {
+                //     _imageFile = image;
+                //   });
+                // }).catchError((onError) {
+                //   print(onError);
+                // });
+              },
+            ),)
           ],
-        ));
+        ),
+          body: Column(
+
+            children: [
+              // const SizedBox(height: 10),
+              Expanded(
+                flex: 7,
+                  //Switch between a bar chart and pie chart with the press of a button
+                  child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
+              Expanded(
+                flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+
+                      _buildFilterRow(),
+                      const SizedBox(height: 10),
+                      const Text ("This chart generated with WristCheck"),
+                      const SizedBox(height: 20,)
+                    ],
+                  ),
+              )
+              // const SizedBox(height: 10)
+            ],
+          )),
+    );
   }
 
   Widget _buildFilterRow(){
@@ -160,6 +189,12 @@ class _WearStatsState extends State<WearStats> {
     );
   }
 
+  Future saveAndShare(Uint8List bytes) async{
+    final directory = await getApplicationDocumentsDirectory();
+    final image = File('${directory.path}/shareImage.png');
+    image.writeAsBytesSync(bytes);
+    await Share.shareFiles([image.path],text: "Chart generated with WristCheck");
+  }
 }
 
 
