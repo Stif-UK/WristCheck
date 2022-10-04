@@ -83,8 +83,7 @@ class _BackupState extends State<Backup> {
 
                       //If Platform is Android give some guidance on backup location to minimise errors
                       Platform.isAndroid? const Text("Backup location must be a sub-folder of the Android OS 'Documents' folder",
-                          textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),) : const Text("We advise creating a new folder for backups, separate to the WristCheck app folder",
-                        textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
+                          textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),) : const Text(""),
                       const SizedBox(height: 20,),
                       ElevatedButton(
                           child: const Text("Select Backup Location"),
