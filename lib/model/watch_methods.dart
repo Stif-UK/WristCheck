@@ -170,12 +170,10 @@ class WatchMethods {
     //now check if any other watches have been worn the same amount of times - if so add them to the list
     for (var watch in orderedByWearCount) {
       if(watch.wearList.length == comparable){
-        print("Most: $most. Comparable $comparable");
         returnlist.add(watch);
       }
 
     }
-    print("getting most: ($most) worn watches: List: ${returnlist} ");
     return returnlist;
   }
 
