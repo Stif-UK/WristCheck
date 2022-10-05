@@ -179,7 +179,7 @@ class WristCheckDialogs {
       title: "What's New?",
       content: SizedBox(
           width: (MediaQuery.of(context).size.width)*0.7,
-          height:(MediaQuery.of(context).size.width)*0.5,
+          height:(MediaQuery.of(context).size.width)*0.65,
           child: Markdown(data: WhatsNewCopy.getLatestVersionCopy(),))
     );
   }
