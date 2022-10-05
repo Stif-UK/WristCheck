@@ -67,42 +67,42 @@ class _WearStatsState extends State<WearStats> {
 
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Wear Stats"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0,0,4,0),
+    return Screenshot(
+      controller: screenshotController,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Wear Stats"),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,0,4,0),
+              child: IconButton(
+                icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
+              onPressed: (){
+                  setState(() {
+                    barChart = !barChart;
+                  });
+              },),
+            ),
+            Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
             child: IconButton(
-              icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
-            onPressed: (){
-                setState(() {
-                  barChart = !barChart;
-                });
-            },),
-          ),
-          Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
-          child: IconButton(
-            icon: const Icon(Icons.add_a_photo_outlined),
-            onPressed: () async {
-              final image = await screenshotController.capture();
-              saveAndShare(image!);
+              icon: const Icon(Icons.add_a_photo_outlined),
+              onPressed: () async {
+                final image = await screenshotController.capture();
+                saveAndShare(image!);
 
-              // screenshotController.capture().then((Uint8List image) {
-              //   //Capture Done
-              //   setState(() {
-              //     _imageFile = image;
-              //   });
-              // }).catchError((onError) {
-              //   print(onError);
-              // });
-            },
-          ),)
-        ],
-      ),
-        body: Screenshot(
-          controller: screenshotController,
-          child: Column(
+                // screenshotController.capture().then((Uint8List image) {
+                //   //Capture Done
+                //   setState(() {
+                //     _imageFile = image;
+                //   });
+                // }).catchError((onError) {
+                //   print(onError);
+                // });
+              },
+            ),)
+          ],
+        ),
+          body: Column(
 
             children: [
               // const SizedBox(height: 10),
@@ -125,8 +125,8 @@ class _WearStatsState extends State<WearStats> {
               )
               // const SizedBox(height: 10)
             ],
-          ),
-        ));
+          )),
+    );
   }
 
   Widget _buildFilterRow(){
