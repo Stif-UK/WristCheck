@@ -898,6 +898,7 @@ class _ViewWatchState extends State<ViewWatch> {
     return showModalBottomSheet(context: context,
         builder: (context) => Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt_outlined),
@@ -908,6 +909,9 @@ class _ViewWatchState extends State<ViewWatch> {
                 leading: const Icon(Icons.camera_roll_outlined),
                 title: const Text("Select from Gallery"),
                 onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
+            ),
+            SizedBox(
+            height: MediaQuery.of(context).size.height*0.2
             )
           ],
 
