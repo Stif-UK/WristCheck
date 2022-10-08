@@ -42,6 +42,7 @@ class _AddWatchState extends State<AddWatch> {
   Widget _buildManufacturerField(){
     return TextFormField(
       decoration: const InputDecoration(labelText: "Manufacturer"),
+      textCapitalization: TextCapitalization.words,
       validator: (String? value){
         if(value == null || value.isEmpty){
           return "Manufacturer is required";
@@ -58,6 +59,7 @@ class _AddWatchState extends State<AddWatch> {
   Widget _buildModelField(){
     return TextFormField(
       decoration: const InputDecoration(labelText: "Model"),
+      textCapitalization: TextCapitalization.words,
       validator: (String? value){
         if(value == null || value.isEmpty){
           return "Model is required";
