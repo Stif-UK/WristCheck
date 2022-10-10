@@ -130,7 +130,7 @@ void didChangeDependencies() {
               Container(
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.center,
-                child: const Text("No wear dates are tracked yet for this watch\n\nSelect the 'Wear this watch today' button on the watch info screen to add dates.\n",
+                child: const Text("No wear dates are tracked yet for this watch\n\nYou can add dates by clicking the 'unlock' icon above and then clicking the + icon\n",
                   textAlign: TextAlign.center,),
               ),
             ),
