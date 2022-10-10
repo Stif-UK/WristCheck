@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -85,6 +86,12 @@ void didChangeDependencies() {
                   },
             ),
           ),
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: (){
+              WristCheckDialogs.getWearDatesHelpDialog();
+            },
+          )
         ],
       ),
       body: Column(
