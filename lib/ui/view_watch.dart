@@ -17,6 +17,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 
 class ViewWatch extends StatefulWidget {
@@ -790,7 +791,7 @@ class _ViewWatchState extends State<ViewWatch> {
               child: const Icon(Icons.add_a_photo_outlined),
           onTap: () async {
 
-                var imageSource = await _imageSourcePopUp();
+                var imageSource = await ImagesUtil.imageSourcePopUp(context);
                 pickImage(source: imageSource!);
           }
           ),
@@ -893,30 +894,7 @@ class _ViewWatchState extends State<ViewWatch> {
     );
   }
 
-  //Triggers a bottom sheet giving the user the option to select the picture from the camera or gallery
-  Future<ImageSource?> _imageSourcePopUp() async {
-    return showModalBottomSheet(context: context,
-        builder: (context) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.camera_alt_outlined),
-              title: const Text("Take with Camera"),
-              onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
-            ),
-            ListTile(
-                leading: const Icon(Icons.camera_roll_outlined),
-                title: const Text("Select from Gallery"),
-                onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
-            ),
-            SizedBox(
-            height: MediaQuery.of(context).size.height*0.2
-            )
-          ],
 
-        ));
-  }
 
   Image? _getImageFromPath(File imageFile){
     try {
