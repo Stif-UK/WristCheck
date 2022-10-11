@@ -56,7 +56,7 @@ void didChangeDependencies() {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
+        title: Text(widget.currentWatch.model),
         actions:  [
           //Show lock icon - page cannot be edited if locked (default state)
           InkWell(child: _locked? const Icon(Icons.lock) :  const Icon(Icons.lock_open),
