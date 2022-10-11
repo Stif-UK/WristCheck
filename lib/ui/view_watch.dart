@@ -63,55 +63,6 @@ class _ViewWatchState extends State<ViewWatch> {
 
 
 
-  //ToDo: Refactor out into utility class?
-//pickImage() allows the user to pick the image from either the gallery or camera
-  Future pickImage({required ImageSource source,
-  }) async {
-    //required Future<File> Function(File file) cropImage}
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return null;
-
-      final imageTemporary = File(image.path);
-      var croppedImage = await cropImage(imageTemporary);
-      File returnImage;
-     // croppedImage == null? var returnImage = File(croppedImage.path) : return null;
-      if(croppedImage == null){
-        return null;
-    } else{
-         returnImage = File(croppedImage.path);
-         WatchMethods.saveImage(croppedImage.path, widget.currentWatch);
-         setState(() => this.image = returnImage);
-      }
-
-
-      // return cropSquareImage(File(imageTemporary.path)) as File;
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-      //ToDo: Implement error handling
-      return null;
-    }
-  }
-
-  Future<CroppedFile?> cropImage(File imageFile) async{
-    return await ImageCropper.platform.cropImage(sourcePath: imageFile.path,
-      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-      aspectRatioPresets: [CropAspectRatioPreset.square],
-      compressQuality: 70,
-      compressFormat: ImageCompressFormat.jpg,
-      uiSettings: [androidUIsettingsForCrop(),iOSUIsettingsForCrop()]
-    );
-  }
-
-//create UI settings for the crop
-  AndroidUiSettings androidUIsettingsForCrop() => AndroidUiSettings(
-    toolbarTitle: "Crop watch image",
-  );
-
-  IOSUiSettings iOSUIsettingsForCrop() => IOSUiSettings(
-    title: "Crop Image"
-  );
-
 
 
   //create instance variables to hold element values of the given watch element
@@ -124,6 +75,7 @@ class _ViewWatchState extends State<ViewWatch> {
   int _serviceInterval = 0;
   DateTime? _purchaseDate;
   DateTime? _lastServiceDate;
+  File? image;
   //variables for status dropdown
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist","Archived"];
   String? _selectedStatus = "In Collection";
@@ -144,8 +96,7 @@ class _ViewWatchState extends State<ViewWatch> {
   bool canRecordWear = false;
   //ToDo: Need to reset ALL to false via a method whenever one is set to true - only ever one field editable. Would need to make this list of variables into a map
 
-  //Temporary file to display watch image
-  File? image;
+
 
   //form key to allow access to the form state
   final GlobalKey<FormState> _editKey = GlobalKey<FormState>();
@@ -792,7 +743,12 @@ class _ViewWatchState extends State<ViewWatch> {
           onTap: () async {
 
                 var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                pickImage(source: imageSource!);
+                await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch);
+                //pickAndSaveImage will have set the image for the given watch
+                //Now call setstate to ensure the display is updated
+                setState(() {
+
+                });
           }
           ),
         ),
@@ -896,15 +852,15 @@ class _ViewWatchState extends State<ViewWatch> {
 
 
 
-  Image? _getImageFromPath(File imageFile){
-    try {
-      return Image.file(imageFile);
-    } on Exception catch (e) {
-      setState(() {
-        image == null;
-      });
-      return null;
-    }
-  }
+  // Image? _getImageFromPath(File imageFile){
+  //   try {
+  //     return Image.file(imageFile);
+  //   } on Exception catch (e) {
+  //     setState(() {
+  //       image == null;
+  //     });
+  //     return null;
+  //   }
+  // }
 
 }
