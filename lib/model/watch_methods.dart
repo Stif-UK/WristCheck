@@ -8,11 +8,9 @@ import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:wristcheck/copy/dialogs.dart';
 
 class WatchMethods {
 
-  //TODO: Update addWatch() to check for unique watch - watch already exists exception trigger dialog
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber){
     String m = manufacturer!;
@@ -114,31 +112,6 @@ class WatchMethods {
     return false;
   }
 
-  //Helper method to save the watch image to the file system and add a reference
-  //to the instance variable of the given watch
-  static Future<File> saveImage(String imagePath, Watches currentWatch) async {
-    //Get the directory and save the file
-    final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
-    final image = File('${directory.path}/$name');
-    print("creating image file at ${directory.path}/$name");
-    //save the filename to the watches instance variable and save it
-    currentWatch.frontImagePath = "/$name";
-    print("updating instance variable to ${currentWatch.frontImagePath}");
-    currentWatch.save();
-
-    return File(imagePath).copy(image.path);
-  }
-
-  //Helper method to return the watch image
-  static Future<File?> getImage(Watches currentWatch) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final name = currentWatch.frontImagePath ?? "";
-    final exists = await File("${directory.path}/$name").exists();
-
-    //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
-    return name == "" || !exists ? null : File("${directory.path}/$name");
-  }
 
   static Watches? getOldestorNewestWatch(List<Watches> watchBox, bool oldest){
     List<Watches> datedWatches = watchBox.where((watch) => watch.purchaseDate != null).toList();

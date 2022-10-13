@@ -111,7 +111,7 @@ class _ViewWatchState extends State<ViewWatch> {
     // image = WatchMethods.getImage(widget.currentWatch)
 
     return FutureBuilder<File?>(
-        future: WatchMethods.getImage(widget.currentWatch),
+        future: ImagesUtil.getImage(widget.currentWatch),
         builder: (context, AsyncSnapshot<File?> snapshot) {
           if (snapshot.hasData || snapshot.data == null) {
             try {

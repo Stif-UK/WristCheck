@@ -1,9 +1,10 @@
 import 'dart:io';
-
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 
@@ -33,7 +34,7 @@ class ImagesUtil {
         return null;
       } else{
         returnImage = File(croppedImage.path);
-        WatchMethods.saveImage(croppedImage.path, currentWatch);
+        ImagesUtil.saveImage(croppedImage.path, currentWatch);
 
       }
 
@@ -94,6 +95,32 @@ class ImagesUtil {
         compressFormat: ImageCompressFormat.jpg,
         uiSettings: [androidUIsettingsForCrop(),iOSUIsettingsForCrop()]
     );
+  }
+
+  //Helper method to return the watch image
+  static Future<File?> getImage(Watches currentWatch) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = currentWatch.frontImagePath ?? "";
+    final exists = await File("${directory.path}/$name").exists();
+
+    //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
+    return name == "" || !exists ? null : File("${directory.path}/$name");
+  }
+
+  //Helper method to save the watch image to the file system and add a reference
+  //to the instance variable of the given watch
+  static Future<File> saveImage(String imagePath, Watches currentWatch) async {
+    //Get the directory and save the file
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final image = File('${directory.path}/$name');
+    print("creating image file at ${directory.path}/$name");
+    //save the filename to the watches instance variable and save it
+    currentWatch.frontImagePath = "/$name";
+    print("updating instance variable to ${currentWatch.frontImagePath}");
+    currentWatch.save();
+
+    return File(imagePath).copy(image.path);
   }
 
 
