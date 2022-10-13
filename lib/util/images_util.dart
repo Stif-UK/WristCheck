@@ -34,7 +34,7 @@ class ImagesUtil {
         return null;
       } else{
         returnImage = File(croppedImage.path);
-        ImagesUtil.saveImage(croppedImage.path, currentWatch);
+        await ImagesUtil.saveImage(croppedImage.path, currentWatch);
 
       }
 
@@ -109,18 +109,27 @@ class ImagesUtil {
 
   //Helper method to save the watch image to the file system and add a reference
   //to the instance variable of the given watch
-  static Future<File> saveImage(String imagePath, Watches currentWatch) async {
+  static Future<File> saveImageToDirectory(String imagePath) async {
     //Get the directory and save the file
     final directory = await getApplicationDocumentsDirectory();
     final name = basename(imagePath);
     final image = File('${directory.path}/$name');
     print("creating image file at ${directory.path}/$name");
-    //save the filename to the watches instance variable and save it
-    currentWatch.frontImagePath = "/$name";
-    print("updating instance variable to ${currentWatch.frontImagePath}");
-    currentWatch.save();
 
     return File(imagePath).copy(image.path);
+  }
+
+  static saveImagepathToDatabase(String imagePath, Watches currentWatch) async{
+    final name = basename(imagePath);
+    currentWatch.frontImagePath = "/$name";
+    currentWatch.save();
+  }
+
+  /// saveImage() calls saveImageToDirectory() to firstly save the image to the device directory
+  /// and then secondly calls saveImagepathToDatabase() to ensure the watch object knows the new image location.
+  /// Prefer to call this method over the individual methods unless the watch object is not yet created
+  static saveImage(String imagePath, Watches currentWatch) async {
+    await saveImageToDirectory(imagePath).then((_) => saveImagepathToDatabase(imagePath, currentWatch));
   }
 
 
