@@ -21,7 +21,6 @@ class ImagesUtil {
     required ImageSource source,
     required Watches currentWatch
   }) async {
-    //required Future<File> Function(File file) cropImage}
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return null;
@@ -29,7 +28,6 @@ class ImagesUtil {
       final imageTemporary = File(image.path);
       var croppedImage = await ImagesUtil.cropImage(imageTemporary);
       File returnImage;
-      // croppedImage == null? var returnImage = File(croppedImage.path) : return null;
       if(croppedImage == null){
         return null;
       } else{
@@ -37,15 +35,38 @@ class ImagesUtil {
         await ImagesUtil.saveImage(croppedImage.path, currentWatch);
 
       }
-
-
-      // return cropSquareImage(File(imageTemporary.path)) as File;
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
       //ToDo: Implement error handling
       return null;
     }
   }
+
+  static Future<File?> pickImage({
+    required ImageSource source,
+  }) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return null;
+
+      final imageTemporary = File(image.path);
+      var croppedImage = await ImagesUtil.cropImage(imageTemporary);
+      File returnImage;
+      if(croppedImage == null){
+        return null;
+      } else{
+        returnImage = File(croppedImage.path);
+        return returnImage;
+        //await ImagesUtil.saveImage(croppedImage.path, currentWatch);
+
+      }
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+      //ToDo: Implement error handling
+      return null;
+    }
+  }
+
 
   /*
   Calls a bottom modal sheet allowing user to select if the source of their image should be

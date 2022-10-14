@@ -1,8 +1,11 @@
+import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 
 class AddWatch extends StatefulWidget {
@@ -26,6 +29,8 @@ class _AddWatchState extends State<AddWatch> {
   int _serviceInterval = 0;
   String? _notes ="";
   String? _referenceNumber = "";
+  String? _frontImagePath = "";
+  File? image;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -320,6 +325,11 @@ class _AddWatchState extends State<AddWatch> {
                 _buildServiceIntervalDropdown(),
               ],
               ),
+              ExpansionTile(title: const Text("Watch Images (optional)"),
+              children: [
+                _displayWatchImage()
+              ],
+              ),
               _buildNotesField(),
 
 
@@ -329,12 +339,17 @@ class _AddWatchState extends State<AddWatch> {
               const SizedBox(height: 100,),
               ElevatedButton(
                   child: const Text("Add Watch"),
-                  onPressed: () => {
+                  onPressed: () async => {
                     //some prints to validate activity
 
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
-                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
+                      //If an image has been set then save to the directory and set the frontImagePath variable
+                      if(image != null){
+                        await ImagesUtil.saveImageToDirectory(image!.path),
+                        _frontImagePath = path.basename(image!.path)
+                      },
+                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber, _frontImagePath),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?
@@ -374,5 +389,54 @@ class _AddWatchState extends State<AddWatch> {
 
     );
   }
+
+  Widget _displayWatchImage(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:  [
+        // const Expanded(
+        //     flex: 2,
+        //     child: SizedBox(height: 10)),
+        Expanded(
+          flex: 6,
+          child: Container(
+              height: 180,
+              margin: const EdgeInsets.all(20),
+              //Padding and borderradius not required once image is selected
+              padding: image == null? const EdgeInsets.all(40): null,
+              decoration: image == null? BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
+              //If we have an image display it (ClipRRect used to round corners to soften the image)
+              child: image == null? const Icon(Icons.camera_alt, size: 100): ClipRRect(
+                child: Image.file(image!),
+                borderRadius: BorderRadius.circular(16),
+              )
+          ),
+
+        ),
+        Expanded(
+          flex: 2,
+          child: InkWell(
+              child: const Icon(Icons.add_a_photo_outlined),
+              onTap: () async {
+
+                var imageSource = await ImagesUtil.imageSourcePopUp(context);
+                //await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch);
+                //pickAndSaveImage will have set the image for the given watch
+                imageSource != null? image = await ImagesUtil.pickImage(source: imageSource!): null ;
+                //Now call setstate to ensure the display is updated
+                setState(() {
+
+                });
+              }
+          ),
+        ),
+
+
+      ],
+    );
+  }
+
 
 }
