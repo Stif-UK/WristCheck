@@ -8,6 +8,7 @@ import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class WatchMethods {
 
@@ -149,6 +150,35 @@ class WatchMethods {
 
     }
     return returnlist;
+  }
+
+  /*
+  appReviewCheck() performs some tests to validate app usage and duration since the app last triggered
+  an app review prompt.
+  Initially this is app opened 10+ times, watches worn 5+ times and 10 days past the set reference date
+  which is initialised on first app opening.
+  If an app review is prompted then the reference date is set to 3 months in the future
+   */
+  static appReviewCheck() async {
+    final InAppReview inAppReview = InAppReview.instance;
+    int openCount = WristCheckPreferences.getOpenCount() ?? 0;
+    int wearCount = WristCheckPreferences.getWearCount() ?? 0;
+    DateTime? refDate = WristCheckPreferences.getReferenceDate() ?? DateTime.now();
+
+
+    bool openEnough = openCount > 10;
+    bool wearEnough = wearCount > 5;
+    bool dateCheck = DateTime.now().difference(refDate) > const Duration(days: 10);
+
+    if(openEnough && wearEnough && dateCheck){
+      if(await inAppReview.isAvailable()){
+        inAppReview.requestReview();
+        //After calling requestReview() set a new Reference Date, 3 months in the future
+        var now = DateTime.now();
+        WristCheckPreferences.setReferenceDate(DateTime(now.year, now.month +3, now.day));
+      }
+    }
+
   }
 
 
