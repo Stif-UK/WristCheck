@@ -74,6 +74,8 @@ class WatchMethods {
       _wearCount == null? WristCheckPreferences.setWearCount(1) : WristCheckPreferences.setWearCount(_wearCount+1);
       //Trigger a snackbar
       WristCheckSnackBars.addWearSnackbar(watch, date);
+      //Check if an app review should be prompted
+      appReviewCheck();
     } else{
       WristCheckDialogs.getFutureDateDialog();
     }
@@ -165,10 +167,12 @@ class WatchMethods {
     int wearCount = WristCheckPreferences.getWearCount() ?? 0;
     DateTime? refDate = WristCheckPreferences.getReferenceDate() ?? DateTime.now();
 
-
     bool openEnough = openCount > 10;
     bool wearEnough = wearCount > 5;
     bool dateCheck = DateTime.now().difference(refDate) > const Duration(days: 10);
+
+    print("appReviewCheck called: $openEnough, $wearEnough, $dateCheck");
+
 
     if(openEnough && wearEnough && dateCheck){
       if(await inAppReview.isAvailable()){
