@@ -107,7 +107,8 @@ class _SettingsPageState extends State<SettingsPage> {
               if(_clickCount > 5){
                 int? _openCount = WristCheckPreferences.getOpenCount() ?? 0;
                 int? _wearCount = WristCheckPreferences.getWearCount() ?? 0;
-                WristCheckDialogs.getHiddenStats(_openCount, _wearCount);
+                DateTime? refDate = WristCheckPreferences.getReferenceDate();
+                WristCheckDialogs.getHiddenStats(_openCount, _wearCount, refDate);
               }
             },
             child: SizedBox(

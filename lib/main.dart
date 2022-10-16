@@ -22,9 +22,12 @@ Future main() async{
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
 
-  //Get SharedPreferences for watches
+  //Get SharedPreferences for watches and set opencount
   await WristCheckPreferences.init().then((_) => _updateOpenCount());
-  
+  //if this is the first time the app has opened, then set reference date
+  if(WristCheckPreferences.getReferenceDate() == null || WristCheckPreferences.getOpenCount() == 1){
+    WristCheckPreferences.setReferenceDate(DateTime.now());
+  }
 
 
   runApp(

@@ -8,6 +8,7 @@ import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:hive/hive.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckDialogs {
 
@@ -191,11 +192,12 @@ class WristCheckDialogs {
     );
   }
 
-  static getHiddenStats(int? _openCount, int? _wearCount){
+  static getHiddenStats(int? _openCount, int? _wearCount, DateTime? _refDate){
     Get.defaultDialog(
         title: "Hidden Stats",
         middleText: "You have opened this application $_openCount times\n\n"
-            "You have tracked wearing your watches $_wearCount times"
+            "You have tracked wearing your watches $_wearCount times\n\n"
+            "Reference Date is set to: ${_refDate == null? "Not Set" : WristCheckFormatter.getFormattedDate(_refDate)}"
     );
   }
 

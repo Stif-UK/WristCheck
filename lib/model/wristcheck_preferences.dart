@@ -9,6 +9,7 @@ class WristCheckPreferences {
   static const _keyLatestVersion = 'latestAppVersion';
   static const _keyOpenCount = 'openCount';
   static const _keyWearCount = 'wearCount';
+  static const _keyReferenceDate = 'referenceDate';
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
@@ -85,6 +86,18 @@ class WristCheckPreferences {
 
   static Future setAppPurchasedStatus(bool appPurchased) async =>
       await _preferences.setBool(_keyAppPurchased, appPurchased);
+
+  //Getter and setter for reference date
+  static DateTime? getReferenceDate(){
+    var timestamp = _preferences.getInt(_keyReferenceDate);
+    return timestamp == null? null : DateTime.fromMillisecondsSinceEpoch(timestamp);
+  }
+
+  static Future setReferenceDate(DateTime refDate) async {
+    int timeStamp = refDate.millisecondsSinceEpoch;
+    await _preferences.setInt(_keyReferenceDate, timeStamp);
+  }
+
 
 
 }
