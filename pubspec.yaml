@@ -55,6 +55,7 @@ dependencies:
   google_mobile_ads: ^2.0.1
   screenshot: ^1.2.3
   share_plus: ^4.4.0
+  in_app_review: ^2.0.4
 
 dev_dependencies:
   flutter_test:
