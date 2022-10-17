@@ -107,8 +107,7 @@ class _ViewWatchState extends State<ViewWatch> {
 
     //check if wear button should be enabled
     widget.currentWatch.status == "In Collection"? canRecordWear = true : canRecordWear = false;
-    //If there is a saved image, get it
-    // image = WatchMethods.getImage(widget.currentWatch)
+
 
     return FutureBuilder<File?>(
         future: ImagesUtil.getImage(widget.currentWatch),
@@ -746,9 +745,12 @@ class _ViewWatchState extends State<ViewWatch> {
                 await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch);
                 //pickAndSaveImage will have set the image for the given watch
                 //Now call setstate to ensure the display is updated
-                setState(() {
+                  setState(() {
 
-                });
+                  });
+                // setState(() {
+                //   image = image2;
+                // });
           }
           ),
         ),
@@ -757,6 +759,7 @@ class _ViewWatchState extends State<ViewWatch> {
       ],
     );
   }
+
 
   Widget _addWearButton(){
     return Row(
@@ -851,16 +854,5 @@ class _ViewWatchState extends State<ViewWatch> {
   }
 
 
-
-  // Image? _getImageFromPath(File imageFile){
-  //   try {
-  //     return Image.file(imageFile);
-  //   } on Exception catch (e) {
-  //     setState(() {
-  //       image == null;
-  //     });
-  //     return null;
-  //   }
-  // }
 
 }

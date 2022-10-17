@@ -3,8 +3,10 @@ import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
+import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 
@@ -18,6 +20,7 @@ class AddWatch extends StatefulWidget {
 class _AddWatchState extends State<AddWatch> {
 
 
+  final watchBox = Boxes.getWatches();
   //setup input parameters and create form key
   String? _manufacturer = "";
   String? _model = "";
@@ -31,6 +34,8 @@ class _AddWatchState extends State<AddWatch> {
   String? _referenceNumber = "";
   String? _frontImagePath = "";
   File? image;
+  int? watchKey;
+  Watches? currentWatch;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -345,11 +350,18 @@ class _AddWatchState extends State<AddWatch> {
                     if(_formKey.currentState!.validate()){
                       _formKey.currentState!.save(),
                       //If an image has been set then save to the directory and set the frontImagePath variable
+                      //TODO: Need to get the path to create within the img directory - create watch > get reference > open reference > save image
+                      // if(image != null){
+                      //   await ImagesUtil.saveImageToDirectory(image!.path, ""),
+                      //   _frontImagePath = path.basename(image!.path)
+                      // },
+                      watchKey = await WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
+                      print(watchBox.get(watchKey)!.model),
+                      //if an image has been set, we add this to the newly created watch before exiting
                       if(image != null){
-                        await ImagesUtil.saveImageToDirectory(image!.path),
-                        _frontImagePath = path.basename(image!.path)
+                        currentWatch = watchBox.get(watchKey),
+                        ImagesUtil.saveImage(image!.path, currentWatch!)
                       },
-                      WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber, _frontImagePath),
                       Get.back(),
                       //Display an acknowlegement snackbar - copy changes based on watch status
                       _status == "Wishlist"?
