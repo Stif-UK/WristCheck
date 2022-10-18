@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
@@ -230,6 +231,15 @@ class WristCheckDialogs {
         title: "Remove Ads",
         middleText: "WristCheck Pro will be here soon, to help you have an ad free app experience, and hopefully help me cover my development costs!"
     );
+  }
+
+  static getFailedToPickImageDialog(PlatformException e){
+    Get.defaultDialog(
+      title: "Failed to Pick Image",
+      middleText: "The platform encountered an error:\n\n"
+          "${e.toString()}"
+    );
+
   }
 
 

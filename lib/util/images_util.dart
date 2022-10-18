@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 
@@ -61,8 +62,7 @@ class ImagesUtil {
 
       }
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-      //ToDo: Implement error handling
+      WristCheckDialogs.getFailedToPickImageDialog(e);
       return null;
     }
   }
