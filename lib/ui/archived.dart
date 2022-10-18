@@ -14,6 +14,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 class Archived extends StatefulWidget {
   const Archived({Key? key}) : super(key: key);
@@ -94,8 +95,8 @@ class _ArchivedState extends State<Archived> {
                             setState(() {
                               archiveList.removeAt(index);
                               var watchInfo = "${watch.manufacturer} ${watch.model}";
+                              ImagesUtil.deleteImages(watch);
                               watchBox.delete(watch.key);
-                              //ToDo: Delete any images associated with the watch
                               // Then show a snackbar.
                               WristCheckSnackBars.deleteWatch(watchInfo);
                             });
