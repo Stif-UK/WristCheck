@@ -39,7 +39,8 @@ class WristCheckDialogs {
       middleText: "It looks like you've already worn this watch today! \n \n"
           "if you want to track an additional wear, select 'Add Again' to track. \n \n"
           "otherwise cancel to go back",
-
+        confirmTextColor: Colors.white,
+        buttonColor: Colors.lightBlueAccent,
       onConfirm: (){
         Get.back();
         WatchMethods.attemptToRecordWear(currentWatch, date, true);
@@ -106,6 +107,8 @@ class WristCheckDialogs {
       barrierDismissible: false,
       middleText: "Restoring this backup will over-write your current watch-box.\n\n"
           "Do you want to continue?",
+        confirmTextColor: Colors.white,
+        buttonColor: Colors.lightBlueAccent,
       onCancel: (){},
       onConfirm: (){
         BackupRestoreMethods.restoreWatchBox(watchbox);
@@ -130,6 +133,8 @@ class WristCheckDialogs {
       barrierDismissible: true,
       middleText: "Database successfully restored!\n\n"
           "If watches don't show immediately try navigating between the main tabs.",
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.lightBlueAccent,
       onConfirm: () async {
         var box = Boxes.getWatches();
         await box.close().then((_) => Hive.openBox<Watches>("WatchBox"));
@@ -247,9 +252,12 @@ class WristCheckDialogs {
     Get.defaultDialog(
       title: "Setup Daily Reminders",
       middleText: "WristCheck can send you a daily reminder to track what you're wearing\n\n"
-          "Would you like to set one up?",
+          "Would you like to set one up?\n\n"
+          "(This can be found at any time in the settings menu)",
       textConfirm: "Yes",
       textCancel: "No Thanks",
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.lightBlueAccent,
       onConfirm: () => Get.to(const Notifications()),
       onCancel: () => Get.back(),
 
