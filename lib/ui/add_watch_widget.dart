@@ -1,12 +1,19 @@
 import 'dart:io';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 
@@ -45,6 +52,30 @@ class _AddWatchState extends State<AddWatch> {
   int _selectedInterval = 0;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.viewWatchBannerAdUnitId,
+              //If the device screen is large enough display a larger ad on this screen
+              size: AdSize.banner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
+
 
   //create widgets for the individual form fields
 
@@ -302,101 +333,108 @@ class _AddWatchState extends State<AddWatch> {
       appBar: AppBar(
         title: const Text("Add a watch")
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
-        child: Padding(
-        padding: const EdgeInsets.all(20),
-      child: Column(
+      body: Column(
         children: [
-
-          Form(
-            key: _formKey,
+          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          Expanded(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Padding(
+              padding: const EdgeInsets.all(20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildManufacturerField(),
-              _buildModelField(),
-              _buildStatusDropdown(),
-              _buildFavouriteRow(),
-              ExpansionTile(title: const Text("Additional information (optional)"),
               children: [
-                _buildSerialNumberField(),
-                _referenceNumberFormField(),
-                _buildPurchaseDateField(),
-                const Divider(),
-                _buildLastServicedDateField(),
-                const Divider(),
-                _buildServiceIntervalDropdown(),
-              ],
-              ),
-              ExpansionTile(title: const Text("Watch Images (optional)"),
-              children: [
-                _displayWatchImage()
-              ],
-              ),
-              _buildNotesField(),
+
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _buildManufacturerField(),
+                    _buildModelField(),
+                    _buildStatusDropdown(),
+                    _buildFavouriteRow(),
+                    ExpansionTile(title: const Text("Additional information (optional)"),
+                    children: [
+                      _buildSerialNumberField(),
+                      _referenceNumberFormField(),
+                      _buildPurchaseDateField(),
+                      const Divider(),
+                      _buildLastServicedDateField(),
+                      const Divider(),
+                      _buildServiceIntervalDropdown(),
+                    ],
+                    ),
+                    ExpansionTile(title: const Text("Watch Images (optional)"),
+                    children: [
+                      _displayWatchImage()
+                    ],
+                    ),
+                    _buildNotesField(),
 
 
-              //Dropdown selector to capture watch status
+                    //Dropdown selector to capture watch status
 
 
-              const SizedBox(height: 100,),
-              ElevatedButton(
-                  child: const Text("Add Watch"),
-                  onPressed: () async => {
-                    //some prints to validate activity
+                    const SizedBox(height: 100,),
+                    ElevatedButton(
+                        child: const Text("Add Watch"),
+                        onPressed: () async => {
+                          //some prints to validate activity
 
-                    if(_formKey.currentState!.validate()){
-                      _formKey.currentState!.save(),
-                      //If an image has been set then save to the directory and set the frontImagePath variable
-                      //TODO: Need to get the path to create within the img directory - create watch > get reference > open reference > save image
-                      // if(image != null){
-                      //   await ImagesUtil.saveImageToDirectory(image!.path, ""),
-                      //   _frontImagePath = path.basename(image!.path)
-                      // },
-                      watchKey = await WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
-                      print(watchBox.get(watchKey)!.model),
-                      //if an image has been set, we add this to the newly created watch before exiting
-                      if(image != null){
-                        currentWatch = watchBox.get(watchKey),
-                        ImagesUtil.saveImage(image!.path, currentWatch!)
-                      },
-                      Get.back(),
-                      //Display an acknowlegement snackbar - copy changes based on watch status
-                      _status == "Wishlist"?
-                      Get.snackbar(
-                        "Watch Wishlisted",
-                        "$_manufacturer $_model has been added to your wishlist",
-                        icon: const Icon(Icons.watch),
-                        snackPosition: SnackPosition.BOTTOM,
-                      ) :
-                      Get.snackbar(
-                        "Watch Added",
-                        "$_manufacturer $_model has been added to your watch box",
-                        icon: const Icon(Icons.watch),
-                        snackPosition: SnackPosition.BOTTOM,
-                      )
+                          if(_formKey.currentState!.validate()){
+                            _formKey.currentState!.save(),
+                            //If an image has been set then save to the directory and set the frontImagePath variable
+                            //TODO: Need to get the path to create within the img directory - create watch > get reference > open reference > save image
+                            // if(image != null){
+                            //   await ImagesUtil.saveImageToDirectory(image!.path, ""),
+                            //   _frontImagePath = path.basename(image!.path)
+                            // },
+                            watchKey = await WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
+                            print(watchBox.get(watchKey)!.model),
+                            //if an image has been set, we add this to the newly created watch before exiting
+                            if(image != null){
+                              currentWatch = watchBox.get(watchKey),
+                              ImagesUtil.saveImage(image!.path, currentWatch!)
+                            },
+                            Get.back(),
+                            //Display an acknowlegement snackbar - copy changes based on watch status
+                            _status == "Wishlist"?
+                            Get.snackbar(
+                              "Watch Wishlisted",
+                              "$_manufacturer $_model has been added to your wishlist",
+                              icon: const Icon(Icons.watch),
+                              snackPosition: SnackPosition.BOTTOM,
+                            ) :
+                            Get.snackbar(
+                              "Watch Added",
+                              "$_manufacturer $_model has been added to your watch box",
+                              icon: const Icon(Icons.watch),
+                              snackPosition: SnackPosition.BOTTOM,
+                            )
 
-                    },
-
-
+                          },
 
 
-                  }),
-              TextButton(
-                  onPressed: (){
-                    _formKey.currentState!.reset();
-                  },
-                  child: const Text("Reset Form"))
 
-              ],
-          ),
+
+                        }),
+                    TextButton(
+                        onPressed: (){
+                          _formKey.currentState!.reset();
+                        },
+                        child: const Text("Reset Form"))
+
+                    ],
+                ),
     )
-        ],
-      ),
-      ),
+              ],
+            ),
+            ),
     ),
+            ),
+          ),
+        ],
       )
 
     );
