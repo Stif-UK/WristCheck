@@ -9,6 +9,7 @@ import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:hive/hive.dart';
+import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckDialogs {
@@ -238,6 +239,20 @@ class WristCheckDialogs {
       title: "Failed to Pick Image",
       middleText: "The platform encountered an error:\n\n"
           "${e.toString()}"
+    );
+
+  }
+
+  static getSetupNotificationsDialog(BuildContext context){
+    Get.defaultDialog(
+      title: "Setup Daily Reminders",
+      middleText: "WristCheck can send you a daily reminder to track what you're wearing\n\n"
+          "Would you like to set one up?",
+      textConfirm: "Yes",
+      textCancel: "No Thanks",
+      onConfirm: () => Get.to(const Notifications()),
+      onCancel: () => Get.back(),
+
     );
 
   }

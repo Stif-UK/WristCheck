@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
@@ -56,13 +57,19 @@ class _NotificationsState extends State<Notifications> {
 
   bool _notificationsEnabled = WristCheckPreferences.getDailyNotificationStatus() ?? false;
   NotificationTimeOptions _notificationTime = WristCheckPreferences.getNotificationTimeOption() ??NotificationTimeOptions.morning;
-  String? _selectedTime = WristCheckPreferences.getDailyNotificationTime();
+  //String? _selectedTime = WristCheckPreferences.getDailyNotificationTime();
+  String? _selectedTime;
 
   @override
   Widget build(BuildContext context) {
+    _selectedTime = _notificationsEnabled? WristCheckPreferences.getDailyNotificationTime() : null;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notification Settings"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.back(closeOverlays: true),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline),

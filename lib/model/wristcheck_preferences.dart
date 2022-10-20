@@ -10,10 +10,12 @@ class WristCheckPreferences {
   static const _keyOpenCount = 'openCount';
   static const _keyWearCount = 'wearCount';
   static const _keyReferenceDate = 'referenceDate';
+  static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
+
 
 
   static Future init() async =>
@@ -97,6 +99,12 @@ class WristCheckPreferences {
     int timeStamp = refDate.millisecondsSinceEpoch;
     await _preferences.setInt(_keyReferenceDate, timeStamp);
   }
+
+  //Getter and setter for daily reminders prompt
+  static bool? getHasSeenDailyRemindersPrompt() => _preferences.getBool(_keyDailyRemindersPrompt);
+
+  static Future setHasSeenDailyRemindersPrompt(bool hasSeenRemindersPrompt) async =>
+      await _preferences.setBool(_keyDailyRemindersPrompt, hasSeenRemindersPrompt);
 
 
 
