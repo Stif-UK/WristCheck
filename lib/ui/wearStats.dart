@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
@@ -60,8 +59,6 @@ class _WearStatsState extends State<WearStats> {
 
   ScreenshotController screenshotController = ScreenshotController();
 
-  var _imageFile;
-
   @override
   Widget build(BuildContext context) {
 
@@ -89,15 +86,6 @@ class _WearStatsState extends State<WearStats> {
               onPressed: () async {
                 final image = await screenshotController.capture();
                 saveAndShare(image!);
-
-                // screenshotController.capture().then((Uint8List image) {
-                //   //Capture Done
-                //   setState(() {
-                //     _imageFile = image;
-                //   });
-                // }).catchError((onError) {
-                //   print(onError);
-                // });
               },
             ),)
           ],
@@ -123,7 +111,6 @@ class _WearStatsState extends State<WearStats> {
                     ],
                   ),
               )
-              // const SizedBox(height: 10)
             ],
           )),
     );
@@ -183,7 +170,6 @@ class _WearStatsState extends State<WearStats> {
               }
           )
         ],
-
       ),
       ]
     );
