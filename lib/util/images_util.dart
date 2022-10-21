@@ -119,9 +119,9 @@ class ImagesUtil {
   }
 
   //Helper method to return the watch image
-  static Future<File?> getImage(Watches currentWatch) async {
+  static Future<File?> getImage(Watches currentWatch, bool front) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = currentWatch.frontImagePath ?? "";
+    final name = front? currentWatch.frontImagePath ?? "" : currentWatch.backImagePath ?? "";
     final exists = await File("${directory.path}/$name").exists();
 
     //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
