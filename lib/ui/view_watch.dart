@@ -75,7 +75,9 @@ class _ViewWatchState extends State<ViewWatch> {
   int _serviceInterval = 0;
   DateTime? _purchaseDate;
   DateTime? _lastServiceDate;
+  //variables for image being displayed and bool for if it is the dial or caseback image
   File? image;
+  bool front = true;
   //variables for status dropdown
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist","Archived"];
   String? _selectedStatus = "In Collection";
@@ -110,7 +112,7 @@ class _ViewWatchState extends State<ViewWatch> {
 
 
     return FutureBuilder<File?>(
-        future: ImagesUtil.getImage(widget.currentWatch, true),
+        future: ImagesUtil.getImage(widget.currentWatch, front),
         builder: (context, AsyncSnapshot<File?> snapshot) {
           if (snapshot.hasData || snapshot.data == null) {
             try {
@@ -728,7 +730,13 @@ class _ViewWatchState extends State<ViewWatch> {
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
               //If we have an image display it (ClipRRect used to round corners to soften the image)
-              child: image == null? const Icon(Icons.camera_alt, size: 100): ClipRRect(
+              child: image == null? Column(
+                mainAxisSize: MainAxisSize.min,
+                children:  [
+                  const Icon(Icons.camera_alt, size: 75),
+                  front? const Text("Front"): const Text("Back"),
+                ],
+              ): ClipRRect(
                   child: Image.file(image!),
                 borderRadius: BorderRadius.circular(16),
               )
@@ -737,21 +745,34 @@ class _ViewWatchState extends State<ViewWatch> {
           ),
         Expanded(
           flex: 2,
-          child: InkWell(
-              child: const Icon(Icons.add_a_photo_outlined),
-          onTap: () async {
+          //Column to display the pick image and switch image icons
+          child: Column(
+            children: [
+              InkWell(
+                  child: const Icon(Icons.add_a_photo_outlined),
+              onTap: () async {
 
-                var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch);
-                //pickAndSaveImage will have set the image for the given watch
-                //Now call setstate to ensure the display is updated
+                    var imageSource = await ImagesUtil.imageSourcePopUp(context);
+                    await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch, front: front);
+                    //pickAndSaveImage will have set the image for the given watch
+                    //Now call setstate to ensure the display is updated
+                      setState(() {
+
+                      });
+                    // setState(() {
+                    //   image = image2;
+                    // });
+              }
+              ),
+              const SizedBox(height: 25,),
+              IconButton(
+                icon: const Icon(Icons.flip_camera_android_rounded),
+                  onPressed: (){
                   setState(() {
-
+                    front = !front;
                   });
-                // setState(() {
-                //   image = image2;
-                // });
-          }
+                  })
+            ],
           ),
         ),
 

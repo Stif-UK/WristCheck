@@ -395,7 +395,7 @@ class _AddWatchState extends State<AddWatch> {
                             //if an image has been set, we add this to the newly created watch before exiting
                             if(image != null){
                               currentWatch = watchBox.get(watchKey),
-                              ImagesUtil.saveImage(image!.path, currentWatch!)
+                              ImagesUtil.saveImage(image!.path, currentWatch!, true)
                             },
                             Get.back(),
                             //Display an acknowlegement snackbar - copy changes based on watch status

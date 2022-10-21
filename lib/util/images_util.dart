@@ -20,7 +20,8 @@ class ImagesUtil {
    */
   static pickAndSaveImage({
     required ImageSource source,
-    required Watches currentWatch
+    required Watches currentWatch,
+    required bool front
   }) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -33,7 +34,7 @@ class ImagesUtil {
         return null;
       } else{
         returnImage = File(croppedImage.path);
-        await ImagesUtil.saveImage(croppedImage.path, currentWatch);
+        await ImagesUtil.saveImage(croppedImage.path, currentWatch, front);
 
       }
     } on PlatformException catch (e) {
@@ -129,9 +130,9 @@ class ImagesUtil {
   }
 
 
-  static Future<File> saveImage(String imagePath, Watches currentWatch) async {
+  static Future<File> saveImage(String imagePath, Watches currentWatch, bool front) async {
     String name = "${currentWatch.key}_${currentWatch.manufacturer}_${currentWatch.model}";
-    String perspective = "_front";
+    String perspective = front? "_front": "_back";
     //Get the directory and save the file
     var directory = await getApplicationDocumentsDirectory();
     //Check if image directory exists - if it doesn't then create it
@@ -139,22 +140,38 @@ class ImagesUtil {
     if(!exists) {
       await Directory("${directory.path}/img").create();
     }
-    //directory = Directory("${directory.path}/img");
     //ToDo: Get File extention by truncating the below and add to path
     //final name = basename(imagePath);
-    //Check if file already exists - if so delete it
-    if(currentWatch.frontImagePath != null){
-      bool exists = await File("${directory.path}${currentWatch.frontImagePath!}").exists();
-      if(exists){
-        await File("${directory.path}${currentWatch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
 
+    //Check if file already exists - if so delete it
+    if (front) {
+      //Deal with front image scenario
+      if(currentWatch.frontImagePath != null){
+        bool exists = await File("${directory.path}${currentWatch.frontImagePath!}").exists();
+        if(exists){
+          await File("${directory.path}${currentWatch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+
+        }
+      }
+    } else{
+      //Deal with back image scenario
+      if(currentWatch.backImagePath != null){
+        bool exists = await File("${directory.path}${currentWatch.backImagePath!}").exists();
+        if(exists){
+          await File("${directory.path}${currentWatch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+
+        }
       }
     }
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     timestamp = timestamp.substring(timestamp.length-6);
     final String imgPath = '${directory.path}/img/$timestamp$name$perspective.jpg';
     final image = File(imgPath);
-    currentWatch.frontImagePath = "/img/$timestamp$name$perspective.jpg";
+    if(front){
+      currentWatch.frontImagePath = "/img/$timestamp$name$perspective.jpg";
+    }else{
+      currentWatch.backImagePath = "/img/$timestamp$name$perspective.jpg";
+    }
     currentWatch.save();
 
     return File(imagePath).copy(image.path);
