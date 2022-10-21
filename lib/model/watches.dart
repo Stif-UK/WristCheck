@@ -47,4 +47,7 @@ class Watches extends HiveObject{
   @HiveField(13)
   late String? referenceNumber;
 
+  @HiveField(14)
+  late String? backImagePath;
+
 }

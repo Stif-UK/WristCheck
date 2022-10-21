@@ -40,6 +40,7 @@ class WatchMethods {
     ..wearList = <DateTime>[]
     ..filteredWearList = <DateTime>[]
     ..frontImagePath = ""
+    ..backImagePath = ""
     ..referenceNumber = rn;
 
     final box = Boxes.getWatches();
