@@ -39,8 +39,8 @@ class _AddWatchState extends State<AddWatch> {
   int _serviceInterval = 0;
   String? _notes ="";
   String? _referenceNumber = "";
-  String? _frontImagePath = "";
-  File? image;
+  File? frontImage;
+  File? backImage;
   int? watchKey;
   Watches? currentWatch;
 
@@ -367,7 +367,8 @@ class _AddWatchState extends State<AddWatch> {
                     ),
                     ExpansionTile(title: const Text("Watch Images (optional)"),
                     children: [
-                      _displayWatchImage()
+                      _buildFrontImageSelector(),
+                      _buildBackImageSelector()
                     ],
                     ),
                     _buildNotesField(),
@@ -392,10 +393,15 @@ class _AddWatchState extends State<AddWatch> {
                             // },
                             watchKey = await WatchMethods.addWatch(_manufacturer, _model, _serialNumber, favourite, _status, _purchaseDate, _lastServicedDate, _serviceInterval, _notes, _referenceNumber),
                             print(watchBox.get(watchKey)!.model),
-                            //if an image has been set, we add this to the newly created watch before exiting
-                            if(image != null){
+                            //if a front image has been set, we add this to the newly created watch before exiting
+                            if(frontImage != null){
                               currentWatch = watchBox.get(watchKey),
-                              ImagesUtil.saveImage(image!.path, currentWatch!, true)
+                              ImagesUtil.saveImage(frontImage!.path, currentWatch!, true)
+                            },
+                            //and repeat for the back image
+                            if(backImage != null){
+                              currentWatch = watchBox.get(watchKey),
+                              ImagesUtil.saveImage(backImage!.path, currentWatch!, false)
                             },
                             Get.back(),
                             //Display an acknowlegement snackbar - copy changes based on watch status
@@ -422,6 +428,10 @@ class _AddWatchState extends State<AddWatch> {
                     TextButton(
                         onPressed: (){
                           _formKey.currentState!.reset();
+                          setState(() {
+                            frontImage = null;
+                            backImage = null;
+                          });
                         },
                         child: const Text("Reset Form"))
 
@@ -440,50 +450,88 @@ class _AddWatchState extends State<AddWatch> {
     );
   }
 
-  Widget _displayWatchImage(){
+  Widget _buildFrontImageSelector(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children:  [
-        // const Expanded(
-        //     flex: 2,
-        //     child: SizedBox(height: 10)),
         Expanded(
           flex: 6,
           child: Container(
               height: 180,
               margin: const EdgeInsets.all(20),
-              //Padding and borderradius not required once image is selected
-              padding: image == null? const EdgeInsets.all(40): null,
-              decoration: image == null? BoxDecoration(
+              //Padding and border radius not required once image is selected
+              padding: frontImage == null? const EdgeInsets.all(40): null,
+              decoration: frontImage == null? BoxDecoration(
                   borderRadius: BorderRadius.circular(80),
                   border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
               //If we have an image display it (ClipRRect used to round corners to soften the image)
-              child: image == null? const Icon(Icons.camera_alt, size: 100): ClipRRect(
-                child: Image.file(image!),
+              child: frontImage == null? Column(
+                children: const [
+                  Icon(Icons.camera_alt, size: 75),
+                  Text("Front")
+                ],
+              ): ClipRRect(
+                child: Image.file(frontImage!),
                 borderRadius: BorderRadius.circular(16),
               )
           ),
-
         ),
         Expanded(
           flex: 2,
           child: InkWell(
               child: const Icon(Icons.add_a_photo_outlined),
               onTap: () async {
-
                 var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                //await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch);
-                //pickAndSaveImage will have set the image for the given watch
-                imageSource != null? image = await ImagesUtil.pickImage(source: imageSource!): null ;
+                imageSource != null? frontImage = await ImagesUtil.pickImage(source: imageSource!): null ;
                 //Now call setstate to ensure the display is updated
                 setState(() {
-
                 });
               }
           ),
         ),
+      ],
+    );
+  }
 
-
+  Widget _buildBackImageSelector(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:  [
+        Expanded(
+          flex: 6,
+          child: Container(
+              height: 180,
+              margin: const EdgeInsets.all(20),
+              //Padding and border radius not required once image is selected
+              padding: backImage == null? const EdgeInsets.all(40): null,
+              decoration: backImage == null? BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
+              //If we have an image display it (ClipRRect used to round corners to soften the image)
+              child: backImage == null? Column(
+                children: const [
+                  Icon(Icons.camera_alt, size: 75),
+                  Text("Back")
+                ],
+              ): ClipRRect(
+                child: Image.file(backImage!),
+                borderRadius: BorderRadius.circular(16),
+              )
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: InkWell(
+              child: const Icon(Icons.add_a_photo_outlined),
+              onTap: () async {
+                var imageSource = await ImagesUtil.imageSourcePopUp(context);
+                imageSource != null? backImage = await ImagesUtil.pickImage(source: imageSource!): null ;
+                //Now call setstate to ensure the display is updated
+                setState(() {
+                });
+              }
+          ),
+        ),
       ],
     );
   }
