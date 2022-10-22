@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
 import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
 import 'package:wristcheck/boxes.dart';
@@ -8,11 +10,13 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:typed_data';
 import 'package:share_plus/share_plus.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
 class WearStats extends StatefulWidget {
-  const WearStats({Key? key}) : super(key: key);
+  WearStats({Key? key}) : super(key: key);
+  final WearChartOptions chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
 
   @override
   State<WearStats> createState() => _WearStatsState();
@@ -61,8 +65,7 @@ class _WearStatsState extends State<WearStats> {
 
   @override
   Widget build(BuildContext context) {
-
-
+    data = getData(widget.chartOption);
 
     return Screenshot(
       controller: screenshotController,
@@ -180,6 +183,45 @@ class _WearStatsState extends State<WearStats> {
     final image = File('${directory.path}/shareImage.png');
     image.writeAsBytesSync(bytes);
     await Share.shareFiles([image.path],text: "Chart generated with WristCheck");
+  }
+
+  List<Watches> getData(WearChartOptions option) {
+    var now = DateTime.now();
+    var lastMonth = DateTime(now.month -1);
+    List<Watches> returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+
+    switch (option){
+      case WearChartOptions.all:{
+        _monthValue = "All";
+        _yearValue = "All";
+        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+      }
+      break;
+      case WearChartOptions.thisYear:{
+        _monthValue = "All";
+        _yearValue = "${now.year}";
+        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+      }
+      break;
+      case WearChartOptions.thisMonth:{
+        _monthValue = WristCheckFormatter.getMonthFromDate(now);
+        _yearValue = "${now.year}";
+        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+      }
+      break;
+      case WearChartOptions.lastMonth:{
+        _monthValue = WristCheckFormatter.getMonthFromDate(lastMonth);
+        _yearValue = "${lastMonth.year}";
+        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+      }
+      break;
+      default:{
+        _monthValue = "All";
+        _yearValue = "All";
+        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+      }
+    }
+    return returnValue;
   }
 }
 

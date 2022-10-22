@@ -70,7 +70,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                         fontSize: 30,
                       ),),
                     ),
-                    onPressed: (){ Get.to(() => const WearStats());},
+                    onPressed: (){ Get.to(() => WearStats());},
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(

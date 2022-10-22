@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
 
 class WristCheckPreferences {
   static late SharedPreferences _preferences;
@@ -11,6 +12,7 @@ class WristCheckPreferences {
   static const _keyWearCount = 'wearCount';
   static const _keyReferenceDate = 'referenceDate';
   static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
+  static const _keyWearChartOptions = 'wearChartOptions';
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
@@ -106,6 +108,38 @@ class WristCheckPreferences {
   static Future setHasSeenDailyRemindersPrompt(bool hasSeenRemindersPrompt) async =>
       await _preferences.setBool(_keyDailyRemindersPrompt, hasSeenRemindersPrompt);
 
+  //Getter and setter for wear chart options
+//Getter and setter for notification time options
+  static WearChartOptions? getWearChartOptions() {
+    String? value = _preferences.getString(_keyWearChartOptions);
+    WearChartOptions returnValue;
+    switch (value){
+      case "WearChartOptions.all":{
+        returnValue = WearChartOptions.all;
+      }
+      break;
+      case "WearChartOptions.thisYear":{
+        returnValue = WearChartOptions.thisYear;
+      }
+      break;
+      case "WearChartOptions.thisMonth":{
+        returnValue = WearChartOptions.thisMonth;
+      }
+      break;
+      case "WearChartOptions.lastMonth":{
+        returnValue = WearChartOptions.lastMonth;
+      }
+      break;
+      default:{
+        returnValue = WearChartOptions.all;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setWearChartOptions(WearChartOptions wearChartOption) async {
+    await _preferences.setString(_keyWearChartOptions, wearChartOption.toString());
+  }
 
 
 }

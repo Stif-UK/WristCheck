@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
@@ -20,7 +21,6 @@ class WristCheckHome extends StatefulWidget{
 class _WristCheckHomeState extends State<WristCheckHome> {
 
   int _currentIndex = 0;
-  bool _showWhatsNew = false;
   final List<Widget> _children =[
     const WatchBoxParent(),
     const StatsWidget(),
@@ -50,6 +50,12 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       appBar: AppBar(
         title: const Text("WristCheck"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: (){Get.to(() => SettingsPage());},
+          )
+        ],
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(

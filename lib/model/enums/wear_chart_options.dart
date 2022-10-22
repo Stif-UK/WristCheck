@@ -1,0 +1,1 @@
+enum WearChartOptions {all, thisYear, thisMonth, lastMonth}
