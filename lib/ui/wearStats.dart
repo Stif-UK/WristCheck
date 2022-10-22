@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
@@ -57,16 +58,22 @@ Map _monthMap = {
 
 
 // List<Watches> data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-bool barChart = true;
+// bool barChart = true;
+
+
+
 
 class _WearStatsState extends State<WearStats> {
+
 
   ScreenshotController screenshotController = ScreenshotController();
   List<Watches> data = getData();
 
   @override
   Widget build(BuildContext context) {
-
+    DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
+    bool barChart = _preferredType == DefaultChartType.bar? true: false;
+    print("Building charts: Preferred type barchart = $_preferredType. Variable = $barChart");
 
     return Screenshot(
       controller: screenshotController,
@@ -78,9 +85,17 @@ class _WearStatsState extends State<WearStats> {
               padding: const EdgeInsets.fromLTRB(0,0,4,0),
               child: IconButton(
                 icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
-              onPressed: (){
-                  setState(() {
-                    barChart = !barChart;
+              onPressed: () async {
+                DefaultChartType _newPreferredType;
+                if(_preferredType == DefaultChartType.bar){
+                  _newPreferredType = DefaultChartType.pie;
+                }else{
+                  _newPreferredType = DefaultChartType.bar;
+                }
+                await WristCheckPreferences.setDefaultChartType(_newPreferredType);
+
+                setState(() {
+                    // barChart = !barChart;
                   });
               },),
             ),
