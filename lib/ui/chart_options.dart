@@ -20,62 +20,70 @@ class _ChartOptionsState extends State<ChartOptions> {
       ),
       body: Column(
         children: [
-          ListTile(
-            title: const Text("Show all"),
-            leading: Radio<WearChartOptions>(
-              value: WearChartOptions.all,
-              groupValue: _chartOption ,
-              onChanged: (WearChartOptions? value) async {
-                await WristCheckPreferences.setWearChartOptions(value!);
-                setState(() {
-                  _chartOption = value;
-                });
+          ExpansionTile(
+            title: const Text("Wear Stats default filter"),
+            leading: const Icon(Icons.filter_alt_outlined),
+            children: [
+              const Text("Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default."),
+              ListTile(
+                title: const Text("Show all recorded wears"),
+                leading: Radio<WearChartOptions>(
+                  value: WearChartOptions.all,
+                  groupValue: _chartOption ,
+                  onChanged: (WearChartOptions? value) async {
+                    await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartOption = value;
+                    });
 
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("This Year"),
-            leading: Radio<WearChartOptions>(
-              value: WearChartOptions.thisYear,
-              groupValue: _chartOption ,
-              onChanged: (WearChartOptions? value) async {
-                await WristCheckPreferences.setWearChartOptions(value!);
-                setState(() {
-                  _chartOption = value;
-                });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text("Watches worn this year"),
+                leading: Radio<WearChartOptions>(
+                  value: WearChartOptions.thisYear,
+                  groupValue: _chartOption ,
+                  onChanged: (WearChartOptions? value) async {
+                    await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartOption = value;
+                    });
 
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("This Month"),
-            leading: Radio<WearChartOptions>(
-              value: WearChartOptions.thisMonth,
-              groupValue: _chartOption ,
-              onChanged: (WearChartOptions? value) async {
-                await WristCheckPreferences.setWearChartOptions(value!);
-                setState(() {
-                  _chartOption = value;
-                });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text("Watches worn this month"),
+                leading: Radio<WearChartOptions>(
+                  value: WearChartOptions.thisMonth,
+                  groupValue: _chartOption ,
+                  onChanged: (WearChartOptions? value) async {
+                    await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartOption = value;
+                    });
 
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("Last Month"),
-            leading: Radio<WearChartOptions>(
-              value: WearChartOptions.lastMonth,
-              groupValue: _chartOption ,
-              onChanged: (WearChartOptions? value) async {
-                await WristCheckPreferences.setWearChartOptions(value!);
-                setState(() {
-                  _chartOption = value;
-                });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text("Watches worn last month"),
+                leading: Radio<WearChartOptions>(
+                  value: WearChartOptions.lastMonth,
+                  groupValue: _chartOption ,
+                  onChanged: (WearChartOptions? value) async {
+                    await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartOption = value;
+                    });
 
-              },
-            ),
+                  },
+                ),
+              ),
+            ],
           ),
+          const Divider(height: 2,)
         ],
       ),
     );
