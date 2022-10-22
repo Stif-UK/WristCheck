@@ -57,8 +57,7 @@ Map _monthMap = {
 };
 
 
-// List<Watches> data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-// bool barChart = true;
+
 
 
 
@@ -73,7 +72,6 @@ class _WearStatsState extends State<WearStats> {
   Widget build(BuildContext context) {
     DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
     bool barChart = _preferredType == DefaultChartType.bar? true: false;
-    print("Building charts: Preferred type barchart = $_preferredType. Variable = $barChart");
 
     return Screenshot(
       controller: screenshotController,
@@ -95,7 +93,6 @@ class _WearStatsState extends State<WearStats> {
                 await WristCheckPreferences.setDefaultChartType(_newPreferredType);
 
                 setState(() {
-                    // barChart = !barChart;
                   });
               },),
             ),
@@ -207,8 +204,6 @@ List<Watches> getData() {
 
   var now = DateTime.now();
   var lastMonth = DateTime(now.year, now.month-1);
-  print("Time now: ${WristCheckFormatter.getFormattedDate(now)}");
-  print("Last Month date: ${WristCheckFormatter.getFormattedDate(lastMonth)}");
   List<Watches> returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
 
   switch (option){

@@ -147,11 +147,9 @@ class WristCheckPreferences {
   //A value of true represents a user preferring bar charts over pie charts
   static DefaultChartType? getDefaultChartType()  {
     if(_preferences.getBool(_keyDefaultChartType) == null){
-      print("Getting Default chart type - DB is null so returning bar chart");
       return DefaultChartType.bar;
     } else{
       bool _prefersBarCharts =  _preferences.getBool(_keyDefaultChartType)!;
-      print("Getting default chart type: ${_prefersBarCharts.toString()}");
       return _prefersBarCharts? DefaultChartType.bar : DefaultChartType.pie;
     }
   }
@@ -159,7 +157,6 @@ class WristCheckPreferences {
   static Future setDefaultChartType(DefaultChartType preferredType) async {
     bool _prefersBarCharts;
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
-    print("Setting default chart type. Passed in $preferredType; Saving $_prefersBarCharts");
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
   }
 }

@@ -17,7 +17,6 @@ class _ChartOptionsState extends State<ChartOptions> {
 
   @override
   Widget build(BuildContext context) {
-    print("Building chart options page. Chart Type received = ${_chartType.toString()}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chart Options"),
@@ -92,7 +91,7 @@ class _ChartOptionsState extends State<ChartOptions> {
               title: const Text("Default chart type"),
             leading: const Icon(Icons.insert_chart_outlined),
             children: [
-              const Text("Select the default chart type.\nThis can be changed on the chart view, however will always revert to this selected default."),
+              const Text("Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used."),
               ListTile(
                 title: const Text("Bar Chart"),
                 leading: Radio<DefaultChartType>(
