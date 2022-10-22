@@ -1,0 +1,1 @@
+enum DefaultChartType {bar, pie}

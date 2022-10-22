@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class ChartOptions extends StatefulWidget {
@@ -11,6 +12,8 @@ class ChartOptions extends StatefulWidget {
 
 class _ChartOptionsState extends State<ChartOptions> {
   WearChartOptions _chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
+  //TODO: Implement shared pref implementation and switch
+  DefaultChartType _chartType = DefaultChartType.pie;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +86,42 @@ class _ChartOptionsState extends State<ChartOptions> {
               ),
             ],
           ),
-          const Divider(height: 2,)
+          const Divider(height: 2,),
+          ExpansionTile(
+              title: const Text("Default chart type"),
+            leading: const Icon(Icons.insert_chart_outlined),
+            children: [
+              const Text("Select the default chart type.\nThis can be changed on the chart view, however will always revert to this selected default."),
+              ListTile(
+                title: const Text("Bar Chart"),
+                leading: Radio<DefaultChartType>(
+                  value: DefaultChartType.bar,
+                  groupValue: _chartType ,
+                  onChanged: (DefaultChartType? value) async {
+                    // await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartType = value!;
+                    });
+
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text("Pie Chart"),
+                leading: Radio<DefaultChartType>(
+                  value: DefaultChartType.pie,
+                  groupValue: _chartType ,
+                  onChanged: (DefaultChartType? value) async {
+                    // await WristCheckPreferences.setWearChartOptions(value!);
+                    setState(() {
+                      _chartType = value!;
+                    });
+
+                  },
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
