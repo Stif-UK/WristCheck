@@ -16,7 +16,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
 class WearStats extends StatefulWidget {
   WearStats({Key? key}) : super(key: key);
-  final WearChartOptions chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
+  // final WearChartOptions chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
 
   @override
   State<WearStats> createState() => _WearStatsState();
@@ -56,16 +56,17 @@ Map _monthMap = {
 };
 
 
-List<Watches> data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+// List<Watches> data = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
 bool barChart = true;
 
 class _WearStatsState extends State<WearStats> {
 
   ScreenshotController screenshotController = ScreenshotController();
+  List<Watches> data = getData();
 
   @override
   Widget build(BuildContext context) {
-    data = getData(widget.chartOption);
+
 
     return Screenshot(
       controller: screenshotController,
@@ -184,45 +185,49 @@ class _WearStatsState extends State<WearStats> {
     image.writeAsBytesSync(bytes);
     await Share.shareFiles([image.path],text: "Chart generated with WristCheck");
   }
+}
 
-  List<Watches> getData(WearChartOptions option) {
-    var now = DateTime.now();
-    var lastMonth = DateTime(now.month -1);
-    List<Watches> returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+List<Watches> getData() {
+  WearChartOptions option = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
 
-    switch (option){
-      case WearChartOptions.all:{
-        _monthValue = "All";
-        _yearValue = "All";
-        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-      }
-      break;
-      case WearChartOptions.thisYear:{
-        _monthValue = "All";
-        _yearValue = "${now.year}";
-        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-      }
-      break;
-      case WearChartOptions.thisMonth:{
-        _monthValue = WristCheckFormatter.getMonthFromDate(now);
-        _yearValue = "${now.year}";
-        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-      }
-      break;
-      case WearChartOptions.lastMonth:{
-        _monthValue = WristCheckFormatter.getMonthFromDate(lastMonth);
-        _yearValue = "${lastMonth.year}";
-        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-      }
-      break;
-      default:{
-        _monthValue = "All";
-        _yearValue = "All";
-        returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
-      }
+  var now = DateTime.now();
+  var lastMonth = DateTime(now.year, now.month-1);
+  print("Time now: ${WristCheckFormatter.getFormattedDate(now)}");
+  print("Last Month date: ${WristCheckFormatter.getFormattedDate(lastMonth)}");
+  List<Watches> returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+
+  switch (option){
+    case WearChartOptions.all:{
+      _monthValue = "All";
+      _yearValue = "All";
+      returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
     }
-    return returnValue;
+    break;
+    case WearChartOptions.thisYear:{
+      _monthValue = "All";
+      _yearValue = "${now.year}";
+      returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+    }
+    break;
+    case WearChartOptions.thisMonth:{
+      _monthValue = WristCheckFormatter.getMonthFromDate(now);
+      _yearValue = "${now.year}";
+      returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+    }
+    break;
+    case WearChartOptions.lastMonth:{
+      _monthValue = WristCheckFormatter.getMonthFromDate(lastMonth);
+      _yearValue = "${lastMonth.year}";
+      returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+    }
+    break;
+    default:{
+      _monthValue = "All";
+      _yearValue = "All";
+      returnValue = Boxes.getWatchesWornFilter(_monthMap[_monthValue], _yearMap[_yearValue]);
+    }
   }
+  return returnValue;
 }
 
 
