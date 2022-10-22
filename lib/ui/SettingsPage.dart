@@ -7,6 +7,7 @@ import 'package:wristcheck/ui/archived.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
+import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 
 
@@ -54,7 +55,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),
                     onTap: (){
-                      Get.to(()=> Notifications());
+                      Get.to(()=> const Notifications());
+                    }
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                    title: const Text("Chart Options"),
+                    leading: const Icon(Icons.bar_chart_outlined),
+                    onTap: (){
+                      Get.to(()=> const ChartOptions());
                     }
                 ),
                 const Divider(thickness: 2,),
@@ -62,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: const Text("Show Archived Watches"),
                     leading: const Icon(Icons.archive_outlined),
                   onTap: (){
-                    Get.to(()=> Archived());
+                    Get.to(()=> const Archived());
                   }
                 ),
                 const Divider(thickness: 2,),
@@ -70,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: const Text("Backup / Restore Database"),
                     leading: const Icon(Icons.save_alt),
                     onTap: (){
-                      Get.to(()=> BackupRestore());
+                      Get.to(()=> const BackupRestore());
                     }
                 ),
                 const Divider(thickness: 2,),
