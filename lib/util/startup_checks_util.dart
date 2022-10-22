@@ -13,7 +13,7 @@ class StartupChecksUtil{
   ///on top of the passed context
   static runStartupChecks(BuildContext context) async {
     bool _showWhatsNew = await returnWhatsNew();
-    bool _notificationSet = WristCheckPreferences.getDailyNotificationStatus() ?? false;
+    bool _notificationSet = (WristCheckPreferences.getDailyNotificationStatus() == null);
     bool _hasSeenDailyRemindersPrompt = WristCheckPreferences.getHasSeenDailyRemindersPrompt() ?? false;
 
     //Checks should be run in priority order with only one dialog triggered

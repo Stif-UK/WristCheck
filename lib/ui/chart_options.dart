@@ -12,11 +12,12 @@ class ChartOptions extends StatefulWidget {
 
 class _ChartOptionsState extends State<ChartOptions> {
   WearChartOptions _chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
-  //TODO: Implement shared pref implementation and switch
-  DefaultChartType _chartType = DefaultChartType.pie;
+  DefaultChartType _chartType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
+
 
   @override
   Widget build(BuildContext context) {
+    print("Building chart options page. Chart Type received = ${_chartType.toString()}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chart Options"),
@@ -98,9 +99,9 @@ class _ChartOptionsState extends State<ChartOptions> {
                   value: DefaultChartType.bar,
                   groupValue: _chartType ,
                   onChanged: (DefaultChartType? value) async {
-                    // await WristCheckPreferences.setWearChartOptions(value!);
+                    await WristCheckPreferences.setDefaultChartType(value!);
                     setState(() {
-                      _chartType = value!;
+                      _chartType = value;
                     });
 
                   },
@@ -112,9 +113,9 @@ class _ChartOptionsState extends State<ChartOptions> {
                   value: DefaultChartType.pie,
                   groupValue: _chartType ,
                   onChanged: (DefaultChartType? value) async {
-                    // await WristCheckPreferences.setWearChartOptions(value!);
+                    await WristCheckPreferences.setDefaultChartType(value!);
                     setState(() {
-                      _chartType = value!;
+                      _chartType = value;
                     });
 
                   },
