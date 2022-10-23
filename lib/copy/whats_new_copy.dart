@@ -11,7 +11,7 @@ class WhatsNewCopy{
         "* Caseback images - add a second photo to each watch\n"
         "* Add images when creating new watch records\n"
         "* Chart Preferences - set default filters and chart types\n"
-        "* Additional small enhancements"
+        "* Additional small enhancements\n"
         "* (see full details in version history)";
   }
 
