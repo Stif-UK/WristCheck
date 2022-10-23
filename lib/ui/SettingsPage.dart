@@ -9,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 
 
@@ -91,12 +92,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: (){
                       Get.defaultDialog(
                         title: "Warning",
-                        middleText: "Pressing OK will delete all watch data, including your wishlist\n \n THIS CANNOT BE UNDONE",
+                        middleText: "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
                         textConfirm: "OK",
                         textCancel: "Cancel",
                         onConfirm: (){
-                          //On pressing ok, call the .clear() method on the watchbox
-                          watchBox.clear();
+                          _deleteCollection();
                           Get.back();
                           WristCheckSnackBars.collectionDeletedSnackbar();
                         }
@@ -136,6 +136,11 @@ class _SettingsPageState extends State<SettingsPage> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
 
+  }
+
+  void _deleteCollection(){
+    ImagesUtil.deleteAllImages();
+    watchBox.clear();
   }
 
 }
