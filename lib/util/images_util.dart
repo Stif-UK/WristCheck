@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -192,19 +193,13 @@ class ImagesUtil {
 
   }
 
-
-  // static saveImagepathToDatabase(String imagePath, Watches currentWatch, String name) async{
-  //   //final name = basename(imagePath);
-  //   currentWatch.frontImagePath = "/img/$name";
-  //   currentWatch.save();
-  // }
-
-  // /// saveImage() calls saveImageToDirectory() to firstly save the image to the device directory
-  // /// and then secondly calls saveImagepathToDatabase() to ensure the watch object knows the new image location.
-  // /// Prefer to call this method over the individual methods unless the watch object is not yet created
-  // static saveImage(String imagePath, Watches currentWatch, String name) async {
-  //   await saveImageToDirectory(imagePath, name).then((_) => saveImagepathToDatabase(imagePath, currentWatch, name));
-  // }
+  ///deleteAllImages() iterates through the open watchbox and deletes all associated images
+  static deleteAllImages() async{
+    final watchList = Boxes.getAllWatches();
+    for(var watch in watchList){
+      ImagesUtil.deleteImages(watch);
+    }
+  }
 
 
 }
