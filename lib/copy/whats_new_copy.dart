@@ -5,13 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return "Wristcheck just updated!\n"
-        "### Version 1.2.0 \n"
+        "### Version 1.3.0 \n"
         "\n"
 
-        "* Implemented ads (Pro version coming soon!)\n"
-        "* Save and share screenshots of wear charts\n"
-        "* Enhancements to daily reminders\n"
-        "* Minor bug fixes and improvements";
+        "* Caseback images - add a second photo to each watch\n"
+        "* Add images when creating new watch records\n"
+        "* Chart Preferences - set default filters and chart types\n"
+        "* Additional small enhancements"
+        "* (see full details in version history)";
   }
 
 
@@ -23,6 +24,19 @@ class WhatsNewCopy{
         child: const Markdown(
           physics: ClampingScrollPhysics(),
             data:
+            "### Version 1.3.0 \n"
+                "\n"
+
+                "* Caseback images - add a second photo to each watch\n"
+                "* Add images when creating new watch records\n"
+                "* Chart Preferences - set default filters and chart types\n"
+                "* Refactor of code for better image management\n"
+                "* Auto Capialize Watch Names\n"
+                "* Help text improvements for watch wear history view\n"
+                "* Improved placement of image picker (Gallery/Camera) option\n"
+                "* Added 'review app' prompt\n"
+                "\n\n"
+
             "### Version 1.2.0 \n"
                 "\n"
 
