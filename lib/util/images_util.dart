@@ -179,13 +179,19 @@ class ImagesUtil {
 
   static deleteImages(Watches watch) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = watch.frontImagePath ?? "";
-    final exists = await File("${directory.path}/$name").exists();
-    if(exists){
+    final front = watch.frontImagePath ?? "";
+    final frontExists = await File("${directory.path}/$front").exists();
+    if(frontExists){
       await File("${directory.path}${watch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+    }
+    final back = watch.backImagePath ?? "";
+    final backExists = await File("${directory.path}/$back").exists();
+    if(backExists){
+      await File("${directory.path}${watch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
     }
 
   }
+
 
   // static saveImagepathToDatabase(String imagePath, Watches currentWatch, String name) async{
   //   //final name = basename(imagePath);
