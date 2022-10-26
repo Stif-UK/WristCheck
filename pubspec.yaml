@@ -56,6 +56,7 @@ dependencies:
   screenshot: ^1.2.3
   share_plus: ^4.4.0
   in_app_review: ^2.0.4
+  purchases_flutter: ^4.3.1
 
 dev_dependencies:
   flutter_test:
