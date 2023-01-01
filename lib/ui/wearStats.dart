@@ -29,14 +29,15 @@ String _yearValue = "All";
 List _monthList = ["All","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 //yearValues and yearMap will need to BOTH be updated to enable additional years to be selected
 //ToDo: There's a tidier way of dealing with years, the map is not necessary!
-List _yearValues =  ["All","2019", "2020", "2021", "2022"];
+List _yearValues =  ["All","2019", "2020", "2021", "2022", "2023"];
 
 Map _yearMap = {
   "All":null,
   "2019": 2019,
   "2020": 2020,
   "2021": 2021,
-  "2022": 2022
+  "2022": 2022,
+  "2023": 2023
 };
 
 Map _monthMap = {
