@@ -63,7 +63,7 @@ class WatchHomeDrawer extends StatelessWidget {
             leading: const Icon(Icons.ad_units_outlined),
             title: const Text("Remove Ads"),
             onTap: (){
-              Get.to(() => const RemoveAds());
+              Get.to(() => RemoveAds());
             }
           ),
           const Divider(),

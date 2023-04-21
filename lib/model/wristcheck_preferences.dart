@@ -19,6 +19,8 @@ class WristCheckPreferences {
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
+  static const _keyLastEntitlementCheck = 'lastEntitlementCheck';
+
 
 
 
@@ -158,5 +160,15 @@ class WristCheckPreferences {
     bool _prefersBarCharts;
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
+  }
+
+  //Getter and Setter for last entitlement check date
+  static DateTime? getLastEntitlementCheckDate() {
+    String? returnString = _preferences.getString(_keyLastEntitlementCheck);
+    return returnString == null? null : DateTime.parse(returnString);
+  }
+
+  static Future setLastEntitlementCheckDate(DateTime lastEntitlementCheck) async{
+    await _preferences.setString(_keyLastEntitlementCheck, lastEntitlementCheck.toString());
   }
 }
