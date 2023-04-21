@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 
 class WatchHomeDrawer extends StatelessWidget {
-  const WatchHomeDrawer({Key? key}) : super(key: key);
+  WatchHomeDrawer({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.ad_units_outlined),
-            title: const Text("Remove Ads"),
+            title: wristCheckController.isAppPro.value? const Text("Support WristCheck"):  const Text("Remove Ads"),
             onTap: (){
               Get.to(() => RemoveAds());
             }

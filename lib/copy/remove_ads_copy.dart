@@ -7,7 +7,7 @@ class RemoveAdsCopy{
   }
 
   static getPageTitleSupporter(){
-    return const Text("Support Air Fryr");
+    return const Text("Support WristCheck");
   }
 
   static getRemoveAdsMainCopy(BuildContext context){

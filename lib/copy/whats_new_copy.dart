@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
-    return "Wristcheck just updated!\n"
-        "### Version 1.3.0 \n"
+    return
+        "### Version 1.4.0 \n"
         "\n"
 
-        "* Caseback images - add a second photo to each watch\n"
-        "* Add images when creating new watch records\n"
-        "* Chart Preferences - set default filters and chart types\n"
-        "* Additional small enhancements\n"
-        "* (see full details in version history)";
+        "**WristCheck Pro is here**"
+        "\n\n"
+        "'Pay what you like' to remove ads\n\n"
+        "See Sidebar > Remove Ads for more details";
   }
 
 
@@ -24,6 +23,13 @@ class WhatsNewCopy{
         child: const Markdown(
           physics: ClampingScrollPhysics(),
             data:
+            "### Version 1.4 \n"
+                "\n"
+
+                "* WristCheck Pro added!\n"
+                "* Remove Ads with an in-app purchase\n\n"
+                ""
+                "--- \n\n"
             "### Version 1.3.0 \n"
                 "\n"
 

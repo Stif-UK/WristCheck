@@ -1,5 +1,8 @@
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
-import 'package:wristcheck/copy/dialogs.dart';
+import 'dart:io';
+import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
@@ -13,6 +16,7 @@ import 'package:wristcheck/util/startup_checks_util.dart';
 
 
 class WristCheckHome extends StatefulWidget{
+
 
   @override
   _WristCheckHomeState createState() => _WristCheckHomeState();
@@ -34,6 +38,21 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     super.initState();
     //Check for a version update and show a dialog if a new version has been released
     StartupChecksUtil.runStartupChecks(context);
+
+    //If app is pro, check entitlement is still valid - check once per week
+    if(WristCheckPreferences.getAppPurchasedStatus() == true){
+      final lastChecked = WristCheckPreferences.getLastEntitlementCheckDate();
+      if(lastChecked == null){
+        PurchaseApi.checkEntitlements();
+      } else {
+        final date2 = DateTime.now();
+        final difference = date2.difference(lastChecked).inDays;
+        if(difference > 6){
+          PurchaseApi.checkEntitlements();
+        }
+      }
+
+    }
   }
 
 
@@ -41,6 +60,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   @override
   Widget build(BuildContext context) {
 
+    //If platform is iOS, request tracking permission for ads
+    if(Platform.isIOS) {
+      AppTrackingTransparency.requestTrackingAuthorization();
+    }
 
 
     //bool _darkModeToggle = false;
@@ -69,7 +92,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
       body: _children[_currentIndex],
-      drawer: const WatchHomeDrawer(),
+      drawer: WatchHomeDrawer(),
 
       //hide FAB except on collection screen
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(

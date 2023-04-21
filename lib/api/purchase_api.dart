@@ -13,12 +13,7 @@ class PurchaseApi{
   static Future init() async {
     await Purchases.setLogLevel(LogLevel.debug);
     PurchasesConfiguration configuration = PurchasesConfiguration(_apiKey);
-    //Removing boilerplate - the platform check is done in the keys file.
-    // if (Platform.isAndroid) {
-    //   configuration = PurchasesConfiguration(_apiKey);
-    // } else if (Platform.isIOS) {
-    //   configuration = PurchasesConfiguration(_apiKey);
-    // }
+    //App will fail to load if no API key is present in the keys file!!
     await Purchases.configure(configuration);
   }
 
