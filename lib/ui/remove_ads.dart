@@ -86,7 +86,7 @@ class _RemoveAdsState extends State<RemoveAds> {
           context: context,
           builder: (context) => PaywallWidget(
         packages: packages,
-        title: "Support Air Fryr",
+        title: "Support WristCheck",
         description: "Pay what you like! Choose any option to remove ads",
         onClickedPackage: (package) async{
           //Pop context first - this will allow any exception dialog to show without being blocked by the bottom sheet.

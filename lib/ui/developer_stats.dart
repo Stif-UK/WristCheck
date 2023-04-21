@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
@@ -18,7 +19,7 @@ class DeveloperStats extends StatefulWidget {
 class _DeveloperStatsState extends State<DeveloperStats> {
   @override
   Widget build(BuildContext context) {
-    //String purchaseDate = await getPurchaseDate();
+    final wristCheckController = Get.put(WristCheckController());
 
     return Scaffold(
       appBar: AppBar(
@@ -189,7 +190,20 @@ class _DeveloperStatsState extends State<DeveloperStats> {
                 WristCheckDialogs.getWhatsNewDialog(context);
               },
             ),
-            const Divider(thickness: 2,)
+            const Divider(thickness: 2,),
+            ListTile(
+              title: const Text("Revert Purchase Status"),
+              subtitle: const Text("Remove pro option and show ads by clicking here. If done in error purchases can be restored on the 'remove ads' page"),
+              onTap: (){
+                wristCheckController.revertPurchaseStatus();
+                Get.snackbar(
+                    "Reverted",
+                    "User is no longer Pro on this app",
+                    icon: const Icon(Icons.no_accounts),
+                    snackPosition: SnackPosition.BOTTOM
+                );
+              },
+            )
 
           ],
         ),

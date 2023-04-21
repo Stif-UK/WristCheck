@@ -26,9 +26,9 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   int _currentIndex = 0;
   final List<Widget> _children =[
-    const WatchBoxParent(),
-    const StatsWidget(),
-    const ServicingWidget()
+    WatchBoxParent(),
+    StatsWidget(),
+    ServicingWidget()
   ];
 
 

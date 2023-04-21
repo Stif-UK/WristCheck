@@ -3,6 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive/hive.dart';
@@ -19,7 +20,9 @@ import 'package:wristcheck/copy/dialogs.dart';
 
 
 class ServicingWidget extends StatefulWidget {
-  const ServicingWidget({Key? key}) : super(key: key);
+  ServicingWidget({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
+
 
   @override
   State<ServicingWidget> createState() => _ServicingWidgetState();
@@ -67,50 +70,52 @@ class _ServicingWidgetState extends State<ServicingWidget> {
                   textAlign: TextAlign.center,),
               ):
 
-              Column(
-                  children:[
-                    Expanded(
-              flex:1,
-                  child: ListTile(
-                    title: const Text("Service Schedule"),
-                    leading: const Icon(Icons.schedule),
-                    trailing: InkWell(
-                        child: const Icon(Icons.help),
-                      onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
+              Obx(
+                  () => Column(
+                    children:[
+                      Expanded(
+                flex:1,
+                    child: ListTile(
+                      title: const Text("Service Schedule"),
+                      leading: const Icon(Icons.schedule),
+                      trailing: InkWell(
+                          child: const Icon(Icons.help),
+                        onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
 
+                      ),
+                    )
+
+                ),
+                      const Divider(
+                        thickness: 2.0,
+                      ),
+
+
+                      Expanded(
+                flex: 9,
+                child:ListView.separated(
+                itemCount: serviceList.length,
+                itemBuilder: (BuildContext context, int index){
+                var watch = serviceList.elementAt(index);
+                String? _title = "${watch.manufacturer} ${watch.model}";
+
+
+                return ListTile(
+                leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+                title: Text(_title),
+                subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
+                onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
+                );
+                },
+                separatorBuilder: (context, index){
+                return const Divider();
+                },
+                )
+                ),
+                      widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                    ]
                     ),
-                  )
-
-              ),
-                    const Divider(
-                      thickness: 2.0,
-                    ),
-
-
-                    Expanded(
-              flex: 9,
-              child:ListView.separated(
-              itemCount: serviceList.length,
-              itemBuilder: (BuildContext context, int index){
-              var watch = serviceList.elementAt(index);
-              String? _title = "${watch.manufacturer} ${watch.model}";
-
-
-              return ListTile(
-              leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
-              title: Text(_title),
-              subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
-              onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
               );
-              },
-              separatorBuilder: (context, index){
-              return const Divider();
-              },
-              )
-              ),
-                    purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-                  ]
-                  );
             }
 
 
