@@ -74,7 +74,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
       appBar: AppBar(
-        title: widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck"),
+        title: Obx(() => getHeaderText()),
+        //title: widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -147,6 +148,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     setState(() {
        _currentIndex = index;
     });
+  }
+
+  getHeaderText(){
+    return widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck");
   }
 
 
