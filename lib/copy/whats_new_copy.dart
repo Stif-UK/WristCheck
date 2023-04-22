@@ -30,7 +30,7 @@ class WhatsNewCopy{
                 "* WristCheck Pro added!\n"
                 "* Remove Ads with an in-app purchase\n\n"
                 "* Pick chart default order options\n\n"
-                "* Bug fix related to saving images with special characters in the watch name"
+                "* Bug fix related to saving images with special characters in the watch name\n\n"
                 "--- \n\n"
             "### Version 1.3.0 \n"
                 "\n"
