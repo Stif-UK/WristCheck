@@ -2,6 +2,7 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
@@ -16,6 +17,7 @@ import 'package:wristcheck/util/startup_checks_util.dart';
 
 
 class WristCheckHome extends StatefulWidget{
+  final wristCheckController = Get.put(WristCheckController());
 
 
   @override
@@ -72,7 +74,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
       appBar: AppBar(
-        title: const Text("WristCheck"),
+        title: widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
