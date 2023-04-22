@@ -8,10 +8,11 @@ class WhatsNewCopy{
         "### Version 1.4.0 \n"
         "\n"
 
-        "**WristCheck Pro is here**"
-        "\n\n"
-        "'Pay what you like' to remove ads\n\n"
-        "See Sidebar > Remove Ads for more details";
+        "* WristCheck Pro is here - 'Pay what you like' to remove ads"
+            " - See Sidebar > Remove Ads for more details\n\n"
+            "* More options for how charts display - see chart settings\n"
+            "* Tidy up of app sidebar\n"
+            "* Bug fixes";
   }
 
 
@@ -28,7 +29,8 @@ class WhatsNewCopy{
 
                 "* WristCheck Pro added!\n"
                 "* Remove Ads with an in-app purchase\n\n"
-                ""
+                "* Pick chart default order options\n\n"
+                "* Bug fix related to saving images with special characters in the watch name"
                 "--- \n\n"
             "### Version 1.3.0 \n"
                 "\n"
