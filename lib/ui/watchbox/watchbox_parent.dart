@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -10,7 +12,9 @@ import 'package:wristcheck/ui/watchbox/watchbox_header.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 
 class WatchBoxParent extends StatefulWidget {
-  const WatchBoxParent({Key? key}) : super(key: key);
+  WatchBoxParent({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
+
 
 
 
@@ -47,16 +51,17 @@ class _WatchBoxParentState extends State<WatchBoxParent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-        const WatchBoxHeader(),
+    return Obx( ()=> Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          const WatchBoxHeader(),
 
-        const Expanded(
-            child: WatchBoxWidget())
-      ]
+          const Expanded(
+              child: WatchBoxWidget())
+        ]
 
+      ),
     );
   }
 }

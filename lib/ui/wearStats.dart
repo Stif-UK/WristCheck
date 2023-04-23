@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -17,6 +19,8 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
 class WearStats extends StatefulWidget {
   WearStats({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
+
   // final WearChartOptions chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
 
   @override
@@ -123,7 +127,7 @@ class _WearStatsState extends State<WearStats> {
 
                       _buildFilterRow(),
                       const SizedBox(height: 10),
-                      const Text ("This chart generated with WristCheck"),
+                      widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
                       const SizedBox(height: 20,)
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
@@ -14,11 +15,14 @@ class WristCheckPreferences {
   static const _keyReferenceDate = 'referenceDate';
   static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
   static const _keyWearChartOptions = 'wearChartOptions';
+  static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
+  static const _keyLastEntitlementCheck = 'lastEntitlementCheck';
+
 
 
 
@@ -111,7 +115,6 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyDailyRemindersPrompt, hasSeenRemindersPrompt);
 
   //Getter and setter for wear chart options
-//Getter and setter for notification time options
   static WearChartOptions? getWearChartOptions() {
     String? value = _preferences.getString(_keyWearChartOptions);
     WearChartOptions returnValue;
@@ -143,6 +146,34 @@ class WristCheckPreferences {
     await _preferences.setString(_keyWearChartOptions, wearChartOption.toString());
   }
 
+  //Getter and setter for wear chart options
+  static ChartOrdering? getWearChartOrder() {
+    String? value = _preferences.getString(_keyWearChartOrder);
+    ChartOrdering returnValue;
+    switch (value){
+      case "ChartOrdering.watchbox":{
+        returnValue = ChartOrdering.watchbox;
+      }
+      break;
+      case "ChartOrdering.ascending":{
+        returnValue = ChartOrdering.ascending;
+      }
+      break;
+      case "ChartOrdering.descending":{
+        returnValue = ChartOrdering.descending;
+      }
+      break;
+      default:{
+        returnValue = ChartOrdering.watchbox;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setWearChartOrder(ChartOrdering chartOrder) async {
+    await _preferences.setString(_keyWearChartOrder, chartOrder.toString());
+  }
+
   //Getter and setter for default chart type
   //A value of true represents a user preferring bar charts over pie charts
   static DefaultChartType? getDefaultChartType()  {
@@ -158,5 +189,15 @@ class WristCheckPreferences {
     bool _prefersBarCharts;
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
+  }
+
+  //Getter and Setter for last entitlement check date
+  static DateTime? getLastEntitlementCheckDate() {
+    String? returnString = _preferences.getString(_keyLastEntitlementCheck);
+    return returnString == null? null : DateTime.parse(returnString);
+  }
+
+  static Future setLastEntitlementCheckDate(DateTime lastEntitlementCheck) async{
+    await _preferences.setString(_keyLastEntitlementCheck, lastEntitlementCheck.toString());
   }
 }

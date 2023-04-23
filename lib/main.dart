@@ -11,11 +11,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/provider/db_provider.dart';
+import 'package:wristcheck/api/purchase_api.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final initFuture = MobileAds.instance.initialize();
   final adState = AdState(initFuture);
+  //Initialise RevenueCat
+  await PurchaseApi.init();
 
   await Hive.initFlutter();
 
@@ -27,6 +30,10 @@ Future main() async{
   //if this is the first time the app has opened, then set reference date
   if(WristCheckPreferences.getReferenceDate() == null || WristCheckPreferences.getOpenCount() == 1){
     WristCheckPreferences.setReferenceDate(DateTime.now());
+  }
+  //Ensure app purchase status is instantiated in preferences
+  if(WristCheckPreferences.getAppPurchasedStatus() == null){
+    WristCheckPreferences.setAppPurchasedStatus(false);
   }
 
 

@@ -1,6 +1,8 @@
 import 'package:hive/hive.dart';
+import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class Boxes {
   // static Box<Watches> getWatches() =>
@@ -85,6 +87,18 @@ class Boxes {
     //finally we return this result
       for (var watch in returnList) {
     }
+
+      //finally before returning, sort the list if required
+      ChartOrdering chartOrder = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
+      //Ignore and return if requested in watchbox order
+      if(chartOrder != ChartOrdering.watchbox){
+        //return in either ascending or descending order
+        if(chartOrder == ChartOrdering.descending){
+          returnList.sort((a,b) => a.wearList.length.compareTo(b.wearList.length));
+        } else if(chartOrder == ChartOrdering.ascending){
+          returnList.sort((a,b) => b.wearList.length.compareTo(a.wearList.length));
+        }
+      }
     return returnList;
 
   }

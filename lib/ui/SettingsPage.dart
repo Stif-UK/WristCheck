@@ -8,6 +8,7 @@ import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/ui/chart_options.dart';
+import 'package:wristcheck/ui/developer_stats.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -114,10 +115,11 @@ class _SettingsPageState extends State<SettingsPage> {
             onTap: (){
               _clickCount = _clickCount+1;
               if(_clickCount > 5){
-                int? _openCount = WristCheckPreferences.getOpenCount() ?? 0;
-                int? _wearCount = WristCheckPreferences.getWearCount() ?? 0;
-                DateTime? refDate = WristCheckPreferences.getReferenceDate();
-                WristCheckDialogs.getHiddenStats(_openCount, _wearCount, refDate);
+                Get.to(() => const DeveloperStats());
+                // int? _openCount = WristCheckPreferences.getOpenCount() ?? 0;
+                // int? _wearCount = WristCheckPreferences.getWearCount() ?? 0;
+                // DateTime? refDate = WristCheckPreferences.getReferenceDate();
+                // WristCheckDialogs.getHiddenStats(_openCount, _wearCount, refDate);
               }
             },
             child: SizedBox(

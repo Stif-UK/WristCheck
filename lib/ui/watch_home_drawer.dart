@@ -1,81 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 
 class WatchHomeDrawer extends StatelessWidget {
-  const WatchHomeDrawer({Key? key}) : super(key: key);
+  WatchHomeDrawer({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   Widget build(BuildContext context) {
+    final InAppReview inAppReview = InAppReview.instance;
+
     return Drawer(
       child: ListView(
         children:  [
-          DrawerHeader(child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
+          DrawerHeader(child: IconButton(
+            splashColor: Colors.transparent,
+            icon: const Icon(Icons.watch, size: 40.0),
+            onPressed: () async {
 
-            children: [
+            },
 
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text("WristCheck",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    //fontWeight: FontWeight.bold,
-                      fontSize: 20.0
+          )),
 
-                  ),),
-              ),
-
-              Container(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  icon: const Icon(Icons.close, size: 20.0,), onPressed: () { Navigator.of(context).pop(); },
-                ),
-              ),
-            ],
-          )
-          ),
-
-          const Divider(),
+          const Divider(thickness: 2,),
           ListTile(
-            leading: const Icon(Icons.settings),
+            trailing: const Icon(Icons.settings),
             title: const Text("Settings"),
             onTap: (){
               Get.to(() => SettingsPage());
 
             },
           ),
-          const Divider(),
+          const Divider(thickness: 2,),
           ListTile(
-            leading: const Icon(Icons.warning_amber_rounded),
+            trailing: const Icon(Icons.warning_amber_rounded),
             title: const Text("Privacy Policy"),
             onTap: (){
               Get.to(() => PrivacyPolicy());
             },
           ),
-          const Divider(),
+          const Divider(thickness: 2,),
           ListTile(
-            leading: const Icon(Icons.ad_units_outlined),
-            title: const Text("Remove Ads"),
+              trailing: const Icon(Icons.ad_units_outlined),
+            title: wristCheckController.isAppPro.value? const Text("Support WristCheck"):  const Text("Remove Ads"),
             onTap: (){
-              Get.to(() => const RemoveAds());
+              Get.to(() => RemoveAds());
             }
           ),
-          const Divider(),
+          const Divider(thickness: 2,),
           ListTile(
-            leading: const Icon(Icons.info),
+            trailing: const Icon(Icons.rate_review_outlined),
+              title: const Text("Leave an app review"),
+            onTap: (){
+              inAppReview.openStoreListing(
+                  appStoreId: "1642718252"
+              );
+            },
+          ),
+          const Divider(thickness: 2,),
+          ListTile(
+            trailing: const Icon(Icons.info),
             title: const Text("About"),
             onTap: (){
               Get.to(() => AboutApp());
             },
           ),
 
-          const Divider(),
+          const Divider(thickness: 2,),
 
         ],
 

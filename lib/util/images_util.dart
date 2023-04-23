@@ -166,12 +166,13 @@ class ImagesUtil {
     }
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     timestamp = timestamp.substring(timestamp.length-6);
-    final String imgPath = '${directory.path}/img/$timestamp$name$perspective.jpg';
+    String safeName = name.replaceAll(RegExp('[^A-Za-z0-9]'), '');
+    final String imgPath = '${directory.path}/img/$timestamp$safeName$perspective.jpg';
     final image = File(imgPath);
     if(front){
-      currentWatch.frontImagePath = "/img/$timestamp$name$perspective.jpg";
+      currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
     }else{
-      currentWatch.backImagePath = "/img/$timestamp$name$perspective.jpg";
+      currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
     }
     currentWatch.save();
 
