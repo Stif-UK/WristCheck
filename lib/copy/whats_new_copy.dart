@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.4.0 \n"
+        "### Version 1.4.1 \n"
         "\n"
 
         "* WristCheck Pro is here - 'Pay what you like' to remove ads"
@@ -24,7 +24,7 @@ class WhatsNewCopy{
         child: const Markdown(
           physics: ClampingScrollPhysics(),
             data:
-            "### Version 1.4 \n"
+            "### Version 1.4.1 \n"
                 "\n"
 
                 "* WristCheck Pro added!\n"
