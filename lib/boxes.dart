@@ -94,9 +94,9 @@ class Boxes {
       if(chartOrder != ChartOrdering.watchbox){
         //return in either ascending or descending order
         if(chartOrder == ChartOrdering.descending){
-          returnList.sort((a,b) => a.wearList.length.compareTo(b.wearList.length));
+          returnList.sort((a,b) => a.filteredWearList!.length.compareTo(b.filteredWearList!.length));
         } else if(chartOrder == ChartOrdering.ascending){
-          returnList.sort((a,b) => b.wearList.length.compareTo(a.wearList.length));
+          returnList.sort((a,b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
         }
       }
     return returnList;
