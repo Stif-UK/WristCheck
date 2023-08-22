@@ -15,7 +15,7 @@ ThemeData darkTheme = ThemeData(
   canvasColor: Colors.black,
   backgroundColor: Colors.black12,
   primaryColor: Colors.black,
-  accentColor: Colors.lightBlue,
+  hintColor: Colors.lightBlue,
 
 
 );
