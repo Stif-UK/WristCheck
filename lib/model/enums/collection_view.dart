@@ -1,0 +1,1 @@
+enum CollectionView {all, favourites, wishlist, sold, random}

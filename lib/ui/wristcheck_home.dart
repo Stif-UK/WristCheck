@@ -5,6 +5,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
@@ -28,7 +29,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   int _currentIndex = 0;
   final List<Widget> _children =[
-    WatchBoxParent(),
+    Watchbox(),
     StatsWidget(),
     ServicingWidget()
   ];
