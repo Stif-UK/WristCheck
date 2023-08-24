@@ -77,6 +77,18 @@ class _WatchBoxState extends State<Watchbox> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      shape: BoxShape.rectangle,
+                      borderRadius: const BorderRadius.all(Radius.circular(10))),
+                  child: IconButton(
+                    icon: const Icon(Icons.reorder),
+                    onPressed: (){
+                      //TODO: Implement Enums for order of list plus filters to affect returned lists
+                    },
+                  ),
+                ),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.all(10.0),
