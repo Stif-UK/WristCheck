@@ -13,6 +13,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/search_finder.dart';
 import 'package:wristcheck/ui/search_widget.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Watchbox extends StatefulWidget {
   Watchbox({Key? key}) : super(key: key);
@@ -81,17 +82,19 @@ class _WatchBoxState extends State<Watchbox> {
                         shape: BoxShape.rectangle,
                         borderRadius: const BorderRadius.all(Radius.circular(10))),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("Filter:"),
-                        DropdownButton<CollectionView>(
-                          items: items.map(buildMenuItem).toList(),
-                          value: value,
-                          onChanged: (value){
-                            setState(() {
-                              this.value = value;
-                            });
-                          },),
+                        //Text("Filter: "),
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton<CollectionView>(
+                            items: items.map(buildMenuItem).toList(),
+                            value: value,
+                            onChanged: (value){
+                              setState(() {
+                                this.value = value;
+                              });
+                            },),
+                        ),
                       ],
                     ),
                   ),
@@ -124,9 +127,8 @@ class _WatchBoxState extends State<Watchbox> {
   DropdownMenuItem<CollectionView> buildMenuItem(CollectionView item) => DropdownMenuItem(
       value: item,
       child: Text(
-        item.toString(),
-        //TextHelper.getCategoryText(item),
-        style: Theme.of(context).textTheme.bodyLarge,
+        WristCheckFormatter.getCollectionText(item),
+        style: Theme.of(context).textTheme.headlineSmall,
       )
 
   );
