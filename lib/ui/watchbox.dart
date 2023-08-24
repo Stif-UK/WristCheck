@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
@@ -12,7 +13,9 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/search_finder.dart';
 import 'package:wristcheck/ui/search_widget.dart';
+import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Watchbox extends StatefulWidget {
@@ -31,7 +34,7 @@ class Watchbox extends StatefulWidget {
 class _WatchBoxState extends State<Watchbox> {
 
   final items = CollectionView.values;
-  CollectionView? value = CollectionView.all;
+  CollectionView? collectionValue = CollectionView.all;
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -62,7 +65,7 @@ class _WatchBoxState extends State<Watchbox> {
   Widget build(BuildContext context) {
 
     //List to check if the notebook is 'empty'
-    List<Watches> nonArchivedNotesList = watchBox.values.where((watch) => watch.status != "Archived").toList();
+    List<Watches> nonArchivedWatchList = watchBox.values.where((watch) => watch.status != "Archived").toList();
 
     return Obx( ()=> Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -88,10 +91,10 @@ class _WatchBoxState extends State<Watchbox> {
                         DropdownButtonHideUnderline(
                           child: DropdownButton<CollectionView>(
                             items: items.map(buildMenuItem).toList(),
-                            value: value,
+                            value: collectionValue,
                             onChanged: (value){
                               setState(() {
-                                this.value = value;
+                                collectionValue = value;
                               });
                             },),
                         ),
@@ -116,6 +119,61 @@ class _WatchBoxState extends State<Watchbox> {
                 )
               ],
             ),
+          ),
+          //Implement the watchbox view
+          ValueListenableBuilder<Box<Watches>>(
+              valueListenable: watchBox.listenable(),
+              builder: (context, box, _){
+                //List<Watches> filteredList = Boxes.getCollectionWatches();
+                List<Watches> filteredList = Boxes.getWatchesByFilter(collectionValue!);
+
+
+
+                return filteredList.isEmpty?Container(
+                  alignment: Alignment.center,
+                  child: const Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
+                    textAlign: TextAlign.center,),
+                ):
+
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: filteredList.length,
+                    itemBuilder: (BuildContext context, int index){
+                      var watch = filteredList.elementAt(index);
+                      String? _title = "${watch.manufacturer} ${watch.model}";
+                      bool fav = watch.favourite; // ?? false;
+                      String? _status = "${watch.status}";
+                      int _wearCount = watch.wearList.length;
+
+
+
+                      return ListTile(
+                        leading: const Icon(Icons.watch),
+                        title: Text(_title),
+                        subtitle: Text(ListTileHelper.getWatchboxListSubtitle(watch)),
+                        isThreeLine: true,
+
+                        trailing:  InkWell(
+                          child: fav? const Icon(Icons.star): const Icon(Icons.star_border),
+                          onTap: () {
+                            setState(() {
+                              watch.favourite = !fav;
+                              watch.save();
+                            });
+                          },
+                        ),
+                        onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
+                      );
+                    },
+                    separatorBuilder: (context, index){
+                      return const Divider(thickness: 2,);
+                    },
+                  ),
+                );
+              }
+
+
           )
 
         ]

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:hive/hive.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
+import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -18,8 +21,47 @@ class Boxes {
     return Hive.box<Watches>("WatchBox");
   }
 
+  static List<Watches> getWatchesByFilter(CollectionView collectionValue){
+    List<Watches> returnlist = [];
+
+    switch(collectionValue){
+      case CollectionView.all:
+        returnlist = getCollectionWatches();
+        break;
+      case CollectionView.favourites:
+        returnlist = getFavouriteWatches();
+        break;
+      case CollectionView.sold:
+        returnlist = getSoldWatches();
+        break;
+      case CollectionView.wishlist:
+        returnlist = getWishlistWatches();
+        break;
+      case CollectionView.random:
+        returnlist = getRandomWatch();
+        break;
+
+    }
+
+    return returnlist;
+  }
+
   static List<Watches> getAllWatches() {
     return Hive.box<Watches>("WatchBox").values.toList();
+  }
+
+  static List<Watches> getRandomWatch() {
+    List<Watches> returnList = [];
+    List<Watches> collection = getCollectionWatches();
+    Watches? randomWatch;
+    //get size of collection
+    var collectionSize = collection.length;
+    //generate a random number in that range
+    Random ran = Random();
+    int randomNo = ran.nextInt(collectionSize);
+    randomWatch = collection.elementAt(randomNo);
+    returnList.add(randomWatch);
+    return returnList;
   }
 
   static List<Watches> getCollectionWatches() {
