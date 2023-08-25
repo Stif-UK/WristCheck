@@ -38,10 +38,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
             title: const Text("In order of entry"),
               value: WatchOrder.watchbox,
               groupValue: currentOrder,
-              onChanged: (value){
-                  widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+              onChanged: (value) async {
+              await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
                   setState(() {
-                    currentOrder = value;
                   });
               }
           ),
@@ -49,10 +48,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               title: const Text("In reverse order of entry"),
               value: WatchOrder.reverse,
               groupValue: currentOrder,
-              onChanged: (value){
-                  widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+              onChanged: (value) async {
+                  await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
                   setState(() {
-                    currentOrder = value;
                   });
               }
           ),
@@ -60,10 +58,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               title: const Text("Alphabetic by manufacturer"),
               value: WatchOrder.alpha_asc,
               groupValue: currentOrder,
-              onChanged: (value){
-                widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+              onChanged: (value) async {
+                await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
                 setState(() {
-                  currentOrder = value;
                 });
               }
           ),
@@ -71,10 +68,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
             title: const Text("Reverse alphabetic by manufacturer"),
             value: WatchOrder.alpha_desc,
             groupValue: currentOrder,
-            onChanged: (value){
-              widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+            onChanged: (value) async {
+              await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
               setState(() {
-                currentOrder = value;
               });
             }
           ),
@@ -82,10 +78,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               title: const Text("Order by most worn"),
               value: WatchOrder.mostworn,
               groupValue: currentOrder,
-              onChanged: (value){
-                widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+              onChanged: (value) async {
+                await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
                 setState(() {
-                  currentOrder = value;
                 });
               }
           ),
@@ -93,10 +88,9 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               title: const Text("Order by last worn date"),
               value: WatchOrder.lastworn,
               groupValue: currentOrder,
-              onChanged: (value){
-                widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+              onChanged: (value) async {
+                await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
                 setState(() {
-                  currentOrder = value;
                 });
               }
           )

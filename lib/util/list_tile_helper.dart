@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /**
  * ListTileHelper provides helper methods to generate dynamic elements of List Tiles throughout the app
@@ -28,6 +30,33 @@ class ListTileHelper {
     }else{
       return "Not worn yet";
     }
+  }
+
+  static Icon getWatchOrderIcon(WatchOrder? watchOrder){
+    Icon returnIcon = const Icon(FontAwesomeIcons.sort);
+
+    switch(watchOrder){
+      case WatchOrder.watchbox:
+        returnIcon = const Icon(FontAwesomeIcons.arrowDownWideShort);
+        break;
+      case WatchOrder.reverse:
+        returnIcon = const Icon(FontAwesomeIcons.arrowUpWideShort);
+        break;
+      case WatchOrder.alpha_asc:
+        returnIcon = const Icon(FontAwesomeIcons.arrowUpAZ);
+        break;
+      case WatchOrder.alpha_desc:
+        returnIcon = const Icon(FontAwesomeIcons.arrowDownAZ);
+        break;
+      case WatchOrder.lastworn:
+        returnIcon = const Icon(FontAwesomeIcons.arrowDown91);
+        break;
+      case WatchOrder.mostworn:
+        returnIcon = const Icon(FontAwesomeIcons.chartLine);
+        break;
+    }
+
+    return returnIcon;
   }
 
 
