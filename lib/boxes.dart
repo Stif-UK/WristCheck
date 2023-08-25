@@ -52,14 +52,16 @@ class Boxes {
   static List<Watches> getRandomWatch() {
     List<Watches> returnList = [];
     List<Watches> collection = getCollectionWatches();
-    Watches? randomWatch;
-    //get size of collection
-    var collectionSize = collection.length;
-    //generate a random number in that range
-    Random ran = Random();
-    int randomNo = ran.nextInt(collectionSize);
-    randomWatch = collection.elementAt(randomNo);
-    returnList.add(randomWatch);
+    if (collection.isNotEmpty) {
+      Watches? randomWatch;
+      //get size of collection
+      var collectionSize = collection.length;
+      //generate a random number in that range
+      Random ran = Random();
+      int randomNo = ran.nextInt(collectionSize);
+      randomWatch = collection.elementAt(randomNo);
+      returnList.add(randomWatch);
+    }
     return returnList;
   }
 

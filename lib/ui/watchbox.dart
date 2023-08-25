@@ -67,8 +67,8 @@ class _WatchBoxState extends State<Watchbox> {
   Widget build(BuildContext context) {
 
 
-    List<Watches> unsortedList = Boxes.getWatchesByFilter(collectionValue!);
-    List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
+    // List<Watches> unsortedList = Boxes.getWatchesByFilter(collectionValue!);
+    // List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
     return Obx( ()=> Column(
         mainAxisAlignment: MainAxisAlignment.start,
