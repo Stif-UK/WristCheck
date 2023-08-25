@@ -49,6 +49,10 @@ class AboutAppCopy{
               "\nAvailable at pub.dev/packages/syncfusion_flutter_charts \n"
               "Distributed and used under the Syncfusion Community Licence."),
           Divider(thickness: 2),
+          Text("Font Awesome Icons have been used throughout the app."
+              "\nAvailable at fontawesome.com \n"
+              "Distributed and used under the CC BY 4.0 licence."),
+          Divider(thickness: 2),
           Text("Image_Cropper library has been used to allow cropping images uploaded to the app"
               "\nAvailable at pub.dev/packages/image_cropper  \n"
               "Distributed under the BSD-3-clause licence."),
