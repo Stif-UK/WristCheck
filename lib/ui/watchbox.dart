@@ -81,7 +81,10 @@ class _WatchBoxState extends State<Watchbox> {
                 Obx(
                   ()=> Container(
                     decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                          color: Theme.of(context).disabledColor,
+                          width: 2
+                        ),
                         shape: BoxShape.rectangle,
                         borderRadius: const BorderRadius.all(Radius.circular(10))),
                     child: IconButton(
@@ -102,7 +105,10 @@ class _WatchBoxState extends State<Watchbox> {
                   child: Container(
                     margin: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                            color: Theme.of(context).disabledColor,
+                            width: 2
+                        ),
                         shape: BoxShape.rectangle,
                         borderRadius: const BorderRadius.all(Radius.circular(10))),
                     child: Row(
@@ -125,7 +131,10 @@ class _WatchBoxState extends State<Watchbox> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      border: Border.all(),
+                      border: Border.all(
+                          color: Theme.of(context).disabledColor,
+                          width: 2
+                      ),
                       shape: BoxShape.rectangle,
                       borderRadius: const BorderRadius.all(Radius.circular(10))),
                   child: IconButton(
