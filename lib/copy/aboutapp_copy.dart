@@ -26,10 +26,10 @@ class AboutAppCopy{
   }
 
   static Widget getAcknowledgementCopy(){
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
+    return const Padding(
+      padding: EdgeInsets.all(12.0),
       child: Column(
-        children: const [
+        children: [
           Text("This application is build with the use of the following libraries and services:",
           style: TextStyle(fontWeight: FontWeight.bold),),
           Divider(thickness: 2),
