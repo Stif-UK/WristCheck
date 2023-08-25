@@ -147,6 +147,19 @@ class Boxes {
   static List<Watches> sortWatchBox(List<Watches> unsortedList, WatchOrder order){
     List<Watches> returnList = unsortedList;
 
+    //Custom sort function for lastworn
+    int mySortComparison(Watches a, Watches b) {
+      final propertyA = a.wearList.isEmpty? DateTime(1900,01,01): a.wearList.last;
+      final propertyB = b.wearList.isEmpty? DateTime(1900,01,01): b.wearList.last;
+      if (propertyA.isAfter(propertyB)){
+        return -1;
+      } else if (propertyA.isBefore(propertyB)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+
     switch(order){
       case WatchOrder.watchbox:
         returnList = unsortedList;
@@ -154,7 +167,18 @@ class Boxes {
       case WatchOrder.reverse:
         returnList = unsortedList.reversed.toList();
         break;
-        //TODO: Add additional sort options
+      case WatchOrder.mostworn:
+        returnList.sort((a,b)=>b.wearList.length.compareTo(a.wearList.length));
+        break;
+      case WatchOrder.alpha_asc:
+        returnList.sort((a,b)=>a.manufacturer.compareTo(b.manufacturer));
+        break;
+      case WatchOrder.alpha_desc:
+        returnList.sort((a,b)=>b.manufacturer.compareTo(a.manufacturer));
+        break;
+      case WatchOrder.lastworn:
+        returnList.sort(mySortComparison);
+        break;
     }
 
     return returnList;

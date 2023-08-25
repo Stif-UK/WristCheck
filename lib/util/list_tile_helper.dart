@@ -43,10 +43,10 @@ class ListTileHelper {
         returnIcon = const Icon(FontAwesomeIcons.arrowUpWideShort);
         break;
       case WatchOrder.alpha_asc:
-        returnIcon = const Icon(FontAwesomeIcons.arrowUpAZ);
+        returnIcon = const Icon(FontAwesomeIcons.arrowDownAZ);
         break;
       case WatchOrder.alpha_desc:
-        returnIcon = const Icon(FontAwesomeIcons.arrowDownAZ);
+        returnIcon = const Icon(FontAwesomeIcons.arrowUpAZ);
         break;
       case WatchOrder.lastworn:
         returnIcon = const Icon(FontAwesomeIcons.arrowDown91);
