@@ -14,6 +14,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/search_finder.dart';
 import 'package:wristcheck/ui/search_widget.dart';
 import 'package:wristcheck/ui/view_watch.dart';
+import 'package:wristcheck/ui/widgets/watchorder_bottomsheet.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -86,6 +87,12 @@ class _WatchBoxState extends State<Watchbox> {
                     icon: const Icon(Icons.reorder),
                     onPressed: (){
                       //TODO: Implement Enums for order of list plus filters to affect returned lists
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context){
+                            return WatchOrderBottomSheet();
+                          }
+                      );
                     },
                   ),
                 ),
