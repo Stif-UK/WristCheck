@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 
 class WristCheckPreferences {
@@ -14,6 +15,7 @@ class WristCheckPreferences {
   static const _keyWearCount = 'wearCount';
   static const _keyReferenceDate = 'referenceDate';
   static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
+  //charts
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
@@ -22,6 +24,8 @@ class WristCheckPreferences {
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
   static const _keyLastEntitlementCheck = 'lastEntitlementCheck';
+  //watchbox order
+  static const _keyWatchboxOrder = 'watchBoxOrder';
 
 
 
@@ -199,5 +203,46 @@ class WristCheckPreferences {
 
   static Future setLastEntitlementCheckDate(DateTime lastEntitlementCheck) async{
     await _preferences.setString(_keyLastEntitlementCheck, lastEntitlementCheck.toString());
+  }
+
+  //Getter and Setter for watchbox order
+  //Getter and setter for wear chart options
+  static WatchOrder? getWatchOrder() {
+    String? value = _preferences.getString(_keyWatchboxOrder);
+    WatchOrder returnValue;
+    switch (value){
+      case "WatchOrder.watchbox":{
+        returnValue = WatchOrder.watchbox;
+      }
+      break;
+      case "WatchOrder.reverse":{
+        returnValue = WatchOrder.reverse;
+      }
+      break;
+      case "WatchOrder.alpha_asc":{
+        returnValue = WatchOrder.alpha_asc;
+      }
+      break;
+      case "WatchOrder.alpha_desc":{
+        returnValue = WatchOrder.alpha_desc;
+      }
+      break;
+      case "WatchOrder.lastworn":{
+        returnValue = WatchOrder.lastworn;
+      }
+      break;
+      case "WatchOrder.mostworn":{
+        returnValue = WatchOrder.mostworn;
+      }
+      break;
+      default:{
+        returnValue = WatchOrder.watchbox;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setWatchBoxOrder(WatchOrder watchOrder) async {
+    await _preferences.setString(_keyWatchboxOrder, watchOrder.toString());
   }
 }
