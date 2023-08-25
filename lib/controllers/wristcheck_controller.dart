@@ -2,12 +2,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class WristCheckController extends GetxController {
 
   //Manage app purchase status
   final isAppPro = WristCheckPreferences.getAppPurchasedStatus()!.obs;
+  //Manage Watchbox view order
+  final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
 
   //Calling updateAppPurchaseStatus triggers a call to the Purchases package which will update the app status
   //based on whether the user holds the WristCheck Pro entitlement.
@@ -28,6 +31,12 @@ class WristCheckController extends GetxController {
   revertPurchaseStatus() async {
     isAppPro(false);
     await WristCheckPreferences.setAppPurchasedStatus(false);
+  }
+
+  //Set the watch order
+  updateWatchOrder(WatchOrder boxOrder) async {
+    await WristCheckPreferences.setWatchBoxOrder(boxOrder);
+    watchboxOrder(boxOrder);
   }
 
 }
