@@ -51,7 +51,7 @@ dependencies:
   flutter_markdown: ^0.6.10+5
   package_info_plus: ^4.1.0
   shared_preferences: ^2.0.15
-  file_picker: ^3.0.4
+  file_picker: ^5.3.3
   flutter_local_notifications: ^11.0.0
   google_mobile_ads: ^3.0.0
   screenshot: ^2.1.0
