@@ -37,6 +37,7 @@ class WristCheckController extends GetxController {
   updateWatchOrder(WatchOrder boxOrder) async {
     await WristCheckPreferences.setWatchBoxOrder(boxOrder);
     watchboxOrder(boxOrder);
+    update(); //Not sure if this line makes a difference...
   }
 
 }

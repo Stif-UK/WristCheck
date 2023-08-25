@@ -14,6 +14,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/search_finder.dart';
 import 'package:wristcheck/ui/search_widget.dart';
 import 'package:wristcheck/ui/view_watch.dart';
+import 'package:wristcheck/ui/widgets/watchbox_listview.dart';
 import 'package:wristcheck/ui/widgets/watchorder_bottomsheet.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
@@ -65,8 +66,9 @@ class _WatchBoxState extends State<Watchbox> {
   @override
   Widget build(BuildContext context) {
 
-    //List to check if the notebook is 'empty'
-    List<Watches> nonArchivedWatchList = watchBox.values.where((watch) => watch.status != "Archived").toList();
+
+    List<Watches> unsortedList = Boxes.getWatchesByFilter(collectionValue!);
+    List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
     return Obx( ()=> Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -80,6 +82,7 @@ class _WatchBoxState extends State<Watchbox> {
               children: [
                 Obx(
                   ()=> Container(
+
                     decoration: BoxDecoration(
                         border: Border.all(
                           color: Theme.of(context).disabledColor,
@@ -90,7 +93,6 @@ class _WatchBoxState extends State<Watchbox> {
                     child: IconButton(
                       icon: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
                       onPressed: (){
-                        //TODO: Implement Enums for order of list plus filters to affect returned lists
                         showModalBottomSheet(
                             context: context,
                             builder: (context){
@@ -114,7 +116,6 @@ class _WatchBoxState extends State<Watchbox> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        //Text("Filter: "),
                         DropdownButtonHideUnderline(
                           child: DropdownButton<CollectionView>(
                             items: items.map(buildMenuItem).toList(),
@@ -151,60 +152,7 @@ class _WatchBoxState extends State<Watchbox> {
             ),
           ),
           //Implement the watchbox view
-          ValueListenableBuilder<Box<Watches>>(
-              valueListenable: watchBox.listenable(),
-              builder: (context, box, _){
-                //List<Watches> filteredList = Boxes.getCollectionWatches();
-                List<Watches> filteredList = Boxes.getWatchesByFilter(collectionValue!);
-
-
-
-                return filteredList.isEmpty?Container(
-                  alignment: Alignment.center,
-                  child: const Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
-                    textAlign: TextAlign.center,),
-                ):
-
-                Expanded(
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: filteredList.length,
-                    itemBuilder: (BuildContext context, int index){
-                      var watch = filteredList.elementAt(index);
-                      String? _title = "${watch.manufacturer} ${watch.model}";
-                      bool fav = watch.favourite; // ?? false;
-                      String? _status = "${watch.status}";
-                      int _wearCount = watch.wearList.length;
-
-
-
-                      return ListTile(
-                        leading: const Icon(Icons.watch),
-                        title: Text(_title),
-                        subtitle: Text(ListTileHelper.getWatchboxListSubtitle(watch)),
-                        isThreeLine: true,
-
-                        trailing:  InkWell(
-                          child: fav? const Icon(Icons.star): const Icon(Icons.star_border),
-                          onTap: () {
-                            setState(() {
-                              watch.favourite = !fav;
-                              watch.save();
-                            });
-                          },
-                        ),
-                        onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
-                      );
-                    },
-                    separatorBuilder: (context, index){
-                      return const Divider(thickness: 2,);
-                    },
-                  ),
-                );
-              }
-
-
-          )
+          Obx(()=> WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
 
         ]
 

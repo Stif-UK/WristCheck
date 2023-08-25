@@ -1,10 +1,9 @@
 import 'dart:math';
-
 import 'package:hive/hive.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class Boxes {
@@ -143,5 +142,21 @@ class Boxes {
       }
     return returnList;
 
+  }
+
+  static List<Watches> sortWatchBox(List<Watches> unsortedList, WatchOrder order){
+    List<Watches> returnList = unsortedList;
+
+    switch(order){
+      case WatchOrder.watchbox:
+        returnList = unsortedList;
+        break;
+      case WatchOrder.reverse:
+        returnList = unsortedList.reversed.toList();
+        break;
+        //TODO: Add additional sort options
+    }
+
+    return returnList;
   }
 }
