@@ -55,7 +55,7 @@ class _WatchboxListViewState extends State<WatchboxListView> {
                   return const Divider(thickness: 2,);
                   },
               itemBuilder: (BuildContext context, int index) {
-                return WatchListTile(filteredList.elementAt(index));
+                return WatchListTile(filteredList.elementAt(index), widget.collectionValue);
               },
                 )
     );

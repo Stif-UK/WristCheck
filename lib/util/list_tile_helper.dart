@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
@@ -31,6 +32,7 @@ class ListTileHelper {
       return "Not worn yet";
     }
   }
+
 
   static Icon getWatchOrderIcon(WatchOrder? watchOrder){
     Icon returnIcon = const Icon(FontAwesomeIcons.sort);
