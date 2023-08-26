@@ -31,6 +31,7 @@ class WatchListTile extends ListTile{
     bool showImage = false;
     if(watch.frontImagePath != null && watch.frontImagePath != ""){
       showImage = true;
+      print(watch.frontImagePath);
     }
 
     return ListTile(
@@ -50,10 +51,10 @@ class WatchListTile extends ListTile{
                 final data = snapshot.data as File;
                 return ConstrainedBox(
                   constraints: const BoxConstraints(
-                    minHeight: 70,
-                    maxHeight: 70,
-                    minWidth: 70,
-                    maxWidth: 70,
+                    minHeight: 75,
+                    maxHeight: 75,
+                    minWidth: 75,
+                    maxWidth: 75,
                   ),
                   child: Image.file(data),
                 );
@@ -70,8 +71,8 @@ class WatchListTile extends ListTile{
           //If we don't have a watch image
           //:const Icon(Icons.watch, size: 30,),
           : Container(
-            width: 70,
-              height: 70,
+            width: 75,
+              height: 75,
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).disabledColor)
               ),
