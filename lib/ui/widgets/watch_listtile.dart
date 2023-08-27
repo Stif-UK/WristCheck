@@ -9,8 +9,9 @@ import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 
-class WatchListTile extends ListTile{
-  const WatchListTile(this.currentWatch, this.collectionView, {Key? key}) : super(key: key);
+class WatchListTile extends ListTile {
+  const WatchListTile(this.currentWatch, this.collectionView, {Key? key})
+      : super(key: key);
   final Watches currentWatch;
   final CollectionView collectionView;
 
@@ -24,22 +25,23 @@ class WatchListTile extends ListTile{
     int _wearCount = watch.wearList.length;
     //Categorise the view
     bool fullTile = false;
-    if(collectionView == CollectionView.all || collectionView == CollectionView.favourites || collectionView == CollectionView.random){
+    if (collectionView == CollectionView.all ||
+        collectionView == CollectionView.favourites ||
+        collectionView == CollectionView.random) {
       fullTile = true;
     }
     //Check if watch has an image
     bool showImage = false;
-    if(watch.frontImagePath != null && watch.frontImagePath != ""){
+    if (watch.frontImagePath != null && watch.frontImagePath != "") {
       showImage = true;
-      print(watch.frontImagePath);
     }
 
     return ListTile(
       //TODO: Add watch image or icon logic
-      leading: showImage?
+      leading: showImage ?
       FutureBuilder(
           future: ImagesUtil.getImage(currentWatch, true),
-          builder: (context, snapshot){
+          builder: (context, snapshot) {
             //start
             if (snapshot.connectionState == ConnectionState.done) {
               // If we got an error
@@ -64,26 +66,22 @@ class WatchListTile extends ListTile{
                 // );
               }
             }
-            return const CircularProgressIndicator();
-              } //builder
+            return _getEmptyIcon(context);
+          } //builder
       )
 
-          //If we don't have a watch image
-          //:const Icon(Icons.watch, size: 30,),
-          : Container(
-            width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).disabledColor)
-              ),
-              child: const Icon(Icons.watch)),
+      //If we don't have a watch image
+      //:const Icon(Icons.watch, size: 30,),
+          : _getEmptyIcon(context),
       title: Text(_title),
       //Alter subtitle if not full info - for now, wishlist and sold views are blank
-      subtitle: fullTile? Text(ListTileHelper.getWatchboxListSubtitle(watch)):const Text(""),
+      subtitle: fullTile
+          ? Text(ListTileHelper.getWatchboxListSubtitle(watch))
+          : const Text(""),
       isThreeLine: true,
 
-      trailing:  InkWell(
-        child: fav? const Icon(Icons.star): const Icon(Icons.star_border),
+      trailing: InkWell(
+        child: fav ? const Icon(Icons.star) : const Icon(Icons.star_border),
         onTap: () {
           //TODO: Make class stateful to enable favouriting from main view
           // setState(() {
@@ -95,4 +93,19 @@ class WatchListTile extends ListTile{
       onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
     );
   }
+
+
+  Widget _getEmptyIcon(context) {
+    return Container(
+        width: 75,
+        height: 75,
+        decoration: BoxDecoration(
+            border: Border.all(color: Theme
+                .of(context)
+                .disabledColor)
+        ),
+        child: const Icon(Icons.watch));
+
+  }
+
 }
