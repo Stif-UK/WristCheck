@@ -13,7 +13,8 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   disabledColor: Colors.grey,
   canvasColor: Colors.black,
-  primaryColor: Colors.lightBlue,
-  focusColor: Colors.lightBlue
+  // primaryColor: Colors.lightBlue,
+  // focusColor: Colors.lightBlue,
+  primarySwatch: Colors.lightBlue
 
 );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -12,16 +14,25 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:json_theme/json_theme.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Initialise Ads
   final initFuture = MobileAds.instance.initialize();
   final adState = AdState(initFuture);
+
   //Initialise RevenueCat
   await PurchaseApi.init();
 
-  await Hive.initFlutter();
+  //Load the theme from assets
+  final themeStrDark = await rootBundle.loadString('assets/theme/wc_theme_dark.json');
+  final themeJsonDark = jsonDecode(themeStrDark);
+  final themeDark = ThemeDecoder.decodeThemeData(themeJsonDark);
 
+  //Initialise Hive Database and open box
+  await Hive.initFlutter();
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
 
@@ -52,7 +63,7 @@ Future main() async{
             title: 'WristCheck',
 
           theme: lightTheme ,
-          darkTheme: darkTheme,
+          darkTheme: themeDark,
           themeMode: ThemeMode.system,
           //ThemeMode.light,
           //ThemeMode.system,
