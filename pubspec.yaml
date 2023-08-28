@@ -88,7 +88,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/theme/wc_theme_dark.json
-
+    - assets/theme/wc_theme_light.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

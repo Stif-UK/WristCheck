@@ -31,6 +31,10 @@ Future main() async{
   final themeJsonDark = jsonDecode(themeStrDark);
   final themeDark = ThemeDecoder.decodeThemeData(themeJsonDark);
 
+  final themeStrLight = await rootBundle.loadString('assets/theme/wc_theme_light.json');
+  final themeJsonLight = jsonDecode(themeStrLight);
+  final themeLight = ThemeDecoder.decodeThemeData(themeJsonLight);
+
   //Initialise Hive Database and open box
   await Hive.initFlutter();
   Hive.registerAdapter(WatchesAdapter());
@@ -62,7 +66,7 @@ Future main() async{
               debugShowCheckedModeBanner: false,
             title: 'WristCheck',
 
-          theme: lightTheme ,
+          theme: themeLight ,
           darkTheme: themeDark,
           themeMode: ThemeMode.system,
           //ThemeMode.light,
