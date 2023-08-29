@@ -7,6 +7,7 @@ import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/search_widget.dart';
@@ -150,7 +151,9 @@ class _WatchBoxState extends State<Watchbox> {
           ),
           //Implement the watchbox view
           //Obx(()=> WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
-          Obx(()=> WatchboxGridView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
+          Obx(()=> widget.wristCheckController.watchBoxView.value == WatchBoxView.list ?
+          WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!)
+              :  WatchboxGridView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
         ]
 
     ),
