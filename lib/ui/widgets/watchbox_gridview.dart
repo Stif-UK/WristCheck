@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 
@@ -43,7 +43,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
         widget.collectionValue == CollectionView.random) {
       fullTile = true;
     }
-    const double boxSides = 100;
+    const double boxSides = 95;
 
 
     return ValueListenableBuilder<Box<Watches>>(
@@ -67,58 +67,61 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                          border: Border.all(color: Theme
-                              .of(context)
-                              .disabledColor),
-                      borderRadius: BorderRadius.circular(20)
-                      ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //Header - watch make & model
-                        Text(currentWatch.manufacturer, style: Theme.of(context).textTheme.bodyLarge,),
-                        Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium,),
-                        //Add image to listtile
-                        FutureBuilder(
-                            future: ImagesUtil.getImage(currentWatch, true),
-                            builder: (context, snapshot) {
-                              //start
-                              if (snapshot.connectionState == ConnectionState.done) {
-                                // If we got an error
-                                if (snapshot.hasError) {
-                                  return const CircularProgressIndicator();
-                                  // if we got our data
-                                } else if (snapshot.hasData) {
-                                  // Extracting data from snapshot object
-                                  final data = snapshot.data as File;
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: ConstrainedBox(
-                                      constraints: const BoxConstraints(
-                                        minHeight: boxSides,
-                                        maxHeight: boxSides,
-                                        minWidth: boxSides,
-                                        maxWidth: boxSides,
-                                      ),
-                                      child: Image.file(data),
-                                    ),
-                                  );
-
-                                }
-                              }
-                              return _getEmptyIcon(context, boxSides);
-                            } //builder
+                  return InkWell(
+                    onTap: () => Get.to(() => ViewWatch(currentWatch: currentWatch,)),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                            border: Border.all(color: Theme
+                                .of(context)
+                                .disabledColor),
+                        borderRadius: BorderRadius.circular(20)
                         ),
-                        //Footer - Details of watch counts
-                        fullTile ? Text(ListTileHelper.getWatchboxListSubtitle(currentWatch), textAlign: TextAlign.center,)
-                            : const Text(""),
-                      ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //Header - watch make & model
+                          Text(currentWatch.manufacturer, style: Theme.of(context).textTheme.bodyLarge,),
+                          Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium,),
+                          //Add image to listtile
+                          FutureBuilder(
+                              future: ImagesUtil.getImage(currentWatch, true),
+                              builder: (context, snapshot) {
+                                //start
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  // If we got an error
+                                  if (snapshot.hasError) {
+                                    return const CircularProgressIndicator();
+                                    // if we got our data
+                                  } else if (snapshot.hasData) {
+                                    // Extracting data from snapshot object
+                                    final data = snapshot.data as File;
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: ConstrainedBox(
+                                        constraints: const BoxConstraints(
+                                          minHeight: boxSides,
+                                          maxHeight: boxSides,
+                                          minWidth: boxSides,
+                                          maxWidth: boxSides,
+                                        ),
+                                        child: Image.file(data),
+                                      ),
+                                    );
+
+                                  }
+                                }
+                                return _getEmptyIcon(context, boxSides);
+                              } //builder
+                          ),
+                          //Footer - Details of watch counts
+                          fullTile ? Text(ListTileHelper.getWatchboxListSubtitle(currentWatch), textAlign: TextAlign.center,)
+                              : const Text(""),
+                        ],
+                      ),
                     ),
                   );
                 })
