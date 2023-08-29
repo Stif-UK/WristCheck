@@ -4,6 +4,7 @@ import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
+import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 
 class WristCheckPreferences {
@@ -24,8 +25,9 @@ class WristCheckPreferences {
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
   static const _keyLastEntitlementCheck = 'lastEntitlementCheck';
-  //watchbox order
+  //watchbox order & view
   static const _keyWatchboxOrder = 'watchBoxOrder';
+  static const _keyWatchBoxView = 'watchBoxView';
 
 
 
@@ -244,5 +246,29 @@ class WristCheckPreferences {
 
   static Future setWatchBoxOrder(WatchOrder watchOrder) async {
     await _preferences.setString(_keyWatchboxOrder, watchOrder.toString());
+  }
+
+  //Getter and Setter for watchbox view option
+  static WatchBoxView? getWatchBoxView() {
+    String? value = _preferences.getString(_keyWatchBoxView);
+    WatchBoxView returnValue;
+    switch (value){
+      case "WatchBoxView.list":{
+        returnValue = WatchBoxView.list;
+      }
+      break;
+      case "WatchBoxView.grid":{
+        returnValue = WatchBoxView.grid;
+      }
+      break;
+      default:{
+        returnValue = WatchBoxView.list;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setWatchBoxView(WatchBoxView watchBoxView) async {
+    await _preferences.setString(_keyWatchBoxView, watchBoxView.toString());
   }
 }
