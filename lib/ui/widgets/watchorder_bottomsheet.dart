@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/watchbox_view.dart';
 
 
 class WatchOrderBottomSheet extends StatefulWidget {
@@ -31,8 +32,21 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //Header
-          Text("Collection Display Order",
-          style: Theme.of(context).textTheme.headlineSmall,),
+          Row(
+            children: [
+              Expanded(
+                child: Text("Collection Display Order",
+                style: Theme.of(context).textTheme.headlineSmall,),
+              ),
+              Obx(
+              () => IconButton(
+                  icon: widget.wristCheckController.watchBoxView.value == WatchBoxView.list? const Icon(Icons.list): const Icon(Icons.grid_view),
+                    onPressed: (){
+                    widget.wristCheckController.updateWatchBoxView();
+                    }),
+              )
+            ],
+          ),
           const SizedBox(height: 20,),
           RadioListTile(
             title: const Text("In order of entry"),

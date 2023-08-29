@@ -44,9 +44,12 @@ class WristCheckController extends GetxController {
   }
 
   //Set the watch view
-  updateWatchBoxView(WatchBoxView boxView) async {
-    await WristCheckPreferences.setWatchBoxView(boxView);
-    watchBoxView(boxView);
+  updateWatchBoxView() async {
+    WatchBoxView newValue;
+    watchBoxView.value == WatchBoxView.list?
+    newValue = WatchBoxView.grid: newValue = WatchBoxView.list;
+    await WristCheckPreferences.setWatchBoxView(newValue);
+    watchBoxView(newValue);
     update(); //Not sure if this line makes a difference...
   }
 
