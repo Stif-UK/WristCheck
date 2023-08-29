@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
@@ -60,10 +59,7 @@ class WatchListTile extends ListTile {
                   ),
                   child: Image.file(data),
                 );
-                //   CircleAvatar(
-                //   radius: 30,
-                //   backgroundImage: FileImage(data),
-                // );
+
               }
             }
             return _getEmptyIcon(context);
