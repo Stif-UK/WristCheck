@@ -1,0 +1,1 @@
+enum WatchBoxView {list, grid}
