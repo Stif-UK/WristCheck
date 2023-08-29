@@ -31,23 +31,42 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          //Header
+          //Header#
+          Obx(
+                ()=> Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.list),
+                ),
+                const Text("List"),
+                Switch(
+                  value: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
+                  onChanged: (value){
+                    widget.wristCheckController.updateWatchBoxView();
+                  },
+                ),
+                const Text("Grid"),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.grid_view),
+                )
+              ],
+            ),
+          ),
+
           Row(
             children: [
               Expanded(
-                child: Text("Collection Display Order",
+                child: Text("Display Order:",
                 style: Theme.of(context).textTheme.headlineSmall,),
               ),
-              Obx(
-              () => IconButton(
-                  icon: widget.wristCheckController.watchBoxView.value == WatchBoxView.list? const Icon(Icons.list): const Icon(Icons.grid_view),
-                    onPressed: (){
-                    widget.wristCheckController.updateWatchBoxView();
-                    }),
-              )
+
             ],
           ),
           const SizedBox(height: 20,),
+
           RadioListTile(
             title: const Text("In order of entry"),
               value: WatchOrder.watchbox,
@@ -69,7 +88,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               }
           ),
           RadioListTile(
-              title: const Text("Alphabetic by manufacturer"),
+              title: const Text("A-Z by manufacturer"),
               value: WatchOrder.alpha_asc,
               groupValue: currentOrder,
               onChanged: (value) async {
@@ -79,7 +98,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
               }
           ),
           RadioListTile(
-            title: const Text("Reverse alphabetic by manufacturer"),
+            title: const Text("Z-A by manufacturer"),
             value: WatchOrder.alpha_desc,
             groupValue: currentOrder,
             onChanged: (value) async {
