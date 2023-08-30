@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -53,8 +54,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
 
           return filteredList.isEmpty?Container(
             alignment: Alignment.center,
-            child: const Text("Your watch-box is currently empty\n\nPress the red button to add watches to your collection\n",
-              textAlign: TextAlign.center,),
+            child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context)
           ):
 
           Expanded(
