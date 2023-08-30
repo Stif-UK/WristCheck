@@ -5,13 +5,15 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.4.1 \n"
+        "### Version 1.5 \n"
         "\n"
 
-        "* WristCheck Pro is here - 'Pay what you like' to remove ads"
-            " - See Sidebar > Remove Ads for more details\n\n"
-            "* More options for how charts display - see chart settings\n"
-            "* Tidy up of app sidebar\n"
+        "* UI overhaul of the main watchbox!\n"
+            "* Watch images now show in watchbox view\n"
+            "* Quicker access to search\n"
+            "* Adjust the display order of your collection\n"
+            "* Choose a list or grid view for the UI\n"
+            "* Updates to software libraries and OS target levels\n"
             "* Bug fixes";
   }
 
@@ -24,6 +26,18 @@ class WhatsNewCopy{
         child: const Markdown(
           physics: ClampingScrollPhysics(),
             data:
+                "## Latest Version:\n"
+            "### Version 1.5 \n"
+                "\n"
+
+                "* UI overhaul of the main watchbox!\n"
+                "* Watch images now show in watchbox view\n"
+                "* Quicker access to search\n"
+                "* Adjust the display order of your collection\n"
+                "* Choose a list or grid view for the UI\n"
+                "* Updates to software libraries and OS target levels\n"
+                "* Bug fixes\n"
+                "--- \n\n"
             "### Version 1.4.1 \n"
                 "\n"
 
@@ -43,7 +57,8 @@ class WhatsNewCopy{
                 "* Help text improvements for watch wear history view\n"
                 "* Improved placement of image picker (Gallery/Camera) option\n"
                 "* Added 'review app' prompt\n"
-                "\n\n"
+                    "--- \n\n"
+
 
             "### Version 1.2.0 \n"
                 "\n"
@@ -61,7 +76,7 @@ class WhatsNewCopy{
                 "* Set up daily wear reminders\n"
                 "* Reference number field added to watch model\n"
                 "* Minor bug fixes and improvements"
-                "\n\n"
+                    "--- \n\n"
 
         "### Version 1.0.0 \n"
             "\n"
