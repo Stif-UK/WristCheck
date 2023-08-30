@@ -92,6 +92,7 @@ class _WatchBoxState extends State<Watchbox> {
                       icon: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
                       onPressed: (){
                         showModalBottomSheet(
+                          isScrollControlled: true,
                             context: context,
                             builder: (context){
                               return WatchOrderBottomSheet();

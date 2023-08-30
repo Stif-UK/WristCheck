@@ -26,7 +26,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
         shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(15),
       ),
-      height: MediaQuery.of(context).size.height*0.85,
+      height: MediaQuery.of(context).size.height*0.65,
       padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
