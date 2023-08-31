@@ -113,7 +113,7 @@
     "tertiaryContainer": "#ff523f5f"
   },
   "dialogBackgroundColor": "#ff757474",
-  "disabledColor": "#62ffffff",
+  "disabledColor": "#ffffffff",
   "dividerColor": "#1fe2e2e6",
   "focusColor": "#1fffffff",
   "highlightColor": "#40cccccc",
