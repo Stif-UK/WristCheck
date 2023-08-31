@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
@@ -152,9 +153,20 @@ class _WatchBoxState extends State<Watchbox> {
           ),
           //Implement the watchbox view
           //Obx(()=> WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
-          Obx(()=> widget.wristCheckController.watchBoxView.value == WatchBoxView.list ?
-          WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!)
-              :  WatchboxGridView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
+          ValueListenableBuilder(
+            valueListenable: watchBox.listenable(),
+            builder: (context, box, _) {
+              return Obx(() =>
+              widget.wristCheckController.watchBoxView.value ==
+                  WatchBoxView.list ?
+              WatchboxListView(collectionValue: collectionValue!,
+                  watchOrder: widget.wristCheckController.watchboxOrder.value!)
+                  : WatchboxGridView(collectionValue: collectionValue!,
+                  watchOrder: widget.wristCheckController.watchboxOrder.value!));
+
+            }
+    )
+
         ]
 
     ),
