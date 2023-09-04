@@ -62,15 +62,15 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
               itemCount: filteredList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 15,
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
                   return InkWell(
                     onTap: () => Get.to(() => ViewWatch(currentWatch: currentWatch,)),
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                             border: Border.all(color: Theme
                                 .of(context)
@@ -82,8 +82,8 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           //Header - watch make & model
-                          Text(currentWatch.manufacturer, style: Theme.of(context).textTheme.bodyLarge,),
-                          Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium,),
+                          Text(currentWatch.manufacturer, style: Theme.of(context).textTheme.bodyLarge,maxLines: 1, overflow: TextOverflow.ellipsis,),
+                          Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
                           //Add image to listtile
                           FutureBuilder(
                               future: ImagesUtil.getImage(currentWatch, true),
@@ -118,7 +118,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                               } //builder
                           ),
                           //Footer - Details of watch counts
-                          fullTile ? Text(ListTileHelper.getWatchboxListSubtitle(currentWatch), textAlign: TextAlign.center,)
+                          fullTile ? Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch), textAlign: TextAlign.center,))
                               : const Text(""),
                         ],
                       ),
