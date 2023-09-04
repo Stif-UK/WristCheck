@@ -1,10 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class ViewWatchHelper{
+
+  static WatchViewEnum getWatchViewState(Watches? watch, bool canEdit){
+    if(watch == null){
+      //State 1: Add note
+      return WatchViewEnum.add;
+    } else if(canEdit){
+      //State 2: Edit Note
+      return WatchViewEnum.edit;
+    }
+    //State 3(default): View Note
+    return WatchViewEnum.view;
+  }
+
+  static Widget getTitle(WatchViewEnum watchviewState, String title){
+    //TODO: Update to create title from watch make + model
+    String returnText = title;
+    switch(watchviewState){
+      case WatchViewEnum.edit:
+        returnText = "Edit: $title";
+        break;
+      case WatchViewEnum.add:
+        returnText = "Add Watch";
+        break;
+      case WatchViewEnum.view:
+        returnText = title;
+        break;
+    }
+
+    return Text(returnText);
+  }
 
   static Icon getEditIcon(bool editable){
     return !editable ? const Icon(Icons.edit) : const Icon(Icons.save);
