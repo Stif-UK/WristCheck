@@ -1,1 +1,0 @@
-enum WatchView {add, edit, view}
