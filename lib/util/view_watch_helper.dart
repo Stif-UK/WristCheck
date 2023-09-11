@@ -19,8 +19,9 @@ class ViewWatchHelper{
     return WatchViewEnum.view;
   }
 
-  static Widget getTitle(WatchViewEnum watchviewState, String title){
+  static Widget getTitle(WatchViewEnum watchviewState, String manufacturer, String model){
     //TODO: Update to create title from watch make + model
+    String title = "$manufacturer $model";
     String returnText = title;
     switch(watchviewState){
       case WatchViewEnum.edit:

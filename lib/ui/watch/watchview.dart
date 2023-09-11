@@ -14,7 +14,9 @@ import 'package:wristcheck/util/view_watch_helper.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
-    Key? key}) : super(key: key);
+    Key? key,
+  this.currentWatch
+  }) : super(key: key);
 
   final wristCheckController = Get.put(WristCheckController());
 
@@ -54,8 +56,8 @@ class _WatchViewState extends State<WatchView> {
   }
 
   //Instance Variables
-  String? _manufacturer = "";
-  String? _model = "";
+  String _manufacturer = "";
+  String _model = "";
   String? _serialNumber;
   bool favourite = false;
   String _status = "In Collection";
@@ -117,7 +119,11 @@ class _WatchViewState extends State<WatchView> {
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
       }
     }
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: ViewWatchHelper.getTitle(watchviewState, _manufacturer, _model),
+      ),
+    );
   }
 }
 
