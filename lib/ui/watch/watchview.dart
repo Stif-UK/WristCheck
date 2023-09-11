@@ -11,6 +11,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 
 class WatchView extends StatefulWidget {
@@ -139,7 +140,14 @@ class _WatchViewState extends State<WatchView> {
           )] : null
       ),
       body: Column(
-        
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          Expanded(
+              child: SingleChildScrollView(
+                child: Text("Testing"),
+              ))
+        ],
       ),
     );
   }
