@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -122,6 +123,23 @@ class _WatchViewState extends State<WatchView> {
     return Scaffold(
       appBar: AppBar(
         title: ViewWatchHelper.getTitle(watchviewState, _manufacturer, _model),
+
+          //Show edit button if a note object is loaded
+          actions: ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.view? [Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(FontAwesomeIcons.penToSquare),
+              onPressed: (){
+                setState(() {
+                  widget.inEditState = true;
+                });
+              },
+
+            ),
+          )] : null
+      ),
+      body: Column(
+        
       ),
     );
   }
