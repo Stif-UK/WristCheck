@@ -139,8 +139,10 @@ class _WatchViewState extends State<WatchView> {
       appBar: AppBar(
         title: ViewWatchHelper.getTitle(watchviewState, _manufacturer, _model),
 
-          //Show edit button if a note object is loaded
-          actions: ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.view? [Padding(
+
+          actions:[
+            //Show edit button if a watch object is loaded and state is view
+            ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.view? Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
               icon: const Icon(FontAwesomeIcons.penToSquare),
@@ -149,9 +151,23 @@ class _WatchViewState extends State<WatchView> {
                   widget.inEditState = true;
                 });
               },
-
             ),
-          )] : null
+          ) : const SizedBox(height: 0,),
+            //Show save button if in edit state //TODO: Update to also include add state
+            ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.edit? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: const Icon(FontAwesomeIcons.floppyDisk),
+                onPressed: (){
+                  setState(() {
+                    //TODO: Implement save call and change state
+                    widget.inEditState = false;
+                  });
+                },
+              ),
+            ) : const SizedBox(height: 0,),
+          ]
+
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -164,6 +180,7 @@ class _WatchViewState extends State<WatchView> {
                     //Build the UI from components
                     //Watch Images
                     //TODO: Image option for Add state
+                    //TODO: Image isn't loading - require Futurebuilder in place
                     watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
                     watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
                   ],
@@ -224,9 +241,6 @@ class _WatchViewState extends State<WatchView> {
                     setState(() {
 
                     });
-                    // setState(() {
-                    //   image = image2;
-                    // });
                   }
               ),
               const SizedBox(height: 25,),
