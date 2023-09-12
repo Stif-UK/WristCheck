@@ -9,6 +9,7 @@ import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/view_watch.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 
@@ -68,7 +69,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
                   return InkWell(
-                    onTap: () => Get.to(() => ViewWatch(currentWatch: currentWatch,)),
+                    onTap: () => Get.to(() => WatchView(currentWatch: currentWatch,)),
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(

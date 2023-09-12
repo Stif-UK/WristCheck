@@ -8,10 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 
 class WatchView extends StatefulWidget {
@@ -68,10 +71,13 @@ class _WatchViewState extends State<WatchView> {
   int _serviceInterval = 0;
   String? _notes ="";
   String? _referenceNumber = "";
+  File? image;
+  bool front = true;
   File? frontImage;
   File? backImage;
   int? watchKey; //Used to save images to newly added watches
   Watches? currentWatch;
+  bool canRecordWear = false;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
@@ -103,7 +109,15 @@ class _WatchViewState extends State<WatchView> {
   @override
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
+
+
+
     if(watchviewState!= WatchViewEnum.add){
+      //check if wear button should be enabled
+      if (watchviewState == WatchViewEnum.view) {
+        widget.currentWatch!.status == "In Collection"? canRecordWear = true : canRecordWear = false;
+      }
+
       _manufacturer = widget.currentWatch!.manufacturer;
       _model = widget.currentWatch!.model;
       _serialNumber = widget.currentWatch!.serialNumber;
@@ -145,10 +159,176 @@ class _WatchViewState extends State<WatchView> {
           purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           Expanded(
               child: SingleChildScrollView(
-                child: Text("Testing"),
+                child: Column(
+                  children: [
+                    //Build the UI from components
+                    //Watch Images
+                    //TODO: Image option for Add state
+                    watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
+                    watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
+                  ],
+                )
               ))
         ],
       ),
+    );
+
+  }
+
+  //Code to create individual sections of the UI - consider externalising these!
+
+  Widget _displayWatchImageViewEdit(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:  [
+        const Expanded(
+            flex: 2,
+            child: SizedBox(height: 10)),
+        Expanded(
+          flex: 6,
+          child: Container(
+              height: 180,
+              margin: const EdgeInsets.all(20),
+              //Padding and borderradius not required once image is selected
+              padding: image == null? const EdgeInsets.all(40): null,
+              decoration: image == null? BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
+              //If we have an image display it (ClipRRect used to round corners to soften the image)
+              child: image == null? Column(
+                mainAxisSize: MainAxisSize.min,
+                children:  [
+                  const Icon(Icons.camera_alt, size: 75),
+                  front? const Text("Front"): const Text("Back"),
+                ],
+              ): ClipRRect(
+                child: Image.file(image!),
+                borderRadius: BorderRadius.circular(16),
+              )
+          ),
+
+        ),
+        Expanded(
+          flex: 2,
+          //Column to display the pick image and switch image icons
+          child: Column(
+            children: [
+              InkWell(
+                  child: const Icon(Icons.add_a_photo_outlined),
+                  onTap: () async {
+
+                    var imageSource = await ImagesUtil.imageSourcePopUp(context);
+                    await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
+                    //pickAndSaveImage will have set the image for the given watch
+                    //Now call setstate to ensure the display is updated
+                    setState(() {
+
+                    });
+                    // setState(() {
+                    //   image = image2;
+                    // });
+                  }
+              ),
+              const SizedBox(height: 25,),
+              IconButton(
+                  icon: const Icon(Icons.flip_camera_android_rounded),
+                  onPressed: (){
+                    setState(() {
+                      front = !front;
+                    });
+                  })
+            ],
+          ),
+        ),
+
+
+      ],
+    );
+  }
+
+  Widget _buildWearRow(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Expanded(
+          flex: 2,
+          child: Column(),
+        ),
+        Expanded(
+          flex:6,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              widget.currentWatch!.status == "In Collection"? _addWearButton() : const SizedBox(height: 10),
+              const SizedBox(height: 10),
+              //Show last worn date
+              _displayLastWearDate(),
+              _displayWearCount(),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  child: const Icon(Icons.calendar_month),
+                  // onTap: () => Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch,)),
+                  onTap: (){
+                    Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(
+                            (){}
+                    ));
+                  },
+                )
+              ],
+            ))
+      ],
+    );
+  }
+
+  Widget _displayLastWearDate(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch!)}",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),),
+      ],
+    );
+  }
+
+  Widget _displayWearCount(){
+    var wearCount = widget.currentWatch!.wearList.length;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        wearCount == 1? const Text("Worn 1 time"): Text("Worn: $wearCount times",
+        ),
+      ],
+    );
+  }
+
+  Widget _addWearButton(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          child: const Text("Wear this watch today"),
+          onPressed: () {
+            if(canRecordWear) {
+              var wearDate = DateTime.now();
+              WatchMethods.attemptToRecordWear(
+                  widget.currentWatch!, wearDate, false).then((_) =>
+              {
+                setState(() {})
+              });
+            } else { null; }
+          },
+        ),
+      ],
     );
   }
 }
