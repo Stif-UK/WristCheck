@@ -95,6 +95,7 @@ class _WatchViewState extends State<WatchView> {
   final modelFieldController = TextEditingController();
   final serialNumberFieldController = TextEditingController();
   final referenceNumberFieldController = TextEditingController();
+  final serviceIntervalFieldController = TextEditingController();
   final notesFieldController = TextEditingController();
 
   @override
@@ -104,6 +105,7 @@ class _WatchViewState extends State<WatchView> {
     modelFieldController.dispose();
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
+    serialNumberFieldController.dispose();
     notesFieldController.dispose();
     super.dispose();
   }
@@ -124,6 +126,7 @@ class _WatchViewState extends State<WatchView> {
       _model = widget.currentWatch!.model;
       _serialNumber = widget.currentWatch!.serialNumber;
       _referenceNumber = widget.currentWatch!.referenceNumber;
+      _serviceInterval = widget.currentWatch!.serviceInterval;
       //Load note content, only if note is not being edited
       if(!widget.inEditState) {
         manufacturerFieldController.value =
@@ -133,6 +136,7 @@ class _WatchViewState extends State<WatchView> {
         serialNumberFieldController.value =
             TextEditingValue(text: widget.currentWatch!.serialNumber ??"");
         referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
+        serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
         notesFieldController.value =
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
       }
@@ -185,11 +189,12 @@ class _WatchViewState extends State<WatchView> {
                     //TODO: Image isn't loading - require Futurebuilder in place
                     watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
                     watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
+                    watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
                     _manufacturerRow(watchviewState),
                     _modelRow(watchviewState),
-                    watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
                     _serialNumberRow(watchviewState),
                     _referenceNumberRow(watchviewState),
+                    _serviceIntervalRow(watchviewState),
 
 
                   ],
@@ -430,7 +435,7 @@ class _WatchViewState extends State<WatchView> {
   //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
   Widget _buildFavouriteRow(Watches watch){
     return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Text("Favourite:"),
 
@@ -446,6 +451,24 @@ class _WatchViewState extends State<WatchView> {
               }),
         ]
 
+    );
+  }
+
+  Widget _serviceIntervalRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Service Interval:",
+      hintText: "Service Interval (years)",
+      maxLines: 1,
+      controller: serviceIntervalFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        //TODO: This should accept null
+        if(!val!.isServiceNumber) {
+          print(!val!.isServiceNumber);
+          return 'Service interval must be a whole number between 0 - 99';
+        }
+      },
     );
   }
 }

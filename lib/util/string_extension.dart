@@ -5,4 +5,9 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get isServiceNumber{
+    final titleRegExp = RegExp(r"^[0-9]|[0-9][0-9]$");
+    return titleRegExp.hasMatch(this);
+  }
+
 }
