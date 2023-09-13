@@ -13,7 +13,8 @@ class WatchFormField extends StatelessWidget {
     required this.textCapitalization,
     required this.controller,
     required this.enabled,
-    this.icon
+    this.icon,
+    this.keyboardType
   }) : super(key: key);
 
   final String fieldTitle;
@@ -26,6 +27,7 @@ class WatchFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
   final Icon? icon;
+  final TextInputType? keyboardType;
 
 
   @override
@@ -39,6 +41,7 @@ class WatchFormField extends StatelessWidget {
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.bodyLarge,),
           TextFormField(
+            keyboardType: keyboardType,
             enabled: enabled,
             textCapitalization: textCapitalization,
             controller: controller,

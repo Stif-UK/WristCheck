@@ -460,6 +460,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _serviceIntervalRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      keyboardType: TextInputType.number,
       icon: const Icon(FontAwesomeIcons.arrowsSpin),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Service Interval:",
