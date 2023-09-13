@@ -19,6 +19,7 @@ import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
@@ -99,6 +100,8 @@ class _WatchViewState extends State<WatchView> {
   final serviceIntervalFieldController = TextEditingController();
   final notesFieldController = TextEditingController();
   final purchaseDateFieldController = TextEditingController();
+  final lastServicedDateFieldController = TextEditingController();
+  final nextServiceDueFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -110,6 +113,8 @@ class _WatchViewState extends State<WatchView> {
     serialNumberFieldController.dispose();
     purchaseDateFieldController.dispose();
     notesFieldController.dispose();
+    lastServicedDateFieldController.dispose();
+    nextServiceDueFieldController.dispose();
     super.dispose();
   }
 
@@ -141,6 +146,9 @@ class _WatchViewState extends State<WatchView> {
         referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
         serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
         purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): "Not Recorded");
+        lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): "N/A");
+        DateTime? nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval);
+        nextServiceDueFieldController.value = TextEditingValue(text: nextServiceDue != null? WristCheckFormatter.getFormattedDate(nextServiceDue): "N/A");
         notesFieldController.value =
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
       }
@@ -209,6 +217,9 @@ class _WatchViewState extends State<WatchView> {
                     _serialNumberRow(watchviewState),
                     _referenceNumberRow(watchviewState),
                     _serviceIntervalRow(watchviewState),
+                    _lastServicedDateRow(watchviewState),
+                    watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
+
 
 
                   ],
@@ -538,6 +549,39 @@ class _WatchViewState extends State<WatchView> {
           return 'Service interval must be a whole number between 0 - 99';
         }
       },
+    );
+  }
+
+  Widget _lastServicedDateRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.calendarCheck),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Last Serviced Date:",
+      hintText: "Last Serviced Date",
+      maxLines: 1,
+      datePicker: true,
+      controller: lastServicedDateFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        //TODO: Validation?
+        if(!val!.isServiceNumber) {
+          print(!val!.isServiceNumber);
+          return 'Service interval must be a whole number between 0 - 99';
+        }
+      },
+    );
+  }
+
+  Widget _nextServiceDueRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.calendarDays),
+      //Always read only
+      enabled: false,
+      fieldTitle: "Next Service Due:",
+      hintText: "Next Service Due",
+      maxLines: 1,
+      controller: nextServiceDueFieldController,
+      textCapitalization: TextCapitalization.none,
     );
   }
 }
