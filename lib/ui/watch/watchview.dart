@@ -13,8 +13,10 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
+import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
+import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 
 class WatchView extends StatefulWidget {
@@ -183,6 +185,12 @@ class _WatchViewState extends State<WatchView> {
                     //TODO: Image isn't loading - require Futurebuilder in place
                     watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
                     watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
+                    _manufacturerRow(watchviewState),
+                    _modelRow(watchviewState),
+                    _serialNumberRow(watchviewState),
+                    _referenceNumberRow(watchviewState),
+
+
                   ],
                 )
               ))
@@ -343,6 +351,78 @@ class _WatchViewState extends State<WatchView> {
           },
         ),
       ],
+    );
+  }
+
+  Widget _manufacturerRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Manufacturer:",
+      hintText: "Manufacturer",
+      maxLines: 1,
+      controller: manufacturerFieldController,
+      textCapitalization: TextCapitalization.words,
+      validator: (String? val) {
+        //TODO: Amend validation
+        if(!val!.isAlphaNumericAndNotEmpty) {
+          print(!val!.isAlphaNumericAndNotEmpty);
+          return 'Manufacturer missing or invalid characters included';
+        }
+      },
+    );
+  }
+
+  Widget _modelRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Model:",
+      hintText: "Model",
+      maxLines: 1,
+      controller: modelFieldController,
+      textCapitalization: TextCapitalization.words,
+      validator: (String? val) {
+        //TODO: Amend validation
+        if(!val!.isAlphaNumericAndNotEmpty) {
+          print(!val!.isAlphaNumericAndNotEmpty);
+          return 'Model is missing or invalid characters included';
+        }
+      },
+    );
+  }
+
+  Widget _serialNumberRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Serial Number:",
+      hintText: "Serial Number",
+      maxLines: 1,
+      controller: serialNumberFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        //TODO: Amend validation - field is optional!
+        if(!val!.isAlphaNumericAndNotEmpty) {
+          print(!val!.isAlphaNumericAndNotEmpty);
+          return 'Serial Number is missing or invalid characters included';
+        }
+      },
+    );
+  }
+
+  Widget _referenceNumberRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Reference Number:",
+      hintText: "Reference Number",
+      maxLines: 1,
+      controller: referenceNumberFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        //TODO: Amend validation - field is optional!
+        if(!val!.isAlphaNumericAndNotEmpty) {
+          print(!val!.isAlphaNumericAndNotEmpty);
+          return 'Reference Number is missing or invalid characters included';
+        }
+      },
     );
   }
 }
