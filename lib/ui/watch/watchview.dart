@@ -82,7 +82,7 @@ class _WatchViewState extends State<WatchView> {
   bool canRecordWear = false;
 
   //Setup options for watch collection status
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist"];
+  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
   String? _selectedStatus = "In Collection";
   //Setup options for service interval
   final List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10]; //TODO: Replace with a number validated formfield
@@ -189,7 +189,16 @@ class _WatchViewState extends State<WatchView> {
                     //TODO: Image isn't loading - require Futurebuilder in place
                     watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
                     watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
-                    watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
+                    const Divider(thickness: 2,),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: _buildStatusDropdownRow(watchviewState)
+                        ),
+                        watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
+                      ],
+                    ),
+                    const Divider(thickness: 2,),
                     _manufacturerRow(watchviewState),
                     _modelRow(watchviewState),
                     _serialNumberRow(watchviewState),
@@ -455,6 +464,35 @@ class _WatchViewState extends State<WatchView> {
               }),
         ]
 
+    );
+  }
+
+  Widget _buildStatusDropdownRow(WatchViewEnum watchviewState){
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            //const Text("Status: "),
+
+            watchviewState == WatchViewEnum.view? Text(widget.currentWatch!.status.toString()):
+            DropdownButton(
+                value: _selectedStatus,
+                items: _statusList
+                    .map((status) => DropdownMenuItem(
+                    value: status,
+                    child: Text(status))
+
+                ).toList(),
+                onChanged: (status) {
+                  _status = status.toString();
+                  setState(() => _selectedStatus = status.toString());
+                }
+            )
+
+
+          ]
+      ),
     );
   }
 
