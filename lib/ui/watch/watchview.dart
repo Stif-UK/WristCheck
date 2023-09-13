@@ -187,6 +187,7 @@ class _WatchViewState extends State<WatchView> {
                     watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
                     _manufacturerRow(watchviewState),
                     _modelRow(watchviewState),
+                    watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
                     _serialNumberRow(watchviewState),
                     _referenceNumberRow(watchviewState),
 
@@ -423,6 +424,28 @@ class _WatchViewState extends State<WatchView> {
           return 'Reference Number is missing or invalid characters included';
         }
       },
+    );
+  }
+
+  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
+  Widget _buildFavouriteRow(Watches watch){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Text("Favourite:"),
+
+          Switch(
+              value: watch.favourite,
+              onChanged: (value){
+                setState(
+                        (){
+                      watch.favourite = value;
+                      watch.save();
+                    }
+                );
+              }),
+        ]
+
     );
   }
 }
