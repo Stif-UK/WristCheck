@@ -12,7 +12,8 @@ class WatchFormField extends StatelessWidget {
     this.validator,
     required this.textCapitalization,
     required this.controller,
-    required this.enabled
+    required this.enabled,
+    this.icon
   }) : super(key: key);
 
   final String fieldTitle;
@@ -24,6 +25,7 @@ class WatchFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool enabled;
+  final Icon? icon;
 
 
   @override
@@ -44,6 +46,7 @@ class WatchFormField extends StatelessWidget {
             maxLines: maxLines,
             validator: validator,
             decoration: InputDecoration(
+              icon: icon,
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 3, color: Theme.of(context).focusColor),
                     borderRadius: BorderRadius.circular(20.0)

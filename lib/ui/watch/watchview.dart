@@ -362,6 +362,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _manufacturerRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.building),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Manufacturer:",
       hintText: "Manufacturer",
@@ -380,6 +381,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _modelRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      icon: const Icon(Icons.watch),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Model:",
       hintText: "Model",
@@ -398,6 +400,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _serialNumberRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.barcode),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Serial Number:",
       hintText: "Serial Number",
@@ -416,6 +419,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _referenceNumberRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.hashtag),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Reference Number:",
       hintText: "Reference Number",
@@ -456,6 +460,7 @@ class _WatchViewState extends State<WatchView> {
 
   Widget _serviceIntervalRow(WatchViewEnum watchviewState){
     return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.arrowsSpin),
       enabled: watchviewState == WatchViewEnum.view? false: true,
       fieldTitle: "Service Interval:",
       hintText: "Service Interval (years)",
