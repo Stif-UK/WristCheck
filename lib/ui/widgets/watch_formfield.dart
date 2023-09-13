@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class WatchFormField extends StatelessWidget {
   const WatchFormField({
@@ -14,7 +15,8 @@ class WatchFormField extends StatelessWidget {
     required this.controller,
     required this.enabled,
     this.icon,
-    this.keyboardType
+    this.keyboardType,
+    this.datePicker
   }) : super(key: key);
 
   final String fieldTitle;
@@ -28,10 +30,12 @@ class WatchFormField extends StatelessWidget {
   final bool enabled;
   final Icon? icon;
   final TextInputType? keyboardType;
+  final bool? datePicker;
 
 
   @override
   Widget build(BuildContext context) {
+    var date = datePicker ?? false;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -48,6 +52,19 @@ class WatchFormField extends StatelessWidget {
             minLines: minLines,
             maxLines: maxLines,
             validator: validator,
+            //If datepicker is requested, show picker and add to controller
+            onTap: date? () async {
+              DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100)
+              );
+              if(pickedDate != null){
+                controller.text = DateFormat('yMMMd').format(pickedDate);
+            }
+            }
+                :null,
             decoration: InputDecoration(
               icon: icon,
                 enabledBorder: OutlineInputBorder(

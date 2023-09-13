@@ -18,6 +18,7 @@ import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
@@ -97,6 +98,7 @@ class _WatchViewState extends State<WatchView> {
   final referenceNumberFieldController = TextEditingController();
   final serviceIntervalFieldController = TextEditingController();
   final notesFieldController = TextEditingController();
+  final purchaseDateFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -106,6 +108,7 @@ class _WatchViewState extends State<WatchView> {
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
     serialNumberFieldController.dispose();
+    purchaseDateFieldController.dispose();
     notesFieldController.dispose();
     super.dispose();
   }
@@ -137,6 +140,7 @@ class _WatchViewState extends State<WatchView> {
             TextEditingValue(text: widget.currentWatch!.serialNumber ??"");
         referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
         serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
+        purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): "Not Recorded");
         notesFieldController.value =
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
       }
@@ -201,6 +205,7 @@ class _WatchViewState extends State<WatchView> {
                     const Divider(thickness: 2,),
                     _manufacturerRow(watchviewState),
                     _modelRow(watchviewState),
+                    _purchaseDateRow(watchviewState),
                     _serialNumberRow(watchviewState),
                     _referenceNumberRow(watchviewState),
                     _serviceIntervalRow(watchviewState),
@@ -508,6 +513,26 @@ class _WatchViewState extends State<WatchView> {
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         //TODO: This should accept null
+        if(!val!.isServiceNumber) {
+          print(!val!.isServiceNumber);
+          return 'Service interval must be a whole number between 0 - 99';
+        }
+      },
+    );
+  }
+
+  Widget _purchaseDateRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.calendar),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Purchase Date:",
+      hintText: "Purchase Date",
+      maxLines: 1,
+      datePicker: true,
+      controller: purchaseDateFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        //TODO: Validation?
         if(!val!.isServiceNumber) {
           print(!val!.isServiceNumber);
           return 'Service interval must be a whole number between 0 - 99';
