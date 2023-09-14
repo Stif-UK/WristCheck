@@ -219,6 +219,7 @@ class _WatchViewState extends State<WatchView> {
                     _serviceIntervalRow(watchviewState),
                     _lastServicedDateRow(watchviewState),
                     watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
+                    _notesRow(watchviewState),
 
 
 
@@ -582,6 +583,26 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: nextServiceDueFieldController,
       textCapitalization: TextCapitalization.none,
+    );
+  }
+
+  Widget _notesRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.noteSticky),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Notes:",
+      hintText: "Notes",
+      minLines: 4,
+      maxLines: 150,
+      controller: notesFieldController,
+      textCapitalization: TextCapitalization.sentences,
+      validator: (String? val) {
+        //TODO: Amend validation - can be empty
+        if(!val!.isAlphaNumericAndNotEmpty) {
+          print(!val!.isAlphaNumericAndNotEmpty);
+          return 'Invalid characters entered';
+        }
+      },
     );
   }
 }
