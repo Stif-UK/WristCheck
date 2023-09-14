@@ -571,13 +571,13 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: serviceIntervalFieldController,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   //TODO: This should accept null
-      //   if(!val!.isServiceNumber) {
-      //     print(!val!.isServiceNumber);
-      //     return 'Service interval must be a whole number between 0 - 99';
-      //   }
-      // },
+      validator: (String? val) {
+        //TODO: This should accept null
+        if(!val!.isServiceNumber) {
+          print(!val!.isServiceNumber);
+          return 'Must be 0-99 or blank';
+        }
+      },
     );
   }
 
@@ -611,13 +611,6 @@ class _WatchViewState extends State<WatchView> {
       datePicker: true,
       controller: lastServicedDateFieldController,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   //TODO: Validation?
-      //   if(!val!.isServiceNumber) {
-      //     print(!val!.isServiceNumber);
-      //     return 'Service interval must be a whole number between 0 - 99';
-      //   }
-      // },
     );
   }
 

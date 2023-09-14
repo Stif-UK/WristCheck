@@ -6,7 +6,8 @@ extension ExtString on String{
   }
 
   bool get isServiceNumber{
-    final titleRegExp = RegExp(r"^[0-9]|[0-9][0-9]$");
+    //in range 0-99 or blank
+    final titleRegExp = RegExp(r"^([0-9]{1,2}|)$");
     return titleRegExp.hasMatch(this);
   }
 
