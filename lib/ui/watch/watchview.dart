@@ -52,7 +52,6 @@ class _WatchViewState extends State<WatchView> {
         setState(() {
           banner = BannerAd(
               adUnitId: AdUnits.viewWatchBannerAdUnitId,
-              //adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.viewWatchBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
               size: AdSize.banner,
               request: const AdRequest(),
