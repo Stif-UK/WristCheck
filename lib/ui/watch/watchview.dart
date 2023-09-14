@@ -262,7 +262,8 @@ class _WatchViewState extends State<WatchView> {
                           //Tab four - Notebook
                           _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
                           const Divider(thickness: 2,),
-                          //Implement Add / Save button
+                          //Implement Add / Save button and next button
+                          watchviewState == WatchViewEnum.add && _currentIndex < 3? _nextTabButton(): const SizedBox(height: 36,),
                           watchviewState == WatchViewEnum.add? _addWatchButton() : const SizedBox(height: 0,)
 
                         ],
@@ -476,7 +477,7 @@ class _WatchViewState extends State<WatchView> {
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.barcode),
       enabled: watchviewState == WatchViewEnum.view? false: true,
-      fieldTitle: "Serial Number:",
+      fieldTitle: watchviewState == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
       hintText: "Serial Number",
       maxLines: 1,
       controller: serialNumberFieldController,
@@ -495,7 +496,7 @@ class _WatchViewState extends State<WatchView> {
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.hashtag),
       enabled: watchviewState == WatchViewEnum.view? false: true,
-      fieldTitle: "Reference Number:",
+      fieldTitle: watchviewState == WatchViewEnum.add? "Reference Number (Optional)": "Reference Number:",
       hintText: "Reference Number",
       maxLines: 1,
       controller: referenceNumberFieldController,
@@ -647,59 +648,87 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _addWatchButton(){
+  Widget _nextTabButton(){
     return Center(
       child: ElevatedButton(
-        onPressed: () async {
-          if(_formKey.currentState!.validate()){
-            var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
-
-            //Convert dates back into DateTime objects unless null
-            final dateFormat = DateFormat('MMM d, yyyy');
-            String? purchaseValue = purchaseDateFieldController.value.text;
-            String? serviceValue = lastServicedDateFieldController.value.text;
-            final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
-            final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
-            //Convert service interval to an INT
-            String? serviceInterval = serviceIntervalFieldController.value.text;
-            _serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
-
-
-
-
-            await WatchMethods.addWatch(
-                manufacturerFieldController.value.text,
-                modelFieldController.value.text,
-                serialNumberFieldController.value.text,
-                favourite,
-                _status,
-                purchaseDate,
-                serviceDate,
-                _serviceInterval,
-                notesFieldController.value.text,
-                referenceNumberFieldController.value.text);
-
-            //TODO: For newly added watch, get ID and add images
-            Get.back();
-
-            Get.snackbar(
-                snackTitle,
-                "added to watchbox",
-                snackPosition: SnackPosition.BOTTOM,
-                icon: const Icon(Icons.watch));
-          }
+        onPressed: (){
+          setState(() {
+            _currentIndex = _currentIndex +1;
+          });
         },
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.save),
-              ),
-              Text("Add Watch"),
-            ],
-          )
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Add optional details?"),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.navigate_next),
+            ),
+
+          ],
+        ),
+
+      )
+    );
+  }
+
+  Widget _addWatchButton(){
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            if(_formKey.currentState!.validate()){
+              var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
+
+              //Convert dates back into DateTime objects unless null
+              final dateFormat = DateFormat('MMM d, yyyy');
+              String? purchaseValue = purchaseDateFieldController.value.text;
+              String? serviceValue = lastServicedDateFieldController.value.text;
+              final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
+              final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
+              //Convert service interval to an INT
+              String? serviceInterval = serviceIntervalFieldController.value.text;
+              _serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
+
+
+
+
+              await WatchMethods.addWatch(
+                  manufacturerFieldController.value.text,
+                  modelFieldController.value.text,
+                  serialNumberFieldController.value.text,
+                  favourite,
+                  _status,
+                  purchaseDate,
+                  serviceDate,
+                  _serviceInterval,
+                  notesFieldController.value.text,
+                  referenceNumberFieldController.value.text);
+
+              //TODO: For newly added watch, get ID and add images
+              Get.back();
+
+              Get.snackbar(
+                  snackTitle,
+                  "added to watchbox",
+                  snackPosition: SnackPosition.BOTTOM,
+                  icon: const Icon(Icons.watch));
+            }
+          },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.save),
+                ),
+                Text("Add Watch"),
+              ],
+            )
+        ),
       ),
     );
   }
