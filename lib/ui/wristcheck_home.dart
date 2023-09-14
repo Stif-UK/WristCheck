@@ -5,6 +5,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
@@ -102,7 +103,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
         child: const Icon(Icons.add_rounded),
         backgroundColor: Colors.red,
-        onPressed: (){Get.to(() => const AddWatch());},
+        //onPressed: (){Get.to(() => const AddWatch());},
+        onPressed: (){Get.to(() => WatchView());},
       ): null,
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

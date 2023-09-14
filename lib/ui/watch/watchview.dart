@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
@@ -20,6 +21,7 @@ import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/model/watch_methods.dart';
+import 'package:intl/intl.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
@@ -111,7 +113,7 @@ class _WatchViewState extends State<WatchView> {
     modelFieldController.dispose();
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
-    serialNumberFieldController.dispose();
+    serviceIntervalFieldController.dispose();
     purchaseDateFieldController.dispose();
     notesFieldController.dispose();
     lastServicedDateFieldController.dispose();
@@ -220,51 +222,56 @@ class _WatchViewState extends State<WatchView> {
           purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //Build the UI from components
-                    //Watch Images
-                    //TODO: Image option for Add state
-                    //TODO: Image isn't loading - require Futurebuilder in place
-                    watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
-                    watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
-                    const Divider(thickness: 2,),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: _buildStatusDropdownRow(watchviewState)
-                        ),
-                        watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
-                      ],
-                    ),
-                    const Divider(thickness: 2,),
-                    Column(
-                      children: [
-                        //Tab one - Watch info
-                        _currentIndex == 0? _manufacturerRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 0? _modelRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 0? _serialNumberRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 0? _referenceNumberRow(watchviewState): const SizedBox(height: 0,),
-                        //Tab two - Schedule info
-                        _currentIndex == 1? _purchaseDateRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 1? _serviceIntervalRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 1? _lastServicedDateRow(watchviewState): const SizedBox(height: 0,),
-                        _currentIndex == 1 && watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
-                        //Tab three - cost info
-                        //Add purchase price row
-                        //Add sold price row
-                        //Add cost per wear calculation row and maybe a graph?
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      //Build the UI from components
+                      //Watch Images
+                      //TODO: Image option for Add state
+                      //TODO: Image isn't loading - require Futurebuilder in place
+                      watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
+                      watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
+                      const Divider(thickness: 2,),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: _buildStatusDropdownRow(watchviewState)
+                          ),
+                          watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
+                        ],
+                      ),
+                      const Divider(thickness: 2,),
+                      Column(
+                        children: [
+                          //Tab one - Watch info
+                          _currentIndex == 0? _manufacturerRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 0? _modelRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 0? _serialNumberRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 0? _referenceNumberRow(watchviewState): const SizedBox(height: 0,),
+                          //Tab two - Schedule info
+                          _currentIndex == 1? _purchaseDateRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 1? _serviceIntervalRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 1? _lastServicedDateRow(watchviewState): const SizedBox(height: 0,),
+                          _currentIndex == 1 && watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
+                          //Tab three - cost info
+                          //Add purchase price row
+                          //Add sold price row
+                          //Add cost per wear calculation row and maybe a graph?
 
-                        //Tab four - Notebook
-                        _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
-                        const Divider(thickness: 2,)
-                        //Implement Add / Save button
-                      ],
-                    ),
+                          //Tab four - Notebook
+                          _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
+                          const Divider(thickness: 2,),
+                          //Implement Add / Save button
+                          watchviewState == WatchViewEnum.add? _addWatchButton() : const SizedBox(height: 0,)
+
+                        ],
+                      ),
 
 
 
-                  ],
+                    ],
+                  ),
                 )
               ))
         ],
@@ -474,13 +481,13 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: serialNumberFieldController,
       textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        //TODO: Amend validation - field is optional!
-        if(!val!.isAlphaNumericAndNotEmpty) {
-          print(!val!.isAlphaNumericAndNotEmpty);
-          return 'Serial Number is missing or invalid characters included';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: Amend validation - field is optional!
+      //   if(!val!.isAlphaNumericAndNotEmpty) {
+      //     print(!val!.isAlphaNumericAndNotEmpty);
+      //     return 'Serial Number is missing or invalid characters included';
+      //   }
+      // },
     );
   }
 
@@ -493,13 +500,13 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: referenceNumberFieldController,
       textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        //TODO: Amend validation - field is optional!
-        if(!val!.isAlphaNumericAndNotEmpty) {
-          print(!val!.isAlphaNumericAndNotEmpty);
-          return 'Reference Number is missing or invalid characters included';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: Amend validation - field is optional!
+      //   if(!val!.isAlphaNumericAndNotEmpty) {
+      //     print(!val!.isAlphaNumericAndNotEmpty);
+      //     return 'Reference Number is missing or invalid characters included';
+      //   }
+      // },
     );
   }
 
@@ -564,13 +571,13 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: serviceIntervalFieldController,
       textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        //TODO: This should accept null
-        if(!val!.isServiceNumber) {
-          print(!val!.isServiceNumber);
-          return 'Service interval must be a whole number between 0 - 99';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: This should accept null
+      //   if(!val!.isServiceNumber) {
+      //     print(!val!.isServiceNumber);
+      //     return 'Service interval must be a whole number between 0 - 99';
+      //   }
+      // },
     );
   }
 
@@ -584,13 +591,13 @@ class _WatchViewState extends State<WatchView> {
       datePicker: true,
       controller: purchaseDateFieldController,
       textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        //TODO: Validation?
-        if(!val!.isServiceNumber) {
-          print(!val!.isServiceNumber);
-          return 'Service interval must be a whole number between 0 - 99';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: Validation?
+      //   if(!val!.isServiceNumber) {
+      //     print(!val!.isServiceNumber);
+      //     return 'Service interval must be a whole number between 0 - 99';
+      //   }
+      // },
     );
   }
 
@@ -604,13 +611,13 @@ class _WatchViewState extends State<WatchView> {
       datePicker: true,
       controller: lastServicedDateFieldController,
       textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        //TODO: Validation?
-        if(!val!.isServiceNumber) {
-          print(!val!.isServiceNumber);
-          return 'Service interval must be a whole number between 0 - 99';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: Validation?
+      //   if(!val!.isServiceNumber) {
+      //     print(!val!.isServiceNumber);
+      //     return 'Service interval must be a whole number between 0 - 99';
+      //   }
+      // },
     );
   }
 
@@ -637,13 +644,70 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 150,
       controller: notesFieldController,
       textCapitalization: TextCapitalization.sentences,
-      validator: (String? val) {
-        //TODO: Amend validation - can be empty
-        if(!val!.isAlphaNumericAndNotEmpty) {
-          print(!val!.isAlphaNumericAndNotEmpty);
-          return 'Invalid characters entered';
-        }
-      },
+      // validator: (String? val) {
+      //   //TODO: Amend validation - can be empty
+      //   if(!val!.isAlphaNumericAndNotEmpty) {
+      //     print(!val!.isAlphaNumericAndNotEmpty);
+      //     return 'Invalid characters entered';
+      //   }
+      // },
+    );
+  }
+
+  Widget _addWatchButton(){
+    return Center(
+      child: ElevatedButton(
+        onPressed: () async {
+          if(_formKey.currentState!.validate()){
+            var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
+
+            //Convert dates back into DateTime objects unless null
+            final dateFormat = DateFormat('MMM d, yyyy');
+            String? purchaseValue = purchaseDateFieldController.value.text;
+            String? serviceValue = lastServicedDateFieldController.value.text;
+            final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
+            final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
+            //Convert service interval to an INT
+            String? serviceInterval = serviceIntervalFieldController.value.text;
+            _serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
+
+
+
+
+            await WatchMethods.addWatch(
+                manufacturerFieldController.value.text,
+                modelFieldController.value.text,
+                serialNumberFieldController.value.text,
+                favourite,
+                _status,
+                purchaseDate,
+                serviceDate,
+                _serviceInterval,
+                notesFieldController.value.text,
+                referenceNumberFieldController.value.text);
+
+            //TODO: For newly added watch, get ID and add images
+            Get.back();
+
+            Get.snackbar(
+                snackTitle,
+                "added to watchbox",
+                snackPosition: SnackPosition.BOTTOM,
+                icon: const Icon(Icons.watch));
+          }
+        },
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.save),
+              ),
+              Text("Add Watch"),
+            ],
+          )
+      ),
     );
   }
 }
