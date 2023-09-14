@@ -65,6 +65,7 @@ class _WatchViewState extends State<WatchView> {
   }
 
   //Instance Variables
+  int _currentIndex = 0;
   String _manufacturer = "";
   String _model = "";
   String? _serialNumber;
@@ -121,8 +122,6 @@ class _WatchViewState extends State<WatchView> {
   @override
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
-
-
 
     if(watchviewState!= WatchViewEnum.add){
       //check if wear button should be enabled
@@ -187,6 +186,34 @@ class _WatchViewState extends State<WatchView> {
           ]
 
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: (index){
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon:  Icon(Icons.watch),
+            label: "Info",
+          ),
+          BottomNavigationBarItem(
+            icon:  Icon(FontAwesomeIcons.calendar),
+            label: "Schedule",
+          ),
+          BottomNavigationBarItem(
+            icon:  Icon(FontAwesomeIcons.dollarSign),
+            label: "Costs",
+          ),
+          BottomNavigationBarItem(
+            icon:  Icon(FontAwesomeIcons.book),
+            label: "Notes",
+          )
+        ],
+
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -211,15 +238,29 @@ class _WatchViewState extends State<WatchView> {
                       ],
                     ),
                     const Divider(thickness: 2,),
-                    _manufacturerRow(watchviewState),
-                    _modelRow(watchviewState),
-                    _purchaseDateRow(watchviewState),
-                    _serialNumberRow(watchviewState),
-                    _referenceNumberRow(watchviewState),
-                    _serviceIntervalRow(watchviewState),
-                    _lastServicedDateRow(watchviewState),
-                    watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
-                    _notesRow(watchviewState),
+                    Column(
+                      children: [
+                        //Tab one - Watch info
+                        _currentIndex == 0? _manufacturerRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 0? _modelRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 0? _serialNumberRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 0? _referenceNumberRow(watchviewState): const SizedBox(height: 0,),
+                        //Tab two - Schedule info
+                        _currentIndex == 1? _purchaseDateRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 1? _serviceIntervalRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 1? _lastServicedDateRow(watchviewState): const SizedBox(height: 0,),
+                        _currentIndex == 1 && watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
+                        //Tab three - cost info
+                        //Add purchase price row
+                        //Add sold price row
+                        //Add cost per wear calculation row and maybe a graph?
+
+                        //Tab four - Notebook
+                        _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
+                        const Divider(thickness: 2,)
+                        //Implement Add / Save button
+                      ],
+                    ),
 
 
 
