@@ -123,7 +123,9 @@ class _WatchViewState extends State<WatchView> {
       //Validate the form
       if (_formKey.currentState!.validate()) {
         //Ensure watch is not null
-        if(currentWatch != null) {
+        if(widget.currentWatch != null) {
+          print("Currentwatch not null");
+
           _manufacturer = manufacturerFieldController.value.text;
           _model = modelFieldController.value.text;
           //convert service interval field to int
@@ -132,17 +134,17 @@ class _WatchViewState extends State<WatchView> {
           _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
 
 
-          currentWatch!.manufacturer = _manufacturer;
-          currentWatch!.model = _model;
-          currentWatch!.status = _selectedStatus;
-          currentWatch!.serialNumber = serialNumberFieldController.value.text;
-          currentWatch!.referenceNumber = referenceNumberFieldController.value.text;
-          currentWatch!.serviceInterval = _serviceInterval;
-          currentWatch!.purchaseDate = _purchaseDate;
-          currentWatch!.lastServicedDate = _lastServicedDate;
-          currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
-          currentWatch!.notes = notesFieldController.value.text;
-          currentWatch!.save();
+          widget.currentWatch!.manufacturer = _manufacturer;
+          widget.currentWatch!.model = _model;
+          widget.currentWatch!.status = _selectedStatus;
+          widget.currentWatch!.serialNumber = serialNumberFieldController.value.text;
+          widget.currentWatch!.referenceNumber = referenceNumberFieldController.value.text;
+          widget.currentWatch!.serviceInterval = _serviceInterval;
+          widget.currentWatch!.purchaseDate = _purchaseDate;
+          widget.currentWatch!.lastServicedDate = _lastServicedDate;
+          widget.currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
+          widget.currentWatch!.notes = notesFieldController.value.text;
+          widget.currentWatch!.save();
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
             snackPosition: SnackPosition.BOTTOM
@@ -798,8 +800,12 @@ class _WatchViewState extends State<WatchView> {
   }
 
   DateTime? getDateFromFieldString(String dateField){
-    final dateFormat = DateFormat('MMM d, yyyy');
-    return dateField.length != 0? dateFormat.parse(dateField): null;
+    if(dateField == "Not Recorded" || dateField == "N/A"){
+      return null;
+    } else {
+      final dateFormat = DateFormat('MMM d, yyyy');
+      return dateField.length != 0 ? dateFormat.parse(dateField) : null;
+    }
   }
 }
 
