@@ -210,131 +210,194 @@ class _WatchViewState extends State<WatchView> {
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
       }
     }
-    return Scaffold(
-      appBar: AppBar(
-        title: ViewWatchHelper.getTitle(watchviewState, _manufacturer, _model),
+    //Wrap Scaffold in a FutureBuilder to show images once loaded
+    
+    return FutureBuilder<File?>(
+        future: watchviewState != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, front): addWatchImage(front),
+        builder: (context, AsyncSnapshot<File?> snapshot) {
+          if (snapshot.hasData || snapshot.data == null) {
+            try {
+              snapshot.data == File("") ? image = null :
+              image = snapshot.data;
+            } on Exception catch (e) {
+              print("Exception caught in implementing file: $e");
+              image = null;
+            }
+            return Scaffold(
+              appBar: AppBar(
+                  title: ViewWatchHelper.getTitle(
+                      watchviewState, _manufacturer, _model),
 
 
-          actions:[
-            //Show edit button if a watch object is loaded and state is view
-            ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.view? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(FontAwesomeIcons.penToSquare),
-              onPressed: (){
-                setState(() {
-                  widget.inEditState = true;
-                });
-              },
-            ),
-          ) : const SizedBox(height: 0,),
-            //Show save button if in edit state //TODO: Update to also include add state
-            ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState) == WatchViewEnum.edit? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                icon: const Icon(FontAwesomeIcons.floppyDisk),
-                onPressed: (){
-                  setState(() {
-                    saveAndUpdate();
-                  });
-                },
+                  actions: [
+                    //Show edit button if a watch object is loaded and state is view
+                    ViewWatchHelper.getWatchViewState(
+                        widget.currentWatch, widget.inEditState) ==
+                        WatchViewEnum.view ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: const Icon(FontAwesomeIcons.penToSquare),
+                        onPressed: () {
+                          setState(() {
+                            widget.inEditState = true;
+                          });
+                        },
+                      ),
+                    ) : const SizedBox(height: 0,),
+                    //Show save button if in edit state //TODO: Update to also include add state
+                    ViewWatchHelper.getWatchViewState(
+                        widget.currentWatch, widget.inEditState) ==
+                        WatchViewEnum.edit ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: const Icon(FontAwesomeIcons.floppyDisk),
+                        onPressed: () {
+                          setState(() {
+                            saveAndUpdate();
+                          });
+                        },
+                      ),
+                    ) : const SizedBox(height: 0,),
+                  ]
+
               ),
-            ) : const SizedBox(height: 0,),
-          ]
-
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index){
-          if(_formKey.currentState!.validate()) {
-            setState(() {
-              _currentIndex = index;
-            });
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon:  Icon(Icons.watch),
-            label: "Info",
-          ),
-          BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.calendar),
-            label: "Schedule",
-          ),
-          BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.dollarSign),
-            label: "Costs",
-          ),
-          BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.book),
-            label: "Notes",
-          )
-        ],
-
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-          Expanded(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      //Build the UI from components
-                      //Watch Images
-                      //TODO: Image option for Add state
-                      //TODO: Image isn't loading - require Futurebuilder in place
-                      watchviewState == WatchViewEnum.view || watchviewState == WatchViewEnum.edit? _displayWatchImageViewEdit(): const SizedBox(height: 0,),
-                      watchviewState == WatchViewEnum.view? _buildWearRow() : const SizedBox(height: 0,),
-                      const Divider(thickness: 2,),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: _buildStatusDropdownRow(watchviewState)
-                          ),
-                          watchviewState == WatchViewEnum.add? const SizedBox(height: 0,):_buildFavouriteRow(widget.currentWatch!),
-                        ],
-                      ),
-                      const Divider(thickness: 2,),
-                      Column(
-                        children: [
-                          //Tab one - Watch info
-                          _currentIndex == 0? _manufacturerRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 0? _modelRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 0? _serialNumberRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 0? _referenceNumberRow(watchviewState): const SizedBox(height: 0,),
-                          //Tab two - Schedule info
-                          _currentIndex == 1? _purchaseDateRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 1? _serviceIntervalRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 1? _lastServicedDateRow(watchviewState): const SizedBox(height: 0,),
-                          _currentIndex == 1 && watchviewState == WatchViewEnum.view? _nextServiceDueRow(watchviewState) : const SizedBox(height: 0,),
-                          //Tab three - cost info
-                          //Add purchase price row
-                          //Add sold price row
-                          //Add cost per wear calculation row and maybe a graph?
-
-                          //Tab four - Notebook
-                          _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
-                          const Divider(thickness: 2,),
-                          //Implement Add / Save button and next button to show if in an 'add' state
-                          watchviewState == WatchViewEnum.add && _currentIndex < 3? _nextTabButton(): const SizedBox(height: 10,),
-                          watchviewState == WatchViewEnum.add? _addWatchButton() : const SizedBox(height: 0,),
-
-                          //implement a save button to show when in an edit state
-                          watchviewState == WatchViewEnum.edit? _saveWatchUpdateButton() : const SizedBox(height: 0,)
-
-
-                        ],
-                      ),
-                    ],
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: _currentIndex,
+                onTap: (index) {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  }
+                },
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.watch),
+                    label: "Info",
                   ),
-                )
-              ))
-        ],
-      ),
+                  BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.calendar),
+                    label: "Schedule",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.dollarSign),
+                    label: "Costs",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.book),
+                    label: "Notes",
+                  )
+                ],
+
+              ),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  purchaseStatus ? const SizedBox(height: 0,) : AdWidgetHelper
+                      .buildSmallAdSpace(banner, context),
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                //Build the UI from components
+                                //Watch Images
+                                //TODO: Image option for Add state
+                                //TODO: Image isn't loading - require Futurebuilder in place
+                                watchviewState == WatchViewEnum.view ||
+                                    watchviewState == WatchViewEnum.edit
+                                    ? _displayWatchImageViewEdit()
+                                    : const SizedBox(height: 0,),
+                                watchviewState == WatchViewEnum.view
+                                    ? _buildWearRow()
+                                    : const SizedBox(height: 0,),
+                                const Divider(thickness: 2,),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: _buildStatusDropdownRow(
+                                            watchviewState)
+                                    ),
+                                    watchviewState == WatchViewEnum.add
+                                        ? const SizedBox(height: 0,)
+                                        : _buildFavouriteRow(
+                                        widget.currentWatch!),
+                                  ],
+                                ),
+                                const Divider(thickness: 2,),
+                                Column(
+                                  children: [
+                                    //Tab one - Watch info
+                                    _currentIndex == 0 ? _manufacturerRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    _currentIndex == 0
+                                        ? _modelRow(watchviewState)
+                                        : const SizedBox(height: 0,),
+                                    _currentIndex == 0 ? _serialNumberRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    _currentIndex == 0 ? _referenceNumberRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    //Tab two - Schedule info
+                                    _currentIndex == 1 ? _purchaseDateRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    _currentIndex == 1 ? _serviceIntervalRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    _currentIndex == 1 ? _lastServicedDateRow(
+                                        watchviewState) : const SizedBox(
+                                      height: 0,),
+                                    _currentIndex == 1 &&
+                                        watchviewState == WatchViewEnum.view
+                                        ? _nextServiceDueRow(watchviewState)
+                                        : const SizedBox(height: 0,),
+                                    //Tab three - cost info
+                                    //Add purchase price row
+                                    //Add sold price row
+                                    //Add cost per wear calculation row and maybe a graph?
+
+                                    //Tab four - Notebook
+                                    _currentIndex == 3
+                                        ? _notesRow(watchviewState)
+                                        : const SizedBox(height: 0,),
+                                    const Divider(thickness: 2,),
+                                    //Implement Add / Save button and next button to show if in an 'add' state
+                                    watchviewState == WatchViewEnum.add &&
+                                        _currentIndex < 3
+                                        ? _nextTabButton()
+                                        : const SizedBox(height: 10,),
+                                    watchviewState == WatchViewEnum.add
+                                        ? _addWatchButton()
+                                        : const SizedBox(height: 0,),
+
+                                    //implement a save button to show when in an edit state
+                                    watchviewState == WatchViewEnum.edit
+                                        ? _saveWatchUpdateButton()
+                                        : const SizedBox(height: 0,)
+
+
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                      ))
+                ],
+              ),
+            );
+          }
+          else {
+            return Container(
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator()
+            );
+          }
+        }
     );
   }
 
@@ -799,6 +862,10 @@ class _WatchViewState extends State<WatchView> {
     return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
+  Future<File?>addWatchImage(bool front) async {
+    return front? frontImage: backImage;
+  }
+
   DateTime? getDateFromFieldString(String dateField){
     if(dateField == "Not Recorded" || dateField == "N/A"){
       return null;
@@ -807,5 +874,9 @@ class _WatchViewState extends State<WatchView> {
       return dateField.length != 0 ? dateFormat.parse(dateField) : null;
     }
   }
-}
+
+
+
+    }
+
 
