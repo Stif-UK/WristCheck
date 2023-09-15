@@ -85,8 +85,6 @@ class _WatchViewState extends State<WatchView> {
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
   String? _selectedStatus = "In Collection";
-  //Setup options for service interval
-  final List<int> _serviceList = [0,1,2,3,4,5,6,7,8,9,10]; //TODO: Replace with a number validated formfield
   int _selectedInterval = 0;
 
   //Form Key
@@ -104,7 +102,7 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   void dispose(){
-    //clean up the controller when the widget is disposed TODO: Update to ensure each controller is disposed
+    //clean up the controller when the widget is disposed
     manufacturerFieldController.dispose();
     modelFieldController.dispose();
     serialNumberFieldController.dispose();
@@ -120,6 +118,66 @@ class _WatchViewState extends State<WatchView> {
   @override
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
+
+    void saveAndUpdate(){
+      //Validate the form
+      if (_formKey.currentState!.validate()) {
+        //Ensure watch is not null
+        if(currentWatch != null) {
+          _manufacturer = manufacturerFieldController.value.text;
+          _model = modelFieldController.value.text;
+          //convert service interval field to int
+          _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
+          _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
+          _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
+
+
+          currentWatch!.manufacturer = _manufacturer;
+          currentWatch!.model = _model;
+          currentWatch!.status = _selectedStatus;
+          currentWatch!.serialNumber = serialNumberFieldController.value.text;
+          currentWatch!.referenceNumber = referenceNumberFieldController.value.text;
+          currentWatch!.serviceInterval = _serviceInterval;
+          currentWatch!.purchaseDate = _purchaseDate;
+          currentWatch!.lastServicedDate = _lastServicedDate;
+          currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
+          currentWatch!.notes = notesFieldController.value.text;
+          currentWatch!.save();
+          Get.snackbar("$_manufacturer $_model",
+              "Updates Saved",
+            snackPosition: SnackPosition.BOTTOM
+          );
+
+        }
+        setState(() {
+          widget.inEditState = false;
+        });
+      }
+    }
+
+    Widget _saveWatchUpdateButton(){
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+            child: ElevatedButton(
+                onPressed: (){
+                  saveAndUpdate();
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.save),
+                    ),
+                    Text("Save Updates"),
+                  ],
+                )
+            )
+        ),
+      );
+    }
 
     if(watchviewState!= WatchViewEnum.add){
       //check if wear button should be enabled
@@ -175,8 +233,7 @@ class _WatchViewState extends State<WatchView> {
                 icon: const Icon(FontAwesomeIcons.floppyDisk),
                 onPressed: (){
                   setState(() {
-                    //TODO: Implement save call and change state
-                    widget.inEditState = false;
+                    saveAndUpdate();
                   });
                 },
               ),
@@ -188,9 +245,11 @@ class _WatchViewState extends State<WatchView> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index){
-          setState(() {
-            _currentIndex = index;
-          });
+          if(_formKey.currentState!.validate()) {
+            setState(() {
+              _currentIndex = index;
+            });
+          }
         },
         items: const [
           BottomNavigationBarItem(
@@ -258,15 +317,16 @@ class _WatchViewState extends State<WatchView> {
                           //Tab four - Notebook
                           _currentIndex == 3? _notesRow(watchviewState): const SizedBox(height: 0,),
                           const Divider(thickness: 2,),
-                          //Implement Add / Save button and next button
-                          watchviewState == WatchViewEnum.add && _currentIndex < 3? _nextTabButton(): const SizedBox(height: 36,),
-                          watchviewState == WatchViewEnum.add? _addWatchButton() : const SizedBox(height: 0,)
+                          //Implement Add / Save button and next button to show if in an 'add' state
+                          watchviewState == WatchViewEnum.add && _currentIndex < 3? _nextTabButton(): const SizedBox(height: 10,),
+                          watchviewState == WatchViewEnum.add? _addWatchButton() : const SizedBox(height: 0,),
+
+                          //implement a save button to show when in an edit state
+                          watchviewState == WatchViewEnum.edit? _saveWatchUpdateButton() : const SizedBox(height: 0,)
+
 
                         ],
                       ),
-
-
-
                     ],
                   ),
                 )
@@ -274,7 +334,6 @@ class _WatchViewState extends State<WatchView> {
         ],
       ),
     );
-
   }
 
   //Code to create individual sections of the UI - consider externalising these!
@@ -648,10 +707,12 @@ class _WatchViewState extends State<WatchView> {
     return Center(
       child: ElevatedButton(
         onPressed: (){
+          if(_formKey.currentState!.validate()) {
           setState(() {
-            _currentIndex = _currentIndex +1;
+            _currentIndex = _currentIndex + 1;
           });
-        },
+        }
+      },
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -679,14 +740,17 @@ class _WatchViewState extends State<WatchView> {
               var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 
               //Convert dates back into DateTime objects unless null
-              final dateFormat = DateFormat('MMM d, yyyy');
-              String? purchaseValue = purchaseDateFieldController.value.text;
-              String? serviceValue = lastServicedDateFieldController.value.text;
-              final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
-              final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
+              // final dateFormat = DateFormat('MMM d, yyyy');
+              // String? purchaseValue = purchaseDateFieldController.value.text;
+              // String? serviceValue = lastServicedDateFieldController.value.text;
+              // final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
+              // final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
               //Convert service interval to an INT
-              String? serviceInterval = serviceIntervalFieldController.value.text;
-              _serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
+              //String? serviceInterval = serviceIntervalFieldController.value.text;
+              //_serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
+              _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
+              _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
+              _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
 
 
 
@@ -697,8 +761,8 @@ class _WatchViewState extends State<WatchView> {
                   serialNumberFieldController.value.text,
                   favourite,
                   _status,
-                  purchaseDate,
-                  serviceDate,
+                  _purchaseDate,
+                  _lastServicedDate,
                   _serviceInterval,
                   notesFieldController.value.text,
                   referenceNumberFieldController.value.text);
@@ -727,6 +791,15 @@ class _WatchViewState extends State<WatchView> {
         ),
       ),
     );
+  }
+
+  int getServiceInterval(String serviceIntervalString){
+    return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
+  }
+
+  DateTime? getDateFromFieldString(String dateField){
+    final dateFormat = DateFormat('MMM d, yyyy');
+    return dateField.length != 0? dateFormat.parse(dateField): null;
   }
 }
 

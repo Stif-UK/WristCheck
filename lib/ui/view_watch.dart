@@ -759,9 +759,6 @@ class _ViewWatchState extends State<ViewWatch> {
                       setState(() {
 
                       });
-                    // setState(() {
-                    //   image = image2;
-                    // });
               }
               ),
               const SizedBox(height: 25,),
@@ -775,8 +772,6 @@ class _ViewWatchState extends State<ViewWatch> {
             ],
           ),
         ),
-
-
       ],
     );
   }
