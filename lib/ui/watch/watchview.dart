@@ -91,7 +91,6 @@ class _WatchViewState extends State<WatchView> {
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
-  //Text Controller TODO: Add controllers for each element of the watch view
   final manufacturerFieldController = TextEditingController();
   final modelFieldController = TextEditingController();
   final serialNumberFieldController = TextEditingController();
@@ -246,7 +245,6 @@ class _WatchViewState extends State<WatchView> {
                         },
                       ),
                     ) : const SizedBox(height: 0,),
-                    //Show save button if in edit state //TODO: Update to also include add state
                     ViewWatchHelper.getWatchViewState(
                         widget.currentWatch, widget.inEditState) ==
                         WatchViewEnum.edit ? Padding(
@@ -306,7 +304,6 @@ class _WatchViewState extends State<WatchView> {
                               children: [
                                 //Build the UI from components
                                 //Watch Images
-                                //TODO: Image option for Add state
                                 _displayWatchImageViewEdit(watchviewState),
                                 watchviewState == WatchViewEnum.view
                                     ? _buildWearRow()
