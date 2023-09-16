@@ -13,6 +13,7 @@ import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -107,7 +108,7 @@ class _ArchivedState extends State<Archived> {
                             leading: const Icon(Icons.watch),
                             title: Text(_title),
                             subtitle: Text(_status),
-                            onTap: () => Get.to(() => ViewWatch(currentWatch: watch,)),
+                            onTap: () => Get.to(() => WatchView(currentWatch: watch,)),
                           ),
 
                           background: Container(
