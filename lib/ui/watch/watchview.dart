@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
@@ -63,6 +64,7 @@ class _WatchViewState extends State<WatchView> {
   }
 
   //Instance Variables
+  final watchBox = Boxes.getWatches();
   int _currentIndex = 0;
   String _manufacturer = "";
   String _model = "";
@@ -305,11 +307,7 @@ class _WatchViewState extends State<WatchView> {
                                 //Build the UI from components
                                 //Watch Images
                                 //TODO: Image option for Add state
-                                //TODO: Image isn't loading - require Futurebuilder in place
-                                watchviewState == WatchViewEnum.view ||
-                                    watchviewState == WatchViewEnum.edit
-                                    ? _displayWatchImageViewEdit()
-                                    : const SizedBox(height: 0,),
+                                _displayWatchImageViewEdit(watchviewState),
                                 watchviewState == WatchViewEnum.view
                                     ? _buildWearRow()
                                     : const SizedBox(height: 0,),
@@ -403,7 +401,7 @@ class _WatchViewState extends State<WatchView> {
 
   //Code to create individual sections of the UI - consider externalising these!
 
-  Widget _displayWatchImageViewEdit(){
+  Widget _displayWatchImageViewEdit(WatchViewEnum watchViewState){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children:  [
@@ -443,8 +441,25 @@ class _WatchViewState extends State<WatchView> {
                   child: const Icon(Icons.add_a_photo_outlined),
                   onTap: () async {
 
+
                     var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                    await ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
+                    //Split this method depending on status
+                    if (watchViewState != WatchViewEnum.add) {
+                      await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
+                    } else{
+                      if(front) {
+                        imageSource != null
+                            ? frontImage =
+                                await ImagesUtil.pickImage(source: imageSource!)
+                            : null;
+                      } else {
+                        imageSource != null
+                            ? backImage =
+                        await ImagesUtil.pickImage(source: imageSource!)
+                            : null;
+                      }
+                    }
+
                     //pickAndSaveImage will have set the image for the given watch
                     //Now call setstate to ensure the display is updated
                     setState(() {
@@ -820,7 +835,7 @@ class _WatchViewState extends State<WatchView> {
 
 
 
-              await WatchMethods.addWatch(
+              watchKey = await WatchMethods.addWatch(
                   manufacturerFieldController.value.text,
                   modelFieldController.value.text,
                   serialNumberFieldController.value.text,
@@ -831,8 +846,17 @@ class _WatchViewState extends State<WatchView> {
                   _serviceInterval,
                   notesFieldController.value.text,
                   referenceNumberFieldController.value.text);
+              //if a front image has been set, we add this to the newly created watch before exiting
+              if(frontImage != null){
+                currentWatch = watchBox.get(watchKey);
+            ImagesUtil.saveImage(frontImage!.path, currentWatch!, true);
+            }
+            //and repeat for the back image
+            if(backImage != null){
+            currentWatch = watchBox.get(watchKey);
+            ImagesUtil.saveImage(backImage!.path, currentWatch!, false);
+            }
 
-              //TODO: For newly added watch, get ID and add images
               Get.back();
 
               Get.snackbar(
