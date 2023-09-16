@@ -17,7 +17,6 @@ class ImagesUtil {
   the path to this is then saved to the given watch as it's display image, after forcing it to be cropped to the
   correct aspect ratio.
   It also
-  //ToDo: Refactor to allow both front and caseback images!
    */
   static pickAndSaveImage({
     required ImageSource source,
