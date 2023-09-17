@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 
 part 'watches.g.dart';
 
@@ -49,5 +50,8 @@ class Watches extends HiveObject{
 
   @HiveField(14)
   late String? backImagePath;
+
+  @HiveField(15)
+  late MovementEnum? movement;
 
 }

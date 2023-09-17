@@ -31,13 +31,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..filteredWearList = (fields[11] as List?)?.cast<DateTime>()
       ..frontImagePath = fields[12] as String?
       ..referenceNumber = fields[13] as String?
-      ..backImagePath = fields[14] as String?;
+      ..backImagePath = fields[14] as String?
+      ..movement = fields[15] as MovementEnum?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -67,7 +68,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(13)
       ..write(obj.referenceNumber)
       ..writeByte(14)
-      ..write(obj.backImagePath);
+      ..write(obj.backImagePath)
+      ..writeByte(15)
+      ..write(obj.movement);
   }
 
   @override
