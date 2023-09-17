@@ -1,0 +1,1 @@
+enum MovementEnum {blank, mechanical, automatic, quartz}
