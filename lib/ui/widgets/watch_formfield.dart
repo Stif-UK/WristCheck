@@ -38,7 +38,7 @@ class WatchFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     var date = datePicker ?? false;
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

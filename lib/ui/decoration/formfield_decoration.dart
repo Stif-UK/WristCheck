@@ -16,4 +16,8 @@ class WristCheckFormFieldDecoration{
 
     );
   }
+
+  static getFormFieldPadding(){
+    return const EdgeInsets.all(10.0);
+  }
 }

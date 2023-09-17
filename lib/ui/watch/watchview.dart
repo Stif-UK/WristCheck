@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,11 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
@@ -337,6 +340,7 @@ class _WatchViewState extends State<WatchView> {
                                     _currentIndex == 0 ? _referenceNumberRow(
                                         watchviewState) : const SizedBox(
                                       height: 0,),
+                                    _currentIndex == 0? _buildMovementField(widget.inEditState) : const SizedBox(height: 0,),
                                     //Tab two - Schedule info
                                     _currentIndex == 1 ? _purchaseDateRow(
                                         watchviewState) : const SizedBox(
@@ -640,6 +644,28 @@ class _WatchViewState extends State<WatchView> {
       //     return 'Reference Number is missing or invalid characters included';
       //   }
       // },
+    );
+  }
+
+  Widget _buildMovementField(bool edit){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Movement:",
+          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.bodyLarge,),
+        Padding(
+          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+          child: DropdownButtonFormField<MovementEnum>(
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.clockRotateLeft), context),
+              items: MovementEnum.values.map((movement) {
+                return DropdownMenuItem<MovementEnum>(
+                  value: movement,
+                    child: Text(WristCheckFormatter.getMovementText(movement)));
+              }).toList(),
+              onChanged: edit? (movement){} : null),
+        ),
+      ],
     );
   }
 

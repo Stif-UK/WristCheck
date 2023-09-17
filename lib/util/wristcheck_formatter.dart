@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 
 class WristCheckFormatter{
 
@@ -38,6 +39,26 @@ class WristCheckFormatter{
         break;
     }
 
+    return returnText;
+  }
+
+  static String getMovementText(MovementEnum movement){
+    String returnText = "";
+
+    switch (movement) {
+      case MovementEnum.blank:
+        returnText = "Not Entered";
+        break;
+      case MovementEnum.mechanical:
+        returnText = "Mechanical";
+        break;
+      case MovementEnum.automatic:
+        returnText = "Automatic";
+        break;
+      case MovementEnum.quartz:
+        returnText = "Quartz";
+        break;
+    }
     return returnText;
   }
 
