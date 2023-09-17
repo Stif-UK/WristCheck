@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 
 class WatchFormField extends StatelessWidget {
   const WatchFormField({
@@ -65,18 +66,7 @@ class WatchFormField extends StatelessWidget {
             }
             }
                 :null,
-            decoration: InputDecoration(
-              icon: icon,
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color: Theme.of(context).focusColor),
-                    borderRadius: BorderRadius.circular(20.0)
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 3, color: Colors.lightBlue),
-                    borderRadius: BorderRadius.circular(20.0)
-                )
-
-            ),
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(icon, context)
 
           ),
         ],
