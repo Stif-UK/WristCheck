@@ -62,5 +62,25 @@ class WristCheckFormatter{
     return returnText;
   }
 
+  static MovementEnum getMovementEnum(String movement){
+    MovementEnum returnValue = MovementEnum.blank;
+
+    switch (movement) {
+      case "Not Entered":
+        returnValue = MovementEnum.blank;
+        break;
+      case "Mechanical":
+        returnValue = MovementEnum.mechanical;
+        break;
+      case "Automatic":
+        returnValue = MovementEnum.automatic;
+        break;
+      case "Quartz":
+        returnValue = MovementEnum.quartz;
+        break;
+    }
+    return returnValue;
+  }
+
 }
 

@@ -340,7 +340,7 @@ class _WatchViewState extends State<WatchView> {
                                     _currentIndex == 0 ? _referenceNumberRow(
                                         watchviewState) : const SizedBox(
                                       height: 0,),
-                                    _currentIndex == 0? _buildMovementField(widget.inEditState) : const SizedBox(height: 0,),
+                                    _currentIndex == 0? _buildMovementField(watchviewState != WatchViewEnum.view) : const SizedBox(height: 0,),
                                     //Tab two - Schedule info
                                     _currentIndex == 1 ? _purchaseDateRow(
                                         watchviewState) : const SizedBox(
@@ -657,7 +657,8 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<MovementEnum>(
-            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.clockRotateLeft), context),
+            iconSize: edit? 24.0: 0.0,
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.clockRotateLeft,), context),
               items: MovementEnum.values.map((movement) {
                 return DropdownMenuItem<MovementEnum>(
                   value: movement,
