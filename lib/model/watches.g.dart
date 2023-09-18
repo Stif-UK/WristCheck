@@ -32,7 +32,7 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..frontImagePath = fields[12] as String?
       ..referenceNumber = fields[13] as String?
       ..backImagePath = fields[14] as String?
-      ..movement = fields[15] as MovementEnum?;
+      ..movement = fields[15] as String?;
   }
 
   @override

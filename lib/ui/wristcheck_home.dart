@@ -10,7 +10,6 @@ import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/watchbox/watchbox_parent.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:wristcheck/ui/ServicingWidget.dart';
-import 'package:wristcheck/ui/add_watch_widget.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';

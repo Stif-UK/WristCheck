@@ -52,6 +52,6 @@ class Watches extends HiveObject{
   late String? backImagePath;
 
   @HiveField(15)
-  late MovementEnum? movement;
+  late String? movement;
 
 }

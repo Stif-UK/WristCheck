@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
@@ -13,7 +14,7 @@ import 'package:in_app_review/in_app_review.dart';
 class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
-      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber){
+      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -24,6 +25,7 @@ class WatchMethods {
     int si = serviceInterval;
     String? n = notes;
     String? rn = referenceNumber;
+    String? mvmt = movement;
 
 
     final watch = Watches()
@@ -41,7 +43,9 @@ class WatchMethods {
     ..filteredWearList = <DateTime>[]
     ..frontImagePath = ""
     ..backImagePath = ""
-    ..referenceNumber = rn;
+    ..referenceNumber = rn
+    ..movement = mvmt;
+
 
     final box = Boxes.getWatches();
 

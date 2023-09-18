@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -86,6 +85,7 @@ class _WatchViewState extends State<WatchView> {
   int? watchKey; //Used to save images to newly added watches
   Watches? currentWatch;
   bool canRecordWear = false;
+  String? _movement;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
@@ -130,7 +130,6 @@ class _WatchViewState extends State<WatchView> {
       if (_formKey.currentState!.validate()) {
         //Ensure watch is not null
         if(widget.currentWatch != null) {
-          print("Currentwatch not null");
 
           _manufacturer = manufacturerFieldController.value.text;
           _model = modelFieldController.value.text;
@@ -138,6 +137,7 @@ class _WatchViewState extends State<WatchView> {
           _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
           _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
           _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
+          _movement = movementFieldController.value.text;
 
 
           widget.currentWatch!.manufacturer = _manufacturer;
@@ -150,7 +150,9 @@ class _WatchViewState extends State<WatchView> {
           widget.currentWatch!.lastServicedDate = _lastServicedDate;
           widget.currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
           widget.currentWatch!.notes = notesFieldController.value.text;
+          widget.currentWatch!.movement = _movement;
           widget.currentWatch!.save();
+          print("Saved update as $_movement");
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
             snackPosition: SnackPosition.BOTTOM
@@ -198,6 +200,8 @@ class _WatchViewState extends State<WatchView> {
       _serialNumber = widget.currentWatch!.serialNumber;
       _referenceNumber = widget.currentWatch!.referenceNumber;
       _serviceInterval = widget.currentWatch!.serviceInterval;
+      _movement = widget.currentWatch!.movement;
+
       //Load note content, only if note is not being edited
       if(!widget.inEditState) {
         manufacturerFieldController.value =
@@ -214,6 +218,8 @@ class _WatchViewState extends State<WatchView> {
         nextServiceDueFieldController.value = TextEditingValue(text: nextServiceDue != null? WristCheckFormatter.getFormattedDate(nextServiceDue): "N/A");
         notesFieldController.value =
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
+
+        movementFieldController.value = TextEditingValue(text: widget.currentWatch!.movement?? WristCheckFormatter.getMovementText(MovementEnum.blank));
       }
     }
     //Wrap Scaffold in a FutureBuilder to show images once loaded
@@ -659,6 +665,7 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<MovementEnum>(
+            value: WristCheckFormatter.getMovementEnum(_movement),
             iconSize: edit? 24.0: 0.0,
             decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.clockRotateLeft,), context),
               items: MovementEnum.values.map((movement) {
@@ -666,7 +673,15 @@ class _WatchViewState extends State<WatchView> {
                   value: movement,
                     child: Text(WristCheckFormatter.getMovementText(movement)));
               }).toList(),
-              onChanged: edit? (movement){} : null),
+              onChanged: edit? (movement){
+              setState(() {
+                _movement = WristCheckFormatter.getMovementText(movement!);
+                print("In field _movement: $_movement");
+                movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getMovementText(movement!));
+                print("In field controller value = ${movementFieldController.value}");
+                print("In field controller value Text = ${movementFieldController.value.text}");
+              });
+              } : null ),
         ),
       ],
     );
@@ -845,20 +860,13 @@ class _WatchViewState extends State<WatchView> {
             if(_formKey.currentState!.validate()){
               var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 
-              //Convert dates back into DateTime objects unless null
-              // final dateFormat = DateFormat('MMM d, yyyy');
-              // String? purchaseValue = purchaseDateFieldController.value.text;
-              // String? serviceValue = lastServicedDateFieldController.value.text;
-              // final purchaseDate = purchaseValue.length != 0? dateFormat.parse(purchaseValue): null;
-              // final serviceDate = serviceValue.length != 0? dateFormat.parse(serviceValue): null;
-              //Convert service interval to an INT
-              //String? serviceInterval = serviceIntervalFieldController.value.text;
-              //_serviceInterval = serviceInterval.length == 0? 0: int.parse(serviceInterval);
               _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
 
 
+
+              print("Creating new watch: Movement value is: ${movementFieldController.value.text}");
 
 
               watchKey = await WatchMethods.addWatch(
@@ -871,7 +879,9 @@ class _WatchViewState extends State<WatchView> {
                   _lastServicedDate,
                   _serviceInterval,
                   notesFieldController.value.text,
-                  referenceNumberFieldController.value.text);
+                  referenceNumberFieldController.value.text,
+                  movementFieldController.value.text
+              );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
                 currentWatch = watchBox.get(watchKey);
