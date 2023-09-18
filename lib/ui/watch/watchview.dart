@@ -103,6 +103,7 @@ class _WatchViewState extends State<WatchView> {
   final purchaseDateFieldController = TextEditingController();
   final lastServicedDateFieldController = TextEditingController();
   final nextServiceDueFieldController = TextEditingController();
+  final movementFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -116,6 +117,7 @@ class _WatchViewState extends State<WatchView> {
     notesFieldController.dispose();
     lastServicedDateFieldController.dispose();
     nextServiceDueFieldController.dispose();
+    movementFieldController.dispose();
     super.dispose();
   }
 
