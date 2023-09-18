@@ -17,7 +17,7 @@ class ListTileHelper {
     var dueSoon = const Icon(Icons.warning_amber_rounded, color: Colors.red,);
     var standard = const Icon(Icons.manage_history_rounded);
 
-    return nextServicingDate.isBefore(Jiffy().add(months: 3).dateTime)?  dueSoon :  standard;
+    return nextServicingDate.isBefore(Jiffy.now().add(months: 3).dateTime)?  dueSoon :  standard;
   }
 
   static String getWatchboxListSubtitle(Watches watch){

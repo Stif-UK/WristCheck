@@ -56,9 +56,9 @@ class WatchMethods {
     if(serviceInterval == 0){
       return null;
     } else if (lastServicedDate != null){
-      return Jiffy(lastServicedDate).add(years: serviceInterval).dateTime;
+      return Jiffy.parseFromDateTime(lastServicedDate).add(years: serviceInterval).dateTime;
     } else{
-      purchaseDate == null? nextServiceDate = null : nextServiceDate = Jiffy(purchaseDate).add(years: serviceInterval).dateTime;
+      purchaseDate == null? nextServiceDate = null : nextServiceDate = Jiffy.parseFromDateTime(purchaseDate).add(years: serviceInterval).dateTime;
       return nextServiceDate;
     }
 

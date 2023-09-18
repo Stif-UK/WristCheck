@@ -12,7 +12,11 @@ class WristCheckFormFieldDecoration{
         focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 3, color: Colors.lightBlue),
             borderRadius: BorderRadius.circular(20.0)
-        )
+        ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: const BorderSide(width: 0)
+      )
 
     );
   }
