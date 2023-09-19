@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WristCheckFormFieldDecoration{
 
@@ -23,5 +24,9 @@ class WristCheckFormFieldDecoration{
 
   static getFormFieldPadding(){
     return const EdgeInsets.all(10.0);
+  }
+
+  static getDropDownBackground(){
+    return Get.isDarkMode? Colors.grey[800]: null;
   }
 }

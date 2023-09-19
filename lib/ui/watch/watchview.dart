@@ -670,7 +670,7 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<MovementEnum>(
-            dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
+            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
             borderRadius: BorderRadius.circular(24),
             menuMaxHeight: 300,
             value: WristCheckFormatter.getMovementEnum(_movement),
@@ -702,7 +702,7 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<CategoryEnum>(
-              dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
+              dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
               borderRadius: BorderRadius.circular(24),
               menuMaxHeight: 300,
               value: WristCheckFormatter.getCategoryEnum(_category),
@@ -756,7 +756,7 @@ class _WatchViewState extends State<WatchView> {
 
             watchviewState == WatchViewEnum.view? Text(widget.currentWatch!.status.toString()):
             DropdownButton(
-                dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
+                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                 value: _selectedStatus,
                 items: _statusList
                     .map((status) => DropdownMenuItem(
