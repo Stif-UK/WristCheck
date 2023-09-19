@@ -1,0 +1,1 @@
+enum CategoryEnum {blank, dive, sports, flight, field, dress, tool, chronograph, travel}

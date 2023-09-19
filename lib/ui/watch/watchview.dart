@@ -293,7 +293,7 @@ class _WatchViewState extends State<WatchView> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(FontAwesomeIcons.dollarSign),
-                    label: "Costs",
+                    label: "Deal",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(FontAwesomeIcons.book),
