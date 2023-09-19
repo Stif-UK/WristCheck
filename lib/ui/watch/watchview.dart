@@ -665,10 +665,11 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<MovementEnum>(
+            borderRadius: BorderRadius.circular(24),
             menuMaxHeight: 300,
             value: WristCheckFormatter.getMovementEnum(_movement),
             iconSize: edit? 24.0: 0.0,
-            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.clockRotateLeft,), context),
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.gears,), context),
               items: MovementEnum.values.map((movement) {
                 return DropdownMenuItem<MovementEnum>(
                   value: movement,
