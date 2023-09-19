@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 
@@ -134,6 +135,81 @@ class WristCheckFormatter{
         break;
       default:
         returnValue = MovementEnum.blank;
+    }
+    return returnValue;
+  }
+
+  static String getCategoryText(CategoryEnum category){
+    String returnText = "";
+
+    switch (category) {
+
+      case CategoryEnum.blank:
+        returnText = "Not Selected";
+        break;
+      case CategoryEnum.dive:
+        returnText = "Dive";
+        break;
+      case CategoryEnum.sports:
+        returnText = "Sports";
+        break;
+      case CategoryEnum.flight:
+        returnText = "Flight";
+        break;
+      case CategoryEnum.field:
+        returnText = "Field";
+        break;
+      case CategoryEnum.dress:
+        returnText = "Dress";
+        break;
+      case CategoryEnum.tool:
+        returnText = "Tool";
+        break;
+      case CategoryEnum.chronograph:
+        returnText = "Chronograph";
+        break;
+      case CategoryEnum.travel:
+        returnText = "Travel";
+        break;
+    }
+    return returnText;
+  }
+
+  static CategoryEnum getCategoryEnum(String? category){
+    CategoryEnum returnValue = CategoryEnum.blank;
+
+    switch (category) {
+
+      case "Not Selected":
+        returnValue = CategoryEnum.blank;
+        break;
+      case "Dive":
+        returnValue = CategoryEnum.dive;
+        break;
+      case "Sports":
+        returnValue = CategoryEnum.sports;
+        break;
+      case "Flight":
+        returnValue = CategoryEnum.flight;
+        break;
+      case "Field":
+        returnValue = CategoryEnum.field;
+        break;
+      case "Dress":
+        returnValue = CategoryEnum.dress;
+        break;
+      case "Tool":
+        returnValue = CategoryEnum.tool;
+        break;
+      case "Chronograph":
+        returnValue = CategoryEnum.chronograph;
+        break;
+      case "Travel":
+        returnValue = CategoryEnum.travel;
+        break;
+      default:
+        returnValue = CategoryEnum.blank;
+        break;
     }
     return returnValue;
   }

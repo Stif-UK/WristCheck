@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
@@ -345,6 +346,7 @@ class _WatchViewState extends State<WatchView> {
                                     _currentIndex == 0
                                         ? _modelRow(watchviewState)
                                         : const SizedBox(height: 0,),
+                                    _currentIndex == 0 ? _buildCategoryField(watchviewState != WatchViewEnum.view): const SizedBox(height: 0,),
                                     _currentIndex == 0 ? _serialNumberRow(
                                         watchviewState) : const SizedBox(
                                       height: 0,),
@@ -690,6 +692,38 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
+  Widget _buildCategoryField(bool edit){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Category:",
+          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.bodyLarge,),
+        Padding(
+          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+          child: DropdownButtonFormField<CategoryEnum>(
+              dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
+              borderRadius: BorderRadius.circular(24),
+              menuMaxHeight: 300,
+              value: WristCheckFormatter.getCategoryEnum(_category),
+              iconSize: edit? 24.0: 0.0,
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.sitemap,), context),
+              items: CategoryEnum.values.map((category) {
+                return DropdownMenuItem<CategoryEnum>(
+                    value: category,
+                    child: Text(WristCheckFormatter.getCategoryText(category)));
+              }).toList(),
+              onChanged: edit? (category){
+                setState(() {
+                  _movement = WristCheckFormatter.getCategoryText(category!);
+                  movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
+                });
+              } : null ),
+        ),
+      ],
+    );
+  }
+
   //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
   Widget _buildFavouriteRow(Watches watch){
     return Row(
@@ -722,6 +756,7 @@ class _WatchViewState extends State<WatchView> {
 
             watchviewState == WatchViewEnum.view? Text(widget.currentWatch!.status.toString()):
             DropdownButton(
+                dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
                 value: _selectedStatus,
                 items: _statusList
                     .map((status) => DropdownMenuItem(
