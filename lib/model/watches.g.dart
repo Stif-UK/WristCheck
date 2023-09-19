@@ -32,13 +32,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..frontImagePath = fields[12] as String?
       ..referenceNumber = fields[13] as String?
       ..backImagePath = fields[14] as String?
-      ..movement = fields[15] as String?;
+      ..movement = fields[15] as String?
+      ..category = fields[16] as String?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -70,7 +71,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(14)
       ..write(obj.backImagePath)
       ..writeByte(15)
-      ..write(obj.movement);
+      ..write(obj.movement)
+      ..writeByte(16)
+      ..write(obj.category);
   }
 
   @override

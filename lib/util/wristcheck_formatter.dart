@@ -183,7 +183,7 @@ class WristCheckFormatter{
       case "Not Selected":
         returnValue = CategoryEnum.blank;
         break;
-      case "Dive":
+      case "Diver":
         returnValue = CategoryEnum.dive;
         break;
       case "Sports":
