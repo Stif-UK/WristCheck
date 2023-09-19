@@ -86,6 +86,7 @@ class _WatchViewState extends State<WatchView> {
   Watches? currentWatch;
   bool canRecordWear = false;
   String? _movement;
+  String? _category;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
@@ -104,6 +105,7 @@ class _WatchViewState extends State<WatchView> {
   final lastServicedDateFieldController = TextEditingController();
   final nextServiceDueFieldController = TextEditingController();
   final movementFieldController = TextEditingController();
+  final categoryFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -118,6 +120,7 @@ class _WatchViewState extends State<WatchView> {
     lastServicedDateFieldController.dispose();
     nextServiceDueFieldController.dispose();
     movementFieldController.dispose();
+    categoryFieldController.dispose();
     super.dispose();
   }
 
@@ -679,10 +682,7 @@ class _WatchViewState extends State<WatchView> {
               onChanged: edit? (movement){
               setState(() {
                 _movement = WristCheckFormatter.getMovementText(movement!);
-                print("In field _movement: $_movement");
                 movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getMovementText(movement!));
-                print("In field controller value = ${movementFieldController.value}");
-                print("In field controller value Text = ${movementFieldController.value.text}");
               });
               } : null ),
         ),
