@@ -665,6 +665,7 @@ class _WatchViewState extends State<WatchView> {
         Padding(
           padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
           child: DropdownButtonFormField<MovementEnum>(
+            dropdownColor: Get.isDarkMode? Colors.grey[800]: null,
             borderRadius: BorderRadius.circular(24),
             menuMaxHeight: 300,
             value: WristCheckFormatter.getMovementEnum(_movement),
