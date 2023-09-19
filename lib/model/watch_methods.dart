@@ -14,7 +14,8 @@ import 'package:in_app_review/in_app_review.dart';
 class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
-      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement){
+      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
+      String? category){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -26,6 +27,7 @@ class WatchMethods {
     String? n = notes;
     String? rn = referenceNumber;
     String? mvmt = movement;
+    String? cat = category;
 
 
     final watch = Watches()
@@ -44,7 +46,8 @@ class WatchMethods {
     ..frontImagePath = ""
     ..backImagePath = ""
     ..referenceNumber = rn
-    ..movement = mvmt;
+    ..movement = mvmt
+    ..category = cat;
 
 
     final box = Boxes.getWatches();

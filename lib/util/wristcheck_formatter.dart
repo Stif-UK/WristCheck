@@ -179,7 +179,6 @@ class WristCheckFormatter{
     CategoryEnum returnValue = CategoryEnum.blank;
 
     switch (category) {
-
       case "Not Selected":
         returnValue = CategoryEnum.blank;
         break;
@@ -209,7 +208,6 @@ class WristCheckFormatter{
         break;
       default:
         returnValue = CategoryEnum.blank;
-        break;
     }
     return returnValue;
   }

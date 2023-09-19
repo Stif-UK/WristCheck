@@ -142,6 +142,8 @@ class _WatchViewState extends State<WatchView> {
           _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
           _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
           _movement = movementFieldController.value.text;
+          _category = categoryFieldController.value.text;
+          print("field value: ${categoryFieldController.value.text}");
 
 
           widget.currentWatch!.manufacturer = _manufacturer;
@@ -155,8 +157,10 @@ class _WatchViewState extends State<WatchView> {
           widget.currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
           widget.currentWatch!.notes = notesFieldController.value.text;
           widget.currentWatch!.movement = _movement;
+          widget.currentWatch!.category = _category;
+          print("Saving category as $_category");
           widget.currentWatch!.save();
-          print("Saved update as $_movement");
+
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
             snackPosition: SnackPosition.BOTTOM
@@ -205,8 +209,10 @@ class _WatchViewState extends State<WatchView> {
       _referenceNumber = widget.currentWatch!.referenceNumber;
       _serviceInterval = widget.currentWatch!.serviceInterval;
       _movement = widget.currentWatch!.movement;
+      _category = widget.currentWatch!.category;
+      print("Category loaded as: $_category");
 
-      //Load note content, only if note is not being edited
+      //Load watch content, only if watch is not being edited
       if(!widget.inEditState) {
         manufacturerFieldController.value =
             TextEditingValue(text: widget.currentWatch!.manufacturer);
@@ -224,6 +230,7 @@ class _WatchViewState extends State<WatchView> {
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
 
         movementFieldController.value = TextEditingValue(text: widget.currentWatch!.movement?? WristCheckFormatter.getMovementText(MovementEnum.blank));
+        categoryFieldController.value = TextEditingValue(text: widget.currentWatch!.category?? WristCheckFormatter.getCategoryText(CategoryEnum.blank));
       }
     }
     //Wrap Scaffold in a FutureBuilder to show images once loaded
@@ -370,7 +377,9 @@ class _WatchViewState extends State<WatchView> {
                                         : const SizedBox(height: 0,),
                                     //Tab three - cost info
                                     //Add purchase price row
+                                    //Add purchased from row
                                     //Add sold price row
+                                    //Add sold to row
                                     //Add cost per wear calculation row and maybe a graph?
 
                                     //Tab four - Notebook
@@ -715,8 +724,8 @@ class _WatchViewState extends State<WatchView> {
               }).toList(),
               onChanged: edit? (category){
                 setState(() {
-                  _movement = WristCheckFormatter.getCategoryText(category!);
-                  movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
+                  _category = WristCheckFormatter.getCategoryText(category!);
+                  categoryFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
                 });
               } : null ),
         ),
@@ -918,7 +927,8 @@ class _WatchViewState extends State<WatchView> {
                   _serviceInterval,
                   notesFieldController.value.text,
                   referenceNumberFieldController.value.text,
-                  movementFieldController.value.text
+                  movementFieldController.value.text,
+                categoryFieldController.value.text
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
