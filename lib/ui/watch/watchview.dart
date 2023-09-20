@@ -71,7 +71,7 @@ class _WatchViewState extends State<WatchView> {
   int _currentIndex = 0;
   String _manufacturer = "";
   String _model = "";
-  String? _serialNumber;
+  String? _serialNumber = "";
   bool favourite = false;
   String _status = "In Collection";
   DateTime? _purchaseDate;
@@ -88,7 +88,8 @@ class _WatchViewState extends State<WatchView> {
   bool canRecordWear = false;
   String? _movement;
   String? _category;
-  String? _purchasedFrom;
+  String? _purchasedFrom = "";
+  String? _soldTo = "";
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
@@ -109,6 +110,7 @@ class _WatchViewState extends State<WatchView> {
   final movementFieldController = TextEditingController();
   final categoryFieldController = TextEditingController();
   final purchasedFromFieldController = TextEditingController();
+  final soldToFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -125,6 +127,7 @@ class _WatchViewState extends State<WatchView> {
     movementFieldController.dispose();
     categoryFieldController.dispose();
     purchasedFromFieldController.dispose();
+    soldToFieldController.dispose();
     super.dispose();
   }
 
@@ -147,6 +150,7 @@ class _WatchViewState extends State<WatchView> {
           _movement = movementFieldController.value.text;
           _category = categoryFieldController.value.text;
           _purchasedFrom = purchasedFromFieldController.value.text;
+          _soldTo = soldToFieldController.value.text;
 
 
           widget.currentWatch!.manufacturer = _manufacturer;
@@ -162,6 +166,7 @@ class _WatchViewState extends State<WatchView> {
           widget.currentWatch!.movement = _movement;
           widget.currentWatch!.category = _category;
           widget.currentWatch!.purchasedFrom = _purchasedFrom;
+          widget.currentWatch!.soldTo = _soldTo;
           widget.currentWatch!.save();
 
           Get.snackbar("$_manufacturer $_model",
@@ -214,6 +219,7 @@ class _WatchViewState extends State<WatchView> {
       _movement = widget.currentWatch!.movement;
       _category = widget.currentWatch!.category;
       _purchasedFrom = widget.currentWatch!.purchasedFrom;
+      _soldTo = widget.currentWatch!.soldTo;
 
       //Load watch content, only if watch is not being edited
       if(!widget.inEditState) {
@@ -235,6 +241,7 @@ class _WatchViewState extends State<WatchView> {
         movementFieldController.value = TextEditingValue(text: widget.currentWatch!.movement?? WristCheckFormatter.getMovementText(MovementEnum.blank));
         categoryFieldController.value = TextEditingValue(text: widget.currentWatch!.category?? WristCheckFormatter.getCategoryText(CategoryEnum.blank));
         purchasedFromFieldController.value = TextEditingValue(text: widget.currentWatch!.purchasedFrom ?? "");
+        soldToFieldController.value = TextEditingValue(text: widget.currentWatch!.soldTo ?? "");
       }
     }
     //Wrap Scaffold in a FutureBuilder to show images once loaded
@@ -384,7 +391,7 @@ class _WatchViewState extends State<WatchView> {
                                     _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
                                     //Add sold price row
-                                    //Add sold to row
+                                    _currentIndex == 2? _soldToRow(watchviewState): const SizedBox(height: 0,),
                                     //Add cost per wear calculation row and maybe a graph?
 
                                     //Tab four - Notebook
@@ -875,6 +882,25 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
+  Widget _soldToRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.handHoldingHand),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Sold To:",
+      hintText: "Sold to",
+      maxLines: 1,
+      controller: soldToFieldController,
+      textCapitalization: TextCapitalization.sentences,
+      // validator: (String? val) {
+      //   //TODO: Amend validation
+      //   if(!val!.isAlphaNumericAndNotEmpty) {
+      //     print(!val!.isAlphaNumericAndNotEmpty);
+      //     return 'Model is missing or invalid characters included';
+      //   }
+      // },
+    );
+  }
+
   Widget _notesRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.noteSticky),
@@ -935,11 +961,6 @@ class _WatchViewState extends State<WatchView> {
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
 
-
-
-              print("Creating new watch: Movement value is: ${movementFieldController.value.text}");
-
-
               watchKey = await WatchMethods.addWatch(
                   manufacturerFieldController.value.text,
                   modelFieldController.value.text,
@@ -953,7 +974,8 @@ class _WatchViewState extends State<WatchView> {
                   referenceNumberFieldController.value.text,
                   movementFieldController.value.text,
                 categoryFieldController.value.text,
-                purchasedFromFieldController.value.text
+                purchasedFromFieldController.value.text,
+                soldToFieldController.value.text
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
