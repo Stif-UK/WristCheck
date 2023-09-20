@@ -56,4 +56,10 @@ class Watches extends HiveObject{
   @HiveField(16)
   late String? category;
 
+  @HiveField(17)
+  late String? purchasedFrom;
+
+  @HiveField(18)
+  late String? soldTo;
+
 }
