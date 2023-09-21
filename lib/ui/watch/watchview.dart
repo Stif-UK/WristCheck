@@ -68,6 +68,8 @@ class _WatchViewState extends State<WatchView> {
     }
   }
 
+  //Identify locale
+  String locale = Intl.getCurrentLocale();
   //Instance Variables
   final watchBox = Boxes.getWatches();
   int _currentIndex = 0;
@@ -92,7 +94,7 @@ class _WatchViewState extends State<WatchView> {
   String? _category;
   String? _purchasedFrom = "";
   String? _soldTo = "";
-  int? _purchasePrice;
+  int _purchasePrice = 0;
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
@@ -227,7 +229,7 @@ class _WatchViewState extends State<WatchView> {
       _category = widget.currentWatch!.category;
       _purchasedFrom = widget.currentWatch!.purchasedFrom;
       _soldTo = widget.currentWatch!.soldTo;
-      _purchasePrice = widget.currentWatch!.purchasePrice;
+      _purchasePrice = widget.currentWatch!.purchasePrice ?? 0;
 
       //Load watch content, only if watch is not being edited
       if(!widget.inEditState) {
@@ -905,7 +907,7 @@ class _WatchViewState extends State<WatchView> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(NumberFormat.simpleCurrency(decimalDigits: 0).format(_purchasePrice),
+              child: Text(NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_purchasePrice),
                 style: Theme.of(context).textTheme.bodyLarge,),
             ),
           ],
