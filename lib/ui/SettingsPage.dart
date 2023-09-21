@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
@@ -9,6 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/ui/developer_stats.dart';
+import 'package:wristcheck/ui/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -59,6 +61,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: (){
                       Get.to(()=> const Notifications());
                     }
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                  title: const Text("Localisation Settings"),
+                  leading: const Icon(FontAwesomeIcons.earthAmericas),
+                  onTap: (){
+                    Get.to(()=> const LocationOptions());
+                  },
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
