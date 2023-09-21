@@ -148,7 +148,7 @@ class WristCheckFormatter{
         returnText = "Not Selected";
         break;
       case CategoryEnum.dive:
-        returnText = "Dive";
+        returnText = "Diver";
         break;
       case CategoryEnum.sports:
         returnText = "Sports";

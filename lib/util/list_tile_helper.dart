@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -18,6 +19,42 @@ class ListTileHelper {
     var standard = const Icon(Icons.manage_history_rounded);
 
     return nextServicingDate.isBefore(Jiffy.now().add(months: 3).dateTime)?  dueSoon :  standard;
+  }
+
+  static Icon getCategoryIcon(CategoryEnum category){
+    Icon returnIcon = const Icon(FontAwesomeIcons.sitemap);
+
+    switch(category) {
+      case CategoryEnum.blank:
+        returnIcon = const Icon(FontAwesomeIcons.sitemap);
+        break;
+      case CategoryEnum.dive:
+        returnIcon = const Icon(FontAwesomeIcons.waterLadder);
+        break;
+      case CategoryEnum.sports:
+        returnIcon = const Icon(FontAwesomeIcons.personSnowboarding);
+        break;
+      case CategoryEnum.flight:
+        returnIcon = const Icon(FontAwesomeIcons.plane);
+        break;
+      case CategoryEnum.field:
+        returnIcon = const Icon(FontAwesomeIcons.personHiking);
+        break;
+      case CategoryEnum.dress:
+        returnIcon = const Icon(FontAwesomeIcons.userTie);
+        break;
+      case CategoryEnum.tool:
+        returnIcon = const Icon(FontAwesomeIcons.screwdriverWrench);
+        break;
+      case CategoryEnum.chronograph:
+        returnIcon = const Icon(FontAwesomeIcons.stopwatch);
+        break;
+      case CategoryEnum.travel:
+        returnIcon = const Icon(FontAwesomeIcons.earthAmericas);
+        break;
+    }
+
+    return returnIcon;
   }
 
   static String getWatchboxListSubtitle(Watches watch){

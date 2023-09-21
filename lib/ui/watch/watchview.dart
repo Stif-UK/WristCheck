@@ -24,6 +24,8 @@ import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:intl/intl.dart';
 
+import '../../util/list_tile_helper.dart';
+
 class WatchView extends StatefulWidget {
   WatchView({
     Key? key,
@@ -728,7 +730,7 @@ class _WatchViewState extends State<WatchView> {
               menuMaxHeight: 300,
               value: WristCheckFormatter.getCategoryEnum(_category),
               iconSize: edit? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.sitemap,), context),
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(ListTileHelper.getCategoryIcon(WristCheckFormatter.getCategoryEnum(_category)), context),
               items: CategoryEnum.values.map((category) {
                 return DropdownMenuItem<CategoryEnum>(
                     value: category,
