@@ -883,13 +883,11 @@ class _WatchViewState extends State<WatchView> {
       controller: purchasePriceFieldController,
       keyboardType: TextInputType.number,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   //TODO: Amend validation - should validate as an INT or blank
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Model is missing or invalid characters included';
-      //   }
-      // },
+      validator: (String? val) {
+        if(!val!.isWcCurrency) {
+          return "Enter digits only, no decimals, we'll take care of the rest!";
+        }
+      },
     ):
     //Alternate return view
     Column(

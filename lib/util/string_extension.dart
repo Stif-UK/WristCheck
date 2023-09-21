@@ -11,4 +11,10 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get isWcCurrency{
+    //valid int or blank
+    final titleRegExp = RegExp(r"^(\d+|\s*)$");
+    return titleRegExp.hasMatch(this);
+  }
+
 }
