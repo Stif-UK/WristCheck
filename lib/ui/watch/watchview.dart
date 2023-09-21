@@ -252,7 +252,9 @@ class _WatchViewState extends State<WatchView> {
         categoryFieldController.value = TextEditingValue(text: widget.currentWatch!.category?? WristCheckFormatter.getCategoryText(CategoryEnum.blank));
         purchasedFromFieldController.value = TextEditingValue(text: widget.currentWatch!.purchasedFrom ?? "");
         soldToFieldController.value = TextEditingValue(text: widget.currentWatch!.soldTo ?? "");
-        purchasePriceFieldController.value = TextEditingValue(text: widget.currentWatch!.purchasePrice.toString() ?? "");
+        //check if the purchaseprice associated with the watch is null - if so, return an empty string, otherwise return a string representation of the integer
+        var watchPriceValue = widget.currentWatch!.purchasePrice;
+        purchasePriceFieldController.value = TextEditingValue(text: watchPriceValue != null? watchPriceValue.toString() : "" );
       }
     }
     //Wrap Scaffold in a FutureBuilder to show images once loaded
@@ -907,7 +909,7 @@ class _WatchViewState extends State<WatchView> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_purchasePrice),
+              child: Text(_purchasePrice == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_purchasePrice),
                 style: Theme.of(context).textTheme.bodyLarge,),
             ),
           ],
