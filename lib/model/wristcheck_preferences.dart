@@ -28,6 +28,8 @@ class WristCheckPreferences {
   //watchbox order & view
   static const _keyWatchboxOrder = 'watchBoxOrder';
   static const _keyWatchBoxView = 'watchBoxView';
+  //Locale
+  static const _keyLocale = 'locale';
 
 
 
@@ -271,4 +273,10 @@ class WristCheckPreferences {
   static Future setWatchBoxView(WatchBoxView watchBoxView) async {
     await _preferences.setString(_keyWatchBoxView, watchBoxView.toString());
   }
+
+  //Getter and Setter for locale preference
+  static Future setLocale(String locale) async =>
+      await _preferences.setString(_keyLocale, locale);
+
+  static String? getLocale() => _preferences.getString(_keyLocale);
 }

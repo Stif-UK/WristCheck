@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 
 class WristCheckFormatter{
@@ -211,6 +214,106 @@ class WristCheckFormatter{
     }
     return returnValue;
   }
+
+  static String getLocaleString(LocationEnum location){
+    String returnText = "en_US";
+
+    switch(location) {
+      case LocationEnum.can:
+        returnText = "en_CA";
+        break;
+      case LocationEnum.uk:
+        returnText = "en_GB";
+        break;
+      case LocationEnum.hk:
+        returnText = "en_HK";
+        break;
+      case LocationEnum.irl:
+        returnText = "en_IE";
+        break;
+      case LocationEnum.ind:
+        returnText = "en_IN";
+        break;
+      case LocationEnum.sing:
+        returnText = "en_SG";
+        break;
+      case LocationEnum.us:
+        returnText = "en_US";
+        break;
+      case LocationEnum.eur:
+        returnText = "en_150";
+        break;
+    }
+    return returnText;
+  }
+
+  static LocationEnum getLocaleEnum(String localeText){
+    LocationEnum returnNum = LocationEnum.us;
+
+    switch(localeText) {
+      case "en_CA":
+        returnNum = LocationEnum.can;
+        break;
+      case "en_GB":
+        returnNum = LocationEnum.uk;
+        break;
+      case "en_HK":
+        returnNum = LocationEnum.hk;
+        break;
+      case "en_IE":
+        returnNum = LocationEnum.irl;
+        break;
+      case "en_IN":
+        returnNum = LocationEnum.ind;
+        break;
+      case "en_SG":
+        returnNum = LocationEnum.sing;
+        break;
+      case "en_US":
+        returnNum = LocationEnum.us;
+        break;
+      case "en_150":
+        returnNum = LocationEnum.eur;
+        break;
+      default:
+        returnNum = LocationEnum.us;
+        break;
+    }
+    return returnNum;
+  }
+
+  static String getLocaleDisplayText(LocationEnum location){
+    String returnString = "";
+
+    switch(location) {
+      case LocationEnum.can:
+        returnString = "Canada";
+        break;
+      case LocationEnum.uk:
+        returnString = "United Kingdom";
+        break;
+      case LocationEnum.hk:
+        returnString = "Hong Kong";
+        break;
+      case LocationEnum.irl:
+        returnString = "Ireland";
+        break;
+      case LocationEnum.ind:
+        returnString = "India";
+        break;
+      case LocationEnum.sing:
+        returnString = "Singapore";
+        break;
+      case LocationEnum.us:
+        returnString = "United States";
+        break;
+      case LocationEnum.eur:
+        returnString = "Europe";
+        break;
+    }
+
+    return returnString;
+}
 
 }
 
