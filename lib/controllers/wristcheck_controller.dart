@@ -2,9 +2,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
+import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckController extends GetxController {
 
@@ -14,6 +16,8 @@ class WristCheckController extends GetxController {
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
   final watchBoxView = WristCheckPreferences.getWatchBoxView().obs;
+  //Manage locale
+  final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
 
   //Calling updateAppPurchaseStatus triggers a call to the Purchases package which will update the app status
   //based on whether the user holds the WristCheck Pro entitlement.
@@ -51,6 +55,12 @@ class WristCheckController extends GetxController {
     await WristCheckPreferences.setWatchBoxView(newValue);
     watchBoxView(newValue);
     update(); //Not sure if this line makes a difference...
+  }
+
+  //Set the locale
+  updateLocale(LocationEnum location) async {
+    await WristCheckPreferences.setLocale(WristCheckFormatter.getLocaleString(location));
+    locale(location);
   }
 
 }

@@ -49,6 +49,11 @@ Future main() async{
     WristCheckPreferences.setAppPurchasedStatus(false);
   }
 
+  //Check if a locale has been set in preferences, if not default to US
+  if(WristCheckPreferences.getLocale() == null){
+    WristCheckPreferences.setLocale("en_US");
+  }
+
 
   runApp(
 
