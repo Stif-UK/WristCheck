@@ -68,8 +68,7 @@ class _WatchViewState extends State<WatchView> {
     }
   }
 
-  //Identify locale
-  String locale = Intl.getCurrentLocale();
+
   //Instance Variables
   final watchBox = Boxes.getWatches();
   int _currentIndex = 0;
@@ -141,6 +140,7 @@ class _WatchViewState extends State<WatchView> {
   @override
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
+    String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
 
     void saveAndUpdate(){
       //Validate the form
@@ -400,7 +400,7 @@ class _WatchViewState extends State<WatchView> {
                                         ? _nextServiceDueRow(watchviewState)
                                         : const SizedBox(height: 0,),
                                     //Tab three - cost info
-                                    _currentIndex == 2 ? _purchasePriceRow(watchviewState): const SizedBox(height: 0,),
+                                    _currentIndex == 2 ? _purchasePriceRow(watchviewState, locale): const SizedBox(height: 0,),
                                     _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
                                     //Add sold price row
@@ -876,7 +876,7 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _purchasePriceRow(WatchViewEnum watchviewState){
+  Widget _purchasePriceRow(WatchViewEnum watchviewState, String locale){
     //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
     return watchviewState != WatchViewEnum.view ? WatchFormField(
       icon: const Icon(FontAwesomeIcons.moneyBill1),
@@ -910,7 +910,7 @@ class _WatchViewState extends State<WatchView> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(_purchasePrice == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_purchasePrice),
-                style: Theme.of(context).textTheme.bodyLarge,),
+                style: Theme.of(context).textTheme.headlineSmall,),
             ),
           ],
         )
