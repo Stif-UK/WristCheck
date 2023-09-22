@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +55,7 @@ Future main() async{
     WristCheckPreferences.setLocale("en_US");
   }
 
-
+  initializeDateFormatting().then((_)=>
   runApp(
 
       MultiProvider(
@@ -77,7 +78,7 @@ Future main() async{
 
           home:  WristCheckHome(),
         )),
-      );
+      ));
 
 
   //Make the app full-screen

@@ -241,6 +241,12 @@ class WristCheckFormatter{
       case LocationEnum.eur:
         returnText = "en_150";
         break;
+      case LocationEnum.jap:
+        returnText = "ja_JP";
+        break;
+      case LocationEnum.ger:
+        returnText = "de_DE";
+        break;
     }
     return returnText;
   }
@@ -273,6 +279,12 @@ class WristCheckFormatter{
       case "en_150":
         returnNum = LocationEnum.eur;
         break;
+      case "ja_JP":
+        returnNum = LocationEnum.jap;
+        break;
+      case "de_DE":
+        returnNum = LocationEnum.ger;
+        break;
       default:
         returnNum = LocationEnum.us;
         break;
@@ -285,28 +297,34 @@ class WristCheckFormatter{
 
     switch(location) {
       case LocationEnum.can:
-        returnString = "Canada";
+        returnString = "remove";
         break;
       case LocationEnum.uk:
-        returnString = "United Kingdom";
+        returnString = "Pound";
         break;
       case LocationEnum.hk:
-        returnString = "Hong Kong";
+        returnString = "remove";
         break;
       case LocationEnum.irl:
-        returnString = "Ireland";
+        returnString = "Euro (Ireland)";
         break;
       case LocationEnum.ind:
-        returnString = "India";
+        returnString = "Rupee";
         break;
       case LocationEnum.sing:
-        returnString = "Singapore";
+        returnString = "remove";
         break;
       case LocationEnum.us:
-        returnString = "United States";
+        returnString = "Dollar";
         break;
       case LocationEnum.eur:
-        returnString = "Europe";
+        returnString = "remove";
+        break;
+      case LocationEnum.jap:
+        returnString = "Yen";
+        break;
+      case LocationEnum.ger:
+        returnString = "Euro (trailing icon)";
         break;
     }
 
