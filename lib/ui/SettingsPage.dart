@@ -67,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: const Text("Localisation Settings"),
                   leading: const Icon(FontAwesomeIcons.earthAmericas),
                   onTap: (){
-                    Get.to(()=> const LocationOptions());
+                    Get.to(()=> LocationOptions());
                   },
                 ),
                 const Divider(thickness: 2,),
