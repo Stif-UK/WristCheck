@@ -16,7 +16,7 @@ class WristCheckFormFieldDecoration{
         ),
       disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.0),
-        borderSide: const BorderSide(width: 0)
+        borderSide: BorderSide(width: 3, color: Theme.of(context).focusColor),
       )
 
     );
