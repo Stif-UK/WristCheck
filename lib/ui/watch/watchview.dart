@@ -225,6 +225,7 @@ class _WatchViewState extends State<WatchView> {
         widget.currentWatch!.status == "In Collection"? canRecordWear = true : canRecordWear = false;
       }
 
+      _status = widget.currentWatch!.status!;
       _manufacturer = widget.currentWatch!.manufacturer;
       _model = widget.currentWatch!.model;
       _serialNumber = widget.currentWatch!.serialNumber;
@@ -336,7 +337,7 @@ class _WatchViewState extends State<WatchView> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(FontAwesomeIcons.dollarSign),
-                    label: "Deal",
+                    label: "Value",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(FontAwesomeIcons.book),
@@ -411,8 +412,9 @@ class _WatchViewState extends State<WatchView> {
                                     _currentIndex == 2 ? _purchasePriceRow(watchviewState, locale): const SizedBox(height: 0,),
                                     _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
-                                    _currentIndex == 2 ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
-                                    _currentIndex == 2 ? _soldToRow(watchviewState): const SizedBox(height: 0,),
+                                    //Sold fields only show if status = sold
+                                    _currentIndex == 2 && _status == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
+                                    _currentIndex == 2 && _status == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
                                     //Add cost per wear calculation row and maybe a graph?
 
                                     //Tab four - Notebook
