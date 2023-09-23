@@ -65,4 +65,7 @@ class Watches extends HiveObject{
   @HiveField(19)
   late int? purchasePrice;
 
+  @HiveField(20)
+  late int? soldPrice;
+
 }
