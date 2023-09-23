@@ -64,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("Localisation Settings"),
+                  title: const Text("Currency Options"),
                   leading: const Icon(FontAwesomeIcons.earthAmericas),
                   onTap: (){
                     Get.to(()=> LocationOptions());

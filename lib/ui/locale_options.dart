@@ -24,7 +24,7 @@ class _LocationOptionsState extends State<LocationOptions> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Localisation Options"),
+        title: const Text("Currency Options"),
         //TODO: Implement some help text
       ),
       body: Center(
@@ -32,10 +32,13 @@ class _LocationOptionsState extends State<LocationOptions> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 10,),
             Padding(
               padding: pagePadding,
-              child: Text("WristCheck can track values of watches and collections, and in places will display these in a format of your choosing.", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
+              child: Text("WristCheck can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n"
+                  "Note: All watch values should be saved in the same currency to enable accurate calculations.", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
             ),
+            const Divider(thickness: 2,),
             Padding(
               padding: pagePadding,
               child: Text("Please select your preferred currency layout:", style: Theme.of(context).textTheme.bodyLarge,),
@@ -49,7 +52,8 @@ class _LocationOptionsState extends State<LocationOptions> {
                     items: LocationEnum.values.map((loca) {
                       return DropdownMenuItem<LocationEnum>(
                           value: loca,
-                          child: Text(WristCheckFormatter.getLocaleDisplayText(loca)));
+                          child: Text(WristCheckFormatter.getLocaleDisplayText(loca),
+                            style: Theme.of(context).textTheme.bodyLarge,));
                     }).toList(),
                     onChanged: (lcn) {
                       // location = lcn!;
@@ -68,8 +72,15 @@ class _LocationOptionsState extends State<LocationOptions> {
             // ),
             // Obx(()=> Text(DateFormat.yMd(WristCheckFormatter.getLocaleString(wristCheckController.locale.value)).format(DateTime.now()))),
 
-            Obx(()=> Text(NumberFormat.simpleCurrency(locale: WristCheckFormatter.getLocaleString(wristCheckController.locale.value), decimalDigits: 2).format(12345.99),
-                  style: Theme.of(context).textTheme.headlineSmall,))
+            Obx(()=> Text(NumberFormat.simpleCurrency(locale: WristCheckFormatter.getLocaleString(wristCheckController.locale.value), decimalDigits: null).format(12345.99),
+                  style: Theme.of(context).textTheme.headlineMedium,)),
+            const Divider(thickness: 2,),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text("Something missing? Please contact the developer to make a request!",
+                style: Theme.of(context).textTheme.bodyLarge ,
+              textAlign: TextAlign.center,),
+            )
 
           ],
         ),

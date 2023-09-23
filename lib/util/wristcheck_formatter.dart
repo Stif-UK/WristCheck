@@ -217,14 +217,8 @@ class WristCheckFormatter{
     String returnText = "en_US";
 
     switch(location) {
-      case LocationEnum.can:
-        returnText = "en_CA";
-        break;
       case LocationEnum.uk:
         returnText = "en_GB";
-        break;
-      case LocationEnum.hk:
-        returnText = "en_HK";
         break;
       case LocationEnum.irl:
         returnText = "en_IE";
@@ -232,20 +226,17 @@ class WristCheckFormatter{
       case LocationEnum.ind:
         returnText = "en_IN";
         break;
-      case LocationEnum.sing:
-        returnText = "en_SG";
-        break;
       case LocationEnum.us:
         returnText = "en_US";
-        break;
-      case LocationEnum.eur:
-        returnText = "en_150";
         break;
       case LocationEnum.jap:
         returnText = "ja_JP";
         break;
       case LocationEnum.ger:
         returnText = "de_DE";
+        break;
+      case LocationEnum.dut:
+        returnText = "nl_NL";
         break;
     }
     return returnText;
@@ -255,14 +246,11 @@ class WristCheckFormatter{
     LocationEnum returnNum = LocationEnum.us;
 
     switch(localeText) {
-      case "en_CA":
-        returnNum = LocationEnum.can;
+      case "nl_NL":
+        returnNum = LocationEnum.dut;
         break;
       case "en_GB":
         returnNum = LocationEnum.uk;
-        break;
-      case "en_HK":
-        returnNum = LocationEnum.hk;
         break;
       case "en_IE":
         returnNum = LocationEnum.irl;
@@ -270,14 +258,8 @@ class WristCheckFormatter{
       case "en_IN":
         returnNum = LocationEnum.ind;
         break;
-      case "en_SG":
-        returnNum = LocationEnum.sing;
-        break;
       case "en_US":
         returnNum = LocationEnum.us;
-        break;
-      case "en_150":
-        returnNum = LocationEnum.eur;
         break;
       case "ja_JP":
         returnNum = LocationEnum.jap;
@@ -296,14 +278,8 @@ class WristCheckFormatter{
     String returnString = "";
 
     switch(location) {
-      case LocationEnum.can:
-        returnString = "remove";
-        break;
       case LocationEnum.uk:
         returnString = "Pound";
-        break;
-      case LocationEnum.hk:
-        returnString = "remove";
         break;
       case LocationEnum.irl:
         returnString = "Euro (Ireland)";
@@ -311,20 +287,17 @@ class WristCheckFormatter{
       case LocationEnum.ind:
         returnString = "Rupee";
         break;
-      case LocationEnum.sing:
-        returnString = "remove";
-        break;
       case LocationEnum.us:
         returnString = "Dollar";
-        break;
-      case LocationEnum.eur:
-        returnString = "remove";
         break;
       case LocationEnum.jap:
         returnString = "Yen";
         break;
       case LocationEnum.ger:
         returnString = "Euro (trailing icon)";
+        break;
+      case LocationEnum.dut:
+        returnString = "Euro (leading icon)";
         break;
     }
 
