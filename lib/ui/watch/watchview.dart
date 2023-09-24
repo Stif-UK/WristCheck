@@ -809,8 +809,12 @@ class _WatchViewState extends State<WatchView> {
 
                 ).toList(),
                 onChanged: (status) {
-                  _status = status.toString();
-                  setState(() => _selectedStatus = status.toString());
+                  // _status = status.toString();
+                  // setState(() => _selectedStatus = status.toString());
+                  setState(() {
+                    _status = status.toString();
+                    _selectedStatus = status.toString();
+                  });
                 }
             )
 
@@ -1070,6 +1074,7 @@ class _WatchViewState extends State<WatchView> {
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
               _purchasePrice = getPrice(purchasePriceFieldController.value.text);
+              _soldPrice = getPrice(soldPriceFieldController.value.text);
 
               watchKey = await WatchMethods.addWatch(
                   manufacturerFieldController.value.text,
@@ -1086,7 +1091,8 @@ class _WatchViewState extends State<WatchView> {
                 categoryFieldController.value.text,
                 purchasedFromFieldController.value.text,
                 soldToFieldController.value.text,
-                _purchasePrice
+                _purchasePrice,
+                _soldPrice
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){

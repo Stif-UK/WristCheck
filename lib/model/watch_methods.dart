@@ -15,7 +15,7 @@ class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
-      String? category, String? purchasedFrom, String soldTo, int? purchasePrice){
+      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -31,6 +31,7 @@ class WatchMethods {
     String? pf = purchasedFrom;
     String? sold = soldTo;
     int? pp = purchasePrice;
+    int? sp = soldPrice;
 
 
     final watch = Watches()
@@ -53,7 +54,8 @@ class WatchMethods {
     ..category = cat
     ..purchasedFrom = pf
     ..soldTo = sold
-    ..purchasePrice = pp;
+    ..purchasePrice = pp
+    ..soldPrice = sp;
 
 
     final box = Boxes.getWatches();
