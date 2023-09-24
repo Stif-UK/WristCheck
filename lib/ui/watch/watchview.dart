@@ -781,7 +781,7 @@ class _WatchViewState extends State<WatchView> {
               menuMaxHeight: 300,
               value: WristCheckFormatter.getCategoryEnum(_category),
               iconSize: edit? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(ListTileHelper.getCategoryIcon(WristCheckFormatter.getCategoryEnum(_category)), context),
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(ListTileHelper.getCategoryIcon(WristCheckFormatter.getCategoryEnum(categoryFieldController.value.text)), context),
               items: CategoryEnum.values.map((category) {
                 return DropdownMenuItem<CategoryEnum>(
                     value: category,
