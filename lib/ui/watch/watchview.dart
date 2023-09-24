@@ -150,39 +150,47 @@ class _WatchViewState extends State<WatchView> {
       if (_formKey.currentState!.validate()) {
         //Ensure watch is not null
         if(widget.currentWatch != null) {
+          //check if data has changed
+          if(hasDataChanged()) {
+            _manufacturer = manufacturerFieldController.value.text;
+            _model = modelFieldController.value.text;
+            //convert service interval field to int
+            _serviceInterval =
+                getServiceInterval(serviceIntervalFieldController.value.text);
+            _purchaseDate =
+                getDateFromFieldString(purchaseDateFieldController.value.text);
+            _lastServicedDate = getDateFromFieldString(
+                lastServicedDateFieldController.value.text);
+            _movement = movementFieldController.value.text;
+            _category = categoryFieldController.value.text;
+            _purchasedFrom = purchasedFromFieldController.value.text;
+            _soldTo = soldToFieldController.value.text;
+            _purchasePrice = getPrice(purchasePriceFieldController.value.text);
+            _soldPrice = getPrice(soldPriceFieldController.value.text);
 
-          _manufacturer = manufacturerFieldController.value.text;
-          _model = modelFieldController.value.text;
-          //convert service interval field to int
-          _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
-          _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
-          _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
-          _movement = movementFieldController.value.text;
-          _category = categoryFieldController.value.text;
-          _purchasedFrom = purchasedFromFieldController.value.text;
-          _soldTo = soldToFieldController.value.text;
-          _purchasePrice = getPrice(purchasePriceFieldController.value.text);
-          _soldPrice = getPrice(soldPriceFieldController.value.text);
-
-
-          widget.currentWatch!.manufacturer = _manufacturer;
-          widget.currentWatch!.model = _model;
-          widget.currentWatch!.status = _selectedStatus;
-          widget.currentWatch!.serialNumber = serialNumberFieldController.value.text;
-          widget.currentWatch!.referenceNumber = referenceNumberFieldController.value.text;
-          widget.currentWatch!.serviceInterval = _serviceInterval;
-          widget.currentWatch!.purchaseDate = _purchaseDate;
-          widget.currentWatch!.lastServicedDate = _lastServicedDate;
-          widget.currentWatch!.nextServiceDue = WatchMethods.calculateNextService(_purchaseDate, _lastServicedDate, _serviceInterval);
-          widget.currentWatch!.notes = notesFieldController.value.text;
-          widget.currentWatch!.movement = _movement;
-          widget.currentWatch!.category = _category;
-          widget.currentWatch!.purchasedFrom = _purchasedFrom;
-          widget.currentWatch!.soldTo = _soldTo;
-          widget.currentWatch!.purchasePrice = _purchasePrice;
-          widget.currentWatch!.soldPrice = _soldPrice;
-          widget.currentWatch!.save();
-
+            widget.currentWatch!.manufacturer = _manufacturer;
+            widget.currentWatch!.model = _model;
+            widget.currentWatch!.status = _selectedStatus;
+            widget.currentWatch!.serialNumber =
+                serialNumberFieldController.value.text;
+            widget.currentWatch!.referenceNumber =
+                referenceNumberFieldController.value.text;
+            widget.currentWatch!.serviceInterval = _serviceInterval;
+            widget.currentWatch!.purchaseDate = _purchaseDate;
+            widget.currentWatch!.lastServicedDate = _lastServicedDate;
+            widget.currentWatch!.nextServiceDue =
+                WatchMethods.calculateNextService(
+                    _purchaseDate, _lastServicedDate, _serviceInterval);
+            widget.currentWatch!.notes = notesFieldController.value.text;
+            widget.currentWatch!.movement = _movement;
+            widget.currentWatch!.category = _category;
+            widget.currentWatch!.purchasedFrom = _purchasedFrom;
+            widget.currentWatch!.soldTo = _soldTo;
+            widget.currentWatch!.purchasePrice = _purchasePrice;
+            widget.currentWatch!.soldPrice = _soldPrice;
+            widget.currentWatch!.save();
+            print("updates written");
+          }
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
             snackPosition: SnackPosition.BOTTOM
@@ -1151,6 +1159,30 @@ class _WatchViewState extends State<WatchView> {
     }
   }
 
+  bool hasDataChanged(){
+    bool returnValue = false;
+
+    if(widget.currentWatch!.status != _selectedStatus ||
+      widget.currentWatch!.manufacturer != manufacturerFieldController.value.text ||
+      widget.currentWatch!.model != modelFieldController.value.text ||
+      widget.currentWatch!.soldPrice != getPrice(soldPriceFieldController.value.text) ||
+      widget.currentWatch!.purchasePrice != getPrice(purchasePriceFieldController.value.text) ||
+      widget.currentWatch!.category != categoryFieldController.value.text ||
+      widget.currentWatch!.soldTo != soldToFieldController.value.text ||
+      widget.currentWatch!.purchasedFrom != purchasedFromFieldController.value.text ||
+      widget.currentWatch!.movement != movementFieldController.value.text ||
+      widget.currentWatch!.lastServicedDate != getDateFromFieldString(lastServicedDateFieldController.value.text) ||
+      widget.currentWatch!.purchaseDate != getDateFromFieldString(purchaseDateFieldController.value.text) ||
+      widget.currentWatch!.serviceInterval != getServiceInterval(serviceIntervalFieldController.value.text) ||
+      widget.currentWatch!.notes != notesFieldController.value.text ||
+      widget.currentWatch!.referenceNumber != referenceNumberFieldController.value.text ||
+      widget.currentWatch!.serialNumber != serialNumberFieldController.value.text
+    ){
+      returnValue = true;
+    }
+    print("has data changed? $returnValue");
+    return returnValue;
+  }
 
 
     }
