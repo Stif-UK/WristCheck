@@ -5,9 +5,19 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get isAlphaNumericIncAccentsAndSymbolsAndNotEmpty{
+    final titleRegExp = RegExp(r'^[a-zA-Záéíñóöúñü0-9,.?!& ;:/\[\]]+$');
+    return titleRegExp.hasMatch(this);
+  }
+
   bool get isServiceNumber{
     //in range 0-99 or blank
     final titleRegExp = RegExp(r"^([0-9]{1,2}|)$");
+    return titleRegExp.hasMatch(this);
+  }
+
+  bool get isAlphaNumericWithSymbolsOrEmpty{
+    final titleRegExp = RegExp(r'|^([a-zA-Z0-9-_.?!;:/ ]+)$');
     return titleRegExp.hasMatch(this);
   }
 

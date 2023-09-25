@@ -670,8 +670,7 @@ class _WatchViewState extends State<WatchView> {
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
         //TODO: Amend validation
-        if(!val!.isAlphaNumericAndNotEmpty) {
-          print(!val!.isAlphaNumericAndNotEmpty);
+        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
           return 'Manufacturer missing or invalid characters included';
         }
       },
@@ -689,8 +688,7 @@ class _WatchViewState extends State<WatchView> {
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
         //TODO: Amend validation
-        if(!val!.isAlphaNumericAndNotEmpty) {
-          print(!val!.isAlphaNumericAndNotEmpty);
+        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
           return 'Model is missing or invalid characters included';
         }
       },
@@ -706,13 +704,11 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: serialNumberFieldController,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   //TODO: Amend validation - field is optional!
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Serial Number is missing or invalid characters included';
-      //   }
-      // },
+      validator: (String? val) {
+        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
+          return 'Serial Number contains invalid characters';
+        }
+      },
     );
   }
 
@@ -725,13 +721,11 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: referenceNumberFieldController,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   //TODO: Amend validation - field is optional!
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Reference Number is missing or invalid characters included';
-      //   }
-      // },
+      validator: (String? val) {
+        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
+          return 'Reference Number is missing or invalid characters included';
+        }
+      },
     );
   }
 
