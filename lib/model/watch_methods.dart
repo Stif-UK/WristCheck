@@ -169,6 +169,17 @@ class WatchMethods {
     return returnlist;
   }
 
+  static double calculateCostPerWear(Watches currentWatch){
+    int wearCount = currentWatch.wearList.length;
+    int purchasePrice = currentWatch.purchasePrice ?? 0;
+    double returnValue = 0.0;
+    if(wearCount != 0 && purchasePrice != 0){
+      returnValue = purchasePrice/wearCount;
+      print("Calculating cost per wear: Purchased for $purchasePrice, worn $wearCount times = $returnValue");
+    }
+    return returnValue;
+  }
+
   /*
   appReviewCheck() performs some tests to validate app usage and duration since the app last triggered
   an app review prompt.

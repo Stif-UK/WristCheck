@@ -444,7 +444,8 @@ class _WatchViewState extends State<WatchView> {
                                       //Sold fields only show if status = sold
                                       _currentIndex == 2 && _status == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
                                       _currentIndex == 2 && _status == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
-                                      //Add cost per wear calculation row and maybe a graph?
+                                      //Add cost per wear calculation row only in view state
+                                      _currentIndex == 2 ? _costPerWearRow(watchviewState, locale) : const SizedBox(height: 0,),
 
                                       //Tab four - Notebook
                                       _currentIndex == 3
@@ -982,6 +983,35 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
+  Widget _costPerWearRow(WatchViewEnum watchviewState, String locale){
+    double _costPerWear = 0.0;
+    if(widget.currentWatch != null) {
+      _costPerWear = WatchMethods.calculateCostPerWear(widget.currentWatch!);
+    }
+    //Read only field
+    return watchviewState == WatchViewEnum.view ? Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Cost per Wear:",
+          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.bodyLarge,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Icon(FontAwesomeIcons.moneyCheckDollar),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(_costPerWear == 0 ? "N/A": NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(_costPerWear),
+                style: Theme.of(context).textTheme.headlineSmall,),
+            ),
+          ],
+        )
+      ],
+    ): const SizedBox(height: 0,);
+  }
   Widget _soldPriceRow(WatchViewEnum watchviewState, String locale){
     //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
     return watchviewState != WatchViewEnum.view ? WatchFormField(
