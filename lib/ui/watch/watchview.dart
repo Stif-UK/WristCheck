@@ -984,9 +984,9 @@ class _WatchViewState extends State<WatchView> {
   }
 
   Widget _costPerWearRow(WatchViewEnum watchviewState, String locale){
-    double _costPerWear = 0.0;
+    double costPerWear = 0.0;
     if(widget.currentWatch != null) {
-      _costPerWear = WatchMethods.calculateCostPerWear(widget.currentWatch!);
+      costPerWear = WatchMethods.calculateCostPerWear(widget.currentWatch!);
     }
     //Read only field
     return watchviewState == WatchViewEnum.view ? Column(
@@ -1004,7 +1004,7 @@ class _WatchViewState extends State<WatchView> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(_costPerWear == 0 ? "N/A": NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(_costPerWear),
+              child: Text(costPerWear == 0 ? "N/A": NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(costPerWear),
                 style: Theme.of(context).textTheme.headlineSmall,),
             ),
           ],
