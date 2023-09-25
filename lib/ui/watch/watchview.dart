@@ -669,7 +669,6 @@ class _WatchViewState extends State<WatchView> {
       controller: manufacturerFieldController,
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
-        //TODO: Amend validation
         if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
           return 'Manufacturer missing or invalid characters included';
         }
@@ -687,7 +686,6 @@ class _WatchViewState extends State<WatchView> {
       controller: modelFieldController,
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
-        //TODO: Amend validation
         if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
           return 'Model is missing or invalid characters included';
         }
@@ -860,9 +858,7 @@ class _WatchViewState extends State<WatchView> {
       controller: serviceIntervalFieldController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
-        //TODO: This should accept null
         if(!val!.isServiceNumber) {
-          print(!val!.isServiceNumber);
           return 'Must be 0-99 or blank';
         }
       },
@@ -880,7 +876,6 @@ class _WatchViewState extends State<WatchView> {
       controller: purchaseDateFieldController,
       textCapitalization: TextCapitalization.none,
       // validator: (String? val) {
-      //   //TODO: Validation?
       //   if(!val!.isServiceNumber) {
       //     print(!val!.isServiceNumber);
       //     return 'Service interval must be a whole number between 0 - 99';
@@ -967,13 +962,11 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: purchasedFromFieldController,
       textCapitalization: TextCapitalization.sentences,
-      // validator: (String? val) {
-      //   //TODO: Amend validation
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Model is missing or invalid characters included';
-      //   }
-      // },
+      validator: (String? val) {
+        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
+          return 'Invalid characters detected.';
+        }
+      },
     );
   }
 
@@ -1058,13 +1051,11 @@ class _WatchViewState extends State<WatchView> {
       maxLines: 1,
       controller: soldToFieldController,
       textCapitalization: TextCapitalization.sentences,
-      // validator: (String? val) {
-      //   //TODO: Amend validation
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Model is missing or invalid characters included';
-      //   }
-      // },
+      validator: (String? val) {
+        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
+          return 'Invalid characters detected.';
+        }
+      },
     );
   }
 
@@ -1079,7 +1070,6 @@ class _WatchViewState extends State<WatchView> {
       controller: notesFieldController,
       textCapitalization: TextCapitalization.sentences,
       // validator: (String? val) {
-      //   //TODO: Amend validation - can be empty
       //   if(!val!.isAlphaNumericAndNotEmpty) {
       //     print(!val!.isAlphaNumericAndNotEmpty);
       //     return 'Invalid characters entered';

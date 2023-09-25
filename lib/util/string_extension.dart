@@ -17,7 +17,7 @@ extension ExtString on String{
   }
 
   bool get isAlphaNumericWithSymbolsOrEmpty{
-    final titleRegExp = RegExp(r'|^([a-zA-Z0-9-_.?!;:/ ]+)$');
+    final titleRegExp = RegExp(r'|^([a-zA-Z0-9-_.?!;:/& ]+)$');
     return titleRegExp.hasMatch(this);
   }
 
