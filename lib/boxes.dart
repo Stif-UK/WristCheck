@@ -173,9 +173,11 @@ class Boxes {
         returnList.sort((a,b)=>b.wearList.length.compareTo(a.wearList.length));
         break;
       case WatchOrder.alpha_asc:
+        returnList.sort((a,b)=>a.model.compareTo(b.model));
         returnList.sort((a,b)=>a.manufacturer.compareTo(b.manufacturer));
         break;
       case WatchOrder.alpha_desc:
+        returnList.sort((a,b)=>a.model.compareTo(b.model));
         returnList.sort((a,b)=>b.manufacturer.compareTo(a.manufacturer));
         break;
       case WatchOrder.lastworn:
