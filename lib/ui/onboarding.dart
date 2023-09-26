@@ -29,18 +29,23 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: 'assets/demo/page1_logo.png',
-                title: "Welcome to WristCheck!",
-                subtitle: "An app for wristwatch enthusiasts.\n\nSwipe to learn what WristCheck can do..."),
+                title: "WristCheck",
+                subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristCheck can do..."),
+            buildPage(
+                colour: Theme.of(context).canvasColor,
+                urlImage: Get.isDarkMode? 'assets/demo/watchbox_dark.png':'assets/demo/watchbox_light.png',
+                title: "Your Digital Watchbox",
+                subtitle: "Record all your watches - quickly search, re-organise or get a random pick"),
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: Get.isDarkMode? 'assets/demo/watch_info_dark.png': 'assets/demo/watch_info_light.png',
-                title: "Track Watch Information",
-                subtitle: "Save details of your watches - WristCheck can record your serial numbers, purchase and sale information, any notes you want to keep...\n\n...and much more!"),
+                title: "Track The Detail",
+                subtitle: "Categorise and capture the particulars of your watches, or add your own notes"),
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: Get.isDarkMode? 'assets/demo/graph_dark.png':'assets/demo/graph_light.png',
-                title: "Analyse your collection",
-                subtitle: "Get data insights into your collection and generate charts to understand what's getting wrist time. "),
+                title: "Analyse The Data",
+                subtitle: "Get insights into your collection through data and charts"),
           ],
         ),
       ),
@@ -67,7 +72,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                       index,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn),
-                  count: 3),
+                  count: 4),
             ),
             TextButton(
               child: const Text("NEXT"),
