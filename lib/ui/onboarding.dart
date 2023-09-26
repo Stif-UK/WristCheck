@@ -30,11 +30,12 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                 colour: Theme.of(context).canvasColor,
                 urlImage: 'assets/demo/page1_logo.png',
                 title: "Welcome to WristCheck!",
-                subtitle: "An app for wristwatch enthusiasts.\nSwipe to learn what WristCheck can do!"),
-            Container(
-              color: Colors.blue,
-              child: const Center(child: Text("Page 2")),
-            ),
+                subtitle: "An app for wristwatch enthusiasts.\n\nSwipe to learn what WristCheck can do!"),
+            buildPage(
+                colour: Theme.of(context).canvasColor,
+                urlImage: 'assets/demo/watch_info_dark.png',
+                title: "Track Watch Information",
+                subtitle: "Save details of your watches - WristCheck can record your serial numbers, purchase and sale information, any notes you want to keep...\n\n...and much more!"),
             Container(
               color: Colors.green,
               child: const Center(child: Text("Page 3")),
