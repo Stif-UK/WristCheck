@@ -30,7 +30,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                 colour: Theme.of(context).canvasColor,
                 urlImage: 'assets/demo/page1_logo.png',
                 title: "Welcome to WristCheck!",
-                subtitle: "lorem ipsum dolar sit amet, consectetur adipiscing elit, sed do eiusmod, tempopr, incididunt, ut labore et dolore manda aliqua."),
+                subtitle: "An app for wristwatch enthusiasts.\nSwipe to learn what WristCheck can do!"),
             Container(
               color: Colors.blue,
               child: const Center(child: Text("Page 2")),
