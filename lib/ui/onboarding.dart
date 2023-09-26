@@ -30,16 +30,17 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                 colour: Theme.of(context).canvasColor,
                 urlImage: 'assets/demo/page1_logo.png',
                 title: "Welcome to WristCheck!",
-                subtitle: "An app for wristwatch enthusiasts.\n\nSwipe to learn what WristCheck can do!"),
+                subtitle: "An app for wristwatch enthusiasts.\n\nSwipe to learn what WristCheck can do..."),
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: Get.isDarkMode? 'assets/demo/watch_info_dark.png': 'assets/demo/watch_info_light.png',
                 title: "Track Watch Information",
                 subtitle: "Save details of your watches - WristCheck can record your serial numbers, purchase and sale information, any notes you want to keep...\n\n...and much more!"),
-            Container(
-              color: Colors.green,
-              child: const Center(child: Text("Page 3")),
-            ),
+            buildPage(
+                colour: Theme.of(context).canvasColor,
+                urlImage: Get.isDarkMode? 'assets/demo/graph_dark.png':'assets/demo/graph_light.png',
+                title: "Analyse your collection",
+                subtitle: "Get data insights into your collection and generate charts to understand what's getting wrist time. "),
           ],
         ),
       ),
@@ -95,19 +96,22 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           fit: BoxFit.cover,
           width: double.infinity,
         ),
-        const SizedBox(height: 40,),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Color(0xff39a5c0),
-            fontSize: 32,
-            fontWeight: FontWeight.bold
+        const SizedBox(height: 32,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xff39a5c0),
+              fontSize: 32,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
         const SizedBox(height: 24,),
         Container(
-          padding: const EdgeInsets.symmetric(),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Text(
             subtitle,
               textAlign: TextAlign.center,
