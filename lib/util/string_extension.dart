@@ -6,7 +6,7 @@ extension ExtString on String{
   }
 
   bool get isAlphaNumericIncAccentsAndSymbolsAndNotEmpty{
-    final titleRegExp = RegExp(r'^[a-zA-Záéíñóöúñü0-9,.?!& ;:/\[\]]+$');
+    final titleRegExp = RegExp(r'^[a-zA-Záéíñóöúñü0-9-,.?!& ;:/\[\]]+$');
     return titleRegExp.hasMatch(this);
   }
 
