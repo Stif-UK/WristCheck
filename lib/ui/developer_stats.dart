@@ -5,7 +5,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
-import 'package:wristcheck/util/list_tile_helper.dart';
+import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
@@ -188,6 +188,14 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               subtitle: const Text("Click here to trigger dialog box for testing"),
               onTap: (){
                 WristCheckDialogs.getWhatsNewDialog(context);
+              },
+            ),
+            const Divider(thickness: 2,),
+            ListTile(
+              title: const Text("Show onboarding slides"),
+              subtitle: const Text("Click here to trigger the first use demo"),
+              onTap: (){
+                Get.to(()=>const WristCheckOnboarding());
               },
             ),
             const Divider(thickness: 2,),
