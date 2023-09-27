@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/wristcheck_home.dart';
 
 class WristCheckOnboarding extends StatefulWidget {
   const WristCheckOnboarding({Key? key}) : super(key: key);
@@ -66,8 +67,8 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           ),
           child: const Text("Let's go!",
           style: TextStyle(fontSize: 22),),
-          onPressed: (){
-
+          onPressed: () async {
+            Get.offAll(WristCheckHome());
           },
         ),
       ) :Container(
