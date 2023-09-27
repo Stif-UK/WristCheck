@@ -69,23 +69,24 @@ class CollectionStats extends StatelessWidget {
                   ),
                   const Divider(thickness: 2,),
 
-                  ListTile(
+                  //Only show most and least worn if the watchbox is not empty
+                  watchBox.isNotEmpty? ListTile(
                     isThreeLine: true,
                     leading: const Icon(Icons.star_border),
                     title: const Text("Most Worn"),
                     subtitle: longestWorn.length == 1? Text("${longestWorn[0].model}\nWorn ${longestWorn[0].wearList.length} times") : Text("$longestWornWatches \nWorn ${longestWorn[0].wearList.length} times")
 
-                  ),
-                  const Divider(thickness: 2,),
+                  ): const SizedBox(height: 0,),
+                  watchBox.isNotEmpty? const Divider(thickness: 2,): const SizedBox(height: 0,),
 
-                  ListTile(
+                  watchBox.isNotEmpty? ListTile(
                       isThreeLine: true,
                       leading: const Icon(Icons.stacked_bar_chart_outlined),
                       title: const Text("Least Worn"),
                       subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].model}\nWorn ${shortestWorn[0].wearList.length} times") : Text("$shortestWornWatches \nWorn ${shortestWorn[0].wearList.length} times")
 
-                  ),
-                  const Divider(thickness: 2,),
+                  ): const SizedBox(height: 0,),
+                  watchBox.isNotEmpty? const Divider(thickness: 2,): const SizedBox(height: 0,),
 
 
                   ListTile(

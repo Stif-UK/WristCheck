@@ -153,7 +153,9 @@ class WatchMethods {
 
     //get the wear count of the last watch in the ordered collection
     int comparable = 0;
-    most? comparable = orderedByWearCount.last.wearList.length : comparable = orderedByWearCount.first.wearList.length;
+    if (orderedByWearCount.isNotEmpty) {
+      most? comparable = orderedByWearCount.last.wearList.length : comparable = orderedByWearCount.first.wearList.length;
+    }
 
     // int longest = orderedByWearCount.last.wearList.length;
     // int shortest = orderedByWearCount.first.wearList.length;
