@@ -11,6 +11,7 @@ class WristCheckOnboarding extends StatefulWidget {
 
 class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
   final pageViewController = PageController();
+  bool isLastPage = false;
 
   @override
   void dispose() {
@@ -25,6 +26,9 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
         padding: const EdgeInsets.only(bottom: 80),
         child: PageView(
           controller: pageViewController,
+          onPageChanged: (index){
+            setState(()=> isLastPage = index == 3);
+          },
           children: [
             buildPage(
                 colour: Theme.of(context).canvasColor,
@@ -49,7 +53,24 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           ],
         ),
       ),
-      bottomSheet:  Container(
+      bottomSheet:  isLastPage? Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)
+              ),
+            foregroundColor: Colors.white,
+            backgroundColor: getWCColour(),
+            minimumSize: const Size.fromHeight(80),
+          ),
+          child: const Text("Let's go!",
+          style: TextStyle(fontSize: 22),),
+          onPressed: (){
+
+          },
+        ),
+      ) :Container(
         padding: const EdgeInsets.all(10.0),
         height: 80,
         child: Row(
@@ -66,7 +87,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                   effect: SlideEffect(
                     type: SlideType.slideUnder,
                     dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
-                    activeDotColor: Color(0xff39a5c0),
+                    activeDotColor: getWCColour(),
                   ),
                   onDotClicked: (index) => pageViewController.animateToPage(
                       index,
@@ -86,6 +107,8 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
       ),
     );
   }
+
+
   Widget buildPage({
     required Color colour,
     required String urlImage,
@@ -107,8 +130,8 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xff39a5c0),
+            style: TextStyle(
+              color: getWCColour(),
               fontSize: 32,
               fontWeight: FontWeight.bold
             ),
@@ -126,4 +149,8 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
       ],
     ),
   );
+
+  Color getWCColour(){
+    return const Color(0xff39a5c0);
+  }
 }
