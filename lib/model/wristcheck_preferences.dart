@@ -30,12 +30,20 @@ class WristCheckPreferences {
   static const _keyWatchBoxView = 'watchBoxView';
   //Locale
   static const _keyLocale = 'locale';
+  //First Use Demo
+  static const _keyFirstDemo = 'firstUseDemo';
 
 
 
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
+
+  //Getter and setter for first use demo
+  static Future setHasSeenDemo(bool hasSeenDemo) async =>
+      await _preferences.setBool(_keyFirstDemo, hasSeenDemo);
+
+  static bool? getHasSeenDemo() => _preferences.getBool(_keyFirstDemo);
 
   //Getter and setter for latest app version String
   static Future setLatestVersion(String latestVersion) async =>
