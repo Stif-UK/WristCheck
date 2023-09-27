@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -55,6 +56,9 @@ Future main() async{
     WristCheckPreferences.setLocale("en_US");
   }
 
+  //Check if user has seen the first use demo
+  final hasSeenDemo = WristCheckPreferences.getHasSeenDemo() ?? false;
+
   initializeDateFormatting().then((_)=>
   runApp(
 
@@ -76,7 +80,7 @@ Future main() async{
           //ThemeMode.light,
           //ThemeMode.system,
 
-          home:  WristCheckHome(),
+          home:  hasSeenDemo? WristCheckHome() : const WristCheckOnboarding(),
         )),
       ));
 
