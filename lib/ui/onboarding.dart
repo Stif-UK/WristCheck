@@ -70,7 +70,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           style: TextStyle(fontSize: 22),),
           onPressed: () async {
             await WristCheckPreferences.setHasSeenDemo(true);
-            Get.offAll(WristCheckHome());
+            Get.off(()=> WristCheckHome());
           },
         ),
       ) :Container(
