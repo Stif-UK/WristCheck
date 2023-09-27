@@ -12,6 +12,7 @@ import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/ui/developer_stats.dart';
 import 'package:wristcheck/ui/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
+import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 
@@ -93,6 +94,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: (){
                       Get.to(()=> const BackupRestore());
                     }
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                  title: const Text("View First Use Demo"),
+                  leading: const Icon(FontAwesomeIcons.mobileScreen),
+                  onTap: (){
+                    Get.to(()=> const WristCheckOnboarding());
+                  },
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
