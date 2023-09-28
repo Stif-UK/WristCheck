@@ -10,6 +10,7 @@ import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:jiffy/jiffy.dart';
 
 class WatchMethods {
 
@@ -182,13 +183,23 @@ class WatchMethods {
     return returnValue;
   }
 
-  static String calculateTimeInCollection(Watches currentWatch){
+  static String calculateTimeInCollection(Watches currentWatch, bool showDays){
     String timeInCollection = "N/A";
     Duration time = const Duration(days:0);
     if(currentWatch.purchaseDate != null){
       //TODO: Implement sold date parameter to watch model
       time = DateTime.now().difference(currentWatch.purchaseDate!);
-      timeInCollection = "${time.inDays.toString()} days";
+      int timeInt = time.inDays;
+      timeInCollection = "$timeInt days";
+      if (!showDays) {
+        if(timeInt > 90){timeInCollection = "3+ months";}
+        if(timeInt > 180){timeInCollection = "6+ months";}
+        if(timeInt > 365){
+          var years = Jiffy.now().diff(Jiffy.parseFromDateTime(currentWatch.purchaseDate!), unit: Unit.year);
+          timeInCollection = "$years+ years";
+        }
+      }
+
     }
 
     return timeInCollection;

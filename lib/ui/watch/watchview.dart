@@ -96,6 +96,8 @@ class _WatchViewState extends State<WatchView> {
   int _purchasePrice = 0;
   int _soldPrice = 0;
 
+  bool _showDays = false;
+
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
   String? _selectedStatus = "In Collection";
@@ -1006,7 +1008,7 @@ class _WatchViewState extends State<WatchView> {
   Widget _timeInCollectionRow(WatchViewEnum watchViewState){
     String timeInCollection = "N/A";
     if(widget.currentWatch != null){
-      timeInCollection = WatchMethods.calculateTimeInCollection(widget.currentWatch!);
+      timeInCollection = WatchMethods.calculateTimeInCollection(widget.currentWatch!, _showDays);
     }
     timeInCollectionFieldController.value = TextEditingValue(text: timeInCollection);
     //Only display in 'view'
