@@ -1,6 +1,6 @@
 class PrivacyPolicyCopy {
-  static String versionNumber = "1.0.0";
-  static String policyDate = "26th August 2022";
+  static String versionNumber = "1.1.0";
+  static String policyDate = "28th September 2023";
 
 
   static String privacyWording = "**Privacy Policy**\n"
