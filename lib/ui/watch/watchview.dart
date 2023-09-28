@@ -118,6 +118,7 @@ class _WatchViewState extends State<WatchView> {
   final soldToFieldController = TextEditingController();
   final purchasePriceFieldController = TextEditingController();
   final soldPriceFieldController = TextEditingController();
+  final timeInCollectionFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -137,6 +138,7 @@ class _WatchViewState extends State<WatchView> {
     soldToFieldController.dispose();
     purchasePriceFieldController.dispose();
     soldPriceFieldController.dispose();
+    timeInCollectionFieldController.dispose();
     super.dispose();
   }
 
@@ -427,6 +429,7 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 1 ? _purchaseDateRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
+                                      _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _serviceIntervalRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
@@ -999,6 +1002,24 @@ class _WatchViewState extends State<WatchView> {
       ],
     ): const SizedBox(height: 0,);
   }
+
+  Widget _timeInCollectionRow(WatchViewEnum watchViewState){
+    String timeInCollection = "N/A";
+    if(widget.currentWatch != null){
+      timeInCollection = WatchMethods.calculateTimeInCollection(widget.currentWatch!);
+    }
+    timeInCollectionFieldController.value = TextEditingValue(text: timeInCollection);
+    //Only display in 'view'
+    return watchViewState == WatchViewEnum.view? WatchFormField(
+        icon: const Icon(FontAwesomeIcons.hourglass),
+        enabled: false,
+        fieldTitle: "Time in Collection",
+        hintText: "Time in Collection",
+        textCapitalization: TextCapitalization.none,
+        controller: timeInCollectionFieldController, )
+    : const SizedBox(height: 0,);
+  }
+
   Widget _soldPriceRow(WatchViewEnum watchviewState, String locale){
     //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
     return watchviewState != WatchViewEnum.view ? WatchFormField(

@@ -182,6 +182,18 @@ class WatchMethods {
     return returnValue;
   }
 
+  static String calculateTimeInCollection(Watches currentWatch){
+    String timeInCollection = "N/A";
+    Duration time = const Duration(days:0);
+    if(currentWatch.purchaseDate != null){
+      //TODO: Implement sold date parameter to watch model
+      time = DateTime.now().difference(currentWatch.purchaseDate!);
+      timeInCollection = "${time.inDays.toString()} days";
+    }
+
+    return timeInCollection;
+  }
+
   /*
   appReviewCheck() performs some tests to validate app usage and duration since the app last triggered
   an app review prompt.
