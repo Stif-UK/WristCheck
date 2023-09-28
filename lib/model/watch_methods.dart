@@ -194,6 +194,7 @@ class WatchMethods {
       if (!showDays) {
         if(timeInt > 90){timeInCollection = "3+ months";}
         if(timeInt > 180){timeInCollection = "6+ months";}
+        if(timeInt > 270){timeInCollection = "9+ months";}
         if(timeInt > 365){
           var years = Jiffy.now().diff(Jiffy.parseFromDateTime(currentWatch.purchaseDate!), unit: Unit.year);
           timeInCollection = "$years+ years";
