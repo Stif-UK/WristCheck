@@ -95,7 +95,9 @@ class _WatchViewState extends State<WatchView> {
   String? _soldTo = "";
   int _purchasePrice = 0;
   int _soldPrice = 0;
+  DateTime? _soldDate;
 
+  //bool - show time owned in days or short form
   bool _showDays = false;
 
   //Setup options for watch collection status
@@ -121,6 +123,7 @@ class _WatchViewState extends State<WatchView> {
   final purchasePriceFieldController = TextEditingController();
   final soldPriceFieldController = TextEditingController();
   final timeInCollectionFieldController = TextEditingController();
+  final soldDateFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -141,6 +144,7 @@ class _WatchViewState extends State<WatchView> {
     purchasePriceFieldController.dispose();
     soldPriceFieldController.dispose();
     timeInCollectionFieldController.dispose();
+    soldDateFieldController.dispose();
     super.dispose();
   }
 
@@ -165,6 +169,7 @@ class _WatchViewState extends State<WatchView> {
                 getDateFromFieldString(purchaseDateFieldController.value.text);
             _lastServicedDate = getDateFromFieldString(
                 lastServicedDateFieldController.value.text);
+            _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
             _movement = movementFieldController.value.text;
             _category = categoryFieldController.value.text;
             _purchasedFrom = purchasedFromFieldController.value.text;
@@ -192,8 +197,8 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.soldTo = _soldTo;
             widget.currentWatch!.purchasePrice = _purchasePrice;
             widget.currentWatch!.soldPrice = _soldPrice;
+            widget.currentWatch!.soldDate = _soldDate;
             widget.currentWatch!.save();
-            print("updates written");
           }
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
@@ -261,6 +266,7 @@ class _WatchViewState extends State<WatchView> {
         referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
         serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
         purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): "Not Recorded");
+        soldDateFieldController.value = TextEditingValue(text: widget.currentWatch!.soldDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.soldDate!): "Not Recorded");
         lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): "N/A");
         DateTime? nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval);
         nextServiceDueFieldController.value = TextEditingValue(text: nextServiceDue != null? WristCheckFormatter.getFormattedDate(nextServiceDue): "N/A");
@@ -431,6 +437,7 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 1 ? _purchaseDateRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
+                                      _currentIndex == 1 && _status =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
                                       _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _serviceIntervalRow(
                                           watchviewState) : const SizedBox(
@@ -889,6 +896,19 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
+  Widget _soldDateRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.calendarXmark),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Sold Date:",
+      hintText: "Sold Date",
+      maxLines: 1,
+      datePicker: true,
+      controller: soldDateFieldController,
+      textCapitalization: TextCapitalization.none,
+    );
+  }
+
   Widget _lastServicedDateRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarCheck),
@@ -1150,6 +1170,7 @@ class _WatchViewState extends State<WatchView> {
               var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 
               _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
+              _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
               _purchasePrice = getPrice(purchasePriceFieldController.value.text);
@@ -1171,7 +1192,8 @@ class _WatchViewState extends State<WatchView> {
                 purchasedFromFieldController.value.text,
                 soldToFieldController.value.text,
                 _purchasePrice,
-                _soldPrice
+                _soldPrice,
+                _soldDate
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
@@ -1247,11 +1269,11 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.serviceInterval != getServiceInterval(serviceIntervalFieldController.value.text) ||
       widget.currentWatch!.notes != notesFieldController.value.text ||
       widget.currentWatch!.referenceNumber != referenceNumberFieldController.value.text ||
-      widget.currentWatch!.serialNumber != serialNumberFieldController.value.text
+      widget.currentWatch!.serialNumber != serialNumberFieldController.value.text ||
+      widget.currentWatch!.soldDate != getDateFromFieldString(soldDateFieldController.value.text)
     ){
       returnValue = true;
     }
-    print("has data changed? $returnValue");
     return returnValue;
   }
 

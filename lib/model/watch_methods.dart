@@ -16,7 +16,7 @@ class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
-      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice){
+      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice, DateTime? soldDate){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -33,6 +33,7 @@ class WatchMethods {
     String? sold = soldTo;
     int? pp = purchasePrice;
     int? sp = soldPrice;
+    DateTime? sd = soldDate;
 
 
     final watch = Watches()
@@ -56,13 +57,11 @@ class WatchMethods {
     ..purchasedFrom = pf
     ..soldTo = sold
     ..purchasePrice = pp
-    ..soldPrice = sp;
-
+    ..soldPrice = sp
+    ..soldDate = sd;
 
     final box = Boxes.getWatches();
-
     return box.add(watch);
-
   }
 
   static DateTime? calculateNextService(DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval){
