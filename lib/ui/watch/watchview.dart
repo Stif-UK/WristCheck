@@ -1012,13 +1012,25 @@ class _WatchViewState extends State<WatchView> {
     }
     timeInCollectionFieldController.value = TextEditingValue(text: timeInCollection);
     //Only display in 'view'
-    return watchViewState == WatchViewEnum.view? WatchFormField(
-        icon: const Icon(FontAwesomeIcons.hourglass),
-        enabled: false,
-        fieldTitle: "Time in Collection",
-        hintText: "Time in Collection",
-        textCapitalization: TextCapitalization.none,
-        controller: timeInCollectionFieldController, )
+    return watchViewState == WatchViewEnum.view? Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: WatchFormField(
+              icon: const Icon(FontAwesomeIcons.hourglass),
+              enabled: false,
+              fieldTitle: "Time in Collection",
+              hintText: "Time in Collection",
+              textCapitalization: TextCapitalization.none,
+              controller: timeInCollectionFieldController, ),
+        ),
+        IconButton(
+          icon: _showDays? const Icon(FontAwesomeIcons.solidCalendarMinus): const Icon(FontAwesomeIcons.solidCalendarPlus),
+          onPressed: ()=>setState(() {_showDays = !_showDays;}),
+        )
+
+      ],
+    )
     : const SizedBox(height: 0,);
   }
 
