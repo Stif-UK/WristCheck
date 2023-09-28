@@ -186,8 +186,8 @@ class WatchMethods {
     String timeInCollection = "N/A";
     Duration time = const Duration(days:0);
     if(currentWatch.purchaseDate != null){
-      //TODO: Implement sold date parameter to watch model
-      time = DateTime.now().difference(currentWatch.purchaseDate!);
+
+      time = currentWatch.soldDate != null? currentWatch.soldDate!.difference(currentWatch.purchaseDate!): DateTime.now().difference(currentWatch.purchaseDate!);
       int timeInt = time.inDays;
       timeInCollection = "$timeInt days";
       if (!showDays) {
