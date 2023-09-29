@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
-
 
 class MovementChart extends StatefulWidget {
   const MovementChart({Key? key}) : super(key: key);
@@ -52,7 +50,7 @@ class _MovementChartState extends State<MovementChart> {
           dataSource: getChartData,
           xValueMapper: (MovementData mvmt, _) => mvmt.movement,
           yValueMapper: (MovementData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> moov.movement,
+          dataLabelMapper: (moov, _)=> "${moov.movement}: ${moov.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],

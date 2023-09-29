@@ -11,6 +11,17 @@ class CollectionCharts extends StatefulWidget {
 class _CollectionChartsState extends State<CollectionCharts> {
   @override
   Widget build(BuildContext context) {
-    return MovementChart();
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height *.7,
+        child: Column(
+          children: [
+            Text("Movements", style: Theme.of(context).textTheme.bodyLarge,),
+            MovementChart(),
+            Divider(thickness: 2,)
+          ],
+        ),
+      ),
+    );
   }
 }
