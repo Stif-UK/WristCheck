@@ -22,23 +22,6 @@ class _WearChartState extends State<WearChart> {
   @override
   Widget build(BuildContext context) {
 
-
-      // List<charts.Series<Watches, String>> series =[
-      //   charts.Series(
-      //       id: "Watches",
-      //       data: data,
-      //       domainFn: (Watches series, _) => series.model,
-      //       measureFn: (Watches series, _) => series.wearList.length,
-      //       // Set a label accessor to control the text of the bar label.
-      //       labelAccessorFn: (Watches series, _) =>
-      //       // '${series.model}: \$${sales.sales.toString()}',
-      //       "${series.manufacturer} ${series.model}: ${series.wearList.length}"
-      //   )
-      // ];
-
-
-
-
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(
         isVisible: false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wristcheck/ui/charts/movement_chart.dart';
 
 class CollectionCharts extends StatefulWidget {
   const CollectionCharts({Key? key}) : super(key: key);
@@ -10,8 +11,6 @@ class CollectionCharts extends StatefulWidget {
 class _CollectionChartsState extends State<CollectionCharts> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text("Stuff here"),
-    );
+    return MovementChart();
   }
 }
