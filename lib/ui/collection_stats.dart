@@ -16,8 +16,8 @@ class _CollectionStatsState extends State<CollectionStats> {
 
   int _currentIndex = 0;
   final List<Widget> _children =[
+    const CollectionCharts(),
     const CollectionInfo(),
-    const CollectionCharts()
   ];
 
   @override
@@ -38,12 +38,12 @@ class _CollectionStatsState extends State<CollectionStats> {
         onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.clipboardList),
-            label: "Info",
-          ),
-          BottomNavigationBarItem(
             icon:  Icon(FontAwesomeIcons.chartBar),
             label: "Charts",
+          ),
+          BottomNavigationBarItem(
+            icon:  Icon(FontAwesomeIcons.clipboardList),
+            label: "Info",
           ),
         ],
       ),

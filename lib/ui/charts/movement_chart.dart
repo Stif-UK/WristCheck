@@ -30,9 +30,19 @@ class _MovementChartState extends State<MovementChart> {
         );
         }
       }
+    //remove 'not entered' if it exists
+    if (chartData.containsKey("Not Entered")) {
+      chartData.remove("Not Entered");
+    }
+
+    //sort map
+    var sortedChartData = Map.fromEntries(
+        chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
+
+
     List<MovementData> getChartData = [];
 
-    for(var item in chartData.entries){
+    for(var item in sortedChartData.entries){
       getChartData.add(MovementData(item.key, item.value));
     }
 
