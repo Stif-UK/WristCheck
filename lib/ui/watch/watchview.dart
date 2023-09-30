@@ -102,7 +102,7 @@ class _WatchViewState extends State<WatchView> {
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
-  String? _selectedStatus = "In Collection";
+  String? _selectedStatus;
   int _selectedInterval = 0;
 
   //Form Key
@@ -152,6 +152,7 @@ class _WatchViewState extends State<WatchView> {
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
+    _selectedStatus = widget.currentWatch == null? "In Collection": widget.currentWatch!.status;
 
     void saveAndUpdate(){
       //Validate the form
@@ -1175,6 +1176,7 @@ class _WatchViewState extends State<WatchView> {
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
               _purchasePrice = getPrice(purchasePriceFieldController.value.text);
               _soldPrice = getPrice(soldPriceFieldController.value.text);
+
 
               watchKey = await WatchMethods.addWatch(
                   manufacturerFieldController.value.text,
