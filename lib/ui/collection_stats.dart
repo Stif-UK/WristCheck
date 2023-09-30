@@ -17,7 +17,7 @@ class _CollectionStatsState extends State<CollectionStats> {
   int _currentIndex = 0;
   final List<Widget> _children =[
     const CollectionCharts(),
-    const CollectionInfo(),
+    CollectionInfo(),
   ];
 
   @override

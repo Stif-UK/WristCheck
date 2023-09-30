@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class CollectionInfo extends StatelessWidget {
-  const CollectionInfo({Key? key}) : super(key: key);
+  CollectionInfo({Key? key}) : super(key: key);
+
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   Widget build(BuildContext context) {
+    String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
 
     List<Watches> watchBox = Boxes.getCollectionWatches();
     Watches? oldestWatch = WatchMethods.getOldestorNewestWatch(watchBox, true);
@@ -17,6 +24,7 @@ class CollectionInfo extends StatelessWidget {
     List<Watches> shortestWorn = WatchMethods.getMostOrLeastWornWatch(watchBox, false);
     List<Watches> wishList = Boxes.getWishlistWatches();
     List<Watches> soldList = Boxes.getSoldWatches();
+    int collecctionCost = WatchMethods.calculateCollectionCost();
     String? longestWornWatches;
     String? shortestWornWatches;
     if(longestWorn.length != 1){
@@ -37,6 +45,12 @@ class CollectionInfo extends StatelessWidget {
                   leading: const Icon(Icons.shopping_bag_outlined),
                   title: const Text("Size of Collection"),
                   subtitle: watchBox.length == 1? Text("${watchBox.length} watch") : Text("${watchBox.length} watches"),
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                  leading: const Icon(FontAwesomeIcons.dollarSign),
+                  title: const Text("Collection Cost"),
+                  subtitle: Text(collecctionCost == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collecctionCost),),
                 ),
                 const Divider(thickness: 2,),
                 ListTile(

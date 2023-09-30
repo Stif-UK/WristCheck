@@ -182,6 +182,17 @@ class WatchMethods {
     return returnValue;
   }
 
+  static int calculateCollectionCost(){
+    List<Watches> collection = Boxes.getCollectionWatches();
+    int value = 0;
+    for(var watch in collection){
+      if(watch.purchasePrice != null){
+        value = value + watch.purchasePrice!;
+      }
+    }
+    return value;
+  }
+
   static String calculateTimeInCollection(Watches currentWatch, bool showDays){
     String timeInCollection = "N/A";
     Duration time = const Duration(days:0);
