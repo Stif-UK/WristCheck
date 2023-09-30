@@ -13,7 +13,8 @@ class ValueData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int collectionCost = WatchMethods.calculateCollectionCost();
+    int collectionCost = WatchMethods.calculateCollectionCost(false);
+    int totalSpend = WatchMethods.calculateCollectionCost(true);
     String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
 
     return Column(
@@ -25,6 +26,12 @@ class ValueData extends StatelessWidget {
                 leading: const Icon(FontAwesomeIcons.dollarSign),
                 title: const Text("Current Collection Cost"),
                 subtitle: Text(collectionCost == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),),
+              ),
+              const Divider(thickness: 2,),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.sackDollar),
+                title: const Text("Total Collection Spend"),
+                subtitle: Text(totalSpend == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),),
               ),
               const Divider(thickness: 2,),
             ],

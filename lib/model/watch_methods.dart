@@ -182,8 +182,9 @@ class WatchMethods {
     return returnValue;
   }
 
-  static int calculateCollectionCost(){
+  static int calculateCollectionCost(bool getAll){
     List<Watches> collection = Boxes.getCollectionWatches();
+    getAll? collection.addAll(Boxes.getSoldWatches()): null;
     int value = 0;
     for(var watch in collection){
       if(watch.purchasePrice != null){
