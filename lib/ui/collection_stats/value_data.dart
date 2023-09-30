@@ -15,6 +15,8 @@ class ValueData extends StatelessWidget {
   Widget build(BuildContext context) {
     int collectionCost = WatchMethods.calculateCollectionCost(false);
     int totalSpend = WatchMethods.calculateCollectionCost(true);
+    int totalSoldValue = WatchMethods.calculateSoldIncome();
+    int resaleRatio = WatchMethods.calculateResaleRatio();
     String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
 
     return Column(
@@ -25,15 +27,34 @@ class ValueData extends StatelessWidget {
               ListTile(
                 leading: const Icon(FontAwesomeIcons.dollarSign),
                 title: const Text("Current Collection Cost"),
-                subtitle: Text(collectionCost == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),),
+                subtitle: Text(collectionCost == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),
+                style: Theme.of(context).textTheme.bodyLarge,),
+                // trailing: IconButton(
+                //   icon: const Icon(FontAwesomeIcons.question),
+                //   onPressed: (){},
+                // ),
               ),
               const Divider(thickness: 2,),
               ListTile(
                 leading: const Icon(FontAwesomeIcons.sackDollar),
                 title: const Text("Total Collection Spend"),
-                subtitle: Text(totalSpend == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),),
+                subtitle: Text(totalSpend == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),
+                  style: Theme.of(context).textTheme.bodyLarge,),
               ),
               const Divider(thickness: 2,),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.handHoldingDollar),
+                title: const Text("Total Sold Value"),
+                subtitle: Text(totalSoldValue == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSoldValue),
+                  style: Theme.of(context).textTheme.bodyLarge,),
+              ),
+              const Divider(thickness: 2,),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.moneyBillTransfer),
+                title: const Text("Average Resale %"),
+                subtitle: Text("Resale Ratio = $resaleRatio%",
+                  style: Theme.of(context).textTheme.bodyLarge,),
+              )
             ],
           ),
         )

@@ -194,6 +194,31 @@ class WatchMethods {
     return value;
   }
 
+  static int calculateSoldIncome(){
+    List<Watches> soldWatches = Boxes.getSoldWatches();
+    int value = 0;
+    for(var watch in soldWatches){
+      if(watch.soldPrice != null){
+        value = value + watch.soldPrice!;
+      }
+    }
+    return value;
+  }
+
+  static int calculateResaleRatio(){
+    List<Watches> soldWatches = Boxes.getSoldWatches();
+    int purchaseTotal = 0;
+    int soldTotal = 0;
+    for(var watch in soldWatches){
+      if(watch.purchasePrice != null && watch.purchasePrice != 0 && watch.soldPrice != null && watch.soldPrice != 0){
+        purchaseTotal = purchaseTotal + watch.purchasePrice!;
+        soldTotal = soldTotal + watch.soldPrice!;
+      }
+    }
+
+    return ((soldTotal/purchaseTotal)*100).floor();
+  }
+
   static String calculateTimeInCollection(Watches currentWatch, bool showDays){
     String timeInCollection = "N/A";
     Duration time = const Duration(days:0);
