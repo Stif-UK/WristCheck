@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/ui/collection_stats/collection_charts.dart';
 import 'package:wristcheck/ui/collection_stats/collection_info.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/collection_stats/value_data.dart';
 
 
 class CollectionStats extends StatefulWidget {
@@ -17,7 +18,8 @@ class _CollectionStatsState extends State<CollectionStats> {
   int _currentIndex = 0;
   final List<Widget> _children =[
     const CollectionCharts(),
-    CollectionInfo(),
+    const CollectionInfo(),
+    ValueData(),
   ];
 
   @override
@@ -44,6 +46,10 @@ class _CollectionStatsState extends State<CollectionStats> {
           BottomNavigationBarItem(
             icon:  Icon(FontAwesomeIcons.clipboardList),
             label: "Info",
+          ),
+          BottomNavigationBarItem(
+            icon:  Icon(FontAwesomeIcons.moneyBillTrendUp),
+            label: "Value Data",
           ),
         ],
       ),
