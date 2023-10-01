@@ -67,7 +67,7 @@ class ValueData extends StatelessWidget {
               ListTile(
                 leading: const Icon(FontAwesomeIcons.moneyBillTransfer),
                 title: const Text("Average Resale %"),
-                subtitle: Text("Resale Ratio = $resaleRatio%",
+                subtitle: Text(resaleRatio == 0? "No Data Tracked" : "Resale Ratio = $resaleRatio%",
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
                   icon: const Icon(FontAwesomeIcons.question),
@@ -75,7 +75,8 @@ class ValueData extends StatelessWidget {
                     ValueDataHelpDialogs.getAverageResaleHelp();
                   },
                 ),
-              )
+              ),
+              const Divider(thickness: 2,),
             ],
           ),
         )

@@ -215,6 +215,9 @@ class WatchMethods {
         soldTotal = soldTotal + watch.soldPrice!;
       }
     }
+    if(purchaseTotal == 0 || soldTotal == 0){
+      return 0;
+    }
 
     return ((soldTotal/purchaseTotal)*100).floor();
   }
