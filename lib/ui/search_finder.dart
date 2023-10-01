@@ -10,8 +10,8 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/view_watch.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 
 
@@ -82,7 +82,7 @@ class _SearchFinderState extends State<SearchFinder> {
 
                   return ListTile(
                     onTap: () {
-                      Get.to(() => ViewWatch(currentWatch: watchesListItem));
+                      Get.to(() => WatchView(currentWatch: watchesListItem,));
                     },
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

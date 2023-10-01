@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/images_util.dart';

@@ -11,10 +11,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 
 
@@ -104,7 +104,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
                 leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
                 title: Text(_title),
                 subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
-                onTap: () => Get.to(ViewWatch(currentWatch: watch,)),
+                onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
                 );
                 },
                 separatorBuilder: (context, index){

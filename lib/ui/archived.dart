@@ -9,7 +9,6 @@ import 'package:wristcheck/config.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
-import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';

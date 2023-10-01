@@ -8,7 +8,6 @@ import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/view_watch.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
