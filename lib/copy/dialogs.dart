@@ -232,13 +232,6 @@ class WristCheckDialogs {
     );
   }
 
-  static getRemoveAdsDialog(){
-    Get.defaultDialog(
-        title: "Remove Ads",
-        middleText: "WristCheck Pro will be here soon, to help you have an ad free app experience, and hopefully help me cover my development costs!"
-    );
-  }
-
   static getFailedToPickImageDialog(PlatformException e){
     Get.defaultDialog(
       title: "Failed to Pick Image",
