@@ -8,7 +8,7 @@ class DynamicCopyHelper{
 
     switch(view){
       case CollectionView.all:
-        returnText = "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n";
+        returnText = "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right";
         break;
       case CollectionView.sold:
         returnText = "You don't have any sold watches in your collection.\n\nYou can mark a watch as sold by editing it's status.\n";
