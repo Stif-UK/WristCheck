@@ -5,16 +5,15 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.5 \n"
+        "### Version 1.6 \n"
         "\n"
 
-        "* UI overhaul of the main watchbox!\n"
-            "* Watch images now show in watchbox view\n"
-            "* Quicker access to search\n"
-            "* Adjust the display order of your collection\n"
-            "* Choose a list or grid view for the UI\n"
-            "* Updates to software libraries and OS target levels\n"
-            "* Bug fixes";
+        "* UI overhaul of the watch view!\n"
+            "* Multiple additional data points, including:\n"
+            "* Purchase and sale information\n"
+            "* Watch categories and movement types\n"
+            "* Plus additional Collection Info & Charts!\n";
+
   }
 
 
@@ -27,6 +26,15 @@ class WhatsNewCopy{
           physics: ClampingScrollPhysics(),
             data:
                 "## Latest Version:\n"
+                    "### Version 1.6 \n"
+                    "\n"
+
+                    "* UI overhaul of the watch view!\n"
+                    "* Multiple additional data points, including:\n"
+                    "* Purchase and sale information\n"
+                    "* Watch categories and movement types\n"
+                    "* Plus additional Collection Info & Charts!\n"
+                "--- \n\n"
             "### Version 1.5 \n"
                 "\n"
 
