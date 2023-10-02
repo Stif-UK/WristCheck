@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -17,6 +19,8 @@ class DeveloperStats extends StatefulWidget {
 }
 
 class _DeveloperStatsState extends State<DeveloperStats> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final wristCheckController = Get.put(WristCheckController());
@@ -25,23 +29,42 @@ class _DeveloperStatsState extends State<DeveloperStats> {
       appBar: AppBar(
         title: const Text("Developer Stats"),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+
+        }, items: const [
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.cashRegister),
+          label: "Purchase",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.info),
+          label: "Info",
+        ),
+      ],
+
+      ),
       body: SingleChildScrollView(
         child: ListView(
           shrinkWrap: true,
           children: [
-            const Divider(thickness: 2,),
-            ListTile(
+            _currentIndex == 1? ListTile(
               title: const Text("Open Count"),
               subtitle: Text("App Opened: ${WristCheckPreferences.getOpenCount()} times"),
-            ),
-            const Divider(thickness: 2,),
+            ): const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
 
-            ListTile(
+            _currentIndex == 0? ListTile(
               title: const Text("App Purchased"),
               subtitle: Text("${WristCheckPreferences.getAppPurchasedStatus() ?? false}"),
-            ),
-            const Divider(thickness: 2,),
-            FutureBuilder(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 0? FutureBuilder(
               builder: (context, snapshot){
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If we got an error
@@ -71,9 +94,8 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
               future: getPurchaseDate(),
 
-            ),
-            const Divider(thickness: 2,),
-            FutureBuilder(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),            _currentIndex == 0? FutureBuilder(
               builder: (context, snapshot){
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If we got an error
@@ -103,9 +125,9 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
               future: getLastDonationDate(),
 
-            ),
-            const Divider(thickness: 2,),
-            FutureBuilder(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 0? FutureBuilder(
               builder: (context, snapshot){
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If we got an error
@@ -135,9 +157,9 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
               future: getLastEntilementCheck(),
 
-            ),
-            const Divider(thickness: 2,),
-            FutureBuilder(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 0? FutureBuilder(
               builder: (context, snapshot){
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If we got an error
@@ -181,25 +203,25 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
               future: PurchaseApi.getAppUserID(),
 
-            ),
-            const Divider(thickness: 2,),
-            ListTile(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
               title: const Text("Show 'what's new' dialog"),
               subtitle: const Text("Click here to trigger dialog box for testing"),
               onTap: (){
                 WristCheckDialogs.getWhatsNewDialog(context);
               },
-            ),
-            const Divider(thickness: 2,),
-            ListTile(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
               title: const Text("Show onboarding slides"),
               subtitle: const Text("Click here to trigger the first use demo"),
               onTap: (){
                 Get.to(()=>const WristCheckOnboarding());
               },
-            ),
-            const Divider(thickness: 2,),
-            ListTile(
+            ): const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 0? ListTile(
               title: const Text("Revert Purchase Status"),
               subtitle: const Text("Remove pro option and show ads by clicking here. If done in error purchases can be restored on the 'remove ads' page"),
               onTap: (){
@@ -211,7 +233,22 @@ class _DeveloperStatsState extends State<DeveloperStats> {
                     snackPosition: SnackPosition.BOTTOM
                 );
               },
-            )
+            ): const SizedBox(height: 0,),
+            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: const Text("Reset all dialog preferences"),
+              subtitle: const Text("Any dialogs that were chosen to 'not show again' will now be set to show"),
+              onTap: (){
+                WristCheckPreferences.setShowSoldDialog(true);
+                Get.snackbar(
+                  "Action",
+                  "All Dialogs reset to show",
+                  snackPosition: SnackPosition.BOTTOM
+                );
+              },
+            ):const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+
 
           ],
         ),

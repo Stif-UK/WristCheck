@@ -851,7 +851,7 @@ class _WatchViewState extends State<WatchView> {
                   setState(() {
                     _status = status.toString();
                     _selectedStatus = status.toString();
-                    if(_selectedStatus == "Sold"){
+                    if(_selectedStatus == "Sold" && WristCheckPreferences.getShowSoldDialog()){
                       WristCheckDialogs.getSoldStatusPopup();
                     }
                   });

@@ -9,6 +9,7 @@ import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:hive/hive.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -262,7 +263,16 @@ class WristCheckDialogs {
     Get.defaultDialog(
       title: "Sold Watches",
       barrierDismissible: true,
-      middleText: "You're marking this watch as sold - you can now add a sold date, sale price and information on the buyer under the schedule and value tabs.",
+      middleText: "You're marking this watch as sold:\n\nYou can now add a sold date, sale price and information on the buyer under the schedule and value tabs.",
+      textCancel: "Don't show this message again",
+      textConfirm: "OK",
+      onConfirm: (){
+        Get.back();
+      },
+      onCancel: () {
+        WristCheckPreferences.setShowSoldDialog(false);
+      }
+
     );
   }
 

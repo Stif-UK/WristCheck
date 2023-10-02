@@ -32,12 +32,20 @@ class WristCheckPreferences {
   static const _keyLocale = 'locale';
   //First Use Demo
   static const _keyFirstDemo = 'firstUseDemo';
+  //Dismissable pop-ups
+  static const _keyShowSoldDialog = 'showSoldDialog';
 
 
 
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
+
+  //Getter and setter for show sold dialog
+  static Future setShowSoldDialog(bool showDialog) async =>
+    await _preferences.setBool(_keyShowSoldDialog, showDialog);
+
+  static bool getShowSoldDialog() => _preferences.getBool(_keyShowSoldDialog) ?? true;
 
   //Getter and setter for first use demo
   static Future setHasSeenDemo(bool hasSeenDemo) async =>
