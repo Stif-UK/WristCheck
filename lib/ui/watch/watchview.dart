@@ -152,7 +152,9 @@ class _WatchViewState extends State<WatchView> {
   Widget build(BuildContext context) {
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
-    _selectedStatus = widget.currentWatch == null? "In Collection": widget.currentWatch!.status;
+    //Only assign value to _selectedStatus if it is null - this ensures it has a default value on the page,but doesn't
+    //impact the status dropdown functionality.
+    _selectedStatus ??= widget.currentWatch == null? "In Collection": widget.currentWatch!.status;
 
     void saveAndUpdate(){
       //Validate the form
@@ -845,8 +847,6 @@ class _WatchViewState extends State<WatchView> {
 
                 ).toList(),
                 onChanged: (status) {
-                  // _status = status.toString();
-                  // setState(() => _selectedStatus = status.toString());
                   setState(() {
                     _status = status.toString();
                     _selectedStatus = status.toString();
