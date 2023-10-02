@@ -440,7 +440,7 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 1 ? _purchaseDateRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 1 && _status =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
+                                      _currentIndex == 1 && _selectedStatus =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
                                       _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _serviceIntervalRow(
                                           watchviewState) : const SizedBox(
@@ -457,8 +457,8 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
                                       //Sold fields only show if status = sold
-                                      _currentIndex == 2 && _status == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
-                                      _currentIndex == 2 && _status == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
+                                      _currentIndex == 2 && _selectedStatus == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
+                                      _currentIndex == 2 && _selectedStatus == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
                                       //Add cost per wear calculation row only in view state
                                       _currentIndex == 2 ? _costPerWearRow(watchviewState, locale) : const SizedBox(height: 0,),
 
