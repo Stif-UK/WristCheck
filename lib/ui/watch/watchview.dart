@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -850,6 +851,9 @@ class _WatchViewState extends State<WatchView> {
                   setState(() {
                     _status = status.toString();
                     _selectedStatus = status.toString();
+                    if(_selectedStatus == "Sold"){
+                      WristCheckDialogs.getSoldStatusPopup();
+                    }
                   });
                 }
             )

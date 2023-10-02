@@ -258,5 +258,13 @@ class WristCheckDialogs {
 
   }
 
+  static getSoldStatusPopup(){
+    Get.defaultDialog(
+      title: "Sold Watches",
+      barrierDismissible: true,
+      middleText: "You're marking this watch as sold - you can now add a sold date, sale price and information on the buyer under the schedule and value tabs.",
+    );
+  }
+
 
 }
