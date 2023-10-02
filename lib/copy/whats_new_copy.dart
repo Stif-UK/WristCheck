@@ -12,7 +12,7 @@ class WhatsNewCopy{
             "* Multiple additional data points, including:\n"
             "* Purchase and sale information\n"
             "* Watch categories and movement types\n"
-            "* Plus additional Collection Info & Charts!\n";
+            "* Plus additional Collection Stats & Charts!\n";
 
   }
 
@@ -33,7 +33,7 @@ class WhatsNewCopy{
                     "* Multiple additional data points, including:\n"
                     "* Purchase and sale information\n"
                     "* Watch categories and movement types\n"
-                    "* Plus additional Collection Info & Charts!\n"
+                    "* Plus additional Collection Stats & Charts!\n"
                 "--- \n\n"
             "### Version 1.5 \n"
                 "\n"
