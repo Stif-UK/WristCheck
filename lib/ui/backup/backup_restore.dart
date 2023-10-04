@@ -4,12 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
-import 'package:wristcheck/ui/backup/backup.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/backup/share_backup.dart';
 import 'package:wristcheck/ui/backup/restore.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
-
 import '../../provider/adstate.dart';
 
 class BackupRestore extends StatefulWidget {
@@ -55,7 +54,6 @@ class _BackupRestoreState extends State<BackupRestore> {
           IconButton(
               icon: const Icon(Icons.help_outline),
               onPressed: (){
-                //ToDo: Update help information
                 WristCheckDialogs.getBackupHelpDialog();
               } )
         ],
@@ -80,7 +78,8 @@ class _BackupRestoreState extends State<BackupRestore> {
                           ),),
                       ),
                       onPressed: (){
-                        Get.to(() => const Backup());
+                        Get.to(() => const ShareBackup());
+                        //Platform.isIOS? Get.to(()=> const ShareBackup()) :Get.to(() => const Backup());
                         },
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

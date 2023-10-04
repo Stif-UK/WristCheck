@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:path/path.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -12,6 +13,18 @@ class BackupRestoreMethods {
     } else {
       return selectedDirectory;
     }
+  }
+
+  static Future<ShareResult> shareBackup() async {
+    final box = Boxes.getWatches();
+    final boxPath = box.path;
+    var result = await Share.shareXFiles([XFile(boxPath!)]);
+
+    if (result.status == ShareResultStatus.success) {
+      print('Hive Box shared');
+    }
+
+    return result;
   }
 
   static Future<void> backupWatchBox<Watches>(String backupPath) async {

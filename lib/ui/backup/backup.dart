@@ -56,7 +56,6 @@ class _BackupState extends State<Backup> {
           IconButton(
               icon: const Icon(Icons.help_outline),
               onPressed: (){
-                //ToDo: Update help information
                 WristCheckDialogs.getBackupHelpDialog();
               } )
         ],
