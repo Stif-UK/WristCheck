@@ -62,6 +62,7 @@ dependencies:
   json_theme: ^6.3.0
   smooth_page_indicator: ^1.1.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.3
 
 dependency_overrides:
   watcher: ^1.1.0
