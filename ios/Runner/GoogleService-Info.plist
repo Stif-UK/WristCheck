@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDDVYyPs7-DDJ_ypLzMPGYitrmEn9GGPAc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>433262753642</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.stifdev.wristcheck</string>
+	<key>PROJECT_ID</key>
+	<string>wristcheck-f8662</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wristcheck-f8662.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:433262753642:ios:0f4d9db039a6a5f5e39713</string>
+</dict>
+</plist>

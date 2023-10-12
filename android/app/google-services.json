@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433262753642",
+    "project_id": "wristcheck-f8662",
+    "storage_bucket": "wristcheck-f8662.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433262753642:android:6a83e03c570b8ffce39713",
+        "android_client_info": {
+          "package_name": "com.stifdev.wristcheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNgFyIdTunwIYoipkNHxKytqObuXKVkMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
