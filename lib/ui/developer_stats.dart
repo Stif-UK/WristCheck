@@ -248,6 +248,12 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
             ):const SizedBox(height: 0,),
             _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: Text("Generate Crash"),
+              subtitle: Text("Caution: Pressing this tile will cause an app crash for crashlytics testing only!"),
+              onTap: () => throw Exception("Crashlytics test exception"),
+            ): const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
 
 
           ],
