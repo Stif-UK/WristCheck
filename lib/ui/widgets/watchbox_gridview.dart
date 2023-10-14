@@ -118,8 +118,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                               } //builder
                           ),
                           //Footer - Details of watch counts
-                          fullTile ? Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch), textAlign: TextAlign.center,))
-                              : const Text(""),
+                          Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch, widget.collectionValue), textAlign: TextAlign.center,))
                         ],
                       ),
                     ),

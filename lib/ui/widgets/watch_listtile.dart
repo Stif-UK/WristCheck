@@ -36,7 +36,6 @@ class WatchListTile extends ListTile {
     }
 
     return ListTile(
-      //TODO: Add watch image or icon logic
       leading: showImage ?
       FutureBuilder(
           future: ImagesUtil.getImage(currentWatch, true),
@@ -71,9 +70,7 @@ class WatchListTile extends ListTile {
           : _getEmptyIcon(context),
       title: Text(_title),
       //Alter subtitle if not full info - for now, wishlist and sold views are blank
-      subtitle: fullTile
-          ? Text(ListTileHelper.getWatchboxListSubtitle(watch))
-          : const Text(""),
+      subtitle: Text(ListTileHelper.getWatchboxListSubtitle(watch, collectionView)),
       isThreeLine: true,
 
       trailing: InkWell(

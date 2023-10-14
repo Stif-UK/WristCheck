@@ -39,7 +39,9 @@ class Boxes {
       case CollectionView.random:
         returnlist = getRandomWatch();
         break;
-
+      case CollectionView.preorder:
+        returnlist = getPreOrderWatches();
+        break;
     }
 
     return returnlist;
@@ -81,9 +83,14 @@ class Boxes {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Archived").toList();
   }
 
+  static List<Watches> getPreOrderWatches() {
+    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Pre-Order").toList();
+  }
+
   static List<Watches> getFavouriteWatches() {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.favourite == true && watch.status != "Sold").toList();
   }
+
 
   static List<Watches> getServiceSchedule(){
     var returnList = Hive.box<Watches>("WatchBox").values.where((watch) => watch.nextServiceDue != null && watch.status == "In Collection").toList();

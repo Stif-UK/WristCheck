@@ -39,6 +39,9 @@ class WristCheckFormatter{
       case CollectionView.random:
         returnText = "Random Watch";
         break;
+      case CollectionView.preorder:
+        returnText = "Pre-Orders";
+        break;
     }
 
     return returnText;

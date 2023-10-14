@@ -19,6 +19,9 @@ class DynamicCopyHelper{
       case CollectionView.favourites:
         returnText = "You don't have any watches marked as 'favourite' yet. \n\nTo mark a watch as a favourite adjust the toggle on the watch detail screen.\n";
         break;
+      case CollectionView.preorder:
+        returnText = "You're not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of 'pre-ordered'.";
+        break;
       default:
         returnText = "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n";
         break;

@@ -102,7 +102,7 @@ class _WatchViewState extends State<WatchView> {
   bool _showDays = false;
 
   //Setup options for watch collection status
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Archived"];
+  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Archived"];
   String? _selectedStatus;
   int _selectedInterval = 0;
 

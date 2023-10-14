@@ -57,17 +57,29 @@ class ListTileHelper {
     return returnIcon;
   }
 
-  static String getWatchboxListSubtitle(Watches watch){
+  static String getWatchboxListSubtitle(Watches watch, CollectionView view){
+    String returnText = "";
 
-    if(watch.wearList.isNotEmpty) {
-      int _wearCount = watch.wearList.length;
-      watch.wearList.sort();
-      String _lastWorn = ViewWatchHelper.isDateToday(watch.wearList.last)? "Today" : WristCheckFormatter.getFormattedDate(watch.wearList.last);
+    if (view == CollectionView.all ||
+        view == CollectionView.favourites ||
+        view == CollectionView.random) {
+      if (watch.wearList.isNotEmpty) {
+        int _wearCount = watch.wearList.length;
+        watch.wearList.sort();
+        String _lastWorn = ViewWatchHelper.isDateToday(watch.wearList.last)
+            ? "Today"
+            : WristCheckFormatter.getFormattedDate(watch.wearList.last);
 
-      return "Last worn: $_lastWorn  \nWorn $_wearCount times";
-    }else{
-      return "Not worn yet";
+        returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
+      } else {
+        returnText = "Not worn yet";
+      }
     }
+    if(view == CollectionView.preorder){
+      //TODO: Implement pre-order countdown text
+      returnText = "Placeholder Pre-Order text";
+    }
+    return returnText;
   }
 
 
