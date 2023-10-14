@@ -108,7 +108,7 @@ class ListTileHelper {
     DateTime? soldDate = watch.soldDate;
     int soldPrice = watch.soldPrice ?? 0;
     returnText = "Sold on: ${soldDate != null? WristCheckFormatter.getFormattedDate(soldDate): "Not Recorded"}\n"
-        "for: ${WristCheckFormatter.getCurrencyValue(locale, soldPrice, 0)}";
+        "for: ${soldPrice == 0? "Not Recorded":WristCheckFormatter.getCurrencyValue(locale, soldPrice, 0)}";
     return returnText;
   }
 
