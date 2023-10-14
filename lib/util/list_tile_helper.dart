@@ -60,25 +60,54 @@ class ListTileHelper {
   static String getWatchboxListSubtitle(Watches watch, CollectionView view){
     String returnText = "";
 
-    if (view == CollectionView.all ||
-        view == CollectionView.favourites ||
-        view == CollectionView.random) {
-      if (watch.wearList.isNotEmpty) {
-        int _wearCount = watch.wearList.length;
-        watch.wearList.sort();
-        String _lastWorn = ViewWatchHelper.isDateToday(watch.wearList.last)
-            ? "Today"
-            : WristCheckFormatter.getFormattedDate(watch.wearList.last);
+    switch(view) {
+      case CollectionView.all:
+        returnText = _getStandardReturnText(watch);
+        break;
+      case CollectionView.favourites:
+        returnText = _getStandardReturnText(watch);
+        break;
+      case CollectionView.wishlist:
+        returnText = "";
+        break;
+      case CollectionView.sold:
+        returnText = _getSoldReturnText(watch);
+        break;
+      case CollectionView.preorder:
+        returnText = "Placeholder Pre-Order text";
+        break;
+      case CollectionView.random:
+        returnText = _getStandardReturnText(watch);
+        break;
+    }
+    return returnText;
+  }
 
-        returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
-      } else {
-        returnText = "Not worn yet";
-      }
+  static String _getStandardReturnText(Watches watch){
+    String returnText = "";
+    if (watch.wearList.isNotEmpty) {
+      int _wearCount = watch.wearList.length;
+      watch.wearList.sort();
+      String _lastWorn = ViewWatchHelper.isDateToday(watch.wearList.last)
+          ? "Today"
+          : WristCheckFormatter.getFormattedDate(watch.wearList.last);
+
+      returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
+    } else {
+      returnText = "Not worn yet";
     }
-    if(view == CollectionView.preorder){
-      //TODO: Implement pre-order countdown text
-      returnText = "Placeholder Pre-Order text";
-    }
+    return returnText;
+  }
+
+  static String _getSoldReturnText(Watches watch){
+    String returnText = "Sold Test";
+    //TODO: Implement Sold Date or null
+    return returnText;
+  }
+
+  static String _getPreOrderReturnText(Watches watch){
+    String returnText = "Pre-Order Test";
+    //TODO: Implement Countdown or null
     return returnText;
   }
 
