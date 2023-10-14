@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -100,8 +102,13 @@ class ListTileHelper {
   }
 
   static String _getSoldReturnText(Watches watch){
+    final wristCheckController = Get.put(WristCheckController());
+    String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
     String returnText = "Sold Test";
-    //TODO: Implement Sold Date or null
+    DateTime? soldDate = watch.soldDate;
+    int soldPrice = watch.soldPrice ?? 0;
+    returnText = "Sold on: ${soldDate != null? WristCheckFormatter.getFormattedDate(soldDate): "Not Recorded"}\n"
+        "for: ${WristCheckFormatter.getCurrencyValue(locale, soldPrice, 0)}";
     return returnText;
   }
 

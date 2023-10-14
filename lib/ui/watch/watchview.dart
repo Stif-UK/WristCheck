@@ -973,7 +973,7 @@ class _WatchViewState extends State<WatchView> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(_purchasePrice == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_purchasePrice),
+              child: Text(WristCheckFormatter.getCurrencyValue(locale, _purchasePrice, 0),
                 style: Theme.of(context).textTheme.headlineSmall,),
             ),
           ],
@@ -1092,7 +1092,7 @@ class _WatchViewState extends State<WatchView> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(_soldPrice == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(_soldPrice),
+              child: Text(WristCheckFormatter.getCurrencyValue(locale, _soldPrice, 0),
                 style: Theme.of(context).textTheme.headlineSmall,),
             ),
           ],

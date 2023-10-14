@@ -307,5 +307,11 @@ class WristCheckFormatter{
     return returnString;
 }
 
+static String getCurrencyValue(String locale, int price, int? digits){
+    String returnText = price == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: digits).format(price);
+
+    return returnText;
+}
+
 }
 
