@@ -5,14 +5,11 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.6 \n"
+        "### Version 1.6.2 \n"
         "\n"
 
-        "* UI overhaul of the watch view!\n"
-            "* Multiple additional data points, including:\n"
-            "* Purchase and sale information\n"
-            "* Watch categories and movement types\n"
-            "* Plus additional Collection Stats & Charts!\n";
+        "* Fixed a bug leading to app crashing\n"
+            "* Implemented Crashlytics logging\n";
 
   }
 
@@ -26,6 +23,12 @@ class WhatsNewCopy{
           physics: ClampingScrollPhysics(),
             data:
                 "## Latest Version:\n"
+                    "### Version 1.6.2 \n"
+                    "\n"
+
+                    "* Fixed a bug leading to app crashing\n"
+                    "* Implemented Crashlytics logging\n"
+                    "--- \n\n"
                     "### Version 1.6 \n"
                     "\n"
 
