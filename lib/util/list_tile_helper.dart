@@ -74,7 +74,7 @@ class ListTileHelper {
         returnText = _getSoldReturnText(watch);
         break;
       case CollectionView.preorder:
-        returnText = "Placeholder Pre-Order text";
+        returnText = _getPreOrderReturnText(watch);
         break;
       case CollectionView.random:
         returnText = _getStandardReturnText(watch);
