@@ -861,6 +861,9 @@ class _WatchViewState extends State<WatchView> {
                     if(_selectedStatus == "Sold" && WristCheckPreferences.getShowSoldDialog()){
                       WristCheckDialogs.getSoldStatusPopup();
                     }
+                    if(_selectedStatus == "Pre-Order" && WristCheckPreferences.getShowPreOrderDialog()){
+                      WristCheckDialogs.getPreOrderStatusPopUp();
+                    }
                   });
                 }
             )
