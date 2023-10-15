@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,25 +76,36 @@ class ImagesUtil {
    */
   static Future<ImageSource?> imageSourcePopUp(BuildContext context) async {
     return showModalBottomSheet(context: context,
-        builder: (context) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ListTile(
-                leading: const Icon(Icons.camera_alt_outlined),
-                title: const Text("Take with Camera"),
-                onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
-            ),
-            ListTile(
-                leading: const Icon(Icons.camera_roll_outlined),
-                title: const Text("Select from Gallery"),
-                onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
-            ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height*0.2
-            )
-          ],
+        builder: (context) => Container(
+          decoration: BoxDecoration(
+            color: Colors.white38,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10,),
+              const Divider(thickness: 2,),
+              ListTile(
+                  leading: const Icon(FontAwesomeIcons.cameraRetro),
+                  title: Text("Take with Camera", style: Theme.of(context).textTheme.headlineSmall,),
+                  onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
+              ),
+              const Divider(thickness: 2,),
+              ListTile(
+                  leading: const Icon(FontAwesomeIcons.images),
+                  title: Text("Select from Gallery", style: Theme.of(context).textTheme.headlineSmall,),
+                  onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
+              ),
+              const Divider(thickness: 2,),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height*0.2
+              )
+            ],
 
+          ),
         ));
   }
 
