@@ -113,8 +113,12 @@ class ListTileHelper {
   }
 
   static String _getPreOrderReturnText(Watches watch){
-    String returnText = "Pre-Order Test";
-    //TODO: Implement Countdown or null
+    String returnText = "Countdown: N/A";
+    DateTime? dueDate = watch.deliveryDate;
+    if(dueDate != null){
+      Duration countdown = DateTime.now().difference(dueDate);
+      returnText = "Due: ${countdown.inDays} days";
+    }
     return returnText;
   }
 
@@ -144,6 +148,18 @@ class ListTileHelper {
     }
 
     return returnIcon;
+  }
+
+  static TextStyle? getSubtitleTheme(Watches watch){
+    TextStyle? returnStyle = null;
+    if(watch.status == "Pre-Order" && watch.deliveryDate != null){
+      if (watch.deliveryDate!.isBefore(DateTime.now())) {
+        returnStyle = TextStyle(
+          color: Colors.red
+        );
+      }
+    }
+    return returnStyle;
   }
 
 

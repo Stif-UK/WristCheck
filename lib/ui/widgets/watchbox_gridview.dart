@@ -38,12 +38,6 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
     List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
     List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
-    bool fullTile = false;
-    if (widget.collectionValue == CollectionView.all ||
-        widget.collectionValue == CollectionView.favourites ||
-        widget.collectionValue == CollectionView.random) {
-      fullTile = true;
-    }
     const double boxSides = 95;
 
 
@@ -118,7 +112,8 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                               } //builder
                           ),
                           //Footer - Details of watch counts
-                          Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch, widget.collectionValue), textAlign: TextAlign.center,))
+                          Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch, widget.collectionValue), textAlign: TextAlign.center,
+                          style: ListTileHelper.getSubtitleTheme(currentWatch),))
                         ],
                       ),
                     ),

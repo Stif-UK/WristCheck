@@ -23,12 +23,6 @@ class WatchListTile extends ListTile {
     String? _status = "${watch.status}";
     int _wearCount = watch.wearList.length;
     //Categorise the view
-    bool fullTile = false;
-    if (collectionView == CollectionView.all ||
-        collectionView == CollectionView.favourites ||
-        collectionView == CollectionView.random) {
-      fullTile = true;
-    }
     //Check if watch has an image
     bool showImage = false;
     if (watch.frontImagePath != null && watch.frontImagePath != "") {
@@ -69,8 +63,9 @@ class WatchListTile extends ListTile {
       //:const Icon(Icons.watch, size: 30,),
           : _getEmptyIcon(context),
       title: Text(_title),
-      //Alter subtitle if not full info - for now, wishlist and sold views are blank
-      subtitle: Text(ListTileHelper.getWatchboxListSubtitle(watch, collectionView)),
+      //Alter subtitle if not full info
+      subtitle: Text(ListTileHelper.getWatchboxListSubtitle(watch, collectionView), 
+      style: ListTileHelper.getSubtitleTheme(watch),),
       isThreeLine: true,
 
       trailing: InkWell(
