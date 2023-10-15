@@ -34,6 +34,7 @@ class WristCheckPreferences {
   static const _keyFirstDemo = 'firstUseDemo';
   //Dismissable pop-ups
   static const _keyShowSoldDialog = 'showSoldDialog';
+  static const _keyShowPreOrderDialog = 'showPreOrderDialog';
 
 
 
@@ -46,6 +47,12 @@ class WristCheckPreferences {
     await _preferences.setBool(_keyShowSoldDialog, showDialog);
 
   static bool getShowSoldDialog() => _preferences.getBool(_keyShowSoldDialog) ?? true;
+
+  //Getter and setter for show pre-order dialog
+  static Future setShowPreOrderDialog(bool showDialog) async =>
+      await _preferences.setBool(_keyShowPreOrderDialog, showDialog);
+
+  static bool getShowPreOrderDialog() => _preferences.getBool(_keyShowPreOrderDialog) ?? true;
 
   //Getter and setter for first use demo
   static Future setHasSeenDemo(bool hasSeenDemo) async =>
