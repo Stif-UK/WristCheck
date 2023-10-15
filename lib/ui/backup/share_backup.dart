@@ -87,7 +87,33 @@ class _ShareBackupState extends State<ShareBackup> {
                 },
               ),
             ),
-            const SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text("Watch Images can be separately exported.",
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.start,),
+            ),
+            //Button for image backup
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ElevatedButton(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Backup Watch Images",
+                      style: Theme.of(context).textTheme.headlineSmall,),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(FontAwesomeIcons.fileExport),
+                    )
+                  ],
+                ),
+                onPressed: () async {
+                  await BackupRestoreMethods.imageBackup();
+
+                },
+              ),
+            ),
             //const Text("stuff"),
             Expanded(child:
             SizedBox()),

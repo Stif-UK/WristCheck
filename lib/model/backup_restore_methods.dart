@@ -4,6 +4,9 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:wristcheck/model/watches.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -22,6 +25,7 @@ class BackupRestoreMethods {
 
     if (result.status == ShareResultStatus.success) {
       print('Hive Box shared');
+      //TODO: Trigger dialog on success
     }
 
     return result;
@@ -73,4 +77,44 @@ class BackupRestoreMethods {
     }
     return file;
   }
+
+  static Future<ShareResult?> imageBackup() async {
+    final box = Boxes.getAllWatches();
+    final directory = await getApplicationDocumentsDirectory();
+    // final boxPath = box.path;
+    // var result = await Share.shareXFiles([XFile(boxPath!)]);
+    List<XFile> shareList = [];
+    for(Watches watch in box){
+      var frontImage = "${directory.path}${watch.frontImagePath}";
+      var backImage = "${directory.path}${watch.backImagePath}";
+      final frontExists = await File(frontImage).exists();
+      final backExists = await File(backImage).exists();
+
+      print(frontImage);
+      print(backImage);
+      if(frontExists){ shareList.add(XFile(frontImage));}
+      if(backExists){ shareList.add(XFile(backImage));}
+    }
+    print(shareList);
+
+    var result;
+    if (shareList.isNotEmpty) {
+      try {
+        result = await Share.shareXFiles(shareList);
+
+        if (result.status == ShareResultStatus.success) {
+          print('Images Shared');
+          //TODO: Implement dialog on success
+        }
+      } on Exception catch (e) {
+        WristCheckDialogs.getFailedToBackupImages(e);
+      }
+    } else {
+      WristCheckDialogs.getNoImagesFoundDialog();
+      result = null;
+    }
+
+    return result;
+  }
+
 }

@@ -293,4 +293,19 @@ class WristCheckDialogs {
     );
   }
 
+  static getNoImagesFoundDialog() {
+    Get.defaultDialog(
+        title: "No Images Found",
+        middleText: "No backup has been generated as no watch images were identified"
+    );
+  }
+
+  static getFailedToBackupImages(Exception e){
+    Get.defaultDialog(
+      title: "Failed to Backup Images",
+      middleText: "Failed to backup images, the following error was returned:\n"
+          "${e.toString()}"
+    );
+  }
+
 }
