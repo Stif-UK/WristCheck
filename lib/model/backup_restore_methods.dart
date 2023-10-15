@@ -24,8 +24,7 @@ class BackupRestoreMethods {
     var result = await Share.shareXFiles([XFile(boxPath!)]);
 
     if (result.status == ShareResultStatus.success) {
-      print('Hive Box shared');
-      //TODO: Trigger dialog on success
+      WristCheckDialogs.getWatchboxBackupSuccessDialog();
     }
 
     return result;
@@ -103,8 +102,7 @@ class BackupRestoreMethods {
         result = await Share.shareXFiles(shareList);
 
         if (result.status == ShareResultStatus.success) {
-          print('Images Shared');
-          //TODO: Implement dialog on success
+          WristCheckDialogs.getImageBackupSuccessDialog();
         }
       } on Exception catch (e) {
         WristCheckDialogs.getFailedToBackupImages(e);

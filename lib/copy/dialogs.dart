@@ -308,4 +308,18 @@ class WristCheckDialogs {
     );
   }
 
+  static getImageBackupSuccessDialog(){
+    Get.defaultDialog(
+        title: "Success!",
+        middleText: "Images successfully backed up"
+    );
+  }
+
+  static getWatchboxBackupSuccessDialog(){
+    Get.defaultDialog(
+        title: "Success!",
+        middleText: "Watchbox successfully backed up"
+    );
+  }
+
 }
