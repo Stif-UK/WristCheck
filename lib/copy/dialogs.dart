@@ -276,5 +276,21 @@ class WristCheckDialogs {
     );
   }
 
+  static getPreOrderStatusPopUp(){
+    Get.defaultDialog(
+        title: "Pre-Ordered Watches",
+        barrierDismissible: true,
+        middleText: "You're marking this watch as Pre-Ordered:\n\nYou can now add a due date on the schedule tab.\nThis will enable a countdown to the given date.",
+        textCancel: "Don't show this message again",
+        textConfirm: "OK",
+        onConfirm: (){
+          Get.back();
+        },
+        onCancel: () {
+          WristCheckPreferences.setShowPreOrderDialog(false);
+        }
+
+    );
+  }
 
 }
