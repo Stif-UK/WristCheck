@@ -78,7 +78,7 @@ class _BackupRestoreState extends State<BackupRestore> {
                           ),),
                       ),
                       onPressed: (){
-                        Get.to(() => const ShareBackup());
+                        Get.to(() => ShareBackup());
                         //Platform.isIOS? Get.to(()=> const ShareBackup()) :Get.to(() => const Backup());
                         },
                       style: ButtonStyle(
