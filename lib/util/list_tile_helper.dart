@@ -117,7 +117,12 @@ class ListTileHelper {
     DateTime? dueDate = watch.deliveryDate;
     if(dueDate != null){
       Duration countdown = DateTime.now().difference(dueDate);
-      returnText = "Due: ${countdown.inDays} days";
+      if(countdown.inDays <= 0){
+        returnText = "Due: ${countdown.inDays} days";
+      }else{
+        returnText = "Overdue: +${countdown.inDays} days";
+      }
+
     }
     return returnText;
   }
