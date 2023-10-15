@@ -34,7 +34,7 @@ class _BackupRestoreState extends State<BackupRestore> {
           banner = BannerAd(
               adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.wishlistPageBannerAdUnitId,
               //If the device screen is large enough display a larger ad on this screen
-              size: MediaQuery.of(context).size.height > 500.0
+              size: MediaQuery.of(context).size.height > 560.0
                   ? AdSize.mediumRectangle
                   : AdSize.largeBanner,
               request: const AdRequest(),
@@ -65,7 +65,7 @@ class _BackupRestoreState extends State<BackupRestore> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 60,),
+                const SizedBox(height: 30,),
                 SizedBox(
                   width: (MediaQuery.of(context).size.width)*0.8,
                   height: (MediaQuery.of(context).size.height)*0.15,
@@ -93,7 +93,7 @@ class _BackupRestoreState extends State<BackupRestore> {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Align(
                   alignment: Alignment.center,
