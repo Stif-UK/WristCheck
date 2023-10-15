@@ -1199,7 +1199,8 @@ class _WatchViewState extends State<WatchView> {
                 soldToFieldController.value.text,
                 _purchasePrice,
                 _soldPrice,
-                _soldDate
+                _soldDate,
+                null //TODO: Implement saving delivery date value
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
