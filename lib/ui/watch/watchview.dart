@@ -24,7 +24,6 @@ import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:intl/intl.dart';
-
 import '../../util/list_tile_helper.dart';
 
 class WatchView extends StatefulWidget {
@@ -300,8 +299,10 @@ class _WatchViewState extends State<WatchView> {
       onWillPop: () async {
         //By default the user can navigate back
         var shouldPop = true;
-        //Prevent back navigation if the user has made edits to an existing watch
-        if (watchviewState == WatchViewEnum.edit && hasDataChanged()) {
+        //Prevent back navigation if the user has made edits to an existing watch or has made entries for a new watch
+        bool editChanges = (watchviewState == WatchViewEnum.edit && hasDataChanged());
+        bool addChanges = (watchviewState == WatchViewEnum.add && newDataInput());
+        if (editChanges || addChanges) {
           await Get.defaultDialog(
             title: "You have unsaved changes",
             content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
@@ -1307,6 +1308,27 @@ class _WatchViewState extends State<WatchView> {
     ){
       returnValue = true;
     }
+    return returnValue;
+  }
+
+  bool newDataInput(){
+    /*
+    For new watch entries we currently only need to check for changes on the first info tab as
+    the user is prevented from changing tabs without entering data on this one
+     */
+    bool returnValue = false;
+    if(frontImage != null ||
+        backImage != null ||
+        manufacturerFieldController.value.text.isNotEmpty ||
+        modelFieldController.value.text.isNotEmpty ||
+        categoryFieldController.value.text.isNotEmpty ||
+        serialNumberFieldController.value.text.isNotEmpty ||
+        referenceNumberFieldController.value.text.isNotEmpty ||
+        movementFieldController.value.text.isNotEmpty
+    ){
+      returnValue = true;
+    }
+
     return returnValue;
   }
 
