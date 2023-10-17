@@ -6,7 +6,6 @@ import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:wristcheck/util/images_util.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -65,6 +64,26 @@ class BackupRestoreMethods {
     }
   }
 
+  //TODO: See notes
+  /*
+  1. Change 'Directory dir' for 'String dirPath'?
+  2. Can I iterate over all files at the path?
+   */
+  // static restoreImages(Directory dir) async {
+  //   //get documents directory path
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   //check if the img directory exists, if it doesn't, create it.
+  //   bool exists = await Directory("${directory.path}/img").exists();
+  //   if(!exists) {
+  //     await Directory("${directory.path}/img").create();
+  //   }
+  //   //iterate over the files in the directory
+  //   List dirList = Directory(dir.path).listSync();
+  //
+  //
+  // }
+
+
 
   static Future<File?> pickBackupFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -85,6 +104,7 @@ class BackupRestoreMethods {
     List<XFile> shareList = [];
     for(Watches watch in box){
       var frontImage = "${directory.path}${watch.frontImagePath}";
+      print("Path: ${directory.path}/img/");
       var backImage = "${directory.path}${watch.backImagePath}";
       final frontExists = await File(frontImage).exists();
       final backExists = await File(backImage).exists();
@@ -100,9 +120,10 @@ class BackupRestoreMethods {
     if (shareList.isNotEmpty) {
       try {
         result = await Share.shareXFiles(shareList);
+        int imgCount = shareList.length;
 
         if (result.status == ShareResultStatus.success) {
-          WristCheckDialogs.getImageBackupSuccessDialog();
+          WristCheckDialogs.getImageBackupSuccessDialog(imgCount);
         }
       } on Exception catch (e) {
         WristCheckDialogs.getFailedToBackupImages(e);

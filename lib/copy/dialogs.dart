@@ -308,10 +308,10 @@ class WristCheckDialogs {
     );
   }
 
-  static getImageBackupSuccessDialog(){
+  static getImageBackupSuccessDialog(int count){
     Get.defaultDialog(
         title: "Success!",
-        middleText: "Images successfully backed up"
+        middleText: "$count Images successfully backed up"
     );
   }
 
