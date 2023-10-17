@@ -27,4 +27,9 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get containsSale{
+    final titleRegExp = RegExp(r'sale', caseSensitive: false);
+    return titleRegExp.hasMatch(this);
+  }
+
 }
