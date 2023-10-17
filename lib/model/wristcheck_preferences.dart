@@ -16,6 +16,7 @@ class WristCheckPreferences {
   static const _keyWearCount = 'wearCount';
   static const _keyReferenceDate = 'referenceDate';
   static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
+  static const _keyLastSalePromptDismissed = 'lastSalePromptDismissed';
   //charts
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
@@ -302,4 +303,14 @@ class WristCheckPreferences {
       await _preferences.setString(_keyLocale, locale);
 
   static String? getLocale() => _preferences.getString(_keyLocale);
+
+  //Getter and Setter for last sale prompt acknowledged
+  static DateTime? getLastSalePrompt() {
+    String? returnString = _preferences.getString(_keyLastSalePromptDismissed);
+    return returnString == null? null : DateTime.parse(returnString);
+  }
+
+  static Future setLastSalePrompt(DateTime lastSalePrompt) async{
+    await _preferences.setString(_keyLastSalePromptDismissed, lastSalePrompt.toString());
+  }
 }
