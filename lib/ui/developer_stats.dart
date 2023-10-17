@@ -262,7 +262,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
                 DateTime newDate = DateTime.now().subtract(Duration(days: 31));
                 await WristCheckPreferences.setLastSalePrompt(newDate);
                 setState(() {
-                  
+
                 });
                 Get.snackbar(
                     "Date Amended",
