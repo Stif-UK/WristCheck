@@ -254,6 +254,25 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               onTap: () => throw Exception("Crashlytics test exception"),
             ): const SizedBox(height: 0,),
             _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: Text("Last Sale Prompt Dismissed"),
+              subtitle: WristCheckPreferences.getLastSalePrompt() != null? Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastSalePrompt()!)) : Text("Not Recorded"),
+              onLongPress: () async {
+                //When long pressed, push a date > 30 day sin the past
+                DateTime newDate = DateTime.now().subtract(Duration(days: 31));
+                await WristCheckPreferences.setLastSalePrompt(newDate);
+                setState(() {
+                  
+                });
+                Get.snackbar(
+                    "Date Amended",
+                    "Last Prompted date moved 30+ days into the past",
+                    icon: const Icon(Icons.date_range),
+                    snackPosition: SnackPosition.BOTTOM
+                );
+              },
+            ): const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
 
 
           ],

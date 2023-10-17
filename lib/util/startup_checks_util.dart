@@ -19,7 +19,6 @@ class StartupChecksUtil{
     bool _showWhatsNew = await returnWhatsNew();
     bool _notificationSet = WristCheckPreferences.getDailyNotificationStatus() ?? false;
     bool _hasSeenDailyRemindersPrompt = WristCheckPreferences.getHasSeenDailyRemindersPrompt() ?? false;
-    print("Running startup checks");
     //Checks should be run in priority order with only one dialog triggered
     //1. Check if we should show a 'what's new' dialog
       if(_showWhatsNew){
@@ -36,14 +35,12 @@ class StartupChecksUtil{
         //yes / no / remind me later
       }
 
-    print("Whats new?: $_showWhatsNew, Has seen reminder? $_hasSeenDailyRemindersPrompt");
       /*
       If we're not showing a what's new, and the user has seen the daily reminder prompt already,
       then check if we should show a 'sale' dialog.
        */
     if(!_showWhatsNew && _hasSeenDailyRemindersPrompt){
       //Check the app isn't already pro and hasn't recently dismissed a prompt
-      print("Checking for sale");
       bool isAppPro = WristCheckPreferences.getAppPurchasedStatus() ?? false;
       if(isAppPro == false && canShowSale()) {
         checkForSale();
