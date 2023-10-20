@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,14 @@ class WatchView extends StatefulWidget {
 }
 
 class _WatchViewState extends State<WatchView> {
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   //Setup Ads
   BannerAd? banner;
@@ -225,7 +234,8 @@ class _WatchViewState extends State<WatchView> {
         padding: const EdgeInsets.all(10.0),
         child: Center(
             child: ElevatedButton(
-                onPressed: (){
+                onPressed: () async {
+                  await analytics.logEvent(name: "main_save_btn_press");
                   saveAndUpdate();
                 },
                 child: const Row(
@@ -303,6 +313,11 @@ class _WatchViewState extends State<WatchView> {
         bool editChanges = (watchviewState == WatchViewEnum.edit && hasDataChanged());
         bool addChanges = (watchviewState == WatchViewEnum.add && newDataInput());
         if (editChanges || addChanges) {
+          await analytics.logEvent(name: "edit_pop_dialog",
+          parameters: {
+            "adding_watch": addChanges,
+            "editing_watch": editChanges
+          });
           await Get.defaultDialog(
             title: "You have unsaved changes",
             content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
@@ -343,7 +358,8 @@ class _WatchViewState extends State<WatchView> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: const Icon(FontAwesomeIcons.penToSquare),
-                          onPressed: () {
+                          onPressed: () async {
+                            await analytics.logEvent(name: "edit_watch_pressed");
                             setState(() {
                               widget.inEditState = true;
                             });
@@ -356,7 +372,8 @@ class _WatchViewState extends State<WatchView> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: const Icon(FontAwesomeIcons.floppyDisk),
-                          onPressed: () {
+                          onPressed: () async {
+                            await analytics.logEvent(name: "save_edit_top_pressed");
                             setState(() {
                               saveAndUpdate();
                             });
@@ -1166,8 +1183,16 @@ class _WatchViewState extends State<WatchView> {
   Widget _nextTabButton(){
     return Center(
       child: ElevatedButton(
-        onPressed: (){
+        onPressed: () async {
+          await analytics.logEvent(name: "next_tab_btn",
+              parameters: {
+                "current_tab": _currentIndex
+              });
           if(_formKey.currentState!.validate()) {
+            await analytics.logEvent(name: "next_tab_btn_success",
+            parameters: {
+              "current_tab": _currentIndex
+            });
           setState(() {
             _currentIndex = _currentIndex + 1;
           });
@@ -1196,6 +1221,7 @@ class _WatchViewState extends State<WatchView> {
       child: Center(
         child: ElevatedButton(
           onPressed: () async {
+            await analytics.logEvent(name: "add_watch_pressed");
             if(_formKey.currentState!.validate()){
               var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 

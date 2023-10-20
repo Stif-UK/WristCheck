@@ -1,4 +1,5 @@
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
@@ -26,6 +27,8 @@ class WristCheckHome extends StatefulWidget{
 
 class _WristCheckHomeState extends State<WristCheckHome> {
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   int _currentIndex = 0;
   final List<Widget> _children =[
     Watchbox(),
@@ -37,6 +40,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   @override
   void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
     //Check for a version update and show a dialog if a new version has been released
     StartupChecksUtil.runStartupChecks(context);
@@ -102,7 +106,9 @@ class _WristCheckHomeState extends State<WristCheckHome> {
         child: const Icon(Icons.add_rounded),
         backgroundColor: Colors.red,
         //onPressed: (){Get.to(() => const AddWatch());},
-        onPressed: (){Get.to(() => WatchView());},
+        onPressed: () async {
+          await analytics.logEvent(name: "add_watch_fab_pressed");
+          Get.to(() => WatchView());},
       ): null,
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -147,6 +153,11 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   void _onTabTapped(int index) {
     setState(() {
+      analytics.logEvent(name: "homepage_bottom_nav",
+      parameters: {
+        "page_name" : _children[index].toString(),
+        "page_index": index
+      });
        _currentIndex = index;
     });
   }
