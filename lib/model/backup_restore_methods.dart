@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/util/string_extension.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -64,28 +66,53 @@ class BackupRestoreMethods {
     }
   }
 
-  //TODO: See notes
   /*
-  1. Change 'Directory dir' for 'String dirPath'?
-  2. Can I iterate over all files at the path?
+  restoreImages() is in DRAFT - the aim is to iterate over a folder of backed up images and restore them to the app directory
+  Further work and understanding is required to progress, but saving for now
    */
-  // static restoreImages(Directory dir) async {
-  //   //get documents directory path
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   //check if the img directory exists, if it doesn't, create it.
-  //   bool exists = await Directory("${directory.path}/img").exists();
-  //   if(!exists) {
-  //     await Directory("${directory.path}/img").create();
+  // static restoreImages() async {
+  //   try {
+  //     String? dirPath = await FilePicker.platform.getDirectoryPath();
+  //     print("picked directory $dirPath");
+  //     if(dirPath != null){
+  //       int count = 0;
+  //       //List dirList = Directory(dirPath!).listSync().where((element) => element is File).toList();
+  //       List dirList = Directory(dirPath!).listSync();
+  //       print("got directory list - size: ${dirList.length}");
+  //       for(File file in dirList){
+  //         //check filetype
+  //         print("trying to iterate files");
+  //         String fileName = basename(file.path);
+  //         print("File name: $fileName");
+  //         if(fileName.isWCJpg){
+  //           count++;
+  //         }
+  //       }
+  //       Get.defaultDialog(
+  //         title: "Image Backup",
+  //         middleText: "Found $count images"
+  //       );
+  //     } else {
+  //       //handle null directory
+  //     }
+  //   } on Exception catch (e) {
+  //     Get.defaultDialog(
+  //       title: "Something went wrong",
+  //       middleText: "Failed to access files, the following error was returned:\n"
+  //           "${e.toString()}"
+  //     );
   //   }
-  //   //iterate over the files in the directory
-  //   List dirList = Directory(dir.path).listSync();
-  //
-  //
   // }
 
 
 
+  /*
+  This method is called during the RESTORE process to select the backup file to restore from.
+  Updated to clear any file cache before selecting the file to ensure an old version of the watchbox
+  isn't utilised for the restore.
+   */
   static Future<File?> pickBackupFile() async {
+    FilePicker.platform.clearTemporaryFiles();
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     File? file;
 

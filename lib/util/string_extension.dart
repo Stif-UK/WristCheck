@@ -32,4 +32,14 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  /*
+  Validate if a filename meets the criteria of being an image saved by the app
+   */
+  bool get isWCJpg{
+    final isFront = RegExp(r'_front.jpg', caseSensitive: false);
+    final isBack = RegExp(r'_back.jpg', caseSensitive: false);
+    return isBack.hasMatch(this) || isFront.hasMatch(this);
+
+  }
+
 }
