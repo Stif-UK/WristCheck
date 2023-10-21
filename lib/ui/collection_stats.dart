@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class CollectionStats extends StatefulWidget {
 }
 
 class _CollectionStatsState extends State<CollectionStats> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   final wristCheckController = Get.put(WristCheckController());
   int _currentIndex = 0;
@@ -55,10 +57,16 @@ class _CollectionStatsState extends State<CollectionStats> {
     }
   }
 
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
+    analytics.setCurrentScreen(screenName: "collection_stats");
 
     return Scaffold(
       appBar: AppBar(

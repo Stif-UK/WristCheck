@@ -34,7 +34,7 @@ class _ChartOptionsState extends State<ChartOptions> {
     analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
   }
-  
+
 
   @override
   void didChangeDependencies() {
