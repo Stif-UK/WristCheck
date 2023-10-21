@@ -94,6 +94,11 @@ class _NotificationsState extends State<Notifications> {
                     secondary: const Icon(Icons.notification_add_outlined),
                     value: _notificationsEnabled,
                     onChanged: (bool value) async {
+                      await analytics.logEvent(
+                          name: "setup_notifications",
+                          parameters: {
+                            "enabled" : value.toString()
+                          });
                       WristCheckPreferences.setDailyNotificationStatus(value);
                     if(value == true){
                       _notificationTime = NotificationTimeOptions.morning;
