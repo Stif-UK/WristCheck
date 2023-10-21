@@ -87,7 +87,6 @@ class WristCheckDialogs {
         middleText: "Getting a new phone or just want a backup in case the worst happens?\n You're in the right place!"
             "\n\nCreate a backup of your watchbox or restore an existing copy."
             "\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup."
-            "\n\nWatch pictures are NOT currently backed up!"
             "\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application."
 
     );
