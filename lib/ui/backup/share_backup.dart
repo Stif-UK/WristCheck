@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -20,9 +21,17 @@ class ShareBackup extends StatefulWidget {
 }
 
 class _ShareBackupState extends State<ShareBackup> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -47,6 +56,7 @@ class _ShareBackupState extends State<ShareBackup> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "backup");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Backup"),
@@ -81,7 +91,8 @@ class _ShareBackupState extends State<ShareBackup> {
                     )
                   ],
                 ),
-                onPressed: (){
+                onPressed: () async {
+                  analytics.logEvent(name: "db_backup_created");
                   BackupRestoreMethods.shareBackup();
 
                 },
@@ -109,6 +120,7 @@ class _ShareBackupState extends State<ShareBackup> {
                   ],
                 ),
                 onPressed: () async {
+                  await analytics.logEvent(name: "img_backup_created");
                   await BackupRestoreMethods.imageBackup();
 
                 },

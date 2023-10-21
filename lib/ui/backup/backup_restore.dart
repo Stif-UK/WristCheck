@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,17 @@ class BackupRestore extends StatefulWidget {
 }
 
 class _BackupRestoreState extends State<BackupRestore> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -47,6 +56,7 @@ class _BackupRestoreState extends State<BackupRestore> {
   
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "backup_restore_landing");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Backup / Restore"),
