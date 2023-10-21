@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +32,7 @@ class ServicingWidget extends StatefulWidget {
 }
 
 class _ServicingWidgetState extends State<ServicingWidget> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   final watchBox = Boxes.getWatches();
   BannerAd? banner;
@@ -54,8 +58,16 @@ class _ServicingWidgetState extends State<ServicingWidget> {
     }
   }
 
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "servicing");
     return Scaffold(
         body: ValueListenableBuilder<Box<Watches>>(
             valueListenable: watchBox.listenable(),
