@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
@@ -10,8 +11,18 @@ class CollectionCharts extends StatefulWidget {
 }
 
 class _CollectionChartsState extends State<CollectionCharts> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "collection_charts");
 
     return SingleChildScrollView(
       child: Column(

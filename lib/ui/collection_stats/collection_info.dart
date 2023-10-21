@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -9,10 +10,13 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class CollectionInfo extends StatelessWidget {
-  const CollectionInfo({Key? key}) : super(key: key);
+  CollectionInfo({Key? key}) : super(key: key);
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.setCurrentScreen(screenName: "collection_info");
 
     List<Watches> watchBox = Boxes.getCollectionWatches();
     Watches? oldestWatch = WatchMethods.getOldestorNewestWatch(watchBox, true);

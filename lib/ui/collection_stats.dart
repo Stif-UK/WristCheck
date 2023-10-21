@@ -29,8 +29,8 @@ class _CollectionStatsState extends State<CollectionStats> {
   final wristCheckController = Get.put(WristCheckController());
   int _currentIndex = 0;
   final List<Widget> _children =[
-    const CollectionCharts(),
-    const CollectionInfo(),
+    CollectionCharts(),
+    CollectionInfo(),
     ValueData(),
   ];
 

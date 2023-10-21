@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -11,9 +12,12 @@ class ValueData extends StatelessWidget {
   ValueData({Key? key}) : super(key: key);
 
   final wristCheckController = Get.put(WristCheckController());
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.setCurrentScreen(screenName: "value_data");
     int collectionCost = WatchMethods.calculateCollectionCost(false);
     int totalSpend = WatchMethods.calculateCollectionCost(true);
     int totalSoldValue = WatchMethods.calculateSoldIncome();
