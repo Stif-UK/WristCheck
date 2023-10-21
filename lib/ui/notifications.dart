@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late final WristCheckLocalNotificationService notificationService;
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -52,6 +54,7 @@ class _NotificationsState extends State<Notifications> {
   void initState() {
     notificationService = WristCheckLocalNotificationService();
     notificationService.initialize();
+    analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
   }
 
@@ -62,6 +65,7 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "notification_options");
     _selectedTime = _notificationsEnabled? WristCheckPreferences.getDailyNotificationTime() : null;
     return Scaffold(
       appBar: AppBar(
