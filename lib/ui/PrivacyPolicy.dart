@@ -1,12 +1,16 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/Copy/PrivacyPolicyCopy.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 
 class PrivacyPolicy extends StatelessWidget{
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "privacy_policy");
     return Scaffold(
       appBar: AppBar(
         title: const Text("PrivacyPolicy"),
