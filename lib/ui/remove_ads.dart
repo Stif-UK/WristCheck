@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/api/purchase_api.dart';
@@ -14,8 +15,18 @@ class RemoveAds extends StatefulWidget {
 }
 
 class _RemoveAdsState extends State<RemoveAds> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "remove_ads");
     return Obx(
         () => Scaffold(
         appBar: AppBar(
@@ -35,7 +46,8 @@ class _RemoveAdsState extends State<RemoveAds> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 40, 8, 40),
                     child: OutlinedButton(
-                        onPressed:(){
+                        onPressed:() async {
+                          analytics.logEvent(name: "check_offers");
                           fetchOffers();
                         },
 
@@ -49,6 +61,10 @@ class _RemoveAdsState extends State<RemoveAds> {
               widget.wristCheckController.isAppPro.value? SizedBox(height: 0,) :
               TextButton(onPressed: () async {
                 if(await PurchaseApi.restorePurchases()){
+                  await analytics.logEvent(name: "restore_purchases",
+                  parameters: {
+                    "success": "true"
+                  });
                   //purchase is restored
                   widget.wristCheckController.updateAppPurchaseStatus();
                   Get.defaultDialog(
@@ -57,6 +73,10 @@ class _RemoveAdsState extends State<RemoveAds> {
                     );
                 } else {
                   //purchase restore failed
+                  await analytics.logEvent(name: "restore_purchases",
+                      parameters: {
+                        "success": "false"
+                      });
                   Get.defaultDialog(
                     title: "Restore Failed",
                     middleText: "No previous or active purchase found for user",
