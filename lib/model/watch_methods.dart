@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:wristcheck/boxes.dart';
@@ -82,7 +83,7 @@ class WatchMethods {
 
   }
 
-  static _recordWear(Watches watch, DateTime date){
+  static _recordWear(Watches watch, DateTime date) async {
     if(!date.isAfter(DateTime.now())){
       watch.wearList.add(date);
       watch.save();
@@ -91,6 +92,8 @@ class WatchMethods {
       _wearCount == null? WristCheckPreferences.setWearCount(1) : WristCheckPreferences.setWearCount(_wearCount+1);
       //Trigger a snackbar
       WristCheckSnackBars.addWearSnackbar(watch, date);
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+      analytics.logEvent(name: "wear_tracked");
       //Check if an app review should be prompted
       appReviewCheck();
     } else{
