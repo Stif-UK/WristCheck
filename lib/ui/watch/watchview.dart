@@ -315,8 +315,8 @@ class _WatchViewState extends State<WatchView> {
         if (editChanges || addChanges) {
           await analytics.logEvent(name: "edit_pop_dialog",
           parameters: {
-            "adding_watch": addChanges,
-            "editing_watch": editChanges
+            "adding_watch": addChanges.toString(),
+            "editing_watch": editChanges.toString()
           });
           await Get.defaultDialog(
             title: "You have unsaved changes",

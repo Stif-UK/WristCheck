@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
@@ -24,9 +25,16 @@ class Archived extends StatefulWidget {
 }
 
 class _ArchivedState extends State<Archived> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   var watchBox = Boxes.getWatches();
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -50,6 +58,7 @@ class _ArchivedState extends State<Archived> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "archive");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Archived Watches"),
@@ -91,7 +100,8 @@ class _ArchivedState extends State<Archived> {
                           key: Key(item),
                           direction: DismissDirection.endToStart,
 
-                          onDismissed: (direction) {
+                          onDismissed: (direction) async {
+                            await analytics.logEvent(name: "watch_deleted");
                             setState(() {
                               archiveList.removeAt(index);
                               var watchInfo = "${watch.manufacturer} ${watch.model}";
