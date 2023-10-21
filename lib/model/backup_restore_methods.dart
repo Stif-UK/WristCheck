@@ -131,17 +131,14 @@ class BackupRestoreMethods {
     List<XFile> shareList = [];
     for(Watches watch in box){
       var frontImage = "${directory.path}${watch.frontImagePath}";
-      print("Path: ${directory.path}/img/");
       var backImage = "${directory.path}${watch.backImagePath}";
       final frontExists = await File(frontImage).exists();
       final backExists = await File(backImage).exists();
-
-      print(frontImage);
-      print(backImage);
+      
       if(frontExists){ shareList.add(XFile(frontImage));}
       if(backExists){ shareList.add(XFile(backImage));}
     }
-    print(shareList);
+
 
     var result;
     if (shareList.isNotEmpty) {
