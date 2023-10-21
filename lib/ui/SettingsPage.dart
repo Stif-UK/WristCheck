@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class SettingsPage extends StatefulWidget{
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   final watchBox = Boxes.getWatches();
   String _buildVersion = "Not Determined";
@@ -36,6 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
     _getBuildVersion().then((val) {
       setState(() {
@@ -46,6 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "settings");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
