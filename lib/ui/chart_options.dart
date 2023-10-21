@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,21 @@ class ChartOptions extends StatefulWidget {
 }
 
 class _ChartOptionsState extends State<ChartOptions> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   WearChartOptions _chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
   ChartOrdering _chartOrder = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
   DefaultChartType _chartType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+  
 
   @override
   void didChangeDependencies() {
@@ -48,6 +58,7 @@ class _ChartOptionsState extends State<ChartOptions> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "chart_options");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chart Options"),
