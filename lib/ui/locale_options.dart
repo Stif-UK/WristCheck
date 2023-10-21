@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -16,9 +17,18 @@ class LocationOptions extends StatefulWidget {
 
 class _LocationOptionsState extends State<LocationOptions> {
   final wristCheckController = Get.put(WristCheckController());
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "currency_options");
 
     EdgeInsetsGeometry pagePadding = const EdgeInsets.all(10.0);
 
