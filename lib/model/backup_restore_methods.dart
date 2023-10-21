@@ -134,7 +134,7 @@ class BackupRestoreMethods {
       var backImage = "${directory.path}${watch.backImagePath}";
       final frontExists = await File(frontImage).exists();
       final backExists = await File(backImage).exists();
-      
+
       if(frontExists){ shareList.add(XFile(frontImage));}
       if(backExists){ shareList.add(XFile(backImage));}
     }

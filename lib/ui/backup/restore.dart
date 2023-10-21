@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -19,6 +20,7 @@ class Restore extends StatefulWidget {
 }
 
 class _RestoreState extends State<Restore> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   File? _backupFile;
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -43,8 +45,16 @@ class _RestoreState extends State<Restore> {
     }
   }
 
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "restore");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Restore Database"),
@@ -82,6 +92,7 @@ class _RestoreState extends State<Restore> {
                       ],
                     ),
                   onPressed: () async{
+                      await analytics.logEvent(name: "pick_backup_to_restore");
                       await BackupRestoreMethods.pickBackupFile().then((value) {
                         setState(() {
                           _backupFile = value;
@@ -107,7 +118,8 @@ class _RestoreState extends State<Restore> {
                           )
                         ],
                       ),
-                      onPressed: (){
+                      onPressed: () async {
+                        await analytics.logEvent(name: "initiate_restore");
                         WristCheckDialogs.getConfirmRestoreDialog(_backupFile!);
                       }
                    ),
