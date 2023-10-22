@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -14,10 +15,18 @@ class WatchOrderBottomSheet extends StatefulWidget {
 }
 
 class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
 
   @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "order_sheet");
 
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
     return Container(
@@ -43,7 +52,11 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
                 const Text("List"),
                 Switch(
                   value: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
-                  onChanged: (value){
+                  onChanged: (value) async {
+                    analytics.logEvent(name: "view_set",
+                        parameters: {
+                      "is_grid": value.toString()
+                        });
                     widget.wristCheckController.updateWatchBoxView();
                   },
                 ),
