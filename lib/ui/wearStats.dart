@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,6 +34,7 @@ String _yearValue = "All";
 List _monthList = ["All","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 //yearValues and yearMap will need to BOTH be updated to enable additional years to be selected
 //ToDo: There's a tidier way of dealing with years, the map is not necessary!
+//Get all years > add to list > add 'all', write quick code to convert to number
 List _yearValues =  ["All","2019", "2020", "2021", "2022", "2023"];
 
 Map _yearMap = {
@@ -68,13 +70,22 @@ Map _monthMap = {
 
 
 class _WearStatsState extends State<WearStats> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
 
   ScreenshotController screenshotController = ScreenshotController();
   List<Watches> data = getData();
 
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "wear_charts");
     DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
     bool barChart = _preferredType == DefaultChartType.bar? true: false;
 
@@ -96,6 +107,10 @@ class _WearStatsState extends State<WearStats> {
                   _newPreferredType = DefaultChartType.bar;
                 }
                 await WristCheckPreferences.setDefaultChartType(_newPreferredType);
+                await analytics.logEvent(name: "chart_type_change",
+                    parameters: {
+                      "chart_type" : _newPreferredType.toString()
+                    });
 
                 setState(() {
                   });
@@ -105,6 +120,7 @@ class _WearStatsState extends State<WearStats> {
             child: IconButton(
               icon: const Icon(Icons.add_a_photo_outlined),
               onPressed: () async {
+                await analytics.logEvent(name: "chart_screenshot_capture");
                 final image = await screenshotController.capture();
                 saveAndShare(image!);
               },
