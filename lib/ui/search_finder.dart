@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
@@ -26,6 +27,7 @@ class SearchFinder extends StatefulWidget {
 }
 
 class _SearchFinderState extends State<SearchFinder> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -52,7 +54,14 @@ class _SearchFinderState extends State<SearchFinder> {
 
 
   @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "search");
     DatabaseProvider databaseProvider = Provider.of<DatabaseProvider>(context);
     return Column(
       children: [
