@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -10,10 +11,13 @@ import 'package:wristcheck/ui/remove_ads.dart';
 class WatchHomeDrawer extends StatelessWidget {
   WatchHomeDrawer({Key? key}) : super(key: key);
   final wristCheckController = Get.put(WristCheckController());
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
     final InAppReview inAppReview = InAppReview.instance;
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.setCurrentScreen(screenName: "watch_home_drawer");
 
     return Drawer(
       child: ListView(
@@ -56,7 +60,8 @@ class WatchHomeDrawer extends StatelessWidget {
           ListTile(
             trailing: const Icon(Icons.rate_review_outlined),
               title: const Text("Leave an app review"),
-            onTap: (){
+            onTap: () async {
+              await analytics.logEvent(name: "manual_app_review");
               inAppReview.openStoreListing(
                   appStoreId: "1642718252"
               );
