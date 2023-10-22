@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -33,6 +34,7 @@ class Watchbox extends StatefulWidget {
 
 
 class _WatchBoxState extends State<Watchbox> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   final items = CollectionView.values;
   CollectionView? collectionValue = CollectionView.all;
@@ -60,14 +62,18 @@ class _WatchBoxState extends State<Watchbox> {
     }
   }
 
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   final watchBox = Boxes.getWatches();
 
   @override
   Widget build(BuildContext context) {
-
-
-    // List<Watches> unsortedList = Boxes.getWatchesByFilter(collectionValue!);
-    // List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
+    analytics.setCurrentScreen(screenName: "watchbox");
 
     return Obx( ()=> Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -120,7 +126,11 @@ class _WatchBoxState extends State<Watchbox> {
                           child: DropdownButton<CollectionView>(
                             items: items.map(buildMenuItem).toList(),
                             value: collectionValue,
-                            onChanged: (value){
+                            onChanged: (value) async {
+                              analytics.logEvent(name: "change_watchbox_view",
+                              parameters: {
+                                "view" : collectionValue.toString()
+                              });
                               setState(() {
                                 collectionValue = value;
                               });
@@ -140,7 +150,8 @@ class _WatchBoxState extends State<Watchbox> {
                       borderRadius: const BorderRadius.all(Radius.circular(10))),
                   child: IconButton(
                     icon: const Icon(Icons.search),
-                    onPressed: (){
+                    onPressed: () async {
+                      analytics.logEvent(name: "search_called");
                       showSearch(
                         context: context,
                         delegate: SearchWidget(),
