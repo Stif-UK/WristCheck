@@ -13,7 +13,7 @@ class WristCheckLocalNotificationService{
   Future<void> initialize() async {
     tz.initializeTimeZones();
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings('@drawable/ic_stat_watch');
+    AndroidInitializationSettings('@mipmap/ic_launcher');
 
     DarwinInitializationSettings iosInitializationSettings =
         DarwinInitializationSettings(
@@ -71,6 +71,9 @@ class WristCheckLocalNotificationService{
     if(Platform.isIOS){
       await _getIOSNotificationPermissions();
     }
+    if(Platform.isAndroid){
+      await _getAndroidNotificationPermissions();
+    }
     //Create Datetime
     DateTime now = DateTime.now();
     DateTime tomorrow = now.add(const Duration(days: 1));
@@ -84,8 +87,8 @@ class WristCheckLocalNotificationService{
         body,
         tz.TZDateTime.from(notificationTime, tz.local),
         details,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         matchDateTimeComponents: DateTimeComponents.time
     );
   }
@@ -104,6 +107,13 @@ class WristCheckLocalNotificationService{
       alert: true,
       badge: true,
       sound: true,);
+  }
+
+  Future<void> _getAndroidNotificationPermissions() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()!.requestNotificationsPermission();
   }
 
   Future<void> cancelNotification(int id) async {
