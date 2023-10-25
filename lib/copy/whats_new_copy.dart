@@ -32,6 +32,7 @@ class WhatsNewCopy{
                       "* New 'Pre-Order' status added to watches allowing a countdown to release\n"
                       "* Option to bulk export watch images added, to simplify moving to a new device\n"
                       "* Implemented Crashlytics logging\n"
+                      "* Fixed bug preventing Version History from fully scrolling\n"
                       "--- \n\n"
 
                       "### Version 1.6 \n"
