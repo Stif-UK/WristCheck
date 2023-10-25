@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class AboutAppCopy{
 
 
   static Widget getAboutWristCheckCopy(){
-    return const Padding(
-      padding: EdgeInsets.all(12.0),
-      child: Text("WristCheck is a digital watch box application.\n\n"
-          "It provides the ability to track your current (and sold) watches, as well as to build a wishlist of those which you might like to purchase in the future.\n\n"
-          "You can use it to track service schedules for your mechanical watches and draw graphs of what you're wearing most.\n\n"
-          "Think it's missing something? Drop the developer a message or review via your favourite app store!"
-          ),
+    return Container(
+      child: const Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Markdown(
+          shrinkWrap: true,
+            data: "**WristCheck is a digital watch box application.**\n\n"
+                "It allows you to track your watch collection and generate charts and data insights.\n\n"
+                "*Key features:*\n"
+                "* Create watch records to record key details.\n"
+                "* Capture the value of bought and sold watches.\n"
+                "* Record what watches you're wearing and generate charts to understand your wear patterns.\n"
+                "* Save a wishlist of watches you'd like to buy.\n"
+                "* Track watch pre-orders and generate a countdown to release.\n\n"
+            "Think it's missing something? Drop the developer a message or review via your favourite app store!"
+            ),
+      ),
     );
   }
 
   static Widget getAboutDeveloperCopy(){
     return const Padding(
       padding: EdgeInsets.all(12.0),
-      child: Text("Who or what is a StifDEV? \n"
-          "\nStifDEV is simply the name I use to release my applications, essentially a 'nom de plume'. There's a long, and not very interesting, story behind the name,"
-          "but in short I'm just a guy who likes to play around with code in my spare time.\n"
-          "\nWith a busy full time job and young children my time to do so is limited, but hopefully I've managed to build an application that others will get some value from - if you do like the app, please consider leaving a review to let me know!"
+      child: Text("When I'm not working a busy full time job, or spending time with my young kids, I like to build apps as a hobby.\n\n"
+          "I'm a watch nerd so when I struggled to find an app that would replace the spreadsheet I was using to track my collection and what I was wearing, I decided to build my own!\n\n"
+          "If you'd like to know more you can follow me on Instagram where I post watch shots and app development updates as 'wristcheck.app'\n"
       ),
     );
   }

@@ -34,7 +34,7 @@ class AboutApp extends StatelessWidget{
             children: [
               AboutAppCopy.getAboutWristCheckCopy(),
             ],),
-            ExpansionTile(title: const Text("About StifDEV"),
+            ExpansionTile(title: const Text("About the Developer"),
               onExpansionChanged: (bool) async {
                 await analytics.logEvent(name: "about_stifdev_expanded",
                     parameters: {
