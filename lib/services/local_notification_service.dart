@@ -13,7 +13,7 @@ class WristCheckLocalNotificationService{
   Future<void> initialize() async {
     tz.initializeTimeZones();
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings('drawable/ic_stat_watch');
 
     DarwinInitializationSettings iosInitializationSettings =
         DarwinInitializationSettings(
