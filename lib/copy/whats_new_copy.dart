@@ -5,10 +5,12 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.6.2 \n"
+        "### Version 1.6.3 \n"
         "\n"
 
-        "* Fixed a bug leading to app crashing\n"
+        "* Updated Notifications code to support updated OS versions (you may need to reset your daily notification! See Settings > Daily Reminder)\n"
+            "* New 'Pre-Order' status added to watches allowing a countdown to release\n"
+            "* Option to bulk export watch images added, to simplify moving to a new device\n"
             "* Implemented Crashlytics logging\n";
 
   }
@@ -23,12 +25,15 @@ class WhatsNewCopy{
           physics: ClampingScrollPhysics(),
             data:
                 "## Latest Version:\n"
-                    "### Version 1.6.2 \n"
+                    "### Version 1.6.3 \n"
                     "\n"
 
-                    "* Fixed a bug leading to app crashing\n"
+                    "* Updated Notifications code to support latest OS versions (you may need to reset your daily notification: See Settings > Daily Reminder)\n"
+                    "* New 'Pre-Order' status added to watches allowing a countdown to release\n"
+                    "* Option to bulk export watch images added, to simplify moving to a new device\n"
                     "* Implemented Crashlytics logging\n"
                     "--- \n\n"
+
                     "### Version 1.6 \n"
                     "\n"
 
