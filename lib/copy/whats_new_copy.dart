@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.6.3 \n"
+        "### Version 1.6.4 \n"
         "\n"
 
         "* Updated Notifications code to support updated OS versions (you may need to reset your daily notification! See Settings > Daily Reminder)\n"
