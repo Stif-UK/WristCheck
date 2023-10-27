@@ -113,7 +113,7 @@ class WristCheckLocalNotificationService{
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()!.requestNotificationsPermission();
+        AndroidFlutterLocalNotificationsPlugin>()!.requestExactAlarmsPermission();
   }
 
   Future<void> cancelNotification(int id) async {
