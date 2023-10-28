@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -12,6 +13,8 @@ class WristCheckLocalNotificationService{
 
   Future<void> initialize() async {
     tz.initializeTimeZones();
+    final String timeZone = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZone));
     const AndroidInitializationSettings androidInitializationSettings =
     AndroidInitializationSettings('drawable/ic_stat_watch');
 
