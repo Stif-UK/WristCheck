@@ -25,7 +25,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.6.3 \n"
+                      "### Version 1.6.4 \n"
                       "\n"
 
                       "* Updated Notifications code to support latest OS versions (you may need to reset your daily notification: See Settings > Daily Reminder)\n"
