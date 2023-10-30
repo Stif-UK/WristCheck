@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
@@ -194,4 +195,36 @@ class Boxes {
 
     return returnList;
   }
+
+  static List<Watches> getWearChartLoadData() {
+    WearChartOptions option = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
+
+    var now = DateTime.now();
+    var lastMonth = DateTime(now.year, now.month-1);
+    List<Watches> returnValue = Boxes.getWatchesWornFilter(null, null);
+
+    switch (option){
+      case WearChartOptions.all:{
+        returnValue = Boxes.getWatchesWornFilter(null, null);
+      }
+      break;
+      case WearChartOptions.thisYear:{
+        returnValue = Boxes.getWatchesWornFilter(null, now.year);
+      }
+      break;
+      case WearChartOptions.thisMonth:{
+        returnValue = Boxes.getWatchesWornFilter(now.month, now.year);
+      }
+      break;
+      case WearChartOptions.lastMonth:{
+        returnValue = Boxes.getWatchesWornFilter(lastMonth.month, lastMonth.year);
+      }
+      break;
+      default:{
+        returnValue = Boxes.getWatchesWornFilter(null, null);
+      }
+    }
+    return returnValue;
+  }
+
 }

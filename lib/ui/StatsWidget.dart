@@ -8,6 +8,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
 import 'package:wristcheck/ui/wearStats.dart';
+import 'package:wristcheck/ui/wear_stats_v2.dart';
 
 import '../provider/adstate.dart';
 
@@ -73,7 +74,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                           fontSize: 30,
                         ),),
                       ),
-                      onPressed: (){ Get.to(() => WearStats());},
+                      onPressed: (){ Get.to(() => WearStatsV2());},
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
