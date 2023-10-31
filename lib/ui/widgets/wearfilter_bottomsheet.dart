@@ -7,27 +7,43 @@ import 'package:wristcheck/ui/chart_options.dart';
 
 class WearFilterBottomSheet extends StatefulWidget {
   WearFilterBottomSheet({Key? key}) : super(key: key);
-  //final wristCheckController = Get.put(WristCheckController());
 
   @override
   State<WearFilterBottomSheet> createState() => _WearFilterBottomSheetState();
 }
 
-class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> {
+class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with SingleTickerProviderStateMixin{
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
+  final List<Tab> myTabs = <Tab>[
+    Tab(
+      icon: Icon(FontAwesomeIcons.chartSimple),
+      text: "Basic" ,),
+    Tab(
+        icon: Icon(FontAwesomeIcons.magnifyingGlassChart),
+        text: "Advanced")
+  ];
+
+  late TabController _tabController;
 
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    _tabController = TabController(length: myTabs.length, vsync: this);
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "wearchart_bottomsheet");
 
-    //WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white38,
@@ -54,7 +70,53 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> {
                   }),
             ],
           ),
-          const Divider(thickness: 2,)
+          const Divider(thickness: 2,),
+          SizedBox(
+            height: 450,
+            //width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                TabBar(
+                  controller: _tabController,
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50), // Creates border
+                        color: Colors.blueGrey),
+                  tabs: myTabs
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: myTabs.map((Tab tab){
+                      return Center(
+                        child: tab.icon
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
+            )
+            // child: Scaffold(
+            //   backgroundColor: Colors.white38,
+            //   appBar: AppBar(
+            //     leading: const SizedBox(height: 0,),
+            //     flexibleSpace: const SizedBox(height: 0,),
+            //     title: const SizedBox(height: 0,),
+            //     // title: _tabController.index == 0? Text("Basic"): Text("Advanced"),
+            //     bottom: TabBar(
+            //       controller: _tabController,
+            //         tabs: myTabs
+            //     ),
+            //   ),
+            //   body: TabBarView(
+            //     controller: _tabController,
+            //       children: myTabs.map((Tab tab){
+            //         return Center(
+            //           child: tab.icon,
+            //         );
+            //       }).toList()
+            //   ),
+            // ),
+          )
           //Header#
           ]
       ),
