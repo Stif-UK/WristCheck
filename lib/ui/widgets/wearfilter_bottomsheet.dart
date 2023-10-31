@@ -18,10 +18,12 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   final List<Tab> myTabs = <Tab>[
     Tab(
       icon: Icon(FontAwesomeIcons.chartSimple),
-      text: "Basic" ,),
+      text: "Basic" ,
+      iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
         icon: Icon(FontAwesomeIcons.magnifyingGlassChart),
-        text: "Advanced")
+        text: "Advanced",
+        iconMargin: EdgeInsets.only(bottom: 5),)
   ];
 
   late TabController _tabController;
@@ -50,7 +52,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(15),
       ),
-      height: MediaQuery.of(context).size.height*0.65,
+      height: MediaQuery.of(context).size.height*0.8,
       padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -78,9 +80,11 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
               children: [
                 TabBar(
                   controller: _tabController,
+                    labelStyle: Theme.of(context).textTheme.bodyMedium,
+                    labelColor: Theme.of(context).textTheme.bodyMedium!.color,
                     indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(50), // Creates border
-                        color: Colors.blueGrey),
+                        color: Theme.of(context).highlightColor,),
                   tabs: myTabs
                 ),
                 Expanded(
@@ -95,27 +99,6 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 )
               ],
             )
-            // child: Scaffold(
-            //   backgroundColor: Colors.white38,
-            //   appBar: AppBar(
-            //     leading: const SizedBox(height: 0,),
-            //     flexibleSpace: const SizedBox(height: 0,),
-            //     title: const SizedBox(height: 0,),
-            //     // title: _tabController.index == 0? Text("Basic"): Text("Advanced"),
-            //     bottom: TabBar(
-            //       controller: _tabController,
-            //         tabs: myTabs
-            //     ),
-            //   ),
-            //   body: TabBarView(
-            //     controller: _tabController,
-            //       children: myTabs.map((Tab tab){
-            //         return Center(
-            //           child: tab.icon,
-            //         );
-            //       }).toList()
-            //   ),
-            // ),
           )
           //Header#
           ]
