@@ -112,7 +112,7 @@ class _WearStatsState extends State<WearStatsV2> {
     return Row(
       children: [
         Expanded(child: Padding(
-          padding: const EdgeInsets.fromLTRB(10,0,0,0),
+          padding: const EdgeInsets.only(left: 10),
           child: Text("Filter:",
             style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.left,
