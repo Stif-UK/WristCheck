@@ -92,7 +92,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                     controller: _tabController,
                     children: myTabs.map((Tab tab){
                       return Center(
-                        child: tab.icon
+                        child: tab.text == "Basic"? _buildBasicFilter(): _buildAdvancedFilter()
                       );
                     }).toList(),
                   ),
@@ -104,6 +104,22 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           ]
       ),
 
+    );
+  }
+
+  Widget _buildBasicFilter() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAdvancedFilter() {
+    return Center(
+      child: Text("Page 2"),
     );
   }
 }
