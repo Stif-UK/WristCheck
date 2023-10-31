@@ -2,11 +2,14 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 
 
 class WearFilterBottomSheet extends StatefulWidget {
   WearFilterBottomSheet({Key? key}) : super(key: key);
+  final filterController = Get.put(FilterController());
 
   @override
   State<WearFilterBottomSheet> createState() => _WearFilterBottomSheetState();
@@ -108,11 +111,47 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   }
 
   Widget _buildBasicFilter() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
 
-        ],
+    //WearChartOptions currentFilter = widget.filterController.basicWearFilter.value;
+
+    return SingleChildScrollView(
+      child: Obx(()=>
+        Column(
+          children: [
+            RadioListTile(
+                title: const Text("Show all"),
+                value: WearChartOptions.all,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
+            RadioListTile(
+                title: const Text("This Month"),
+                value: WearChartOptions.thisMonth,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
+            RadioListTile(
+                title: const Text("Last Month"),
+                value: WearChartOptions.lastMonth,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
+            RadioListTile(
+                title: const Text("This Year"),
+                value: WearChartOptions.thisYear,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
+          ],
+        ),
       ),
     );
   }

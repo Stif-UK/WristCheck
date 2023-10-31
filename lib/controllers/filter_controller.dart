@@ -1,20 +1,13 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
 
 class FilterController extends GetxController{
+  
+  final basicWearFilter = WearChartOptions.all.obs;
 
-  //filterName can be set to "All Time", "Year"
-  //ToDo: create enums
-  final filterName = "All Time".obs;
-
-updateFilterName(String name){
-    filterName(name);
-    print("Updating filterName to $name");
-    print("filterName is now $filterName");
-  }
-
-  getFilterName(){
-  print("Returning filterName: ${filterName.toString()}");
-  return filterName.toString();
+updateFilterName(WearChartOptions filter){
+    basicWearFilter(filter);
+    
   }
 
 }
