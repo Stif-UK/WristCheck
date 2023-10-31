@@ -14,6 +14,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:typed_data';
 import 'package:share_plus/share_plus.dart';
+import 'package:wristcheck/ui/widgets/wearfilter_bottomsheet.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
@@ -129,7 +130,15 @@ class _WearStatsState extends State<WearStatsV2> {
               ),
               child: InkWell(
                 //borderRadius: BorderRadius.circular(100.0),
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context){
+                        return WearFilterBottomSheet();
+                      }
+                  );
+                },
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Icon(
