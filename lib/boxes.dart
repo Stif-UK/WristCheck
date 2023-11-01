@@ -260,6 +260,10 @@ class Boxes {
         returnValue = Boxes.getRollingWatchesWornFilter(30);
       }
       break;
+      case WearChartOptions.last90days:{
+        returnValue = Boxes.getRollingWatchesWornFilter(90);
+      }
+      break;
       default:{
         returnValue = Boxes.getWatchesWornFilter(null, null);
       }

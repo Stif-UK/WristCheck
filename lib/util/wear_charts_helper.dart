@@ -23,6 +23,9 @@ class WearChartsHelper {
       case WearChartOptions.last30days:
         returnString = "Worn in last 30 days";
         break;
+      case WearChartOptions.last90days:
+        returnString = "Worn in last 90 days";
+        break;
     }
 
     return returnString;

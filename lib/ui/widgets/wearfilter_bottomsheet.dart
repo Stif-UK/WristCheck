@@ -174,13 +174,29 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 ),
               ],
             ),
-            RadioListTile(
-                title: const Text("Last 30 days"),
-                value: WearChartOptions.last30days,
-                groupValue: widget.filterController.basicWearFilter.value,
-                onChanged: (value) async {
-                  await widget.filterController.updateFilterName(value as WearChartOptions);
-                }
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("Last 30 days"),
+                      value: WearChartOptions.last30days,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("Last 90 days"),
+                      value: WearChartOptions.last90days,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+              ],
             ),
           ],
         ),
