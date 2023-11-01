@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 
@@ -111,9 +112,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   }
 
   Widget _buildBasicFilter() {
-
-    //WearChartOptions currentFilter = widget.filterController.basicWearFilter.value;
-
+    
     return SingleChildScrollView(
       child: Obx(()=>
         Column(
@@ -198,6 +197,20 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 ),
               ],
             ),
+            // Row(
+            //   children: [
+            //     Text("Month:"),
+            //     DropdownButton(
+            //       value: widget.filterController.selectedMonth.value,
+            //       items: MonthList.values.map((month) => DropdownMenuItem(
+            //         value: month,
+            //           child:Text(month.toString()) )).toList(),
+            //       onChanged: (month){
+            //         widget.filterController.updateSelectedMonth(month as MonthList);
+            //       },
+            //     )
+            //   ],
+            // )
           ],
         ),
       ),
