@@ -126,37 +126,53 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                   await widget.filterController.updateFilterName(value as WearChartOptions);
                 }
             ),
-            RadioListTile(
-                title: const Text("This Month"),
-                value: WearChartOptions.thisMonth,
-                groupValue: widget.filterController.basicWearFilter.value,
-                onChanged: (value) async {
-                  await widget.filterController.updateFilterName(value as WearChartOptions);
-                }
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("This Month"),
+                      value: WearChartOptions.thisMonth,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("Last Month"),
+                      value: WearChartOptions.lastMonth,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+              ],
             ),
-            RadioListTile(
-                title: const Text("Last Month"),
-                value: WearChartOptions.lastMonth,
-                groupValue: widget.filterController.basicWearFilter.value,
-                onChanged: (value) async {
-                  await widget.filterController.updateFilterName(value as WearChartOptions);
-                }
-            ),
-            RadioListTile(
-                title: const Text("This Year"),
-                value: WearChartOptions.thisYear,
-                groupValue: widget.filterController.basicWearFilter.value,
-                onChanged: (value) async {
-                  await widget.filterController.updateFilterName(value as WearChartOptions);
-                }
-            ),
-            RadioListTile(
-                title: const Text("Last Year"),
-                value: WearChartOptions.lastYear,
-                groupValue: widget.filterController.basicWearFilter.value,
-                onChanged: (value) async {
-                  await widget.filterController.updateFilterName(value as WearChartOptions);
-                }
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("This Year"),
+                      value: WearChartOptions.thisYear,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile(
+                      title: const Text("Last Year"),
+                      value: WearChartOptions.lastYear,
+                      groupValue: widget.filterController.basicWearFilter.value,
+                      onChanged: (value) async {
+                        await widget.filterController.updateFilterName(value as WearChartOptions);
+                      }
+                  ),
+                ),
+              ],
             ),
           ],
         ),
