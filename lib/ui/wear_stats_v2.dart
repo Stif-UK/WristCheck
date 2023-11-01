@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -15,12 +16,14 @@ import 'package:screenshot/screenshot.dart';
 import 'dart:typed_data';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/ui/widgets/wearfilter_bottomsheet.dart';
+import 'package:wristcheck/util/wear_charts_helper.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
 class WearStatsV2 extends StatefulWidget {
   WearStatsV2({Key? key}) : super(key: key);
   final wristCheckController = Get.put(WristCheckController());
+  final filterController = Get.put(FilterController());
 
   @override
   State<WearStatsV2> createState() => _WearStatsState();
@@ -37,6 +40,8 @@ class _WearStatsState extends State<WearStatsV2> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    //when the page is loaded, ensure the filter is set to the requested default - removing as unnecessary - remembering state for a session is fine
+    //widget.filterController.updateFilterName(WristCheckPreferences.getWearChartOptions());
     super.initState();
   }
 
@@ -111,11 +116,18 @@ class _WearStatsState extends State<WearStatsV2> {
   Widget _buildFilterRow(BuildContext context){
     return Row(
       children: [
-        Expanded(child: Padding(
+        Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Text("Filter:",
             style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.left,
+          ),
+        ),
+        Expanded(child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Obx(()=> Text(WearChartsHelper.getBasicFilterHeaderText(widget.filterController.basicWearFilter.value),
+            style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
         )),
         Padding(

@@ -147,7 +147,7 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyDailyRemindersPrompt, hasSeenRemindersPrompt);
 
   //Getter and setter for wear chart options
-  static WearChartOptions? getWearChartOptions() {
+  static WearChartOptions getWearChartOptions() {
     String? value = _preferences.getString(_keyWearChartOptions);
     WearChartOptions returnValue;
     switch (value){
