@@ -196,8 +196,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData() {
-    WearChartOptions option = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
+  static List<Watches> getWearChartLoadData(WearChartOptions option) {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);

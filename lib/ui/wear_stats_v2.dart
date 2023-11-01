@@ -34,7 +34,7 @@ class _WearStatsState extends State<WearStatsV2> {
 
 
   ScreenshotController screenshotController = ScreenshotController();
-  List<Watches> data = Boxes.getWearChartLoadData();
+  //List<Watches> data = Boxes.getWearChartLoadData();
 
 
   @override
@@ -94,10 +94,12 @@ class _WearStatsState extends State<WearStatsV2> {
             children: [
               _buildFilterRow(context),
               // const SizedBox(height: 10),
-              Expanded(
-                  flex: 7,
-                  //Switch between a bar chart and pie chart with the press of a button
-                  child: barChart? WearChart(data: data, animate: true) : WearPieChart(data: data, animate: true)),
+              Obx(
+                  ()=> Expanded(
+                    flex: 7,
+                    //Switch between a bar chart and pie chart with the press of a button
+                    child: barChart? WearChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value), animate: true) : WearPieChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value), animate: true)),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
