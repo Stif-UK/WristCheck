@@ -6,6 +6,7 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 class WearFilterBottomSheet extends StatefulWidget {
@@ -112,7 +113,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   }
 
   Widget _buildBasicFilter() {
-    
+
     return SingleChildScrollView(
       child: Obx(()=>
         Column(
@@ -197,20 +198,34 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 ),
               ],
             ),
-            // Row(
-            //   children: [
-            //     Text("Month:"),
-            //     DropdownButton(
-            //       value: widget.filterController.selectedMonth.value,
-            //       items: MonthList.values.map((month) => DropdownMenuItem(
-            //         value: month,
-            //           child:Text(month.toString()) )).toList(),
-            //       onChanged: (month){
-            //         widget.filterController.updateSelectedMonth(month as MonthList);
-            //       },
-            //     )
-            //   ],
-            // )
+            RadioListTile(
+                title: const Text("Select Month/Year"),
+                value: WearChartOptions.manual,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
+            widget.filterController.basicWearFilter.value == WearChartOptions.manual? Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Text("Month:", style: Theme.of(context).textTheme.bodyLarge,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: DropdownButton(
+                    value: widget.filterController.selectedMonth.value,
+                    items: MonthList.values.map((month) => DropdownMenuItem(
+                      value: month,
+                        child:Text(WristCheckFormatter.getMonthText(month),) )).toList(),
+                    onChanged: (month){
+                      widget.filterController.updateSelectedMonth(month as MonthList);
+                    },
+                  ),
+                )
+              ],
+            ): const SizedBox(height: 0,)
           ],
         ),
       ),

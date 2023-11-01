@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/location.dart';
+import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 
 class WristCheckFormatter{
@@ -305,6 +306,102 @@ class WristCheckFormatter{
     }
 
     return returnString;
+}
+
+static String getMonthText(MonthList month){
+    String returnText = "";
+
+    switch(month) {
+      case MonthList.all:
+        returnText = "All";
+        break;
+      case MonthList.january:
+        returnText = "January";
+        break;
+      case MonthList.february:
+        returnText = "February";
+        break;
+      case MonthList.march:
+        returnText = "March";
+        break;
+      case MonthList.april:
+        returnText = "April";
+        break;
+      case MonthList.may:
+        returnText = "May";
+        break;
+      case MonthList.june:
+        returnText = "June";
+        break;
+      case MonthList.july:
+        returnText = "July";
+        break;
+      case MonthList.august:
+        returnText = "August";
+        break;
+      case MonthList.september:
+        returnText = "September";
+        break;
+      case MonthList.october:
+        returnText = "October";
+        break;
+      case MonthList.november:
+        returnText = "November";
+        break;
+      case MonthList.december:
+        returnText = "December";
+        break;
+    }
+
+    return returnText;
+}
+
+static int? getMonthInt(MonthList month){
+    int? returnValue = null;
+
+    switch(month) {
+      case MonthList.all:
+        returnValue = null;
+        break;
+      case MonthList.january:
+        returnValue = 1;
+        break;
+      case MonthList.february:
+        returnValue = 2;
+        break;
+      case MonthList.march:
+        returnValue = 3;
+        break;
+      case MonthList.april:
+        returnValue = 4;
+        break;
+      case MonthList.may:
+        returnValue = 5;
+        break;
+      case MonthList.june:
+        returnValue = 6;
+        break;
+      case MonthList.july:
+        returnValue = 7;
+        break;
+      case MonthList.august:
+        returnValue = 8;
+        break;
+      case MonthList.september:
+        returnValue = 9;
+        break;
+      case MonthList.october:
+        returnValue = 10;
+        break;
+      case MonthList.november:
+        returnValue = 11;
+        break;
+      case MonthList.december:
+        returnValue = 12;
+        break;
+    }
+
+    return returnValue;
 }
 
 static String getCurrencyValue(String locale, int price, int? digits){

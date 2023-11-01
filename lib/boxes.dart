@@ -1,11 +1,14 @@
 import 'dart:math';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Boxes {
   // static Box<Watches> getWatches() =>
@@ -262,6 +265,12 @@ class Boxes {
       break;
       case WearChartOptions.last90days:{
         returnValue = Boxes.getRollingWatchesWornFilter(90);
+      }
+      break;
+      case WearChartOptions.manual:{
+        var controller = Get.put(FilterController());
+        int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
+        returnValue = Boxes.getWatchesWornFilter(monthInt, null);
       }
       break;
       default:{
