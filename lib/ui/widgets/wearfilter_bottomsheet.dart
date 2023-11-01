@@ -150,6 +150,14 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                   await widget.filterController.updateFilterName(value as WearChartOptions);
                 }
             ),
+            RadioListTile(
+                title: const Text("Last Year"),
+                value: WearChartOptions.lastYear,
+                groupValue: widget.filterController.basicWearFilter.value,
+                onChanged: (value) async {
+                  await widget.filterController.updateFilterName(value as WearChartOptions);
+                }
+            ),
           ],
         ),
       ),

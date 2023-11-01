@@ -211,6 +211,10 @@ class Boxes {
         returnValue = Boxes.getWatchesWornFilter(null, now.year);
       }
       break;
+      case WearChartOptions.lastYear:{
+        returnValue = Boxes.getWatchesWornFilter(null, now.year-1);
+      }
+      break;
       case WearChartOptions.thisMonth:{
         returnValue = Boxes.getWatchesWornFilter(now.month, now.year);
       }

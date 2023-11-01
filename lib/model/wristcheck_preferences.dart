@@ -159,6 +159,10 @@ class WristCheckPreferences {
         returnValue = WearChartOptions.thisYear;
       }
       break;
+      case "WearChartOptions.lastYear":{
+        returnValue = WearChartOptions.lastYear;
+      }
+      break;
       case "WearChartOptions.thisMonth":{
         returnValue = WearChartOptions.thisMonth;
       }
