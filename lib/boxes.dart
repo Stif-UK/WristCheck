@@ -135,12 +135,38 @@ class Boxes {
           watch.filteredWearList!.removeWhere((date) => date.month != month);
         }
       }
-    //finally we return this result
-      for (var watch in returnList) {
-    }
 
       //finally before returning, sort the list if required
       returnList = Boxes.sortWearChart(returnList);
+    return returnList;
+
+  }
+
+  static List<Watches> getRollingWatchesWornFilter(int days){
+    //start by making the return list the whole box
+    var returnList = Hive.box<Watches>("WatchBox").values.toList();
+    DateTime now = DateTime.now();
+    //Zero the filter list for all watches
+    for(var watch in returnList){
+      watch.filteredWearList = [];
+    }
+
+    //Start by reducing the returnlist to those watches which match the criteria
+    returnList = returnList.where((watch) => watch.wearList.any((element) => now.difference(element).inDays < days)).toList();
+
+    //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable - this drives the chart display
+    //To begin we make sure that the filteredWearList is instantiated with the full list of dates
+    for (var watch in returnList) {
+      watch.filteredWearList = List.from(watch.wearList);
+    }
+    //We then trim the dates
+      for (var watch in returnList) {
+        //instantiate an empty list in the watches filteredWearList variable
+        watch.filteredWearList!.removeWhere((date) => now.difference(date).inDays >= days);
+      }
+
+    //finally before returning, sort the list if required
+    returnList = Boxes.sortWearChart(returnList);
     return returnList;
 
   }
@@ -228,6 +254,10 @@ class Boxes {
       break;
       case WearChartOptions.lastMonth:{
         returnValue = Boxes.getWatchesWornFilter(lastMonth.month, lastMonth.year);
+      }
+      break;
+      case WearChartOptions.last30days:{
+        returnValue = Boxes.getRollingWatchesWornFilter(30);
       }
       break;
       default:{

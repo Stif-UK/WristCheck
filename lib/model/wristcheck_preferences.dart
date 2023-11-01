@@ -171,6 +171,10 @@ class WristCheckPreferences {
         returnValue = WearChartOptions.lastMonth;
       }
       break;
+      case "WearChartOptions.last30days":{
+        returnValue = WearChartOptions.last30days;
+      }
+      break;
       default:{
         returnValue = WearChartOptions.all;
       }

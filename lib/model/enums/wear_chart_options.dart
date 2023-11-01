@@ -1,1 +1,1 @@
-enum WearChartOptions {all, thisYear,lastYear, thisMonth, lastMonth}
+enum WearChartOptions {all, thisYear,lastYear, thisMonth, lastMonth, last30days}
