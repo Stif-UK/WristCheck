@@ -132,7 +132,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                       ),
                     ],
                   ),
-                  const Divider(height: 2,),
+                  const Divider(thickness: 2,),
                   ExpansionTile(
                     title: const Text("Wear Stats results order"),
                     leading: const Icon(Icons.bar_chart_rounded),
@@ -183,7 +183,7 @@ class _ChartOptionsState extends State<ChartOptions> {
 
                     ],
                   ),
-                  const Divider(height: 2,),
+                  const Divider(thickness: 2,),
                   ExpansionTile(
                       title: const Text("Default chart type"),
                     leading: const Icon(Icons.pie_chart),
@@ -218,7 +218,8 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  const Divider(thickness: 2,)
                 ],
               ),
             ),
