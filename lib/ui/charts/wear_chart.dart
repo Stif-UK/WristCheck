@@ -30,9 +30,9 @@ class _WearChartState extends State<WearChart> {
       series: <BarSeries<Watches, String>>[
         BarSeries(
             dataSource: widget.data,
-          xValueMapper: (Watches series, _) => series.filteredWearList!.isEmpty? null: series.model, //adding this conditional removes lines that are zero!
+          xValueMapper: (Watches series, _) => series.filteredWearList!.isEmpty? null: (series.manufacturer+series.model), //adding this conditional removes lines that are zero!
           yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
-          dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.model}: ${watch.wearList.length}":"${watch.model}: ${watch.filteredWearList!.length}",
+          dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.manufacturer} ${watch.model}: ${watch.wearList.length}":"${watch.manufacturer} ${watch.model}: ${watch.filteredWearList!.length}",
           dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
 
           // animationDuration: 0 Set to zero to stop it animating!
