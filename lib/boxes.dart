@@ -270,7 +270,8 @@ class Boxes {
       case WearChartOptions.manual:{
         var controller = Get.put(FilterController());
         int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
-        returnValue = Boxes.getWatchesWornFilter(monthInt, null);
+        int? yearInt = controller.selectedYear.value == "All"? null : int.parse(controller.selectedYear.value);
+        returnValue = Boxes.getWatchesWornFilter(monthInt, yearInt);
       }
       break;
       default:{

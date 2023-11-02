@@ -40,8 +40,7 @@ class _WearStatsState extends State<WearStatsV2> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
-    //when the page is loaded, ensure the filter is set to the requested default - removing as unnecessary - remembering state for a session is fine
-    //widget.filterController.updateFilterName(WristCheckPreferences.getWearChartOptions());
+    widget.filterController.populateYearList();
     super.initState();
   }
 

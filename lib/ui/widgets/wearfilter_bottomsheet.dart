@@ -225,6 +225,26 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                   ),
                 )
               ],
+            ): const SizedBox(height: 0,),
+            widget.filterController.basicWearFilter.value == WearChartOptions.manual? Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Text("Year:", style: Theme.of(context).textTheme.bodyLarge,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: DropdownButton(
+                    value: widget.filterController.selectedYear.value,
+                    items: widget.filterController.yearList.map((year) => DropdownMenuItem(
+                        value: year,
+                        child:Text(year) )).toList(),
+                    onChanged: (year){
+                      widget.filterController.updateSelectedYear(year as String);
+                    },
+                  ),
+                )
+              ],
             ): const SizedBox(height: 0,)
           ],
         ),
