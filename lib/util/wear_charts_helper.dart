@@ -35,7 +35,9 @@ class WearChartsHelper {
         var yearValue = controller.selectedYear.value;
         if(monthValue != "All" && yearValue != "All"){
           returnString = "$monthValue $yearValue";
-        } else if(monthValue == "All"){
+        } else if(monthValue == "All" && yearValue == "All"){
+          returnString = "All Data";
+        }else if(monthValue == "All"){
           returnString = "Year: $yearValue";
         } else {
           returnString = "Month: $monthValue";
