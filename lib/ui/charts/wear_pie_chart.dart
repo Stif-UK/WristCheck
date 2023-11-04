@@ -3,7 +3,6 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class WearPieChart extends StatelessWidget {
-  // const WearChart({Key? key}) : super(key: key);
 
   //Create data for the chart - we need a list of watch objects and wear counts
   final List<Watches> data;
@@ -14,8 +13,16 @@ class WearPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int dataSize = data.length;
 
-    return SfCircularChart(
+    return dataSize == 0? Center(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text("No data available for the chosen filter",
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,),
+      ),
+    ): SfCircularChart(
         series: <PieSeries<Watches, String>>[
           PieSeries<Watches, String>(
               dataSource:  data,

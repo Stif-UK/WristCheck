@@ -4,7 +4,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 class WearChart extends StatefulWidget {
-  // const WearChart({Key? key}) : super(key: key);
 
   //Create data for the chart - we need a list of watch objects and wear counts
   final List<Watches> data;
@@ -21,8 +20,16 @@ class WearChart extends StatefulWidget {
 class _WearChartState extends State<WearChart> {
   @override
   Widget build(BuildContext context) {
+    int dataSize = widget.data.length;
 
-    return SfCartesianChart(
+    return dataSize == 0? Center(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text("No data available for the chosen filter",
+          style: Theme.of(context).textTheme.titleLarge,
+        textAlign: TextAlign.center,),
+      ),
+    ): SfCartesianChart(
       primaryXAxis: CategoryAxis(
         isVisible: false,
       ),
