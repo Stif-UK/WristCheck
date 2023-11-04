@@ -47,4 +47,18 @@ class WearChartsHelper {
 
     return returnString;
   }
+
+  static String getAdvancedFilterHeaderText(bool showSold, bool showArchived){
+
+    String returnText = "";
+    if(showSold){
+      returnText = "$returnText inc. Sold, ";
+    }
+    if(showArchived){
+      returnText = "$returnText inc. Archived, ";
+    }
+    returnText = returnText.trim();
+
+    return returnText.substring(0, returnText.length-1);
+  }
 }

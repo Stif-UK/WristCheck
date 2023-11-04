@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,13 @@ class _WearStatsState extends State<WearStatsV2> {
     );
   }
 
+  bool get _showAdvanced {
+    return widget.filterController.includeSold.value ||
+        widget.filterController.includeArchived.value;
+  }
+
   Widget _buildFilterRow(BuildContext context){
+
     return Row(
       children: [
         Padding(
@@ -126,9 +133,23 @@ class _WearStatsState extends State<WearStatsV2> {
         ),
         Expanded(child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Obx(()=> Text(WearChartsHelper.getBasicFilterHeaderText(widget.filterController.basicWearFilter.value),
-            style: Theme.of(context).textTheme.titleLarge,
-            ),
+          child: Obx(()=> Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(WearChartsHelper.getBasicFilterHeaderText(widget.filterController.basicWearFilter.value),
+                style: Theme.of(context).textTheme.titleLarge,
+                ),
+              _showAdvanced? Obx(
+                ()=> Text(WearChartsHelper.getAdvancedFilterHeaderText(
+                  widget.filterController.includeSold.value,
+                  widget.filterController.includeArchived.value,
+                ),style: TextStyle(
+                  color: Colors.red
+                ),),
+              ): const SizedBox(height: 0,),
+
+            ],
+          ),
           ),
         )),
         Padding(
