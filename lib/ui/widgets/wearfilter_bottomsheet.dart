@@ -253,8 +253,28 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   }
 
   Widget _buildAdvancedFilter() {
-    return Center(
-      child: Text("Page 2"),
+    // return Center(
+    //   child: Text("Page 2"),
+    // );
+    return ListView(
+      children: [
+        Obx(()=> SwitchListTile(
+            title: Text("Include Sold Watches"),
+            value: widget.filterController.includeSold.value ,
+            onChanged: (newValue){
+              widget.filterController.updateIncludeSold(newValue);
+            },
+          ),
+        ),
+        Obx(()=> SwitchListTile(
+            title: Text("Include Archived Watches"),
+            value: widget.filterController.includeArchived.value ,
+            onChanged: (newValue){
+              widget.filterController.updateIncludeArchived(newValue);
+            },
+          ),
+        )
+      ],
     );
   }
 }
