@@ -14,6 +14,7 @@ class FilterController extends GetxController{
   final includeCollection = true.obs;
   final includeSold = false.obs;
   final includeArchived = false.obs;
+  final filterByCategory = false.obs;
 
   List<String> yearList = ["All"];
 
@@ -21,6 +22,7 @@ class FilterController extends GetxController{
     includeCollection(true);
     includeSold(false);
     includeArchived(false);
+    filterByCategory(false);
   }
 
   updateFilterName(WearChartOptions filter){
@@ -45,6 +47,10 @@ class FilterController extends GetxController{
 
   updateIncludeArchived(bool showArchived){
     includeArchived(showArchived);
+  }
+
+  updateFilterByCategory(bool byCategory){
+    filterByCategory(byCategory);
   }
 
   populateYearList(){

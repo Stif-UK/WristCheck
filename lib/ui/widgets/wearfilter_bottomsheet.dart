@@ -295,6 +295,17 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           ),
         ),
         const Divider(thickness: 2,),
+        Obx(()=> SwitchListTile(
+          title: Text("Filter by Category"),
+          value: widget.filterController.filterByCategory.value,
+          onChanged: (newValue){
+            widget.filterController.updateFilterByCategory(newValue);
+          },
+        )
+        ),
+        const Divider(thickness: 2,),
+        Obx(() => widget.filterController.filterByCategory.value? Text("category chips here!"): const SizedBox(height: 0,),),
+        Obx(() => widget.filterController.filterByCategory.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
       ],
     );
   }
