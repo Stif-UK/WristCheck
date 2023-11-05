@@ -17,6 +17,12 @@ class FilterController extends GetxController{
 
   List<String> yearList = ["All"];
 
+  resetToDefaults(){
+    includeCollection(true);
+    includeSold(false);
+    includeArchived(false);
+  }
+
   updateFilterName(WearChartOptions filter){
     basicWearFilter(filter);
   }

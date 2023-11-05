@@ -258,6 +258,15 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
     // );
     return ListView(
       children: [
+        ListTile(
+          title: Text("Reset to Defaults"),
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: Icon(FontAwesomeIcons.filterCircleXmark),
+          ),
+          onTap: () => widget.filterController.resetToDefaults(),
+        ),
+        const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
           title: Text("Include Current Collection"),
           value: widget.filterController.includeCollection.value,
