@@ -258,6 +258,15 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
     // );
     return ListView(
       children: [
+        Obx(()=> SwitchListTile(
+          title: Text("Include Current Collection"),
+          value: widget.filterController.includeCollection.value,
+          onChanged: (newValue){
+            widget.filterController.updateIncludeCollection(newValue);
+          },
+        )
+
+        ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
             title: Text("Include Sold Watches"),
@@ -275,7 +284,8 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
               widget.filterController.updateIncludeArchived(newValue);
             },
           ),
-        )
+        ),
+        const Divider(thickness: 2,),
       ],
     );
   }

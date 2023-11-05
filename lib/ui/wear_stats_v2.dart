@@ -116,7 +116,7 @@ class _WearStatsState extends State<WearStatsV2> {
   }
 
   bool get _showAdvanced {
-    return widget.filterController.includeSold.value ||
+    return !widget.filterController.includeCollection.value || widget.filterController.includeSold.value ||
         widget.filterController.includeArchived.value;
   }
 
@@ -141,6 +141,7 @@ class _WearStatsState extends State<WearStatsV2> {
                 ),
               _showAdvanced? Obx(
                 ()=> Text(WearChartsHelper.getAdvancedFilterHeaderText(
+                  widget.filterController.includeCollection.value,
                   widget.filterController.includeSold.value,
                   widget.filterController.includeArchived.value,
                 ),style: TextStyle(

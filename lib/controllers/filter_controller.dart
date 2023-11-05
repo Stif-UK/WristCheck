@@ -11,6 +11,7 @@ class FilterController extends GetxController{
 
   final selectedMonth = MonthList.all.obs;
   final selectedYear = "All".obs;
+  final includeCollection = true.obs;
   final includeSold = false.obs;
   final includeArchived = false.obs;
 
@@ -26,6 +27,10 @@ class FilterController extends GetxController{
 
   updateSelectedYear(String year){
     selectedYear(year);
+  }
+
+  updateIncludeCollection(bool showCollection){
+    includeCollection(showCollection);
   }
 
   updateIncludeSold(bool showSold){

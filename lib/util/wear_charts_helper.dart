@@ -48,9 +48,12 @@ class WearChartsHelper {
     return returnString;
   }
 
-  static String getAdvancedFilterHeaderText(bool showSold, bool showArchived){
+  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived){
 
     String returnText = "";
+    if(!showCollection){
+      returnText = "$returnText hide Collection, ";
+    }
     if(showSold){
       returnText = "$returnText inc. Sold, ";
     }
