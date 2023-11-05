@@ -232,11 +232,21 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option) {
+  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived) {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
-    List<Watches> initialList = Hive.box<Watches>("WatchBox").values.toList();
+    //Populate the initial list based on settings chosen
+    List<Watches> initialList = [];
+    if(incCollection){
+      initialList.addAll(Boxes.getCollectionWatches());
+    }
+    if(incSold){
+      initialList.addAll(Boxes.getSoldWatches());
+    }
+    if(incArchived){
+      initialList.addAll(Boxes.getArchivedWatches());
+    }
     List<Watches> returnValue = initialList;
 
 

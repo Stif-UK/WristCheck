@@ -98,7 +98,14 @@ class _WearStatsState extends State<WearStatsV2> {
                   ()=> Expanded(
                     flex: 7,
                     //Switch between a bar chart and pie chart with the press of a button
-                    child: barChart? WearChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value), animate: true) : WearPieChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value), animate: true)),
+                    child: barChart? WearChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
+                    widget.filterController.includeCollection.value,
+                    widget.filterController.includeSold.value,
+                    widget.filterController.includeArchived.value), animate: true) :
+                    WearPieChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
+                        widget.filterController.includeCollection.value,
+                        widget.filterController.includeSold.value,
+                        widget.filterController.includeArchived.value), animate: true)),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
