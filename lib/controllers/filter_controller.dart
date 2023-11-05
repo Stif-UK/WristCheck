@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -15,6 +16,7 @@ class FilterController extends GetxController{
   final includeSold = false.obs;
   final includeArchived = false.obs;
   final filterByCategory = false.obs;
+  final selectedCategories = <CategoryEnum>[].obs;
 
   List<String> yearList = ["All"];
 
@@ -23,6 +25,11 @@ class FilterController extends GetxController{
     includeSold(false);
     includeArchived(false);
     filterByCategory(false);
+    selectedCategories([]);
+  }
+
+  updateSelectedCategories(List<CategoryEnum> pickedCategories){
+    selectedCategories(pickedCategories);
   }
 
   updateFilterName(WearChartOptions filter){

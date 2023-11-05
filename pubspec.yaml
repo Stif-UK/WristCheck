@@ -67,6 +67,7 @@ dependencies:
   firebase_crashlytics: ^3.3.7
   firebase_analytics: ^10.6.1
   flutter_timezone: ^1.0.8
+  choice: ^2.3.0
 
 dependency_overrides:
   watcher: ^1.1.0

@@ -1,8 +1,10 @@
+import 'package:choice/choice.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
@@ -304,8 +306,37 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         )
         ),
         const Divider(thickness: 2,),
-        Obx(() => widget.filterController.filterByCategory.value? Text("category chips here!"): const SizedBox(height: 0,),),
+        Obx(() => widget.filterController.filterByCategory.value? _buildCategorySelection() : const SizedBox(height: 0,),),
         Obx(() => widget.filterController.filterByCategory.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
+      ],
+    );
+  }
+  
+  Widget _buildCategorySelection(){
+
+    void setSelectedValue(List<CategoryEnum> value) {
+      widget.filterController.updateSelectedCategories(value);
+    }
+
+    return Column(
+      children: [
+        InlineChoice<CategoryEnum>.multiple(
+          clearable: true,
+            value: widget.filterController.selectedCategories.value,
+            itemCount: CategoryEnum.values.length,
+            onChanged: setSelectedValue,
+            itemBuilder: (state, i) {
+              return ChoiceChip(
+                selectedColor: Colors.red,
+                selected: state.selected(CategoryEnum.values[i]),
+                onSelected: state.onSelected(CategoryEnum.values[i]),
+                label: Text(CategoryEnum.values[i].name),
+        );
+      },
+      listBuilder: ChoiceList.createWrapped(
+
+      ),
+        )
       ],
     );
   }
