@@ -102,9 +102,9 @@ class Boxes {
     return returnList;
   }
   
-  static List<Watches> getWatchesWornFilter(int? month, int? year){
+  static List<Watches> getWatchesWornFilter(List<Watches> initialList, int? month, int? year){
     //start by making the return list the whole box
-      var returnList = Hive.box<Watches>("WatchBox").values.toList();
+      var returnList = initialList;
       //Zero the filter list for all watches
       for(var watch in returnList){
         watch.filteredWearList = [];
@@ -145,9 +145,9 @@ class Boxes {
 
   }
 
-  static List<Watches> getRollingWatchesWornFilter(int days){
+  static List<Watches> getRollingWatchesWornFilter(List<Watches> initialList, int days){
     //start by making the return list the whole box
-    var returnList = Hive.box<Watches>("WatchBox").values.toList();
+    var returnList = initialList;//Hive.box<Watches>("WatchBox").values.toList();
     DateTime now = DateTime.now();
     //Zero the filter list for all watches
     for(var watch in returnList){
@@ -236,46 +236,48 @@ class Boxes {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
-    List<Watches> returnValue = Boxes.getWatchesWornFilter(null, null);
+    List<Watches> initialList = Hive.box<Watches>("WatchBox").values.toList();
+    List<Watches> returnValue = initialList;
+
 
     switch (option){
       case WearChartOptions.all:{
-        returnValue = Boxes.getWatchesWornFilter(null, null);
+        returnValue = Boxes.getWatchesWornFilter(initialList, null, null);
       }
       break;
       case WearChartOptions.thisYear:{
-        returnValue = Boxes.getWatchesWornFilter(null, now.year);
+        returnValue = Boxes.getWatchesWornFilter(initialList, null, now.year);
       }
       break;
       case WearChartOptions.lastYear:{
-        returnValue = Boxes.getWatchesWornFilter(null, now.year-1);
+        returnValue = Boxes.getWatchesWornFilter(initialList, null, now.year-1);
       }
       break;
       case WearChartOptions.thisMonth:{
-        returnValue = Boxes.getWatchesWornFilter(now.month, now.year);
+        returnValue = Boxes.getWatchesWornFilter(initialList, now.month, now.year);
       }
       break;
       case WearChartOptions.lastMonth:{
-        returnValue = Boxes.getWatchesWornFilter(lastMonth.month, lastMonth.year);
+        returnValue = Boxes.getWatchesWornFilter(initialList, lastMonth.month, lastMonth.year);
       }
       break;
       case WearChartOptions.last30days:{
-        returnValue = Boxes.getRollingWatchesWornFilter(30);
+        returnValue = Boxes.getRollingWatchesWornFilter(initialList, 30);
       }
       break;
       case WearChartOptions.last90days:{
-        returnValue = Boxes.getRollingWatchesWornFilter(90);
+        returnValue = Boxes.getRollingWatchesWornFilter(initialList, 90);
       }
       break;
       case WearChartOptions.manual:{
         var controller = Get.put(FilterController());
         int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
         int? yearInt = controller.selectedYear.value == "All"? null : int.parse(controller.selectedYear.value);
-        returnValue = Boxes.getWatchesWornFilter(monthInt, yearInt);
+        returnValue = Boxes.getWatchesWornFilter(initialList, monthInt, yearInt);
       }
       break;
       default:{
-        returnValue = Boxes.getWatchesWornFilter(null, null);
+        returnValue = Boxes.getWatchesWornFilter(initialList, null, null);
       }
     }
     return returnValue;

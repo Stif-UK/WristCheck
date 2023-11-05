@@ -7,7 +7,6 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
-import 'package:wristcheck/ui/wearStats.dart';
 import 'package:wristcheck/ui/wear_stats_v2.dart';
 
 import '../provider/adstate.dart';
