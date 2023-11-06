@@ -82,8 +82,8 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
             ],
           ),
           const Divider(thickness: 2,),
-          SizedBox(
-            height: 450,
+          Expanded(
+            //height: 550,
             //width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
@@ -271,13 +271,14 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           onTap: () => widget.filterController.resetToDefaults(),
         ),
         const Divider(thickness: 2,),
-        SwitchListTile(
-          title: Text("Chart Grouping"),
-          value: widget.filterController.pickGrouping.value,
-          onChanged: (newValue){
-            widget.filterController.updatePickGrouping(newValue);
-          },
+        Obx(()=> SwitchListTile(
+            title: Text("Chart Grouping"),
+            value: widget.filterController.pickGrouping.value,
+            onChanged: (newValue){
+              widget.filterController.updatePickGrouping(newValue);
+            },
 
+          ),
         ),
         Obx(() => widget.filterController.pickGrouping.value? _buildGroupingSelection(): const SizedBox(height: 0,)),
         const Divider(thickness: 2,),
