@@ -1,1 +1,1 @@
-enum ChartGrouping {make, movement, category}
+enum ChartGrouping {watch, movement, category}

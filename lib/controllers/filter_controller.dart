@@ -17,8 +17,9 @@ class FilterController extends GetxController{
   final includeSold = false.obs;
   final includeArchived = false.obs;
   final filterByCategory = false.obs;
+  final pickGrouping = false.obs;
   final selectedCategories = <CategoryEnum>[].obs;
-  final chartGrouping = ChartGrouping.make.obs;
+  final chartGrouping = ChartGrouping.watch.obs;
 
   List<String> yearList = ["All"];
 
@@ -28,11 +29,16 @@ class FilterController extends GetxController{
     includeArchived(false);
     filterByCategory(false);
     selectedCategories([]);
-    chartGrouping(ChartGrouping.make);
+    chartGrouping(ChartGrouping.watch);
+    pickGrouping(false);
   }
 
   updateChartGrouping(ChartGrouping grouping){
     chartGrouping(grouping);
+  }
+
+  updatePickGrouping(bool pick){
+    pickGrouping(pick);
   }
 
   updateSelectedCategories(List<CategoryEnum> pickedCategories){

@@ -3,8 +3,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
@@ -269,6 +271,16 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           onTap: () => widget.filterController.resetToDefaults(),
         ),
         const Divider(thickness: 2,),
+        SwitchListTile(
+          title: Text("Chart Grouping"),
+          value: widget.filterController.pickGrouping.value,
+          onChanged: (newValue){
+            widget.filterController.updatePickGrouping(newValue);
+          },
+
+        ),
+        Obx(() => widget.filterController.pickGrouping.value? _buildGroupingSelection(): const SizedBox(height: 0,)),
+        const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
           title: Text("Include Current Collection"),
           value: widget.filterController.includeCollection.value,
@@ -308,6 +320,32 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         const Divider(thickness: 2,),
         Obx(() => widget.filterController.filterByCategory.value? _buildCategorySelection() : const SizedBox(height: 0,),),
         Obx(() => widget.filterController.filterByCategory.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
+      ],
+    );
+  }
+
+  Widget _buildGroupingSelection(){
+    void setSelectedValue(ChartGrouping? grouping){
+      widget.filterController.updateChartGrouping(grouping!);
+    }
+
+    return Column(
+      children: [
+        InlineChoice.single(
+          clearable: true,
+          value: widget.filterController.chartGrouping.value,
+            itemCount: ChartGrouping.values.length,
+            onChanged: setSelectedValue,
+            itemBuilder: (state, i) {
+              return ChoiceChip(
+                selectedColor: Colors.red,
+                selected: state.selected(ChartGrouping.values[i]),
+                onSelected: state.onSelected(ChartGrouping.values[i]),
+                label: Text(ChartGrouping.values[i].name),
+              );
+            }
+
+        )
       ],
     );
   }
