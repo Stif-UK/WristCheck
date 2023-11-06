@@ -344,8 +344,8 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 onSelected: state.onSelected(ChartGrouping.values[i]),
                 label: Text(ChartGrouping.values[i].name),
               );
-            }
-
+            },
+        listBuilder: ChoiceList.createWrapped()
         )
       ],
     );
@@ -372,9 +372,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 label: Text(CategoryEnum.values[i].name),
         );
       },
-      listBuilder: ChoiceList.createWrapped(
-
-      ),
+      listBuilder: ChoiceList.createWrapped()
         )
       ],
     );
