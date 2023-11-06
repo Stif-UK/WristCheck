@@ -68,8 +68,8 @@ class _WearChartState extends State<WearChart> {
         returnSeries =  <BarSeries<MovementClass, String>>[
           BarSeries(
             dataSource: movementList,
-            xValueMapper: (MovementClass series, _) =>  (series.movement.name),
-            yValueMapper: (MovementClass series, _) => series.count,
+            xValueMapper: (MovementClass series, _) =>  series.count == 0? null: (series.movement.name),
+            yValueMapper: (MovementClass series, _) => series.count == 0? null: series.count,
             dataLabelMapper: (mvmt, _) => "${WristCheckFormatter.getMovementText(mvmt.movement)}: ${mvmt.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
 
@@ -83,8 +83,8 @@ class _WearChartState extends State<WearChart> {
         returnSeries =  <BarSeries<CategoryClass, String>>[
           BarSeries(
             dataSource: categoryList,
-            xValueMapper: (CategoryClass series, _) =>  (series.category.name),
-            yValueMapper: (CategoryClass series, _) => series.count,
+            xValueMapper: (CategoryClass series, _) =>  series.count == 0? null: (series.category.name),
+            yValueMapper: (CategoryClass series, _) => series.count == 0? null: series.count,
             dataLabelMapper: (category, _) => "${WristCheckFormatter.getCategoryText(category.category)}: ${category.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
 
