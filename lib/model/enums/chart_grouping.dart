@@ -1,0 +1,1 @@
+enum ChartOrdering {make, movement, category}
