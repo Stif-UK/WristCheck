@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -48,9 +49,13 @@ class WearChartsHelper {
     return returnString;
   }
 
-  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived){
+  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived, bool showGrouping, ChartGrouping grouping){
 
     String returnText = "";
+    print(showGrouping);
+    if(showGrouping){
+      returnText = "$returnText Group by ${grouping.name}, ";
+    }
     if(!showCollection){
       returnText = "$returnText hide Collection, ";
     }

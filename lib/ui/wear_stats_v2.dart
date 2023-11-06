@@ -124,7 +124,7 @@ class _WearStatsState extends State<WearStatsV2> {
 
   bool get _showAdvanced {
     return !widget.filterController.includeCollection.value || widget.filterController.includeSold.value ||
-        widget.filterController.includeArchived.value;
+        widget.filterController.includeArchived.value || widget.filterController.pickGrouping.value;
   }
 
   Widget _buildFilterRow(BuildContext context){
@@ -151,6 +151,8 @@ class _WearStatsState extends State<WearStatsV2> {
                   widget.filterController.includeCollection.value,
                   widget.filterController.includeSold.value,
                   widget.filterController.includeArchived.value,
+                  widget.filterController.pickGrouping.value,
+                  widget.filterController.chartGrouping.value
                 ),style: TextStyle(
                   color: Colors.red
                 ),),
