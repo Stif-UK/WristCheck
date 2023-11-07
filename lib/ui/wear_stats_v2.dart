@@ -105,7 +105,7 @@ class _WearStatsState extends State<WearStatsV2> {
                     WearPieChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
                         widget.filterController.includeCollection.value,
                         widget.filterController.includeSold.value,
-                        widget.filterController.includeArchived.value), animate: true)),
+                        widget.filterController.includeArchived.value), animate: true, grouping: widget.filterController.chartGrouping.value)),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
