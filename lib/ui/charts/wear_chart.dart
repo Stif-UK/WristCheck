@@ -4,6 +4,7 @@ import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
@@ -153,19 +154,5 @@ class _WearChartState extends State<WearChart> {
     return returnSeries;
   }
 
-}
-
-class CategoryClass{
-  CategoryClass(this.category, this.count);
-  
-  late final CategoryEnum category;
-  late final int count;
-}
-
-class MovementClass{
-  MovementClass(this.movement, this.count);
-
-  late final MovementEnum movement;
-  late final int count;
 }
 
