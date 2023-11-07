@@ -33,6 +33,10 @@ class FilterController extends GetxController{
     pickGrouping(false);
   }
 
+  resetCategoryFilter(){
+    selectedCategories(<CategoryEnum>[]);
+  }
+
   updateChartGrouping(ChartGrouping grouping){
     chartGrouping(grouping);
   }

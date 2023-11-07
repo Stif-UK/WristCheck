@@ -319,6 +319,9 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           value: widget.filterController.filterByCategory.value,
           onChanged: (newValue){
             widget.filterController.updateFilterByCategory(newValue);
+            if(!newValue){
+              widget.filterController.resetCategoryFilter();
+            }
           },
         )
         ),
@@ -373,7 +376,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 selectedColor: Colors.red,
                 selected: state.selected(CategoryEnum.values[i]),
                 onSelected: state.onSelected(CategoryEnum.values[i]),
-                label: Text(CategoryEnum.values[i].name),
+                label: Text(WristCheckFormatter.getCategoryText(CategoryEnum.values[i])),
         );
       },
       listBuilder: ChoiceList.createWrapped()
