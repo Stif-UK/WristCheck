@@ -126,6 +126,7 @@ class _WearChartState extends State<WearChart> {
     return returnSeries;
   }
 
+  //TODO: Externalise custom classes and list generation methods for reuse in different chart types
   List<MovementClass> _calculateMovementList(){
     List<MovementClass> returnSeries = [];
     for(MovementEnum movement in MovementEnum.values){
