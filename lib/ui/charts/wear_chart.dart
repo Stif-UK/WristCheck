@@ -58,14 +58,12 @@ class _WearChartState extends State<WearChart> {
             yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
             dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.manufacturer} ${watch.model}: ${watch.wearList.length}":"${watch.manufacturer} ${watch.model}: ${watch.filteredWearList!.length}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-
             // animationDuration: 0 Set to zero to stop it animating!
           )
-
         ];
         break;
       case ChartGrouping.movement:
-        List<MovementClass> movementList = _calculateMovementList();
+        List<MovementClass> movementList = ChartHelper.calculateMovementList(widget.data);
         returnSeries =  <BarSeries<MovementClass, String>>[
           BarSeries(
             dataSource: movementList,
@@ -73,14 +71,12 @@ class _WearChartState extends State<WearChart> {
             yValueMapper: (MovementClass series, _) => series.count == 0? null: series.count,
             dataLabelMapper: (mvmt, _) => "${WristCheckFormatter.getMovementText(mvmt.movement)}: ${mvmt.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-
             // animationDuration: 0 Set to zero to stop it animating!
           )
-
         ];
         break;
       case ChartGrouping.category:
-        List<CategoryClass> categoryList = _calculateCategoryList();
+        List<CategoryClass> categoryList = ChartHelper.calculateCategoryList(widget.data);
         returnSeries =  <BarSeries<CategoryClass, String>>[
           BarSeries(
             dataSource: categoryList,
@@ -95,64 +91,7 @@ class _WearChartState extends State<WearChart> {
         ];
         break;
     }
-    
-    return returnSeries;
-    
-    
-  }
-
-  List<CategoryClass> _calculateCategoryList(){
-    List<CategoryClass> returnSeries = [];
-    for(CategoryEnum category in CategoryEnum.values){
-      int count = 0;
-      if(category != CategoryEnum.blank){
-        List<Watches> categoryList = widget.data.where((watch) => watch.category == WristCheckFormatter.getCategoryText(category)).toList();
-        for(Watches watch in categoryList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
-        }
-        returnSeries.add(CategoryClass(category, count));
-      }else{
-        List<Watches> categoryList = widget.data.where((watch) => watch.category == null || watch.category == "").toList();
-        for(Watches watch in categoryList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
-        }
-        returnSeries.add(CategoryClass(CategoryEnum.blank, count));
-      }
-
-  }
     return returnSeries;
   }
-
-  //TODO: Externalise custom classes and list generation methods for reuse in different chart types
-  List<MovementClass> _calculateMovementList(){
-    List<MovementClass> returnSeries = [];
-    for(MovementEnum movement in MovementEnum.values){
-      int count = 0;
-      if(movement != MovementEnum.blank){
-        List<Watches> movementList = widget.data.where((watch) => watch.movement == WristCheckFormatter.getMovementText(movement)).toList();
-        for(Watches watch in movementList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
-        }
-        returnSeries.add(MovementClass(movement, count));
-      }else{
-        List<Watches> movementList = widget.data.where((watch) => watch.movement == null || watch.movement == "").toList();
-        for(Watches watch in movementList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
-        }
-        returnSeries.add(MovementClass(MovementEnum.blank, count));
-      }
-
-    }
-    return returnSeries;
-  }
-
 }
 
