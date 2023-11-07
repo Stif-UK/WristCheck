@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -50,13 +51,14 @@ class WearChartsHelper {
     return returnString;
   }
 
-  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories){
+  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
 
     String returnText = "";
-    print(showGrouping);
+    //Text for grouping
     if(showGrouping){
       returnText = "$returnText Group by ${grouping.name}, ";
     }
+    //Text for category filter
     if(filterCategories){
       String catString = "";
       for(CategoryEnum category in selectedCategories){
@@ -67,12 +69,26 @@ class WearChartsHelper {
       }
       returnText = "$returnText Categories($catString), ";
     }
+    //Text for movement filter
+    if(filterMovements){
+      String mvmtString = "";
+      for(MovementEnum movement in selectedMovements){
+        mvmtString = "$mvmtString ${WristCheckFormatter.getMovementText(movement)},";
+      }
+      if(mvmtString.length != 0){
+        mvmtString = mvmtString.substring(1, mvmtString.length-1);
+      }
+      returnText = "$returnText Movements($mvmtString), ";
+    }
+    //Text for hide collection
     if(!showCollection){
       returnText = "$returnText hide Collection, ";
     }
+    //Text for including sold watches
     if(showSold){
       returnText = "$returnText inc. Sold, ";
     }
+    //Text for including archived watches
     if(showArchived){
       returnText = "$returnText inc. Archived, ";
     }
