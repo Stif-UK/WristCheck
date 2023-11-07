@@ -151,6 +151,7 @@ class _WearStatsState extends State<WearStatsV2> {
                 style: Theme.of(context).textTheme.titleLarge,
                 ),
               _showAdvanced? Obx(
+                //TODO: Wrap in Inkwell and set maxlines and overflow on alternate version
                 ()=> Text(WearChartsHelper.getAdvancedFilterHeaderText(
                   widget.filterController.includeCollection.value,
                   widget.filterController.includeSold.value,
