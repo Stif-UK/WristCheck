@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -17,8 +18,10 @@ class FilterController extends GetxController{
   final includeSold = false.obs;
   final includeArchived = false.obs;
   final filterByCategory = false.obs;
+  final filterByMovement = false.obs;
   final pickGrouping = false.obs;
   final selectedCategories = <CategoryEnum>[].obs;
+  final selectedMovements = <MovementEnum>[].obs;
   final chartGrouping = ChartGrouping.watch.obs;
 
   List<String> yearList = ["All"];
@@ -31,11 +34,18 @@ class FilterController extends GetxController{
     selectedCategories([]);
     chartGrouping(ChartGrouping.watch);
     pickGrouping(false);
+    filterByMovement(false);
+    selectedMovements([]);
   }
 
   resetCategoryFilter(){
     selectedCategories(<CategoryEnum>[]);
   }
+
+  resetMovementFilter(){
+    selectedMovements(<MovementEnum>[]);
+  }
+
 
   updateChartGrouping(ChartGrouping grouping){
     chartGrouping(grouping);
@@ -47,6 +57,10 @@ class FilterController extends GetxController{
 
   updateSelectedCategories(List<CategoryEnum> pickedCategories){
     selectedCategories(pickedCategories);
+  }
+
+  updateSelectedMovements(List<MovementEnum> pickedMovements){
+    selectedMovements(pickedMovements);
   }
 
   updateFilterName(WearChartOptions filter){
@@ -75,6 +89,10 @@ class FilterController extends GetxController{
 
   updateFilterByCategory(bool byCategory){
     filterByCategory(byCategory);
+  }
+
+  updateFilterByMovement(bool byMovement){
+    filterByMovement(byMovement);
   }
 
   populateYearList(){

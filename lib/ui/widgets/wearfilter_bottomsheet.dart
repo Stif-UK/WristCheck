@@ -8,6 +8,7 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -328,6 +329,22 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         const Divider(thickness: 2,),
         Obx(() => widget.filterController.filterByCategory.value? _buildCategorySelection() : const SizedBox(height: 0,),),
         Obx(() => widget.filterController.filterByCategory.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
+
+        Obx(()=> SwitchListTile(
+          title: Text("Filter by Movement"),
+          value: widget.filterController.filterByMovement.value,
+          onChanged: (newValue){
+            widget.filterController.updateFilterByMovement(newValue);
+            if(!newValue){
+              widget.filterController.resetMovementFilter();
+            }
+          },
+        )
+        ),
+        const Divider(thickness: 2,),
+        Obx(() => widget.filterController.filterByMovement.value? _buildMovementSelection() : const SizedBox(height: 0,),),
+        Obx(() => widget.filterController.filterByMovement.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
+
       ],
     );
   }
@@ -363,7 +380,6 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
     void setSelectedValue(List<CategoryEnum> value) {
       widget.filterController.updateSelectedCategories(value);
     }
-
     return Column(
       children: [
         InlineChoice<CategoryEnum>.multiple(
@@ -380,6 +396,33 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         );
       },
       listBuilder: ChoiceList.createWrapped()
+        )
+      ],
+    );
+  }
+
+  Widget _buildMovementSelection(){
+
+    void setSelectedValue(List<MovementEnum> value) {
+      widget.filterController.updateSelectedMovements(value);
+    }
+
+    return Column(
+      children: [
+        InlineChoice<MovementEnum>.multiple(
+            clearable: true,
+            value: widget.filterController.selectedMovements,
+            itemCount: MovementEnum.values.length,
+            onChanged: setSelectedValue,
+            itemBuilder: (state, i) {
+              return ChoiceChip(
+                selectedColor: Colors.red,
+                selected: state.selected(MovementEnum.values[i]),
+                onSelected: state.onSelected(MovementEnum.values[i]),
+                label: Text(WristCheckFormatter.getMovementText(MovementEnum.values[i])),
+              );
+            },
+            listBuilder: ChoiceList.createWrapped()
         )
       ],
     );
