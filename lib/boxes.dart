@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -232,7 +233,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived) {
+  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList) {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
@@ -246,6 +247,9 @@ class Boxes {
     }
     if(incArchived){
       initialList.addAll(Boxes.getArchivedWatches());
+    }
+    if(filterByCategory && categoryFilterList.isNotEmpty){
+      initialList = Boxes.runCategoryFilter(initialList, categoryFilterList);
     }
     List<Watches> returnValue = initialList;
 
@@ -291,6 +295,15 @@ class Boxes {
       }
     }
     return returnValue;
+  }
+
+  static List<Watches> runCategoryFilter(List<Watches> watchList, List<CategoryEnum> categories){
+    List<Watches> returnList = [];
+    for(CategoryEnum category in categories){
+      returnList.addAll(watchList.where((watch) => WristCheckFormatter.getCategoryEnum(watch.category) == category).toList());
+    }
+
+    return returnList;
   }
 
 }
