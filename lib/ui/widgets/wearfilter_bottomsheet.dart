@@ -276,6 +276,10 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
             value: widget.filterController.pickGrouping.value,
             onChanged: (newValue){
               widget.filterController.updatePickGrouping(newValue);
+              //When grouping is de-selected, reset grouping selection to default watch view
+              if(!newValue){
+                widget.filterController.updateChartGrouping(ChartGrouping.watch);
+              }
             },
 
           ),
