@@ -87,6 +87,22 @@ class WearPieChart extends StatelessWidget {
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
+      case ChartGrouping.manufacturer:
+        returnSeries = <PieSeries<ManufacturerClass, String>>[PieSeries<ManufacturerClass, String>(
+            dataSource: ChartHelper.calculateManufacturerList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (ManufacturerClass series, _) =>
+            series.manufacturer,
+            yValueMapper: (ManufacturerClass series, _) =>
+            series.count == 0
+                ? null
+                : series.count,
+            dataLabelMapper: (man, _) =>
+            man.count == 0 ? "" : "${man.manufacturer}: ${man.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
     }
 
     return returnSeries;
