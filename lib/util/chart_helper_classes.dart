@@ -17,6 +17,13 @@ class MovementClass{
   late final int count;
 }
 
+class ManufacturerClass{
+  ManufacturerClass(this.manufacturer, this.count);
+
+  late final String manufacturer;
+  late final int count;
+}
+
 class ChartHelper{
 
   static List<CategoryClass> calculateCategoryList(List<Watches> data){
@@ -70,4 +77,26 @@ class ChartHelper{
     }
     return returnSeries;
   }
+
+  static List<ManufacturerClass> calculateManufacturerList(List<Watches> data){
+    List<ManufacturerClass> returnSeries = [];
+    //Get set of manufacturers (to ensure all unique)
+    Set<String> manufacturers = {};
+    for(Watches watch in data){
+      manufacturers.add(watch.manufacturer);
+    }
+    for(String manufacturer in manufacturers) {
+      int count = 0;
+      List<Watches> manList = data.where((watch) => watch.manufacturer == manufacturer).toList();
+      for(Watches watch in manList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      returnSeries.add(ManufacturerClass(manufacturer, count));
+
+    }
+    return returnSeries;
+  }
+
 }

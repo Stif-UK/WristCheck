@@ -90,6 +90,18 @@ class _WearChartState extends State<WearChart> {
 
         ];
         break;
+      case ChartGrouping.manufacturer:
+        returnSeries =  <BarSeries<ManufacturerClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateManufacturerList(widget.data),
+            xValueMapper: (ManufacturerClass series, _) => series.count == 0? null: series.manufacturer,
+            yValueMapper: (ManufacturerClass series, _) => series.count == 0? null : series.count,
+            dataLabelMapper: (manu, _) => manu.count == 0? "":"${manu.manufacturer}: ${manu.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
+            // animationDuration: 0 Set to zero to stop it animating!
+          )
+        ];
+        break;
     }
     return returnSeries;
   }
