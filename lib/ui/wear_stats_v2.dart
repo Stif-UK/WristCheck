@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,6 @@ class _WearStatsState extends State<WearStatsV2> {
 
 
   ScreenshotController screenshotController = ScreenshotController();
-  //List<Watches> data = Boxes.getWearChartLoadData();
 
 
   @override
@@ -89,29 +89,28 @@ class _WearStatsState extends State<WearStatsV2> {
                 ),)
             ],
           ),
-          body: Column(
+          body: SingleChildScrollView(
+            child: Column(
 
-            children: [
-              _buildFilterRow(context),
-              // const SizedBox(height: 10),
-              Obx(
-                  ()=> Expanded(
-                    flex: 7,
-                    //Switch between a bar chart and pie chart with the press of a button
-                    child: barChart? WearChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value,) :
-                    WearPieChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value)),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+              children: [
+                _buildFilterRow(context),
+                Obx(
+                    ()=>  SizedBox(
+                        height: _calculateChartSpace(barChart, context),
+                        child: _drawCharts(barChart))
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
 
 
-                  const SizedBox(height: 10),
-                  widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
-                  const SizedBox(height: 20,)
-                ],
-              )
-            ],
+                    const SizedBox(height: 10),
+                    widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
+                    const SizedBox(height: 20,)
+                  ],
+                )
+              ],
+            ),
           )),
     );
   }
@@ -146,7 +145,6 @@ class _WearStatsState extends State<WearStatsV2> {
                       !widget.filterController.shrinkText.value);
                 },
                 child: Obx(
-                  //TODO: Wrap in Inkwell and set maxlines and overflow on alternate version
                   ()=> widget.filterController.shrinkText.value? Text(_getAdvancedFilterText(),
                   style: _getAdvancedFilterTextStyle(),
                   maxLines: 3,
@@ -232,6 +230,23 @@ class _WearStatsState extends State<WearStatsV2> {
         widget.filterController.selectedCategories,
         widget.filterController.filterByMovement.value,
         widget.filterController.selectedMovements);
+  }
+
+  Widget _drawCharts(bool barChart){
+    return barChart? WearChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value,) :
+    WearPieChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value);
+  }
+
+  double _calculateChartSpace(bool barChart, BuildContext context){
+    double baseSize = MediaQuery.of(context).size.height*0.7;
+    if(barChart){
+      int dataSize = _getLoadData().length;
+      if(dataSize > 15){
+        baseSize = baseSize*(dataSize / 15);
+      }
+    }
+
+    return baseSize;
   }
 }
 
