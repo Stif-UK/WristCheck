@@ -11,6 +11,7 @@ import 'package:wristcheck/model/enums/month_list.dart';
 class FilterController extends GetxController{
 
   final basicWearFilter = WristCheckPreferences.getWearChartOptions().obs;
+  final lastFilterTabIndex = 0.obs;
 
   final shrinkText = false.obs;
   final selectedMonth = MonthList.all.obs;
@@ -47,6 +48,9 @@ class FilterController extends GetxController{
     selectedMovements(<MovementEnum>[]);
   }
 
+  updateLastFilterTabIndex(int index){
+    lastFilterTabIndex(index);
+  }
 
   updateChartGrouping(ChartGrouping grouping){
     chartGrouping(grouping);
