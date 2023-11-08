@@ -150,21 +150,20 @@ class _WearStatsState extends State<WearStatsV2> {
               Text(WearChartsHelper.getBasicFilterHeaderText(widget.filterController.basicWearFilter.value),
                 style: Theme.of(context).textTheme.titleLarge,
                 ),
-              _showAdvanced? Obx(
-                //TODO: Wrap in Inkwell and set maxlines and overflow on alternate version
-                ()=> Text(WearChartsHelper.getAdvancedFilterHeaderText(
-                  widget.filterController.includeCollection.value,
-                  widget.filterController.includeSold.value,
-                  widget.filterController.includeArchived.value,
-                  widget.filterController.pickGrouping.value,
-                  widget.filterController.chartGrouping.value,
-                  widget.filterController.filterByCategory.value,
-                  widget.filterController.selectedCategories,
-                  widget.filterController.filterByMovement.value,
-                  widget.filterController.selectedMovements
-                ),style: TextStyle(
-                  color: Colors.red
-                ),),
+              _showAdvanced? InkWell(
+                onTap: () {
+                  widget.filterController.updateShrinkText(
+                      !widget.filterController.shrinkText.value);
+                },
+                child: Obx(
+                  //TODO: Wrap in Inkwell and set maxlines and overflow on alternate version
+                  ()=> widget.filterController.shrinkText.value? Text(_getAdvancedFilterText(),
+                  style: _getAdvancedFilterTextStyle(),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,) : 
+                  Text(_getAdvancedFilterText()
+                  ,style: _getAdvancedFilterTextStyle()),
+                ),
               ): const SizedBox(height: 0,),
 
             ],
@@ -213,6 +212,25 @@ class _WearStatsState extends State<WearStatsV2> {
     final image = File('${directory.path}/shareImage.png');
     image.writeAsBytesSync(bytes);
     await Share.shareFiles([image.path],text: "Chart generated with WristCheck");
+  }
+
+  String _getAdvancedFilterText(){
+    return WearChartsHelper.getAdvancedFilterHeaderText(
+        widget.filterController.includeCollection.value,
+        widget.filterController.includeSold.value,
+        widget.filterController.includeArchived.value,
+        widget.filterController.pickGrouping.value,
+        widget.filterController.chartGrouping.value,
+        widget.filterController.filterByCategory.value,
+        widget.filterController.selectedCategories,
+        widget.filterController.filterByMovement.value,
+        widget.filterController.selectedMovements);
+  }
+
+  TextStyle _getAdvancedFilterTextStyle(){
+    return TextStyle(
+        color: Colors.red
+    );
   }
 }
 

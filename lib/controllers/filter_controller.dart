@@ -12,6 +12,7 @@ class FilterController extends GetxController{
 
   final basicWearFilter = WristCheckPreferences.getWearChartOptions().obs;
 
+  final shrinkText = false.obs;
   final selectedMonth = MonthList.all.obs;
   final selectedYear = "All".obs;
   final includeCollection = true.obs;
@@ -53,6 +54,10 @@ class FilterController extends GetxController{
 
   updatePickGrouping(bool pick){
     pickGrouping(pick);
+  }
+
+  updateShrinkText(bool shrink){
+    shrinkText(shrink);
   }
 
   updateSelectedCategories(List<CategoryEnum> pickedCategories){
