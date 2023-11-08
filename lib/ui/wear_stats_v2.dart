@@ -98,18 +98,8 @@ class _WearStatsState extends State<WearStatsV2> {
                   ()=> Expanded(
                     flex: 7,
                     //Switch between a bar chart and pie chart with the press of a button
-                    child: barChart? WearChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
-                    widget.filterController.includeCollection.value,
-                    widget.filterController.includeSold.value,
-                    widget.filterController.includeArchived.value,
-                    widget.filterController.filterByCategory.value,
-                    widget.filterController.selectedCategories), animate: true, grouping: widget.filterController.chartGrouping.value,) :
-                    WearPieChart(data: Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
-                        widget.filterController.includeCollection.value,
-                        widget.filterController.includeSold.value,
-                        widget.filterController.includeArchived.value,
-                    widget.filterController.filterByCategory.value,
-                    widget.filterController.selectedCategories), animate: true, grouping: widget.filterController.chartGrouping.value)),
+                    child: barChart? WearChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value,) :
+                    WearPieChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value)),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -231,6 +221,17 @@ class _WearStatsState extends State<WearStatsV2> {
     return TextStyle(
         color: Colors.red
     );
+  }
+
+  List<Watches> _getLoadData(){
+    return Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
+        widget.filterController.includeCollection.value,
+        widget.filterController.includeSold.value,
+        widget.filterController.includeArchived.value,
+        widget.filterController.filterByCategory.value,
+        widget.filterController.selectedCategories,
+        widget.filterController.filterByMovement.value,
+        widget.filterController.selectedMovements);
   }
 }
 

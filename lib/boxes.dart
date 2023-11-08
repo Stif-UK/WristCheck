@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -233,7 +234,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList) {
+  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
@@ -250,6 +251,9 @@ class Boxes {
     }
     if(filterByCategory && categoryFilterList.isNotEmpty){
       initialList = Boxes.runCategoryFilter(initialList, categoryFilterList);
+    }
+    if(filterByMovement && movementFilterList.isNotEmpty){
+      initialList = Boxes.runMovementFilter(initialList, movementFilterList);
     }
     List<Watches> returnValue = initialList;
 
@@ -301,6 +305,15 @@ class Boxes {
     List<Watches> returnList = [];
     for(CategoryEnum category in categories){
       returnList.addAll(watchList.where((watch) => WristCheckFormatter.getCategoryEnum(watch.category) == category).toList());
+    }
+
+    return returnList;
+  }
+
+  static List<Watches> runMovementFilter(List<Watches> watchList, List<MovementEnum> movements){
+    List<Watches> returnList = [];
+    for(MovementEnum movement in movements){
+      returnList.addAll(watchList.where((watch) => WristCheckFormatter.getMovementEnum(watch.movement) == movement).toList());
     }
 
     return returnList;
