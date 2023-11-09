@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -7,6 +8,7 @@ import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/util/general_helper.dart';
 
 class WatchHomeDrawer extends StatelessWidget {
   WatchHomeDrawer({Key? key}) : super(key: key);
@@ -77,6 +79,18 @@ class WatchHomeDrawer extends StatelessWidget {
           ),
 
           const Divider(thickness: 2,),
+          ListTile(
+            trailing: const Icon(FontAwesomeIcons.instagram),
+            title: const Text("Follow WristCheck"),
+            onTap: () async {
+              analytics.logEvent(name: "social_link_clicked",
+                  parameters: {
+                    "social_link" : "instagram"
+                  });
+              await GeneralHelper.launchInstagram();
+            },
+          ),
+          const Divider(thickness: 2,)
 
         ],
 
