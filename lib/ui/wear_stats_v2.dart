@@ -207,6 +207,7 @@ class _WearStatsState extends State<WearStatsV2> {
     await Share.shareXFiles([XFile(image.path)],text: "Chart generated with WristCheck");
   }
 
+
   String _getAdvancedFilterText(){
     return WearChartsHelper.getAdvancedFilterHeaderText(
         widget.filterController.includeCollection.value,
