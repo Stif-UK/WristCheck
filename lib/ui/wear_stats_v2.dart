@@ -51,68 +51,69 @@ class _WearStatsState extends State<WearStatsV2> {
     DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
     bool barChart = _preferredType == DefaultChartType.bar? true: false;
 
-    return Screenshot(
-      controller: screenshotController,
-      child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Wear Stats"),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0,0,4,0),
-                child: IconButton(
-                  icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
-                  onPressed: () async {
-                    DefaultChartType _newPreferredType;
-                    if(_preferredType == DefaultChartType.bar){
-                      _newPreferredType = DefaultChartType.pie;
-                    }else{
-                      _newPreferredType = DefaultChartType.bar;
-                    }
-                    await WristCheckPreferences.setDefaultChartType(_newPreferredType);
-                    await analytics.logEvent(name: "chart_type_change",
-                        parameters: {
-                          "chart_type" : _newPreferredType.toString()
-                        });
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Wear Stats"),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,0,4,0),
+              child: IconButton(
+                icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
+                onPressed: () async {
+                  DefaultChartType _newPreferredType;
+                  if(_preferredType == DefaultChartType.bar){
+                    _newPreferredType = DefaultChartType.pie;
+                  }else{
+                    _newPreferredType = DefaultChartType.bar;
+                  }
+                  await WristCheckPreferences.setDefaultChartType(_newPreferredType);
+                  await analytics.logEvent(name: "chart_type_change",
+                      parameters: {
+                        "chart_type" : _newPreferredType.toString()
+                      });
 
-                    setState(() {
-                    });
-                  },),
-              ),
-              Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
-                child: IconButton(
-                  icon: const Icon(Icons.add_a_photo_outlined),
-                  onPressed: () async {
-                    await analytics.logEvent(name: "chart_screenshot_capture");
-                    final image = await screenshotController.capture();
-                    saveAndShare(image!);
-                  },
-                ),)
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-
-              children: [
-                _buildFilterRow(context),
-                Obx(
-                    ()=>  SizedBox(
-                        height: _calculateChartSpace(barChart, context),
-                        child: _drawCharts(barChart))
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-
-
-                    const SizedBox(height: 10),
-                    widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
-                    const SizedBox(height: 20,)
-                  ],
-                )
-              ],
+                  setState(() {
+                  });
+                },),
             ),
-          )),
-    );
+            Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
+              child: IconButton(
+                icon: const Icon(Icons.add_a_photo_outlined),
+                onPressed: () async {
+                  await analytics.logEvent(name: "chart_screenshot_capture");
+                  final image = await screenshotController.capture();
+                  saveAndShare(image!);
+                },
+              ),)
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Screenshot(
+            controller: screenshotController,
+            child: Container(
+              color: Theme.of(context).canvasColor,
+              child: Column(
+
+                children: [
+                  _buildFilterRow(context),
+                  Obx(
+                      ()=>  SizedBox(
+                          height: _calculateChartSpace(barChart, context),
+                          child: _drawCharts(barChart))
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(height: 10),
+                      widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
+                      const SizedBox(height: 20,)
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
   bool get _showAdvanced {
@@ -197,9 +198,13 @@ class _WearStatsState extends State<WearStatsV2> {
 
   Future saveAndShare(Uint8List bytes) async{
     final directory = await getApplicationDocumentsDirectory();
-    final image = File('${directory.path}/shareImage.png');
+    bool exists = await Directory("${directory.path}/cache").exists();
+    if(!exists) {
+      await Directory("${directory.path}/cache").create();
+    }
+    final image = File('${directory.path}/cache/shareImage.png');
     image.writeAsBytesSync(bytes);
-    await Share.shareFiles([image.path],text: "Chart generated with WristCheck");
+    await Share.shareXFiles([XFile(image.path)],text: "Chart generated with WristCheck");
   }
 
   String _getAdvancedFilterText(){
