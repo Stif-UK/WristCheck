@@ -3,25 +3,26 @@ import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class CategoryClass{
-  CategoryClass(this.category, this.count);
+class ChartClass{
+  ChartClass(this.count);
+  late final int count;
+}
+class CategoryClass extends ChartClass{
+  CategoryClass(this.category,int count) : super(count);
 
   late final CategoryEnum category;
-  late final int count;
 }
 
-class MovementClass{
-  MovementClass(this.movement, this.count);
+class MovementClass extends ChartClass{
+  MovementClass(this.movement, int count) : super(count);
 
   late final MovementEnum movement;
-  late final int count;
 }
 
-class ManufacturerClass{
-  ManufacturerClass(this.manufacturer, this.count);
+class ManufacturerClass extends ChartClass{
+  ManufacturerClass(this.manufacturer, int count) : super(count);
 
   late final String manufacturer;
-  late final int count;
 }
 
 class ChartHelper{
@@ -97,6 +98,10 @@ class ChartHelper{
 
     }
     return returnSeries;
+  }
+  
+  static List<ChartClass> sortChartData(List<ChartClass> series){
+    return series;
   }
 
 }
