@@ -1,6 +1,8 @@
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class ChartClass{
@@ -50,6 +52,7 @@ class ChartHelper{
       }
 
     }
+    returnSeries = sortChartData(returnSeries) as List<CategoryClass>;
     return returnSeries;
   }
 
@@ -76,6 +79,7 @@ class ChartHelper{
       }
 
     }
+    returnSeries = sortChartData(returnSeries) as List<MovementClass>;
     return returnSeries;
   }
 
@@ -97,10 +101,21 @@ class ChartHelper{
       returnSeries.add(ManufacturerClass(manufacturer, count));
 
     }
+    returnSeries = sortChartData(returnSeries) as List<ManufacturerClass>;
     return returnSeries;
   }
   
   static List<ChartClass> sortChartData(List<ChartClass> series){
+    ChartOrdering order = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
+    if(order == ChartOrdering.ascending){
+      series.sort((a,b) => b.count.compareTo(a.count));
+
+    }
+
+    if(order == ChartOrdering.descending){
+      series.sort((a,b) => a.count.compareTo(b.count));
+    }
+
     return series;
   }
 
