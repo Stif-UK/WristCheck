@@ -389,7 +389,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
       children: [
         InlineChoice<CategoryEnum>.multiple(
           clearable: true,
-            value: widget.filterController.selectedCategories.value,
+            value: widget.filterController.selectedCategories,
             itemCount: CategoryEnum.values.length,
             onChanged: setSelectedValue,
             itemBuilder: (state, i) {
