@@ -5,12 +5,13 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.7.0 \n"
+        "### Version 1.7.1 \n"
         "\n"
 
         "* Update to Wear Charts\n"
             "* Additional time filters\n"
-            "* New advanced filters\n";
+            "* New advanced filters\n"
+            "* (1.7.1) Chart display order corrected across all grouping options";
 
   }
 
@@ -24,7 +25,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.7.0 \n"
+                      "### Version 1.7.1 \n"
                       "\n"
 
                       "* Update to Wear Charts\n"
