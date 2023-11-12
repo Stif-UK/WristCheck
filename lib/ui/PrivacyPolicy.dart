@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wristcheck/Copy/PrivacyPolicyCopy.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
@@ -37,7 +38,9 @@ class PrivacyPolicy extends StatelessWidget{
             const Divider(thickness: 2.0,),
 
             Expanded(
-                child: Markdown(data: PrivacyPolicyCopy.privacyWording,)
+                child: Markdown(data: PrivacyPolicyCopy.privacyWording,
+                onTapLink: (text, url, title) => launchUrl(Uri.parse(url!))
+                ,)
             ),
           ],),
       ),
