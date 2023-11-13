@@ -69,6 +69,7 @@ dependencies:
   flutter_timezone: ^1.0.8
   choice: ^2.3.0
   url_launcher: ^6.2.1
+  syncfusion_flutter_calendar: ^20.4.54
 
 dependency_overrides:
   watcher: ^1.1.0

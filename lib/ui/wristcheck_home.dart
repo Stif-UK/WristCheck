@@ -6,6 +6,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:wristcheck/ui/calendar/calendar_view.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
@@ -33,7 +34,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   final List<Widget> _children =[
     Watchbox(),
     StatsWidget(),
-    ServicingWidget()
+    CalendarView()
+    //ServicingWidget()
   ];
 
 
@@ -65,7 +67,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   @override
   Widget build(BuildContext context) {
-
+    analytics.setCurrentScreen(screenName: "watchbox_home");
     //If platform is iOS, request tracking permission for ads
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();
