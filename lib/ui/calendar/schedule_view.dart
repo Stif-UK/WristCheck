@@ -11,15 +11,15 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 
-class CalendarView extends StatefulWidget {
-  CalendarView({Key? key}) : super(key: key);
+class ScheduleView extends StatefulWidget {
+  ScheduleView({Key? key}) : super(key: key);
   final wristCheckController = Get.put(WristCheckController());
 
   @override
-  State<CalendarView> createState() => _CalendarViewState();
+  State<ScheduleView> createState() => _ScheduleViewState();
 }
 
-class _CalendarViewState extends State<CalendarView> {
+class _ScheduleViewState extends State<ScheduleView> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   BannerAd? banner;
@@ -59,10 +59,10 @@ class _CalendarViewState extends State<CalendarView> {
     return  Obx(()=> Column(
       children: [
         widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-        SizedBox(height: MediaQuery.of(context).size.height*0.4,
-        child: SfCalendar(
+        SfCalendar(
+          view: CalendarView.month,
           //monthViewSettings: MonthViewSettings(showAgenda: true),
-        ),),
+        ),
 
       ],
     )
