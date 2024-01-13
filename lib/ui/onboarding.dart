@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 
 class WristCheckOnboarding extends StatefulWidget {
@@ -70,7 +71,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
           style: TextStyle(fontSize: 22),),
           onPressed: () async {
             await WristCheckPreferences.setHasSeenDemo(true);
-            Get.off(()=> WristCheckHome());
+            Get.off(()=> InitialiseScreen(targetWidget: WristCheckHome()));
           },
         ),
       ) :Container(

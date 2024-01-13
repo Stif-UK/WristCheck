@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
@@ -99,7 +100,7 @@ Future main() async{
           //ThemeMode.light,
           //ThemeMode.system,
 
-          home:  hasSeenDemo? WristCheckHome() : const WristCheckOnboarding(),
+          home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
         )),
       ));
 
