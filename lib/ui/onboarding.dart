@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
@@ -24,6 +27,11 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
 
   @override
   Widget build(BuildContext context) {
+    //If first use, request app tracking transparency during onboarding slides
+    if(Platform.isIOS) {
+      AppTrackingTransparency.requestTrackingAuthorization();
+    }
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(bottom: 80),
