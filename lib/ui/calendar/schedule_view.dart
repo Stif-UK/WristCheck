@@ -119,14 +119,18 @@ class _ScheduleViewState extends State<ScheduleView> {
       }
     }
 
-    // appointments.add(Appointment(
-    //   startTime: DateTime.now(),
-    //   endTime: DateTime.now().add(Duration(minutes: 10)),
-    //   subject: 'Meeting',
-    //   color: Colors.blue,
-    //   startTimeZone: '',
-    //   endTimeZone: '',
-    // ));
+    List<Watches> serviceSchedule = Boxes.getServiceSchedule();
+    for(Watches watch in serviceSchedule){
+      String watchTitle = "${watch.manufacturer} ${watch.model}";
+      appointments.add(Appointment(
+          isAllDay: true,
+          startTime: watch.nextServiceDue!,
+          endTime: watch.nextServiceDue!,
+        subject: "$watchTitle Service Due",
+        color: Colors.red
+
+      ));
+    }
 
     return _WatchDataSource(appointments);
   }
