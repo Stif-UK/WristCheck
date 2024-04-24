@@ -61,10 +61,12 @@ class _ScheduleViewState extends State<ScheduleView> {
     return  Obx(()=> Column(
       children: [
         widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-        SfCalendar(
-          view: CalendarView.month,
-          dataSource: _getCalendarDataSource(),
-          //monthViewSettings: MonthViewSettings(showAgenda: true),
+        Expanded(
+          child: SfCalendar(
+            view: CalendarView.month,
+            dataSource: _getCalendarDataSource(),
+            monthViewSettings: MonthViewSettings(showAgenda: true),
+          ),
         ),
 
       ],
@@ -90,8 +92,9 @@ class _ScheduleViewState extends State<ScheduleView> {
       String watchTitle = "${watch.manufacturer} ${watch.model}";
       for(DateTime wearDate in watch.wearList){
         appointments.add(Appointment(
+          isAllDay: true,
             startTime: wearDate,
-            endTime: wearDate,
+           endTime: wearDate,
           subject: "$watchTitle worn"
         ));
       }
