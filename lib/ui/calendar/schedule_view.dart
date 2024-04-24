@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
@@ -61,6 +63,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
         SfCalendar(
           view: CalendarView.month,
+          dataSource: _getCalendarDataSource(),
           //monthViewSettings: MonthViewSettings(showAgenda: true),
         ),
 
@@ -69,5 +72,46 @@ class _ScheduleViewState extends State<ScheduleView> {
 
 
     );
+  }
+
+  //Populate the calendar data
+  _WatchDataSource _getCalendarDataSource() {
+    List<Appointment> appointments = <Appointment>[];
+
+    //Rough code -
+    // 1. getAllWatches in collection, for each watch add all wear dates to an appointment
+    //with the subject as the make + model + worn
+    // 2. getServiceSchedule subject: Service Due: subject as make + model + service due
+
+
+    //TODO: Options to include sold watches? Option to enable/disable service view
+    List<Watches> watchSchedule = Boxes.getCollectionWatches();
+    for(Watches watch in watchSchedule){
+      String watchTitle = "${watch.manufacturer} ${watch.model}";
+      for(DateTime wearDate in watch.wearList){
+        appointments.add(Appointment(
+            startTime: wearDate,
+            endTime: wearDate,
+          subject: "$watchTitle worn"
+        ));
+      }
+    }
+
+    // appointments.add(Appointment(
+    //   startTime: DateTime.now(),
+    //   endTime: DateTime.now().add(Duration(minutes: 10)),
+    //   subject: 'Meeting',
+    //   color: Colors.blue,
+    //   startTimeZone: '',
+    //   endTimeZone: '',
+    // ));
+
+    return _WatchDataSource(appointments);
+  }
+}
+
+class _WatchDataSource extends CalendarDataSource {
+  _WatchDataSource(List<Appointment> source){
+    appointments = source;
   }
 }
