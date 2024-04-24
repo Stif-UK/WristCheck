@@ -135,8 +135,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
             label: "Stats",
           ),
           BottomNavigationBarItem(
-            icon:  Icon(Icons.manage_history),
-            label: "Service",
+            icon:  Icon(Icons.calendar_month_sharp),
+            label: "Calendar",
           )
         ],
         
