@@ -67,6 +67,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             view: CalendarView.month,
             dataSource: _getCalendarDataSource(),
             monthViewSettings: MonthViewSettings(showAgenda: true,
+                showTrailingAndLeadingDates: false,
                 agendaStyle: AgendaStyle(
                     appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
             initialSelectedDate: DateTime.now(),
