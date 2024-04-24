@@ -12,6 +12,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class ScheduleView extends StatefulWidget {
   ScheduleView({Key? key}) : super(key: key);
@@ -88,17 +89,31 @@ class _ScheduleViewState extends State<ScheduleView> {
     //with the subject as the make + model + worn
     // 2. getServiceSchedule subject: Service Due: subject as make + model + service due
 
-
-    //TODO: Options to include sold watches? Option to enable/disable service view
     List<Watches> watchSchedule = Boxes.getCollectionWatches();
     for(Watches watch in watchSchedule){
       String watchTitle = "${watch.manufacturer} ${watch.model}";
+
       for(DateTime wearDate in watch.wearList){
         appointments.add(Appointment(
           isAllDay: true,
             startTime: wearDate,
            endTime: wearDate,
-          subject: "$watchTitle worn"
+          subject: "$watchTitle"
+        ));
+      }
+    }
+
+    List<Watches> soldSchedule = Boxes.getSoldWatches();
+    for(Watches watch in soldSchedule){
+      String watchTitle = "${watch.manufacturer} ${watch.model}";
+
+      for(DateTime wearDate in watch.wearList){
+        appointments.add(Appointment(
+            isAllDay: true,
+            startTime: wearDate,
+            endTime: wearDate,
+            subject: "$watchTitle (Sold)",
+            color: Colors.deepOrangeAccent
         ));
       }
     }
