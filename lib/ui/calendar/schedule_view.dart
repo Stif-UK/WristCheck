@@ -65,7 +65,10 @@ class _ScheduleViewState extends State<ScheduleView> {
           child: SfCalendar(
             view: CalendarView.month,
             dataSource: _getCalendarDataSource(),
-            monthViewSettings: MonthViewSettings(showAgenda: true),
+            monthViewSettings: MonthViewSettings(showAgenda: true,
+                agendaStyle: AgendaStyle(
+                    appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
+            initialSelectedDate: DateTime.now(),
           ),
         ),
 
