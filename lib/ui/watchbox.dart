@@ -79,7 +79,7 @@ class _WatchBoxState extends State<Watchbox> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //Insert Ad Widget into tree
-          widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           //Create drop down and search button
           Padding(
             padding: const EdgeInsets.all(8.0),

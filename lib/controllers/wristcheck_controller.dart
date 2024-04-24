@@ -63,4 +63,11 @@ class WristCheckController extends GetxController {
     locale(location);
   }
 
+  //Status of navigation drawer
+  final isDrawerOpen = false.obs;
+
+  updateIsDrawerOpen(bool isOpen) {
+    isDrawerOpen(isOpen);
+  }
+
 }

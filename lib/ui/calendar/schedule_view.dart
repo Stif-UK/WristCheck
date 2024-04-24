@@ -58,7 +58,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     analytics.setCurrentScreen(screenName: "calendar_view");
     return  Obx(()=> Column(
       children: [
-        widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+        widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
         SfCalendar(
           view: CalendarView.month,
           //monthViewSettings: MonthViewSettings(showAgenda: true),

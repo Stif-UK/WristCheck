@@ -102,6 +102,9 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       body: _children[_currentIndex],
       drawer: WatchHomeDrawer(),
+      onDrawerChanged: (isOpen){
+        widget.wristCheckController.updateIsDrawerOpen(isOpen);
+      },
 
       //hide FAB except on collection screen
       floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
