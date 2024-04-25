@@ -63,6 +63,8 @@ class _ScheduleViewState extends State<ScheduleView> {
     //initialise date and watch values
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     widget.wristCheckController.updateSelectedWatch(null);
+    //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
+    bool _pageLoaded = false;
 
     return  Obx(()=> Column(
       children: [
@@ -80,9 +82,12 @@ class _ScheduleViewState extends State<ScheduleView> {
               widget.wristCheckController.updateSelectedDate(details.date);
             },
             onViewChanged: (ViewChangedDetails details) {
-              //TODO: update this to not null the date on initial page load
-              //widget.wristCheckController.updateSelectedDate(null);
-              print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
+              //use pageLoaded to ensure this is not run on first load of the page
+              if(_pageLoaded){
+                widget.wristCheckController.updateSelectedDate(null);
+                print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
+              }
+              _pageLoaded = true;
               },
           ),
         ),
