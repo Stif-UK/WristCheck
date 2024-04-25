@@ -96,9 +96,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                   onPressed: widget.wristCheckController.selectedDate.value != null?(){
                       Get.defaultDialog(
                         title: "Track Wear",
-                        content: Container(
-                          child: Text("Date: ${WristCheckFormatter.getFormattedDate(widget.wristCheckController.selectedDate.value!)}"),
-                        ),
+                        content: Column(
+                          children: [Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                            Text("Watch:"),
+                        ]),
                         textConfirm: "Track",
                         textCancel: "Cancel",
 

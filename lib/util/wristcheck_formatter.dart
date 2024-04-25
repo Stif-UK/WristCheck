@@ -15,6 +15,12 @@ class WristCheckFormatter{
     return returnString;
   }
 
+  static String getFormattedDateWithDay(DateTime date){
+    final DateFormat formatter = DateFormat('E');
+    String returnString = "${formatter.format(date)}, ${WristCheckFormatter.getFormattedDate(date)}";
+    return returnString;
+  }
+
   static String getMonthFromDate(DateTime date){
     final DateFormat formatter = DateFormat('LLLL');
     return formatter.format(date);
