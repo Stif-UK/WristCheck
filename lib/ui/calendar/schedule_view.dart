@@ -73,6 +73,23 @@ class _ScheduleViewState extends State<ScheduleView> {
             initialSelectedDate: DateTime.now(),
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+              child: ElevatedButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
+                  ),
+                onPressed: (){
+
+                },
+              ),
+            )
+          ],
+        )
 
       ],
     )
