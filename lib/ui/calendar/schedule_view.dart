@@ -80,6 +80,7 @@ class _ScheduleViewState extends State<ScheduleView> {
               widget.wristCheckController.updateSelectedDate(details.date);
             },
             onViewChanged: (ViewChangedDetails details) {
+              //TODO: update this to not null the date on initial page load
               //widget.wristCheckController.updateSelectedDate(null);
               print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
               },
@@ -95,7 +96,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
                     ),
-                  onPressed: widget.wristCheckController.selectedDate.value != null?(){
+                  onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: (){
                       Get.defaultDialog(
                         title: "Track Wear",
                         content: Obx(
@@ -129,7 +130,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                         }
 
                       );
-                  } : null,
+                  },
                 ),
             )
           ],
@@ -140,6 +141,14 @@ class _ScheduleViewState extends State<ScheduleView> {
 
 
     );
+  }
+
+  //Check if selected date is in the future
+  bool isDateInFuture(){
+    if(widget.wristCheckController.selectedDate.value != null){
+      return widget.wristCheckController.selectedDate.value!.isAfter(DateTime.now());
+    }
+    return false;
   }
 
   //Populate the calendar data
