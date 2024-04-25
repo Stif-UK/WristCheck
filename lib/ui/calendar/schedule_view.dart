@@ -59,6 +59,9 @@ class _ScheduleViewState extends State<ScheduleView> {
   @override
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "calendar_view");
+
+    widget.wristCheckController.updateSelectedDate(DateTime.now());
+
     return  Obx(()=> Column(
       children: [
         widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
@@ -71,6 +74,13 @@ class _ScheduleViewState extends State<ScheduleView> {
                 agendaStyle: AgendaStyle(
                     appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
             initialSelectedDate: DateTime.now(),
+            onTap: (CalendarTapDetails details){
+              widget.wristCheckController.updateSelectedDate(details.date);
+            },
+            onViewChanged: (ViewChangedDetails details) {
+              widget.wristCheckController.updateSelectedDate(null);
+              print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
+              },
           ),
         ),
         Row(
@@ -79,14 +89,22 @@ class _ScheduleViewState extends State<ScheduleView> {
             Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
               child: ElevatedButton(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
-                  ),
-                onPressed: (){
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
+                    ),
+                  onPressed: widget.wristCheckController.selectedDate.value != null?(){
+                      Get.defaultDialog(
+                        title: "Track Wear",
+                        content: Container(
+                          child: Text("Date: ${WristCheckFormatter.getFormattedDate(widget.wristCheckController.selectedDate.value!)}"),
+                        ),
+                        textConfirm: "Track",
+                        textCancel: "Cancel",
 
-                },
-              ),
+                      );
+                  } : null,
+                ),
             )
           ],
         )

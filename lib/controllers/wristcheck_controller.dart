@@ -70,4 +70,14 @@ class WristCheckController extends GetxController {
     isDrawerOpen(isOpen);
   }
 
+  final selectedDate = Rxn<DateTime>();
+
+  updateSelectedDate(DateTime? date){
+    //allow a null value to be passed
+    if(date == null){
+      selectedDate(selectedDate.value =null);
+    }
+    selectedDate(date);
+  }
+
 }
