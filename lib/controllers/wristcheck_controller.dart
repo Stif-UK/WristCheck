@@ -5,6 +5,7 @@ import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
+import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -70,6 +71,7 @@ class WristCheckController extends GetxController {
     isDrawerOpen(isOpen);
   }
 
+  //Track the currently selected calendar date
   final selectedDate = Rxn<DateTime>();
 
   updateSelectedDate(DateTime? date){
@@ -78,6 +80,17 @@ class WristCheckController extends GetxController {
       selectedDate(selectedDate.value =null);
     }
     selectedDate(date);
+  }
+
+  //Track the current watch selection - this should be instantiated when used, and nulled when not in use.
+  final selectedWatch = Rxn<Watches>();
+
+  updateSelectedWatch(Watches? watch){
+    //allow a null value to be passed
+    if(watch == null){
+      selectedWatch(selectedWatch.value =null);
+    }
+    selectedWatch(watch);
   }
 
 }
