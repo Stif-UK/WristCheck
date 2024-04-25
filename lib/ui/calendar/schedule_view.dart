@@ -60,7 +60,9 @@ class _ScheduleViewState extends State<ScheduleView> {
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "calendar_view");
 
+    //initialise date and watch values
     widget.wristCheckController.updateSelectedDate(DateTime.now());
+    widget.wristCheckController.updateSelectedWatch(null);
 
     return  Obx(()=> Column(
       children: [
@@ -78,7 +80,7 @@ class _ScheduleViewState extends State<ScheduleView> {
               widget.wristCheckController.updateSelectedDate(details.date);
             },
             onViewChanged: (ViewChangedDetails details) {
-              widget.wristCheckController.updateSelectedDate(null);
+              //widget.wristCheckController.updateSelectedDate(null);
               print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
               },
           ),
@@ -96,12 +98,35 @@ class _ScheduleViewState extends State<ScheduleView> {
                   onPressed: widget.wristCheckController.selectedDate.value != null?(){
                       Get.defaultDialog(
                         title: "Track Wear",
-                        content: Column(
-                          children: [Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
-                            Text("Watch:"),
-                        ]),
+                        content: Obx(
+                            ()=>Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                                ),
+                                widget.wristCheckController.selectedWatch.value == null?
+                                ElevatedButton(
+                                    child: Text("Pick Watch"),
+                                  onPressed:() {
+                                      //TODO: Implement ability to select watch
+                                    widget.wristCheckController
+                                        .updateSelectedWatch(Boxes
+                                        .getCollectionWatches()
+                                        .first);
+                                  }, ):
+                                Text("Watch: ${widget.wristCheckController.selectedWatch.value!.model}"),
+                            ]),
+                        ),
                         textConfirm: "Track",
                         textCancel: "Cancel",
+                        onCancel: () async {
+                          //Delay prevents the view changing to show the button before the dialog exits
+                          Get.back();
+                          await Future.delayed(const Duration(milliseconds: 1000));
+                          widget.wristCheckController.updateSelectedWatch(null);
+                        }
 
                       );
                   } : null,
