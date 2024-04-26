@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -103,9 +106,11 @@ class _ScheduleViewState extends State<ScheduleView> {
             onViewChanged: (ViewChangedDetails details) {
               //use pageLoaded to ensure this is not run on first load of the page
               if(_pageLoaded){
+                print("tracking view change");
                 widget.wristCheckController.updateSelectedDate(null);
                 print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
               }
+              print("setting page loaded to true");
               _pageLoaded = true;
             },
           );
@@ -153,6 +158,23 @@ class _ScheduleViewState extends State<ScheduleView> {
                         ),
                         textConfirm: "Track",
                         textCancel: "Cancel",
+                        onConfirm: (){
+                          //Code to track wear
+                          if(widget.wristCheckController.selectedWatch.value == null){
+                            print("No watch selected");
+                            //Please select a watch
+                          } else {
+                            print("Attempting to track wear");
+                            Get.back();
+                                        WatchMethods.attemptToRecordWear(
+                                            widget.wristCheckController
+                                                .selectedWatch.value!,
+                                            widget.wristCheckController
+                                                .selectedDate.value!,
+                                            false);
+
+                                      }
+                                    },
                         onCancel: () async {
                           //Delay prevents the view changing to show the button before the dialog exits
                           Get.back();
@@ -190,6 +212,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     // 1. getAllWatches in collection, for each watch add all wear dates to an appointment
     //with the subject as the make + model + worn
     // 2. getServiceSchedule subject: Service Due: subject as make + model + service due
+    // 3. TODO: Implement warranty schedule
 
     List<Watches> watchSchedule = Boxes.getCollectionWatches();
     for(Watches watch in watchSchedule){

@@ -37,7 +37,7 @@ class WristCheckDialogs {
     Get.defaultDialog(
       title: "Duplicate Date Warning",
       barrierDismissible: false,
-      middleText: "It looks like you've already worn this watch today! \n \n"
+      middleText: "It looks like you've already worn this watch on the given date! \n \n"
           "if you want to track an additional wear, select 'Add Again' to track. \n \n"
           "otherwise cancel to go back",
         confirmTextColor: Colors.white,
