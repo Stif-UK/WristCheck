@@ -79,7 +79,22 @@ class _ScheduleViewState extends State<ScheduleView> {
                     appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
             initialSelectedDate: DateTime.now(),
             onTap: (CalendarTapDetails details){
+              //if date cell is tapped on, we set the current selected date
               widget.wristCheckController.updateSelectedDate(details.date);
+              //if an "appointment" is tapped on, show the details of the event
+              if(details.targetElement == CalendarElement.appointment){
+                Appointment currentAppointment = details.appointments!.first;
+                String summary = currentAppointment.subject;
+                Get.defaultDialog(
+                  title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                  content: Column(
+                    children: [
+                      Text(summary),
+                    ],
+                  )
+                );
+              }
+
             },
             onViewChanged: (ViewChangedDetails details) {
               //use pageLoaded to ensure this is not run on first load of the page
