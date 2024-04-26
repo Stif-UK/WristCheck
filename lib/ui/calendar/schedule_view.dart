@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:wristcheck/boxes.dart';
@@ -54,7 +55,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     super.initState();
   }
 
-
+  final watchBox = Boxes.getWatches();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,10 @@ class _ScheduleViewState extends State<ScheduleView> {
       children: [
         widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
         Expanded(
-          child: SfCalendar(
+          child: ValueListenableBuilder(
+        valueListenable: watchBox.listenable(),
+        builder: (context, box, _) {
+          return SfCalendar(
             view: CalendarView.month,
             dataSource: _getCalendarDataSource(),
             monthViewSettings: MonthViewSettings(showAgenda: true,
@@ -86,12 +90,12 @@ class _ScheduleViewState extends State<ScheduleView> {
                 Appointment currentAppointment = details.appointments!.first;
                 String summary = currentAppointment.subject;
                 Get.defaultDialog(
-                  title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
-                  content: Column(
-                    children: [
-                      Text(summary),
-                    ],
-                  )
+                    title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                    content: Column(
+                      children: [
+                        Text(summary),
+                      ],
+                    )
                 );
               }
 
@@ -103,8 +107,15 @@ class _ScheduleViewState extends State<ScheduleView> {
                 print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
               }
               _pageLoaded = true;
-              },
-          ),
+            },
+          );
+
+        },
+
+
+        )
+
+
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
