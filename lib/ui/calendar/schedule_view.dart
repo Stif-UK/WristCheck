@@ -154,6 +154,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                                         .first);
                                   }, ):
                                 Text("Watch: ${widget.wristCheckController.selectedWatch.value!.model}"),
+                                widget.wristCheckController.nullWatchMemo.value ? Text("Please select a watch",
+                                style: TextStyle(color: Colors.red),)
+                                    : SizedBox(height: 0,),
                             ]),
                         ),
                         textConfirm: "Track",
@@ -161,9 +164,11 @@ class _ScheduleViewState extends State<ScheduleView> {
                         onConfirm: (){
                           //Code to track wear
                           if(widget.wristCheckController.selectedWatch.value == null){
+                            widget.wristCheckController.updateNullWatchMemo(true);
                             print("No watch selected");
                             //Please select a watch
                           } else {
+                            widget.wristCheckController.updateNullWatchMemo(false);
                             print("Attempting to track wear");
                             Get.back();
                                         WatchMethods.attemptToRecordWear(
@@ -179,6 +184,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                           //Delay prevents the view changing to show the button before the dialog exits
                           Get.back();
                           await Future.delayed(const Duration(milliseconds: 1000));
+                          widget.wristCheckController.updateNullWatchMemo(false);
                           widget.wristCheckController.updateSelectedWatch(null);
                         }
 

@@ -93,4 +93,11 @@ class WristCheckController extends GetxController {
     selectedWatch(watch);
   }
 
+  //Track if a null watch error should show
+  final nullWatchMemo = false.obs;
+
+  updateNullWatchMemo(bool nullWatch){
+    nullWatchMemo(nullWatch);
+  }
+
 }
