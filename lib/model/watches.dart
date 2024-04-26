@@ -74,4 +74,8 @@ class Watches extends HiveObject{
   @HiveField(22)
   late DateTime? deliveryDate;
 
+  @override
+  String toString() {
+    return "${this.manufacturer} ${this.model}";
+  }
 }

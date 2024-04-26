@@ -17,6 +17,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class ScheduleView extends StatefulWidget {
   ScheduleView({Key? key}) : super(key: key);
@@ -133,6 +134,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
                     ),
                   onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: (){
+                      widget.wristCheckController.updateSelectedWatch(null);
                       Get.defaultDialog(
                         title: "Track Wear",
                         content: Obx(
@@ -143,20 +145,38 @@ class _ScheduleViewState extends State<ScheduleView> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
                                 ),
-                                widget.wristCheckController.selectedWatch.value == null?
-                                ElevatedButton(
-                                    child: Text("Pick Watch"),
-                                  onPressed:() {
-                                      //TODO: Implement ability to select watch
-                                    widget.wristCheckController
-                                        .updateSelectedWatch(Boxes
-                                        .getCollectionWatches()
-                                        .first);
-                                  }, ):
-                                Text("Watch: ${widget.wristCheckController.selectedWatch.value!.model}"),
+                                // widget.wristCheckController.selectedWatch.value == null?
+                                // ElevatedButton(
+                                //     child: Text("Pick Watch"),
+                                //   onPressed:() {
+                                //       //TODO: Implement ability to select watch
+                                //     widget.wristCheckController
+                                //         .updateSelectedWatch(Boxes
+                                //         .getCollectionWatches()
+                                //         .first);
+                                //   }, ):
                                 widget.wristCheckController.nullWatchMemo.value ? Text("Please select a watch",
                                 style: TextStyle(color: Colors.red),)
                                     : SizedBox(height: 0,),
+                                //Implement watch picker
+                                DropdownSearch(
+                                  popupProps: PopupProps.menu(
+                                    showSearchBox: true,
+                                  ),
+                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      labelText: "Pick Watch",
+                                      hintText: "Search by watch name"
+                                    )
+                                  ),
+                                  items: Boxes.getCollectionWatches(),
+                                  onChanged: (watch){
+                                    widget.wristCheckController.updateSelectedWatch(watch as Watches?);
+                                    print(widget.wristCheckController.selectedWatch.value);
+                                  },
+
+
+                                )
                             ]),
                         ),
                         textConfirm: "Track",

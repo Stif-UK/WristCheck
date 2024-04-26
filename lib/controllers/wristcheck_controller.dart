@@ -77,7 +77,7 @@ class WristCheckController extends GetxController {
   updateSelectedDate(DateTime? date){
     //allow a null value to be passed
     if(date == null){
-      selectedDate(selectedDate.value =null);
+      selectedDate(selectedDate.value = null);
     }
     selectedDate(date);
   }
@@ -88,7 +88,7 @@ class WristCheckController extends GetxController {
   updateSelectedWatch(Watches? watch){
     //allow a null value to be passed
     if(watch == null){
-      selectedWatch(selectedWatch.value =null);
+      selectedWatch(selectedWatch.value = null);
     }
     selectedWatch(watch);
   }
