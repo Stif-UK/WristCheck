@@ -155,27 +155,34 @@ class _ScheduleViewState extends State<ScheduleView> {
                                 //         .getCollectionWatches()
                                 //         .first);
                                 //   }, ):
-                                widget.wristCheckController.nullWatchMemo.value ? Text("Please select a watch",
-                                style: TextStyle(color: Colors.red),)
+                                widget.wristCheckController.nullWatchMemo.value ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Please select a watch",
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+                                )
                                     : SizedBox(height: 0,),
                                 //Implement watch picker
-                                DropdownSearch(
-                                  popupProps: PopupProps.menu(
-                                    showSearchBox: true,
-                                  ),
-                                  dropdownDecoratorProps: DropDownDecoratorProps(
-                                    dropdownSearchDecoration: InputDecoration(
-                                      labelText: "Pick Watch",
-                                      hintText: "Search by watch name"
-                                    )
-                                  ),
-                                  items: Boxes.getCollectionWatches(),
-                                  onChanged: (watch){
-                                    widget.wristCheckController.updateSelectedWatch(watch as Watches?);
-                                    print(widget.wristCheckController.selectedWatch.value);
-                                  },
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DropdownSearch(
+                                    popupProps: PopupProps.menu(
+                                      showSearchBox: true,
+                                    ),
+                                    dropdownDecoratorProps: DropDownDecoratorProps(
+                                      dropdownSearchDecoration: InputDecoration(
+                                        labelText: "Pick Watch",
+                                        hintText: "Search by watch name"
+                                      )
+                                    ),
+                                    items: Boxes.getCollectionWatches(),
+                                    onChanged: (watch){
+                                      widget.wristCheckController.updateNullWatchMemo(false);
+                                      widget.wristCheckController.updateSelectedWatch(watch as Watches?);
+                                      print(widget.wristCheckController.selectedWatch.value);
+                                    },
 
 
+                                  ),
                                 )
                             ]),
                         ),
