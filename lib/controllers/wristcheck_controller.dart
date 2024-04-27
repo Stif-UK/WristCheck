@@ -100,4 +100,11 @@ class WristCheckController extends GetxController {
     nullWatchMemo(nullWatch);
   }
 
+  //Determine if the calendar or service schedule should be displayed
+  final calendarOrService = true.obs;
+
+  updateCalendarOrService(bool cal){
+    calendarOrService(cal);
+  }
+
 }

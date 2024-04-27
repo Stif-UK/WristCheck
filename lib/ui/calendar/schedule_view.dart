@@ -155,7 +155,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(icon: Icon(FontAwesomeIcons.businessTime,
-                    color: Colors.white, size:15), onPressed: (){},)),
+                    color: Colors.white,size: 20),
+                      onPressed: (){
+                      widget.wristCheckController.updateCalendarOrService(false);
+                      },)),
               ),
             )
           ],
@@ -168,6 +171,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     );
   }
 
+  //Tracking dialog pop-up
   _generateTrackDialog(){
     Get.defaultDialog(
         title: "Track Wear",

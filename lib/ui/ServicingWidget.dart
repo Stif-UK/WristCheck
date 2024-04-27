@@ -83,6 +83,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
               Obx(
                   () => Column(
                     children:[
+                      widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
                       Expanded(
                 flex:1,
                     child: ListTile(
@@ -102,7 +103,7 @@ class _ServicingWidgetState extends State<ServicingWidget> {
 
 
                       Expanded(
-                flex: 9,
+                flex: 7,
                 child:ListView.separated(
                 itemCount: serviceList.length,
                 itemBuilder: (BuildContext context, int index){
@@ -118,11 +119,52 @@ class _ServicingWidgetState extends State<ServicingWidget> {
                 );
                 },
                 separatorBuilder: (context, index){
-                return const Divider();
+                return const Divider(thickness: 2,);
                 },
                 )
                 ),
-                      widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: const SizedBox(width: 0,)),
+                          Expanded(
+                            flex: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                              child: ElevatedButton(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Swap", style: TextStyle()),
+                                ),
+                                onPressed: (){
+
+                                }
+                              ))),
+
+
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    //: Border.all(color: Colors.blue, width: 4),
+                                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: IconButton(icon: Icon(Icons.calendar_month_sharp,
+                                      color: Colors.white, ),
+                                    onPressed: (){
+                                      widget.wristCheckController.updateCalendarOrService(true);
+                                      print("updating view toggle");
+                                    },)),
+                            ),
+                          )
+                        ],
+                      )
+
                     ]
                     ),
               );
