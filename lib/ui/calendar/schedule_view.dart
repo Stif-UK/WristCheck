@@ -131,12 +131,13 @@ class _ScheduleViewState extends State<ScheduleView> {
               child: ElevatedButton(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Track Wear", style: Theme.of(context).textTheme.bodyLarge,),
+                      child: Text("Track Wear", style: TextStyle()),
                     ),
                   onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: (){
                       widget.wristCheckController.updateSelectedWatch(null);
                       Get.defaultDialog(
                         title: "Track Wear",
+                        barrierDismissible: false,
                         content: Obx(
                             ()=>Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +165,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                                 //Implement watch picker
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: DropdownSearch(
+                                  child: DropdownSearch<Watches>(
                                     popupProps: PopupProps.menu(
                                       showSearchBox: true,
                                     ),
