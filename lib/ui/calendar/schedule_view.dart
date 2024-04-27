@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -141,88 +139,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       ),
                     onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: (){
                         widget.wristCheckController.updateSelectedWatch(null);
-                        Get.defaultDialog(
-                          title: "Track Wear",
-                          barrierDismissible: false,
-                          content: Obx(
-                              ()=>Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
-                                  ),
-                                  // widget.wristCheckController.selectedWatch.value == null?
-                                  // ElevatedButton(
-                                  //     child: Text("Pick Watch"),
-                                  //   onPressed:() {
-                                  //       //TODO: Implement ability to select watch
-                                  //     widget.wristCheckController
-                                  //         .updateSelectedWatch(Boxes
-                                  //         .getCollectionWatches()
-                                  //         .first);
-                                  //   }, ):
-                                  widget.wristCheckController.nullWatchMemo.value ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("Please select a watch",
-                                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
-                                  )
-                                      : SizedBox(height: 0,),
-                                  //Implement watch picker
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownSearch<Watches>(
-                                      popupProps: PopupProps.menu(
-                                        showSearchBox: true,
-                                      ),
-                                      dropdownDecoratorProps: DropDownDecoratorProps(
-                                        dropdownSearchDecoration: InputDecoration(
-                                          labelText: "Pick Watch",
-                                          hintText: "Search by watch name"
-                                        )
-                                      ),
-                                      items: Boxes.getCollectionWatches(),
-                                      onChanged: (watch){
-                                        widget.wristCheckController.updateNullWatchMemo(false);
-                                        widget.wristCheckController.updateSelectedWatch(watch as Watches?);
-                                        print(widget.wristCheckController.selectedWatch.value);
-                                      },
-
-
-                                    ),
-                                  )
-                              ]),
-                          ),
-                          textConfirm: "Track",
-                          textCancel: "Cancel",
-                          onConfirm: (){
-                            //Code to track wear
-                            if(widget.wristCheckController.selectedWatch.value == null){
-                              widget.wristCheckController.updateNullWatchMemo(true);
-                              print("No watch selected");
-                              //Please select a watch
-                            } else {
-                              widget.wristCheckController.updateNullWatchMemo(false);
-                              print("Attempting to track wear");
-                              Get.back();
-                                          WatchMethods.attemptToRecordWear(
-                                              widget.wristCheckController
-                                                  .selectedWatch.value!,
-                                              widget.wristCheckController
-                                                  .selectedDate.value!,
-                                              false);
-
-                                        }
-                                      },
-                          onCancel: () async {
-                            //Delay prevents the view changing to show the button before the dialog exits
-                            Get.back();
-                            await Future.delayed(const Duration(milliseconds: 1000));
-                            widget.wristCheckController.updateNullWatchMemo(false);
-                            widget.wristCheckController.updateSelectedWatch(null);
-                          }
-
-                        );
+                        _generateTrackDialog();
                     },
                   ),
               ),
@@ -234,7 +151,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                 child: Container(
                     decoration: BoxDecoration(
                       //: Border.all(color: Colors.blue, width: 4),
-                      color: Theme.of(context).buttonTheme.colorScheme?.inversePrimary,
+                      color: Theme.of(context).buttonTheme.colorScheme?.primary,
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(icon: Icon(FontAwesomeIcons.businessTime,
@@ -247,6 +164,81 @@ class _ScheduleViewState extends State<ScheduleView> {
       ],
     )
 
+
+    );
+  }
+
+  _generateTrackDialog(){
+    Get.defaultDialog(
+        title: "Track Wear",
+        barrierDismissible: false,
+        content: Obx(
+              ()=>Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                ),
+                widget.wristCheckController.nullWatchMemo.value ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Please select a watch",
+                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+                )
+                    : SizedBox(height: 0,),
+                //Implement watch picker
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownSearch<Watches>(
+                    popupProps: PopupProps.menu(
+                      showSearchBox: true,
+                    ),
+                    dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                            labelText: "Pick Watch",
+                            hintText: "Search by watch name"
+                        )
+                    ),
+                    items: Boxes.getCollectionWatches(),
+                    onChanged: (watch){
+                      widget.wristCheckController.updateNullWatchMemo(false);
+                      widget.wristCheckController.updateSelectedWatch(watch as Watches?);
+                      print(widget.wristCheckController.selectedWatch.value);
+                    },
+
+
+                  ),
+                )
+              ]),
+        ),
+        textConfirm: "Track",
+        textCancel: "Cancel",
+        onConfirm: (){
+          //Code to track wear
+          if(widget.wristCheckController.selectedWatch.value == null){
+            widget.wristCheckController.updateNullWatchMemo(true);
+            print("No watch selected");
+            //Please select a watch
+          } else {
+            widget.wristCheckController.updateNullWatchMemo(false);
+            print("Attempting to track wear");
+            Get.back();
+            WatchMethods.attemptToRecordWear(
+                widget.wristCheckController
+                    .selectedWatch.value!,
+                widget.wristCheckController
+                    .selectedDate.value!,
+                false);
+
+          }
+        },
+        onCancel: () async {
+          //Delay prevents the view changing to show the button before the dialog exits
+          Get.back();
+          await Future.delayed(const Duration(milliseconds: 1000));
+          widget.wristCheckController.updateNullWatchMemo(false);
+          widget.wristCheckController.updateSelectedWatch(null);
+        }
 
     );
   }
