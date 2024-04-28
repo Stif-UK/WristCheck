@@ -106,6 +106,7 @@ class _WatchViewState extends State<WatchView> {
   int _soldPrice = 0;
   DateTime? _soldDate;
   DateTime? _deliveryDate;
+  DateTime? _warrantyEndDate;
 
   //bool - show time owned in days or short form
   bool _showDays = false;
@@ -135,6 +136,7 @@ class _WatchViewState extends State<WatchView> {
   final timeInCollectionFieldController = TextEditingController();
   final soldDateFieldController = TextEditingController();
   final deliveryDateFieldController = TextEditingController();
+  final warrantyEndDateFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -157,6 +159,7 @@ class _WatchViewState extends State<WatchView> {
     timeInCollectionFieldController.dispose();
     soldDateFieldController.dispose();
     deliveryDateFieldController.dispose();
+    warrantyEndDateFieldController.dispose();
     super.dispose();
   }
 
@@ -192,6 +195,7 @@ class _WatchViewState extends State<WatchView> {
             _soldTo = soldToFieldController.value.text;
             _purchasePrice = getPrice(purchasePriceFieldController.value.text);
             _soldPrice = getPrice(soldPriceFieldController.value.text);
+            _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -215,6 +219,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.soldPrice = _soldPrice;
             widget.currentWatch!.soldDate = _soldDate;
             widget.currentWatch!.deliveryDate = _deliveryDate;
+            widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
             widget.currentWatch!.save();
           }
           Get.snackbar("$_manufacturer $_model",
@@ -287,6 +292,7 @@ class _WatchViewState extends State<WatchView> {
         soldDateFieldController.value = TextEditingValue(text: widget.currentWatch!.soldDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.soldDate!): "Not Recorded");
         deliveryDateFieldController.value = TextEditingValue(text: widget.currentWatch!.deliveryDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.deliveryDate!): "Not Recorded");
         lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): "N/A");
+        warrantyEndDateFieldController.value = TextEditingValue(text: widget.currentWatch!.warrantyEndDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.warrantyEndDate!): "Not Recorded");
         DateTime? nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval);
         nextServiceDueFieldController.value = TextEditingValue(text: nextServiceDue != null? WristCheckFormatter.getFormattedDate(nextServiceDue): "N/A");
         notesFieldController.value =
@@ -471,6 +477,7 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 1 ? _serviceIntervalRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
+                                      _currentIndex == 1 ? _warrantyExpiryRow(watchviewState) : const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _lastServicedDateRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
@@ -956,6 +963,19 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
+  Widget _warrantyExpiryRow(WatchViewEnum watchviewState){
+    return WatchFormField(
+      icon: const Icon(FontAwesomeIcons.screwdriverWrench),
+      enabled: watchviewState == WatchViewEnum.view? false: true,
+      fieldTitle: "Warranty Expiry Date:",
+      hintText: "Warranty Expiry Date",
+      maxLines: 1,
+      datePicker: true,
+      controller: warrantyEndDateFieldController,
+      textCapitalization: TextCapitalization.none,
+    );
+  }
+
   Widget _lastServicedDateRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarCheck),
@@ -1229,6 +1249,7 @@ class _WatchViewState extends State<WatchView> {
               _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
               _deliveryDate = getDateFromFieldString(deliveryDateFieldController.value.text);
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
+              _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
               _purchasePrice = getPrice(purchasePriceFieldController.value.text);
               _soldPrice = getPrice(soldPriceFieldController.value.text);
@@ -1252,7 +1273,8 @@ class _WatchViewState extends State<WatchView> {
                 _purchasePrice,
                 _soldPrice,
                 _soldDate,
-                _deliveryDate
+                _deliveryDate,
+                _warrantyEndDate
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
@@ -1330,7 +1352,8 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.referenceNumber != referenceNumberFieldController.value.text ||
       widget.currentWatch!.serialNumber != serialNumberFieldController.value.text ||
       widget.currentWatch!.soldDate != getDateFromFieldString(soldDateFieldController.value.text) ||
-      widget.currentWatch!.deliveryDate != getDateFromFieldString(deliveryDateFieldController.value.text)
+      widget.currentWatch!.deliveryDate != getDateFromFieldString(deliveryDateFieldController.value.text) ||
+      widget.currentWatch!.warrantyEndDate != getDateFromFieldString(warrantyEndDateFieldController.value.text)
     ){
       returnValue = true;
     }
