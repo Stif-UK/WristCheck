@@ -39,13 +39,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..purchasePrice = fields[19] as int?
       ..soldPrice = fields[20] as int?
       ..soldDate = fields[21] as DateTime?
-      ..deliveryDate = fields[22] as DateTime?;
+      ..deliveryDate = fields[22] as DateTime?
+      ..warrantyEndDate = fields[23] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(24)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -91,7 +92,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(21)
       ..write(obj.soldDate)
       ..writeByte(22)
-      ..write(obj.deliveryDate);
+      ..write(obj.deliveryDate)
+      ..writeByte(23)
+      ..write(obj.warrantyEndDate);
   }
 
   @override
