@@ -307,6 +307,19 @@ class _ScheduleViewState extends State<ScheduleView> {
       ));
     }
 
+    List<Watches> warrantySchedule = Boxes.getWarrantySchedule();
+    for(Watches watch in warrantySchedule){
+      String watchTitle = "${watch.manufacturer} ${watch.model}";
+      appointments.add(Appointment(
+          isAllDay: true,
+          startTime: watch.warrantyEndDate!,
+          endTime: watch.warrantyEndDate!,
+          subject: "$watchTitle Warranty Expires",
+          color: Colors.deepPurpleAccent
+
+      ));
+    }
+
     return _WatchDataSource(appointments);
   }
 }

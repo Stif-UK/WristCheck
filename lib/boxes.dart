@@ -103,6 +103,12 @@ class Boxes {
     returnList.sort((a, b) => a.nextServiceDue!.compareTo(b.nextServiceDue!));
     return returnList;
   }
+
+  static List<Watches> getWarrantySchedule(){
+    var returnList = Hive.box<Watches>("WatchBox").values.where((watch) => watch.warrantyEndDate != null && watch.status == "In Collection").toList();
+    returnList.sort((a, b) => a.warrantyEndDate!.compareTo(b.warrantyEndDate!));
+    return returnList;
+  }
   
   static List<Watches> getWatchesWornFilter(List<Watches> initialList, int? month, int? year){
     //start by making the return list the whole box
