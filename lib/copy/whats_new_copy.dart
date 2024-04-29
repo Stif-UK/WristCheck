@@ -5,11 +5,12 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.7.2 \n"
+        "### Version 1.8.0 \n"
         "\n"
 
-        "* Implemented GDPR consent dialog for European users\n"
-            "* Setup configurable ad privacy options for all users\n";
+            "* Added a new calendar view\n"
+            "* Added warranty expiry data point\n"
+            "* Updated servicing and warranty end date schedule\n";
 
   }
 
@@ -23,6 +24,14 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.8.0 \n"
+                      "\n"
+
+                      "* Added a new calendar view\n"
+                      "* Added warranty expiry data point\n"
+                      "* Updated servicing and warranty end date schedule\n"
+                      "* Bug fix: Cost per wear now takes into account sold price\n"
+                      "--- \n\n"
                       "### Version 1.7.2 \n"
                       "\n"
 
