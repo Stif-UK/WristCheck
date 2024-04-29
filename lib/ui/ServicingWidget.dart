@@ -47,6 +47,10 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
     Tab(
       icon: Icon(FontAwesomeIcons.screwdriverWrench),
       text: "Warranty",
+      iconMargin: EdgeInsets.only(bottom: 5),),
+    Tab(
+      icon: Icon(FontAwesomeIcons.question),
+      text: "Help",
       iconMargin: EdgeInsets.only(bottom: 5),)
   ];
 
@@ -128,32 +132,48 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
 
                               Column(
                                   children:[
+                                    // Expanded(
+                                    //     flex:1,
+                                    //     child: ListTile(
+                                    //       title: const Text("Service Schedule"),
+                                    //       leading: const Icon(Icons.schedule),
+                                    //       trailing: InkWell(
+                                    //         child: const Icon(Icons.help),
+                                    //         onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
+                                    //
+                                    //       ),
+                                    //     )
+                                    // ),
+                                    // const Divider(
+                                    //   thickness: 2.0,
+                                    // ),
                                     Expanded(
-                                        flex:1,
-                                        child: ListTile(
-                                          title: const Text("Service Schedule"),
-                                          leading: const Icon(Icons.schedule),
-                                          trailing: InkWell(
-                                            child: const Icon(Icons.help),
-                                            onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
-
-                                          ),
-                                        )
-                                    ),
-                                    const Divider(
-                                      thickness: 2.0,
-                                    ),
-                                    Expanded(
-                                        flex: 7,
-                                        //TODO: create separate listview builders for servicing and warranty
+                                        //flex: 7,
                                         child:ListView.separated(
                                           itemCount: serviceList.length,
                                           itemBuilder: (BuildContext context, int index){
                                             var watch = serviceList.elementAt(index);
-                                            
+                                            Widget returnWidget = Container();
 
-                                            return widget.wristCheckController.lastServicingTabIndex.value == 0 ? 
-                                                _getServicingListTile(watch): _getWarrantyListTile(watch);
+                                            switch (widget.wristCheckController.lastServicingTabIndex.value){
+                                              case 0:
+                                                returnWidget = _getServicingListTile(watch);
+                                                break;
+                                              case 1:
+                                                returnWidget = _getWarrantyListTile(watch);
+                                                break;
+                                              case 2:
+                                                returnWidget = _getHelpPage();
+                                                break;
+                                              default:
+                                                returnWidget = _getServicingListTile(watch);
+                                                break;
+                                            }
+
+                                            return returnWidget;
+
+                                              // widget.wristCheckController.lastServicingTabIndex.value == 0 ?
+                                              //   _getServicingListTile(watch): _getWarrantyListTile(watch);
                                           },
                                           separatorBuilder: (context, index){
                                             return const Divider(thickness: 2,);
@@ -200,6 +220,10 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
     );
 
   }
+}
+
+Widget _getHelpPage() {
+  return Container();
 }
 
 _getServicingListTile(Watches watch){
