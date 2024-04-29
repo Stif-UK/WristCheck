@@ -18,6 +18,7 @@ import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 
@@ -112,13 +113,14 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                     controller: _tabController,
                     children: myTabs.map((Tab tab){
                       return Center(
-                          //child: tab.text == "Servicing"? _buildServicingWidget(): _buildServicingWidget()
                         child: ValueListenableBuilder<Box<Watches>>(
                             valueListenable: watchBox.listenable(),
                             builder: (context, box, _){
-                              List<Watches> serviceList = Boxes.getServiceSchedule();
+                              List<Watches> serviceList = widget.wristCheckController.lastServicingTabIndex.value == 0 ?
+                              Boxes.getServiceSchedule() :
+                              Boxes.getWarrantySchedule();
 
-                              return serviceList.isEmpty?Container(
+                              return serviceList.isEmpty ? Container(
                                 alignment: Alignment.center,
                                 child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
                                   textAlign: TextAlign.center,),
@@ -143,18 +145,15 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                                     ),
                                     Expanded(
                                         flex: 7,
+                                        //TODO: create separate listview builders for servicing and warranty
                                         child:ListView.separated(
                                           itemCount: serviceList.length,
                                           itemBuilder: (BuildContext context, int index){
                                             var watch = serviceList.elementAt(index);
-                                            String? _title = "${watch.manufacturer} ${watch.model}";
+                                            
 
-                                            return ListTile(
-                                              leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
-                                              title: Text(_title),
-                                              subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
-                                              onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
-                                            );
+                                            return widget.wristCheckController.lastServicingTabIndex.value == 0 ? 
+                                                _getServicingListTile(watch): _getWarrantyListTile(watch);
                                           },
                                           separatorBuilder: (context, index){
                                             return const Divider(thickness: 2,);
@@ -189,7 +188,6 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                               color: Colors.white, ),
                               onPressed: (){
                                 widget.wristCheckController.updateCalendarOrService(true);
-                                print("updating view toggle");
                               },)),
                       ),
                     )
@@ -202,5 +200,27 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
     );
 
   }
+}
+
+_getServicingListTile(Watches watch){
+  String? _title = "${watch.manufacturer} ${watch.model}";
+  
+  return  ListTile(
+    leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+    title: Text(_title),
+    subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
+    onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
+  );
+}
+
+_getWarrantyListTile(Watches watch){
+  String? _title = "${watch.manufacturer} ${watch.model}";
+
+  return  ListTile(
+    leading: Icon(FontAwesomeIcons.screwdriverWrench),//ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+    title: Text(_title),
+    subtitle: Text("Warranty Expires on: ${WristCheckFormatter.getFormattedDateWithDay(watch.warrantyEndDate!)}"),
+    onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
+  );
 }
 
