@@ -58,6 +58,10 @@ class AboutAppCopy{
               "\nAvailable at pub.dev/packages/syncfusion_flutter_charts \n"
               "Distributed and used under the Syncfusion Community Licence."),
           Divider(thickness: 2),
+          Text("Syncfusion Calendar has been used to implement calendar and schedule views."
+              "\nAvailable at pub.dev/packages/syncfusion_flutter_calendar \n"
+              "Distributed and used under the Syncfusion Community Licence."),
+          Divider(thickness: 2),
           Text("Font Awesome Icons have been used throughout the app."
               "\nAvailable at fontawesome.com \n"
               "Distributed and used under the CC BY 4.0 licence."),
