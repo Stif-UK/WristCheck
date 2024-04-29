@@ -179,9 +179,13 @@ class WatchMethods {
   }
 
   static double calculateCostPerWear(Watches currentWatch){
-    //TODO: Take sold value into account for sold watches
     int wearCount = currentWatch.wearList.length;
     int purchasePrice = currentWatch.purchasePrice ?? 0;
+    if(currentWatch.status == "Sold" && currentWatch.soldPrice != null){
+      if(currentWatch.soldPrice! > 0){
+        purchasePrice = purchasePrice - currentWatch.soldPrice!;
+      }
+    }
     double returnValue = 0.0;
     if(wearCount != 0 && purchasePrice != 0){
       returnValue = purchasePrice/wearCount;
