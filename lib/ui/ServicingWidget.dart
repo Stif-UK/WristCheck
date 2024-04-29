@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
@@ -29,12 +30,26 @@ class ServicingWidget extends StatefulWidget {
   State<ServicingWidget> createState() => _ServicingWidgetState();
 }
 
-class _ServicingWidgetState extends State<ServicingWidget> {
+class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProviderStateMixin{
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   final watchBox = Boxes.getWatches();
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  //Set up tabbed view
+  final List<Tab> myTabs = <Tab>[
+    Tab(
+      icon: Icon(FontAwesomeIcons.calendarDays),
+      text: "Servicing" ,
+      iconMargin: EdgeInsets.only(bottom: 5),),
+    Tab(
+      icon: Icon(FontAwesomeIcons.screwdriverWrench),
+      text: "Warranty",
+      iconMargin: EdgeInsets.only(bottom: 5),)
+  ];
+
+  late TabController _tabController;
 
   @override
   void didChangeDependencies() {
@@ -60,117 +75,153 @@ class _ServicingWidgetState extends State<ServicingWidget> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    _tabController = TabController(length: myTabs.length, vsync: this);
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "servicing");
+    _tabController.index = widget.wristCheckController.lastServicingTabIndex.value;
     return Scaffold(
-        body: ValueListenableBuilder<Box<Watches>>(
-            valueListenable: watchBox.listenable(),
-            builder: (context, box, _){
-              List<Watches> serviceList = Boxes.getServiceSchedule();
+        body: Obx(
+            ()=> Column(
+              children:[
+            widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+            TabBar(
+              controller: _tabController,
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              labelColor: Theme.of(context).textTheme.bodyMedium!.color,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(50), // Creates border
+                color: Theme.of(context).highlightColor,),
+              tabs: myTabs,
+              onTap: (index) {
+                widget.wristCheckController.updateLastServicingTabIndex(index);
+              },
+            ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: myTabs.map((Tab tab){
+                      return Center(
+                          //child: tab.text == "Servicing"? _buildServicingWidget(): _buildServicingWidget()
+                        child: ValueListenableBuilder<Box<Watches>>(
+                            valueListenable: watchBox.listenable(),
+                            builder: (context, box, _){
+                              List<Watches> serviceList = Boxes.getServiceSchedule();
 
 
 
-              return serviceList.isEmpty?Container(
-                alignment: Alignment.center,
-                child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
-                  textAlign: TextAlign.center,),
-              ):
+                              return serviceList.isEmpty?Container(
+                                alignment: Alignment.center,
+                                child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
+                                  textAlign: TextAlign.center,),
+                              ):
 
-              Obx(
-                  () => Column(
-                    children:[
-                      widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-                      Expanded(
-                flex:1,
-                    child: ListTile(
-                      title: const Text("Service Schedule"),
-                      leading: const Icon(Icons.schedule),
-                      trailing: InkWell(
-                          child: const Icon(Icons.help),
-                        onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
+                              Column(
+                                  children:[
+                                    Expanded(
+                                        flex:1,
+                                        child: ListTile(
+                                          title: const Text("Service Schedule"),
+                                          leading: const Icon(Icons.schedule),
+                                          trailing: InkWell(
+                                            child: const Icon(Icons.help),
+                                            onTap: () => WristCheckDialogs.getServicePageTooltipDialog(),
 
+                                          ),
+                                        )
+
+                                    ),
+                                    const Divider(
+                                      thickness: 2.0,
+                                    ),
+
+
+                                    Expanded(
+                                        flex: 7,
+                                        child:ListView.separated(
+                                          itemCount: serviceList.length,
+                                          itemBuilder: (BuildContext context, int index){
+                                            var watch = serviceList.elementAt(index);
+                                            String? _title = "${watch.manufacturer} ${watch.model}";
+
+
+                                            return ListTile(
+                                              leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+                                              title: Text(_title),
+                                              subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
+                                              onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
+                                            );
+                                          },
+                                          separatorBuilder: (context, index){
+                                            return const Divider(thickness: 2,);
+                                          },
+                                        )
+                                    ),
+
+                                  ]
+                              );
+
+                            }
+
+
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        flex: 7,
+                        child: const SizedBox(width: 0,)),
+                    // Expanded(
+                    //     flex: 4,
+                    //     child: Padding(
+                    //         padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                    //         child: ElevatedButton(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.all(8.0),
+                    //               child: Text("Swap", style: TextStyle()),
+                    //             ),
+                    //             onPressed: (){
+                    //
+                    //             }
+                    //         ))),
+
+
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              //: Border.all(color: Colors.blue, width: 4),
+                              color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(icon: Icon(Icons.calendar_month_sharp,
+                              color: Colors.white, ),
+                              onPressed: (){
+                                widget.wristCheckController.updateCalendarOrService(true);
+                                print("updating view toggle");
+                              },)),
                       ),
                     )
-
-                ),
-                      const Divider(
-                        thickness: 2.0,
-                      ),
-
-
-                      Expanded(
-                flex: 7,
-                child:ListView.separated(
-                itemCount: serviceList.length,
-                itemBuilder: (BuildContext context, int index){
-                var watch = serviceList.elementAt(index);
-                String? _title = "${watch.manufacturer} ${watch.model}";
-
-
-                return ListTile(
-                leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
-                title: Text(_title),
-                subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
-                onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
-                );
-                },
-                separatorBuilder: (context, index){
-                return const Divider(thickness: 2,);
-                },
+                  ],
                 )
-                ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: const SizedBox(width: 0,)),
-                          Expanded(
-                            flex: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
-                              child: ElevatedButton(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("Swap", style: TextStyle()),
-                                ),
-                                onPressed: (){
-
-                                }
-                              ))),
-
-
-                          Expanded(
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    //: Border.all(color: Colors.blue, width: 4),
-                                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: IconButton(icon: Icon(Icons.calendar_month_sharp,
-                                      color: Colors.white, ),
-                                    onPressed: (){
-                                      widget.wristCheckController.updateCalendarOrService(true);
-                                      print("updating view toggle");
-                                    },)),
-                            ),
-                          )
-                        ],
-                      )
-
-                    ]
-                    ),
-              );
-            }
-
-
+              ]
+            )
         )
 
     );
@@ -178,11 +229,3 @@ class _ServicingWidgetState extends State<ServicingWidget> {
   }
 }
 
-// Widget _buildAdSpace(BannerAd? banner, BuildContext context){
-//   return banner == null
-//       ? const SizedBox(height: 50,)
-//       : SizedBox(
-//     height: 50,
-//     child: AdWidget(ad: banner!),
-//   );
-// }

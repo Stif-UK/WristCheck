@@ -107,4 +107,11 @@ class WristCheckController extends GetxController {
     calendarOrService(cal);
   }
 
+  //Track last opened servicing/warranty tab
+  final lastServicingTabIndex = 0.obs;
+
+  updateLastServicingTabIndex(int index){
+    lastServicingTabIndex(index);
+  }
+
 }
