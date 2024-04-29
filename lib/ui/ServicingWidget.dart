@@ -118,8 +118,6 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                             builder: (context, box, _){
                               List<Watches> serviceList = Boxes.getServiceSchedule();
 
-
-
                               return serviceList.isEmpty?Container(
                                 alignment: Alignment.center,
                                 child: const Text("No Service schedules identified. \n\nEdit your watch info to track service timelines and last-serviced dates.",
@@ -139,13 +137,10 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
 
                                           ),
                                         )
-
                                     ),
                                     const Divider(
                                       thickness: 2.0,
                                     ),
-
-
                                     Expanded(
                                         flex: 7,
                                         child:ListView.separated(
@@ -153,7 +148,6 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                                           itemBuilder: (BuildContext context, int index){
                                             var watch = serviceList.elementAt(index);
                                             String? _title = "${watch.manufacturer} ${watch.model}";
-
 
                                             return ListTile(
                                               leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
@@ -167,13 +161,9 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                                           },
                                         )
                                     ),
-
                                   ]
                               );
-
                             }
-
-
                         ),
                       );
                     }).toList(),
@@ -185,21 +175,6 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                     Expanded(
                         flex: 7,
                         child: const SizedBox(width: 0,)),
-                    // Expanded(
-                    //     flex: 4,
-                    //     child: Padding(
-                    //         padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
-                    //         child: ElevatedButton(
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(8.0),
-                    //               child: Text("Swap", style: TextStyle()),
-                    //             ),
-                    //             onPressed: (){
-                    //
-                    //             }
-                    //         ))),
-
-
                     Expanded(
                       flex: 3,
                       child: Padding(
