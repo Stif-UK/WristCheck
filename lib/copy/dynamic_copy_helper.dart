@@ -29,4 +29,26 @@ class DynamicCopyHelper{
 
     return Text(returnText, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge,);
   }
+
+  static Widget getEmptyServiceText(int index, BuildContext context){
+    String returnText = "";
+
+    switch(index){
+      case 0:
+        returnText = "No Service Data to show\n\nTo populate a service schedule add purchase dates, service dates and service intervals to your watches.\n\n";
+        break;
+      case 1:
+        returnText = "No Warranty Data to show\n\nTo populate a warranty expiry schedule, add warranty end date values to your watches.\n";
+        break;
+      case 2:
+        returnText = "Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n";
+        break;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Text(returnText, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge,),
+    );
+
+  }
 }
