@@ -109,8 +109,12 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                 borderRadius: BorderRadius.circular(50), // Creates border
                 color: Theme.of(context).highlightColor,),
               tabs: myTabs,
-              onTap: (index) {
+              onTap: (index) async {
                 widget.wristCheckController.updateLastServicingTabIndex(index);
+                await analytics.logEvent(name: "chg_srv_tab",
+                    parameters: {
+                      "current_tab": index
+                    });
               },
             ),
                 Expanded(
@@ -192,6 +196,10 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                               color: Colors.white, ),
                               onPressed: (){
                                 widget.wristCheckController.updateCalendarOrService(true);
+                                analytics.logEvent(name: "change_cal_view",
+                                    parameters: {
+                                      "open_cal": true
+                                    });
                               },)),
                       ),
                     )

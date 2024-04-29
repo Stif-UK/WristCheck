@@ -137,9 +137,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text("Track Wear", style: TextStyle()),
                       ),
-                    onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: (){
+                    onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
                         widget.wristCheckController.updateSelectedWatch(null);
                         _generateTrackDialog();
+                        await analytics.logEvent(name: "calendar_wear");
                     },
                   ),
               ),
@@ -156,8 +157,12 @@ class _ScheduleViewState extends State<ScheduleView> {
                     ),
                     child: IconButton(icon: Icon(FontAwesomeIcons.businessTime,
                     color: Colors.white,size: 20),
-                      onPressed: (){
+                      onPressed: () async {
                       widget.wristCheckController.updateCalendarOrService(false);
+                      await analytics.logEvent(name: "change_cal_view",
+                      parameters: {
+                        "open_cal": false
+                      });
                       },)),
               ),
             )
