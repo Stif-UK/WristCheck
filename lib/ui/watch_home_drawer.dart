@@ -7,6 +7,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/SettingsPage.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
+import 'package:wristcheck/ui/datalinks.dart';
 import 'package:wristcheck/ui/privacy_landing.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/util/general_helper.dart';
@@ -53,7 +54,7 @@ class WatchHomeDrawer extends StatelessWidget {
             trailing: const Icon(Icons.data_array),
             title: const Text("App Data"),
             onTap: (){
-              //Get.to(() => SettingsPage());
+              Get.to(() => DataLinks());
             },
           ),
           const Divider(thickness: 2,),
