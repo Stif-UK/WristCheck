@@ -25,14 +25,19 @@ class WatchHomeDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children:  [
-          DrawerHeader(child: IconButton(
-            splashColor: Colors.transparent,
-            icon: const Icon(Icons.watch, size: 40.0),
-            onPressed: () async {
-
-            },
-
-          )),
+          DrawerHeader(child:
+                Container(
+                width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image:  AssetImage('assets/icon/drawerheader.png'),
+                        fit: BoxFit.contain
+                    ),
+                  ),
+                )
+                    ),
 
           const Divider(thickness: 2,),
           ListTile(
