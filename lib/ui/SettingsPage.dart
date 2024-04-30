@@ -2,19 +2,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/boxes.dart';
-import 'package:wristcheck/copy/dialogs.dart';
-import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/archived.dart';
-import 'package:wristcheck/copy/snackbars.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/ui/chart_options.dart';
 import 'package:wristcheck/ui/developer_stats.dart';
 import 'package:wristcheck/ui/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/onboarding.dart';
-import 'package:wristcheck/util/images_util.dart';
 
 
 
@@ -31,7 +25,6 @@ class SettingsPage extends StatefulWidget{
 class _SettingsPageState extends State<SettingsPage> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  final watchBox = Boxes.getWatches();
   String _buildVersion = "Not Determined";
   int _clickCount = 0;
 
@@ -93,41 +86,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                    title: const Text("Backup / Restore Database"),
-                    leading: const Icon(Icons.save_alt),
-                    onTap: (){
-                      Get.to(()=> const BackupRestore());
-                    }
-                ),
-                const Divider(thickness: 2,),
-                ListTile(
                   title: const Text("View First Use Demo"),
                   leading: const Icon(FontAwesomeIcons.mobileScreen),
                   onTap: (){
                     Get.to(()=> const WristCheckOnboarding());
                   },
-                ),
-                const Divider(thickness: 2,),
-                ListTile(
-                  title:const Text("Delete collection"),
-                  leading: const Icon(Icons.warning),
-                  trailing: OutlinedButton(
-                    child: const Icon(Icons.delete, color: Colors.redAccent),
-                    onPressed: (){
-                      Get.defaultDialog(
-                        title: "Warning",
-                        middleText: "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
-                        textConfirm: "OK",
-                        textCancel: "Cancel",
-                        onConfirm: (){
-                          _deleteCollection();
-                          Get.back();
-                          WristCheckSnackBars.collectionDeletedSnackbar();
-                        }
-
-                      );
-                    }
-                  )
                 ),
                 const Divider(thickness: 2,),
               ],
@@ -163,9 +126,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   }
 
-  void _deleteCollection(){
-    ImagesUtil.deleteAllImages();
-    watchBox.clear();
-  }
+
 
 }
