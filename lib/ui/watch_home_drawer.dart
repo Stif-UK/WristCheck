@@ -50,6 +50,14 @@ class WatchHomeDrawer extends StatelessWidget {
           ),
           const Divider(thickness: 2,),
           ListTile(
+            trailing: const Icon(Icons.data_array),
+            title: const Text("App Data"),
+            onTap: (){
+              //Get.to(() => SettingsPage());
+            },
+          ),
+          const Divider(thickness: 2,),
+          ListTile(
             trailing: const Icon(Icons.warning_amber_rounded),
             title: const Text("Privacy"),
             onTap: (){
