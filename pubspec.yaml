@@ -71,6 +71,7 @@ dependencies:
   url_launcher: ^6.2.1
   syncfusion_flutter_calendar: ^20.4.54
   dropdown_search: ^5.0.6
+  csv: ^6.0.0
 
 dependency_overrides:
   watcher: ^1.1.0

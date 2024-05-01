@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wristcheck/model/extract_methods.dart';
 
 class AlternativeExports extends StatefulWidget {
 
@@ -23,7 +24,9 @@ class _AlternativeExportsState extends State<AlternativeExports> {
           const Divider(thickness: 2,),
           ElevatedButton(
               child: Text("Simple Extract Test"),
-          onPressed: (){}
+          onPressed: () async {
+                await ExtractMethods.generateSimpleExtract();
+          }
             ,)
         ],
       ),
