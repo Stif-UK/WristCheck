@@ -12,12 +12,12 @@ class ExtractMethods{
     List<Watches> watchbox = Boxes.getAllWatches();
 
     //Produce a list of Rows to convert
-    List<List<String>> csvList = [];
+    List<List<String?>> csvList = [];
     //Create Header Row
-    csvList.add(["Status", "Manufacturer", "Model"]);//, "Status", "Category", "Serial Number", "Reference Number", "Movement", "Purchase Date", "Warranty Expiry Date", "Last Serviced Date", "Purchase Price", "Purchased From", "Sold Price", "Sold To", "Notes"]);
+    csvList.add(["Status", "Manufacturer", "Model", "Category", "Serial Number", "Reference Number", "Movement", "Purchase Date", "Warranty Expiry Date", "Last Serviced Date", "Purchase Price", "Purchased From", "Sold Price", "Sold To", "Notes"]);
     //Add additional rows per watch
     for(Watches watch in watchbox){
-      csvList.add([watch.status!, watch.manufacturer, watch.model]);
+      csvList.add([watch.status!, watch.manufacturer, watch.model, watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.purchaseDate.toString(), watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldPrice.toString(), watch.soldTo, watch.notes]);
     }
     String csv = const ListToCsvConverter().convert(csvList);
     print(csv);
@@ -30,12 +30,6 @@ class ExtractMethods{
     final File file = File('${directory.path}/wristcheck_extract.csv');
     await file.writeAsString(csv);
 
-
-    // //Check if extract directory exists - if it doesn't then create it
-    // bool exists = await Directory("${directory.path}/extracts").exists();
-    // if(!exists) {
-    //   await Directory("${directory.path}/extracts").create();
-    // }
 
     var result = await Share.shareXFiles([XFile(file.path)]);
 
