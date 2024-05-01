@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/snackbars.dart';
+import 'package:wristcheck/ui/backup/alternative_exports.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -48,10 +49,10 @@ class _DataLinksState extends State<DataLinks> {
         ),
         const Divider(thickness: 2,),
         ListTile(
-            title: const Text("CSV Export"),
-            leading: const Icon(FontAwesomeIcons.fileCsv),
+            title: const Text("Alternative Exports"),
+            leading: const Icon(FontAwesomeIcons.fileExport),
             onTap: (){
-              //Get.to(()=> const BackupRestore());
+              Get.to(()=> AlternativeExports());
             }
         ),
         const Divider(thickness: 2,),

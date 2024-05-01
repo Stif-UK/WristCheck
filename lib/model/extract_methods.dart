@@ -1,0 +1,7 @@
+class ExtractMethods{
+
+  static generateSimpleExtract(){
+    
+  }
+
+}
