@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -9,24 +12,26 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/model/watch_methods.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 class WearDatesWidget extends StatefulWidget {
-  // const WearDatesWidget({Key? key} ) : super(key: key);
-
   final Watches currentWatch;
+  final wristCheckController = Get.put(WristCheckController());
 
-  const WearDatesWidget({
+
+  WearDatesWidget({
     Key? key,
     required this.currentWatch});
+
 
   @override
   State<WearDatesWidget> createState() => _WearDatesWidgetState();
 }
 
 class _WearDatesWidgetState extends State<WearDatesWidget> {
-bool _locked = true;
 BannerAd? banner;
 bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
@@ -50,42 +55,19 @@ void didChangeDependencies() {
   }
 }
 
+final watchBox = Boxes.getWatches();
+
   @override
   Widget build(BuildContext context) {
     var wearList = widget.currentWatch.wearList;
+    widget.wristCheckController.updateSelectedDate(DateTime.now());
+    //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
+    bool _pageLoaded = false;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.currentWatch.model),
         actions:  [
-          //Show lock icon - page cannot be edited if locked (default state)
-          InkWell(child: _locked? const Icon(Icons.lock) :  const Icon(Icons.lock_open),
-          onTap: (){
-            setState(() {
-            _locked = !_locked;
-            });
-            },),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: InkWell(
-                child: const Icon(Icons.add,),
-            //If page is 'locked' the 'add' button does nothing
-            onTap: _locked? null: () async {
-                  DateTime? historicDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(2100));
-                  //if cancelled then date == null
-                  if(historicDate == null) return;
-                  WatchMethods.attemptToRecordWear(widget.currentWatch, historicDate, false);
-
-                    setState(() {
-
-                    });
-                  },
-            ),
-          ),
           IconButton(
             icon: const Icon(Icons.help_outline),
             onPressed: (){
@@ -100,40 +82,50 @@ void didChangeDependencies() {
           Expanded(
             child: Container(
               child:
-              wearList.isNotEmpty? ListView.builder(
-                itemCount: wearList.length,
-                prototypeItem: ListTile(
-                  title: Text(wearList.first.toString()),
-                ),
-                itemBuilder: (context, index) {
-                  final item = wearList[index].toString();
-                  var date = wearList[index];
-                  return Dismissible(
-
-                    key: Key(item),
-                    //If page is locked then dates cannot be dismissed, else require a right to left swipe
-                    direction: _locked? DismissDirection.none : DismissDirection.endToStart,
-
-                    onDismissed: (direction) {
-                      setState(() {
-                        wearList.removeAt(index);
-                        widget.currentWatch.save();
-                        // Then show a snackbar.
-                        WristCheckSnackBars.removeWearSnackbar(widget.currentWatch, date);
-                      });
+              wearList.isNotEmpty?
+              ValueListenableBuilder(
+                valueListenable: watchBox.listenable(),
+                builder: (context, box, _) {
+                  return SfCalendar(
+                    view: CalendarView.month,
+                    dataSource: _getCalendarDataSource(),
+                    monthViewSettings: MonthViewSettings(showAgenda: true,
+                        showTrailingAndLeadingDates: false,
+                        agendaStyle: AgendaStyle(
+                            appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
+                    initialSelectedDate: DateTime.now(),
+                    onTap: (CalendarTapDetails details){
+                      //if date cell is tapped on, we set the current selected date
+                      widget.wristCheckController.updateSelectedDate(details.date);
+                      //if an "appointment" is tapped on, show the details of the event
+                      if(details.targetElement == CalendarElement.appointment){
+                        Appointment currentAppointment = details.appointments!.first;
+                        String summary = currentAppointment.subject;
+                        Get.defaultDialog(
+                            title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                            content: Column(
+                              children: [
+                                Text(summary),
+                              ],
+                            )
+                        );
+                      }
 
                     },
-                    // Show a red background as the item is swiped away.
-                    background: Container(
-                      alignment: Alignment.center,color: Colors.red,
-                    child: const Text("Deleting"),),
-                    child: ListTile(
-                      leading: const Icon(Icons.calendar_today_outlined),
-                      title: Text(WristCheckFormatter.getFormattedDate(wearList[index])),
-                    ),
+                    onViewChanged: (ViewChangedDetails details) {
+                      //use pageLoaded to ensure this is not run on first load of the page
+                      if(_pageLoaded){
+                        widget.wristCheckController.updateSelectedDate(null);
+                      }
+                      _pageLoaded = true;
+                    },
                   );
+
                 },
-              ):
+
+
+              )
+                  :
               Container(
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.center,
@@ -149,5 +141,51 @@ void didChangeDependencies() {
 
       
 
+  }
+
+//Populate the calendar data
+_WatchDataSource _getCalendarDataSource() {
+  List<Appointment> appointments = <Appointment>[];
+  String watchTitle = "${widget.currentWatch.manufacturer} ${widget.currentWatch.model}";
+
+  for(DateTime date in widget.currentWatch.wearList){
+    appointments.add(
+      Appointment(
+        isAllDay: true,
+          startTime: date,
+          endTime: date,
+      subject: "$watchTitle worn")
+    );
+  }
+  if(widget.currentWatch.warrantyEndDate != null) {
+    appointments.add(
+        Appointment(
+            isAllDay: true,
+            startTime: widget.currentWatch.warrantyEndDate!,
+            endTime: widget.currentWatch.warrantyEndDate!,
+            subject: "Warranty Expires",
+            color: Colors.red
+        )
+    );
+  }
+    if(widget.currentWatch.nextServiceDue != null){
+      appointments.add(
+          Appointment(
+              isAllDay: true,
+              startTime: widget.currentWatch.nextServiceDue!,
+              endTime: widget.currentWatch.nextServiceDue!,
+              subject: "Service Due",
+              color: Colors.deepPurpleAccent
+          )
+      );
+  }
+
+  return _WatchDataSource(appointments);
+}
+}
+
+class _WatchDataSource extends CalendarDataSource {
+  _WatchDataSource(List<Appointment> source){
+    appointments = source;
   }
 }
