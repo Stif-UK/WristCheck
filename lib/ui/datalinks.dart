@@ -118,6 +118,7 @@ class _DataLinksState extends State<DataLinks> {
           ),
           ),
           widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+          SizedBox(height: 50,)
 
         ],
       )
