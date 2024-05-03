@@ -23,7 +23,6 @@ class _AlternativeExportsState extends State<AlternativeExports> {
               padding: const EdgeInsets.all(8.0),
               child: Copy.getAlternativeExtractsCopy(),
             ),
-            const Divider(thickness: 2,),
             ElevatedButton(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

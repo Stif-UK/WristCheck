@@ -66,7 +66,7 @@ class ExtractMethods{
     var result = await Share.shareXFiles([XFile(file.path)]);
 
     if (result.status == ShareResultStatus.success) {
-      WristCheckDialogs.getWatchboxBackupSuccessDialog();
+      WristCheckDialogs.getExtractSuccessDialog();
     }
 
     return result;

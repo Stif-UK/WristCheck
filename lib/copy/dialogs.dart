@@ -321,4 +321,11 @@ class WristCheckDialogs {
     );
   }
 
+  static getExtractSuccessDialog(){
+    Get.defaultDialog(
+        title: "Success!",
+        middleText: "Extract Successfully Created"
+    );
+  }
+
 }
