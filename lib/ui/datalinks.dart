@@ -117,7 +117,7 @@ class _DataLinksState extends State<DataLinks> {
                   ],
           ),
           ),
-          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+          widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
 
         ],
       )
