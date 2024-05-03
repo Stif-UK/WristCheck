@@ -31,6 +31,29 @@ class ExtractMethods{
   }
 
   /**
+   * the generateComplexExtract() method iterates over the users collection and produces a CSV string containing a line for every
+   * wear record (so multiple lines per watch) but it does not include notes. It then calls the shareExtract() method to convert to
+   * a CSV file and make this available for the user to access.
+   */
+  static generateComplexExtract() async {
+    List<Watches> watchbox = Boxes.getAllWatches();
+
+    //Produce a list of Rows to convert
+    List<List<String?>> csvList = [];
+    //Create Header Row
+    csvList.add(["Status", "Manufacturer", "Model", "Date Worn", "Category", "Serial Number", "Reference Number", "Movement", "Purchase Date", "Warranty Expiry Date", "Last Serviced Date", "Purchase Price", "Purchased From", "Sold Price", "Sold To"]);
+    //Add additional rows per watch
+    for(Watches watch in watchbox){
+      for(DateTime date in watch.wearList){
+        csvList.add([watch.status, watch.manufacturer, watch.model, date.toString(), watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.purchaseDate.toString(), watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldPrice.toString(), watch.soldTo ]);
+      }
+    }
+    String csv = const ListToCsvConverter().convert(csvList);
+    print(csv);
+    await shareExtract(csv);
+  }
+
+  /**
    * The shareExtract() method takes a csv in the form of a String, generates a file called 'wristcheck_extract.csv'
    * and passes this to the OS share dialog, allowing the user to then save or transfer the file as required.
    */
