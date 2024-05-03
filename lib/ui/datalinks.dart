@@ -74,53 +74,48 @@ class _DataLinksState extends State<DataLinks> {
       body: Column(
         children: [
           Expanded(
-            child: Column(
-    children: [
-    Expanded(
-    child: ListView(
-            children: [
-              ListTile(
-                  title: const Text("Backup / Restore Database"),
-                  leading: const Icon(Icons.save_alt),
-                  onTap: (){
-                    Get.to(()=> const BackupRestore());
-                  }
-              ),
-              const Divider(thickness: 2,),
-              ListTile(
-                  title: const Text("Alternative Exports"),
-                  leading: const Icon(FontAwesomeIcons.fileExport),
-                  onTap: (){
-                    Get.to(()=> AlternativeExports());
-                  }
-              ),
-              const Divider(thickness: 2,),
-              ListTile(
-                  title:const Text("Delete collection"),
-                  leading: const Icon(Icons.warning),
-                  trailing: OutlinedButton(
-                      child: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: (){
-                        Get.defaultDialog(
-                            title: "Warning",
-                            middleText: "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
-                            textConfirm: "OK",
-                            textCancel: "Cancel",
-                            onConfirm: (){
-                              _deleteCollection();
-                              Get.back();
-                              WristCheckSnackBars.collectionDeletedSnackbar();
-                            }
+          child: ListView(
+                  children: [
+                    ListTile(
+                        title: const Text("Backup / Restore Database"),
+                        leading: const Icon(Icons.save_alt),
+                        onTap: (){
+                          Get.to(()=> const BackupRestore());
+                        }
+                    ),
+                    const Divider(thickness: 2,),
+                    ListTile(
+                        title: const Text("Alternative Exports"),
+                        leading: const Icon(FontAwesomeIcons.fileExport),
+                        onTap: (){
+                          Get.to(()=> AlternativeExports());
+                        }
+                    ),
+                    const Divider(thickness: 2,),
+                    ListTile(
+                        title:const Text("Delete collection"),
+                        leading: const Icon(Icons.warning),
+                        trailing: OutlinedButton(
+                            child: const Icon(Icons.delete, color: Colors.redAccent),
+                            onPressed: (){
+                              Get.defaultDialog(
+                                  title: "Warning",
+                                  middleText: "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
+                                  textConfirm: "OK",
+                                  textCancel: "Cancel",
+                                  onConfirm: (){
+                                    _deleteCollection();
+                                    Get.back();
+                                    WristCheckSnackBars.collectionDeletedSnackbar();
+                                  }
 
-                        );
-                      }
-                  )
-              ),
-              const Divider(thickness: 2,),
-            ],
-    ),
-    )
-    ]),
+                              );
+                            }
+                        )
+                    ),
+                    const Divider(thickness: 2,),
+                  ],
+          ),
           ),
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
 
