@@ -52,6 +52,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
       ),
       body: Column(
         children: [
+          widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -100,8 +101,6 @@ class _AlternativeExportsState extends State<AlternativeExports> {
               ),
             ),
           ),
-          widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-          SizedBox(height: 20,)
 
         ],
       ),
