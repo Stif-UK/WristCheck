@@ -226,9 +226,9 @@ class WristCheckDialogs {
   static getWearDatesHelpDialog() {
     Get.defaultDialog(
         title: "Wear History",
-        middleText: "This page shows the dates this watch was worn.\n\n"
-            "By default this history is locked, however it can be edited by clicking the padlock icon at the top of the page.\n\n"
-            "Once unlocked, dates can be added by pressing the + button and can be deleted by swiping to the left."
+        middleText: "This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\n"
+            "To add or delete wear dates directly, long press on an individual date."
+
     );
   }
 
