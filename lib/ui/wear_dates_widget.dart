@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_utils/src/platform/platform_io.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
@@ -11,6 +12,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -110,6 +112,30 @@ final watchBox = Boxes.getWatches();
                             )
                         );
                       }
+                    },
+                    //when a date is long pressed, show options to add or delete wears
+                    onLongPress: (cal) async {
+                      //If current date has no matching wear date offer add date,
+                      //otherwise offer delete date option.
+                      bool matchedDate = false;
+                      DateTime? selectedDate = cal.date;
+                      if(selectedDate != null) {
+                                for (DateTime date
+                                    in widget.currentWatch.wearList) {
+                                  if (await GeneralHelper.dateCompare(
+                                      date, selectedDate)) {
+                                    matchedDate = true;
+                                  }
+                                  ;
+                                }
+                              }
+
+                      if(matchedDate){
+                        print("There is a wear on this date");
+                      } else {
+                        print("No matched date");
+                      }
+
 
                     },
                     onViewChanged: (ViewChangedDetails details) {
@@ -120,10 +146,7 @@ final watchBox = Boxes.getWatches();
                       _pageLoaded = true;
                     },
                   );
-
                 },
-
-
               )
                   :
               Container(
