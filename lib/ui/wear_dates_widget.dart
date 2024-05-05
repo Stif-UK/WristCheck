@@ -142,9 +142,16 @@ final watchBox = Boxes.getWatches();
                                 padding: const EdgeInsets.all(10.0),
                                 child: ElevatedButton(child:
                                 matchedDate? Text("Delete Date") : Text("Track Wear"),
-                                  onPressed: (){
-                                    print("$matchedDate");
+                                  onPressed: () async {
+                                  if(matchedDate) {
                                     Get.back();
+                                    print("Pretend delete date!");
+                                    //TODO: Logic - need to identify index of the correct date to remove
+                                    //then confirm in Snackbar
+                                  } else {
+                                    Get.back();
+                                    WatchMethods.attemptToRecordWear(widget.currentWatch, cal.date!, false);
+                                  }
                                   },),
                               ),
                               TextButton(child: Text("Cancel"),
