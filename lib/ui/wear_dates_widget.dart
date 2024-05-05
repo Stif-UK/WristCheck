@@ -129,12 +129,34 @@ final watchBox = Boxes.getWatches();
                                   ;
                                 }
                               }
+                      String watchTitle = "${widget.currentWatch.manufacturer} ${widget.currentWatch.model}";
 
-                      if(matchedDate){
-                        print("There is a wear on this date");
-                      } else {
-                        print("No matched date");
-                      }
+                        Get.defaultDialog(
+                          titlePadding: EdgeInsets.all(20.0),
+                          title: matchedDate? "Delete Wear from Calendar": "Add Wear to Calendar",
+                          content: Column(
+                            children: [
+                              Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(cal.date!)}"),
+                              Text("Watch: $watchTitle"),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ElevatedButton(child:
+                                matchedDate? Text("Delete Date") : Text("Track Wear"),
+                                  onPressed: (){
+                                    print("$matchedDate");
+                                    Get.back();
+                                  },),
+                              ),
+                              TextButton(child: Text("Cancel"),
+                              onPressed: (){
+                                Get.back();
+                              },)
+                            ],
+                          ),
+
+
+                        );
+
 
 
                     },
