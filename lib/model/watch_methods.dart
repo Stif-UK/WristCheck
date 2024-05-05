@@ -9,6 +9,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:jiffy/jiffy.dart';
@@ -67,6 +68,22 @@ class WatchMethods {
 
     final box = Boxes.getWatches();
     return box.add(watch);
+  }
+
+  static void removeWearDate(DateTime dateToRemove, Watches watch){
+    //Get the wearList index of the current date
+    print("Date to remove: $dateToRemove");
+    try {
+      int index = watch.wearList.indexWhere((element) {
+        return element.day == dateToRemove.day && element.month == dateToRemove.month && element.year == dateToRemove.year;
+      });
+      print(index);
+      DateTime removed = watch.wearList.removeAt(index);
+      watch.save();
+      WristCheckSnackBars.removeWearSnackbar(watch, removed);
+    } on Exception catch (e) {
+      WristCheckDialogs.getGeneralErrorDialog(e);
+    }
   }
 
   static DateTime? calculateNextService(DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval){

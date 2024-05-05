@@ -328,4 +328,11 @@ class WristCheckDialogs {
     );
   }
 
+  static getGeneralErrorDialog(Exception e){
+    Get.defaultDialog(
+      title: "Something went wrong!",
+      middleText: "An unexpected error occured with message: $e",
+    );
+  }
+
 }
