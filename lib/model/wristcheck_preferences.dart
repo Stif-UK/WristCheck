@@ -23,8 +23,11 @@ class WristCheckPreferences {
   static const _keyDefaultChartType = 'defaultChartType';
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
+  static const _keySecondNotificationStatus = 'secondNotificationStatus';
   static const _keyNotificationTimeOption = 'notificationTimeOption';
   static const _keyNotificationTime = 'notificationTime';
+  static const _keySecondNotificationTime = 'secondNotificationTime';
+  //Entitlement check
   static const _keyLastEntitlementCheck = 'lastEntitlementCheck';
   //watchbox order & view
   static const _keyWatchboxOrder = 'watchBoxOrder';
@@ -85,6 +88,12 @@ class WristCheckPreferences {
   static Future setDailyNotificationStatus(bool notificationStatus) async =>
       await _preferences.setBool(_keyDailyNotificationStatus, notificationStatus);
 
+  //Getter and setter for second daily notification status
+  static bool? getSecondNotificationStatus () => _preferences.getBool(_keySecondNotificationStatus);
+
+  static Future setSecondNotificationStatus(bool notificationStatus) async =>
+      await _preferences.setBool(_keySecondNotificationStatus, notificationStatus);
+
   //Getter and setter for notification time options
   static NotificationTimeOptions? getNotificationTimeOption() {
     String? value = _preferences.getString(_keyNotificationTimeOption);
@@ -122,6 +131,12 @@ class WristCheckPreferences {
 
   static Future setDailyNotificationTime(String notificationTime) async =>
       await _preferences.setString(_keyNotificationTime, notificationTime);
+
+  //Getter and setter for second notification time
+  static String? getSecondNotificationTime () => _preferences.getString(_keySecondNotificationTime);
+
+  static Future setSecondNotificationTime(String notificationTime) async =>
+      await _preferences.setString(_keySecondNotificationTime, notificationTime);
 
   //Getter and setter for purchased bool
   static bool? getAppPurchasedStatus() => _preferences.getBool(_keyAppPurchased);

@@ -252,7 +252,7 @@ class WristCheckDialogs {
       textCancel: "No Thanks",
       confirmTextColor: Colors.white,
       buttonColor: Colors.lightBlueAccent,
-      onConfirm: () => Get.to(const Notifications()),
+      onConfirm: () => Get.to(Notifications()),
       onCancel: () => Get.back(),
 
     );

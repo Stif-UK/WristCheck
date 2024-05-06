@@ -63,9 +63,10 @@ class _NotificationsState extends State<Notifications> {
   }
 
   bool _notificationsEnabled = WristCheckPreferences.getDailyNotificationStatus() ?? false;
+  bool _secondNotificationEnabled = WristCheckPreferences.getSecondNotificationStatus() ?? false;
   NotificationTimeOptions _notificationTime = WristCheckPreferences.getNotificationTimeOption() ??NotificationTimeOptions.morning;
-  //String? _selectedTime = WristCheckPreferences.getDailyNotificationTime();
   String? _selectedTime;
+  String? _secondTime = "test";
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +180,6 @@ class _NotificationsState extends State<Notifications> {
                         value: NotificationTimeOptions.custom,
                         groupValue: _notificationTime ,
                         onChanged: (NotificationTimeOptions? value) async {
-                         // Future<TimeOfDay?> selectedTime = showTimePicker(context: context, initialTime: TimeOfDay.now());
                           TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? const TimeOfDay(hour: 12, minute: 00);
                           await WristCheckPreferences.setNotificationTimeOption(value!);
                           await _setNotification(_notificationTime, selectedTime);
@@ -200,9 +200,10 @@ class _NotificationsState extends State<Notifications> {
                 style: const TextStyle(fontSize: 16, ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
                 //2nd Daily Reminder for Pro users
-                _notificationsEnabled? _getSecondNotificationListTile(true) : SizedBox(height: 0),
-                _notificationsEnabled ? const Divider(thickness: 2,) : SizedBox(height: 0,),
-
+                _notificationsEnabled? Obx(() => _getSecondNotificationListTile(widget.wristCheckController.isAppPro.value)) : const SizedBox(height: 0),
+                _notificationsEnabled ? const Divider(thickness: 2,) : const SizedBox(height: 0,),
+                _secondNotificationEnabled ? Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}") : const SizedBox(height: 0,),
+                _secondNotificationEnabled? const Divider(thickness: 2,) : const SizedBox(height: 0,),
 
               ],
             ),
@@ -224,15 +225,46 @@ class _NotificationsState extends State<Notifications> {
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
+    //Duplication of _setNotification for a second reminder
+    Future<void> _setSecondNotification(TimeOfDay? customTime) async {
+    _secondTime = customTime.toString();
+    await WristCheckPreferences.setSecondNotificationTime(customTime.toString());
+    notificationService.showScheduledNotification(id: 2, title: "WristCheck Reminder", body: "It's time to track what's on your wrist!", time: customTime!);
+    String timeString = _secondTime!.substring(10, _secondTime!.length-1);
+    notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Your second notification is set for $timeString every day!");
+    WristCheckSnackBars.dailyNotification(timeString);
+  }
+
   Widget _getSecondNotificationListTile(bool isAppPro){
+    //test
+    isAppPro = true;
     Icon tileIcon = Icon(Icons.notification_add);
     Text tileTitle = Text("Enable Second Daily Reminder");
     return isAppPro? SwitchListTile(
       title: tileTitle,
       secondary: tileIcon,
-      value: true ,
-      onChanged: (bool value){},
-    )
+      value: _secondNotificationEnabled ,
+      onChanged: (bool value) async {
+        await analytics.logEvent(
+            name: "pro_notifications",
+            parameters: {
+              "enabled": value.toString()
+            });
+        WristCheckPreferences.setSecondNotificationStatus(value);
+        if (value == true) {
+          TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? const TimeOfDay(hour: 12, minute: 00);
+          await _setSecondNotification(
+              selectedTime);
+        } else {
+          _secondTime = null;
+          await notificationService.cancelNotification(2);
+        }
+        setState(() {
+          _secondNotificationEnabled = value;
+        });
+      })
+
+
         :
     ListTile(
         leading: tileIcon,
