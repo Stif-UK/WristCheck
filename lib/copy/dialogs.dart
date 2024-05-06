@@ -11,6 +11,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:hive/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
+import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckDialogs {
@@ -332,6 +333,31 @@ class WristCheckDialogs {
     Get.defaultDialog(
       title: "Something went wrong!",
       middleText: "An unexpected error occured with message: $e",
+    );
+  }
+
+  static getProUpgradeMessage(){
+    Get.defaultDialog(
+      title: "Pro Feature",
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("This is a WristCheck Pro feature.\n\nTo learn more and upgrade, click below.",
+            textAlign: TextAlign.center,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(child: Text("Tell me more"),
+            onPressed: () {
+              Get.back();
+              Get.to(() => RemoveAds());
+            }
+            ),
+          ),
+          TextButton(child: Text("Cancel"),
+          onPressed: () => Get.back(),)
+        ],
+      )
     );
   }
 

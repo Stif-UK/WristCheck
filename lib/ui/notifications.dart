@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -194,17 +195,15 @@ class _NotificationsState extends State<Notifications> {
                 _selectedTime == null? const SizedBox(height: 20,): Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
                 style: const TextStyle(fontSize: 16, ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
-                // Expanded(
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     children: [
-                //       ElevatedButton(onPressed: () async {
-                //         await notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Don't forget to log what's on your wrist!");
-                //       }, child: const Text("Press to see a test notification")),
-                //       const SizedBox(height: 120,)
-                //     ],
-                //   ),
-                // ),
+                //2nd Daily Reminder for Pro users
+                _notificationsEnabled? ListTile(
+                  leading: Icon(Icons.notifications_active_outlined),
+                  title: Text("Enable Second Daily Reminder"),
+                  trailing: Icon(FontAwesomeIcons.handPointUp),
+                  onTap: () => WristCheckDialogs.getProUpgradeMessage()
+                ) : SizedBox(height: 0),
+                _notificationsEnabled ? const Divider(thickness: 2,) : SizedBox(height: 0,),
+
 
               ],
             ),
