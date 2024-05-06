@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -18,7 +19,9 @@ import 'package:wristcheck/util/ad_widget_helper.dart';
 // enum NotificationTimeOptions {morning, afternoon, evening, custom}
 
 class Notifications extends StatefulWidget {
-  const Notifications({Key? key}) : super(key: key);
+  Notifications({Key? key}) : super(key: key);
+  final wristCheckController = Get.put(WristCheckController());
+
 
   @override
   State<Notifications> createState() => _NotificationsState();
@@ -66,6 +69,7 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
+
     analytics.setCurrentScreen(screenName: "notification_options");
     _selectedTime = _notificationsEnabled? WristCheckPreferences.getDailyNotificationTime() : null;
     return Scaffold(

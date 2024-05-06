@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),
                     onTap: (){
-                      Get.to(()=> const Notifications());
+                      Get.to(()=> Notifications());
                     }
                 ),
                 const Divider(thickness: 2,),
