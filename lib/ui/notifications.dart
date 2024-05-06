@@ -92,7 +92,7 @@ class _NotificationsState extends State<Notifications> {
               children: [
                 SwitchListTile(
                   title: const Text("Enable Daily Wear Reminder"),
-                    secondary: const Icon(Icons.notification_add_outlined),
+                    secondary: const Icon(Icons.notifications_active),
                     value: _notificationsEnabled,
                     onChanged: (bool value) async {
                       await analytics.logEvent(
@@ -196,12 +196,7 @@ class _NotificationsState extends State<Notifications> {
                 style: const TextStyle(fontSize: 16, ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
                 //2nd Daily Reminder for Pro users
-                _notificationsEnabled? ListTile(
-                  leading: Icon(Icons.notifications_active_outlined),
-                  title: Text("Enable Second Daily Reminder"),
-                  trailing: Icon(FontAwesomeIcons.handPointUp),
-                  onTap: () => WristCheckDialogs.getProUpgradeMessage()
-                ) : SizedBox(height: 0),
+                _notificationsEnabled? _getSecondNotificationListTile(true) : SizedBox(height: 0),
                 _notificationsEnabled ? const Divider(thickness: 2,) : SizedBox(height: 0,),
 
 
@@ -223,5 +218,23 @@ class _NotificationsState extends State<Notifications> {
     String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
     notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Your notifications have now been scheduled for $timeString every day!");
     WristCheckSnackBars.dailyNotification(timeString);
+  }
+
+  Widget _getSecondNotificationListTile(bool isAppPro){
+    Icon tileIcon = Icon(Icons.notification_add);
+    Text tileTitle = Text("Enable Second Daily Reminder");
+    return isAppPro? SwitchListTile(
+      title: tileTitle,
+      secondary: tileIcon,
+      value: true ,
+      onChanged: (bool value){},
+    )
+        :
+    ListTile(
+        leading: tileIcon,
+        title: tileTitle,
+        trailing: Icon(FontAwesomeIcons.handPointUp),
+        onTap: () => WristCheckDialogs.getProUpgradeMessage()
+    );
   }
 }
