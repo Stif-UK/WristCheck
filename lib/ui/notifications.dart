@@ -195,14 +195,15 @@ class _NotificationsState extends State<Notifications> {
                   ],
                 ):
                     //If notifications are off, just show a blank space
-                    const SizedBox(height: 20,),
-                _selectedTime == null? const SizedBox(height: 20,): Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
-                style: const TextStyle(fontSize: 16, ),),
+                    const SizedBox(height: 0,),
+                _selectedTime == null? const SizedBox(height: 0,): Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
+                style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
                 //2nd Daily Reminder for Pro users
-                _notificationsEnabled? Obx(() => _getSecondNotificationListTile(widget.wristCheckController.isAppPro.value)) : const SizedBox(height: 0),
-                _notificationsEnabled ? const Divider(thickness: 2,) : const SizedBox(height: 0,),
-                _secondNotificationEnabled ? Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}") : const SizedBox(height: 0,),
+                Obx(() => _getSecondNotificationListTile(widget.wristCheckController.isAppPro.value)),
+                const Divider(thickness: 2,),
+                _secondNotificationEnabled ? Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}",
+                style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold )) : const SizedBox(height: 0,),
                 _secondNotificationEnabled? const Divider(thickness: 2,) : const SizedBox(height: 0,),
 
               ],
