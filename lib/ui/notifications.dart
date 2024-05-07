@@ -271,7 +271,7 @@ class _NotificationsState extends State<Notifications> {
     ListTile(
         leading: tileIcon,
         title: tileTitle,
-        trailing: Icon(FontAwesomeIcons.handPointUp),
+        trailing: Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:30.0,width:30.0,color: Theme.of(context).hintColor),
         onTap: () => WristCheckDialogs.getProUpgradeMessage()
     );
   }

@@ -107,6 +107,7 @@ flutter:
     - assets/theme/wc_theme_light.json
     - assets/demo/
     - assets/icon/drawerheader.png
+    - assets/customicons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
