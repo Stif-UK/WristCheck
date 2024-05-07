@@ -66,13 +66,14 @@ class _NotificationsState extends State<Notifications> {
   bool _secondNotificationEnabled = WristCheckPreferences.getSecondNotificationStatus() ?? false;
   NotificationTimeOptions _notificationTime = WristCheckPreferences.getNotificationTimeOption() ??NotificationTimeOptions.morning;
   String? _selectedTime;
-  String? _secondTime = "test";
+  String? _secondTime;
 
   @override
   Widget build(BuildContext context) {
 
     analytics.setCurrentScreen(screenName: "notification_options");
     _selectedTime = _notificationsEnabled? WristCheckPreferences.getDailyNotificationTime() : null;
+    _secondTime = _secondNotificationEnabled? WristCheckPreferences.getSecondNotificationTime() : null;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notification Settings"),
@@ -237,8 +238,7 @@ class _NotificationsState extends State<Notifications> {
   }
 
   Widget _getSecondNotificationListTile(bool isAppPro){
-    //test
-    isAppPro = true;
+
     Icon tileIcon = Icon(Icons.notification_add);
     Text tileTitle = Text("Enable Second Daily Reminder");
     return isAppPro? SwitchListTile(
@@ -254,6 +254,7 @@ class _NotificationsState extends State<Notifications> {
         WristCheckPreferences.setSecondNotificationStatus(value);
         if (value == true) {
           TimeOfDay? selectedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? const TimeOfDay(hour: 12, minute: 00);
+
           await _setSecondNotification(
               selectedTime);
         } else {
