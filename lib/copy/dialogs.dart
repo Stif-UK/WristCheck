@@ -336,14 +336,18 @@ class WristCheckDialogs {
     );
   }
 
-  static getProUpgradeMessage(){
+  static getProUpgradeMessage(BuildContext context){
     Get.defaultDialog(
       title: "Pro Feature",
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("This is a WristCheck Pro feature.\n\nTo learn more and upgrade, click below.",
-            textAlign: TextAlign.center,
+          Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:50.0,width:50.0, color: Theme.of(context).hintColor),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text("This is a WristCheck Pro feature.\n\nTo learn more and upgrade, click below.",
+              textAlign: TextAlign.center,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),

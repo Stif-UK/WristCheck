@@ -272,7 +272,7 @@ class _NotificationsState extends State<Notifications> {
         leading: tileIcon,
         title: tileTitle,
         trailing: Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:30.0,width:30.0,color: Theme.of(context).hintColor),
-        onTap: () => WristCheckDialogs.getProUpgradeMessage()
+        onTap: () => WristCheckDialogs.getProUpgradeMessage(context)
     );
   }
 }
