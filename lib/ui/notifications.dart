@@ -210,7 +210,7 @@ class _NotificationsState extends State<Notifications> {
               ],
             ),
           ),
-          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          Obx(()=> widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context)),
           const SizedBox(height: 50,)
         ],
       ),
