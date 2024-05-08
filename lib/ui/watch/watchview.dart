@@ -16,7 +16,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
-import 'package:wristcheck/ui/charts/watch_charts.dart';
+import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
@@ -642,7 +642,7 @@ class _WatchViewState extends State<WatchView> {
                   child: IconButton(
                     icon: Icon(FontAwesomeIcons.chartBar,
                     color: Colors.white),
-                    onPressed: () => Get.to(() => WatchCharts(currentWatch: widget.currentWatch,)),
+                    onPressed: () => Get.to(() => WatchCharts(currentWatch: widget.currentWatch!,)),
                   ),
                 ),
               )
