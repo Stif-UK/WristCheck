@@ -58,7 +58,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
           xValueMapper: (DayWearData value, _) => value.day.toString(),
           yValueMapper: (DayWearData value, _) => value.count,
           dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false),
+          dataLabelSettings: const DataLabelSettings(isVisible: true,),
         )
       ],
       primaryXAxis: CategoryAxis(isVisible: false),

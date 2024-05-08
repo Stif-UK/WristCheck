@@ -50,7 +50,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
           dataLabelMapper: (value, _)=> "${DateFormat('MMMM').format(DateTime(0, int.parse(value.month)))
 
           }: ${value.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false),
+          dataLabelSettings: const DataLabelSettings(isVisible: true,),
         )
       ],
       primaryXAxis: CategoryAxis(isVisible: false),
