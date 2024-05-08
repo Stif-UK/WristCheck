@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -35,20 +34,20 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
 
 
 
-    List<CategoryData> getChartData = [];
+    List<MonthWearData> getChartData = [];
 
     for(var item in chartData.entries){
-      getChartData.add(CategoryData(item.key.toString(), item.value));
+      getChartData.add(MonthWearData(item.key.toString(), item.value));
     }
 
 
     return SfCartesianChart(
       series: <ChartSeries>[
-        BarSeries<CategoryData, String>(
+        BarSeries<MonthWearData, String>(
           dataSource: getChartData,
-          xValueMapper: (CategoryData value, _) => value.category,
-          yValueMapper: (CategoryData value, _) => value.count,
-          dataLabelMapper: (value, _)=> "${DateFormat('MMMM').format(DateTime(0, int.parse(value.category)))
+          xValueMapper: (MonthWearData value, _) => value.month,
+          yValueMapper: (MonthWearData value, _) => value.count,
+          dataLabelMapper: (value, _)=> "${DateFormat('MMMM').format(DateTime(0, int.parse(value.month)))
 
           }: ${value.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false),
@@ -59,9 +58,9 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
   }
 }
 
-class CategoryData{
-  CategoryData(this.category, this.count);
-  final String category;
+class MonthWearData{
+  MonthWearData(this.month, this.count);
+  final String month;
   final int count;
 }
 

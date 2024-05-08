@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
 
 class WatchCharts extends StatefulWidget {
@@ -26,10 +28,22 @@ class _WatchChartsState extends State<WatchCharts> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Most worn months",
-            style: Theme.of(context).textTheme.headlineSmall,
-            textAlign: TextAlign.center,),
+
+            ListTile(
+              title: Text("Wears by month",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.start,),
+              leading: Icon(FontAwesomeIcons.calendarDays),
+            ),
             WatchMonthChart(currentWatch: widget.currentWatch),
+            const Divider(thickness: 2,),
+            ListTile(
+              title: Text("Wears by day",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.start,),
+              leading: Icon(FontAwesomeIcons.calendarDay),
+            ),
+            WatchDayChart(currentWatch: widget.currentWatch),
           ],
         ),
       ),
