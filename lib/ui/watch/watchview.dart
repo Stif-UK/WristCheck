@@ -624,6 +624,7 @@ class _WatchViewState extends State<WatchView> {
   Widget _buildWearRow(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 2,
