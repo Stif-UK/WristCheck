@@ -625,9 +625,27 @@ class _WatchViewState extends State<WatchView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Expanded(
+        Expanded(
           flex: 2,
-          child: Column(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                shape: BoxShape.circle,
+              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(FontAwesomeIcons.chartBar,
+                    color: Colors.white),
+                    onPressed: (){},
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         Expanded(
           flex:6,
@@ -646,16 +664,24 @@ class _WatchViewState extends State<WatchView> {
         Expanded(
             flex: 2,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                InkWell(
-                  child: const Icon(Icons.calendar_month),
-                  // onTap: () => Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch,)),
-                  onTap: (){
-                    Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(
-                            (){}
-                    ));
-                  },
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: IconButton(
+                      icon: Icon(FontAwesomeIcons.calendarDays),
+                      onPressed: (){
+                        Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(
+                                (){}
+                        ));
+                      },
+                    ),
+                  ),
                 )
               ],
             ))
