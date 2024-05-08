@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -16,8 +17,6 @@ class WatchMonthChart extends StatefulWidget {
 }
 
 class _WatchMonthChartState extends State<WatchMonthChart> {
-  //final List<Watches> data = Boxes.getCollectionWatches();
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
     //Calculate the chart data - generate a map of months and counts
     Map<int,int> chartData = <int,int>{};
     //Populate Months
-    for(int i = 1 ; i <= 12; i++ ){
+    for(int i = 12 ; i >= 1; i--){
       chartData[i] = 0;
     }
     //Populate Counts
@@ -33,7 +32,6 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
       int month = wearDate.month;
       chartData.update(month, (value) => ++value);
     }
-    print(chartData);
 
 
 
@@ -48,10 +46,12 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
       series: <ChartSeries>[
         BarSeries<CategoryData, String>(
           dataSource: getChartData,
-          xValueMapper: (CategoryData mvmt, _) => mvmt.category,
-          yValueMapper: (CategoryData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${moov.category}: ${moov.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
+          xValueMapper: (CategoryData value, _) => value.category,
+          yValueMapper: (CategoryData value, _) => value.count,
+          dataLabelMapper: (value, _)=> "${DateFormat('MMMM').format(DateTime(0, int.parse(value.category)))
+
+          }: ${value.count}",
+          dataLabelSettings: const DataLabelSettings(isVisible: true, showZeroValue: false),
         )
       ],
       primaryXAxis: CategoryAxis(isVisible: false),
