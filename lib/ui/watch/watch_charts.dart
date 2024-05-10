@@ -42,6 +42,7 @@ class _WatchChartsState extends State<WatchCharts> {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDay),
+              trailing: Icon(Icons.bar_chart),
             ),
             WatchDayChart(currentWatch: widget.currentWatch),
           ],

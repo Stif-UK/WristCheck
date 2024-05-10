@@ -51,18 +51,30 @@ class _WatchDayChartState extends State<WatchDayChart> {
     }
 
 
-    return SfCartesianChart(
-      series: <ChartSeries>[
-        BarSeries<DayWearData, String>(
-          dataSource: getChartData,
-          xValueMapper: (DayWearData value, _) => value.day.toString(),
-          yValueMapper: (DayWearData value, _) => value.count,
-          dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true,),
-        )
-      ],
-      primaryXAxis: CategoryAxis(isVisible: false),
-    );
+    // return SfCartesianChart(
+    //   series: <ChartSeries>[
+    //     BarSeries<DayWearData, String>(
+    //       dataSource: getChartData,
+    //       xValueMapper: (DayWearData value, _) => value.day.toString(),
+    //       yValueMapper: (DayWearData value, _) => value.count,
+    //       dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
+    //       dataLabelSettings: const DataLabelSettings(isVisible: true,),
+    //     )
+    //   ],
+    //   primaryXAxis: CategoryAxis(isVisible: false),
+    // );
+
+    return SfCircularChart(
+        tooltipBehavior: TooltipBehavior(),
+        legend: Legend(isVisible: true,
+        overflowMode: LegendItemOverflowMode.wrap),
+        series: <CircularSeries<DayWearData, String>>[
+          DoughnutSeries<DayWearData, String>(
+              dataSource: getChartData,
+              xValueMapper: (DayWearData data, _) => dayMap[data.day],//data.day.toString(),
+              yValueMapper: (DayWearData data, _) => data.count,
+              dataLabelSettings: DataLabelSettings(isVisible: true))
+        ]);
   }
 }
 
