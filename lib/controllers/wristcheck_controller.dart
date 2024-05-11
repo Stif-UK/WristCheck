@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
@@ -112,6 +113,22 @@ class WristCheckController extends GetxController {
 
   updateLastServicingTabIndex(int index){
     lastServicingTabIndex(index);
+  }
+
+  //Track Month Chart preference
+  final monthChartPreference = WristCheckPreferences.getDefaultMonthChartType().obs;
+
+  updateMonthChartPreference(DefaultChartType type) async {
+    await WristCheckPreferences.setDefaultMonthChartType(type);
+    monthChartPreference(type);
+  }
+
+  //Track Day Chart preference
+  final dayChartPreference = WristCheckPreferences.getDefaultDayChartType().obs;
+
+  updateDayChartPreference(DefaultChartType type) async {
+    await WristCheckPreferences.setDefaultDayChartType(type);
+    dayChartPreference(type);
   }
 
 }
