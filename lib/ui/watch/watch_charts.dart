@@ -54,7 +54,13 @@ class _WatchChartsState extends State<WatchCharts> {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDay),
-              trailing: Icon(Icons.bar_chart),
+              trailing: Obx( () => IconButton(
+                      icon: widget.wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+                      onPressed: (){
+                      widget.wristCheckController.dayChartPreference.value == DefaultChartType.bar? widget.wristCheckController.updateDayChartPreference(DefaultChartType.pie) : widget.wristCheckController.updateDayChartPreference(DefaultChartType.bar);
+    },
+    ),
+    )
             ),
             WatchDayChart(currentWatch: widget.currentWatch),
           ],
