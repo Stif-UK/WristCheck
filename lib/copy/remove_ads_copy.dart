@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class RemoveAdsCopy{
 
@@ -10,14 +11,30 @@ class RemoveAdsCopy{
     return const Text("Support WristCheck");
   }
 
+  // static getRemoveAdsMainCopy(BuildContext context){
+  //   return Text(
+  //     "The core features of WristCheck are free, supported by small ads throughout the app"
+  //         "\n\nHowever if you would like to support the app development and remove ads, you can click below to see in-app purchase "
+  //         "options."
+  //         "\n\nPaying doesn't unlock any additional functionality (everything is free!) it simply removes ads and hopefully gives you a warm feeling that you're"
+  //         " supporting someone that finds their fun creating little apps that others can (hopefully) enjoy!",
+  //     style: Theme.of(context).textTheme.bodyLarge,);
+  // }
+
   static getRemoveAdsMainCopy(BuildContext context){
-    return Text(
-      "I build little apps for fun, and provide them completely free, with ads displayed to help me cover the development fees."
-          "\n\nHowever if you would like to support the app development and remove ads, you can click below to see in-app purchase "
-          "options."
-          "\n\nPaying doesn't unlock any additional functionality (everything is free!) it simply removes ads and hopefully gives you a warm feeling that you're"
-          " supporting someone that finds their fun creating little apps that others can (hopefully) enjoy!",
-      style: Theme.of(context).textTheme.bodyLarge,);
+    return Container(
+      child: Markdown(
+          shrinkWrap: true,
+          styleSheet: MarkdownStyleSheet(p: Theme.of(context).textTheme.bodyLarge),
+          data:
+          "The core features of **WristCheck** are free, supported by small ads throughout the app.\n\n"
+              "However, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristCheck Pro**.\n\n"
+              "**WristCheck Pro** also unlocks:\n\n"
+              "* The option to set a second daily reminder\n"
+              "* Individual watch charts showing wear stats by months and weekdays. "
+
+      ),
+    );
   }
 
   static getSupporterMainCopy(BuildContext context){

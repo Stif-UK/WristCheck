@@ -107,7 +107,7 @@ class _RemoveAdsState extends State<RemoveAds> {
           builder: (context) => PaywallWidget(
         packages: packages,
         title: "Support WristCheck",
-        description: "Pay what you like! Choose any option to remove ads",
+        description: "Pay what you like! Choose any option upgrade to WristCheck Pro",
         onClickedPackage: (package) async{
           //Pop context first - this will allow any exception dialog to show without being blocked by the bottom sheet.
           Navigator.pop(context);
