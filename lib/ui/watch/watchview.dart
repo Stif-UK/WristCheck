@@ -676,7 +676,8 @@ class _WatchViewState extends State<WatchView> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      icon: Icon(FontAwesomeIcons.calendarDays),
+                      icon: Icon(FontAwesomeIcons.calendarDays,
+                      color: Colors.white,),
                       onPressed: (){
                         Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(
                                 (){}
