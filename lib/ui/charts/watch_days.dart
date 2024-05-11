@@ -11,11 +11,21 @@ class WatchDayChart extends StatefulWidget {
 
   Watches currentWatch;
 
+
+
   @override
   State<WatchDayChart> createState() => _WatchDayChartState();
 }
 
 class _WatchDayChartState extends State<WatchDayChart> {
+
+  late TooltipBehavior _tooltipBehavior;
+
+  @override
+  void initState() {
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +75,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
     // );
 
     return SfCircularChart(
-        tooltipBehavior: TooltipBehavior(),
+        tooltipBehavior: _tooltipBehavior,
         legend: Legend(isVisible: true,
         overflowMode: LegendItemOverflowMode.wrap),
         series: <CircularSeries<DayWearData, String>>[
@@ -73,9 +83,12 @@ class _WatchDayChartState extends State<WatchDayChart> {
               dataSource: getChartData,
               xValueMapper: (DayWearData data, _) => dayMap[data.day],//data.day.toString(),
               yValueMapper: (DayWearData data, _) => data.count,
-              dataLabelSettings: DataLabelSettings(isVisible: true))
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+          enableTooltip: true)
         ]);
   }
+
+
 }
 
 class DayWearData{
