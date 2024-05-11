@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -10,6 +13,7 @@ class WatchDayChart extends StatefulWidget {
   }) : super(key: key);
 
   Watches currentWatch;
+  final wristCheckController = Get.put(WristCheckController());
 
 
 
@@ -60,21 +64,22 @@ class _WatchDayChartState extends State<WatchDayChart> {
       getChartData.add(DayWearData(item.key, item.value));
     }
 
+    return Obx( () => Container(
+      child: widget.wristCheckController.dayChartPreference.value == DefaultChartType.bar?
+    SfCartesianChart(
+      series: <ChartSeries>[
+        BarSeries<DayWearData, String>(
+          dataSource: getChartData,
+          xValueMapper: (DayWearData value, _) => value.day.toString(),
+          yValueMapper: (DayWearData value, _) => value.count,
+          dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
+          dataLabelSettings: const DataLabelSettings(isVisible: true,),
+        )
+      ],
+      primaryXAxis: CategoryAxis(isVisible: false),
+    ):
 
-    // return SfCartesianChart(
-    //   series: <ChartSeries>[
-    //     BarSeries<DayWearData, String>(
-    //       dataSource: getChartData,
-    //       xValueMapper: (DayWearData value, _) => value.day.toString(),
-    //       yValueMapper: (DayWearData value, _) => value.count,
-    //       dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
-    //       dataLabelSettings: const DataLabelSettings(isVisible: true,),
-    //     )
-    //   ],
-    //   primaryXAxis: CategoryAxis(isVisible: false),
-    // );
-
-    return SfCircularChart(
+    SfCircularChart(
         tooltipBehavior: _tooltipBehavior,
         legend: Legend(isVisible: true,
         overflowMode: LegendItemOverflowMode.wrap),
@@ -85,7 +90,8 @@ class _WatchDayChartState extends State<WatchDayChart> {
               yValueMapper: (DayWearData data, _) => data.count,
               dataLabelSettings: DataLabelSettings(isVisible: true),
           enableTooltip: true)
-        ]);
+        ])
+    ));
   }
 
 
