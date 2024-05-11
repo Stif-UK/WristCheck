@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
@@ -11,6 +14,8 @@ class WatchCharts extends StatefulWidget {
   }) : super(key: key);
 
   Watches currentWatch;
+  final wristCheckController = Get.put(WristCheckController());
+
 
   @override
   State<WatchCharts> createState() => _WatchChartsState();
@@ -34,6 +39,13 @@ class _WatchChartsState extends State<WatchCharts> {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDays),
+              trailing: Obx( () => IconButton(
+                  icon: widget.wristCheckController.monthChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+                  onPressed: (){
+                    widget.wristCheckController.monthChartPreference.value == DefaultChartType.bar? widget.wristCheckController.updateMonthChartPreference(DefaultChartType.pie) : widget.wristCheckController.updateMonthChartPreference(DefaultChartType.bar);
+                  },
+                ),
+              )
             ),
             WatchMonthChart(currentWatch: widget.currentWatch),
             const Divider(thickness: 2,),
