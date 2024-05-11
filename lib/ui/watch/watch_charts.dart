@@ -7,6 +7,7 @@ import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
+import 'package:wristcheck/ui/remove_ads.dart';
 
 class WatchCharts extends StatefulWidget {
   WatchCharts({
@@ -77,7 +78,11 @@ class _WatchChartsState extends State<WatchCharts> {
               title: Text("WristCheck Pro Feature", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
             ),
             Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:75.0,width:75.0, color: Theme.of(context).hintColor),
-            WristCheckCopy.getWatchWearChartsUpgradeCopy()
+            WristCheckCopy.getWatchWearChartsUpgradeCopy(),
+            ElevatedButton(
+              child: Text("Tell me more"),
+              onPressed: () => Get.to(() => RemoveAds()),
+            )
           ],
         )
       ),
