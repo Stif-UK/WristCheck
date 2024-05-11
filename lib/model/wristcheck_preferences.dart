@@ -21,6 +21,9 @@ class WristCheckPreferences {
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
+  static const _keyDefaultMonthChartType = 'defaultMonthChartType';
+  static const _keyDefaultDayChartType = 'defaultDayChartType';
+
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
   static const _keySecondNotificationStatus = 'secondNotificationStatus';
@@ -252,6 +255,38 @@ class WristCheckPreferences {
     bool _prefersBarCharts;
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
+  }
+
+  //Month charts
+  static DefaultChartType? getDefaultMonthChartType()  {
+    if(_preferences.getBool(_keyDefaultMonthChartType) == null){
+      return DefaultChartType.bar;
+    } else{
+      bool _prefersBarCharts =  _preferences.getBool(_keyDefaultMonthChartType)!;
+      return _prefersBarCharts? DefaultChartType.bar : DefaultChartType.pie;
+    }
+  }
+
+  static Future setDefaultMonthChartType(DefaultChartType preferredType) async {
+    bool _prefersBarCharts;
+    preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
+    await _preferences.setBool(_keyDefaultMonthChartType, _prefersBarCharts);
+  }
+
+  //Day charts
+  static DefaultChartType? getDefaultDayChartType()  {
+    if(_preferences.getBool(_keyDefaultDayChartType) == null){
+      return DefaultChartType.bar;
+    } else{
+      bool _prefersBarCharts =  _preferences.getBool(_keyDefaultDayChartType)!;
+      return _prefersBarCharts? DefaultChartType.bar : DefaultChartType.pie;
+    }
+  }
+
+  static Future setDefaultDayChartType(DefaultChartType preferredType) async {
+    bool _prefersBarCharts;
+    preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
+    await _preferences.setBool(_keyDefaultDayChartType, _prefersBarCharts);
   }
 
   //Getter and Setter for last entitlement check date
