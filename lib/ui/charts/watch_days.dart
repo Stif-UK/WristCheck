@@ -88,7 +88,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
               dataSource: getChartData,
               xValueMapper: (DayWearData data, _) => dayMap[data.day],//data.day.toString(),
               yValueMapper: (DayWearData data, _) => data.count,
-              dataLabelSettings: DataLabelSettings(isVisible: true),
+              dataLabelSettings: DataLabelSettings(isVisible: true, showZeroValue: false),
           enableTooltip: true)
         ])
     ));
