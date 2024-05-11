@@ -29,8 +29,8 @@ class _WatchChartsState extends State<WatchCharts> {
       ),
       //Check if there is data available
       body: SingleChildScrollView(
-        child: true?
-        // widget.wristCheckController.isAppPro.value?
+        child:
+        widget.wristCheckController.isAppPro.value?
             WatchChartsBody(currentWatch: widget.currentWatch)
             :
             WristcheckProPrompt(textWidget: WristCheckCopy.getWatchWearChartsUpgradeCopy())
