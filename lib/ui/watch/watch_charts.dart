@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/copy/copy.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
@@ -28,8 +29,11 @@ class _WatchChartsState extends State<WatchCharts> {
       appBar: AppBar(
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
       ),
+      //Check if there is data available
       body: SingleChildScrollView(
-        child: Column(
+        child: widget.wristCheckController.isAppPro.value?
+        //TODO: Separate first option out into sub-page WatchChartsBody()
+        Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -64,7 +68,18 @@ class _WatchChartsState extends State<WatchCharts> {
             ),
             WatchDayChart(currentWatch: widget.currentWatch),
           ],
-        ),
+        ) :
+            //TODO: Create generic Pro Feature page?
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ListTile(
+              title: Text("WristCheck Pro Feature", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
+            ),
+            Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:75.0,width:75.0, color: Theme.of(context).hintColor),
+            WristCheckCopy.getWatchWearChartsUpgradeCopy()
+          ],
+        )
       ),
     );
   }

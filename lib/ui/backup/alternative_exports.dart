@@ -59,7 +59,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Copy.getAlternativeExtractsCopy(),
+                    child: WristCheckCopy.getAlternativeExtractsCopy(),
                   ),
                   ElevatedButton(
                       child: Row(
