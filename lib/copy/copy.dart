@@ -36,4 +36,19 @@ class WristCheckCopy {
     );
   }
 
+  static Widget getEmptyWearListWatchChartsCopy() {
+    return Container(
+      child: const Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Markdown(
+            shrinkWrap: true,
+            data:
+                "You haven't tracked any wear dates for this watch yet.\n\n"
+                "Track data by clicking 'wear today' on the watch page, or add dates via the calendar view. \n\n"
+                    "Once tracked charts will show here breaking down your records by month and weekday."
+        ),
+      ),
+    );
+  }
+
 }
