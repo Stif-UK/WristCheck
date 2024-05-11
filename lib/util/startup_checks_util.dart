@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -19,7 +20,12 @@ class StartupChecksUtil{
     bool _showWhatsNew = await returnWhatsNew();
     bool _notificationSet = WristCheckPreferences.getDailyNotificationStatus() ?? false;
     bool _hasSeenDailyRemindersPrompt = WristCheckPreferences.getHasSeenDailyRemindersPrompt() ?? false;
+    bool _hasSeenWatchCharts = WristCheckPreferences.getHasSeenWatchCharts() ?? false;
     //Checks should be run in priority order with only one dialog triggered
+    //Quickly set default daily chart values
+    if(!_hasSeenWatchCharts){
+      WristCheckPreferences.setDefaultDayChartType(DefaultChartType.pie);
+    }
     //1. Check if we should show a 'what's new' dialog
       if(_showWhatsNew){
         WristCheckDialogs.getWhatsNewDialog(context);

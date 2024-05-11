@@ -37,8 +37,9 @@ class WristCheckPreferences {
   static const _keyWatchBoxView = 'watchBoxView';
   //Locale
   static const _keyLocale = 'locale';
-  //First Use Demo
+  //First Use Demo & other first uses
   static const _keyFirstDemo = 'firstUseDemo';
+  static const _keyHasSeenWatchCharts = 'seenWatchCharts';
   //Dismissable pop-ups
   static const _keyShowSoldDialog = 'showSoldDialog';
   static const _keyShowPreOrderDialog = 'showPreOrderDialog';
@@ -66,6 +67,12 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyFirstDemo, hasSeenDemo);
 
   static bool? getHasSeenDemo() => _preferences.getBool(_keyFirstDemo);
+
+  //Getter and setter for first view of watch charts
+  static bool? getHasSeenWatchCharts() => _preferences.getBool(_keyHasSeenWatchCharts);
+
+  static Future setHasSeenWatchCharts(bool hasSeenWatchCharts) async =>
+      await _preferences.setBool(_keyHasSeenWatchCharts, hasSeenWatchCharts);
 
   //Getter and setter for latest app version String
   static Future setLatestVersion(String latestVersion) async =>
