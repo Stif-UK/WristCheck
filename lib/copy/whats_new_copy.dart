@@ -5,12 +5,13 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.8.0 \n"
+        "### Version 1.9.0 \n"
         "\n"
 
-            "* Added a new calendar view\n"
-            "* Added warranty expiry data point\n"
-            "* Updated servicing and warranty end date schedule\n";
+            "* Added CSV data extract options\n"
+            "* Calendar view added to each watch record\n"
+            "* Pro: Ability to set a 2nd daily reminder\n"
+            "* Pro: Watch weekday & month wear charts";
 
   }
 
@@ -24,6 +25,14 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.9.0 \n"
+                      "\n"
+
+                      "* Added CSV data extract options\n"
+                      "* Calendar view added to each watch record\n"
+                      "* Pro: Ability to set a 2nd daily reminder\n"
+                      "* Pro: Watch weekday & month wear charts\n"
+                      "---\n\n"
                       "### Version 1.8.0 \n"
                       "\n"
 
