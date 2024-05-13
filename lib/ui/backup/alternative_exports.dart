@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class AlternativeExports extends StatefulWidget {
 
 class _AlternativeExportsState extends State<AlternativeExports> {
   BannerAd? banner;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
   @override
@@ -45,7 +47,15 @@ class _AlternativeExportsState extends State<AlternativeExports> {
   }
 
   @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "alt_exports");
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Alternative Exports"),
@@ -76,6 +86,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                         ],
                       ),
                   onPressed: () async {
+                    analytics.logEvent(name: "simple_extract");
                         await ExtractMethods.generateSimpleExtract();
                   }
                     ,),
@@ -94,6 +105,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                     ],
                   ),
                     onPressed: () async {
+                      analytics.logEvent(name: "complex_extract");
                     await ExtractMethods.generateComplexExtract();
                     },
                   )
