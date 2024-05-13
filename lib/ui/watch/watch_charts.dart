@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -21,8 +22,18 @@ class WatchCharts extends StatefulWidget {
 }
 
 class _WatchChartsState extends State<WatchCharts> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "watch_charts");
+
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
