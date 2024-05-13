@@ -1,6 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/platform/platform_io.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
@@ -36,6 +36,8 @@ class WearDatesWidget extends StatefulWidget {
 class _WearDatesWidgetState extends State<WearDatesWidget> {
 BannerAd? banner;
 bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
 
 @override
 void didChangeDependencies() {
@@ -57,10 +59,18 @@ void didChangeDependencies() {
   }
 }
 
+@override
+void initState() {
+  analytics.setAnalyticsCollectionEnabled(true);
+  super.initState();
+}
+
 final watchBox = Boxes.getWatches();
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "watch_calendar");
+
     var wearList = widget.currentWatch.wearList;
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
@@ -99,8 +109,10 @@ final watchBox = Boxes.getWatches();
                     onTap: (CalendarTapDetails details){
                       //if date cell is tapped on, we set the current selected date
                       widget.wristCheckController.updateSelectedDate(details.date);
+                      analytics.logEvent(name: "date_clicked");
                       //if an "appointment" is tapped on, show the details of the event
                       if(details.targetElement == CalendarElement.appointment){
+                        analytics.logEvent(name: "appointment_dialog");
                         Appointment currentAppointment = details.appointments!.first;
                         String summary = currentAppointment.subject;
                         Get.defaultDialog(
@@ -115,6 +127,7 @@ final watchBox = Boxes.getWatches();
                     },
                     //when a date is long pressed, show options to add or delete wears
                     onLongPress: (cal) async {
+                      analytics.logEvent(name: "date_longpress");
                       //If current date has no matching wear date offer add date,
                       //otherwise offer delete date option.
                       bool matchedDate = false;
@@ -144,9 +157,11 @@ final watchBox = Boxes.getWatches();
                                 matchedDate? Text("Delete Date") : Text("Track Wear"),
                                   onPressed: () async {
                                   if(matchedDate) {
+                                    analytics.logEvent(name: "watch_date_removed");
                                     Get.back();
                                     WatchMethods.removeWearDate(cal.date!, widget.currentWatch);
                                   } else {
+                                    analytics.logEvent(name: "watch_date_added");
                                     Get.back();
                                     WatchMethods.attemptToRecordWear(widget.currentWatch, cal.date!, false);
                                   }
