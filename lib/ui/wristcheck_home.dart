@@ -170,7 +170,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   }
 
   getHeaderText(){
-    return widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck");
+    return widget.wristCheckController.isAppPro.value? const Text("WristTrack Pro") : const Text("WristTrack");
   }
 
 
