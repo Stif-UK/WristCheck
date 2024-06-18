@@ -44,8 +44,8 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: 'assets/demo/page1_logo.png',
-                title: "WristCheck",
-                subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristCheck can do..."),
+                title: "WristTrack",
+                subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do..."),
             buildPage(
                 colour: Theme.of(context).canvasColor,
                 urlImage: Get.isDarkMode? 'assets/demo/watchbox_dark.png':'assets/demo/watchbox_light.png',
