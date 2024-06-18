@@ -96,7 +96,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(FontAwesomeIcons.instagram),
-            title: const Text("Follow WristCheck"),
+            title: const Text("Follow WristTrack"),
             onTap: () async {
               analytics.logEvent(name: "social_link_clicked",
                   parameters: {
