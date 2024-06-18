@@ -45,7 +45,7 @@ class _LocationOptionsState extends State<LocationOptions> {
             const SizedBox(height: 10,),
             Padding(
               padding: pagePadding,
-              child: Text("WristCheck can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n"
+              child: Text("WristTrack can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n"
                   "Note: All watch values should be saved in the same currency to enable accurate calculations.", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
             ),
             const Divider(thickness: 2,),
