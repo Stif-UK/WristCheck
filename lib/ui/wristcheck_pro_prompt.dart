@@ -18,7 +18,7 @@ class WristcheckProPrompt extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ListTile(
-          title: Text("WristCheck Pro Feature", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
+          title: Text("WristTrack Pro Feature", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
         ),
         Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:75.0,width:75.0, color: Theme.of(context).hintColor),
         textWidget,
