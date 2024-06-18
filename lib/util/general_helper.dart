@@ -4,7 +4,7 @@ class GeneralHelper{
 
   static launchInstagram() async {
     launchUrl(
-      Uri.parse('https://www.instagram.com/wristcheck.app/'),
+      Uri.parse('https://www.instagram.com/wristtrack.app/'),
       mode: LaunchMode.externalApplication,
     );
   }
