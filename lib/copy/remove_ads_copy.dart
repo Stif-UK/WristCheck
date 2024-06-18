@@ -27,9 +27,9 @@ class RemoveAdsCopy{
           shrinkWrap: true,
           styleSheet: MarkdownStyleSheet(p: Theme.of(context).textTheme.bodyLarge),
           data:
-          "The core features of **WristCheck** are free, supported by small ads throughout the app.\n\n"
-              "However, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristCheck Pro**.\n\n"
-              "**WristCheck Pro** also unlocks:\n\n"
+          "The core features of **WristTrack** are free, supported by small ads throughout the app.\n\n"
+              "However, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristTrack Pro**.\n\n"
+              "**WristTrack Pro** also unlocks:\n\n"
               "* The option to set a second daily reminder\n"
               "* Individual watch charts showing wear stats by months and weekdays. "
 
