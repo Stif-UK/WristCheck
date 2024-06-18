@@ -204,7 +204,7 @@ class _WearStatsState extends State<WearStatsV2> {
     }
     final image = File('${directory.path}/cache/shareImage.png');
     image.writeAsBytesSync(bytes);
-    await Share.shareXFiles([XFile(image.path)],text: "Chart generated with WristCheck");
+    await Share.shareXFiles([XFile(image.path)],text: "Chart generated with WristTrack");
   }
 
 
