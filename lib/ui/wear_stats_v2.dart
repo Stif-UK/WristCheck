@@ -105,7 +105,7 @@ class _WearStatsState extends State<WearStatsV2> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const SizedBox(height: 10),
-                      widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristCheck Pro") : const Text ("This chart generated with WristCheck"),
+                      widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristTrack Pro") : const Text ("This chart generated with WristTrack"),
                       const SizedBox(height: 20,)
                     ],
                   )
