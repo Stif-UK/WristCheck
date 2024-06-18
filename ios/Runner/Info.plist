@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Wristcheck</string>
+	<string>WristTrack</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -53,9 +53,9 @@
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
 	<key>LSApplicationQueriesSchemes</key>
-    <array>
-       <string>instagram</string>
-    </array>
+	<array>
+		<string>instagram</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-5693473214019178~6620076918</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
