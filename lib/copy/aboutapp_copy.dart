@@ -10,7 +10,7 @@ class AboutAppCopy{
         padding: EdgeInsets.all(12.0),
         child: Markdown(
           shrinkWrap: true,
-            data: "**WristCheck is a digital watch box application.**\n\n"
+            data: "**WristTrack is a digital watch box application.**\n\n"
                 "It allows you to track your watch collection and generate charts and data insights.\n\n"
                 "*Key features:*\n"
                 "* Create watch records to record key details.\n"

@@ -35,7 +35,7 @@ class AboutApp extends StatelessWidget{
               },
             ),
             const Divider(thickness: 2,),
-            ExpansionTile(title: const Text("About WristCheck"),
+            ExpansionTile(title: const Text("About WristTrack"),
             leading: Icon(FontAwesomeIcons.clock),
             onExpansionChanged: (bool) async {
               await analytics.logEvent(name: "about_wc_expanded",
