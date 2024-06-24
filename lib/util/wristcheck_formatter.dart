@@ -21,6 +21,12 @@ class WristCheckFormatter{
     return returnString;
   }
 
+  static String getTime(DateTime date){
+    final DateFormat formatter = DateFormat('Hms');
+    String returnString = formatter.format(date);
+    return returnString;
+  }
+
   static String getMonthFromDate(DateTime date){
     final DateFormat formatter = DateFormat('LLLL');
     return formatter.format(date);

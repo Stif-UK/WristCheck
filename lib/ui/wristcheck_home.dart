@@ -1,6 +1,7 @@
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -16,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
+import 'package:wristcheck/ui/time_setting.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
 
@@ -35,9 +37,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   final List<Widget> _children =[
     Watchbox(),
     StatsWidget(),
-    CalendarHome()
-    //ScheduleView()
-    //ServicingWidget()
+    CalendarHome(),
+    TimeSetting(),
   ];
 
 
@@ -83,7 +84,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
-        //title: widget.wristCheckController.isAppPro.value? const Text("WristCheck Pro") : const Text("WristCheck"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -125,6 +125,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
         items: const [
@@ -139,6 +140,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
           BottomNavigationBarItem(
             icon:  Icon(Icons.calendar_month_sharp),
             label: "Calendar",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.clock),
+            label: "Time"
           )
         ],
         
