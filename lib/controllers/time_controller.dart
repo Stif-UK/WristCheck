@@ -30,17 +30,7 @@ class TimeController extends GetxController{
     int lastbeep;
     Timer.periodic(Duration(milliseconds: 50), (Timer t) {
       var date = DateTime.now();
-      switch(date.second){
-        case 57:
-          triggerBeep(57);
-          break;
-        case 58:
-          triggerBeep(58);
-          break;
-        case 59:
-          triggerBeep(59);
-          break;
-      }
+      triggerBeep(date.second);
       currentDateTime(date);
       currentTime(WristCheckFormatter.getTime(date, militaryTime.value));
       currentDate(WristCheckFormatter.getFormattedDateWithDay(date));
@@ -49,10 +39,12 @@ class TimeController extends GetxController{
   }
 
   triggerBeep(int current){
-    if(current != lastBeep.value)
-      {
-        print("beep!");
+    var triggerList = [57, 58, 59, 00];
+    if(triggerList.contains(current)) {
+      if (current != lastBeep.value && enableBeep.value) {
+        current == 00? print("BEEP!!"): print("beep!");
       };
-    updateLastBeep(current);
+      updateLastBeep(current);
+    }
   }
 }
