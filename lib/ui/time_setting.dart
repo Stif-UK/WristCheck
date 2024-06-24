@@ -22,7 +22,7 @@ class _TimeSettingState extends State<TimeSetting> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: MediaQuery.sizeOf(context).width*0.18,),
+        // SizedBox(width: MediaQuery.sizeOf(context).width*0.18,),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -35,6 +35,17 @@ class _TimeSettingState extends State<TimeSetting> {
                 child: Obx(() => Text(timeController.currentDate.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,)),
               ),
               Obx(() => Text(timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
+              const Divider(thickness: 2,),
+              Obx(() => SwitchListTile(
+                title: Text("Beep Countdown"),
+                  value: timeController.enableBeep.value,
+                  onChanged: (beep) => timeController.updateBeepSetting(beep))),
+              const Divider(thickness: 2,),
+              Obx(() => SwitchListTile(
+                title: Text("24 hour time"),
+                  value: timeController.militaryTime.value,
+                  onChanged: (mt) => timeController.updateMilitaryTime(mt))),
+              const Divider(thickness: 2,),
             ],
           ),
         ),
