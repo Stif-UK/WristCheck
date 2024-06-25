@@ -31,7 +31,6 @@ class TimeController extends GetxController{
   }
 
   updateTime() {
-    int lastbeep;
     Timer.periodic(Duration(milliseconds: 50), (Timer t) {
       var date = DateTime.now();
       triggerBeep(date.second);
