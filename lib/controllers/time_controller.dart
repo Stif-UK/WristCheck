@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'dart:async';
 
@@ -7,22 +8,25 @@ class TimeController extends GetxController{
   final currentDate = "".obs;
   final currentTime = "".obs;
   final currentDateTime = DateTime.now().obs;
-  final enableBeep = false.obs;
-  final militaryTime = true.obs;
+  final enableBeep = WristCheckPreferences.getEnableBeep().obs;
+  final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
 
   onInit(){
     updateTime();
   }
 
-  updateBeepSetting(beep){
+  updateBeepSetting(beep) async {
+    await WristCheckPreferences.setEnableBeep(beep);
     enableBeep(beep);
+
   }
 
   updateLastBeep(sec){
     lastBeep(sec);
   }
 
-  updateMilitaryTime(mt){
+  updateMilitaryTime(mt) async {
+    await WristCheckPreferences.setMilitaryTime(mt);
     militaryTime(mt);
   }
 

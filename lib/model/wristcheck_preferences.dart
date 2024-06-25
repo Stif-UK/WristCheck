@@ -44,6 +44,10 @@ class WristCheckPreferences {
   static const _keyShowSoldDialog = 'showSoldDialog';
   static const _keyShowPreOrderDialog = 'showPreOrderDialog';
 
+  //TimeSettingFeatures
+  static const _keyEnableBeep = 'enableBeep';
+  static const _keyMilitaryTime = 'militaryTime';
+
 
 
 
@@ -386,4 +390,18 @@ class WristCheckPreferences {
   static Future setLastSalePrompt(DateTime lastSalePrompt) async{
     await _preferences.setString(_keyLastSalePromptDismissed, lastSalePrompt.toString());
   }
+
+  //Getter and Setter for time beep preference
+  static Future setEnableBeep(bool beep) async =>
+      await _preferences.setBool(_keyEnableBeep, beep);
+
+  static bool getEnableBeep() => _preferences.getBool(_keyEnableBeep) ?? false;
+
+  //Getter and Setter for 24 hour time preference
+  static Future setMilitaryTime(bool milTime) async =>
+      await _preferences.setBool(_keyEnableBeep, milTime);
+
+  static bool getMilitaryTime() => _preferences.getBool(_keyMilitaryTime) ?? true;
+
+
 }
