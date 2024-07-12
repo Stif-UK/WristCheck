@@ -30,11 +30,18 @@ class _TimeSettingState extends State<TimeSetting> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Obx(() => Text(timeController.currentDate.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() => Text(timeController.currentDate.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,)),
+                ],
               ),
-              Obx(() => Text(timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() => Text(timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
+                ],
+              ),
               const Divider(thickness: 2,),
               Obx(() => SwitchListTile(
                 title: Text("Beep Countdown"),
