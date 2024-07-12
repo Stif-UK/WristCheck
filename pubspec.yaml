@@ -53,7 +53,7 @@ dependencies:
   file_picker: ^5.3.3
   flutter_local_notifications: ^16.1.0
   google_mobile_ads: ^3.0.0
-  screenshot: ^2.1.0
+  screenshot: ^3.0.0
   share_plus: ^7.1.0
   in_app_review: ^2.0.4
   purchases_flutter: ^5.6.5
