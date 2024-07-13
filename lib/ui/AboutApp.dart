@@ -28,7 +28,7 @@ class AboutApp extends StatelessWidget{
           children: [
             ListTile(
               leading: Icon(FontAwesomeIcons.earthAmericas),
-              title: Text("Visit www.wristcheck.app"),
+              title: Text("Visit www.wristtrack.app"),
               trailing: Icon(FontAwesomeIcons.arrowUpRightFromSquare),
               onTap: () async {
                 _launchURL();
@@ -92,7 +92,7 @@ class AboutApp extends StatelessWidget{
     );
   }
   void _launchURL() async {
-    final Uri url = Uri.parse('https://www.wristcheck.app');
+    final Uri url = Uri.parse('https://www.wristtrack.app');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
