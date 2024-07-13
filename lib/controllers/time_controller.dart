@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 class TimeController extends GetxController{
   final lastBeep = 56.obs;
@@ -42,10 +43,11 @@ class TimeController extends GetxController{
   }
 
   triggerBeep(int current){
+    final player = AudioPlayer();
     var triggerList = [57, 58, 59, 00];
     if(triggerList.contains(current)) {
       if (current != lastBeep.value && enableBeep.value) {
-        current == 00? print("BEEP!!"): print("beep!");
+        current == 00? player.play(AssetSource('audio/main_chime1.mp3')): player.play(AssetSource('audio/chime1.mp3'));
       };
       updateLastBeep(current);
     }
