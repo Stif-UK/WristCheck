@@ -73,6 +73,7 @@ dependencies:
   dropdown_search: ^5.0.6
   csv: ^6.0.0
   audioplayers: ^6.0.0
+  flutter_kronos: ^0.1.0+1
 
 dependency_overrides:
   watcher: ^1.1.0

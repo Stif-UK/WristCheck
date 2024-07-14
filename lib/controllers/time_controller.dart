@@ -13,12 +13,17 @@ class TimeController extends GetxController{
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final lastSyncTime = "".obs;
   final timeSynced = false.obs;
+  final deviation = Duration(milliseconds: 0).obs;
 
 
   @override
   void dispose() {
     isTimerActive(false);
     super.dispose();
+  }
+
+  updateDeviation(Duration diff){
+    deviation(diff);
   }
 
   updateTimeSynced(bool synced){
