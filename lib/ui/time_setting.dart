@@ -21,7 +21,6 @@ class _TimeSettingState extends State<TimeSetting> {
 
 
 
-
   @override
   Widget build(BuildContext context) {
     updateTime();
@@ -65,12 +64,12 @@ class _TimeSettingState extends State<TimeSetting> {
                           width: 10,
                           child: CircularProgressIndicator(strokeWidth: 1.5,)
                       ),
-                      IconButton(
-                          icon: Icon(FontAwesomeIcons.arrowRotateRight,
-                            color: Theme.of(context).textTheme.bodySmall?.color,
-                            size: Theme.of(context).textTheme.bodySmall?.fontSize,),
-                          onPressed: () => widget.timeController.updateTimeSynced(!widget.timeController.timeSynced.value)
-                      )
+                      // IconButton(
+                      //     icon: Icon(FontAwesomeIcons.arrowRotateRight,
+                      //       color: Theme.of(context).textTheme.bodySmall?.color,
+                      //       size: Theme.of(context).textTheme.bodySmall?.fontSize,),
+                      //     onPressed: () {}
+                      // )
                     ],
                   ),
                 ),
@@ -106,8 +105,11 @@ class _TimeSettingState extends State<TimeSetting> {
       var synced = await FlutterKronos.getNtpDateTime;
       if(synced != null) {
         widget.timeController.updateTimeSynced(true);
-        widget.timeController.updateLastSyncTime(synced);
+        widget.timeController.updateLastSyncTime(_currentNTPDateTime ?? synced);
         widget.timeController.updateDeviation(DateTime.now().difference(synced));
+      }
+      if(synced == null){
+        widget.timeController.updateSyncFailed(true);
       }
     });
 

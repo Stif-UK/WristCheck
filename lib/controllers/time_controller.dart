@@ -13,6 +13,7 @@ class TimeController extends GetxController{
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final lastSyncTime = "".obs;
   final timeSynced = false.obs;
+  final syncFailed = false.obs;
   final deviation = Duration(milliseconds: 0).obs;
 
 
@@ -20,6 +21,10 @@ class TimeController extends GetxController{
   void dispose() {
     isTimerActive(false);
     super.dispose();
+  }
+
+  updateSyncFailed(bool sync){
+    syncFailed(sync);
   }
 
   updateDeviation(Duration diff){
