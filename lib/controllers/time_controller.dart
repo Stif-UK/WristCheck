@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 class TimeController extends GetxController{
@@ -10,12 +11,17 @@ class TimeController extends GetxController{
   final currentDateTime = DateTime.now().obs;
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
+  final lastSyncTime = "".obs;
 
 
   @override
   void dispose() {
     isTimerActive(false);
     super.dispose();
+  }
+
+  updateLastSyncTime(DateTime time){
+    lastSyncTime(WristCheckFormatter.getFormattedDateAndTime(time));
   }
 
   updateIsTimerActive(bool isActive){

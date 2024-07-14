@@ -21,6 +21,10 @@ class WristCheckFormatter{
     return returnString;
   }
 
+  static String getFormattedDateAndTime(DateTime date){
+    return "${getFormattedDateWithDay(date)} - ${getTime(date, false)}";
+  }
+
   static String getTime(DateTime date, bool militaryTime){
     final DateFormat formatter = militaryTime? DateFormat('Hms') : DateFormat('hh:mm:ss a');
     String returnString = formatter.format(date);
