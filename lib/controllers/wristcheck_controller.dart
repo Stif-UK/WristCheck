@@ -131,4 +131,5 @@ class WristCheckController extends GetxController {
     dayChartPreference(type);
   }
 
+
 }

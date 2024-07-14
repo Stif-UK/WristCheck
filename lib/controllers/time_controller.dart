@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
 class TimeController extends GetxController{
+  final isTimerActive = true.obs;
   final lastBeep = 56.obs;
   final currentDate = "".obs;
   final currentTime = "".obs;
@@ -12,8 +14,21 @@ class TimeController extends GetxController{
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
 
-  onInit(){
-    updateTime();
+  // onInit(){
+  //   super.onInit();
+  //   //updateTime();
+  // }
+
+
+  @override
+  void dispose() {
+    isTimerActive(false);
+    super.dispose();
+  }
+
+  updateIsTimerActive(bool isActive){
+    isTimerActive(isActive);
+    print("isTimeActive now false");
   }
 
   updateBeepSetting(beep) async {
@@ -31,25 +46,5 @@ class TimeController extends GetxController{
     militaryTime(mt);
   }
 
-  updateTime() {
-    Timer.periodic(Duration(milliseconds: 50), (Timer t) {
-      var date = DateTime.now();
-      triggerBeep(date.second);
-      currentDateTime(date);
-      currentTime(WristCheckFormatter.getTime(date, militaryTime.value));
-      currentDate(WristCheckFormatter.getFormattedDateWithDay(date));
-    });
 
-  }
-
-  triggerBeep(int current){
-    final player = AudioPlayer();
-    var triggerList = [57, 58, 59, 00];
-    if(triggerList.contains(current)) {
-      if (current != lastBeep.value && enableBeep.value) {
-        current == 00? player.play(AssetSource('audio/main_chime1.mp3')): player.play(AssetSource('audio/chime1.mp3'));
-      };
-      updateLastBeep(current);
-    }
-  }
 }
