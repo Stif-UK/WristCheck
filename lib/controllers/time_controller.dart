@@ -12,12 +12,17 @@ class TimeController extends GetxController{
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final lastSyncTime = "".obs;
+  final timeSynced = false.obs;
 
 
   @override
   void dispose() {
     isTimerActive(false);
     super.dispose();
+  }
+
+  updateTimeSynced(bool synced){
+    timeSynced(synced);
   }
 
   updateLastSyncTime(DateTime time){
