@@ -19,7 +19,6 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   Widget build(BuildContext context) {
-    print("starting the timer");
     updateTime();
     return PopScope(
       onPopInvoked: (bool didPop) => widget.timeController.updateIsTimerActive(!didPop),
@@ -71,7 +70,6 @@ class _TimeSettingState extends State<TimeSetting> {
     Timer.periodic(Duration(milliseconds: 50), (Timer t) {
       if(!widget.timeController.isTimerActive.value){
         t.cancel();
-        print("Timer cancelled");
       }
       var date = DateTime.now();
       triggerBeep(date.second);
@@ -101,7 +99,6 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   void dispose() {
-    print("Stopping the timer - dispose");
     widget.timeController.isTimerActive(false);
     Get.delete<TimeController>();
     super.dispose();

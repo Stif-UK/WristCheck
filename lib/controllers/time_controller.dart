@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
-import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
+
 
 class TimeController extends GetxController{
   final isTimerActive = true.obs;
@@ -14,11 +11,6 @@ class TimeController extends GetxController{
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
 
-  // onInit(){
-  //   super.onInit();
-  //   //updateTime();
-  // }
-
 
   @override
   void dispose() {
@@ -28,7 +20,6 @@ class TimeController extends GetxController{
 
   updateIsTimerActive(bool isActive){
     isTimerActive(isActive);
-    print("isTimeActive now false");
   }
 
   updateBeepSetting(beep) async {
