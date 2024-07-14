@@ -45,6 +45,21 @@ class _TimeSettingState extends State<TimeSetting> {
                     Obx(() => Text(widget.timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text("Last Synced:", style: Theme.of(context).textTheme.bodySmall,),
+                    ),
+                    SizedBox(
+                        height: 10,
+                        width: 10,
+                        child: CircularProgressIndicator(strokeWidth: 1.5,)
+                    ),
+
+                  ],
+                ),
                 const Divider(thickness: 2,),
                 Obx(() => SwitchListTile(
                   title: Text("Beep Countdown"),
