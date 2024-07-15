@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class WearDatesWidget extends StatefulWidget {
   final Watches currentWatch;
   final wristCheckController = Get.put(WristCheckController());
+  bool showDateList = false;
 
 
   WearDatesWidget({
@@ -71,6 +73,8 @@ final watchBox = Boxes.getWatches();
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "watch_calendar");
 
+
+
     var wearList = widget.currentWatch.wearList;
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
@@ -87,6 +91,15 @@ final watchBox = Boxes.getWatches();
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: widget.showDateList? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
+        onPressed: () {
+          setState(() {
+            widget.showDateList = !widget.showDateList;
+            print(widget.showDateList);
+          });
+        },
       ),
       body: Column(
         children: [
