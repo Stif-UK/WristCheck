@@ -93,9 +93,7 @@ final watchBox = Boxes.getWatches();
           purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           Expanded(
             child: Container(
-              child:
-              wearList.isNotEmpty?
-              ValueListenableBuilder(
+              child: ValueListenableBuilder(
                 valueListenable: watchBox.listenable(),
                 builder: (context, box, _) {
                   return SfCalendar(
@@ -190,13 +188,6 @@ final watchBox = Boxes.getWatches();
                   );
                 },
               )
-                  :
-              Container(
-                padding: const EdgeInsets.all(20),
-                alignment: Alignment.center,
-                child: const Text("No wear dates are tracked yet for this watch\n\nYou can add dates by clicking the 'unlock' icon above and then clicking the + icon\n",
-                  textAlign: TextAlign.center,),
-              ),
             ),
           ),
         ],
