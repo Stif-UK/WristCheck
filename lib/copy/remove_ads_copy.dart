@@ -8,18 +8,9 @@ class RemoveAdsCopy{
   }
 
   static getPageTitleSupporter(){
-    return const Text("Support WristCheck");
+    return const Text("Support WristTrack");
   }
-
-  // static getRemoveAdsMainCopy(BuildContext context){
-  //   return Text(
-  //     "The core features of WristCheck are free, supported by small ads throughout the app"
-  //         "\n\nHowever if you would like to support the app development and remove ads, you can click below to see in-app purchase "
-  //         "options."
-  //         "\n\nPaying doesn't unlock any additional functionality (everything is free!) it simply removes ads and hopefully gives you a warm feeling that you're"
-  //         " supporting someone that finds their fun creating little apps that others can (hopefully) enjoy!",
-  //     style: Theme.of(context).textTheme.bodyLarge,);
-  // }
+  
 
   static getRemoveAdsMainCopy(BuildContext context){
     return Container(
@@ -39,10 +30,10 @@ class RemoveAdsCopy{
 
   static getSupporterMainCopy(BuildContext context){
     return Text(
-      "Thank you for supporting WristCheck!\n\n"
-          "Your support means a lot and makes it possible for me to continue to develop WristCheck and other apps like it.\n\n"
+      "Thank you for supporting WristTrack!\n\n"
+          "Your support means a lot and makes it possible for me to continue to develop WristTrack and other apps like it.\n\n"
           "If you're enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you'd like to see added to it!\n\n"
-          "If you'd like to continue to support WristCheck additional donations can be made at any time.",
+          "If you'd like to continue to support WristTrack additional donations can be made at any time.",
       style: Theme.of(context).textTheme.bodyLarge,);
   }
 
