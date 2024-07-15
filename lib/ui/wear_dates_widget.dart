@@ -263,7 +263,20 @@ Widget _buildListView(Watches watch, BuildContext context) {
   ): SingleChildScrollView(
     child: Column(
       children: [
-        Text("All dates worn", style: Theme.of(context).textTheme.headlineSmall,),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text("All dates worn", style: Theme.of(context).textTheme.headlineSmall,),
+              ),
+            ),
+            IconButton(
+                icon: Icon(FontAwesomeIcons.arrowUp19),
+              onPressed: (){},
+            )
+          ],
+        ),
         Divider(thickness: 2,),
         ListView.builder(
           shrinkWrap: true,
