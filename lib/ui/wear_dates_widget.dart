@@ -101,7 +101,10 @@ final watchBox = Boxes.getWatches();
           });
         },
       ),
-      body: Column(
+      body: widget.showDateList?
+        _buildListView(widget.currentWatch)
+
+          : Column(
         children: [
           purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           Expanded(
@@ -251,6 +254,22 @@ _WatchDataSource _getCalendarDataSource() {
 
   return _WatchDataSource(appointments);
 }
+}
+
+Widget _buildListView(Watches watch) {
+  return watch.wearList.length == 0? Center(
+    child: Text("No dates recorded for this watch."),
+  ): SingleChildScrollView(
+    child: ListView.builder(
+      shrinkWrap: true,
+      itemCount: watch.wearList.length,
+        itemBuilder: (BuildContext context, int index){
+        return ListTile(
+          title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
+        );
+        }
+    ),
+  );
 }
 
 class _WatchDataSource extends CalendarDataSource {
