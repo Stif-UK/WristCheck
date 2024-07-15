@@ -257,14 +257,16 @@ _WatchDataSource _getCalendarDataSource() {
 }
 
 Widget _buildListView(Watches watch) {
+  var dateList = watch.wearList.reversed;
   return watch.wearList.length == 0? Center(
     child: Text("No dates recorded for this watch."),
   ): SingleChildScrollView(
     child: ListView.builder(
       shrinkWrap: true,
-      itemCount: watch.wearList.length,
+      itemCount: dateList.length,
         itemBuilder: (BuildContext context, int index){
         return ListTile(
+          leading: Icon(FontAwesomeIcons.calendarDay),
           title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
         );
         }
