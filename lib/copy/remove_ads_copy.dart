@@ -10,7 +10,7 @@ class RemoveAdsCopy{
   static getPageTitleSupporter(){
     return const Text("Support WristTrack");
   }
-  
+
 
   static getRemoveAdsMainCopy(BuildContext context){
     return Container(
