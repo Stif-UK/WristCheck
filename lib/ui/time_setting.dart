@@ -13,6 +13,8 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:flutter_kronos/flutter_kronos.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
 
 class TimeSetting extends StatefulWidget {
   final timeController = Get.put(TimeController());
@@ -24,6 +26,7 @@ class TimeSetting extends StatefulWidget {
 
 
 class _TimeSettingState extends State<TimeSetting> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   DateTime? _currentNTPDateTime;
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -55,6 +58,8 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(screenName: "timesetting");
+
     updateTime();
     return PopScope(
       onPopInvoked: (bool didPop) => widget.timeController.updateIsTimerActive(!didPop),
@@ -111,12 +116,24 @@ class _TimeSettingState extends State<TimeSetting> {
                   Obx(() => SwitchListTile(
                     title: Text("Beep Countdown"),
                       value: widget.timeController.enableBeep.value,
-                      onChanged: (beep) => widget.timeController.updateBeepSetting(beep))),
+                      onChanged: (beep) {
+                        analytics.logEvent(name: "enablebeep",
+                            parameters: {
+                              "beep" : beep
+                            });
+                        widget.timeController.updateBeepSetting(beep);
+                      })),
                   const Divider(thickness: 2,),
                   Obx(() => SwitchListTile(
                     title: Text("24 hour time"),
                       value: widget.timeController.militaryTime.value,
-                      onChanged: (mt) => widget.timeController.updateMilitaryTime(mt))),
+                      onChanged: (mt) {
+                        analytics.logEvent(name: "enable24hrtime",
+                            parameters: {
+                              "24hr" : mt
+                            });
+                        widget.timeController.updateMilitaryTime(mt);
+                      })),
                   const Divider(thickness: 2,),
                 ],
               ),
@@ -191,6 +208,7 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
     widget.timeController.isTimerActive(true);
     initPlatformState();
     super.initState();
