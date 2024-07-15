@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -73,6 +72,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     ],
                   ),
                 ),
+                //TODO: Implement text if time sync fails
                 Obx(()=> Center(child: widget.timeController.timeSynced.value?
                     Text("System time deviation: ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
                     Text("Sync in progress - displaying system time...", style: Theme.of(context).textTheme.bodySmall))),
