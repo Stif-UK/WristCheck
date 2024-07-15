@@ -3,12 +3,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:flutter_kronos/flutter_kronos.dart';
 
 class TimeSetting extends StatefulWidget {
   final timeController = Get.put(TimeController());
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   State<TimeSetting> createState() => _TimeSettingState();
@@ -17,7 +25,32 @@ class TimeSetting extends StatefulWidget {
 
 class _TimeSettingState extends State<TimeSetting> {
   DateTime? _currentNTPDateTime;
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+            //Check config to confirm if this is a prod or test app build
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.timeSettingAdUnitID,
+              //If the device screen is large enough display a larger ad on this screen
+              size: MediaQuery.of(context).size.height > 500.0
+                  ? AdSize.mediumRectangle
+                  : AdSize.largeBanner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
 
 
   @override
@@ -25,72 +58,74 @@ class _TimeSettingState extends State<TimeSetting> {
     updateTime();
     return PopScope(
       onPopInvoked: (bool didPop) => widget.timeController.updateIsTimerActive(!didPop),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(() => Text(widget.timeController.currentDate.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,)),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(() => Text(widget.timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
-                  ],
-                ),
-                Obx(()=> Row(
+      child: Obx(() => Column(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(height: 20,),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text("Last Synced:", style: Theme.of(context).textTheme.bodySmall,),
-                      ),
-                      widget.timeController.timeSynced.value ?
-                      Text(widget.timeController.lastSyncTime.value,
-                      style: Theme.of(context).textTheme.bodySmall,) :
-                      SizedBox(
-                          height: 10,
-                          width: 10,
-                          child: CircularProgressIndicator(strokeWidth: 1.5,)
-                      ),
-                      // IconButton(
-                      //     icon: Icon(FontAwesomeIcons.arrowRotateRight,
-                      //       color: Theme.of(context).textTheme.bodySmall?.color,
-                      //       size: Theme.of(context).textTheme.bodySmall?.fontSize,),
-                      //     onPressed: () {}
-                      // )
+                      Obx(() => Text(widget.timeController.currentDate.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,)),
                     ],
                   ),
-                ),
-                //TODO: Implement text if time sync fails
-                Obx(()=> Center(child: widget.timeController.timeSynced.value?
-                    Text("System time deviation: ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
-                    Text("Sync in progress - displaying system time...", style: Theme.of(context).textTheme.bodySmall))),
-                const Divider(thickness: 2,),
-                Obx(() => SwitchListTile(
-                  title: Text("Beep Countdown"),
-                    value: widget.timeController.enableBeep.value,
-                    onChanged: (beep) => widget.timeController.updateBeepSetting(beep))),
-                const Divider(thickness: 2,),
-                Obx(() => SwitchListTile(
-                  title: Text("24 hour time"),
-                    value: widget.timeController.militaryTime.value,
-                    onChanged: (mt) => widget.timeController.updateMilitaryTime(mt))),
-                const Divider(thickness: 2,),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() => Text(widget.timeController.currentTime.value, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,)),
+                    ],
+                  ),
+                  Obx(()=> Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text("Last Synced:", style: Theme.of(context).textTheme.bodySmall,),
+                        ),
+                        widget.timeController.timeSynced.value ?
+                        Text(widget.timeController.lastSyncTime.value,
+                        style: Theme.of(context).textTheme.bodySmall,) :
+                        SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: CircularProgressIndicator(strokeWidth: 1.5,)
+                        ),
+                        // IconButton(
+                        //     icon: Icon(FontAwesomeIcons.arrowRotateRight,
+                        //       color: Theme.of(context).textTheme.bodySmall?.color,
+                        //       size: Theme.of(context).textTheme.bodySmall?.fontSize,),
+                        //     onPressed: () {}
+                        // )
+                      ],
+                    ),
+                  ),
+                  //TODO: Implement text if time sync fails
+                  Obx(()=> Center(child: widget.timeController.timeSynced.value?
+                      Text("System time deviation: ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
+                      Text("Sync in progress - displaying system time...", style: Theme.of(context).textTheme.bodySmall))),
+                  const Divider(thickness: 2,),
+                  Obx(() => SwitchListTile(
+                    title: Text("Beep Countdown"),
+                      value: widget.timeController.enableBeep.value,
+                      onChanged: (beep) => widget.timeController.updateBeepSetting(beep))),
+                  const Divider(thickness: 2,),
+                  Obx(() => SwitchListTile(
+                    title: Text("24 hour time"),
+                      value: widget.timeController.militaryTime.value,
+                      onChanged: (mt) => widget.timeController.updateMilitaryTime(mt))),
+                  const Divider(thickness: 2,),
+                ],
+              ),
             ),
-          ),
-        ],
+            widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+            const SizedBox(height: 20,)
+
+          ],
+        ),
       ),
     );
 
@@ -175,4 +210,13 @@ class _TimeSettingState extends State<TimeSetting> {
     if (!mounted) return;
 
   }
+}
+
+Widget _buildAdSpace(BannerAd? banner, BuildContext context){
+  return banner == null
+      ? SizedBox(height: MediaQuery.of(context).size.height > 500.0? 250: 100,)
+      : Container(
+    height: MediaQuery.of(context).size.height > 500.0? 250: 100,
+    child: AdWidget(ad: banner!),
+  );
 }
