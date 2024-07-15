@@ -73,6 +73,17 @@ class AboutAppCopy{
           Text("App Icons were generated for all platforms with the help of easyappicon.com"
               "\nUsing assets created by Umar Irshad available from iconfinder.com"),
           Divider(thickness: 2),
+          Text("Sound files sourced via Pixabay.com"
+              "\nDistributed under free licence"),
+          Divider(thickness: 2),
+          Text("Audio files played using the Audioplayers flutter library by Blue Fire"
+              "\nAvailable at pub.dev/packages/Audioplayers - for more info visit blue-fire.xyz"
+              "\nDistributed under the MIT licence"),
+          Divider(thickness: 2),
+          Text("NTP Time synchronisation supported by the Flutter_Kronos library"
+              "\nAvailable at pub.dev/packages/flutter_kronos"
+              "\nDistributed under the Apache licence"),
+          Divider(thickness: 2),
           Text("With thanks to the users and contributors of the Christopher Ward Forum."
               "\nTheir input and support was invaluable to the development of this application.",
             style: TextStyle(fontWeight: FontWeight.bold),),
