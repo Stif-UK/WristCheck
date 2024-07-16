@@ -276,6 +276,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
           Divider(thickness: 2,),
           ListView.builder(
             reverse: wristCheckController.dateAscenting.value,
+              physics: BouncingScrollPhysics(),
               shrinkWrap: true,
             itemCount: dateList.length,
               itemBuilder: (BuildContext context, int index){
