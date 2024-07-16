@@ -131,5 +131,12 @@ class WristCheckController extends GetxController {
     dayChartPreference(type);
   }
 
+  //Choose order of date list
+final dateAscenting = true.obs;
+
+  updateDateAscending(bool asc){
+    dateAscenting(asc);
+  }
+
 
 }

@@ -102,7 +102,7 @@ final watchBox = Boxes.getWatches();
         },
       ),
       body: widget.showDateList?
-        _buildListView(widget.currentWatch, context)
+        Obx(()=> _buildListView(widget.currentWatch, context))
 
           : Column(
         children: [
@@ -257,38 +257,44 @@ _WatchDataSource _getCalendarDataSource() {
 }
 
 Widget _buildListView(Watches watch, BuildContext context) {
-  var dateList = watch.wearList.reversed;
+  final wristCheckController = Get.put(WristCheckController());
+  var dateList = watch.wearList;
+
   return watch.wearList.length == 0? Center(
     child: Text("No dates recorded for this watch."),
   ): SingleChildScrollView(
-    child: Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text("All dates worn", style: Theme.of(context).textTheme.headlineSmall,),
+    child: Obx(()=> Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text("All dates worn", style: Theme.of(context).textTheme.headlineSmall,),
+                ),
               ),
-            ),
-            IconButton(
-                icon: Icon(FontAwesomeIcons.arrowUp19),
-              onPressed: (){},
-            )
-          ],
-        ),
-        Divider(thickness: 2,),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: dateList.length,
-            itemBuilder: (BuildContext context, int index){
-            return ListTile(
-              leading: Icon(FontAwesomeIcons.calendarDay),
-              title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
-            );
-            }
-        ),
-      ],
+              IconButton(
+                  icon: wristCheckController.dateAscenting.value? Icon(FontAwesomeIcons.arrowDown91): Icon(FontAwesomeIcons.arrowUp19),
+                onPressed: () {
+                  wristCheckController.updateDateAscending(!wristCheckController.dateAscenting.value);
+                },
+              )
+            ],
+          ),
+          Divider(thickness: 2,),
+          ListView.builder(
+            reverse: wristCheckController.dateAscenting.value,
+              shrinkWrap: true,
+            itemCount: dateList.length,
+              itemBuilder: (BuildContext context, int index){
+              return ListTile(
+                leading: Icon(FontAwesomeIcons.calendarDay),
+                title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
+              );
+              }
+          ),
+        ],
+      ),
     ),
   );
 }
