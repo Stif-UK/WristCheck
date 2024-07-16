@@ -89,10 +89,10 @@ final watchBox = Boxes.getWatches();
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: widget.wristCheckController.showCalendar.value? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
-          onPressed: () => widget.wristCheckController.updateShowCalendar(!widget.wristCheckController.showCalendar.value),
+          child: widget.wristCheckController.showDateList.value? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
+          onPressed: () => widget.wristCheckController.updateShowCalendar(!widget.wristCheckController.showDateList.value),
         ),
-        body: widget.wristCheckController.showCalendar.value?
+        body: widget.wristCheckController.showDateList.value?
           _buildListView(widget.currentWatch, context)
 
             : Column(

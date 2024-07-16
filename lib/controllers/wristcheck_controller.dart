@@ -139,14 +139,14 @@ class WristCheckController extends GetxController {
 
   //Fields for watch calendar view
   final dateAscenting = true.obs;
-  final showCalendar = true.obs;
+  final showDateList = false.obs;
 
   updateDateAscending(bool asc){
     dateAscenting(asc);
   }
 
   updateShowCalendar(bool showCal){
-    showCalendar(showCal);
+    showDateList(showCal);
   }
 
 
