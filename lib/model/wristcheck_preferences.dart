@@ -17,6 +17,7 @@ class WristCheckPreferences {
   static const _keyReferenceDate = 'referenceDate';
   static const _keyDailyRemindersPrompt = 'dailyRemindersPrompt';
   static const _keyLastSalePromptDismissed = 'lastSalePromptDismissed';
+  static const _keyHomePageIndex = 'homePageIndex';
   //charts
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
@@ -402,6 +403,17 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyEnableBeep, milTime);
 
   static bool getMilitaryTime() => _preferences.getBool(_keyMilitaryTime) ?? true;
+
+  //Getter and Setter for home page index
+  static int getHomePageIndex() => _preferences.getInt(_keyHomePageIndex) ?? 0;
+
+  static Future setHomePageIndex(int index) async {
+    //ensure value is in the range 0-3 to prevent out of bounds issue
+    if(index <0 || index > 3){
+      index = 0;
+    }
+    return await _preferences.setInt(_keyHomePageIndex, index);
+  }
 
 
 }

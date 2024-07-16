@@ -19,7 +19,7 @@ class _ViewOptionsState extends State<ViewOptions> {
   @override
   Widget build(BuildContext context) {
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
-    int homePage = 0;
+    int homePage = WristCheckPreferences.getHomePageIndex();
 
 
     return Scaffold(
@@ -130,19 +130,28 @@ class _ViewOptionsState extends State<ViewOptions> {
                     title: const Text("Watch Collection"),
                     value: 0,
                     groupValue: homePage,
-                    onChanged:(value){}
+                    onChanged:<int>(value) {
+                      WristCheckPreferences.setHomePageIndex(value);
+                      setState(() {});
+                    }
                 ),
                 RadioListTile(
                     title: const Text("Calendar View"),
                     value: 2,
                     groupValue: homePage,
-                    onChanged:(value){}
+                    onChanged:<int>(value) {
+                      WristCheckPreferences.setHomePageIndex(value);
+                      setState(() {});
+                    }
                 ),
                 RadioListTile(
                     title: const Text("Time Setting"),
                     value: 3,
                     groupValue: homePage,
-                    onChanged:(value){}
+                    onChanged:<int>(value) {
+                       WristCheckPreferences.setHomePageIndex(value);
+                       setState(() {});
+                    }
                 )
 
               ],

@@ -21,7 +21,7 @@ class WristCheckController extends GetxController {
   //Manage locale
   final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
   //homepage
-  final homePageIndex = 0.obs;
+  final homePageIndex = WristCheckPreferences.getHomePageIndex().obs;
 
   updateHomePageIndex(int index){
     homePageIndex(index);
