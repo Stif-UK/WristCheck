@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/list_tile_helper.dart';
 
 class ViewOptions extends StatefulWidget {
   final wristCheckController = Get.put(WristCheckController());
@@ -16,6 +18,8 @@ class ViewOptions extends StatefulWidget {
 class _ViewOptionsState extends State<ViewOptions> {
   @override
   Widget build(BuildContext context) {
+    WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +33,6 @@ class _ViewOptionsState extends State<ViewOptions> {
                 leading: const Icon(Icons.watch),
                 title: Text("Collection Display", style: Theme.of(context).textTheme.headlineSmall,),
                 children: [
-                  Text("Select your preferred collection view", style: Theme.of(context).textTheme.bodyLarge,),
                   Obx(()=> RadioListTile(
                         title: const Text("Show collection as list"),
                         secondary: const Icon(FontAwesomeIcons.list),
@@ -49,6 +52,74 @@ class _ViewOptionsState extends State<ViewOptions> {
 
                 ],
               ),
+            const Divider(thickness: 2,),
+            Obx(()=> ExpansionTile(
+                leading: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
+                title: Text("Collection ordering", style: Theme.of(context).textTheme.headlineSmall,),
+              children: [
+                RadioListTile(
+                    title: const Text("In order of entry"),
+                    value: WatchOrder.watchbox,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                ),
+                RadioListTile(
+                    title: const Text("In reverse order of entry"),
+                    value: WatchOrder.reverse,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                ),
+                RadioListTile(
+                    title: const Text("A-Z by manufacturer"),
+                    value: WatchOrder.alpha_asc,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                ),
+                RadioListTile(
+                    title: const Text("Z-A by manufacturer"),
+                    value: WatchOrder.alpha_desc,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                ),
+                RadioListTile(
+                    title: const Text("Order by most worn"),
+                    value: WatchOrder.mostworn,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                ),
+                RadioListTile(
+                    title: const Text("Order by last worn date"),
+                    value: WatchOrder.lastworn,
+                    groupValue: currentOrder,
+                    onChanged: (value) async {
+                      await widget.wristCheckController.updateWatchOrder(value as WatchOrder);
+                      setState(() {
+                      });
+                    }
+                )
+              ],
+              ),
+            ),
             const Divider(thickness: 2,),
             ExpansionTile(
               leading: const Icon(FontAwesomeIcons.houseChimney),
