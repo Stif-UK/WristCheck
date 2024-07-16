@@ -352,7 +352,7 @@ class WristCheckPreferences {
   }
 
   //Getter and Setter for watchbox view option
-  static WatchBoxView? getWatchBoxView() {
+  static WatchBoxView getWatchBoxView() {
     String? value = _preferences.getString(_keyWatchBoxView);
     WatchBoxView returnValue;
     switch (value){

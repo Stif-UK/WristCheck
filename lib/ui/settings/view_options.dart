@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/watchbox_view.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class ViewOptions extends StatefulWidget {
+  final wristCheckController = Get.put(WristCheckController());
+
 
   @override
   State<ViewOptions> createState() => _ViewOptionsState();
@@ -10,18 +16,48 @@ class ViewOptions extends StatefulWidget {
 class _ViewOptionsState extends State<ViewOptions> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("View Options"),
+        title: const Text("View Options"),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ExpansionTile(
-              leading: Icon(Icons.watch),
-              title: Text("WatchBox Display"),
-            )
+                leading: const Icon(Icons.watch),
+                title: Text("Collection Display", style: Theme.of(context).textTheme.headlineSmall,),
+                children: [
+                  Text("Select your preferred collection view", style: Theme.of(context).textTheme.bodyLarge,),
+                  Obx(()=> RadioListTile(
+                        title: const Text("Show collection as list"),
+                        secondary: const Icon(FontAwesomeIcons.list),
+                        value: WatchBoxView.list,
+                        groupValue: widget.wristCheckController.watchBoxView.value,
+                        onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView()
+                    ),
+                  ),
+                  Obx(()=> RadioListTile(
+                      title: const Text("Show collection as grid"),
+                      secondary: const Icon(FontAwesomeIcons.grip),
+                      value: WatchBoxView.grid,
+                        groupValue: widget.wristCheckController.watchBoxView.value,
+                        onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView()
+                    ),
+                  ),
+
+                ],
+              ),
+            const Divider(thickness: 2,),
+            ExpansionTile(
+              leading: const Icon(FontAwesomeIcons.houseChimney),
+              title: Text("Start Page", style: Theme.of(context).textTheme.headlineSmall,),
+              children: [
+
+              ],
+            ),
+            const Divider(thickness: 2,)
           ],
         ),
       ),
