@@ -10,7 +10,7 @@ import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
-import 'package:wristcheck/ui/chart_options.dart';
+import 'package:wristcheck/ui/settings/chart_options.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
