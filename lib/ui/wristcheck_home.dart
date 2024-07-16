@@ -33,7 +33,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  int _currentIndex = 0;
+  //int _currentIndex = 0;
   final List<Widget> _children =[
     Watchbox(),
     StatsWidget(),
@@ -102,14 +102,14 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       ),
 
 
-      body: _children[_currentIndex],
+      body: Obx(()=> _children[widget.wristCheckController.homePageIndex.value]),
       drawer: WatchHomeDrawer(),
       onDrawerChanged: (isOpen){
         widget.wristCheckController.updateIsDrawerOpen(isOpen);
       },
 
       //hide FAB except on collection screen
-      floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
+      floatingActionButton: widget.wristCheckController.homePageIndex.value == 0 ? FloatingActionButton(
         child: const Icon(Icons.add_rounded),
         backgroundColor: Colors.red,
         //onPressed: (){Get.to(() => const AddWatch());},
@@ -124,29 +124,30 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
 
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon:  Icon(Icons.watch),
-            label: "Collection",
-          ),
-          BottomNavigationBarItem(
-            icon:  Icon(Icons.bar_chart),
-            label: "Stats",
-          ),
-          BottomNavigationBarItem(
-            icon:  Icon(Icons.calendar_month_sharp),
-            label: "Calendar",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.clock),
-            label: "Time"
-          )
-        ],
-        
+      bottomNavigationBar: Obx(()=> BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: widget.wristCheckController.homePageIndex.value,
+          onTap: _onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon:  Icon(Icons.watch),
+              label: "Collection",
+            ),
+            BottomNavigationBarItem(
+              icon:  Icon(Icons.bar_chart),
+              label: "Stats",
+            ),
+            BottomNavigationBarItem(
+              icon:  Icon(Icons.calendar_month_sharp),
+              label: "Calendar",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.clock),
+              label: "Time"
+            )
+          ],
+
+        ),
       ),
     );
 
@@ -164,14 +165,14 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   }
 
   void _onTabTapped(int index) {
-    setState(() {
+    final controller = Get.put(WristCheckController());
       analytics.logEvent(name: "homepage_bottom_nav",
       parameters: {
         "page_name" : _children[index].toString(),
         "page_index": index
       });
-       _currentIndex = index;
-    });
+      controller.updateHomePageIndex(index);
+
   }
 
   getHeaderText(){

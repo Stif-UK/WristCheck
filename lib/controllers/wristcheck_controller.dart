@@ -20,6 +20,12 @@ class WristCheckController extends GetxController {
   final watchBoxView = WristCheckPreferences.getWatchBoxView().obs;
   //Manage locale
   final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
+  //homepage
+  final homePageIndex = 0.obs;
+
+  updateHomePageIndex(int index){
+    homePageIndex(index);
+  }
 
   //Calling updateAppPurchaseStatus triggers a call to the Purchases package which will update the app status
   //based on whether the user holds the WristCheck Pro entitlement.
