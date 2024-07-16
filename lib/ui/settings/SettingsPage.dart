@@ -9,6 +9,7 @@ import 'package:wristcheck/ui/developer_stats.dart';
 import 'package:wristcheck/ui/settings/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/onboarding.dart';
+import 'package:wristcheck/ui/settings/view_options.dart';
 
 
 
@@ -56,41 +57,37 @@ class _SettingsPageState extends State<SettingsPage> {
                 ListTile(
                     title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),
-                    onTap: (){
-                      Get.to(()=> Notifications());
-                    }
+                    onTap: ()=> Get.to(()=> Notifications())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
                   title: const Text("Currency Options"),
                   leading: const Icon(FontAwesomeIcons.earthAmericas),
-                  onTap: (){
-                    Get.to(()=> LocationOptions());
-                  },
+                  onTap: ()=> Get.to(()=> LocationOptions())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
                     title: const Text("Chart Options"),
                     leading: const Icon(Icons.bar_chart_outlined),
-                    onTap: (){
-                      Get.to(()=> const ChartOptions());
-                    }
+                    onTap: ()=> Get.to(()=> const ChartOptions())
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                  title: const Text("App Preferences"),
+                  leading: const Icon(FontAwesomeIcons.display),
+                  onTap: () => Get.to(() => ViewOptions()),
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
                   title: const Text("Show Archived Watches"),
                     leading: const Icon(Icons.archive_outlined),
-                  onTap: (){
-                    Get.to(()=> const Archived());
-                  }
+                  onTap: ()=> Get.to(()=> const Archived())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("View First Use Demo"),
+                  title: const Text("Show First Use Demo"),
                   leading: const Icon(FontAwesomeIcons.mobileScreen),
-                  onTap: (){
-                    Get.to(()=> const WristCheckOnboarding());
-                  },
+                  onTap: ()=> Get.to(()=> const WristCheckOnboarding())
                 ),
                 const Divider(thickness: 2,),
               ],
