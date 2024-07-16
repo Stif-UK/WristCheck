@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
-import 'package:wristcheck/ui/SettingsPage.dart';
+import 'package:wristcheck/ui/settings/SettingsPage.dart';
 import 'package:wristcheck/ui/calendar/calendarhome.dart';
 import 'package:wristcheck/ui/calendar/schedule_view.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
