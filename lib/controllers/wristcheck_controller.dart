@@ -131,11 +131,16 @@ class WristCheckController extends GetxController {
     dayChartPreference(type);
   }
 
-  //Choose order of date list
-final dateAscenting = true.obs;
+  //Fields for watch calendar view
+  final dateAscenting = true.obs;
+  final showCalendar = true.obs;
 
   updateDateAscending(bool asc){
     dateAscenting(asc);
+  }
+
+  updateShowCalendar(bool showCal){
+    showCalendar(showCal);
   }
 
 

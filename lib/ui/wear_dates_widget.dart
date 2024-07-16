@@ -23,7 +23,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 class WearDatesWidget extends StatefulWidget {
   final Watches currentWatch;
   final wristCheckController = Get.put(WristCheckController());
-  bool showDateList = false;
 
 
   WearDatesWidget({
@@ -73,141 +72,134 @@ final watchBox = Boxes.getWatches();
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(screenName: "watch_calendar");
 
-
-
-    var wearList = widget.currentWatch.wearList;
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
     bool _pageLoaded = false;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.currentWatch.model),
-        actions:  [
-          IconButton(
-            icon: const Icon(Icons.help_outline),
-            onPressed: (){
-              WristCheckDialogs.getWearDatesHelpDialog();
-            },
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: widget.showDateList? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
-        onPressed: () {
-          setState(() {
-            widget.showDateList = !widget.showDateList;
-            print(widget.showDateList);
-          });
-        },
-      ),
-      body: widget.showDateList?
-        Obx(()=> _buildListView(widget.currentWatch, context))
+    return Obx(() => Scaffold(
+        appBar: AppBar(
+          title: Text(widget.currentWatch.model),
+          actions:  [
+            IconButton(
+              icon: const Icon(Icons.help_outline),
+              onPressed: (){
+                WristCheckDialogs.getWearDatesHelpDialog();
+              },
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: widget.wristCheckController.showCalendar.value? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
+          onPressed: () => widget.wristCheckController.updateShowCalendar(!widget.wristCheckController.showCalendar.value),
+        ),
+        body: widget.wristCheckController.showCalendar.value?
+          _buildListView(widget.currentWatch, context)
 
-          : Column(
-        children: [
-          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-          Expanded(
-            child: Container(
-              child: ValueListenableBuilder(
-                valueListenable: watchBox.listenable(),
-                builder: (context, box, _) {
-                  return SfCalendar(
-                    view: CalendarView.month,
-                    dataSource: _getCalendarDataSource(),
-                    monthViewSettings: MonthViewSettings(showAgenda: true,
-                        showTrailingAndLeadingDates: false,
-                        agendaStyle: AgendaStyle(
-                            appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
-                    initialSelectedDate: DateTime.now(),
-                    onTap: (CalendarTapDetails details){
-                      //if date cell is tapped on, we set the current selected date
-                      widget.wristCheckController.updateSelectedDate(details.date);
-                      analytics.logEvent(name: "date_clicked");
-                      //if an "appointment" is tapped on, show the details of the event
-                      if(details.targetElement == CalendarElement.appointment){
-                        analytics.logEvent(name: "appointment_dialog");
-                        Appointment currentAppointment = details.appointments!.first;
-                        String summary = currentAppointment.subject;
-                        Get.defaultDialog(
-                            title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+            : Column(
+          children: [
+            purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+            Expanded(
+              child: Container(
+                child: ValueListenableBuilder(
+                  valueListenable: watchBox.listenable(),
+                  builder: (context, box, _) {
+                    return SfCalendar(
+                      view: CalendarView.month,
+                      dataSource: _getCalendarDataSource(),
+                      monthViewSettings: MonthViewSettings(showAgenda: true,
+                          showTrailingAndLeadingDates: false,
+                          agendaStyle: AgendaStyle(
+                              appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
+                      initialSelectedDate: DateTime.now(),
+                      onTap: (CalendarTapDetails details){
+                        //if date cell is tapped on, we set the current selected date
+                        widget.wristCheckController.updateSelectedDate(details.date);
+                        analytics.logEvent(name: "date_clicked");
+                        //if an "appointment" is tapped on, show the details of the event
+                        if(details.targetElement == CalendarElement.appointment){
+                          analytics.logEvent(name: "appointment_dialog");
+                          Appointment currentAppointment = details.appointments!.first;
+                          String summary = currentAppointment.subject;
+                          Get.defaultDialog(
+                              title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                              content: Column(
+                                children: [
+                                  Text(summary),
+                                ],
+                              )
+                          );
+                        }
+                      },
+                      //when a date is long pressed, show options to add or delete wears
+                      onLongPress: (cal) async {
+                        analytics.logEvent(name: "date_longpress");
+                        //If current date has no matching wear date offer add date,
+                        //otherwise offer delete date option.
+                        bool matchedDate = false;
+                        DateTime? selectedDate = cal.date;
+                        if(selectedDate != null) {
+                                  for (DateTime date
+                                      in widget.currentWatch.wearList) {
+                                    if (await GeneralHelper.dateCompare(
+                                        date, selectedDate)) {
+                                      matchedDate = true;
+                                    }
+                                    ;
+                                  }
+                                }
+                        String watchTitle = "${widget.currentWatch.manufacturer} ${widget.currentWatch.model}";
+
+                          Get.defaultDialog(
+                            titlePadding: EdgeInsets.all(20.0),
+                            title: matchedDate? "Delete Wear from Calendar": "Add Wear to Calendar",
                             content: Column(
                               children: [
-                                Text(summary),
+                                Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(cal.date!)}"),
+                                Text("Watch: $watchTitle"),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ElevatedButton(child:
+                                  matchedDate? Text("Delete Date") : Text("Track Wear"),
+                                    onPressed: () async {
+                                    if(matchedDate) {
+                                      analytics.logEvent(name: "watch_date_removed");
+                                      Get.back();
+                                      WatchMethods.removeWearDate(cal.date!, widget.currentWatch);
+                                    } else {
+                                      analytics.logEvent(name: "watch_date_added");
+                                      Get.back();
+                                      WatchMethods.attemptToRecordWear(widget.currentWatch, cal.date!, false);
+                                    }
+                                    },),
+                                ),
+                                TextButton(child: Text("Cancel"),
+                                onPressed: (){
+                                  Get.back();
+                                },)
                               ],
-                            )
-                        );
-                      }
-                    },
-                    //when a date is long pressed, show options to add or delete wears
-                    onLongPress: (cal) async {
-                      analytics.logEvent(name: "date_longpress");
-                      //If current date has no matching wear date offer add date,
-                      //otherwise offer delete date option.
-                      bool matchedDate = false;
-                      DateTime? selectedDate = cal.date;
-                      if(selectedDate != null) {
-                                for (DateTime date
-                                    in widget.currentWatch.wearList) {
-                                  if (await GeneralHelper.dateCompare(
-                                      date, selectedDate)) {
-                                    matchedDate = true;
-                                  }
-                                  ;
-                                }
-                              }
-                      String watchTitle = "${widget.currentWatch.manufacturer} ${widget.currentWatch.model}";
-
-                        Get.defaultDialog(
-                          titlePadding: EdgeInsets.all(20.0),
-                          title: matchedDate? "Delete Wear from Calendar": "Add Wear to Calendar",
-                          content: Column(
-                            children: [
-                              Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(cal.date!)}"),
-                              Text("Watch: $watchTitle"),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ElevatedButton(child:
-                                matchedDate? Text("Delete Date") : Text("Track Wear"),
-                                  onPressed: () async {
-                                  if(matchedDate) {
-                                    analytics.logEvent(name: "watch_date_removed");
-                                    Get.back();
-                                    WatchMethods.removeWearDate(cal.date!, widget.currentWatch);
-                                  } else {
-                                    analytics.logEvent(name: "watch_date_added");
-                                    Get.back();
-                                    WatchMethods.attemptToRecordWear(widget.currentWatch, cal.date!, false);
-                                  }
-                                  },),
-                              ),
-                              TextButton(child: Text("Cancel"),
-                              onPressed: (){
-                                Get.back();
-                              },)
-                            ],
-                          ),
+                            ),
 
 
-                        );
+                          );
 
 
 
-                    },
-                    onViewChanged: (ViewChangedDetails details) {
-                      //use pageLoaded to ensure this is not run on first load of the page
-                      if(_pageLoaded){
-                        widget.wristCheckController.updateSelectedDate(null);
-                      }
-                      _pageLoaded = true;
-                    },
-                  );
-                },
-              )
+                      },
+                      onViewChanged: (ViewChangedDetails details) {
+                        //use pageLoaded to ensure this is not run on first load of the page
+                        if(_pageLoaded){
+                          widget.wristCheckController.updateSelectedDate(null);
+                        }
+                        _pageLoaded = true;
+                      },
+                    );
+                  },
+                )
+              ),
             ),
-          ),
-        ],
-      )
+          ],
+        )
+      ),
     );
 
 
