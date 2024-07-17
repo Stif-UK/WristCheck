@@ -172,6 +172,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                           value: 0,
                           groupValue: homePage,
                           onChanged:<int>(value) {
+                            analytics.logEvent(name: "homepage_updated",
+                                parameters: {
+                                  "homepage" : "collection"
+                                });
                             WristCheckPreferences.setHomePageIndex(value);
                             setState(() {});
                           }
@@ -181,6 +185,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                           value: 2,
                           groupValue: homePage,
                           onChanged:<int>(value) {
+                            analytics.logEvent(name: "homepage_updated",
+                                parameters: {
+                                  "homepage" : "calendar_view"
+                                });
                             WristCheckPreferences.setHomePageIndex(value);
                             setState(() {});
                           }
@@ -190,6 +198,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                           value: 3,
                           groupValue: homePage,
                           onChanged:<int>(value) {
+                            analytics.logEvent(name: "homepage_updated",
+                                parameters: {
+                                  "homepage" : "time_setting"
+                                });
                              WristCheckPreferences.setHomePageIndex(value);
                              setState(() {});
                           }
