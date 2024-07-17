@@ -5,12 +5,13 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.9.1 \n"
+        "### Version 1.10.0 \n"
         "\n"
 
-            "Time for a rebrand...\n"
-            "WristCheck is now WristTrack!\n\n"
-            "It's the same app you know and (hopefully) love, just a new name!";
+            "* New Time Setting page\n"
+            "* Added ability to pick which screen appears first in the app\n"
+            "* Regular maintenance to meet app store policies\n"
+            "* Bug fixes & Improvements";
 
   }
 
@@ -24,6 +25,17 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.10.0 \n"
+                      "\n"
+
+                      "* New Time Setting page\n"
+                      "* Added ability to pick which screen appears first in the app\n"
+                      "* Update to RevenueCat SDK version to comply with latest platform billing standards\n"
+                      "* Update to target OS versions in line with store policies\n"
+                      "* Update to Flutter version and associated updates to app build config\n"
+                      "* Further rebranding updates to correct text with old app title\n"
+                      "---\n\n"
+
                       "### Version 1.9.1 \n"
                       "\n"
 
