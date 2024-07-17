@@ -87,7 +87,15 @@ class AdUnitsDEMO{
       : "ca-app-pub-3940256099942544/2934735716";
 
   static String get timeSettingAdUnitID => Platform.isAndroid
-      ? "ca-app-pub-5693473214019178/5322500825"
-      : "ca-app-pub-5693473214019178/9509157847";
+      ? "ca-app-pub-3940256099942544/6300978111"
+      : "ca-app-pub-3940256099942544/2934735716";
+
+  static String get viewOptionsAdUnitID => Platform.isAndroid
+      ? "ca-app-pub-3940256099942544/6300978111"
+      : "ca-app-pub-3940256099942544/2934735716";
+
+  static String get currencyOptionsAdUnitID => Platform.isAndroid
+      ? "ca-app-pub-3940256099942544/6300978111"
+      : "ca-app-pub-3940256099942544/2934735716";
 
 }
