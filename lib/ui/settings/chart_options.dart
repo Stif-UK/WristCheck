@@ -165,7 +165,10 @@ class _ChartOptionsState extends State<ChartOptions> {
                     title: const Text("Wear Stats results order"),
                     leading: const Icon(Icons.bar_chart_rounded),
                     children: [
-                      const Text("Set the default order that results show in the graph - by default watches are listed in the order they were added to your collection, however can also be displayed in ascending or descending order."),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Text("Set the default order that results show in the graph - by default watches are listed in the same order selected for the collection view, however can also be displayed in ascending or descending order."),
+                      ),
                       ListTile(
                         title: const Text("Show in Collection Order"),
                         leading: Radio<ChartOrdering>(
