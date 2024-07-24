@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.10.0 \n"
+        "### Version 1.10.1 \n"
         "\n"
 
             "* New Time Setting page\n"
@@ -25,7 +25,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.10.0 \n"
+                      "### Version 1.10.1 \n"
                       "\n"
 
                       "* New Time Setting page\n"
@@ -34,6 +34,7 @@ class WhatsNewCopy{
                       "* Update to target OS versions in line with store policies\n"
                       "* Update to Flutter version and associated updates to app build config\n"
                       "* Further rebranding updates to correct text with old app title\n"
+                      "* Bug fix - Add Watch button was not hiding when changing main tabs"
                       "---\n\n"
 
                       "### Version 1.9.1 \n"
