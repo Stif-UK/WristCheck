@@ -186,16 +186,32 @@ class Boxes {
     List<Watches> returnList = toSort;
 
     ChartOrdering chartOrder = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
-    //Ignore and return if requested in watchbox order
-    if(chartOrder != ChartOrdering.watchbox){
-      //return in either ascending or descending order
-      if(chartOrder == ChartOrdering.descending){
+
+    switch(chartOrder){
+      case ChartOrdering.watchbox:
+        WatchOrder? watchOrder = WristCheckPreferences.getWatchOrder();
+        return watchOrder == null? returnList : sortWatchBox(returnList, watchOrder).reversed.toList();
+
+      case ChartOrdering.descending:
         returnList.sort((a,b) => a.filteredWearList!.length.compareTo(b.filteredWearList!.length));
-      } else if(chartOrder == ChartOrdering.ascending){
+        return returnList;
+      case ChartOrdering.ascending:
         returnList.sort((a,b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
-      }
+        return returnList;
+      default:
+        return returnList;
     }
-    return returnList;
+
+    // //Ignore and return if requested in watchbox order
+    // if(chartOrder != ChartOrdering.watchbox){
+    //   //return in either ascending or descending order
+    //   if(chartOrder == ChartOrdering.descending){
+    //     returnList.sort((a,b) => a.filteredWearList!.length.compareTo(b.filteredWearList!.length));
+    //   } else if(chartOrder == ChartOrdering.ascending){
+    //     returnList.sort((a,b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
+    //   }
+    // }
+    // return returnList;
   }
 
   static List<Watches> sortWatchBox(List<Watches> unsortedList, WatchOrder order){
