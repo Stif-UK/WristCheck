@@ -457,10 +457,9 @@ packages:
   flutter_kronos:
     dependency: "direct main"
     description:
-      name: flutter_kronos
-      sha256: "8a0dab1f61190f1561099eacb87ce5448afcaed90a345f0f6577d10774da0857"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../flutter-kronos"
+      relative: true
+    source: path
     version: "0.1.0+1"
   flutter_launcher_icons:
     dependency: "direct main"
