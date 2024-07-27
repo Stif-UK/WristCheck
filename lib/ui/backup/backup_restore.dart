@@ -92,7 +92,7 @@ class _BackupRestoreState extends State<BackupRestore> {
                         //Platform.isIOS? Get.to(()=> const ShareBackup()) :Get.to(() => const Backup());
                         },
                       style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                   side: const BorderSide(color: Colors.black)
@@ -122,7 +122,7 @@ class _BackupRestoreState extends State<BackupRestore> {
                           Get.to(() => const Restore());
                         },
                         style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     side: const BorderSide(color: Colors.black)
