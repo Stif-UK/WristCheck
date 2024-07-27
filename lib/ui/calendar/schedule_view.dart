@@ -211,7 +211,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     items: Boxes.getCollectionWatches(),
                     onChanged: (watch){
                       widget.wristCheckController.updateNullWatchMemo(false);
-                      widget.wristCheckController.updateSelectedWatch(watch as Watches?);
+                      widget.wristCheckController.updateSelectedWatch(watch);
                       print(widget.wristCheckController.selectedWatch.value);
                     },
 
