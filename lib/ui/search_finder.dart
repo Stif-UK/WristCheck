@@ -97,14 +97,12 @@ class _SearchFinderState extends State<SearchFinder> {
                       children: [
                         Text(
                           "${watchesListItem.manufacturer} ${watchesListItem.model}",
-                          textScaleFactor: 1.1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 4.0),
                         Text(
                           watchesListItem.status!,
-                          textScaleFactor: 0.9,
-                          style: const TextStyle(fontStyle: FontStyle.italic),
-
+                            style: Theme.of(context).textTheme.bodyMedium
                         ),
                       ],
                     ),
