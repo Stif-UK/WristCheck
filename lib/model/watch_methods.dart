@@ -1,18 +1,12 @@
-import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 import 'package:wristcheck/boxes.dart';
-import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
-import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:jiffy/jiffy.dart';
 
 class WatchMethods {
 
