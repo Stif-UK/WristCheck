@@ -9,7 +9,6 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -18,7 +17,6 @@ import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 

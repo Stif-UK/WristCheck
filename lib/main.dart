@@ -10,7 +10,6 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:provider/provider.dart';
