@@ -16,7 +16,7 @@ class CollectionInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     analytics.setAnalyticsCollectionEnabled(true);
-    analytics.setCurrentScreen(screenName: "collection_info");
+    analytics.logScreenView(screenName: "collection_info");
 
     List<Watches> watchBox = Boxes.getCollectionWatches();
     Watches? oldestWatch = WatchMethods.getOldestorNewestWatch(watchBox, true);

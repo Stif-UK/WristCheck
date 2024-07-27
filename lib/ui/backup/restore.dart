@@ -54,7 +54,7 @@ class _RestoreState extends State<Restore> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "restore");
+    analytics.logScreenView(screenName: "restore");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Restore Database"),

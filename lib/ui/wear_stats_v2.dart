@@ -15,7 +15,6 @@ import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
-import 'dart:typed_data';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/ui/widgets/wearfilter_bottomsheet.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';

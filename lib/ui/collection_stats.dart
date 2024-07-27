@@ -66,7 +66,7 @@ class _CollectionStatsState extends State<CollectionStats> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "collection_stats");
+    analytics.logScreenView(screenName: "collection_stats");
 
     return Scaffold(
       appBar: AppBar(

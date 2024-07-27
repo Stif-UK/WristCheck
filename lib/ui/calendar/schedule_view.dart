@@ -62,7 +62,7 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "calendar_view");
+    analytics.logScreenView(screenName: "calendar_view");
 
     //initialise date and watch values
     widget.wristCheckController.updateSelectedDate(DateTime.now());

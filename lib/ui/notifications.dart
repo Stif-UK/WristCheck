@@ -71,7 +71,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
 
-    analytics.setCurrentScreen(screenName: "notification_options");
+    analytics.logScreenView(screenName: "notification_options");
     _selectedTime = _notificationsEnabled? WristCheckPreferences.getDailyNotificationTime() : null;
     _secondTime = _secondNotificationEnabled? WristCheckPreferences.getSecondNotificationTime() : null;
     return Scaffold(

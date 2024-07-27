@@ -61,7 +61,7 @@ class _SearchFinderState extends State<SearchFinder> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "search");
+    analytics.logScreenView(screenName: "search");
     DatabaseProvider databaseProvider = Provider.of<DatabaseProvider>(context);
     return Column(
       children: [

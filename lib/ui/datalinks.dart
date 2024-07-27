@@ -65,7 +65,7 @@ class _DataLinksState extends State<DataLinks> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "app_data");
+    analytics.logScreenView(screenName: "app_data");
 
     return Scaffold(
       appBar: AppBar(

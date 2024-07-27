@@ -17,7 +17,7 @@ class ValueData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     analytics.setAnalyticsCollectionEnabled(true);
-    analytics.setCurrentScreen(screenName: "value_data");
+    analytics.logScreenView(screenName: "value_data");
     int collectionCost = WatchMethods.calculateCollectionCost(false);
     int totalSpend = WatchMethods.calculateCollectionCost(true);
     int totalSoldValue = WatchMethods.calculateSoldIncome();

@@ -22,7 +22,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "collection_charts");
+    analytics.logScreenView(screenName: "collection_charts");
 
     return SingleChildScrollView(
       child: Column(

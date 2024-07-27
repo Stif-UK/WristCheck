@@ -56,7 +56,7 @@ class _ShareBackupState extends State<ShareBackup> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "backup");
+    analytics.logScreenView(screenName: "backup");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Backup"),

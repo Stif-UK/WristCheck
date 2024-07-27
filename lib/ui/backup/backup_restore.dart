@@ -56,7 +56,7 @@ class _BackupRestoreState extends State<BackupRestore> {
   
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "backup_restore_landing");
+    analytics.logScreenView(screenName: "backup_restore_landing");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Backup / Restore"),
