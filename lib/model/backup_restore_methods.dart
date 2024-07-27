@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:wristcheck/util/string_extension.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
