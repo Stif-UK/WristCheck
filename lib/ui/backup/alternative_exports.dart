@@ -54,7 +54,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "alt_exports");
+    analytics.logScreenView(screenName: "alt_exports");
 
     return Scaffold(
       appBar: AppBar(

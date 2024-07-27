@@ -11,7 +11,7 @@ class PrivacyPolicy extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "privacy_policy");
+    analytics.logScreenView(screenName: "privacy_policy");
     return Scaffold(
       appBar: AppBar(
         title: const Text("PrivacyPolicy"),

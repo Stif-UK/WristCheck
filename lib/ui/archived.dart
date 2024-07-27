@@ -57,7 +57,7 @@ class _ArchivedState extends State<Archived> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "archive");
+    analytics.logScreenView(screenName: "archive");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Archived Watches"),

@@ -92,7 +92,7 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "servicing");
+    analytics.logScreenView(screenName: "servicing");
     _tabController.index = widget.wristCheckController.lastServicingTabIndex.value;
     return Scaffold(
         body: Obx(

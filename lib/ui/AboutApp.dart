@@ -13,7 +13,7 @@ class AboutApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
   analytics.setAnalyticsCollectionEnabled(true);
-  analytics.setCurrentScreen(screenName: "about_app");
+  analytics.logScreenView(screenName: "about_app");
 
     return Scaffold(
       appBar: AppBar(
