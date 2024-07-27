@@ -26,7 +26,7 @@ class _RemoveAdsState extends State<RemoveAds> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "remove_ads");
+    analytics.logScreenView(screenName: "remove_ads");
     return Obx(
         () => Scaffold(
         appBar: AppBar(

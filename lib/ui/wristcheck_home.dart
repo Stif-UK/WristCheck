@@ -70,7 +70,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "watchbox_home");
+    analytics.logScreenView(screenName: "watchbox_home");
     //If platform is iOS, request tracking permission for ads
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();

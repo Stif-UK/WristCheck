@@ -54,7 +54,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "wearchart_bottomsheet");
+    analytics.logScreenView(screenName: "wearchart_bottomsheet");
     _tabController.index = widget.filterController.lastFilterTabIndex.value;
 
 

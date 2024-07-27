@@ -70,7 +70,7 @@ final watchBox = Boxes.getWatches();
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "watch_calendar");
+    analytics.logScreenView(screenName: "watch_calendar");
 
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load

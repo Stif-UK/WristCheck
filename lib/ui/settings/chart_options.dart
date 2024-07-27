@@ -58,7 +58,7 @@ class _ChartOptionsState extends State<ChartOptions> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "chart_options");
+    analytics.logScreenView(screenName: "chart_options");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chart Options"),

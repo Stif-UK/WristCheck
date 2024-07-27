@@ -26,7 +26,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "order_sheet");
+    analytics.logScreenView(screenName: "order_sheet");
 
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
     return Container(

@@ -47,7 +47,7 @@ class _WearStatsState extends State<WearStatsV2> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "wear_charts_v2");
+    analytics.logScreenView(screenName: "wear_charts_v2");
     DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
     bool barChart = _preferredType == DefaultChartType.bar? true: false;
 

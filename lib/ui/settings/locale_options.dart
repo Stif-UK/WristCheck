@@ -58,7 +58,7 @@ class _LocationOptionsState extends State<LocationOptions> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "currency_options");
+    analytics.logScreenView(screenName: "currency_options");
 
     EdgeInsetsGeometry pagePadding = const EdgeInsets.all(10.0);
 

@@ -21,7 +21,7 @@ class WatchHomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final InAppReview inAppReview = InAppReview.instance;
     analytics.setAnalyticsCollectionEnabled(true);
-    analytics.setCurrentScreen(screenName: "watch_home_drawer");
+    analytics.logScreenView(screenName: "watch_home_drawer");
 
     return Drawer(
       child: ListView(

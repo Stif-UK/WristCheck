@@ -55,7 +55,7 @@ class _ViewOptionsState extends State<ViewOptions> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "view_options");
+    analytics.logScreenView(screenName: "view_options");
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
     int homePage = WristCheckPreferences.getHomePageIndex();
 

@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "settings");
+    analytics.logScreenView(screenName: "settings");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),

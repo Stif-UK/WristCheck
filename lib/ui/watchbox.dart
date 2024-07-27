@@ -73,7 +73,7 @@ class _WatchBoxState extends State<Watchbox> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "watchbox");
+    analytics.logScreenView(screenName: "watchbox");
 
     return Obx( ()=> Column(
         mainAxisAlignment: MainAxisAlignment.start,

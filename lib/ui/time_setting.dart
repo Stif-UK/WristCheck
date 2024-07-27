@@ -58,7 +58,7 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "timesetting");
+    analytics.logScreenView(screenName: "timesetting");
 
     updateTime();
     return PopScope(

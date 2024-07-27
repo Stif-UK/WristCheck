@@ -32,7 +32,7 @@ class _WatchChartsState extends State<WatchCharts> {
 
   @override
   Widget build(BuildContext context) {
-    analytics.setCurrentScreen(screenName: "watch_charts");
+    analytics.logScreenView(screenName: "watch_charts");
 
     return Scaffold(
       appBar: AppBar(
