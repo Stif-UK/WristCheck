@@ -75,7 +75,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                       ),
                       onPressed: (){ Get.to(() => WearStatsV2());},
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     side: const BorderSide(color: Colors.black)
@@ -107,58 +107,20 @@ class _StatsWidgetState extends State<StatsWidget> {
                           Get.to(()=>const CollectionStats());
                         },
                         style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     side: const BorderSide(color: Colors.black)
                                 )
-
                             )
                         )
                     ),
                   ),
                 ),
-
-                //TODO: If adding further buttons, adjust ad size accordingly!
-                //Button 3: Link to Watch Stats
-                // const SizedBox(height: 20),
-                // Align(
-                //   alignment: Alignment.center,
-                //   child: SizedBox(
-                //     width: (MediaQuery.of(context).size.width)*0.8,
-                //     height: (MediaQuery.of(context).size.height)*0.15,
-                //     child: ElevatedButton(
-                //         child: const Padding(
-                //           padding: EdgeInsets.all(12.0),
-                //           child: Text("Watch Stats",
-                //             style: TextStyle(
-                //               fontSize: 30,
-                //             ),),
-                //         ),
-                //         onPressed: (){ },
-                //         style: ButtonStyle(
-                //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                //                 RoundedRectangleBorder(
-                //                     borderRadius: BorderRadius.circular(20.0),
-                //                     side: const BorderSide(color: Colors.black)
-                //                 )
-                //
-                //             )
-                //         )
-                //     ),
-                //   ),
-                // )
-
               ],
             ),
           ),
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
-          // banner == null
-          //     ? SizedBox(height: MediaQuery.of(context).size.height > 500.0? 250: 100,)
-          //     : Container(
-          //   height: MediaQuery.of(context).size.height > 500.0? 250: 100,
-          //   child: AdWidget(ad: banner!),
-          // )
         ],
       ),
     );
