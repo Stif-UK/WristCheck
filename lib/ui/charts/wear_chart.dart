@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wristcheck/model/enums/category.dart';
-import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
