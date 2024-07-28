@@ -149,5 +149,12 @@ class WristCheckController extends GetxController {
     showDateList(showCal);
   }
 
+  //Fields to manage datelist length
+final dateListLength = 0.obs;
+
+  updateDateListLength(int length){
+    dateListLength(length);
+  }
+
 
 }

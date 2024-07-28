@@ -251,6 +251,8 @@ _WatchDataSource _getCalendarDataSource() {
 Widget _buildListView(Watches watch, BuildContext context) {
   final wristCheckController = Get.put(WristCheckController());
   var dateList = watch.wearList;
+  wristCheckController.updateDateListLength(dateList.length);
+
 
   return watch.wearList.length == 0? Center(
     child: Text("No dates recorded for this watch."),
@@ -278,11 +280,19 @@ Widget _buildListView(Watches watch, BuildContext context) {
             reverse: wristCheckController.dateAscenting.value,
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
-            itemCount: dateList.length,
+            itemCount: wristCheckController.dateListLength.value,//dateList.length,
               itemBuilder: (BuildContext context, int index){
-              return ListTile(
-                leading: Icon(FontAwesomeIcons.calendarDay),
-                title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
+              return Dismissible(
+                key: Key(watch.wearList[index].toString()),
+                onDismissed: (direction){
+                  watch.wearList.removeAt(index);
+                  watch.save();
+                  wristCheckController.updateDateListLength(watch.wearList.length);
+                },
+                child: ListTile(
+                  leading: Icon(FontAwesomeIcons.calendarDay),
+                  title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
+                ),
               );
               }
           ),
@@ -291,6 +301,8 @@ Widget _buildListView(Watches watch, BuildContext context) {
     ),
   );
 }
+
+
 
 class _WatchDataSource extends CalendarDataSource {
   _WatchDataSource(List<Appointment> source){
