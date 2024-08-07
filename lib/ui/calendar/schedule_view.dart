@@ -130,19 +130,40 @@ class _ScheduleViewState extends State<ScheduleView> {
                 child: const SizedBox(width: 0,)),
             Expanded(
               flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
-                child: ElevatedButton(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Track Wear", style: TextStyle()),
+                        child: Text("Undo Wear", style: TextStyle()),
                       ),
-                    onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
+                      //TODO: should be active only if at least one wear date exists for this date
+                      onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
                         widget.wristCheckController.updateSelectedWatch(null);
-                        _generateTrackDialog();
-                        await analytics.logEvent(name: "calendar_wear");
-                    },
+                        //_generateTrackDialog();
+                        //TODO: add _generateDeleteDialog()
+                        await analytics.logEvent(name: "calendar_remove_wear");
+                      },
+                    ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 25.0),
+                    child: ElevatedButton(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Track Wear", style: TextStyle()),
+                          ),
+                        onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
+                            widget.wristCheckController.updateSelectedWatch(null);
+                            _generateTrackDialog();
+                            await analytics.logEvent(name: "calendar_wear");
+                        },
+                      ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -260,15 +281,31 @@ class _ScheduleViewState extends State<ScheduleView> {
     return false;
   }
 
+  //Check if data has wears
+  bool areWearsEmpty(){
+    List<Watches> watchList = Boxes.getCollectionAndSoldWatches();
+    //TODO: Check if selected date is found in the watches wearlist
+    if(widget.wristCheckController.selectedDate.value == null){
+      return true;
+    }
+    int? Day = widget.wristCheckController.selectedDate.value?.day;
+    int? Month = widget.wristCheckController.selectedDate.value?.month;
+    int? Year = widget.wristCheckController.selectedDate.value?.year;
+    for(Watches watch in watchList){
+      for(DateTime date in watch.wearList){
+        if(date.day == Day && date.month == Month && date.year == Year){
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
   //Populate the calendar data
   _WatchDataSource _getCalendarDataSource() {
     List<Appointment> appointments = <Appointment>[];
 
-    //Rough code -
-    // 1. getAllWatches in collection, for each watch add all wear dates to an appointment
-    //with the subject as the make + model + worn
-    // 2. getServiceSchedule subject: Service Due: subject as make + model + service due
-    // 3. TODO: Implement warranty schedule
 
     List<Watches> watchSchedule = Boxes.getCollectionWatches();
     for(Watches watch in watchSchedule){
