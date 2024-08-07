@@ -45,8 +45,11 @@ class _CostPerWearChartState extends State<CostPerWearChart> {
 
     for(var item in chartData.entries){
       Map<String, double> currentData = item.value;
-      //map will be one pair long
-      getChartData.add(CostPerWearData(currentData.keys.first, currentData.values.first));
+      if(currentData.values.first != 0.0){
+        //map will be one pair long
+        getChartData.add(
+            CostPerWearData(currentData.keys.first, currentData.values.first));
+      }
     }
 
     getChartData.sort((e1, e2) => e1.costPerWear.compareTo(e2.costPerWear));
