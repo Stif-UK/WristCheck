@@ -139,7 +139,8 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
 
                                     Expanded(
                                         child:ListView.separated(
-                                          itemCount: serviceList.length,
+                                          //TODO: Update itemcount to be dynamic based on selected tab!
+                                          itemCount: widget.wristCheckController.lastServicingTabIndex.value == 2? 1 : serviceList.length,
                                           itemBuilder: (BuildContext context, int index){
                                             var watch = serviceList.elementAt(index);
                                             Widget returnWidget = Container();
