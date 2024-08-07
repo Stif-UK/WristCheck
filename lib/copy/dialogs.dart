@@ -245,7 +245,7 @@ class WristCheckDialogs {
   static getSetupNotificationsDialog(BuildContext context){
     Get.defaultDialog(
       title: "Setup Daily Reminders",
-      middleText: "WristCheck can send you a daily reminder to track what you're wearing\n\n"
+      middleText: "WristTrack can send you a daily reminder to track what you're wearing\n\n"
           "Would you like to set one up?\n\n"
           "(This can be found at any time in the settings menu)",
       textConfirm: "Yes",
@@ -345,7 +345,7 @@ class WristCheckDialogs {
           Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:50.0,width:50.0, color: Theme.of(context).hintColor),
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Text("This is a WristCheck Pro feature.\n\nTo learn more and upgrade, click below.",
+            child: Text("This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.",
               textAlign: TextAlign.center,
             ),
           ),
