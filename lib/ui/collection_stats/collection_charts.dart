@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
+import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
 
 class CollectionCharts extends StatefulWidget {
@@ -27,6 +28,15 @@ class _CollectionChartsState extends State<CollectionCharts> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Padding(
+            padding: getPagePadding(),
+            child: Text("Cost Per Wear", style: Theme.of(context).textTheme.headlineSmall,),
+          ),
+          Padding(
+            padding: getPagePadding(),
+            child: const CostPerWearChart(),
+          ),
+          const Divider(thickness: 2,),
           Padding(
             padding: getPagePadding(),
             child: Text("Movements", style: Theme.of(context).textTheme.headlineSmall,),
