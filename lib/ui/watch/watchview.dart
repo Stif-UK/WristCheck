@@ -665,7 +665,7 @@ class _WatchViewState extends State<WatchView> {
         ),
         Expanded(
             flex: 2,
-            child: widget.currentWatch?.status != "Wishlist" ? Column(
+            child: widget.currentWatch?.status != "Wishlist" && widget.currentWatch?.status != "Pre-Order" ? Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
