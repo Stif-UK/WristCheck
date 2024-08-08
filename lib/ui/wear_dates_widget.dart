@@ -98,6 +98,12 @@ final watchBox = Boxes.getWatches();
             : Column(
           children: [
             purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.circleInfo),
+              title: Text("Long press to add/remove wear dates"),
+              trailing: SizedBox(width: 20, height: 20,),
+              tileColor: Theme.of(context).focusColor,
+            ),
             Expanded(
               child: Container(
                 child: ValueListenableBuilder(
@@ -197,6 +203,7 @@ final watchBox = Boxes.getWatches();
                 )
               ),
             ),
+
           ],
         )
       ),
