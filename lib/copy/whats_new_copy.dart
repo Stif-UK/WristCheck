@@ -5,12 +5,12 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.10.1 \n"
+        "### Version 1.10.3 \n"
         "\n"
 
-            "* New Time Setting page\n"
-            "* Added ability to pick which screen appears first in the app\n"
-            "* Regular maintenance to meet app store policies\n"
+            "* Default chart ordering now matches watchbox ordering\n"
+            "* Added ability to delete wear info from the Calendar view\n"
+            "* Pro: New Cost Per Wear chart in Collection stats\n"
             "* Bug fixes & Improvements";
 
   }
@@ -25,6 +25,18 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.10.3 \n"
+                      "\n"
+
+                      "* Default chart ordering now matches watchbox ordering\n"
+                      "* Added Ability to delete wear info from the Calendar view\n"
+                      "* Pro: New Cost Per Wear chart in Collection stats\n\n"
+                      "* Bug fix: Watch charts and calendar links hidden for watches not in collections\n"
+                      "* Bug fix: Warranty & Service view help text duplication issue bug fixed\n"
+                      "* Improvement: In date list view, delete dates by swiping left\n"
+                      "* Improvement: Updated Android Gradle build tooling versions and updated Firebase library versions"
+                      "---\n\n"
+
                       "### Version 1.10.1 \n"
                       "\n"
 
@@ -34,7 +46,7 @@ class WhatsNewCopy{
                       "* Update to target OS versions in line with store policies\n"
                       "* Update to Flutter version and associated updates to app build config\n"
                       "* Further rebranding updates to correct text with old app title\n"
-                      "* Bug fix - Add Watch button was not hiding when changing main tabs"
+                      "* Bug fix - Add Watch button was not hiding when changing main tabs\n"
                       "---\n\n"
 
                       "### Version 1.9.1 \n"
