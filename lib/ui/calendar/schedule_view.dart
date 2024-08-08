@@ -140,11 +140,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text("Undo Wear", style: TextStyle()),
                       ),
-                      //TODO: should be active only if at least one wear date exists for this date
                       onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
                         widget.wristCheckController.updateSelectedWatch(null);
-                        //_generateTrackDialog();
-                        //TODO: add _generateDeleteDialog()
+                        _generateDeleteDialog();
                         await analytics.logEvent(name: "calendar_remove_wear");
                       },
                     ),
@@ -273,6 +271,82 @@ class _ScheduleViewState extends State<ScheduleView> {
     );
   }
 
+  //Tracking dialog pop-up
+   _generateDeleteDialog(){
+    Get.defaultDialog(
+        title: "Delete Wear Record",
+        barrierDismissible: false,
+        content: Obx(
+              ()=>Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                ),
+                widget.wristCheckController.nullWatchMemo.value ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Please select a watch",
+                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+                )
+                    : SizedBox(height: 0,),
+                //Implement watch picker
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownSearch<Watches>(
+                    popupProps: PopupProps.menu(
+                      showSearchBox: true,
+                    ),
+                    dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                            labelText: "Pick Watch",
+                            hintText: "Search by watch name"
+                        )
+                    ),
+                    //Only display watches with a date that matches
+                    items: Boxes.getWatchesWornOnDate(Boxes.getCollectionAndSoldWatches(),
+                        widget.wristCheckController.selectedDate.value!.year,
+                        widget.wristCheckController.selectedDate.value!.month,
+                        widget.wristCheckController.selectedDate.value!.day),
+                    onChanged: (watch){
+                      widget.wristCheckController.updateNullWatchMemo(false);
+                      widget.wristCheckController.updateSelectedWatch(watch);
+                      print(widget.wristCheckController.selectedWatch.value);
+                    },
+
+
+                  ),
+                )
+              ]),
+        ),
+        textConfirm: "Remove Date",
+        textCancel: "Cancel",
+        onConfirm: (){
+          //Code to delete wear
+          if(widget.wristCheckController.selectedWatch.value == null){
+            widget.wristCheckController.updateNullWatchMemo(true);
+            print("No watch selected");
+            //Please select a watch
+          } else {
+            widget.wristCheckController.updateNullWatchMemo(false);
+            print("Attempting to delete wear");
+            Get.back();
+            //TODO: Remove wear code
+            WatchMethods.removeWearDate(widget.wristCheckController.selectedDate.value!, widget.wristCheckController.selectedWatch.value!);
+
+          }
+        },
+        onCancel: () async {
+          //Delay prevents the view changing to show the button before the dialog exits
+          Get.back();
+          await Future.delayed(const Duration(milliseconds: 1000));
+          widget.wristCheckController.updateNullWatchMemo(false);
+          widget.wristCheckController.updateSelectedWatch(null);
+        }
+
+    );
+  }
+
   //Check if selected date is in the future
   bool isDateInFuture(){
     if(widget.wristCheckController.selectedDate.value != null){
@@ -284,7 +358,6 @@ class _ScheduleViewState extends State<ScheduleView> {
   //Check if data has wears
   bool areWearsEmpty(){
     List<Watches> watchList = Boxes.getCollectionAndSoldWatches();
-    //TODO: Check if selected date is found in the watches wearlist
     if(widget.wristCheckController.selectedDate.value == null){
       return true;
     }

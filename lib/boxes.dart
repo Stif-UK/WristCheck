@@ -113,6 +113,12 @@ class Boxes {
     returnList.sort((a, b) => a.warrantyEndDate!.compareTo(b.warrantyEndDate!));
     return returnList;
   }
+
+  static List<Watches> getWatchesWornOnDate(List<Watches> initialList, int year, int month, int day){
+    List<Watches> returnList = initialList;
+    returnList = returnList.where((watch) => watch.wearList.any((element) => element.year == year && element.month == month && element.day == day)).toList();
+    return returnList;
+  }
   
   static List<Watches> getWatchesWornFilter(List<Watches> initialList, int? month, int? year){
     //start by making the return list the whole box
