@@ -138,7 +138,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Undo Wear", style: TextStyle()),
+                        child: Text("Remove Wear", style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize
+                        )),
                       ),
                       onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
                         widget.wristCheckController.updateSelectedWatch(null);

@@ -293,6 +293,18 @@ Widget _buildListView(Watches watch, BuildContext context) {
                   leading: Icon(FontAwesomeIcons.calendarDay),
                   title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
                 ),
+                background: Container(
+                  alignment: Alignment.center,color: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text("Deleting"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Icon(FontAwesomeIcons.trashCan),
+                      )
+                    ],
+                  ),),
               );
               }
           ),
