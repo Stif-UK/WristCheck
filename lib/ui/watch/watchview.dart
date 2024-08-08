@@ -665,7 +665,7 @@ class _WatchViewState extends State<WatchView> {
         ),
         Expanded(
             flex: 2,
-            child: Column(
+            child: widget.currentWatch?.status != "Wishlist" ? Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
@@ -687,7 +687,8 @@ class _WatchViewState extends State<WatchView> {
                   ),
                 )
               ],
-            ))
+            ) : SizedBox(height: 0,)
+        )
       ],
     );
   }
