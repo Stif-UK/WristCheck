@@ -139,7 +139,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text("Remove Wear", style: TextStyle(
-                          color: Colors.white,
+                          //color: Colors.white,
                           fontSize: Theme.of(context).textTheme.bodySmall?.fontSize
                         )),
                       ),
