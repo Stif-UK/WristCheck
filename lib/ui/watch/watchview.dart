@@ -629,7 +629,7 @@ class _WatchViewState extends State<WatchView> {
       children: [
         Expanded(
           flex: 2,
-          child: Column(
+          child: widget.currentWatch?.status == "In Collection" || widget.currentWatch?.status == "Sold" ? Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
@@ -647,7 +647,7 @@ class _WatchViewState extends State<WatchView> {
                 ),
               )
             ],
-          ),
+          ) : SizedBox(height: 0,),
         ),
         Expanded(
           flex:6,
