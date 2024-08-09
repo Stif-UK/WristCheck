@@ -1,0 +1,1 @@
+enum WatchViewFieldsEnum{info, schedule, value, notes}
