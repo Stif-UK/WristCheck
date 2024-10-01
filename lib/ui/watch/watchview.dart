@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
@@ -35,10 +36,10 @@ class WatchView extends StatefulWidget {
   }) : super(key: key);
 
   final wristCheckController = Get.put(WristCheckController());
+  final watchViewController = Get.put(WatchViewController());
 
   Watches? currentWatch;
   //bool to confirm if note has been marked for editing
-  bool inEditState = false;
 
   @override
   State<WatchView> createState() => _WatchViewState();
@@ -166,7 +167,7 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   Widget build(BuildContext context) {
-    WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.inEditState);
+    WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value);
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
     //Only assign value to _selectedStatus if it is null - this ensures it has a default value on the page,but doesn't
     //impact the status dropdown functionality.
@@ -229,8 +230,9 @@ class _WatchViewState extends State<WatchView> {
           );
 
         }
+        //TODO: remove setstate and use obx for state management
         setState(() {
-          widget.inEditState = false;
+          widget.watchViewController.updateInEditState(false);
         });
       }
     }
@@ -280,7 +282,7 @@ class _WatchViewState extends State<WatchView> {
       _soldPrice = widget.currentWatch!.soldPrice ?? 0;
 
       //Load watch content, only if watch is not being edited
-      if(!widget.inEditState) {
+      if(!widget.watchViewController.inEditState.value) {
         manufacturerFieldController.value =
             TextEditingValue(text: widget.currentWatch!.manufacturer);
         modelFieldController.value =
@@ -360,21 +362,22 @@ class _WatchViewState extends State<WatchView> {
                     actions: [
                       //Show edit button if a watch object is loaded and state is view
                       ViewWatchHelper.getWatchViewState(
-                          widget.currentWatch, widget.inEditState) ==
+                          widget.currentWatch, widget.watchViewController.inEditState.value) ==
                           WatchViewEnum.view ? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: const Icon(FontAwesomeIcons.penToSquare),
                           onPressed: () async {
                             await analytics.logEvent(name: "edit_watch_pressed");
+                            //TODO: Update to use obx and controller rather than setState
                             setState(() {
-                              widget.inEditState = true;
+                              widget.watchViewController.updateInEditState(true);
                             });
                           },
                         ),
                       ) : const SizedBox(height: 0,),
                       ViewWatchHelper.getWatchViewState(
-                          widget.currentWatch, widget.inEditState) ==
+                          widget.currentWatch, widget.watchViewController.inEditState.value) ==
                           WatchViewEnum.edit ? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
