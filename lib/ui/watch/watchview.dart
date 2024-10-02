@@ -115,7 +115,6 @@ class _WatchViewState extends State<WatchView> {
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Archived"];
-  String? _selectedStatus;
   int _selectedInterval = 0;
 
   //Form Key
@@ -169,11 +168,13 @@ class _WatchViewState extends State<WatchView> {
   Widget build(BuildContext context) {
     //On first build default edit state - only default to true if this is a new watch record
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
+    //If the watch is not null ensure the selected status is updated to reflect the current watches value
+    if(widget.currentWatch != null) {
+      widget.watchViewController
+          .updateSelectedStatus(widget.currentWatch!.status!);
+    };
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value);
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
-    //Only assign value to _selectedStatus if it is null - this ensures it has a default value on the page,but doesn't
-    //impact the status dropdown functionality.
-    _selectedStatus ??= widget.currentWatch == null? "In Collection": widget.currentWatch!.status;
 
     void saveAndUpdate(){
       //Validate the form
@@ -203,7 +204,7 @@ class _WatchViewState extends State<WatchView> {
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
-            widget.currentWatch!.status = _selectedStatus;
+            widget.currentWatch!.status = widget.watchViewController.selectedStatus.value;
             widget.currentWatch!.serialNumber =
                 serialNumberFieldController.value.text;
             widget.currentWatch!.referenceNumber =
@@ -463,11 +464,11 @@ class _WatchViewState extends State<WatchView> {
                                         height: 0,),
                                       _currentIndex == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
                                       //Tab two - Schedule info
-                                      _currentIndex == 1 && _selectedStatus =="Pre-Order"? _deliveryDateRow(watchviewState): const SizedBox(height: 0,),
+                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? _deliveryDateRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _purchaseDateRow(
                                           watchviewState) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 1 && _selectedStatus =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
+                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
                                       _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _serviceIntervalRow(
                                           watchviewState) : const SizedBox(
@@ -485,8 +486,8 @@ class _WatchViewState extends State<WatchView> {
                                       _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
                                       //Sold fields only show if status = sold
-                                      _currentIndex == 2 && _selectedStatus == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
-                                      _currentIndex == 2 && _selectedStatus == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
+                                      _currentIndex == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
+                                      _currentIndex == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
                                       //Add cost per wear calculation row only in view state
                                       _currentIndex == 2 ? _costPerWearRow(watchviewState, locale) : const SizedBox(height: 0,),
 
@@ -884,37 +885,35 @@ class _WatchViewState extends State<WatchView> {
   Widget _buildStatusDropdownRow(WatchViewEnum watchviewState){
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //const Text("Status: "),
+      child: Obx(()=> Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              (widget.watchViewController.inEditState.value == false) && (watchviewState == WatchViewEnum.view)? Text(widget.currentWatch!.status.toString()):
+              Obx(()=> DropdownButton(
+                    dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                    value: widget.watchViewController.selectedStatus.value,
+                    items: _statusList
+                        .map((status) => DropdownMenuItem(
+                        value: status,
+                        child: Text(status))
 
-            watchviewState == WatchViewEnum.view? Text(widget.currentWatch!.status.toString()):
-            DropdownButton(
-                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                value: _selectedStatus,
-                items: _statusList
-                    .map((status) => DropdownMenuItem(
-                    value: status,
-                    child: Text(status))
-
-                ).toList(),
-                onChanged: (status) {
-                  setState(() {
-                    _status = status.toString();
-                    _selectedStatus = status.toString();
-                    if(_selectedStatus == "Sold" && WristCheckPreferences.getShowSoldDialog()){
-                      WristCheckDialogs.getSoldStatusPopup();
+                    ).toList(),
+                    onChanged: (status) {
+                        _status = status.toString();
+                        widget.watchViewController.updateSelectedStatus(status.toString());
+                        if(widget.watchViewController.selectedStatus.value == "Sold" && WristCheckPreferences.getShowSoldDialog()){
+                          WristCheckDialogs.getSoldStatusPopup();
+                        }
+                        if(widget.watchViewController.selectedStatus.value == "Pre-Order" && WristCheckPreferences.getShowPreOrderDialog()){
+                          WristCheckDialogs.getPreOrderStatusPopUp();
+                        }
                     }
-                    if(_selectedStatus == "Pre-Order" && WristCheckPreferences.getShowPreOrderDialog()){
-                      WristCheckDialogs.getPreOrderStatusPopUp();
-                    }
-                  });
-                }
-            )
+                ),
+              )
 
 
-          ]
+            ]
+        ),
       ),
     );
   }
@@ -1356,7 +1355,7 @@ class _WatchViewState extends State<WatchView> {
   bool hasDataChanged(){
     bool returnValue = false;
 
-    if(widget.currentWatch!.status != _selectedStatus ||
+    if(widget.currentWatch!.status != widget.watchViewController.selectedStatus.value ||
       widget.currentWatch!.manufacturer != manufacturerFieldController.value.text ||
       widget.currentWatch!.model != modelFieldController.value.text ||
       widget.currentWatch!.soldPrice != getPrice(soldPriceFieldController.value.text) ||
