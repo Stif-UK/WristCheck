@@ -464,22 +464,19 @@ class _WatchViewState extends State<WatchView> {
                                         height: 0,),
                                       _currentIndex == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
                                       //Tab two - Schedule info
-                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? _deliveryDateRow(watchviewState): const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? _purchaseDateRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
+                                      _currentIndex == 1 ? Obx(()=> _purchaseDateRow()) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? _soldDateRow(watchviewState) : const SizedBox(height: 0,),
+                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? Obx(()=> _soldDateRow()) : const SizedBox(height: 0,),
                                       _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? _serviceIntervalRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 1 ? Obx(()=> _serviceIntervalRow()) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 1 ? _warrantyExpiryRow(watchviewState) : const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? _lastServicedDateRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 1 ? Obx(()=> _warrantyExpiryRow()) : const SizedBox(height: 0,),
+                                      _currentIndex == 1 ? Obx(()=> _lastServicedDateRow()) : const SizedBox(
                                         height: 0,),
                                       _currentIndex == 1 &&
                                           watchviewState == WatchViewEnum.view
-                                          ? _nextServiceDueRow(watchviewState)
+                                          ? _nextServiceDueRow()
                                           : const SizedBox(height: 0,),
                                       //Tab three - cost info
                                       _currentIndex == 2 ? _purchasePriceRow(watchviewState, locale): const SizedBox(height: 0,),
@@ -870,6 +867,7 @@ class _WatchViewState extends State<WatchView> {
           Switch(
               value: watch.favourite,
               onChanged: (value){
+                //TODO: Move to controller to avoid needing to use setState
                 setState(
                         (){
                       watch.favourite = value;
@@ -918,11 +916,11 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _serviceIntervalRow(WatchViewEnum watchviewState){
+  Widget _serviceIntervalRow(){
     return WatchFormField(
       keyboardType: TextInputType.number,
       icon: const Icon(FontAwesomeIcons.arrowsSpin),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Service Interval:",
       hintText: "Service Interval (years)",
       maxLines: 1,
@@ -936,29 +934,23 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _purchaseDateRow(WatchViewEnum watchviewState){
+  Widget _purchaseDateRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendar),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Purchase Date:",
       hintText: "Purchase Date",
       maxLines: 1,
       datePicker: true,
       controller: purchaseDateFieldController,
       textCapitalization: TextCapitalization.none,
-      // validator: (String? val) {
-      //   if(!val!.isServiceNumber) {
-      //     print(!val!.isServiceNumber);
-      //     return 'Service interval must be a whole number between 0 - 99';
-      //   }
-      // },
     );
   }
 
-  Widget _deliveryDateRow(WatchViewEnum watchviewState){
+  Widget _deliveryDateRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendar),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Due Date:",
       hintText: "Due Date",
       maxLines: 1,
@@ -969,10 +961,10 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _soldDateRow(WatchViewEnum watchviewState){
+  Widget _soldDateRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarXmark),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Sold Date:",
       hintText: "Sold Date",
       maxLines: 1,
@@ -982,10 +974,10 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _warrantyExpiryRow(WatchViewEnum watchviewState){
+  Widget _warrantyExpiryRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.screwdriverWrench),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Warranty Expiry Date:",
       hintText: "Warranty Expiry Date",
       maxLines: 1,
@@ -995,10 +987,10 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _lastServicedDateRow(WatchViewEnum watchviewState){
+  Widget _lastServicedDateRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarCheck),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Last Serviced Date:",
       hintText: "Last Serviced Date",
       maxLines: 1,
@@ -1008,7 +1000,7 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _nextServiceDueRow(WatchViewEnum watchviewState){
+  Widget _nextServiceDueRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarDays),
       //Always read only
