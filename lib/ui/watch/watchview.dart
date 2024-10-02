@@ -82,7 +82,6 @@ class _WatchViewState extends State<WatchView> {
 
   //Instance Variables
   final watchBox = Boxes.getWatches();
-  int _currentIndex = 0;
   String _manufacturer = "";
   String _model = "";
   String? _serialNumber = "";
@@ -384,35 +383,34 @@ class _WatchViewState extends State<WatchView> {
                     ]
 
                 ),
-                bottomNavigationBar: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: _currentIndex,
-                  onTap: (index) {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    }
-                  },
-                  items: const [
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.watch),
-                      label: "Info",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(FontAwesomeIcons.calendar),
-                      label: "Schedule",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(FontAwesomeIcons.dollarSign),
-                      label: "Value",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(FontAwesomeIcons.book),
-                      label: "Notes",
-                    )
-                  ],
+                bottomNavigationBar: Obx(()=> BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    currentIndex: widget.watchViewController.tabIndex.value,
+                    onTap: (index) {
+                      if (_formKey.currentState!.validate()) {
+                        widget.watchViewController.updateTabIndex(index);
+                      }
+                    },
+                    items: const [
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.watch),
+                        label: "Info",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.calendar),
+                        label: "Schedule",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.dollarSign),
+                        label: "Value",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.book),
+                        label: "Notes",
+                      )
+                    ],
 
+                  ),
                 ),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -423,94 +421,95 @@ class _WatchViewState extends State<WatchView> {
                         child: SingleChildScrollView(
                             child: Form(
                               key: _formKey,
-                              child: Column(
-                                children: [
-                                  //Build the UI from components
-                                  //Watch Images
-                                  _displayWatchImageViewEdit(watchviewState),
-                                  watchviewState == WatchViewEnum.view
-                                      ? _buildWearRow()
-                                      : const SizedBox(height: 0,),
-                                  const Divider(thickness: 2,),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          child: _buildStatusDropdownRow(
-                                              watchviewState)
-                                      ),
-                                      watchviewState == WatchViewEnum.add
-                                          ? const SizedBox(height: 0,)
-                                          : _buildFavouriteRow(
-                                          widget.currentWatch!),
-                                    ],
-                                  ),
-                                  const Divider(thickness: 2,),
-                                  Column(
-                                    children: [
-                                      //Tab one - Watch info
-                                      _currentIndex == 0 ? Obx(()=> _manufacturerRow(),
-                                      ) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 0
-                                          ? Obx(()=> _modelRow())
-                                          : const SizedBox(height: 0,),
-                                      _currentIndex == 0 ? Obx(()=> _buildCategoryField(widget.watchViewController.inEditState.value)): const SizedBox(height: 0,),
-                                      _currentIndex == 0 ? Obx(()=>_serialNumberRow(watchviewState),
-                                      ) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 0 ? Obx(()=> _referenceNumberRow(
-                                            watchviewState),
-                                      ) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
-                                      //Tab two - Schedule info
-                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? Obx(()=> _purchaseDateRow()) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? Obx(()=> _soldDateRow()) : const SizedBox(height: 0,),
-                                      _currentIndex == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? Obx(()=> _serviceIntervalRow()) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 1 ? Obx(()=> _warrantyExpiryRow()) : const SizedBox(height: 0,),
-                                      _currentIndex == 1 ? Obx(()=> _lastServicedDateRow()) : const SizedBox(
-                                        height: 0,),
-                                      _currentIndex == 1 &&
-                                          watchviewState == WatchViewEnum.view
-                                          ? _nextServiceDueRow()
-                                          : const SizedBox(height: 0,),
-                                      //Tab three - cost info
-                                      _currentIndex == 2 ? _purchasePriceRow(watchviewState, locale): const SizedBox(height: 0,),
-                                      _currentIndex == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
+                              child: Obx(()=> Column(
+                                  children: [
+                                    //Build the UI from components
+                                    //Watch Images
+                                    _displayWatchImageViewEdit(watchviewState),
+                                    watchviewState == WatchViewEnum.view
+                                        ? _buildWearRow()
+                                        : const SizedBox(height: 0,),
+                                    const Divider(thickness: 2,),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                            child: _buildStatusDropdownRow(
+                                                watchviewState)
+                                        ),
+                                        watchviewState == WatchViewEnum.add
+                                            ? const SizedBox(height: 0,)
+                                            : _buildFavouriteRow(
+                                            widget.currentWatch!),
+                                      ],
+                                    ),
+                                    const Divider(thickness: 2,),
+                                    Column(
+                                      children: [
+                                        //Tab one - Watch info
+                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _manufacturerRow(),
+                                        ) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0
+                                            ? Obx(()=> _modelRow())
+                                            : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _buildCategoryField(widget.watchViewController.inEditState.value)): const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=>_serialNumberRow(watchviewState),
+                                        ) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _referenceNumberRow(
+                                              watchviewState),
+                                        ) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
+                                        //Tab two - Schedule info
+                                        widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _purchaseDateRow()) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? Obx(()=> _soldDateRow()) : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 && watchviewState == WatchViewEnum.view ? _timeInCollectionRow(watchviewState): const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _serviceIntervalRow()) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _warrantyExpiryRow()) : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _lastServicedDateRow()) : const SizedBox(
+                                          height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 &&
+                                            watchviewState == WatchViewEnum.view
+                                            ? _nextServiceDueRow()
+                                            : const SizedBox(height: 0,),
+                                        //Tab three - cost info
+                                        widget.watchViewController.tabIndex.value == 2 ? _purchasePriceRow(watchviewState, locale): const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 2 ? _purchaseFromRow(watchviewState): const SizedBox(height: 0,),
 
-                                      //Sold fields only show if status = sold
-                                      _currentIndex == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
-                                      _currentIndex == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldToRow(watchviewState): const SizedBox(height: 0,),
-                                      //Add cost per wear calculation row only in view state
-                                      _currentIndex == 2 ? _costPerWearRow(watchviewState, locale) : const SizedBox(height: 0,),
+                                        //Sold fields only show if status = sold
+                                        widget.watchViewController.tabIndex.value == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldPriceRow(watchviewState, locale): const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? _soldToRow(): const SizedBox(height: 0,),
+                                        //Add cost per wear calculation row only in view state
+                                        widget.watchViewController.tabIndex.value == 2 ? _costPerWearRow(watchviewState, locale) : const SizedBox(height: 0,),
 
-                                      //Tab four - Notebook
-                                      _currentIndex == 3
-                                          ? _notesRow(watchviewState)
-                                          : const SizedBox(height: 0,),
-                                      const Divider(thickness: 2,),
-                                      //Implement Add / Save button and next button to show if in an 'add' state
-                                      watchviewState == WatchViewEnum.add &&
-                                          _currentIndex < 3
-                                          ? _nextTabButton()
-                                          : const SizedBox(height: 10,),
-                                      watchviewState == WatchViewEnum.add
-                                          ? _addWatchButton()
-                                          : const SizedBox(height: 0,),
+                                        //Tab four - Notebook
+                                        widget.watchViewController.tabIndex.value == 3
+                                            ? Obx(()=> _notesRow())
+                                            : const SizedBox(height: 0,),
+                                        const Divider(thickness: 2,),
+                                        //Implement Add / Save button and next button to show if in an 'add' state
+                                        watchviewState == WatchViewEnum.add &&
+                                            widget.watchViewController.tabIndex.value < 3
+                                            ? _nextTabButton()
+                                            : const SizedBox(height: 10,),
+                                        watchviewState == WatchViewEnum.add
+                                            ? _addWatchButton()
+                                            : const SizedBox(height: 0,),
 
-                                      //implement a save button to show when in an edit state
-                                      watchviewState == WatchViewEnum.edit
-                                          ? _saveWatchUpdateButton()
-                                          : const SizedBox(height: 0,)
+                                        //implement a save button to show when in an edit state
+                                        watchviewState == WatchViewEnum.edit
+                                            ? _saveWatchUpdateButton()
+                                            : const SizedBox(height: 0,)
 
 
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                         ))
@@ -1136,7 +1135,7 @@ class _WatchViewState extends State<WatchView> {
     //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
     return watchviewState != WatchViewEnum.view ? WatchFormField(
       icon: const Icon(FontAwesomeIcons.handHoldingDollar),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Sold Price:",
       hintText: "Sold Price",
       maxLines: 1,
@@ -1175,10 +1174,10 @@ class _WatchViewState extends State<WatchView> {
     ;
   }
 
-  Widget _soldToRow(WatchViewEnum watchviewState){
+  Widget _soldToRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.handHoldingHand),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Sold To:",
       hintText: "Sold to",
       maxLines: 1,
@@ -1192,22 +1191,16 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _notesRow(WatchViewEnum watchviewState){
+  Widget _notesRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.noteSticky),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Notes:",
       hintText: "Notes",
       minLines: 4,
       maxLines: 150,
       controller: notesFieldController,
       textCapitalization: TextCapitalization.sentences,
-      // validator: (String? val) {
-      //   if(!val!.isAlphaNumericAndNotEmpty) {
-      //     print(!val!.isAlphaNumericAndNotEmpty);
-      //     return 'Invalid characters entered';
-      //   }
-      // },
     );
   }
 
@@ -1217,16 +1210,15 @@ class _WatchViewState extends State<WatchView> {
         onPressed: () async {
           await analytics.logEvent(name: "next_tab_btn",
               parameters: {
-                "current_tab": _currentIndex
+                "current_tab": widget.watchViewController.tabIndex.value
               });
           if(_formKey.currentState!.validate()) {
             await analytics.logEvent(name: "next_tab_btn_success",
             parameters: {
-              "current_tab": _currentIndex
+              "current_tab": widget.watchViewController.tabIndex.value
             });
-          setState(() {
-            _currentIndex = _currentIndex + 1;
-          });
+            //TODO: Test this
+            widget.watchViewController.incrementTabIndex();
         }
       },
         child: const Row(
