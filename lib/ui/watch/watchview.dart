@@ -230,10 +230,8 @@ class _WatchViewState extends State<WatchView> {
           );
 
         }
-        //TODO: remove setstate and use obx for state management
-        setState(() {
-          widget.watchViewController.updateInEditState(false);
-        });
+        widget.watchViewController.updateInEditState(false);
+
       }
     }
 
@@ -360,36 +358,26 @@ class _WatchViewState extends State<WatchView> {
 
 
                     actions: [
-                      //Show edit button if a watch object is loaded and state is view
-                      ViewWatchHelper.getWatchViewState(
-                          widget.currentWatch, widget.watchViewController.inEditState.value) ==
-                          WatchViewEnum.view ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: const Icon(FontAwesomeIcons.penToSquare),
-                          onPressed: () async {
-                            await analytics.logEvent(name: "edit_watch_pressed");
-                            //TODO: Update to use obx and controller rather than setState
-                            setState(() {
-                              widget.watchViewController.updateInEditState(true);
-                            });
-                          },
-                        ),
-                      ) : const SizedBox(height: 0,),
-                      ViewWatchHelper.getWatchViewState(
-                          widget.currentWatch, widget.watchViewController.inEditState.value) ==
-                          WatchViewEnum.edit ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: const Icon(FontAwesomeIcons.floppyDisk),
-                          onPressed: () async {
-                            await analytics.logEvent(name: "save_edit_top_pressed");
-                            setState(() {
-                              saveAndUpdate();
-                            });
-                          },
-                        ),
-                      ) : const SizedBox(height: 0,),
+                      ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value) == WatchViewEnum.add ?
+                          const SizedBox(height: 0,) :
+                          Obx(()=> Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                                  icon: widget.watchViewController.inEditState.value?
+                                      const Icon(FontAwesomeIcons.floppyDisk) : const Icon(FontAwesomeIcons.penToSquare),
+                                onPressed: () async {
+                                    if(widget.watchViewController.inEditState.value){
+                                      await analytics.logEvent(name: "save_edit_top_pressed");
+                                      saveAndUpdate();
+                                    } else
+                                    {
+                                      await analytics.logEvent(name: "edit_watch_pressed");
+                                      widget.watchViewController.updateInEditState(true);
+                                    }
+                                },
+                              ),
+                          ),
+                          )
                     ]
 
                 ),
@@ -457,8 +445,9 @@ class _WatchViewState extends State<WatchView> {
                                   Column(
                                     children: [
                                       //Tab one - Watch info
-                                      _currentIndex == 0 ? _manufacturerRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 0 ? Obx(()=> _manufacturerRow(
+                                            watchviewState),
+                                      ) : const SizedBox(
                                         height: 0,),
                                       _currentIndex == 0
                                           ? _modelRow(watchviewState)
@@ -743,7 +732,8 @@ class _WatchViewState extends State<WatchView> {
   Widget _manufacturerRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.building),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      //enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Manufacturer:",
       hintText: "Manufacturer",
       maxLines: 1,
