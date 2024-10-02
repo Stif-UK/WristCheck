@@ -234,6 +234,7 @@ class _WatchViewState extends State<WatchView> {
 
         }
         widget.watchViewController.updateInEditState(false);
+        widget.watchViewController.updateViewState(WatchViewEnum.view);
 
       }
     }
@@ -361,7 +362,8 @@ class _WatchViewState extends State<WatchView> {
 
 
                     actions: [
-                      ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value) == WatchViewEnum.add ?
+                      // ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value) == WatchViewEnum.add
+                          widget.watchViewController.watchViewState.value == WatchViewEnum.add?
                           const SizedBox(height: 0,) :
                           Obx(()=> Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -372,10 +374,12 @@ class _WatchViewState extends State<WatchView> {
                                     if(widget.watchViewController.inEditState.value){
                                       await analytics.logEvent(name: "save_edit_top_pressed");
                                       saveAndUpdate();
+                                      //saveAndUpdate also performs change to view and edit state as called elsewhere
                                     } else
                                     {
                                       await analytics.logEvent(name: "edit_watch_pressed");
                                       widget.watchViewController.updateInEditState(true);
+                                      widget.watchViewController.updateViewState(WatchViewEnum.edit);
                                     }
                                 },
                               ),
@@ -501,7 +505,7 @@ class _WatchViewState extends State<WatchView> {
 
                                         //implement a save button to show when in an edit state
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.edit
-                                            ? _saveWatchUpdateButton()
+                                            ?  _saveWatchUpdateButton()
                                             : const SizedBox(height: 0,)
 
 
