@@ -451,16 +451,17 @@ class _WatchViewState extends State<WatchView> {
                                       ) : const SizedBox(
                                         height: 0,),
                                       _currentIndex == 0
-                                          ? _modelRow(watchviewState)
+                                          ? Obx(()=> _modelRow())
                                           : const SizedBox(height: 0,),
-                                      _currentIndex == 0 ? _buildCategoryField(watchviewState != WatchViewEnum.view): const SizedBox(height: 0,),
-                                      _currentIndex == 0 ? _serialNumberRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 0 ? Obx(()=> _buildCategoryField(widget.watchViewController.inEditState.value)): const SizedBox(height: 0,),
+                                      _currentIndex == 0 ? Obx(()=>_serialNumberRow(watchviewState),
+                                      ) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 0 ? _referenceNumberRow(
-                                          watchviewState) : const SizedBox(
+                                      _currentIndex == 0 ? Obx(()=> _referenceNumberRow(
+                                            watchviewState),
+                                      ) : const SizedBox(
                                         height: 0,),
-                                      _currentIndex == 0? _buildMovementField(watchviewState != WatchViewEnum.view) : const SizedBox(height: 0,),
+                                      _currentIndex == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
                                       //Tab two - Schedule info
                                       _currentIndex == 1 && _selectedStatus =="Pre-Order"? _deliveryDateRow(watchviewState): const SizedBox(height: 0,),
                                       _currentIndex == 1 ? _purchaseDateRow(
@@ -747,10 +748,10 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _modelRow(WatchViewEnum watchviewState){
+  Widget _modelRow(){
     return WatchFormField(
       icon: const Icon(Icons.watch),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Model:",
       hintText: "Model",
       maxLines: 1,
@@ -767,7 +768,7 @@ class _WatchViewState extends State<WatchView> {
   Widget _serialNumberRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.barcode),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: watchviewState == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
       hintText: "Serial Number",
       maxLines: 1,
@@ -784,7 +785,7 @@ class _WatchViewState extends State<WatchView> {
   Widget _referenceNumberRow(WatchViewEnum watchviewState){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.hashtag),
-      enabled: watchviewState == WatchViewEnum.view? false: true,
+      enabled: widget.watchViewController.inEditState.value,
       fieldTitle: watchviewState == WatchViewEnum.add? "Reference Number (Optional)": "Reference Number:",
       hintText: "Reference Number",
       maxLines: 1,
@@ -820,10 +821,8 @@ class _WatchViewState extends State<WatchView> {
                     child: Text(WristCheckFormatter.getMovementText(movement)));
               }).toList(),
               onChanged: edit? (movement){
-              setState(() {
                 _movement = WristCheckFormatter.getMovementText(movement!);
                 movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getMovementText(movement!));
-              });
               } : null ),
         ),
       ],
@@ -852,10 +851,8 @@ class _WatchViewState extends State<WatchView> {
                     child: Text(WristCheckFormatter.getCategoryText(category)));
               }).toList(),
               onChanged: edit? (category){
-                setState(() {
                   _category = WristCheckFormatter.getCategoryText(category!);
                   categoryFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
-                });
               } : null ),
         ),
       ],
