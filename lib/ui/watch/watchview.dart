@@ -167,6 +167,8 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   Widget build(BuildContext context) {
+    //On first build default edit state - only default to true if this is a new watch record
+    widget.watchViewController.updateInEditState(widget.currentWatch == null);
     WatchViewEnum watchviewState = ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value);
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
     //Only assign value to _selectedStatus if it is null - this ensures it has a default value on the page,but doesn't
@@ -260,7 +262,7 @@ class _WatchViewState extends State<WatchView> {
       );
     }
 
-    if(watchviewState!= WatchViewEnum.add){
+    if(watchviewState != WatchViewEnum.add){
       //check if wear button should be enabled
       if (watchviewState == WatchViewEnum.view) {
         widget.currentWatch!.status == "In Collection"? canRecordWear = true : canRecordWear = false;
@@ -445,8 +447,7 @@ class _WatchViewState extends State<WatchView> {
                                   Column(
                                     children: [
                                       //Tab one - Watch info
-                                      _currentIndex == 0 ? Obx(()=> _manufacturerRow(
-                                            watchviewState),
+                                      _currentIndex == 0 ? Obx(()=> _manufacturerRow(),
                                       ) : const SizedBox(
                                         height: 0,),
                                       _currentIndex == 0
@@ -729,10 +730,9 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _manufacturerRow(WatchViewEnum watchviewState){
+  Widget _manufacturerRow(){
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.building),
-      //enabled: watchviewState == WatchViewEnum.view? false: true,
       enabled: widget.watchViewController.inEditState.value,
       fieldTitle: "Manufacturer:",
       hintText: "Manufacturer",
