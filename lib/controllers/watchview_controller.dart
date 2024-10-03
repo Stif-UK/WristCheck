@@ -9,6 +9,8 @@ class WatchViewController extends GetxController{
   final selectedStatus = "In Collection".obs;
   final tabIndex = 0.obs;
   final watchViewState = WatchViewEnum.view.obs;
+  final purchasePrice = 0.obs;
+  final soldPrice = 0.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -32,6 +34,14 @@ class WatchViewController extends GetxController{
 
   updateViewState(WatchViewEnum state){
     watchViewState(state);
+  }
+
+  updatePurchasePrice(int price){
+    purchasePrice(price);
+  }
+
+  updateSoldPrice(int price){
+    soldPrice(price);
   }
 
 

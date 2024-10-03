@@ -18,6 +18,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
+import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
@@ -101,8 +102,6 @@ class _WatchViewState extends State<WatchView> {
   String? _category;
   String? _purchasedFrom = "";
   String? _soldTo = "";
-  int _purchasePrice = 0;
-  int _soldPrice = 0;
   DateTime? _soldDate;
   DateTime? _deliveryDate;
   DateTime? _warrantyEndDate;
@@ -174,6 +173,8 @@ class _WatchViewState extends State<WatchView> {
     //Determine the view state and pass to the controller
     widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
+    widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
+    widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
 
     void saveAndUpdate(){
       //Validate the form
@@ -197,8 +198,8 @@ class _WatchViewState extends State<WatchView> {
             _category = categoryFieldController.value.text;
             _purchasedFrom = purchasedFromFieldController.value.text;
             _soldTo = soldToFieldController.value.text;
-            _purchasePrice = getPrice(purchasePriceFieldController.value.text);
-            _soldPrice = getPrice(soldPriceFieldController.value.text);
+            widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
+            widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
             _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
@@ -219,8 +220,8 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.category = _category;
             widget.currentWatch!.purchasedFrom = _purchasedFrom;
             widget.currentWatch!.soldTo = _soldTo;
-            widget.currentWatch!.purchasePrice = _purchasePrice;
-            widget.currentWatch!.soldPrice = _soldPrice;
+            widget.currentWatch!.purchasePrice = widget.watchViewController.purchasePrice.value;
+            widget.currentWatch!.soldPrice = widget.watchViewController.soldPrice.value;
             widget.currentWatch!.soldDate = _soldDate;
             widget.currentWatch!.deliveryDate = _deliveryDate;
             widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
@@ -277,8 +278,8 @@ class _WatchViewState extends State<WatchView> {
       _category = widget.currentWatch!.category;
       _purchasedFrom = widget.currentWatch!.purchasedFrom;
       _soldTo = widget.currentWatch!.soldTo;
-      _purchasePrice = widget.currentWatch!.purchasePrice ?? 0;
-      _soldPrice = widget.currentWatch!.soldPrice ?? 0;
+      widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
+      widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
 
       //Load watch content, only if watch is not being edited
       if(!widget.watchViewController.inEditState.value) {
@@ -477,14 +478,15 @@ class _WatchViewState extends State<WatchView> {
                                             ? _nextServiceDueRow()
                                             : const SizedBox(height: 0,),
                                         //Tab three - cost info
-                                        widget.watchViewController.tabIndex.value == 2 ? _purchasePriceRow(locale): const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 2 ? Obx(()=> _purchaseFromRow()): const SizedBox(height: 0,),
-
-                                        //Sold fields only show if status = sold
-                                        widget.watchViewController.tabIndex.value == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? Obx(()=> _soldPriceRow(locale)): const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 2 && widget.watchViewController.selectedStatus.value == "Sold" ? Obx(()=> _soldToRow()): const SizedBox(height: 0,),
-                                        //Add cost per wear calculation row only in view state
-                                        widget.watchViewController.tabIndex.value == 2 ? _costPerWearRow(locale) : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 2 ? ValueTab(
+                                            purchasePriceFieldController: purchasePriceFieldController,
+                                            purchasedFromFieldController: purchasedFromFieldController,
+                                            soldPriceFieldController: soldPriceFieldController,
+                                            soldToFieldController: soldToFieldController,
+                                            currentWatch: currentWatch,
+                                            bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                            headlineSmall: Theme.of(context).textTheme.headlineSmall,
+                                            locale: locale) : const SizedBox(height: 0,),
 
                                         //Tab four - Notebook
                                         widget.watchViewController.tabIndex.value == 3
@@ -1012,97 +1014,6 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _purchasePriceRow(String locale){
-    //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
-    return widget.watchViewController.watchViewState.value != WatchViewEnum.view ? Obx(()=> WatchFormField(
-        icon: const Icon(FontAwesomeIcons.moneyBill1),
-        enabled: widget.watchViewController.inEditState.value,
-        fieldTitle: "Purchase Price:",
-        hintText: "Purchased Price",
-        maxLines: 1,
-        controller: purchasePriceFieldController,
-        keyboardType: TextInputType.number,
-        textCapitalization: TextCapitalization.none,
-        validator: (String? val) {
-          if(!val!.isWcCurrency) {
-            return "Enter digits only, no decimals, we'll take care of the rest!";
-          }
-        },
-      ),
-    ):
-    //Alternate return view
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Purchase Price:",
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.bodyLarge,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(FontAwesomeIcons.moneyBill1),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(WristCheckFormatter.getCurrencyValue(locale, _purchasePrice, 0),
-                style: Theme.of(context).textTheme.headlineSmall,),
-            ),
-          ],
-        )
-      ],
-    )
-    ;
-  }
-
-  Widget _purchaseFromRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.cartShopping),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Purchased From:",
-      hintText: "Purchased From",
-      maxLines: 1,
-      controller: purchasedFromFieldController,
-      textCapitalization: TextCapitalization.sentences,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Invalid characters detected.';
-        }
-      },
-    );
-  }
-
-  Widget _costPerWearRow(String locale){
-    double costPerWear = 0.0;
-    if(widget.currentWatch != null) {
-      costPerWear = WatchMethods.calculateCostPerWear(widget.currentWatch!);
-    }
-    //Read only field
-    return widget.watchViewController.watchViewState.value == WatchViewEnum.view ? Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Cost per Wear:",
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.bodyLarge,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(FontAwesomeIcons.moneyCheckDollar),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(costPerWear == 0 ? "N/A": NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(costPerWear),
-                style: Theme.of(context).textTheme.headlineSmall,),
-            ),
-          ],
-        )
-      ],
-    ): const SizedBox(height: 0,);
-  }
-
   Widget _timeInCollectionRow(){
     String timeInCollection = "N/A";
     if(widget.currentWatch != null){
@@ -1130,66 +1041,6 @@ class _WatchViewState extends State<WatchView> {
       ],
     )
     : const SizedBox(height: 0,);
-  }
-
-  Widget _soldPriceRow(String locale){
-    //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
-    return widget.watchViewController.watchViewState.value != WatchViewEnum.view ? WatchFormField(
-      icon: const Icon(FontAwesomeIcons.handHoldingDollar),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Sold Price:",
-      hintText: "Sold Price",
-      maxLines: 1,
-      controller: soldPriceFieldController,
-      keyboardType: TextInputType.number,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isWcCurrency) {
-          return "Enter digits only, no decimals, we'll take care of the rest!";
-        }
-      },
-    ):
-    //Alternate return view
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Sold Price:",
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.bodyLarge,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(FontAwesomeIcons.handHoldingDollar),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(WristCheckFormatter.getCurrencyValue(locale, _soldPrice, 0),
-                style: Theme.of(context).textTheme.headlineSmall,),
-            ),
-          ],
-        )
-      ],
-    )
-    ;
-  }
-
-  Widget _soldToRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.handHoldingHand),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Sold To:",
-      hintText: "Sold to",
-      maxLines: 1,
-      controller: soldToFieldController,
-      textCapitalization: TextCapitalization.sentences,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Invalid characters detected.';
-        }
-      },
-    );
   }
 
   Widget _nextTabButton(){
@@ -1242,8 +1093,8 @@ class _WatchViewState extends State<WatchView> {
               _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
               _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
-              _purchasePrice = getPrice(purchasePriceFieldController.value.text);
-              _soldPrice = getPrice(soldPriceFieldController.value.text);
+              widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
+              widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
 
 
               watchKey = await WatchMethods.addWatch(
@@ -1261,8 +1112,8 @@ class _WatchViewState extends State<WatchView> {
                 categoryFieldController.value.text,
                 purchasedFromFieldController.value.text,
                 soldToFieldController.value.text,
-                _purchasePrice,
-                _soldPrice,
+                widget.watchViewController.purchasePrice.value,
+                widget.watchViewController.soldPrice.value,
                 _soldDate,
                 _deliveryDate,
                 _warrantyEndDate
