@@ -483,7 +483,7 @@ class _WatchViewState extends State<WatchView> {
                                             purchasedFromFieldController: purchasedFromFieldController,
                                             soldPriceFieldController: soldPriceFieldController,
                                             soldToFieldController: soldToFieldController,
-                                            currentWatch: currentWatch,
+                                            currentWatch: widget.currentWatch,
                                             bodyLarge: Theme.of(context).textTheme.bodyLarge,
                                             headlineSmall: Theme.of(context).textTheme.headlineSmall,
                                             locale: locale) : const SizedBox(height: 0,),
