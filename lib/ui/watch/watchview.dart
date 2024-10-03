@@ -17,6 +17,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
@@ -29,7 +30,6 @@ import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:intl/intl.dart';
-import '../../util/list_tile_helper.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
@@ -98,8 +98,6 @@ class _WatchViewState extends State<WatchView> {
   int? watchKey; //Used to save images to newly added watches
   Watches? currentWatch;
   bool canRecordWear = false;
-  String? _movement;
-  String? _category;
   String? _purchasedFrom = "";
   String? _soldTo = "";
   DateTime? _soldDate;
@@ -173,8 +171,11 @@ class _WatchViewState extends State<WatchView> {
     //Determine the view state and pass to the controller
     widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
+    //Reset controller values to default to prevent info carrying between watches - these should re-load later if a watch is loaded
     widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
     widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
+    widget.watchViewController.updateMovement("");
+    widget.watchViewController.updateCategory("");
 
     void saveAndUpdate(){
       //Validate the form
@@ -194,8 +195,8 @@ class _WatchViewState extends State<WatchView> {
                 lastServicedDateFieldController.value.text);
             _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
             _deliveryDate = getDateFromFieldString(deliveryDateFieldController.value.text);
-            _movement = movementFieldController.value.text;
-            _category = categoryFieldController.value.text;
+            widget.watchViewController.updateMovement(movementFieldController.value.text);
+            widget.watchViewController.updateCategory(categoryFieldController.value.text);
             _purchasedFrom = purchasedFromFieldController.value.text;
             _soldTo = soldToFieldController.value.text;
             widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
@@ -216,8 +217,8 @@ class _WatchViewState extends State<WatchView> {
                 WatchMethods.calculateNextService(
                     _purchaseDate, _lastServicedDate, _serviceInterval);
             widget.currentWatch!.notes = notesFieldController.value.text;
-            widget.currentWatch!.movement = _movement;
-            widget.currentWatch!.category = _category;
+            widget.currentWatch!.movement = widget.watchViewController.movement.value;
+            widget.currentWatch!.category = widget.watchViewController.category.value;
             widget.currentWatch!.purchasedFrom = _purchasedFrom;
             widget.currentWatch!.soldTo = _soldTo;
             widget.currentWatch!.purchasePrice = widget.watchViewController.purchasePrice.value;
@@ -274,8 +275,8 @@ class _WatchViewState extends State<WatchView> {
       _manufacturer = widget.currentWatch!.manufacturer;
       _model = widget.currentWatch!.model;
       _serviceInterval = widget.currentWatch!.serviceInterval;
-      _movement = widget.currentWatch!.movement;
-      _category = widget.currentWatch!.category;
+      widget.watchViewController.updateMovement(widget.currentWatch!.movement);
+      widget.watchViewController.updateCategory(widget.currentWatch!.category);
       _purchasedFrom = widget.currentWatch!.purchasedFrom;
       _soldTo = widget.currentWatch!.soldTo;
       widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
@@ -448,20 +449,16 @@ class _WatchViewState extends State<WatchView> {
                                     Column(
                                       children: [
                                         //Tab one - Watch info
-                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _manufacturerRow(),
-                                        ) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 0
-                                            ? Obx(()=> _modelRow())
-                                            : const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _buildCategoryField(widget.watchViewController.inEditState.value)): const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=>_serialNumberRow(),
-                                        ) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 0 ? Obx(()=> _referenceNumberRow(),
-                                        ) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 0? Obx(()=> _buildMovementField(widget.watchViewController.inEditState.value)) : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 0 ? InfoTab(
+                                            manufacturerFieldController: manufacturerFieldController,
+                                            modelFieldController: modelFieldController,
+                                            serialNumberFieldController: serialNumberFieldController,
+                                            referenceNumberFieldController: referenceNumberFieldController,
+                                            movementFieldController: movementFieldController,
+                                            categoryFieldController: categoryFieldController,
+                                            bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                            context: context) : const SizedBox(height: 0,),
+
                                         //Tab two - Schedule info
                                         widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
                                         widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _purchaseDateRow()) : const SizedBox(
@@ -492,6 +489,7 @@ class _WatchViewState extends State<WatchView> {
                                         widget.watchViewController.tabIndex.value == 3
                                             ? NotesTab(notesFieldController: notesFieldController)
                                             : const SizedBox(height: 0,),
+
                                         const Divider(thickness: 2,),
                                         //Implement Add / Save button and next button to show if in an 'add' state
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
@@ -730,133 +728,6 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _manufacturerRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.building),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Manufacturer:",
-      hintText: "Manufacturer",
-      maxLines: 1,
-      controller: manufacturerFieldController,
-      textCapitalization: TextCapitalization.words,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
-          return 'Manufacturer missing or invalid characters included';
-        }
-      },
-    );
-  }
-
-  Widget _modelRow(){
-    return WatchFormField(
-      icon: const Icon(Icons.watch),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Model:",
-      hintText: "Model",
-      maxLines: 1,
-      controller: modelFieldController,
-      textCapitalization: TextCapitalization.words,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
-          return 'Model is missing or invalid characters included';
-        }
-      },
-    );
-  }
-
-  Widget _serialNumberRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.barcode),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: widget.watchViewController.watchViewState.value == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
-      hintText: "Serial Number",
-      maxLines: 1,
-      controller: serialNumberFieldController,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Serial Number contains invalid characters';
-        }
-      },
-    );
-  }
-
-  Widget _referenceNumberRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.hashtag),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: widget.watchViewController.watchViewState.value == WatchViewEnum.add? "Reference Number (Optional)": "Reference Number:",
-      hintText: "Reference Number",
-      maxLines: 1,
-      controller: referenceNumberFieldController,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Reference Number is missing or invalid characters included';
-        }
-      },
-    );
-  }
-
-  Widget _buildMovementField(bool edit){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Movement:",
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: DropdownButtonFormField<MovementEnum>(
-            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-            borderRadius: BorderRadius.circular(24),
-            menuMaxHeight: 300,
-            value: WristCheckFormatter.getMovementEnum(_movement),
-            iconSize: edit? 24.0: 0.0,
-            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.gears,), context),
-              items: MovementEnum.values.map((movement) {
-                return DropdownMenuItem<MovementEnum>(
-                  value: movement,
-                    child: Text(WristCheckFormatter.getMovementText(movement)));
-              }).toList(),
-              onChanged: edit? (movement){
-                _movement = WristCheckFormatter.getMovementText(movement!);
-                movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getMovementText(movement!));
-              } : null ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCategoryField(bool edit){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Category:",
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: DropdownButtonFormField<CategoryEnum>(
-              dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-              borderRadius: BorderRadius.circular(24),
-              menuMaxHeight: 300,
-              value: WristCheckFormatter.getCategoryEnum(_category),
-              iconSize: edit? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(ListTileHelper.getCategoryIcon(WristCheckFormatter.getCategoryEnum(categoryFieldController.value.text)), context),
-              items: CategoryEnum.values.map((category) {
-                return DropdownMenuItem<CategoryEnum>(
-                    value: category,
-                    child: Text(WristCheckFormatter.getCategoryText(category)));
-              }).toList(),
-              onChanged: edit? (category){
-                  _category = WristCheckFormatter.getCategoryText(category!);
-                  categoryFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
-              } : null ),
-        ),
-      ],
-    );
-  }
 
   //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
   Widget _buildFavouriteRow(Watches watch){

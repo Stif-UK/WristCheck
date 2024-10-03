@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
-import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/category.dart';
 
 class WatchViewController extends GetxController{
   final inEditState = false.obs;
@@ -11,6 +12,8 @@ class WatchViewController extends GetxController{
   final watchViewState = WatchViewEnum.view.obs;
   final purchasePrice = 0.obs;
   final soldPrice = 0.obs;
+  final movement = "".obs;
+  final category = "".obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -42,6 +45,14 @@ class WatchViewController extends GetxController{
 
   updateSoldPrice(int price){
     soldPrice(price);
+  }
+
+  updateMovement(String? _movement){
+    movement(_movement);
+  }
+
+  updateCategory(String? _category){
+    category(_category);
   }
 
 
