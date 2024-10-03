@@ -8,7 +8,7 @@ class NotesTab extends StatelessWidget {
   NotesTab({super.key, required this.notesFieldController});
 
   final watchViewController = Get.put(WatchViewController());
-  final TextEditingController notesFieldController; //expand
+  final TextEditingController notesFieldController; 
 
   @override
   Widget build(BuildContext context) {
