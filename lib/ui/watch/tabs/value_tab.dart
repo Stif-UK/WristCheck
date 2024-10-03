@@ -180,7 +180,6 @@ class ValueTab extends StatelessWidget {
 
   Widget _costPerWearRow(String locale) {
     double costPerWear = 0.0;
-    print("generating costPerWearRow: Watch: $currentWatch, ");
     if (currentWatch != null) {
       costPerWear = WatchMethods.calculateCostPerWear(currentWatch!);
     }
