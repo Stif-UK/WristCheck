@@ -84,14 +84,11 @@ class _WatchViewState extends State<WatchView> {
   final watchBox = Boxes.getWatches();
   String _manufacturer = "";
   String _model = "";
-  String? _serialNumber = "";
   bool favourite = false;
   String _status = "In Collection";
   DateTime? _purchaseDate;
   DateTime? _lastServicedDate;
   int _serviceInterval = 0;
-  String? _notes ="";
-  String? _referenceNumber = "";
   File? image;
   bool front = true;
   File? frontImage;
@@ -165,6 +162,7 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   Widget build(BuildContext context) {
+    //On build initialise watchViewController values
     //On first build default edit state - only default to true if this is a new watch record
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
     //If the watch is not null ensure the selected status is updated to reflect the current watches value
@@ -273,8 +271,6 @@ class _WatchViewState extends State<WatchView> {
       _status = widget.currentWatch!.status!;
       _manufacturer = widget.currentWatch!.manufacturer;
       _model = widget.currentWatch!.model;
-      _serialNumber = widget.currentWatch!.serialNumber;
-      _referenceNumber = widget.currentWatch!.referenceNumber;
       _serviceInterval = widget.currentWatch!.serviceInterval;
       _movement = widget.currentWatch!.movement;
       _category = widget.currentWatch!.category;

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/model/watches.dart';
 
 class WatchViewController extends GetxController{
   final inEditState = false.obs;
@@ -32,5 +33,6 @@ class WatchViewController extends GetxController{
   updateViewState(WatchViewEnum state){
     watchViewState(state);
   }
+
 
 }
