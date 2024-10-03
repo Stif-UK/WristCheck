@@ -109,7 +109,6 @@ class _WatchViewState extends State<WatchView> {
 
   //Setup options for watch collection status
   final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Archived"];
-  int _selectedInterval = 0;
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
