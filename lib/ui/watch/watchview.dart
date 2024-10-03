@@ -17,6 +17,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
@@ -487,7 +488,8 @@ class _WatchViewState extends State<WatchView> {
 
                                         //Tab four - Notebook
                                         widget.watchViewController.tabIndex.value == 3
-                                            ? Obx(()=> _notesRow())
+                                            ? NotesTab(notesFieldController: notesFieldController)
+                                        //Obx(()=> _notesRow())
                                             : const SizedBox(height: 0,),
                                         const Divider(thickness: 2,),
                                         //Implement Add / Save button and next button to show if in an 'add' state
