@@ -489,7 +489,6 @@ class _WatchViewState extends State<WatchView> {
                                         //Tab four - Notebook
                                         widget.watchViewController.tabIndex.value == 3
                                             ? NotesTab(notesFieldController: notesFieldController)
-                                        //Obx(()=> _notesRow())
                                             : const SizedBox(height: 0,),
                                         const Divider(thickness: 2,),
                                         //Implement Add / Save button and next button to show if in an 'add' state
@@ -1190,19 +1189,6 @@ class _WatchViewState extends State<WatchView> {
           return 'Invalid characters detected.';
         }
       },
-    );
-  }
-
-  Widget _notesRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.noteSticky),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Notes:",
-      hintText: "Notes",
-      minLines: 4,
-      maxLines: 150,
-      controller: notesFieldController,
-      textCapitalization: TextCapitalization.sentences,
     );
   }
 
