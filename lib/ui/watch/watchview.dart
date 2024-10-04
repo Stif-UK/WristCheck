@@ -175,6 +175,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateMovement("");
     widget.watchViewController.updateCategory("");
     widget.watchViewController.updateShowdays(false);
+    widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
 
     void saveAndUpdate(){
       //Validate the form
@@ -725,24 +726,21 @@ class _WatchViewState extends State<WatchView> {
   }
 
 
-  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
+  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT! //TODO: Implement for add state
   Widget _buildFavouriteRow(Watches watch){
     return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Text("Favourite:"),
 
-          Switch(
-              value: watch.favourite,
-              onChanged: (value){
-                //TODO: Move to controller to avoid needing to use setState
-                setState(
-                        (){
-                      watch.favourite = value;
-                      watch.save();
-                    }
-                );
-              }),
+          Obx(()=> Switch(
+                value: widget.watchViewController.favourite.value,
+                onChanged: (value){
+                  watch.favourite = value;
+                  watch.save();
+                  widget.watchViewController.updateFavourite(watch.favourite);
+                }),
+          ),
         ]
 
     );

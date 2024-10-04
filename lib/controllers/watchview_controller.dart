@@ -15,6 +15,7 @@ class WatchViewController extends GetxController{
   final movement = "".obs;
   final category = "".obs;
   final showDays = false.obs;
+  final favourite = false.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -58,6 +59,10 @@ class WatchViewController extends GetxController{
 
   updateShowdays(bool value){
     showDays(value);
+  }
+
+  updateFavourite(bool value){
+    favourite(value);
   }
 
 
