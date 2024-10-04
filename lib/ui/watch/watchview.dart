@@ -797,7 +797,6 @@ class _WatchViewState extends State<WatchView> {
             parameters: {
               "current_tab": widget.watchViewController.tabIndex.value
             });
-            //TODO: Test this
             widget.watchViewController.incrementTabIndex();
         }
       },
