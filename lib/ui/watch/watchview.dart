@@ -40,9 +40,7 @@ class WatchView extends StatefulWidget {
 
   final wristCheckController = Get.put(WristCheckController());
   final watchViewController = Get.put(WatchViewController());
-
-  Watches? currentWatch;
-  //bool to confirm if note has been marked for editing
+  final Watches? currentWatch;
 
   @override
   State<WatchView> createState() => _WatchViewState();
