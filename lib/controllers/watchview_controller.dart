@@ -14,6 +14,7 @@ class WatchViewController extends GetxController{
   final soldPrice = 0.obs;
   final movement = "".obs;
   final category = "".obs;
+  final showDays = false.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -53,6 +54,10 @@ class WatchViewController extends GetxController{
 
   updateCategory(String? _category){
     category(_category);
+  }
+
+  updateShowdays(bool value){
+    showDays(value);
   }
 
 

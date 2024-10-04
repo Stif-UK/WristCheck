@@ -19,6 +19,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
+import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
@@ -175,6 +176,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
     widget.watchViewController.updateMovement("");
     widget.watchViewController.updateCategory("");
+    widget.watchViewController.updateShowdays(false);
 
     void saveAndUpdate(){
       //Validate the form
@@ -459,20 +461,17 @@ class _WatchViewState extends State<WatchView> {
                                             context: context) : const SizedBox(height: 0,),
 
                                         //Tab two - Schedule info
-                                        widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _purchaseDateRow()) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.selectedStatus.value =="Sold" ? Obx(()=> _soldDateRow()) : const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 && widget.watchViewController.watchViewState.value == WatchViewEnum.view ? _timeInCollectionRow(): const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _serviceIntervalRow()) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _warrantyExpiryRow()) : const SizedBox(height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 ? Obx(()=> _lastServicedDateRow()) : const SizedBox(
-                                          height: 0,),
-                                        widget.watchViewController.tabIndex.value == 1 &&
-                                            widget.watchViewController.watchViewState.value == WatchViewEnum.view
-                                            ? _nextServiceDueRow()
-                                            : const SizedBox(height: 0,),
+                                        widget.watchViewController.tabIndex.value == 1 ? ServiceTab(
+                                            deliveryDateFieldController: deliveryDateFieldController,
+                                            purchaseDateFieldController: purchaseDateFieldController,
+                                            soldDateFieldController: soldDateFieldController,
+                                            timeInCollectionFieldController: timeInCollectionFieldController,
+                                            serviceIntervalFieldController: serviceIntervalFieldController,
+                                            warrantyEndDateFieldController: warrantyEndDateFieldController,
+                                            lastServicedDateFieldController: lastServicedDateFieldController,
+                                            nextServiceDueFieldController: nextServiceDueFieldController,
+                                            currentWatch: widget.currentWatch): const SizedBox(height: 0,),
+
                                         //Tab three - cost info
                                         widget.watchViewController.tabIndex.value == 2 ? ValueTab(
                                             purchasePriceFieldController: purchasePriceFieldController,
@@ -785,132 +784,6 @@ class _WatchViewState extends State<WatchView> {
         ),
       ),
     );
-  }
-
-  Widget _serviceIntervalRow(){
-    return WatchFormField(
-      keyboardType: TextInputType.number,
-      icon: const Icon(FontAwesomeIcons.arrowsSpin),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Service Interval:",
-      hintText: "Service Interval (years)",
-      maxLines: 1,
-      controller: serviceIntervalFieldController,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isServiceNumber) {
-          return 'Must be 0-99 or blank';
-        }
-      },
-    );
-  }
-
-  Widget _purchaseDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendar),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Purchase Date:",
-      hintText: "Purchase Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: purchaseDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
-
-  Widget _deliveryDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendar),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Due Date:",
-      hintText: "Due Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: deliveryDateFieldController,
-      textCapitalization: TextCapitalization.none,
-
-    );
-  }
-
-  Widget _soldDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarXmark),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Sold Date:",
-      hintText: "Sold Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: soldDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
-
-  Widget _warrantyExpiryRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.screwdriverWrench),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Warranty Expiry Date:",
-      hintText: "Warranty Expiry Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: warrantyEndDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
-
-  Widget _lastServicedDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarCheck),
-      enabled: widget.watchViewController.inEditState.value,
-      fieldTitle: "Last Serviced Date:",
-      hintText: "Last Serviced Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: lastServicedDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
-
-  Widget _nextServiceDueRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarDays),
-      //Always read only
-      enabled: false,
-      fieldTitle: "Next Service Due:",
-      hintText: "Next Service Due",
-      maxLines: 1,
-      controller: nextServiceDueFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
-
-  Widget _timeInCollectionRow(){
-    String timeInCollection = "N/A";
-    if(widget.currentWatch != null){
-      timeInCollection = WatchMethods.calculateTimeInCollection(widget.currentWatch!, _showDays);
-    }
-    timeInCollectionFieldController.value = TextEditingValue(text: timeInCollection);
-    //Only display in 'view'
-    return widget.watchViewController.watchViewState.value == WatchViewEnum.view? Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: WatchFormField(
-              icon: const Icon(FontAwesomeIcons.hourglass),
-              enabled: false,
-              fieldTitle: "Time in Collection",
-              hintText: "Time in Collection",
-              textCapitalization: TextCapitalization.none,
-              controller: timeInCollectionFieldController, ),
-        ),
-        IconButton(
-          icon: _showDays? const Icon(FontAwesomeIcons.solidCalendarMinus): const Icon(FontAwesomeIcons.solidCalendarPlus),
-          onPressed: ()=>setState(() {_showDays = !_showDays;}),
-        )
-
-      ],
-    )
-    : const SizedBox(height: 0,);
   }
 
   Widget _nextTabButton(){
