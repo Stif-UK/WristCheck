@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
-import 'package:wristcheck/model/enums/movement_enum.dart';
-import 'package:wristcheck/model/enums/category.dart';
+
 
 class WatchViewController extends GetxController{
   final inEditState = false.obs;
@@ -64,6 +63,5 @@ class WatchViewController extends GetxController{
   updateFavourite(bool value){
     favourite(value);
   }
-
 
 }
