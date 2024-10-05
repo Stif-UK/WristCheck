@@ -188,7 +188,7 @@ class _WatchViewState extends State<WatchView> {
             _model = modelFieldController.value.text;
             //convert service interval field to int
             _serviceInterval =
-                getServiceInterval(serviceIntervalFieldController.value.text);
+                ViewWatchHelper.getServiceInterval(serviceIntervalFieldController.value.text);
             _purchaseDate =
                 ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text);
             _lastServicedDate = ViewWatchHelper.getDateFromFieldString(
@@ -832,7 +832,7 @@ class _WatchViewState extends State<WatchView> {
               _deliveryDate = ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text);
               _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
               _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
-              _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
+              _serviceInterval = ViewWatchHelper.getServiceInterval(serviceIntervalFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
@@ -894,10 +894,6 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  int getServiceInterval(String serviceIntervalString){
-    return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
-  }
-
   Future<File?>addWatchImage(bool front) async {
     return front? frontImage: backImage;
   }
@@ -916,7 +912,7 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.movement != movementFieldController.value.text ||
       widget.currentWatch!.lastServicedDate != ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text) ||
       widget.currentWatch!.purchaseDate != ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text) ||
-      widget.currentWatch!.serviceInterval != getServiceInterval(serviceIntervalFieldController.value.text) ||
+      widget.currentWatch!.serviceInterval != ViewWatchHelper.getServiceInterval(serviceIntervalFieldController.value.text) ||
       widget.currentWatch!.notes != notesFieldController.value.text ||
       widget.currentWatch!.referenceNumber != referenceNumberFieldController.value.text ||
       widget.currentWatch!.serialNumber != serialNumberFieldController.value.text ||

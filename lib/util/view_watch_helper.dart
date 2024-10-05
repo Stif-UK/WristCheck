@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -97,6 +98,13 @@ class ViewWatchHelper{
    */
   static int getPrice(String price){
     return price.length == 0? 0: int.parse(price);
+  }
+
+  /**
+   * getServiceInterval takes a String as input and if this is empty returns 0, otherwise it parses an integer value from the string to return
+   */
+  static int getServiceInterval(String serviceIntervalString){
+    return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
 }
