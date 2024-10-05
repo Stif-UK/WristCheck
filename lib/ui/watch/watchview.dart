@@ -199,8 +199,8 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.updateCategory(categoryFieldController.value.text);
             _purchasedFrom = purchasedFromFieldController.value.text;
             _soldTo = soldToFieldController.value.text;
-            widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
-            widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
+            widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
+            widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
             _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
@@ -833,8 +833,8 @@ class _WatchViewState extends State<WatchView> {
               _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
               _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
-              widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
-              widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
+              widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
+              widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
 
               watchKey = await WatchMethods.addWatch(
@@ -898,10 +898,6 @@ class _WatchViewState extends State<WatchView> {
     return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
-  int getPrice(String price){
-    return price.length == 0? 0: int.parse(price);
-  }
-
   Future<File?>addWatchImage(bool front) async {
     return front? frontImage: backImage;
   }
@@ -912,8 +908,8 @@ class _WatchViewState extends State<WatchView> {
     if(widget.currentWatch!.status != widget.watchViewController.selectedStatus.value ||
       widget.currentWatch!.manufacturer != manufacturerFieldController.value.text ||
       widget.currentWatch!.model != modelFieldController.value.text ||
-      widget.currentWatch!.soldPrice != getPrice(soldPriceFieldController.value.text) ||
-      widget.currentWatch!.purchasePrice != getPrice(purchasePriceFieldController.value.text) ||
+      widget.currentWatch!.soldPrice != ViewWatchHelper.getPrice(soldPriceFieldController.value.text) ||
+      widget.currentWatch!.purchasePrice != ViewWatchHelper.getPrice(purchasePriceFieldController.value.text) ||
       widget.currentWatch!.category != categoryFieldController.value.text ||
       widget.currentWatch!.soldTo != soldToFieldController.value.text ||
       widget.currentWatch!.purchasedFrom != purchasedFromFieldController.value.text ||

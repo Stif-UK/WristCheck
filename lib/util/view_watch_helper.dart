@@ -92,4 +92,11 @@ class ViewWatchHelper{
     }
   }
 
+  /**
+   * getPrice takes a String as input and, if this is empty returns 0, otherwise it parses the string to return an integer value
+   */
+  static int getPrice(String price){
+    return price.length == 0? 0: int.parse(price);
+  }
+
 }
