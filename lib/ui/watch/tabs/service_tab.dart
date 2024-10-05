@@ -91,11 +91,10 @@ class ServiceTab extends StatelessWidget {
   }
 
   Widget _timeInCollectionRow(){
-    String timeInCollection = "N/A";
     if(currentWatch != null){
-      timeInCollection = WatchMethods.calculateTimeInCollection(currentWatch!, watchViewController.showDays.value);
+      watchViewController.updateTimeInCollection(WatchMethods.calculateTimeInCollection(currentWatch!, watchViewController.showDays.value));
     }
-    timeInCollectionFieldController.value = TextEditingValue(text: timeInCollection);
+    timeInCollectionFieldController.value = TextEditingValue(text: watchViewController.timeInCollection.value);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -112,7 +111,6 @@ class ServiceTab extends StatelessWidget {
           icon: watchViewController.showDays.value? const Icon(FontAwesomeIcons.solidCalendarMinus): const Icon(FontAwesomeIcons.solidCalendarPlus),
           onPressed: ()=> watchViewController.updateShowdays(!watchViewController.showDays.value),
         )
-
       ],
     );
   }

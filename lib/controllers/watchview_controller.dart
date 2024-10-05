@@ -17,6 +17,7 @@ class WatchViewController extends GetxController{
   final showDays = false.obs;
   final favourite = false.obs;
   final  nextServiceDue = "N/A".obs;
+  final timeInCollection = "N/A".obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -69,6 +70,10 @@ class WatchViewController extends GetxController{
   updateNextServiceDue(DateTime? due){
     String nsd = due != null? WristCheckFormatter.getFormattedDate(due!): "N/A";
     nextServiceDue(nsd);
+  }
+
+  updateTimeInCollection(String time){
+    timeInCollection(time);
   }
 
 }
