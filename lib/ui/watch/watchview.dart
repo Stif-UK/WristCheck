@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
-import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -23,15 +22,11 @@ import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
-import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
-import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
-import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:intl/intl.dart';
 
 class WatchView extends StatefulWidget {
   WatchView({
