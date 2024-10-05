@@ -90,7 +90,6 @@ class _WatchViewState extends State<WatchView> {
   File? frontImage;
   File? backImage;
   int? watchKey; //Used to save images to newly added watches
-  Watches? currentWatch;
   bool canRecordWear = false;
   String? _purchasedFrom = "";
   String? _soldTo = "";
@@ -740,6 +739,8 @@ class _WatchViewState extends State<WatchView> {
   }
 
   Widget _addWatchButton(){
+    Watches? tempWatch;
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Center(
@@ -782,13 +783,13 @@ class _WatchViewState extends State<WatchView> {
               );
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
-                currentWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(frontImage!.path, currentWatch!, true);
+                tempWatch = watchBox.get(watchKey);
+            ImagesUtil.saveImage(frontImage!.path, tempWatch!, true);
             }
             //and repeat for the back image
             if(backImage != null){
-            currentWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(backImage!.path, currentWatch!, false);
+            tempWatch = watchBox.get(watchKey);
+            ImagesUtil.saveImage(backImage!.path, tempWatch!, false);
             }
 
               Get.back();
