@@ -68,7 +68,7 @@ class WatchViewController extends GetxController{
   }
 
   updateNextServiceDue(DateTime? due){
-    String nsd = due != null? WristCheckFormatter.getFormattedDate(due!): "N/A";
+    String nsd = due != null? WristCheckFormatter.getFormattedDate(due): "N/A";
     nextServiceDue(nsd);
   }
 

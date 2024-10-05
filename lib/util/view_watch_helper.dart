@@ -82,4 +82,14 @@ class ViewWatchHelper{
     now.month == submittedDate.month &&
     now.year == submittedDate.year;
   }
+
+  static DateTime? getDateFromFieldString(String dateField){
+    if(dateField == "Not Recorded" || dateField == "N/A"){
+      return null;
+    } else {
+      final dateFormat = DateFormat('MMM d, yyyy');
+      return dateField.length != 0 ? dateFormat.parse(dateField) : null;
+    }
+  }
+
 }

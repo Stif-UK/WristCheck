@@ -190,18 +190,18 @@ class _WatchViewState extends State<WatchView> {
             _serviceInterval =
                 getServiceInterval(serviceIntervalFieldController.value.text);
             _purchaseDate =
-                getDateFromFieldString(purchaseDateFieldController.value.text);
-            _lastServicedDate = getDateFromFieldString(
+                ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text);
+            _lastServicedDate = ViewWatchHelper.getDateFromFieldString(
                 lastServicedDateFieldController.value.text);
-            _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
-            _deliveryDate = getDateFromFieldString(deliveryDateFieldController.value.text);
+            _soldDate = ViewWatchHelper.getDateFromFieldString(soldDateFieldController.value.text);
+            _deliveryDate = ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text);
             widget.watchViewController.updateMovement(movementFieldController.value.text);
             widget.watchViewController.updateCategory(categoryFieldController.value.text);
             _purchasedFrom = purchasedFromFieldController.value.text;
             _soldTo = soldToFieldController.value.text;
             widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
             widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
-            _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
+            _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -827,11 +827,11 @@ class _WatchViewState extends State<WatchView> {
             if(_formKey.currentState!.validate()){
               var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 
-              _purchaseDate = getDateFromFieldString(purchaseDateFieldController.value.text);
-              _soldDate = getDateFromFieldString(soldDateFieldController.value.text);
-              _deliveryDate = getDateFromFieldString(deliveryDateFieldController.value.text);
-              _lastServicedDate = getDateFromFieldString(lastServicedDateFieldController.value.text);
-              _warrantyEndDate = getDateFromFieldString(warrantyEndDateFieldController.value.text);
+              _purchaseDate = ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text);
+              _soldDate = ViewWatchHelper.getDateFromFieldString(soldDateFieldController.value.text);
+              _deliveryDate = ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text);
+              _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
+              _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = getServiceInterval(serviceIntervalFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(getPrice(soldPriceFieldController.value.text));
@@ -906,15 +906,6 @@ class _WatchViewState extends State<WatchView> {
     return front? frontImage: backImage;
   }
 
-  DateTime? getDateFromFieldString(String dateField){
-    if(dateField == "Not Recorded" || dateField == "N/A"){
-      return null;
-    } else {
-      final dateFormat = DateFormat('MMM d, yyyy');
-      return dateField.length != 0 ? dateFormat.parse(dateField) : null;
-    }
-  }
-
   bool hasDataChanged(){
     bool returnValue = false;
 
@@ -927,15 +918,15 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.soldTo != soldToFieldController.value.text ||
       widget.currentWatch!.purchasedFrom != purchasedFromFieldController.value.text ||
       widget.currentWatch!.movement != movementFieldController.value.text ||
-      widget.currentWatch!.lastServicedDate != getDateFromFieldString(lastServicedDateFieldController.value.text) ||
-      widget.currentWatch!.purchaseDate != getDateFromFieldString(purchaseDateFieldController.value.text) ||
+      widget.currentWatch!.lastServicedDate != ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text) ||
+      widget.currentWatch!.purchaseDate != ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text) ||
       widget.currentWatch!.serviceInterval != getServiceInterval(serviceIntervalFieldController.value.text) ||
       widget.currentWatch!.notes != notesFieldController.value.text ||
       widget.currentWatch!.referenceNumber != referenceNumberFieldController.value.text ||
       widget.currentWatch!.serialNumber != serialNumberFieldController.value.text ||
-      widget.currentWatch!.soldDate != getDateFromFieldString(soldDateFieldController.value.text) ||
-      widget.currentWatch!.deliveryDate != getDateFromFieldString(deliveryDateFieldController.value.text) ||
-      widget.currentWatch!.warrantyEndDate != getDateFromFieldString(warrantyEndDateFieldController.value.text)
+      widget.currentWatch!.soldDate != ViewWatchHelper.getDateFromFieldString(soldDateFieldController.value.text) ||
+      widget.currentWatch!.deliveryDate != ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text) ||
+      widget.currentWatch!.warrantyEndDate != ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text)
     ){
       returnValue = true;
     }
