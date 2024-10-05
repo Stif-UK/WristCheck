@@ -18,6 +18,7 @@ class WatchViewController extends GetxController{
   final favourite = false.obs;
   final  nextServiceDue = "N/A".obs;
   final timeInCollection = "N/A".obs;
+  final canRecordWear = false.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -74,6 +75,10 @@ class WatchViewController extends GetxController{
 
   updateTimeInCollection(String time){
     timeInCollection(time);
+  }
+
+  updateCanRecordWear(bool value){
+    canRecordWear(value);
   }
 
 }

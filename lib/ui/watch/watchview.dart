@@ -16,13 +16,12 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/header/wear_row.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
 import 'package:wristcheck/ui/watch/header/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
-import 'package:wristcheck/ui/watch/watch_charts.dart';
-import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
@@ -90,7 +89,7 @@ class _WatchViewState extends State<WatchView> {
   File? frontImage;
   File? backImage;
   int? watchKey; //Used to save images to newly added watches
-  bool canRecordWear = false;
+  //bool canRecordWear = false;
   String? _purchasedFrom = "";
   String? _soldTo = "";
   DateTime? _soldDate;
@@ -256,10 +255,6 @@ class _WatchViewState extends State<WatchView> {
     }
 
     if(widget.watchViewController.watchViewState.value != WatchViewEnum.add){
-      //check if wear button should be enabled
-      if (widget.watchViewController.watchViewState.value == WatchViewEnum.view) {
-        widget.currentWatch!.status == "In Collection"? canRecordWear = true : canRecordWear = false;
-      }
 
       widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
       _manufacturer = widget.currentWatch!.manufacturer;
@@ -421,7 +416,7 @@ class _WatchViewState extends State<WatchView> {
                                     //Watch Images
                                     _displayWatchImageViewEdit(),
                                     widget.watchViewController.watchViewState.value == WatchViewEnum.view
-                                        ? _buildWearRow()
+                                        ? WearRow(currentWatch: widget.currentWatch,)
                                         : const SizedBox(height: 0,),
                                     const Divider(thickness: 2,),
                                     WatchStatusHeader(currentWatch: widget.currentWatch),
@@ -586,121 +581,6 @@ class _WatchViewState extends State<WatchView> {
         ),
 
 
-      ],
-    );
-  }
-
-  Widget _buildWearRow(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 2,
-          child: widget.currentWatch?.status == "In Collection" || widget.currentWatch?.status == "Sold" ? Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                shape: BoxShape.circle,
-              ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    icon: Icon(FontAwesomeIcons.chartBar,
-                    color: Colors.white),
-                    onPressed: () => Get.to(() => WatchCharts(currentWatch: widget.currentWatch!,)),
-                  ),
-                ),
-              )
-            ],
-          ) : SizedBox(height: 0,),
-        ),
-        Expanded(
-          flex:6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              widget.currentWatch!.status == "In Collection"? _addWearButton() : const SizedBox(height: 10),
-              const SizedBox(height: 10),
-              //Show last worn date
-              _displayLastWearDate(),
-              _displayWearCount(),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-        Expanded(
-            flex: 2,
-            child: widget.currentWatch?.status != "Wishlist" && widget.currentWatch?.status != "Pre-Order" ? Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: Icon(FontAwesomeIcons.calendarDays,
-                      color: Colors.white,),
-                      onPressed: (){
-                        Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(
-                                (){}
-                        ));
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ) : SizedBox(height: 0,)
-        )
-      ],
-    );
-  }
-
-  Widget _displayLastWearDate(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch!)}",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),),
-      ],
-    );
-  }
-
-  Widget _displayWearCount(){
-    var wearCount = widget.currentWatch!.wearList.length;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        wearCount == 1? const Text("Worn 1 time"): Text("Worn: $wearCount times",
-        ),
-      ],
-    );
-  }
-
-  Widget _addWearButton(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          child: const Text("Wear this watch today"),
-          onPressed: () {
-            if(canRecordWear) {
-              var wearDate = DateTime.now();
-              WatchMethods.attemptToRecordWear(
-                  widget.currentWatch!, wearDate, false).then((_) =>
-              {
-                setState(() {})
-              });
-            } else { null; }
-          },
-        ),
       ],
     );
   }
