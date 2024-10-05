@@ -67,7 +67,9 @@ class WatchStatusHeader extends StatelessWidget {
     );
   }
 
-  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT! //TODO: Implement for add state
+  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT!
+  // TODO: Implement for add state?
+  // TODO: Only allow 'In Collection' watches as favourites?
   Widget _buildFavouriteRow(Watches watch){
     return Row(
         mainAxisAlignment: MainAxisAlignment.end,
