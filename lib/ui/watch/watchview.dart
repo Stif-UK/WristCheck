@@ -20,6 +20,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
+import 'package:wristcheck/ui/watch/tabs/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
@@ -86,7 +87,6 @@ class _WatchViewState extends State<WatchView> {
   String _manufacturer = "";
   String _model = "";
   bool favourite = false;
-  String _status = "In Collection";
   DateTime? _purchaseDate;
   DateTime? _lastServicedDate;
   int _serviceInterval = 0;
@@ -102,12 +102,6 @@ class _WatchViewState extends State<WatchView> {
   DateTime? _soldDate;
   DateTime? _deliveryDate;
   DateTime? _warrantyEndDate;
-
-  //bool - show time owned in days or short form
-  bool _showDays = false;
-
-  //Setup options for watch collection status
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Archived"];
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -273,7 +267,7 @@ class _WatchViewState extends State<WatchView> {
         widget.currentWatch!.status == "In Collection"? canRecordWear = true : canRecordWear = false;
       }
 
-      _status = widget.currentWatch!.status!;
+      widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
       _manufacturer = widget.currentWatch!.manufacturer;
       _model = widget.currentWatch!.model;
       _serviceInterval = widget.currentWatch!.serviceInterval;
@@ -436,17 +430,7 @@ class _WatchViewState extends State<WatchView> {
                                         ? _buildWearRow()
                                         : const SizedBox(height: 0,),
                                     const Divider(thickness: 2,),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            child: _buildStatusDropdownRow()
-                                        ),
-                                        widget.watchViewController.watchViewState.value == WatchViewEnum.add
-                                            ? const SizedBox(height: 0,)
-                                            : _buildFavouriteRow(
-                                            widget.currentWatch!),
-                                      ],
-                                    ),
+                                    WatchStatusHeader(currentWatch: widget.currentWatch),
                                     const Divider(thickness: 2,),
                                     Column(
                                       children: [
@@ -727,63 +711,6 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-
-  //Favourite selector toggle - ONLY SHOW FOR VIEW/EDIT! //TODO: Implement for add state
-  Widget _buildFavouriteRow(Watches watch){
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const Text("Favourite:"),
-
-          Obx(()=> Switch(
-                value: widget.watchViewController.favourite.value,
-                onChanged: (value){
-                  watch.favourite = value;
-                  watch.save();
-                  widget.watchViewController.updateFavourite(watch.favourite);
-                }),
-          ),
-        ]
-
-    );
-  }
-
-  Widget _buildStatusDropdownRow(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-      child: Obx(()=> Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              (widget.watchViewController.inEditState.value == false) && (widget.watchViewController.watchViewState.value == WatchViewEnum.view)? Text(widget.currentWatch!.status.toString()):
-              Obx(()=> DropdownButton(
-                    dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                    value: widget.watchViewController.selectedStatus.value,
-                    items: _statusList
-                        .map((status) => DropdownMenuItem(
-                        value: status,
-                        child: Text(status))
-
-                    ).toList(),
-                    onChanged: (status) {
-                        _status = status.toString();
-                        widget.watchViewController.updateSelectedStatus(status.toString());
-                        if(widget.watchViewController.selectedStatus.value == "Sold" && WristCheckPreferences.getShowSoldDialog()){
-                          WristCheckDialogs.getSoldStatusPopup();
-                        }
-                        if(widget.watchViewController.selectedStatus.value == "Pre-Order" && WristCheckPreferences.getShowPreOrderDialog()){
-                          WristCheckDialogs.getPreOrderStatusPopUp();
-                        }
-                    }
-                ),
-              )
-
-
-            ]
-        ),
-      ),
-    );
-  }
-
   Widget _nextTabButton(){
     return Center(
       child: ElevatedButton(
@@ -842,7 +769,7 @@ class _WatchViewState extends State<WatchView> {
                   modelFieldController.value.text,
                   serialNumberFieldController.value.text,
                   favourite,
-                  _status,
+                  widget.watchViewController.selectedStatus.value,
                   _purchaseDate,
                   _lastServicedDate,
                   _serviceInterval,
