@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 class WatchViewController extends GetxController{
@@ -15,6 +16,7 @@ class WatchViewController extends GetxController{
   final category = "".obs;
   final showDays = false.obs;
   final favourite = false.obs;
+  final  nextServiceDue = "N/A".obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -62,6 +64,11 @@ class WatchViewController extends GetxController{
 
   updateFavourite(bool value){
     favourite(value);
+  }
+
+  updateNextServiceDue(DateTime? due){
+    String nsd = due != null? WristCheckFormatter.getFormattedDate(due!): "N/A";
+    nextServiceDue(nsd);
   }
 
 }

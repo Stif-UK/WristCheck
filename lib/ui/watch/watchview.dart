@@ -227,6 +227,8 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.deliveryDate = _deliveryDate;
             widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
             widget.currentWatch!.save();
+            //Update next service due in controller to refresh view
+            widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
           }
           Get.snackbar("$_manufacturer $_model",
               "Updates Saved",
@@ -297,8 +299,8 @@ class _WatchViewState extends State<WatchView> {
         deliveryDateFieldController.value = TextEditingValue(text: widget.currentWatch!.deliveryDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.deliveryDate!): "Not Recorded");
         lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): "N/A");
         warrantyEndDateFieldController.value = TextEditingValue(text: widget.currentWatch!.warrantyEndDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.warrantyEndDate!): "Not Recorded");
-        DateTime? nextServiceDue = WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval);
-        nextServiceDueFieldController.value = TextEditingValue(text: nextServiceDue != null? WristCheckFormatter.getFormattedDate(nextServiceDue): "N/A");
+        widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
+        nextServiceDueFieldController.value = TextEditingValue(text: widget.watchViewController.nextServiceDue.value);
         notesFieldController.value =
             TextEditingValue(text: widget.currentWatch!.notes ?? "");
 

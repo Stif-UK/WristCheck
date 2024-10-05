@@ -162,6 +162,7 @@ class ServiceTab extends StatelessWidget {
   }
 
   Widget _nextServiceDueRow(){
+    nextServiceDueFieldController.value = TextEditingValue(text: watchViewController.nextServiceDue.value);
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendarDays),
       //Always read only
