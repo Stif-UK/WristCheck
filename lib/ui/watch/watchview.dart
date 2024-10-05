@@ -19,7 +19,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
-import 'package:wristcheck/ui/watch/tabs/status_favourite_header.dart';
+import 'package:wristcheck/ui/watch/header/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
