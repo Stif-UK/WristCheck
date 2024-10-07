@@ -298,37 +298,32 @@ class _WatchViewState extends State<WatchView> {
         soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
       }
     }
-    //Wrap Scaffold in a FutureBuilder to show images once loaded
-    
-    return WillPopScope(
-      onWillPop: () async {
-        //By default the user can navigate back
-        var shouldPop = true;
-        //Prevent back navigation if the user has made edits to an existing watch or has made entries for a new watch
-        bool editChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.edit && hasDataChanged());
-        bool addChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.add && newDataInput());
-        if (editChanges || addChanges) {
-          await analytics.logEvent(name: "edit_pop_dialog",
-          parameters: {
-            "adding_watch": addChanges.toString(),
-            "editing_watch": editChanges.toString()
-          });
-          await Get.defaultDialog(
-            title: "You have unsaved changes",
-            content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
-            textConfirm: "Exit without saving",
-            textCancel: "Continue editing",
-            onConfirm: (){shouldPop = true;
-              Get.back();},
-            onCancel: (){shouldPop = false;
-            }
-          );
-        }
 
-        return shouldPop;
+    //Wrap page in PopScope to give control of back navigation, in the event changes have been made but not saved
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) async {
+          // Check if changes have been made to the data on the page
+          final backNavigationAllowed = await isBackNavigationAllowed();
 
+          if (backNavigationAllowed) {
+            Get.back();
+          } else {
+            Get.defaultDialog(
+                title: "You have unsaved changes",
+                content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
+                textConfirm: "Exit without saving",
+                textCancel: "Continue editing",
+                onConfirm: () async {
+                  Get.back(closeOverlays: true);
+                },
+                onCancel: (){
+                }
+            );
+          }
       },
-      child: FutureBuilder<File?>(
+      //Wrap Scaffold in a FutureBuilder to show images once loaded
+      child:FutureBuilder<File?>(
           future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, front): addWatchImage(front),
           builder: (context, AsyncSnapshot<File?> snapshot) {
             if (snapshot.hasData || snapshot.data == null) {
@@ -699,6 +694,23 @@ class _WatchViewState extends State<WatchView> {
 
   Future<File?>addWatchImage(bool front) async {
     return front? frontImage: backImage;
+  }
+
+  Future<bool> isBackNavigationAllowed() async {
+    bool allowed = true;
+    bool editChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.edit && hasDataChanged());
+    bool addChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.add && newDataInput());
+
+    if(editChanges || addChanges){
+      await analytics.logEvent(name: "edit_pop_dialog",
+          parameters: {
+            "adding_watch": addChanges.toString(),
+            "editing_watch": editChanges.toString()
+          });
+      allowed = false;
+    }
+
+    return allowed;
   }
 
   bool hasDataChanged(){
