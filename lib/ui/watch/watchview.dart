@@ -314,11 +314,8 @@ class _WatchViewState extends State<WatchView> {
                 content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
                 textConfirm: "Exit without saving",
                 textCancel: "Continue editing",
-                onConfirm: () async {
-                  Get.back(closeOverlays: true);
-                },
-                onCancel: (){
-                }
+                onConfirm: ()=> Get.back(closeOverlays: true),
+                onCancel: (){}
             );
           }
       },
