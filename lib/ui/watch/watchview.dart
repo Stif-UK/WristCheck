@@ -163,6 +163,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateCategory("");
     widget.watchViewController.updateShowdays(false);
     widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
+    widget.watchViewController.updateSkipBackCheck(false);
 
     void saveAndUpdate(){
       //Validate the form
@@ -663,7 +664,9 @@ class _WatchViewState extends State<WatchView> {
             tempWatch = watchBox.get(watchKey);
             ImagesUtil.saveImage(backImage!.path, tempWatch!, false);
             }
-
+              //Before Navigating back, clear the form, to prevent the back navigation being stopped
+              _formKey.currentState!.reset();
+              widget.watchViewController.updateSkipBackCheck(true);
               Get.back();
 
               Get.snackbar(
@@ -698,13 +701,15 @@ class _WatchViewState extends State<WatchView> {
     bool editChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.edit && hasDataChanged());
     bool addChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.add && newDataInput());
 
-    if(editChanges || addChanges){
-      await analytics.logEvent(name: "edit_pop_dialog",
-          parameters: {
-            "adding_watch": addChanges.toString(),
-            "editing_watch": editChanges.toString()
-          });
-      allowed = false;
+    if (!widget.watchViewController.skipBackCheck.value) {
+      if(editChanges || addChanges){
+        await analytics.logEvent(name: "edit_pop_dialog",
+            parameters: {
+              "adding_watch": addChanges.toString(),
+              "editing_watch": editChanges.toString()
+            });
+        allowed = false;
+      }
     }
 
     return allowed;

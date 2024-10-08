@@ -19,6 +19,7 @@ class WatchViewController extends GetxController{
   final  nextServiceDue = "N/A".obs;
   final timeInCollection = "N/A".obs;
   final canRecordWear = false.obs;
+  final skipBackCheck = false.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -79,6 +80,10 @@ class WatchViewController extends GetxController{
 
   updateCanRecordWear(bool value){
     canRecordWear(value);
+  }
+
+  updateSkipBackCheck(bool value){
+    skipBackCheck(value);
   }
 
 }
