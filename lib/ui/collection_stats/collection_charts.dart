@@ -6,6 +6,7 @@ import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 
 class CollectionCharts extends StatefulWidget {
   const CollectionCharts({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
 
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
             padding: getPagePadding(),
@@ -38,7 +40,9 @@ class _CollectionChartsState extends State<CollectionCharts> {
           ),
           Obx(()=> Padding(
               padding: getPagePadding(),
-              child: wristCheckController.isAppPro.value? const CostPerWearChart() : ListTile(
+              child: wristCheckController.isAppPro.value? SizedBox(
+                  height: _calculateChartSpace(context, ChartHelper.getCostPerWearChartSize()),
+                  child: const CostPerWearChart()) : ListTile(
                 title: Text("Upgrade to WristTrack Pro for more charts here..."),
                   trailing: Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:30.0,width:30.0,color: Theme.of(context).hintColor),
                   onTap: () => WristCheckDialogs.getProUpgradeMessage(context)
@@ -71,4 +75,16 @@ class _CollectionChartsState extends State<CollectionCharts> {
   EdgeInsets getPagePadding(){
     return const EdgeInsets.all(8.0);
   }
+}
+
+double _calculateChartSpace(BuildContext context, int dataSize){
+  double baseSize = MediaQuery.of(context).size.height*0.45;
+  print("DataSize: $dataSize");
+
+    if(dataSize > 10){
+      baseSize = baseSize*(dataSize / 10);
+    }
+    print("BaseSize: $baseSize");
+
+  return baseSize;
 }

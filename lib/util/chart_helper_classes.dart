@@ -1,3 +1,4 @@
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -117,6 +118,21 @@ class ChartHelper{
     }
 
     return series;
+  }
+
+  static int getCostPerWearChartSize(){
+    int returnSize = 0;
+    List<Watches> collection = Boxes.getCollectionWatches();
+    for(Watches watch in collection){
+      if(watch.purchasePrice != null){
+        if(watch.purchasePrice! > 0){
+          if(watch.wearList.length > 0){
+            returnSize++;
+          }
+        }
+      }
+    }
+    return returnSize;
   }
 
 }
