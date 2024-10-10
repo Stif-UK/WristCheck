@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
@@ -23,6 +24,7 @@ class WristCheckPreferences {
   static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
   static const _keyDefaultMonthChartType = 'defaultMonthChartType';
+  static const _keyDefaultMonthChartTypeV2 = 'defaultMonthChartTypev2';
   static const _keyDefaultDayChartType = 'defaultDayChartType';
 
   //notification preference values
@@ -269,7 +271,7 @@ class WristCheckPreferences {
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
   }
 
-  //Month charts
+  //Month charts: DEPRECATED //TODO: Remove in future release - last valid version v1.10.3
   static DefaultChartType? getDefaultMonthChartType()  {
     if(_preferences.getBool(_keyDefaultMonthChartType) == null){
       return DefaultChartType.bar;
@@ -283,6 +285,44 @@ class WristCheckPreferences {
     bool _prefersBarCharts;
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
     await _preferences.setBool(_keyDefaultMonthChartType, _prefersBarCharts);
+  }
+
+  //Month charts v2
+  static WatchMonthChartEnum getDefaultMonthChartTypeV2()  {
+    if(_preferences.getBool(_keyDefaultMonthChartTypeV2) == null){
+      return WatchMonthChartEnum.grouped;
+    } else{
+      String value = _preferences.getString(_keyDefaultMonthChartType)!;
+      WatchMonthChartEnum returnValue;
+
+      switch(value){
+        case "WatchMonthChartEnum.bar":{
+            returnValue = WatchMonthChartEnum.bar;
+            break;
+          }
+          case "WatchMonthChartEnum.grouped":{
+              returnValue = WatchMonthChartEnum.grouped;
+              break;
+            }
+        case "WatchMonthChartEnum.pie":{
+          returnValue = WatchMonthChartEnum.pie;
+          break;
+        }
+        case "WatchMonthChartEnum.line":{
+          returnValue = WatchMonthChartEnum.line;
+          break;
+        }
+        default:
+          returnValue = WatchMonthChartEnum.bar;
+      }
+
+
+      return returnValue;
+    }
+  }
+
+  static Future setDefaultMonthChartTypeV2(WatchMonthChartEnum preferredType) async {
+    await _preferences.setString(_keyDefaultMonthChartType, preferredType.name);
   }
 
   //Day charts

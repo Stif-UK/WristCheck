@@ -4,6 +4,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/location.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -13,7 +14,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class WristCheckController extends GetxController {
 
   //Manage app purchase status
-  final isAppPro = WristCheckPreferences.getAppPurchasedStatus()!.obs;
+  final isAppPro = true.obs; //WristCheckPreferences.getAppPurchasedStatus()!.obs;
   //Manage Watchbox view order
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
@@ -122,10 +123,10 @@ class WristCheckController extends GetxController {
   }
 
   //Track Month Chart preference
-  final monthChartPreference = WristCheckPreferences.getDefaultMonthChartType().obs;
+  final monthChartPreference = WristCheckPreferences.getDefaultMonthChartTypeV2().obs;
 
-  updateMonthChartPreference(DefaultChartType type) async {
-    await WristCheckPreferences.setDefaultMonthChartType(type);
+  updateMonthChartPreference(WatchMonthChartEnum type) async {
+    await WristCheckPreferences.setDefaultMonthChartTypeV2(type);
     monthChartPreference(type);
   }
 

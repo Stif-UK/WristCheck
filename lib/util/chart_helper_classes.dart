@@ -1,10 +1,15 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChartClass{
   ChartClass(this.count);
@@ -133,6 +138,44 @@ class ChartHelper{
       }
     }
     return returnSize;
+  }
+
+  static Icon getWatchMonthChartIcon(WatchMonthChartEnum type){
+    Icon returnIcon;
+
+    switch(type) {
+      case WatchMonthChartEnum.bar:
+        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        break;
+      case WatchMonthChartEnum.pie:
+        returnIcon = Icon(FontAwesomeIcons.chartPie);
+        break;
+      case WatchMonthChartEnum.grouped:
+        returnIcon = Icon(FontAwesomeIcons.rankingStar);
+        break;
+      case WatchMonthChartEnum.line:
+        returnIcon = Icon(FontAwesomeIcons.chartLine);
+        break;
+      default:
+        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        break;
+    }
+
+    return returnIcon;
+
+  }
+
+  static getNextMonthChart(WatchMonthChartEnum type){
+    final wristCheckController = Get.put(WristCheckController());
+    List<WatchMonthChartEnum> values = WatchMonthChartEnum.values;
+    int index = 0;
+    int max = values.length;
+    index = values.indexOf(type);
+    index++;
+    if(index >= max){
+      index = 0;
+    }
+    wristCheckController.updateMonthChartPreference(values[index]);
   }
 
 }

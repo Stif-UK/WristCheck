@@ -7,6 +7,7 @@ import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 
 class WatchChartsBody extends StatelessWidget {
   WatchChartsBody({
@@ -30,9 +31,9 @@ class WatchChartsBody extends StatelessWidget {
               textAlign: TextAlign.start,),
             leading: Icon(FontAwesomeIcons.calendarDays),
             trailing: Obx( () => IconButton(
-              icon: wristCheckController.monthChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+              icon: ChartHelper.getWatchMonthChartIcon(wristCheckController.monthChartPreference.value),
               onPressed: (){
-                wristCheckController.monthChartPreference.value == DefaultChartType.bar? wristCheckController.updateMonthChartPreference(DefaultChartType.pie) : wristCheckController.updateMonthChartPreference(DefaultChartType.bar);
+               ChartHelper.getNextMonthChart(wristCheckController.monthChartPreference.value);
               },
             ),
             )
