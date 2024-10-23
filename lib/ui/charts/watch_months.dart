@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
-import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -57,7 +56,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
         returnChart =_buildGroupedChart(_getBasicChartData(widget.currentWatch));
         break;
       case WatchMonthChartEnum.line:
-        returnChart = _buildLineChart();
+        returnChart = _buildLineChart(_getAdvancedChartData(widget.currentWatch));
         break;
       default:
         returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch));
@@ -107,9 +106,27 @@ Widget _buildGroupedChart(List<MonthWearData> data) {
   return Container(child: Text("Test Grouped Chart"),);
 }
 
-Widget _buildLineChart() {
-  //TODO: Create Line Chart
-  return Container(child: Text("Test Line Chart"),);
+Widget _buildLineChart(List<MonthWearDataV2> data) {
+
+  var chartSeries = <StackedLineSeries>[];
+
+  // StackedLineSeries<ChartData, String>(
+  //     groupName: 'Group A',
+  //     dataLabelSettings: DataLabelSettings(
+  //         isVisible: true,
+  //         useSeriesColor: true
+  //     ),
+  //     dataSource: chartData,
+  //     xValueMapper: (ChartData data, _) => data.x,
+  //     yValueMapper: (ChartData data, _) => data.y1
+  // ),
+
+    return SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    series: chartSeries
+
+                );
+
 }
 
 
@@ -135,6 +152,49 @@ List<MonthWearData> _getBasicChartData(Watches watch) {
   return getChartData;
 }
 
+List<MonthWearDataV2> _getAdvancedChartData(Watches watch){
+  //First create a list of years
+  List<int> years = [];
+  for(DateTime date in watch.wearList){
+    if(!years.contains(date.year)){
+      years.add(date.year);
+    }
+  }
+
+  //Create a map of years with sub-map for months to capture counts
+  Map<int, Map<int, int>> dataMap = {};
+  for(int selectedYear in years){
+    Map<int,int> chartData = <int,int>{};
+    //Populate Months
+    for(int i = 12 ; i >= 1; i--){
+      chartData[i] = 0;
+    }
+    //Populate Counts
+    for(DateTime wearDate in watch.wearList){
+      if(wearDate.year == selectedYear) {
+        int month = wearDate.month;
+        chartData.update(month, (value) => ++value);
+      }
+    }
+    //Update Map
+    dataMap[selectedYear] = chartData;
+  }
+
+  //Create return list of data objects
+  List<MonthWearDataV2> getChartData = [];
+
+  //Convert to objects and populate list
+  for(var currentYear in dataMap.entries){
+    //we're in the first map, iterate over the second
+    for(var currentMonth in dataMap[currentYear.key]!.entries){
+      getChartData.add(MonthWearDataV2(currentYear.key, currentMonth.key.toString(), currentMonth.value));
+    }
+  }
+
+  //return the data
+  return getChartData;
+}
+
 class MonthWearData{
   MonthWearData(this.month, this.count);
   final String month;
@@ -142,7 +202,8 @@ class MonthWearData{
 }
 
 class MonthWearDataV2{
-  MonthWearDataV2(this.month, this.count);
+  MonthWearDataV2(this.year, this.month, this.count);
+  final int year;
   final String month;
   final int count;
 }
