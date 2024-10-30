@@ -27,7 +27,7 @@ class WatchChartsBody extends StatelessWidget {
         children: [
       
           ListTile(
-              title: Text("Wears by month",
+              title: Text("Wears by Month",
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDays),
@@ -42,7 +42,7 @@ class WatchChartsBody extends StatelessWidget {
           WatchMonthChart(currentWatch: currentWatch),
           const Divider(thickness: 2,),
           ListTile(
-              title: Text("Wears by day",
+              title: Text("Wears by Day",
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDay),
@@ -55,6 +55,22 @@ class WatchChartsBody extends StatelessWidget {
               )
           ),
           WatchDayChart(currentWatch: currentWatch),
+          //TODO: Implement graph by year
+          // const Divider(thickness: 2,),
+          // ListTile(
+          //     title: Text("Wears by Year",
+          //       style: Theme.of(context).textTheme.headlineSmall,
+          //       textAlign: TextAlign.start,),
+          //     leading: Icon(FontAwesomeIcons.calendarDay),
+          //     trailing: Obx( () => IconButton(
+          //       icon: wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+          //       onPressed: (){
+          //         wristCheckController.dayChartPreference.value == DefaultChartType.bar? wristCheckController.updateDayChartPreference(DefaultChartType.pie) : wristCheckController.updateDayChartPreference(DefaultChartType.bar);
+          //       },
+          //     ),
+          //     )
+          // ),
+          // WatchDayChart(currentWatch: currentWatch),
         ],
       ),
     ) :
