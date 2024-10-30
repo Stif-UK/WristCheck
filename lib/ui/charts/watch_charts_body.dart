@@ -20,41 +20,43 @@ class WatchChartsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return currentWatch.wearList.isNotEmpty ? Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-
-        ListTile(
-            title: Text("Wears by month",
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.start,),
-            leading: Icon(FontAwesomeIcons.calendarDays),
-            trailing: Obx( () => IconButton(
-              icon: ChartHelper.getWatchMonthChartIcon(wristCheckController.monthChartPreference.value),
-              onPressed: (){
-               ChartHelper.getNextMonthChart(wristCheckController.monthChartPreference.value);
-              },
-            ),
-            )
-        ),
-        WatchMonthChart(currentWatch: currentWatch),
-        const Divider(thickness: 2,),
-        ListTile(
-            title: Text("Wears by day",
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.start,),
-            leading: Icon(FontAwesomeIcons.calendarDay),
-            trailing: Obx( () => IconButton(
-              icon: wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
-              onPressed: (){
-                wristCheckController.dayChartPreference.value == DefaultChartType.bar? wristCheckController.updateDayChartPreference(DefaultChartType.pie) : wristCheckController.updateDayChartPreference(DefaultChartType.bar);
-              },
-            ),
-            )
-        ),
-        WatchDayChart(currentWatch: currentWatch),
-      ],
+    return currentWatch.wearList.isNotEmpty ? SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+      
+          ListTile(
+              title: Text("Wears by month",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.start,),
+              leading: Icon(FontAwesomeIcons.calendarDays),
+              trailing: Obx( () => IconButton(
+                icon: ChartHelper.getWatchMonthChartIcon(wristCheckController.monthChartPreference.value),
+                onPressed: (){
+                 ChartHelper.getNextMonthChart(wristCheckController.monthChartPreference.value);
+                },
+              ),
+              )
+          ),
+          WatchMonthChart(currentWatch: currentWatch),
+          const Divider(thickness: 2,),
+          ListTile(
+              title: Text("Wears by day",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.start,),
+              leading: Icon(FontAwesomeIcons.calendarDay),
+              trailing: Obx( () => IconButton(
+                icon: wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+                onPressed: (){
+                  wristCheckController.dayChartPreference.value == DefaultChartType.bar? wristCheckController.updateDayChartPreference(DefaultChartType.pie) : wristCheckController.updateDayChartPreference(DefaultChartType.bar);
+                },
+              ),
+              )
+          ),
+          WatchDayChart(currentWatch: currentWatch),
+        ],
+      ),
     ) :
         //Wearlist is empty
     Column(
