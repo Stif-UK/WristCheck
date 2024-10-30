@@ -35,6 +35,11 @@ class WristCheckFormatter{
 
   }
 
+  static String getMonthName(int monthNumber) {
+    DateTime date = DateTime(0, monthNumber);
+    return DateFormat.MMM().format(date);
+  }
+
   static String getCollectionText(CollectionView view){
     String returnText = "";
 
