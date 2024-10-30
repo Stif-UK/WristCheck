@@ -1,1 +1,1 @@
-enum WatchMonthChartEnum {bar, pie, grouped, line} //Need to handle the case where existing users are using defaultChartType
+enum WatchMonthChartEnum {bar, pie, grouped, line} 
