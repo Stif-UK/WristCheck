@@ -1,1 +1,1 @@
-enum WatchMonthChartEnum {bar, pie, grouped, line} 
+enum WatchMonthChartEnum {bar, pie, grouped, line}
