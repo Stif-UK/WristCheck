@@ -54,7 +54,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
         returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior);
         break;
       case WatchMonthChartEnum.grouped:
-        returnChart =_buildGroupedChart(_getBasicChartData(widget.currentWatch));
+        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch));
         break;
       case WatchMonthChartEnum.line:
         returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch));
@@ -102,9 +102,29 @@ Widget _buildBarChart(List<MonthWearData> data) {
   );
 }
 
-Widget _buildGroupedChart(List<MonthWearData> data) {
-  //TODO: Create Grouped Chart
-  return Container(child: Text("Test Grouped Chart"),);
+Widget _buildGroupedChart(Map<int, List<MonthWearData>> data) {
+  var chartSeries = <StackedBarSeries>[];
+  for(int year in data.keys){
+
+    StackedBarSeries yearSeries = StackedBarSeries<MonthWearData, String>(
+      //groupName: year.toString(),
+      name: year.toString(),
+      dataSource: data[year]!.reversed.toList(), //reverse list to show January first
+      xValueMapper: (MonthWearData value, _) => WristCheckFormatter.getMonthName(int.parse(value.month)),
+      yValueMapper: (MonthWearData value, _) => value.count,
+    );
+    chartSeries.add(yearSeries);
+  }
+
+  return SfCartesianChart(
+    primaryXAxis: CategoryAxis(),
+    series: chartSeries,
+    legend: Legend(
+        isVisible: true,
+        position: LegendPosition.top,
+        title: LegendTitle(text: "Year")
+    ),
+  );
 }
 
 Widget _buildLineChart(Map<int, List<MonthWearData>> data) {

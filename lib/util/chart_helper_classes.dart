@@ -151,7 +151,7 @@ class ChartHelper{
         returnIcon = Icon(FontAwesomeIcons.chartPie);
         break;
       case WatchMonthChartEnum.grouped:
-        returnIcon = Icon(FontAwesomeIcons.rankingStar);
+        returnIcon = Icon(FontAwesomeIcons.magnifyingGlassChart);
         break;
       case WatchMonthChartEnum.line:
         returnIcon = Icon(FontAwesomeIcons.chartLine);
