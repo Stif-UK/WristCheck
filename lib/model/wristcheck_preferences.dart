@@ -23,9 +23,10 @@ class WristCheckPreferences {
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
-  static const _keyDefaultMonthChartType = 'defaultMonthChartType';
+  static const _keyDefaultMonthChartType = 'defaultMonthChartType'; //TODO: Remove in future release - last used in v1.10.3
   static const _keyDefaultMonthChartTypeV2 = 'defaultMonthChartTypev2';
-  static const _keyDefaultDayChartType = 'defaultDayChartType';
+  static const _keyDefaultDayChartType = 'defaultDayChartType'; //TODO: Remove in future release - last used in v1.10.3
+  static const _keyDefaultDayChartTypeV2 = 'defaultDayChartTypeV2';
 
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
@@ -271,7 +272,7 @@ class WristCheckPreferences {
     await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
   }
 
-  //Month charts: DEPRECATED //TODO: Remove in future release - last valid version v1.10.3
+  //Month charts: DEPRECATED //TODO: Remove in future release - last valid version v1.10.3 & replaced by v2
   static DefaultChartType? getDefaultMonthChartType()  {
     if(_preferences.getBool(_keyDefaultMonthChartType) == null){
       return DefaultChartType.bar;
@@ -325,7 +326,7 @@ class WristCheckPreferences {
     await _preferences.setString(_keyDefaultMonthChartType, preferredType.name);
   }
 
-  //Day charts
+  //Day charts - DEPRECATED TODO: Remove in next release, last relevant in v1.10.3
   static DefaultChartType? getDefaultDayChartType()  {
     if(_preferences.getBool(_keyDefaultDayChartType) == null){
       return DefaultChartType.bar;
@@ -340,6 +341,9 @@ class WristCheckPreferences {
     preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
     await _preferences.setBool(_keyDefaultDayChartType, _prefersBarCharts);
   }
+
+  //Day Charts v2
+  
 
   //Getter and Setter for last entitlement check date
   static DateTime? getLastEntitlementCheckDate() {
