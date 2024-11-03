@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -343,7 +344,40 @@ class WristCheckPreferences {
   }
 
   //Day Charts v2
-  
+
+  static WatchDayChartEnum getDefaultDayChartTypeV2()  {
+    if(_preferences.getBool(_keyDefaultDayChartTypeV2) == null){
+      return WatchDayChartEnum.bar;
+    } else{
+      String value = _preferences.getString(_keyDefaultDayChartTypeV2)!;
+      WatchDayChartEnum returnValue;
+
+      switch(value){
+        case "WatchDayChartEnum.bar":
+          returnValue = WatchDayChartEnum.bar;
+          break;
+        case "WatchDayChartEnum.pie":
+          returnValue = WatchDayChartEnum.pie;
+          break;
+        case "WatchDayChartEnum.line":
+          returnValue = WatchDayChartEnum.line;
+          break;
+        case "WatchDayChartEnum.grouped":
+          returnValue = WatchDayChartEnum.grouped;
+          break;
+        default:
+          returnValue = WatchDayChartEnum.bar;
+      }
+
+
+      return returnValue;
+    }
+  }
+
+  static Future setDefaultDayChartTypeV2(WatchDayChartEnum preferredType) async {
+    await _preferences.setString(_keyDefaultDayChartTypeV2, preferredType.name);
+  }
+
 
   //Getter and Setter for last entitlement check date
   static DateTime? getLastEntitlementCheckDate() {
