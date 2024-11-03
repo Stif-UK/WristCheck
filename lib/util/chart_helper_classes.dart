@@ -4,6 +4,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -176,6 +177,45 @@ class ChartHelper{
       index = 0;
     }
     wristCheckController.updateMonthChartPreference(values[index]);
+  }
+
+  //TODO: Merge this and MonthChartIcon method to take either type
+  static Icon getWatchDayChartIcon(WatchDayChartEnum type){
+    Icon returnIcon;
+
+    switch(type) {
+      case WatchDayChartEnum.bar:
+        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        break;
+      case WatchDayChartEnum.pie:
+        returnIcon = Icon(FontAwesomeIcons.chartPie);
+        break;
+      case WatchDayChartEnum.grouped:
+        returnIcon = Icon(FontAwesomeIcons.magnifyingGlassChart);
+        break;
+      case WatchDayChartEnum.line:
+        returnIcon = Icon(FontAwesomeIcons.chartLine);
+        break;
+      default:
+        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        break;
+    }
+
+    return returnIcon;
+
+  }
+
+  static getNextDayChart(WatchDayChartEnum type){
+    final wristCheckController = Get.put(WristCheckController());
+    List<WatchDayChartEnum> values = WatchDayChartEnum.values;
+    int index = 0;
+    int max = values.length;
+    index = values.indexOf(type);
+    index++;
+    if(index >= max){
+      index = 0;
+    }
+    wristCheckController.updateDayChartPreference(values[index]);
   }
 
 }

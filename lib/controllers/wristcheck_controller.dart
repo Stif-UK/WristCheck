@@ -4,6 +4,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/location.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
@@ -131,10 +132,10 @@ class WristCheckController extends GetxController {
   }
 
   //Track Day Chart preference
-  final dayChartPreference = WristCheckPreferences.getDefaultDayChartType().obs;
+  final dayChartPreference = WristCheckPreferences.getDefaultDayChartTypeV2().obs;
 
-  updateDayChartPreference(DefaultChartType type) async {
-    await WristCheckPreferences.setDefaultDayChartType(type);
+  updateDayChartPreference(WatchDayChartEnum type) async {
+    await WristCheckPreferences.setDefaultDayChartTypeV2(type);
     dayChartPreference(type);
   }
 

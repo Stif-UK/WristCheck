@@ -47,9 +47,9 @@ class WatchChartsBody extends StatelessWidget {
                 textAlign: TextAlign.start,),
               leading: Icon(FontAwesomeIcons.calendarDay),
               trailing: Obx( () => IconButton(
-                icon: wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
+                icon: ChartHelper.getWatchDayChartIcon(wristCheckController.dayChartPreference.value),
                 onPressed: (){
-                  wristCheckController.dayChartPreference.value == DefaultChartType.bar? wristCheckController.updateDayChartPreference(DefaultChartType.pie) : wristCheckController.updateDayChartPreference(DefaultChartType.bar);
+                  ChartHelper.getNextDayChart(wristCheckController.dayChartPreference.value);
                 },
               ),
               )

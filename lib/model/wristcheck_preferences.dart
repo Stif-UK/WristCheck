@@ -291,7 +291,7 @@ class WristCheckPreferences {
 
   //Month charts v2
   static WatchMonthChartEnum getDefaultMonthChartTypeV2()  {
-    if(_preferences.getBool(_keyDefaultMonthChartTypeV2) == null){
+    if(_preferences.getString(_keyDefaultMonthChartTypeV2) == null){
       return WatchMonthChartEnum.grouped;
     } else{
       String value = _preferences.getString(_keyDefaultMonthChartType)!;
@@ -346,7 +346,7 @@ class WristCheckPreferences {
   //Day Charts v2
 
   static WatchDayChartEnum getDefaultDayChartTypeV2()  {
-    if(_preferences.getBool(_keyDefaultDayChartTypeV2) == null){
+    if(_preferences.getString(_keyDefaultDayChartTypeV2) == null){
       return WatchDayChartEnum.bar;
     } else{
       String value = _preferences.getString(_keyDefaultDayChartTypeV2)!;
