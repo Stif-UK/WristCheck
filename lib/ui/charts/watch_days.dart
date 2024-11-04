@@ -70,7 +70,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
         returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior, widget.dayMap);
         break;
       case WatchDayChartEnum.grouped:
-        returnChart =_buildGroupedChart();
+        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch), widget.shortDayMap);
         break;
       case WatchDayChartEnum.line:
         returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch), widget.shortDayMap);
@@ -118,10 +118,27 @@ Widget _buildPieChart(List<DayWearData> data, TooltipBehavior tooltip, Map<int, 
       ]);
 }
 
-Widget _buildGroupedChart(){
-  return Container(
-    alignment: Alignment.center,
-    child: Text("Grouped Chart Here"),
+Widget _buildGroupedChart(Map<int, List<DayWearData>> data, Map<int, String> dayMap){
+  var chartSeries = <StackedBarSeries>[];
+  for(int month in data.keys){
+
+    StackedBarSeries yearSeries = StackedBarSeries<DayWearData, String>(
+      name: WristCheckFormatter.getMonthName(month),
+      dataSource: data[month]!.reversed.toList(), //reverse list to show January first
+      xValueMapper: (DayWearData value, _) => dayMap[value.day],
+      yValueMapper: (DayWearData value, _) => value.count,
+    );
+    chartSeries.add(yearSeries);
+  }
+
+  return SfCartesianChart(
+    primaryXAxis: CategoryAxis(),
+    series: chartSeries,
+    legend: Legend(
+        isVisible: true,
+        position: LegendPosition.top,
+        title: LegendTitle(text: "Month")
+    ),
   );
 }
 
