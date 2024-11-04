@@ -1,0 +1,1 @@
+enum WatchDayChartFilterEnum {all, thisYear, lastYear, last12months, last90days}
