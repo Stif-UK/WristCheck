@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/copy.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
@@ -54,6 +55,9 @@ class WatchChartsBody extends StatelessWidget {
               ),
               )
           ),
+          Obx(() => (wristCheckController.dayChartPreference.value == WatchDayChartEnum.line || wristCheckController.dayChartPreference.value == WatchDayChartEnum.grouped) ?
+          _buildToggleRow() :
+          const SizedBox(height: 0,)),
           WatchDayChart(currentWatch: currentWatch),
           //TODO: Implement graph by year
           // const Divider(thickness: 2,),
@@ -89,4 +93,14 @@ class WatchChartsBody extends StatelessWidget {
       ],
     );
   }
+}
+
+_buildToggleRow() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisSize: MainAxisSize.max,
+    children: [
+      Text("Toggles!")
+    ],
+  );
 }
