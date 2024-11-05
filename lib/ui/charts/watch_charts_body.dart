@@ -10,6 +10,7 @@ import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:choice/choice.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchChartsBody extends StatelessWidget {
   WatchChartsBody({
@@ -118,17 +119,17 @@ class WatchChartsBody extends StatelessWidget {
   _buildToggleRow() {
 
     void setSingleSelected(String? value) {
-      switch(value){
-        case 'all':
-          wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
-          break;
-        case 'lastYear':
-          wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.lastYear);
-          break;
-        default:
-          wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
-          break;
-      }
+      // switch(value){
+      //   case 'all':
+      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
+      //     break;
+      //   case 'lastYear':
+      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.lastYear);
+      //     break;
+      //   default:
+      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
+      //     break;
+      // }
       // wristCheckController.updateDayChartFilter(value!);
     }
 
@@ -141,7 +142,7 @@ class WatchChartsBody extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: Obx(()=> PromptedChoice<String>.single(
                   title: 'Filter:',
-                    value: wristCheckController.dayChartFilter.value.name,
+                    value: WristCheckFormatter.getDayFilterName(wristCheckController.dayChartFilter.value),
                     onChanged: setSingleSelected,
                     itemCount: WatchDayChartFilterEnum.values.length,
                     itemBuilder: (state, i) {
@@ -153,7 +154,7 @@ class WatchChartsBody extends StatelessWidget {
                               Navigator.pop(Get.context!);
                             },
                             title: ChoiceText(
-                              WatchDayChartFilterEnum.values[i].name,
+                              WristCheckFormatter.getDayFilterName(WatchDayChartFilterEnum.values[i]),
                               highlight: state.search?.value,
                             ),
                           ),

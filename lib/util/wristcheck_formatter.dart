@@ -4,6 +4,7 @@ import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 
 class WristCheckFormatter{
 
@@ -427,6 +428,30 @@ static String getCurrencyValue(String locale, int price, int? digits){
     String returnText = price == 0 ? "": NumberFormat.simpleCurrency(locale: locale, decimalDigits: digits).format(price);
 
     return returnText;
+}
+
+static String getDayFilterName(WatchDayChartFilterEnum filter){
+    String returnString = "";
+
+    switch(filter) {
+      case WatchDayChartFilterEnum.all:
+        returnString = "All";
+        break;
+      case WatchDayChartFilterEnum.thisYear:
+        returnString = "This Year";
+        break;
+      case WatchDayChartFilterEnum.lastYear:
+        returnString = "Last Year";
+        break;
+      case WatchDayChartFilterEnum.last12months:
+        returnString = "Last 12 months";
+        break;
+      case WatchDayChartFilterEnum.last90days:
+        returnString = "Last 90 days";
+        break;
+    }
+
+    return returnString;
 }
 
 }
