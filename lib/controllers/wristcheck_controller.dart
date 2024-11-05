@@ -7,6 +7,7 @@ import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -124,15 +125,20 @@ class WristCheckController extends GetxController {
     lastServicingTabIndex(index);
   }
 
-  //Track Month Chart preference
+  //Track Month Chart preference & filters
   final monthChartPreference = WristCheckPreferences.getDefaultMonthChartTypeV2().obs;
+  final monthChartFilter = WatchMonthChartFilterEnum.all.obs;
 
   updateMonthChartPreference(WatchMonthChartEnum type) async {
     await WristCheckPreferences.setDefaultMonthChartTypeV2(type);
     monthChartPreference(type);
   }
 
-  //Track Day Chart preference
+  updateMonthChartFilter(WatchMonthChartFilterEnum newFilter){
+    monthChartFilter(newFilter);
+  }
+
+  //Track Day Chart preference & filters
   final dayChartPreference = WristCheckPreferences.getDefaultDayChartTypeV2().obs;
   final dayChartFilter = WatchDayChartFilterEnum.all.obs;
 
