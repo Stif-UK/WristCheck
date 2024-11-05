@@ -208,10 +208,10 @@ Map<int, List<DayWearData>> _getSplitChartData(Watches watch, WatchDayChartFilte
       dateList = dateList.where((i) => i.year == DateTime.now().year-1).toList();
       break;
     case WatchDayChartFilterEnum.last12months:
-      // TODO: Handle this case.
+      dateList = dateList.where((i) => DateTime.now().difference(i).inDays < 365).toList();
       break;
     case WatchDayChartFilterEnum.last90days:
-      // TODO: Handle this case.
+      dateList = dateList.where((i) => DateTime.now().difference(i).inDays < 90).toList();
       break;
     default:
       dateList = dateList;
