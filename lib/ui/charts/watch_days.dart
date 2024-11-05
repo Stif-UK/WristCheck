@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
+import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -70,10 +71,10 @@ class _WatchDayChartState extends State<WatchDayChart> {
         returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior, widget.dayMap);
         break;
       case WatchDayChartEnum.grouped:
-        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch), widget.shortDayMap);
+        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
         break;
       case WatchDayChartEnum.line:
-        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch), widget.shortDayMap);
+        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
         break;
       default:
         returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch), widget.dayMap);
@@ -191,10 +192,30 @@ List<DayWearData> _getBasicChartData(Watches currentWatch){
     return returnList;
 }
 
-Map<int, List<DayWearData>> _getSplitChartData(Watches watch){
+Map<int, List<DayWearData>> _getSplitChartData(Watches watch, WatchDayChartFilterEnum filter){
   //First create a list of months
   List<int> months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
+  List<DateTime> dateList = watch.wearList;
+  //Apply requested filter
+  switch(filter) {
+    case WatchDayChartFilterEnum.all:
+      dateList = dateList;
+      break;
+    case WatchDayChartFilterEnum.thisYear:
+      dateList = dateList.where((i) => i.year == DateTime.now().year).toList();
+      break;
+    case WatchDayChartFilterEnum.lastYear:
+      dateList = dateList.where((i) => i.year == DateTime.now().year-1).toList();
+      break;
+    case WatchDayChartFilterEnum.last12months:
+      // TODO: Handle this case.
+      break;
+    case WatchDayChartFilterEnum.last90days:
+      // TODO: Handle this case.
+      break;
+    default:
+      dateList = dateList;
+  }
 
   //Map<MONTH, MAP<DAY, COUNT>>
 
@@ -207,7 +228,7 @@ Map<int, List<DayWearData>> _getSplitChartData(Watches watch){
       chartData[i] = 0;
     }
     //Populate Counts
-    for(DateTime wearDate in watch.wearList){
+    for(DateTime wearDate in dateList){
       if(wearDate.month == selectedMonth) {
         int day = wearDate.weekday;
         chartData.update(day, (value) => ++value);
