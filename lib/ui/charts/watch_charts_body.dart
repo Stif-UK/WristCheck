@@ -69,13 +69,7 @@ class WatchChartsBody extends StatelessWidget {
                   ),
               )
           ),
-          Obx(() =>
-          (wristCheckController.dayChartPreference.value ==
-              WatchDayChartEnum.line ||
-              wristCheckController.dayChartPreference.value ==
-                  WatchDayChartEnum.grouped) ?
-          _buildToggleRow() :
-          const SizedBox(height: 0,)),
+          _buildToggleRow(),
           WatchDayChart(currentWatch: currentWatch),
           //TODO: Implement graph by year
           // const Divider(thickness: 2,),
@@ -119,18 +113,6 @@ class WatchChartsBody extends StatelessWidget {
   _buildToggleRow() {
 
     void setSingleSelected(String? value) {
-      // switch(value){
-      //   case 'all':
-      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
-      //     break;
-      //   case 'lastYear':
-      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.lastYear);
-      //     break;
-      //   default:
-      //     wristCheckController.updateDayChartFilter(WatchDayChartFilterEnum.all);
-      //     break;
-      // }
-      // wristCheckController.updateDayChartFilter(value!);
     }
 
     return Row(

@@ -65,10 +65,10 @@ class _WatchDayChartState extends State<WatchDayChart> {
 
     switch(type){
       case WatchDayChartEnum.bar:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch), widget.dayMap);
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.dayMap);
         break;
       case WatchDayChartEnum.pie:
-        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior, widget.dayMap);
+        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), _tooltipBehavior, widget.dayMap);
         break;
       case WatchDayChartEnum.grouped:
         returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
@@ -77,7 +77,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
         returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
         break;
       default:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch), widget.dayMap);
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.dayMap);
         break;
     }
 
@@ -170,7 +170,7 @@ Widget _buildLineChart(Map<int, List<DayWearData>> data, Map<int, String> dayMap
 
 
 
-List<DayWearData> _getBasicChartData(Watches currentWatch){
+List<DayWearData> _getBasicChartData(Watches currentWatch, WatchDayChartFilterEnum filter){
   //Calculate the chart data - generate a map of days and counts
   Map<int,int> chartData = <int,int>{};
 
@@ -179,8 +179,11 @@ List<DayWearData> _getBasicChartData(Watches currentWatch){
     chartData[i] = 0;
   }
 
+  //apply filter
+  List<DateTime> dateList = filterList(currentWatch.wearList, filter);
+
   //Populate Counts
-  for(DateTime wearDate in currentWatch.wearList){
+  for(DateTime wearDate in dateList){
     int day = wearDate.weekday;
     chartData.update(day, (value) => ++value);
   }
@@ -195,29 +198,8 @@ List<DayWearData> _getBasicChartData(Watches currentWatch){
 Map<int, List<DayWearData>> _getSplitChartData(Watches watch, WatchDayChartFilterEnum filter){
   //First create a list of months
   List<int> months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  List<DateTime> dateList = watch.wearList;
-  //Apply requested filter
-  switch(filter) {
-    case WatchDayChartFilterEnum.all:
-      dateList = dateList;
-      break;
-    case WatchDayChartFilterEnum.thisYear:
-      dateList = dateList.where((i) => i.year == DateTime.now().year).toList();
-      break;
-    case WatchDayChartFilterEnum.lastYear:
-      dateList = dateList.where((i) => i.year == DateTime.now().year-1).toList();
-      break;
-    case WatchDayChartFilterEnum.last12months:
-      dateList = dateList.where((i) => DateTime.now().difference(i).inDays < 365).toList();
-      break;
-    case WatchDayChartFilterEnum.last90days:
-      dateList = dateList.where((i) => DateTime.now().difference(i).inDays < 90).toList();
-      break;
-    default:
-      dateList = dateList;
-  }
-
-  //Map<MONTH, MAP<DAY, COUNT>>
+  //apply filter
+  List<DateTime> dateList = filterList(watch.wearList, filter);
 
   //Create a map of months with sub-map for days to capture counts
   Map<int, Map<int, int>> dataMap = {};
@@ -252,6 +234,32 @@ Map<int, List<DayWearData>> _getSplitChartData(Watches watch, WatchDayChartFilte
   }
   //return the data
   return returnMap;
+}
+
+List<DateTime> filterList(List<DateTime> input, WatchDayChartFilterEnum filter){
+
+  List<DateTime> returnList = input;
+  switch(filter) {
+    case WatchDayChartFilterEnum.all:
+      returnList = returnList;
+      break;
+    case WatchDayChartFilterEnum.thisYear:
+      returnList = returnList.where((i) => i.year == DateTime.now().year).toList();
+      break;
+    case WatchDayChartFilterEnum.lastYear:
+      returnList = returnList.where((i) => i.year == DateTime.now().year-1).toList();
+      break;
+    case WatchDayChartFilterEnum.last12months:
+      returnList = returnList.where((i) => DateTime.now().difference(i).inDays < 365).toList();
+      break;
+    case WatchDayChartFilterEnum.last90days:
+      returnList = returnList.where((i) => DateTime.now().difference(i).inDays < 90).toList();
+      break;
+    default:
+      returnList = returnList;
+  }
+
+  return returnList;
 }
 
 class DayWearData{
