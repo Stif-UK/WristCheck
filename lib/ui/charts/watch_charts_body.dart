@@ -71,6 +71,7 @@ class WatchChartsBody extends StatelessWidget {
           ),
           _buildToggleRow(),
           WatchDayChart(currentWatch: currentWatch),
+          SizedBox(height: 50,), //Add some space at the bottom of the page
           //TODO: Implement graph by year
           // const Divider(thickness: 2,),
           // ListTile(
