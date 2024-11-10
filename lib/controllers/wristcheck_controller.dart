@@ -178,5 +178,14 @@ final dateListLength = 0.obs;
     dateListLength(length);
   }
 
+  //First Day of the week preference
+final firstDayOfWeek = 7.obs;
+
+  updateFirstDayOfWeek(int day){
+    if(day > 0 && day < 8){
+      firstDayOfWeek(day);
+    }
+  }
+
 
 }

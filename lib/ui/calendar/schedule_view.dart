@@ -77,42 +77,44 @@ class _ScheduleViewState extends State<ScheduleView> {
           child: ValueListenableBuilder(
         valueListenable: watchBox.listenable(),
         builder: (context, box, _) {
-          return SfCalendar(
-            view: CalendarView.month,
-            dataSource: _getCalendarDataSource(),
-            monthViewSettings: MonthViewSettings(showAgenda: true,
-                showTrailingAndLeadingDates: false,
-                agendaStyle: AgendaStyle(
-                    appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
-            initialSelectedDate: DateTime.now(),
-            onTap: (CalendarTapDetails details){
-              //if date cell is tapped on, we set the current selected date
-              widget.wristCheckController.updateSelectedDate(details.date);
-              //if an "appointment" is tapped on, show the details of the event
-              if(details.targetElement == CalendarElement.appointment){
-                Appointment currentAppointment = details.appointments!.first;
-                String summary = currentAppointment.subject;
-                Get.defaultDialog(
-                    title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
-                    content: Column(
-                      children: [
-                        Text(summary),
-                      ],
-                    )
-                );
-              }
+          return Obx(()=> SfCalendar(
+              firstDayOfWeek: widget.wristCheckController.firstDayOfWeek.value,
+              view: CalendarView.month,
+              dataSource: _getCalendarDataSource(),
+              monthViewSettings: MonthViewSettings(showAgenda: true,
+                  showTrailingAndLeadingDates: false,
+                  agendaStyle: AgendaStyle(
+                      appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
+              initialSelectedDate: DateTime.now(),
+              onTap: (CalendarTapDetails details){
+                //if date cell is tapped on, we set the current selected date
+                widget.wristCheckController.updateSelectedDate(details.date);
+                //if an "appointment" is tapped on, show the details of the event
+                if(details.targetElement == CalendarElement.appointment){
+                  Appointment currentAppointment = details.appointments!.first;
+                  String summary = currentAppointment.subject;
+                  Get.defaultDialog(
+                      title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                      content: Column(
+                        children: [
+                          Text(summary),
+                        ],
+                      )
+                  );
+                }
 
-            },
-            onViewChanged: (ViewChangedDetails details) {
-              //use pageLoaded to ensure this is not run on first load of the page
-              if(_pageLoaded){
-                print("tracking view change");
-                widget.wristCheckController.updateSelectedDate(null);
-                print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
-              }
-              print("setting page loaded to true");
-              _pageLoaded = true;
-            },
+              },
+              onViewChanged: (ViewChangedDetails details) {
+                //use pageLoaded to ensure this is not run on first load of the page
+                if(_pageLoaded){
+                  print("tracking view change");
+                  widget.wristCheckController.updateSelectedDate(null);
+                  print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
+                }
+                print("setting page loaded to true");
+                _pageLoaded = true;
+              },
+            ),
           );
 
         },

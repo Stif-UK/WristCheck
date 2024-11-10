@@ -209,7 +209,26 @@ class _ViewOptionsState extends State<ViewOptions> {
               
                     ],
                   ),
-                  const Divider(thickness: 2,)
+                  const Divider(thickness: 2,),
+                  ExpansionTile(
+                    title: Text("Calendar Options", style: Theme.of(context).textTheme.headlineSmall),
+                  leading: const Icon(FontAwesomeIcons.calendarWeek),
+                  children: [
+                    Row(
+                      children: [
+                        Text("First Day: "),
+                        Obx(()=> DropdownButton(
+                            value: widget.wristCheckController.firstDayOfWeek.value,
+                              items: dayDropdownItems,
+                              onChanged: (int? value) {
+                                widget.wristCheckController.updateFirstDayOfWeek(
+                                    value!);
+                              }
+                                    ),
+                        ),
+                      ],
+                    )
+                  ],)
                 ],
               ),
             ),
@@ -219,5 +238,17 @@ class _ViewOptionsState extends State<ViewOptions> {
         ],
       ),
     );
+  }
+  List<DropdownMenuItem<int>> get dayDropdownItems{
+    List<DropdownMenuItem<int>> menuItems = [
+      DropdownMenuItem(child: Text("Mon"),value: 1),
+      DropdownMenuItem(child: Text("Tue"),value: 2),
+      DropdownMenuItem(child: Text("Wed"),value: 3),
+      DropdownMenuItem(child: Text("Thu"),value: 4),
+      DropdownMenuItem(child: Text("Fri"),value: 5),
+      DropdownMenuItem(child: Text("Sat"),value: 6),
+      DropdownMenuItem(child: Text("Sun"),value: 7),
+    ];
+    return menuItems;
   }
 }
