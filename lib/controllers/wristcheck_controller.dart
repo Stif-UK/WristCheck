@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
+import 'package:wristcheck/model/enums/watch_year_chart_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -149,6 +150,13 @@ class WristCheckController extends GetxController {
 
   updateDayChartFilter(WatchDayChartFilterEnum newFilter){
     dayChartFilter(newFilter);
+  }
+
+  //Track Year Chart preference
+  final yearChartPreference = WatchYearChartEnum.bar.obs;
+
+  updateYearChartPreference(WatchYearChartEnum type) {
+    yearChartPreference(type);
   }
 
   //Fields for watch calendar view
