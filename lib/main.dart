@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -78,6 +79,9 @@ Future main() async{
   //Check if user has seen the first use demo
   final hasSeenDemo = WristCheckPreferences.getHasSeenDemo() ?? false;
 
+  //Get Controller
+  final wristCheckController = Get.put(WristCheckController());
+
   initializeDateFormatting().then((_)=>
   runApp(
 
@@ -89,18 +93,18 @@ Future main() async{
 
 
         ],
-            child: GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-            title: 'WristCheck',
+            child: Obx(()=> GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+              title: 'WristCheck',
 
-          theme: themeLight ,
-          darkTheme: themeDark,
-          themeMode: ThemeMode.system,
-          //ThemeMode.light,
-          //ThemeMode.system,
+                        theme: themeLight ,
+                        darkTheme: themeDark,
+                        themeMode: wristCheckController.lightThemeChoice.value,
+                        //themeMode: ThemeMode.system,
 
-          home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
-        )),
+                        home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
+                      ),
+            )),
       ));
 
 

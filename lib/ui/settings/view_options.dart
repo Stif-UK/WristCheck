@@ -60,6 +60,7 @@ class _ViewOptionsState extends State<ViewOptions> {
     int homePage = WristCheckPreferences.getHomePageIndex();
 
 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("View Options"),
@@ -232,7 +233,37 @@ class _ViewOptionsState extends State<ViewOptions> {
                         ),
                       ],
                     )
-                  ],)
+                  ],),
+                  const Divider(thickness: 2,),
+                  Obx(()=> ExpansionTile(
+                      title: Text("Light / Dark Theme", style: Theme.of(context).textTheme.headlineSmall,),
+                    leading: Icon(FontAwesomeIcons.lightbulb),
+                    children: [
+                      RadioListTile(
+                          title: const Text("Match System"),
+                          value: ThemeMode.system,
+                          groupValue: widget.wristCheckController.lightThemeChoice.value,
+                          onChanged:<LightThemeEnum>(value){
+                            widget.wristCheckController.updateLightThemeChoice(value);
+                          }
+                      ),
+                      RadioListTile(
+                          title: const Text("Light Theme"),
+                          value: ThemeMode.light,
+                          groupValue: widget.wristCheckController.lightThemeChoice.value,
+                          onChanged:<LightThemeEnum>(value){
+                          widget.wristCheckController.updateLightThemeChoice(value);
+                      }),
+                      RadioListTile(
+                          title: const Text("Dark Theme"),
+                          value: ThemeMode.dark,
+                          groupValue: widget.wristCheckController.lightThemeChoice.value,
+                          onChanged:<LightThemeEnum>(value){
+                          widget.wristCheckController.updateLightThemeChoice(value);
+                      }
+                      )
+                    ],),
+                  )
                 ],
               ),
             ),
@@ -243,6 +274,8 @@ class _ViewOptionsState extends State<ViewOptions> {
       ),
     );
   }
+
+
   List<DropdownMenuItem<int>> get dayDropdownItems{
     List<DropdownMenuItem<int>> menuItems = [
       DropdownMenuItem(child: Text("Monday"),value: 1),

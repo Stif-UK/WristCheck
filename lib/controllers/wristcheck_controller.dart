@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
-import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
@@ -188,5 +188,11 @@ final firstDayOfWeek = WristCheckPreferences.getFirstDayOfWeek().obs;
     }
   }
 
+  //Light/Dark theme preference
+final lightThemeChoice = ThemeMode.system.obs;
+
+  updateLightThemeChoice(ThemeMode theme){
+    lightThemeChoice(theme);
+  }
 
 }
