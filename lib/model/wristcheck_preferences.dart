@@ -53,6 +53,9 @@ class WristCheckPreferences {
   static const _keyEnableBeep = 'enableBeep';
   static const _keyMilitaryTime = 'militaryTime';
 
+  //Calendar - first day of week
+  static const _keyFirstDayOfWeek = 'firstDayOfWeek';
+
 
 
 
@@ -491,6 +494,17 @@ class WristCheckPreferences {
       index = 0;
     }
     return await _preferences.setInt(_keyHomePageIndex, index);
+  }
+
+  //Getter and Setter for first day of week
+  static int getFirstDayOfWeek() => _preferences.getInt(_keyFirstDayOfWeek) ?? 7;
+
+  static Future setFirstDayofWeek(int day) async {
+    //ensure the value is between 1 & 7
+    if(day < 1 || day > 7){
+      day = 7;
+    }
+    return await _preferences.setInt(_keyFirstDayOfWeek, day);
   }
 
 

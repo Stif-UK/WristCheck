@@ -179,10 +179,11 @@ final dateListLength = 0.obs;
   }
 
   //First Day of the week preference
-final firstDayOfWeek = 7.obs;
+final firstDayOfWeek = WristCheckPreferences.getFirstDayOfWeek().obs;
 
-  updateFirstDayOfWeek(int day){
+  updateFirstDayOfWeek(int day) async {
     if(day > 0 && day < 8){
+      await WristCheckPreferences.setFirstDayofWeek(day);
       firstDayOfWeek(day);
     }
   }
