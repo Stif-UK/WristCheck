@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
+import 'package:wristcheck/ui/charts/watch_years.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:choice/choice.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -74,6 +75,26 @@ class WatchChartsBody extends StatelessWidget {
           ),
           _buildDayFilterToggleRow(),
           WatchDayChart(currentWatch: currentWatch),
+          const Divider(thickness: 2,),
+          ListTile(title: Text("Wears by Year",
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headlineSmall,
+                    textAlign: TextAlign.start,),
+                    leading: Icon(FontAwesomeIcons.calendarWeek),
+                    trailing: Obx(() =>
+                    IconButton(
+                    icon: ChartHelper.getWatchDayChartIcon(
+                    wristCheckController.dayChartPreference.value),
+                    onPressed: () {
+                    ChartHelper.getNextDayChart(
+                    wristCheckController.dayChartPreference.value);
+                    },
+                    ),
+                    )
+          ),
+          WatchYearChart(currentWatch: currentWatch),
           SizedBox(height: 50,), //Add some space at the bottom of the page
           //TODO: Implement graph by year
           // const Divider(thickness: 2,),
