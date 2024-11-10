@@ -215,8 +215,12 @@ class _ViewOptionsState extends State<ViewOptions> {
                   leading: const Icon(FontAwesomeIcons.calendarWeek),
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("First Day: "),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text("First day of the week: ", style: Theme.of(context).textTheme.bodyLarge,),
+                        ),
                         Obx(()=> DropdownButton(
                             value: widget.wristCheckController.firstDayOfWeek.value,
                               items: dayDropdownItems,
@@ -241,13 +245,13 @@ class _ViewOptionsState extends State<ViewOptions> {
   }
   List<DropdownMenuItem<int>> get dayDropdownItems{
     List<DropdownMenuItem<int>> menuItems = [
-      DropdownMenuItem(child: Text("Mon"),value: 1),
-      DropdownMenuItem(child: Text("Tue"),value: 2),
-      DropdownMenuItem(child: Text("Wed"),value: 3),
-      DropdownMenuItem(child: Text("Thu"),value: 4),
-      DropdownMenuItem(child: Text("Fri"),value: 5),
-      DropdownMenuItem(child: Text("Sat"),value: 6),
-      DropdownMenuItem(child: Text("Sun"),value: 7),
+      DropdownMenuItem(child: Text("Monday"),value: 1),
+      DropdownMenuItem(child: Text("Tuesday"),value: 2),
+      DropdownMenuItem(child: Text("Wednesday"),value: 3),
+      DropdownMenuItem(child: Text("Thursday"),value: 4),
+      DropdownMenuItem(child: Text("Friday"),value: 5),
+      DropdownMenuItem(child: Text("Saturday"),value: 6),
+      DropdownMenuItem(child: Text("Sunday"),value: 7),
     ];
     return menuItems;
   }
