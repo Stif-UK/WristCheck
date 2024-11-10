@@ -5,6 +5,7 @@ import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 
 class WristCheckFormatter{
 
@@ -453,6 +454,28 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     return returnString;
 }
+
+  static String getMonthFilterName(WatchMonthChartFilterEnum filter){
+    String returnString = "";
+
+    switch(filter) {
+
+      case WatchMonthChartFilterEnum.all:
+        returnString = "All";
+        break;
+      case WatchMonthChartFilterEnum.thisYear:
+        returnString = "This Year";
+        break;
+      case WatchMonthChartFilterEnum.lastYear:
+        returnString = "Last Year";
+        break;
+      case WatchMonthChartFilterEnum.last12months:
+        returnString = "Last 12 Months";
+        break;
+    }
+
+    return returnString;
+  }
 
 }
 

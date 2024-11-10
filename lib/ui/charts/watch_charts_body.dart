@@ -12,6 +12,8 @@ import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:choice/choice.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
+import '../../model/enums/watch_month_chart_filter_enum.dart';
+
 class WatchChartsBody extends StatelessWidget {
   WatchChartsBody({
     Key? key,
@@ -48,6 +50,7 @@ class WatchChartsBody extends StatelessWidget {
                   ),
               )
           ),
+          _buildMonthFilterToggleRow(),
           WatchMonthChart(currentWatch: currentWatch),
           const Divider(thickness: 2,),
           ListTile(
@@ -69,7 +72,7 @@ class WatchChartsBody extends StatelessWidget {
                   ),
               )
           ),
-          _buildToggleRow(),
+          _buildDayFilterToggleRow(),
           WatchDayChart(currentWatch: currentWatch),
           SizedBox(height: 50,), //Add some space at the bottom of the page
           //TODO: Implement graph by year
@@ -111,7 +114,7 @@ class WatchChartsBody extends StatelessWidget {
   }
 
 
-  _buildToggleRow() {
+  _buildDayFilterToggleRow() {
 
     void setSingleSelected(String? value) {
     }
@@ -151,6 +154,48 @@ class WatchChartsBody extends StatelessWidget {
           )
         ],
       );
+  }
+
+  _buildMonthFilterToggleRow() {
+
+    void setSingleSelected(String? value) {
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 250,
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            child: Obx(()=> PromptedChoice<String>.single(
+              title: 'Filter:',
+              value: WristCheckFormatter.getMonthFilterName(wristCheckController.monthChartFilter.value),
+              onChanged: setSingleSelected,
+              itemCount: WatchMonthChartFilterEnum.values.length,
+              itemBuilder: (state, i) {
+                return Obx(()=> RadioListTile(
+                  value: wristCheckController.monthChartFilter.value,
+                  groupValue: state.single,
+                  onChanged: (value) {
+                    wristCheckController.updateMonthChartFilter(WatchMonthChartFilterEnum.values[i]);
+                    Navigator.pop(Get.context!);
+                  },
+                  title: ChoiceText(
+                    WristCheckFormatter.getMonthFilterName(WatchMonthChartFilterEnum.values[i]),
+                    highlight: state.search?.value,
+                  ),
+                ),
+                );
+              },
+              promptDelegate: ChoicePrompt.delegateBottomSheet(),
+              anchorBuilder: ChoiceAnchor.create(inline: true),
+            ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
 }
