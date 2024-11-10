@@ -49,10 +49,10 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
 
     switch(type){
       case WatchMonthChartEnum.bar:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch));
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
         break;
       case WatchMonthChartEnum.pie:
-        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior);
+        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value), _tooltipBehavior);
         break;
       case WatchMonthChartEnum.grouped:
         returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
@@ -61,7 +61,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
         returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
         break;
       default:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch));
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
         break;
     }
 
@@ -156,7 +156,10 @@ Widget _buildLineChart(Map<int, List<MonthWearData>> data) {
 }
 
 
-List<MonthWearData> _getBasicChartData(Watches watch) {
+List<MonthWearData> _getBasicChartData(Watches watch, WatchMonthChartFilterEnum filter) {
+  //Implement filter
+  List<DateTime> dateList = filterList(watch.wearList, filter);
+
   //Calculate the chart data - generate a map of months and counts for basic pie and bar charts
   Map<int,int> chartData = <int,int>{};
   //Populate Months
@@ -164,7 +167,7 @@ List<MonthWearData> _getBasicChartData(Watches watch) {
     chartData[i] = 0;
   }
   //Populate Counts
-  for(DateTime wearDate in watch.wearList){
+  for(DateTime wearDate in dateList){
     int month = wearDate.month;
     chartData.update(month, (value) => ++value);
   }
