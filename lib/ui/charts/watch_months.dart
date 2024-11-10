@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
+import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -220,6 +221,27 @@ Map<int, List<MonthWearData>> _getSplitChartData(Watches watch){
   }
   //return the data
   return returnMap;
+}
+
+List<DateTime> filterList(List<DateTime> input, WatchMonthChartFilterEnum filter){
+
+  List<DateTime> returnList = input;
+  switch(filter) {
+    case WatchMonthChartFilterEnum.all:
+      returnList = returnList;
+      break;
+    case WatchMonthChartFilterEnum.thisYear:
+      returnList = returnList.where((i) => i.year == DateTime.now().year).toList();
+      break;
+    case WatchMonthChartFilterEnum.lastYear:
+      returnList = returnList.where((i) => i.year == DateTime.now().year-1).toList();
+      break;
+    case WatchMonthChartFilterEnum.last12months:
+      returnList = returnList.where((i) => DateTime.now().difference(i).inDays < 365).toList();
+      break;
+  }
+
+  return returnList;
 }
 
 class MonthWearData{
