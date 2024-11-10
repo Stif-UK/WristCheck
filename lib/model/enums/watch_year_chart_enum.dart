@@ -1,0 +1,1 @@
+enum WatchYearChartEnum {bar, pie}
