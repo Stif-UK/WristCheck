@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/copy.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
+import 'package:wristcheck/model/enums/watch_year_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/charts/watch_days.dart';
 import 'package:wristcheck/ui/charts/watch_months.dart';
@@ -21,7 +22,7 @@ class WatchChartsBody extends StatelessWidget {
     required this.currentWatch
   }) : super(key: key);
 
-  Watches currentWatch;
+  final Watches currentWatch;
   final wristCheckController = Get.put(WristCheckController());
 
   @override
@@ -85,33 +86,19 @@ class WatchChartsBody extends StatelessWidget {
                     leading: Icon(FontAwesomeIcons.calendarWeek),
                     trailing: Obx(() =>
                     IconButton(
-                    icon: ChartHelper.getWatchDayChartIcon(
-                    wristCheckController.dayChartPreference.value),
+                    icon: wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
+                    Icon(FontAwesomeIcons.chartBar):
+                      Icon(FontAwesomeIcons.chartPie),
                     onPressed: () {
-                    ChartHelper.getNextDayChart(
-                    wristCheckController.dayChartPreference.value);
+                    wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
+                        wristCheckController.updateYearChartPreference(WatchYearChartEnum.pie) :
+                        wristCheckController.updateYearChartPreference(WatchYearChartEnum.bar);
                     },
                     ),
                     )
           ),
           WatchYearChart(currentWatch: currentWatch),
           SizedBox(height: 50,), //Add some space at the bottom of the page
-          //TODO: Implement graph by year
-          // const Divider(thickness: 2,),
-          // ListTile(
-          //     title: Text("Wears by Year",
-          //       style: Theme.of(context).textTheme.headlineSmall,
-          //       textAlign: TextAlign.start,),
-          //     leading: Icon(FontAwesomeIcons.calendarDay),
-          //     trailing: Obx( () => IconButton(
-          //       icon: wristCheckController.dayChartPreference.value == DefaultChartType.bar? Icon(FontAwesomeIcons.chartPie) : Icon(FontAwesomeIcons.chartSimple),
-          //       onPressed: (){
-          //         wristCheckController.dayChartPreference.value == DefaultChartType.bar? wristCheckController.updateDayChartPreference(DefaultChartType.pie) : wristCheckController.updateDayChartPreference(DefaultChartType.bar);
-          //       },
-          //     ),
-          //     )
-          // ),
-          // WatchDayChart(currentWatch: currentWatch),
         ],
       ),
     ) :

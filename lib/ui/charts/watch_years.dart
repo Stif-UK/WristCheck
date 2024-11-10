@@ -16,7 +16,7 @@ class WatchYearChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _getChart(wristCheckController.yearChartPreference.value);
+    return Obx(()=> _getChart(wristCheckController.yearChartPreference.value));
   }
 
   Widget _getChart(WatchYearChartEnum chartType){
