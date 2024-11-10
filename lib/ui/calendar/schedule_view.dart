@@ -229,7 +229,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                             hintText: "Search by watch name"
                         )
                     ),
-                    items: Boxes.getCollectionWatches(),
+                    items: Boxes.sortWatchBox(Boxes.getCollectionWatches(), widget.wristCheckController.watchboxOrder.value!),
                     onChanged: (watch){
                       widget.wristCheckController.updateNullWatchMemo(false);
                       widget.wristCheckController.updateSelectedWatch(watch);
