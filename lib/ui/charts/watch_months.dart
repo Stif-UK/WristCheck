@@ -55,10 +55,10 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
         returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch), _tooltipBehavior);
         break;
       case WatchMonthChartEnum.grouped:
-        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch));
+        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
         break;
       case WatchMonthChartEnum.line:
-        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch));
+        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.monthChartFilter.value));
         break;
       default:
         returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch));
@@ -178,10 +178,13 @@ List<MonthWearData> _getBasicChartData(Watches watch) {
   return getChartData;
 }
 
-Map<int, List<MonthWearData>> _getSplitChartData(Watches watch){
+Map<int, List<MonthWearData>> _getSplitChartData(Watches watch, WatchMonthChartFilterEnum filter){
+  //Implement filter
+  List<DateTime> dateList = filterList(watch.wearList, filter);
+
   //First create a list of years
   List<int> years = [];
-  for(DateTime date in watch.wearList){
+  for(DateTime date in dateList){
     if(!years.contains(date.year)){
       years.add(date.year);
     }
@@ -196,7 +199,7 @@ Map<int, List<MonthWearData>> _getSplitChartData(Watches watch){
       chartData[i] = 0;
     }
     //Populate Counts
-    for(DateTime wearDate in watch.wearList){
+    for(DateTime wearDate in dateList){
       if(wearDate.year == selectedYear) {
         int month = wearDate.month;
         chartData.update(month, (value) => ++value);
