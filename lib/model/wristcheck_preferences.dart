@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
@@ -55,6 +56,9 @@ class WristCheckPreferences {
 
   //Calendar - first day of week
   static const _keyFirstDayOfWeek = 'firstDayOfWeek';
+
+  //Light & Dark theme
+  static const _keyThemePreference = 'themePreference';
 
 
 
@@ -507,5 +511,32 @@ class WristCheckPreferences {
     return await _preferences.setInt(_keyFirstDayOfWeek, day);
   }
 
+  //Getter and setter for light/dark theme preference
+  static ThemeMode getThemePreference() {
+    String? value = _preferences.getString(_keyThemePreference);
+    ThemeMode returnValue;
+    switch (value){
+      case "ThemeMode.light":{
+        returnValue = ThemeMode.light;
+      }
+      break;
+      case "ThemeMode.dark":{
+        returnValue = ThemeMode.dark;
+      }
+      break;
+      case "ThemeMode.system":{
+        returnValue = ThemeMode.system;
+      }
+      break;
+      default:{
+        returnValue = ThemeMode.system;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setThemePreference(ThemeMode preferredTheme) async {
+    await _preferences.setString(_keyThemePreference, preferredTheme.toString());
+  }
 
 }

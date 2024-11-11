@@ -189,9 +189,10 @@ final firstDayOfWeek = WristCheckPreferences.getFirstDayOfWeek().obs;
   }
 
   //Light/Dark theme preference
-final lightThemeChoice = ThemeMode.system.obs;
+final lightThemeChoice = WristCheckPreferences.getThemePreference().obs;
 
-  updateLightThemeChoice(ThemeMode theme){
+  updateLightThemeChoice(ThemeMode theme) async {
+    await WristCheckPreferences.setThemePreference(theme);
     lightThemeChoice(theme);
   }
 
