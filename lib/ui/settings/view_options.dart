@@ -263,7 +263,8 @@ class _ViewOptionsState extends State<ViewOptions> {
                       }
                       )
                     ],),
-                  )
+                  ),
+                  const Divider(thickness: 2,)
                 ],
               ),
             ),
