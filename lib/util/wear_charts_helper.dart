@@ -46,6 +46,9 @@ class WearChartsHelper {
           returnString = "Month: $monthValue";
         }
         break;
+      case WearChartOptions.lastPurchase:
+        returnString = "Since Last Purchase";
+        break;
     }
 
     return returnString;
