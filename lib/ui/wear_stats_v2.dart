@@ -244,9 +244,11 @@ class _WearStatsState extends State<WearStatsV2> {
   double _calculateChartSpace(bool barChart, BuildContext context){
     double baseSize = MediaQuery.of(context).size.height*0.7;
     if(barChart){
-      int dataSize = _getLoadData().length;
-      if(dataSize > 15){
-        baseSize = baseSize*(dataSize / 15);
+      if(_getLoadData().length > 0){
+        int dataSize = _getLoadData().length;
+        if (dataSize > 15) {
+          baseSize = baseSize * (dataSize / 15);
+        }
       }
     }
 
