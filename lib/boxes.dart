@@ -354,13 +354,13 @@ class Boxes {
       case WearChartOptions.lastPurchase:{
         DateTime? lastPurchaseDate = getLastPurchaseDate(initialList);
         if(lastPurchaseDate != null){
-          returnValue = Boxes.getWatchesWornBetweenTwoDates(initialList, lastPurchaseDate, DateTime.now());
+          DateTime now = DateTime.now();
+          //set end date to tomorrow to avoid filtering out current date
+          DateTime tomorrow = now.add(Duration(days: 1));
+          returnValue = Boxes.getWatchesWornBetweenTwoDates(initialList, lastPurchaseDate, tomorrow);
         } else {
           returnValue = <Watches>[];
         }
-
-
-
       }
       break;
       case WearChartOptions.manual:{
