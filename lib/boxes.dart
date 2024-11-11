@@ -192,6 +192,38 @@ class Boxes {
 
   }
 
+  static List<Watches> getWatchesWornBetweenTwoDates(List<Watches> initialList, DateTime startDate, DateTime endDate){
+    //start by making the return list the whole box
+    var returnList = initialList;//Hive.box<Watches>("WatchBox").values.toList();
+    DateTime now = DateTime.now();
+    //Zero the filter list for all watches
+    for(var watch in returnList){
+      watch.filteredWearList = [];
+    }
+
+    //Start by reducing the returnlist to those watches which match the criteria - first greater than the startdate...
+    returnList = returnList.where((watch) => watch.wearList.any((element) => element.isAfter(startDate))).toList();
+    //then less than the end date
+    returnList = returnList.where((watch) => watch.wearList.any((element) => element.isBefore(endDate))).toList();
+
+    //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable - this drives the chart display
+    //To begin we make sure that the filteredWearList is instantiated with the full list of dates
+    for (var watch in returnList) {
+      watch.filteredWearList = List.from(watch.wearList);
+    }
+    //We then trim the dates
+    for (var watch in returnList) {
+      //instantiate an empty list in the watches filteredWearList variable
+      watch.filteredWearList!.removeWhere((date) => date.isBefore(startDate));
+      watch.filteredWearList!.removeWhere((date) => date.isAfter(endDate));
+    }
+
+    //finally before returning, sort the list if required
+    returnList = Boxes.sortWearChart(returnList);
+    return returnList;
+
+  }
+
   static List<Watches> sortWearChart(List<Watches> toSort){
     List<Watches> returnList = toSort;
 
@@ -319,6 +351,18 @@ class Boxes {
         returnValue = Boxes.getRollingWatchesWornFilter(initialList, 90);
       }
       break;
+      case WearChartOptions.lastPurchase:{
+        DateTime? lastPurchaseDate = getLastPurchaseDate(initialList);
+        if(lastPurchaseDate != null){
+          returnValue = Boxes.getWatchesWornBetweenTwoDates(initialList, lastPurchaseDate, DateTime.now());
+        } else {
+          returnValue = <Watches>[];
+        }
+
+
+
+      }
+      break;
       case WearChartOptions.manual:{
         var controller = Get.put(FilterController());
         int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
@@ -331,6 +375,18 @@ class Boxes {
       }
     }
     return returnValue;
+  }
+
+  static DateTime? getLastPurchaseDate(List<Watches> initialList){
+    //remove nulls
+    initialList.removeWhere((watch) => watch.purchaseDate == null);
+
+    //Sort list
+    initialList.sort((a, b) => b.purchaseDate!.compareTo(a.purchaseDate!));
+
+    return initialList.first.purchaseDate!;
+
+
   }
 
   static List<Watches> runCategoryFilter(List<Watches> watchList, List<CategoryEnum> categories){
