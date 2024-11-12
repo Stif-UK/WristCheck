@@ -210,6 +210,7 @@ class _WearStatsState extends State<WearStatsV2> {
     return WearChartsHelper.getAdvancedFilterHeaderText(
         widget.filterController.includeCollection.value,
         widget.filterController.includeSold.value,
+        widget.filterController.includeRetired.value,
         widget.filterController.includeArchived.value,
         widget.filterController.pickGrouping.value,
         widget.filterController.chartGrouping.value,

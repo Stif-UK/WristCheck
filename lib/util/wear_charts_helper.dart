@@ -54,7 +54,7 @@ class WearChartsHelper {
     return returnString;
   }
 
-  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
+  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showRetired, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
 
     String returnText = "";
     //Text for grouping
@@ -90,6 +90,10 @@ class WearChartsHelper {
     //Text for including sold watches
     if(showSold){
       returnText = "$returnText inc. Sold, ";
+    }
+    //Text for including retired watches
+    if(showRetired){
+      returnText = "$returnText inc. Retired, ";
     }
     //Text for including archived watches
     if(showArchived){
