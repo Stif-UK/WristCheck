@@ -229,6 +229,7 @@ class _WearStatsState extends State<WearStatsV2> {
     return Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
         widget.filterController.includeCollection.value,
         widget.filterController.includeSold.value,
+        widget.filterController.includeRetired.value,
         widget.filterController.includeArchived.value,
         widget.filterController.filterByCategory.value,
         widget.filterController.selectedCategories,

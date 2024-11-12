@@ -325,6 +325,15 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
+          title: Text("Include Retired Watches"),
+          value: widget.filterController.includeRetired.value ,
+          onChanged: (newValue){
+            widget.filterController.updateIncludeRetired(newValue);
+          },
+        ),
+        ),
+        const Divider(thickness: 2,),
+        Obx(()=> SwitchListTile(
             title: Text("Include Archived Watches"),
             value: widget.filterController.includeArchived.value ,
             onChanged: (newValue){

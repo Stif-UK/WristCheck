@@ -305,7 +305,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
+  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
 
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
@@ -316,6 +316,9 @@ class Boxes {
     }
     if(incSold){
       initialList.addAll(Boxes.getSoldWatches());
+    }
+    if(incRetired){
+      initialList.addAll(Boxes.getRetiredWatches());
     }
     if(incArchived){
       initialList.addAll(Boxes.getArchivedWatches());
