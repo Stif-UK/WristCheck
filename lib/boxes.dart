@@ -48,6 +48,9 @@ class Boxes {
       case CollectionView.preorder:
         returnlist = getPreOrderWatches();
         break;
+      case CollectionView.retired:
+        returnlist = getRetiredWatches();
+        break;
     }
 
     return returnlist;
@@ -95,6 +98,10 @@ class Boxes {
 
   static List<Watches> getPreOrderWatches() {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Pre-Order").toList();
+  }
+
+  static List<Watches> getRetiredWatches() {
+    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == "Retired").toList();
   }
 
   static List<Watches> getFavouriteWatches() {

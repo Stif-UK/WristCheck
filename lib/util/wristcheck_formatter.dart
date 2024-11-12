@@ -64,6 +64,9 @@ class WristCheckFormatter{
       case CollectionView.preorder:
         returnText = "Pre-Orders";
         break;
+      case CollectionView.retired:
+        returnText = "Retired Watches";
+        break;
     }
 
     return returnText;
