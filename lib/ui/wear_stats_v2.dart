@@ -115,7 +115,7 @@ class _WearStatsState extends State<WearStatsV2> {
   }
 
   bool get _showAdvanced {
-    return !widget.filterController.includeCollection.value || widget.filterController.includeSold.value ||
+    return !widget.filterController.includeCollection.value || widget.filterController.includeSold.value || widget.filterController.includeRetired.value ||
         widget.filterController.includeArchived.value || widget.filterController.pickGrouping.value || widget.filterController.filterByCategory.value || widget.filterController.filterByMovement.value;
   }
 
