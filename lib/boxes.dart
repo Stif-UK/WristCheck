@@ -362,7 +362,9 @@ class Boxes {
       }
       break;
       case WearChartOptions.lastPurchase:{
-        DateTime? lastPurchaseDate = getLastPurchaseDate(initialList);
+        //Use a copy of list to get the last purchase date to avoid deleting values from the list
+        List<Watches> copyList = List.from(initialList);
+        DateTime? lastPurchaseDate = getLastPurchaseDate(copyList);
         if(lastPurchaseDate != null){
           DateTime now = DateTime.now();
           //set end date to tomorrow to avoid filtering out current date
