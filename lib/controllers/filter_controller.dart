@@ -18,6 +18,7 @@ class FilterController extends GetxController{
   final selectedYear = "All".obs;
   final includeCollection = true.obs;
   final includeSold = false.obs;
+  final includeRetired = false.obs;
   final includeArchived = false.obs;
   final filterByCategory = false.obs;
   final filterByMovement = false.obs;
@@ -30,6 +31,7 @@ class FilterController extends GetxController{
 
   resetToDefaults(){
     includeCollection(true);
+    includeRetired(false);
     includeSold(false);
     includeArchived(false);
     filterByCategory(false);
@@ -90,6 +92,10 @@ class FilterController extends GetxController{
 
   updateIncludeSold(bool showSold){
     includeSold(showSold);
+  }
+
+  updateIncludeRetired(bool showRetired){
+    includeRetired(showRetired);
   }
 
   updateIncludeArchived(bool showArchived){
