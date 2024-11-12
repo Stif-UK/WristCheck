@@ -15,7 +15,8 @@ class WatchStatusHeader extends StatelessWidget {
   final watchViewController = Get.put(WatchViewController());
   final Watches? currentWatch;
 
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Archived"];
+  //TODO: This is the only place to select status (validate accuracy of this?) starting point for refactor to enum
+  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
 
   @override
   Widget build(BuildContext context) {
