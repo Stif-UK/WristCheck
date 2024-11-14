@@ -4,6 +4,7 @@ import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
+import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WearChartsHelper {
@@ -102,5 +103,26 @@ class WearChartsHelper {
     returnText = returnText.trim();
 
     return returnText.substring(0, returnText.length-1);
+  }
+
+  static String getLabelSuffix(Watches watch){
+    String returnString = "";
+
+    switch(watch.status){
+      case "Sold":
+        returnString = "(Sold)";
+        break;
+      case "Retired":
+        returnString = "(Retired)";
+        break;
+      case "Archived":
+        returnString = "(Archived)";
+        break;
+      default:
+        returnString = "";
+        break;
+    }
+
+    return returnString;
   }
 }
