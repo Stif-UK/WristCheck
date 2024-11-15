@@ -184,13 +184,36 @@ class WristCheckDialogs {
   }
 
   static getWhatsNewDialog(BuildContext context){
-    Get.defaultDialog(
-      title: "What's New?",
-      content: SizedBox(
-          width: (MediaQuery.of(context).size.width)*0.7,
-          height:(MediaQuery.of(context).size.width)*0.65,
-          child: Markdown(data: WhatsNewCopy.getLatestVersionCopy(),))
+    Get.bottomSheet(
+      backgroundColor: Theme.of(Get.context!).dialogBackgroundColor,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(35),
+          ),
+      Container(
+          height: MediaQuery.of(context).size.height, //*0.85,
+        child: SingleChildScrollView(
+          child: Column(
+            //mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("What's new?", style: Theme.of(Get.context!).textTheme.headlineMedium,),
+              ),
+              Markdown(data: WhatsNewCopy.getLatestVersionCopy(),
+              shrinkWrap: true,),
+              const Divider(thickness: 2,),
+            ],
+          ),
+        )
+      )
     );
+    // Get.defaultDialog(
+    //   title: "What's New?",
+    //   content: SizedBox(
+    //       width: (MediaQuery.of(context).size.width)*0.7,
+    //       height:(MediaQuery.of(context).size.width)*0.65,
+    //       child: Markdown(data: WhatsNewCopy.getLatestVersionCopy(),))
+    // );
   }
 
   static getFutureDateDialog(){
