@@ -5,13 +5,15 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.10.3 \n"
+        "### Version 1.11 \n"
         "\n"
 
-            "* Default chart ordering now matches watchbox ordering\n"
-            "* Added ability to delete wear info from the Calendar view\n"
-            "* Pro: New Cost Per Wear chart in Collection stats\n"
-            "* Bug fixes & Improvements";
+            "* New 'Retired' status added to tracking\n"
+            "* Ability to choose first day of week for calendar view added\n"
+            "* Can now filter wear charts 'since last purchase'\n"
+            "* Dark/Light theme can now be selected manually, in addition to system default\n"
+            "* (Pro) Improvements to the day and month watch charts\n"
+            "* Additional Bug fixes & Improvements";
 
   }
 
@@ -25,6 +27,20 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.11 \n"
+                      "\n"
+
+                      "* New 'Retired' status added to tracking\n"
+                      "* Ability to choose first day of week for calendar view added\n"
+                      "* Can now filter wear charts 'since last purchase'\n"
+                      "* Dark/Light theme can now be selected manually, in addition to system default\n"
+                      "* (Pro) Improvements to the day and month watch charts\n"
+                      "* Code refactor of watch pages and tabs to allow future expansion\n"
+                      "* New UI for 'what's new' screen\n"
+                      "* Watch Picker on calendar view now returns watches in same order as watch box view selection \n"
+                      "---\n\n"
+
+
                       "### Version 1.10.3 \n"
                       "\n"
 
@@ -59,8 +75,8 @@ class WhatsNewCopy{
 
                       "* Added CSV data extract options\n"
                       "* Calendar view added to each watch record\n"
-                      "* Pro: Ability to set a 2nd daily reminder\n"
-                      "* Pro: Watch weekday & month wear charts\n"
+                      "* (Pro) Ability to set a 2nd daily reminder\n"
+                      "* (Pro) Watch weekday & month wear charts\n"
                       "---\n\n"
                       "### Version 1.8.0 \n"
                       "\n"

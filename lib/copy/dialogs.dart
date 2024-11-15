@@ -197,11 +197,10 @@ class WristCheckDialogs {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("What's new?", style: Theme.of(Get.context!).textTheme.headlineMedium,),
+                child: Text("WristTrack just updated...", style: Theme.of(Get.context!).textTheme.headlineMedium, textAlign: TextAlign.center,),
               ),
               Markdown(data: WhatsNewCopy.getLatestVersionCopy(),
               shrinkWrap: true,),
-              const Divider(thickness: 2,),
             ],
           ),
         )
