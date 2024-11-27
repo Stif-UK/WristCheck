@@ -11,6 +11,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/time/moon_phase.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:flutter_kronos/flutter_kronos.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -66,6 +67,7 @@ class _TimeSettingState extends State<TimeSetting> {
       child: Obx(() => Column(
           children: [
             Expanded(
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +140,7 @@ class _TimeSettingState extends State<TimeSetting> {
                 ],
               ),
             ),
-            widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+            widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? Expanded(flex: 5, child: MoonPhaseWidget()) : _buildAdSpace(banner, context),
             const SizedBox(height: 20,)
 
           ],

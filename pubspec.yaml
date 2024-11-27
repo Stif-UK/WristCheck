@@ -75,6 +75,7 @@ dependencies:
   audioplayers: ^6.0.0
   flutter_kronos:
     path: ../flutter-kronos/
+  moon_phase_plus: ^1.0.1+6
 
 dependency_overrides:
   watcher: ^1.1.0
