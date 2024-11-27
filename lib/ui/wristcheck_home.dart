@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
-import 'package:wristcheck/ui/time_setting.dart';
+import 'package:wristcheck/ui/time/time_setting.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
 
