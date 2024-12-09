@@ -18,7 +18,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class WristCheckController extends GetxController {
 
   //Manage app purchase status
-  final isAppPro = WristCheckPreferences.getAppPurchasedStatus()!.obs;
+  final isAppPro =  WristCheckPreferences.getAppPurchasedStatus()!.obs;
   //Manage Watchbox view order
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
