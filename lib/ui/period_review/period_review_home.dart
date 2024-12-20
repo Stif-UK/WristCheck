@@ -18,9 +18,9 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Period Review"),
+        title: Text("Wrist Recap"),
       ),
-      body: calculateEnoughData()? notEnoughData() : PeriodReviewLanding(),
+      body: calculateEnoughData()? PeriodReviewLanding() : notEnoughData(),
     );
   }
 
@@ -29,6 +29,7 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
    */
   bool calculateEnoughData() {
     bool result = false;
+    print("Watchbox length: ${watchBox.length}");
     if(watchBox.length > 0){
       int count = 0;
       for(Watches watch in watchBox){
@@ -37,6 +38,8 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
       if(count > 30){
         result = true;
       }
+      print("Enough data count: $count");
+      print("Result: $result");
     }
     return result;
   }

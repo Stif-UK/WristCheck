@@ -129,7 +129,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                     child: ElevatedButton(
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text("Review",
+                          child: Text("Wrist Recap",
                             style: TextStyle(
                               fontSize: 30,
                             ),),
