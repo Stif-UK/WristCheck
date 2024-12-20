@@ -9,12 +9,20 @@ class PeriodReviewLanding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Landing"),
-        ElevatedButton(child: Text("submit"),
-        onPressed: () =>reviewController.updateReviewState(ReviewState.loading),)
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text("Welcome to the WristTrack Wrist Recap!\n\n"
+                "Here you can generate a summary of your wrist habits over a selected period.\n\n",
+            style: Theme.of(context).textTheme.bodyLarge,),
+          ),
+          ElevatedButton(child: Text("Generate 2024 Wrist Recap"),
+          onPressed: () =>reviewController.updateReviewState(ReviewState.loading),)
+        ],
+      ),
     );
   }
 }

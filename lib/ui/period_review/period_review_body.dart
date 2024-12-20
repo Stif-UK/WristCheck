@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/model/enums/review_state.dart';
-import 'package:wristcheck/ui/StatsWidget.dart';
-import 'package:wristcheck/ui/calendar/calendarhome.dart';
 import 'package:wristcheck/ui/period_review/states/period_review_landing.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:get/get.dart';
