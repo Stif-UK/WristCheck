@@ -4,6 +4,7 @@ import 'package:wristcheck/ui/period_review/states/period_review_landing.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/period_review/states/period_review_loading.dart';
+import 'package:wristcheck/ui/period_review/states/period_review_results.dart';
 
 class PeriodReviewBody extends StatelessWidget {
   PeriodReviewBody({super.key});
@@ -33,7 +34,7 @@ class PeriodReviewBody extends StatelessWidget {
         return PeriodReviewLoading();
         break;
       case ReviewState.showResults:
-      // TODO: Handle this case.
+        return PeriodReviewResults();
         break;
       default:
         return PeriodReviewLanding();
