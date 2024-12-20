@@ -24,17 +24,15 @@ class PeriodReviewHelper{
     //Sort the list based on most to least worn in the year
     wornInPeriodWatchList.sort((a, b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
 
-    //Calculate total wears in the year
+    //Calculate total wears in the year and pass to controller
     int count = 0;
     for(Watches watch in wornInPeriodWatchList){
       count = count + watch.filteredWearList!.length;
     }
     reviewController.updateWearsInPeriod(count);
 
-    print(wornInPeriodWatchList);
-    for(int index = 0; index <3; index++){
-      print("Most worn position ${index+1}: ${wornInPeriodWatchList[index].manufacturer} ${wornInPeriodWatchList[index].model}, worn ${wornInPeriodWatchList[index].filteredWearList!.length} times");
-    }
+    //Pass list of watches to controller
+    reviewController.updateWearsInPeriodWatchList(wornInPeriodWatchList);
 
 
   }
