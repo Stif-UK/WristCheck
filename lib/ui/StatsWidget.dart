@@ -7,6 +7,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
+import 'package:wristcheck/ui/period_review/period_review_home.dart';
 import 'package:wristcheck/ui/wear_stats_v2.dart';
 
 import '../provider/adstate.dart';
@@ -59,12 +60,12 @@ class _StatsWidgetState extends State<StatsWidget> {
 
               children: [
                 //Button 1: Link to Wear Stats
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
                     width: (MediaQuery.of(context).size.width)*0.8,
-                    height: (MediaQuery.of(context).size.height)*0.15,
+                    height: (MediaQuery.of(context).size.height)*0.1,
                     child: ElevatedButton(
                       child: const Padding(
                         padding: EdgeInsets.all(12.0),
@@ -89,12 +90,12 @@ class _StatsWidgetState extends State<StatsWidget> {
 
 
                 //Button 2: Link to Collection Stats
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
                     width: (MediaQuery.of(context).size.width)*0.8,
-                    height: (MediaQuery.of(context).size.height)*0.15,
+                    height: (MediaQuery.of(context).size.height)*0.1,
                     child: ElevatedButton(
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
@@ -105,6 +106,36 @@ class _StatsWidgetState extends State<StatsWidget> {
                         ),
                         onPressed: (){
                           Get.to(()=>const CollectionStats());
+                        },
+                        style: ButtonStyle(
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    side: const BorderSide(color: Colors.black)
+                                )
+                            )
+                        )
+                    ),
+                  ),
+                ),
+
+                //Button 3: Annual report
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: (MediaQuery.of(context).size.width)*0.8,
+                    height: (MediaQuery.of(context).size.height)*0.1,
+                    child: ElevatedButton(
+                        child: const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text("Review",
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),),
+                        ),
+                        onPressed: (){
+                          Get.to(()=>const PeriodReviewHome());
                         },
                         style: ButtonStyle(
                             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
