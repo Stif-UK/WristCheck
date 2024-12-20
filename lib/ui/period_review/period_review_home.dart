@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/period_review/period_review_landing.dart';
+import 'package:wristcheck/ui/period_review/period_review_body.dart';
 
 class PeriodReviewHome extends StatefulWidget {
   const PeriodReviewHome({super.key});
@@ -20,7 +20,7 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
       appBar: AppBar(
         title: Text("Wrist Recap"),
       ),
-      body: calculateEnoughData()? PeriodReviewLanding() : notEnoughData(),
+      body: calculateEnoughData()? PeriodReviewBody() : notEnoughData(),
     );
   }
 
