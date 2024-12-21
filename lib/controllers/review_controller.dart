@@ -4,6 +4,7 @@ import 'package:wristcheck/model/watches.dart';
 
 class ReviewController extends GetxController{
   final reviewState = ReviewState.selectParameters.obs;
+  final isLastPage = false.obs;
   final reviewYear = 2023.obs;
   final wearsInPeriod = 0.obs;
   final wearsInPeriodWatchList = <Watches>[].obs;
@@ -11,6 +12,10 @@ class ReviewController extends GetxController{
 
   updateReviewState(ReviewState state){
     reviewState(state);
+  }
+
+  updateIsLastPage(bool lastPage){
+    isLastPage(lastPage);
   }
 
   updateReviewYear(int year){
