@@ -70,7 +70,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                 buildPage(
                     colour: Theme.of(context).canvasColor,
                     title: "The Top Dog!",
-                    subtitle1: "Your most worn watch of ${reviewController.reviewYear} is...",
+                    subtitle1: "Your most worn watch of ${reviewController.reviewYear} is the...",
                     watch: reviewController.wearsInPeriodWatchList[0],
                     subtitle2: reviewController.wearsInPeriodWatchList[0].frontImagePath == null || reviewController.wearsInPeriodWatchList[0].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
                     subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
