@@ -27,7 +27,6 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
 
   @override
   Widget build(BuildContext context) {
-    print("Test - list length: ${reviewController.wearsInPeriodWatchList.length}");
     return Obx(()=>
       Scaffold(
         body: Container(
@@ -54,7 +53,8 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                     subtitle1: "In at number three,\nyour third most worn watch this year was your...",
                     watch: reviewController.wearsInPeriodWatchList[2],
                     subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].manufacturer} ${reviewController.wearsInPeriodWatchList[2].model}",
-                    subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times"
+                    subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times",
+                    subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].filteredWearList!.length).toStringAsFixed(2)} days since you started tracking this year!)"
                 ) : buildPage(colour: Theme.of(context).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
                 //Result 3 - Top 3 - position 2
                 reviewController.wearsInPeriodWatchList.length > 2? buildPage(
@@ -159,7 +159,8 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
     String? subtitle2,
     String? subtitleBig2,
     String? subtitle3,
-    String? subtitleBig3
+    String? subtitleBig3,
+    String? subtitle4,
   }) => Container(
     color: colour,
     child: Column(
@@ -251,6 +252,14 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               subtitleBig3,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall
+          ),
+        ) : const SizedBox(height: 0,),
+        subtitle4 != null? Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+              subtitle4,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge
           ),
         ) : const SizedBox(height: 0,),
       ],

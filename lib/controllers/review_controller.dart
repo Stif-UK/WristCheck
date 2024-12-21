@@ -27,6 +27,12 @@ class ReviewController extends GetxController{
 
   updateFirstWearInYear(DateTime firstWorn){
     firstWearInYear(firstWorn);
+    if(reviewYear.value == DateTime.now().year){
+      daysSinceFirstRecordInYear(DateTime.now().difference(firstWorn).inDays);
+    }
+    else{
+      daysSinceFirstRecordInYear(DateTime(reviewYear.value, 12, 31).difference(firstWorn).inDays);
+    }
   }
 
   updateWearsInPeriod(int count){
