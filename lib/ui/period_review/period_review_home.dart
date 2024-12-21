@@ -38,8 +38,6 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
       if(count > 30){
         result = true;
       }
-      print("Enough data count: $count");
-      print("Result: $result");
     }
     return result;
   }

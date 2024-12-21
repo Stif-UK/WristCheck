@@ -42,10 +42,11 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                     subtitle2: "(that's ${(reviewController.wearsInPeriod.value/365).toStringAsFixed(2)} times per day since the first entry on ${WristCheckFormatter.getFormattedDate(reviewController.firstWearInYear.value)}!)",
                     subtitle1:"In ${reviewController.reviewYear.value} you tracked what was on your wrist"),
 
+                //TODO: Handle case where less than three watches tracked
                 buildPage(
                     colour: Theme.of(context).canvasColor,
-                    title: "Your number one!",
-                    subtitle1: "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do..."),
+                    title: "The top three!",
+                    subtitle1: "In at number three,\nyour third most worn watch this year was your"),
 
               ],
 
