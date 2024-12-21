@@ -11,6 +11,7 @@ class PeriodReviewHelper{
     
     DateTime startDate = DateTime(year,1,1);
     DateTime endDate = DateTime(year, 12, 31);
+    DateTime earliestWearInYear = DateTime(year, 12, 31);
 
     //Get List of watches worn in the given year
     List<Watches> wornInPeriodWatchList = Boxes.getWatchesWornBetweenTwoDates(watchBox, startDate, endDate);
@@ -20,7 +21,15 @@ class PeriodReviewHelper{
       watch.filteredWearList = List.from(watch.wearList);
       //Remove anything not from the given year
       watch.filteredWearList!.removeWhere((date) => date.year != year);
+      //Set earliest recorded wear date
+      if(watch.filteredWearList!.first.isBefore(earliestWearInYear)){
+        earliestWearInYear = watch.filteredWearList!.first;
+      }
     }
+
+    reviewController.updateFirstWearInYear(earliestWearInYear);
+
+
     //Sort the list based on most to least worn in the year
     wornInPeriodWatchList.sort((a, b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
 

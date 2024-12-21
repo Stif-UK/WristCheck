@@ -6,6 +6,8 @@ class ReviewController extends GetxController{
   final reviewState = ReviewState.selectParameters.obs;
   final isLastPage = false.obs;
   final reviewYear = 2023.obs;
+  final firstWearInYear = DateTime.now().obs;
+  final daysSinceFirstRecordInYear = 0.obs;
   final wearsInPeriod = 0.obs;
   final wearsInPeriodWatchList = <Watches>[].obs;
 
@@ -15,11 +17,16 @@ class ReviewController extends GetxController{
   }
 
   updateIsLastPage(bool lastPage){
+    print("last page check: $lastPage");
     isLastPage(lastPage);
   }
 
   updateReviewYear(int year){
     reviewYear(year);
+  }
+
+  updateFirstWearInYear(DateTime firstWorn){
+    firstWearInYear(firstWorn);
   }
 
   updateWearsInPeriod(int count){
