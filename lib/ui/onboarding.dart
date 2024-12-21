@@ -4,6 +4,7 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
@@ -72,7 +73,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                   borderRadius: BorderRadius.circular(20.0)
               ),
             foregroundColor: Colors.white,
-            backgroundColor: getWCColour(),
+            backgroundColor: WristCheckConfig.getWCColour(),
             minimumSize: const Size.fromHeight(80),
           ),
           child: const Text("Let's go!",
@@ -99,7 +100,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                   effect: SlideEffect(
                     type: SlideType.slideUnder,
                     dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
-                    activeDotColor: getWCColour(),
+                    activeDotColor: WristCheckConfig.getWCColour(),
                   ),
                   onDotClicked: (index) => pageViewController.animateToPage(
                       index,
@@ -143,7 +144,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: getWCColour(),
+              color: WristCheckConfig.getWCColour(),
               fontSize: 32,
               fontWeight: FontWeight.bold
             ),
@@ -161,8 +162,4 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
       ],
     ),
   );
-
-  Color getWCColour(){
-    return const Color(0xff39a5c0);
-  }
 }
