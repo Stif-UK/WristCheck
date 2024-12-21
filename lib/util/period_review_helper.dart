@@ -43,6 +43,17 @@ class PeriodReviewHelper{
     //Pass list of watches to controller
     reviewController.updateWearsInPeriodWatchList(wornInPeriodWatchList);
 
+    //Identify watches purchased and sold during the year
+    List<Watches> purchaseList = List.from(Boxes.getAllWatches().where((watch) => watch.purchaseDate != null));
+    purchaseList = purchaseList.where((watch) => watch.purchaseDate!.year == year).toList();
+    reviewController.updateWatchesBoughtInPeriodList(purchaseList);
+
+    List<Watches> soldList = List.from(Boxes.getAllWatches().where((watch) => watch.soldDate != null));
+    soldList = soldList.where((watch) => watch.soldDate!.year == year).toList();
+    reviewController.updateWatchesSoldInPeriodList(soldList);
+
+
+
 
   }
 

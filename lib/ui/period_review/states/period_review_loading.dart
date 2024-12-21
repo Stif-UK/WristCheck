@@ -22,7 +22,7 @@ class PeriodReviewLoading extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Text("Hang tight while we crunch some numbers...",
+            child: Text("Just a tick while we crunch some numbers...",
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,),
           ),

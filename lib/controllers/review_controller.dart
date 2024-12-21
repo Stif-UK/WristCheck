@@ -10,6 +10,8 @@ class ReviewController extends GetxController{
   final daysSinceFirstRecordInYear = 0.obs;
   final wearsInPeriod = 0.obs;
   final wearsInPeriodWatchList = <Watches>[].obs;
+  final watchesBoughtInPeriod = <Watches>[].obs;
+  final watchesSoldInPeriod = <Watches>[].obs;
 
 
   updateReviewState(ReviewState state){
@@ -41,6 +43,14 @@ class ReviewController extends GetxController{
 
   updateWearsInPeriodWatchList(List<Watches> watchList){
     wearsInPeriodWatchList(watchList);
+  }
+
+  updateWatchesBoughtInPeriodList(List<Watches> purchaseList){
+    watchesBoughtInPeriod(purchaseList);
+  }
+
+  updateWatchesSoldInPeriodList(List<Watches> soldList){
+    watchesSoldInPeriod(soldList);
   }
 
 }

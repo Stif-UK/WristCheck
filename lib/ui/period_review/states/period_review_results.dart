@@ -27,6 +27,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
 
   @override
   Widget build(BuildContext context) {
+    print("Test: SoldList = ${reviewController.watchesSoldInPeriod}");
     return Obx(()=>
       Scaffold(
         body: Container(
