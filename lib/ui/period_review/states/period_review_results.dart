@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
-import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/util/images_util.dart';
+import 'package:wristcheck/ui/period_review/widgets/review_page.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class PeriodReviewResults extends StatefulWidget {
@@ -38,7 +36,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               onPageChanged: (index) => reviewController.updateIsLastPage(index == 4),
               children: [
                 //Result 1 - Total wears tracked
-                buildPage(
+                ReviewPage(
                     colour: Theme.of(context).canvasColor,
                     title: "Wears Tracked",
                     subtitle1:"In ${reviewController.reviewYear.value} you tracked what was on your wrist",
@@ -48,7 +46,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
 
                 //TODO: Test results where there are less than three watches to report results on
                 //Result 2 - Top 3 - position 3
-                reviewController.wearsInPeriodWatchList.length > 3? buildPage(
+                reviewController.wearsInPeriodWatchList.length > 3? ReviewPage(
                     colour: Theme.of(context).canvasColor,
                     title: "The Top Three!",
                     subtitle1: "In at number three,\nyour third most worn watch this year was your...",
@@ -56,9 +54,9 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                     subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].manufacturer} ${reviewController.wearsInPeriodWatchList[2].model}",
                     subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times",
                     subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].filteredWearList!.length).toStringAsFixed(2)} days since you started tracking this year!)"
-                ) : buildPage(colour: Theme.of(context).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
+                ) : ReviewPage(colour: Theme.of(context).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
                 //Result 3 - Top 3 - position 2
-                reviewController.wearsInPeriodWatchList.length > 2? buildPage(
+                reviewController.wearsInPeriodWatchList.length > 2? ReviewPage(
                     colour: Theme.of(context).canvasColor,
                     title: "The Runner Up!",
                     subtitle1: "In second place,\nyour second most worn watch in ${reviewController.reviewYear} was...",
@@ -66,9 +64,9 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                     subtitle2: reviewController.wearsInPeriodWatchList[1].frontImagePath == null || reviewController.wearsInPeriodWatchList[1].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
                     subtitleBig2: "${reviewController.wearsInPeriodWatchList[1].manufacturer} ${reviewController.wearsInPeriodWatchList[1].model}",
                     subtitle3: "You tracked it on your wrist ${reviewController.wearsInPeriodWatchList[1].filteredWearList!.length} times"
-                ): buildPage(colour: Theme.of(context).canvasColor, title: "Second Place...", subtitle1: "You haven't tracked two watches for ${reviewController.reviewYear}!"),
+                ): ReviewPage(colour: Theme.of(context).canvasColor, title: "Second Place...", subtitle1: "You haven't tracked two watches for ${reviewController.reviewYear}!"),
                 //Result 4 - Top 3 - position 1
-                buildPage(
+                ReviewPage(
                     colour: Theme.of(context).canvasColor,
                     title: "The Top Dog!",
                     subtitle1: "Your most worn watch of ${reviewController.reviewYear} is the...",
@@ -143,127 +141,4 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
       ),
     );
   }
-
-  Widget _getEmptyIcon(context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(125.0),
-      child: Image.asset('assets/icon/drawerheader.png', width: 200,),
-    );
-  }
-
-  Widget buildPage({
-    required Color colour, //Background colour for the page
-    Watches? watch, //A watch - utilise with getImage Future
-    required String title, //
-    required String subtitle1,
-    String? subtitleBig1,
-    String? subtitle2,
-    String? subtitleBig2,
-    String? subtitle3,
-    String? subtitleBig3,
-    String? subtitle4,
-  }) => Container(
-    color: colour,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const SizedBox(height: 32,),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: WristCheckConfig.getWCColour(),
-                fontSize: 32,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
-        const SizedBox(height: 24,),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Text(
-              subtitle1,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge
-          ),
-        ),
-        subtitleBig1 != null? Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-              subtitleBig1,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall
-          ),
-        ) : const SizedBox(height: 0,),
-        //If we have an image, use a Futurebuilder to return it
-        watch != null?
-        FutureBuilder(
-            future: ImagesUtil.getImage(watch, true),
-            builder: (context, snapshot) {
-              //start
-              if (snapshot.connectionState == ConnectionState.done) {
-                // If we got an error
-                if (snapshot.hasError) {
-                  return const CircularProgressIndicator();
-                  // if we got our data
-                } else if (snapshot.hasData) {
-                  // Extracting data from snapshot object
-                  final data = snapshot.data as File;
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(125.0),
-                      child: Image.file(data, width: 250,),
-                    ),
-                  );
-                }
-              }
-              return _getEmptyIcon(context);
-            } //builder
-        ) : const SizedBox(height: 0,),
-        subtitle2 != null? Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-              subtitle2,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge
-          ),
-        ) : const SizedBox(height: 0,),
-        subtitleBig2 != null? Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-              subtitleBig2,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall
-          ),
-        ) : const SizedBox(height: 0,),
-        subtitle3 != null? Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-              subtitle3,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge
-          ),
-        ) : const SizedBox(height: 0,),
-        subtitleBig3 != null? Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-              subtitleBig3,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall
-          ),
-        ) : const SizedBox(height: 0,),
-        subtitle4 != null? Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-              subtitle4,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge
-          ),
-        ) : const SizedBox(height: 0,),
-      ],
-    ),
-  );
 }
