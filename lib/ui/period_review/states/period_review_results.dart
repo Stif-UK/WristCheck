@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
+import 'package:wristcheck/ui/period_review/pages/tracking_summary.dart';
 import 'package:wristcheck/ui/period_review/widgets/review_page.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class PeriodReviewResults extends StatefulWidget {
   PeriodReviewResults({super.key});
@@ -36,14 +36,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               onPageChanged: (index) => reviewController.updateIsLastPage(index == 4),
               children: [
                 //Result 1 - Total wears tracked
-                ReviewPage(
-                    colour: Theme.of(context).canvasColor,
-                    title: "Wears Tracked",
-                    subtitle1:"In ${reviewController.reviewYear.value} you tracked what was on your wrist",
-                    subtitleBig1: "${reviewController.wearsInPeriod.value} times",
-                    subtitle2: "(that's ${(reviewController.wearsInPeriod.value/365).toStringAsFixed(2)} times per day since the first entry on ${WristCheckFormatter.getFormattedDate(reviewController.firstWearInYear.value)}!)",
-                ),
-
+                ReviewTrackingSummary(),
                 //TODO: Test results where there are less than three watches to report results on
                 //Result 2 - Top 3 - position 3
                 reviewController.wearsInPeriodWatchList.length > 3? ReviewPage(
@@ -75,6 +68,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
                     subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
                     subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].filteredWearList!.length} wears tracked!"
                 ),
+                ReviewPage(colour: Theme.of(context).canvasColor, title: "Your Collection Grew in ${reviewController.reviewYear}!", subtitle1: "You tracked ${reviewController.watchesBoughtInPeriod.length} purchases", subtitle2: "and ${reviewController.watchesSoldInPeriod.length} sales!",)
               ],
             ),
           ),
@@ -89,7 +83,7 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               backgroundColor: WristCheckConfig.getWCColour(),
               minimumSize: const Size.fromHeight(80),
             ),
-            child: const Text("Let's go!",
+            child: const Text("Thanks for using WristTrack!",
               style: TextStyle(fontSize: 22),),
             onPressed: () async {
               //TODO: Remove buttons
