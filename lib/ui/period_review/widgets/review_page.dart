@@ -32,108 +32,110 @@ class ReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colour,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(height: 32,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: WristCheckConfig.getWCColour(),
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold
+    return SingleChildScrollView(
+      child: Container(
+        color: colour,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 32,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: WristCheckConfig.getWCColour(),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 24,),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Text(
-                subtitle1,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge
+            const SizedBox(height: 24,),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Text(
+                  subtitle1,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge
+              ),
             ),
-          ),
-          subtitleBig1 != null? Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-                subtitleBig1!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall
-            ),
-          ) : const SizedBox(height: 0,),
-          //If we have an image, use a Futurebuilder to return it
-          watch != null?
-          FutureBuilder(
-              future: ImagesUtil.getImage(watch!, true),
-              builder: (context, snapshot) {
-                //start
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If we got an error
-                  if (snapshot.hasError) {
-                    return const CircularProgressIndicator();
-                    // if we got our data
-                  } else if (snapshot.hasData) {
-                    // Extracting data from snapshot object
-                    final data = snapshot.data as File;
-                    return Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(125.0),
-                        child: Image.file(data, width: 250,),
-                      ),
-                    );
+            subtitleBig1 != null? Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                  subtitleBig1!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall
+              ),
+            ) : const SizedBox(height: 0,),
+            //If we have an image, use a Futurebuilder to return it
+            watch != null?
+            FutureBuilder(
+                future: ImagesUtil.getImage(watch!, true),
+                builder: (context, snapshot) {
+                  //start
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If we got an error
+                    if (snapshot.hasError) {
+                      return const CircularProgressIndicator();
+                      // if we got our data
+                    } else if (snapshot.hasData) {
+                      // Extracting data from snapshot object
+                      final data = snapshot.data as File;
+                      return Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(125.0),
+                          child: Image.file(data, width: 250,),
+                        ),
+                      );
+                    }
                   }
-                }
-                return _getEmptyIcon(context);
-              } //builder
-          ) : const SizedBox(height: 0,),
-          subtitle2 != null? Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-                subtitle2!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge
-            ),
-          ) : const SizedBox(height: 0,),
-          subtitleBig2 != null? Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-                subtitleBig2!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall
-            ),
-          ) : const SizedBox(height: 0,),
-          subtitle3 != null? Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-                subtitle3!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge
-            ),
-          ) : const SizedBox(height: 0,),
-          subtitleBig3 != null? Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-                subtitleBig3!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall
-            ),
-          ) : const SizedBox(height: 0,),
-          subtitle4 != null? Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-                subtitle4!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge
-            ),
-          ) : const SizedBox(height: 0,),
-        ],
+                  return _getEmptyIcon(context);
+                } //builder
+            ) : const SizedBox(height: 0,),
+            subtitle2 != null? Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                  subtitle2!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge
+              ),
+            ) : const SizedBox(height: 0,),
+            subtitleBig2 != null? Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                  subtitleBig2!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall
+              ),
+            ) : const SizedBox(height: 0,),
+            subtitle3 != null? Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                  subtitle3!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge
+              ),
+            ) : const SizedBox(height: 0,),
+            subtitleBig3 != null? Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                  subtitleBig3!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall
+              ),
+            ) : const SizedBox(height: 0,),
+            subtitle4 != null? Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                  subtitle4!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge
+              ),
+            ) : const SizedBox(height: 0,),
+          ],
+        ),
       ),
     );
   }
