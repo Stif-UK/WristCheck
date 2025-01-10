@@ -1,1 +1,1 @@
-enum LocationEnum {us, uk, dut, ger, irl, ind, jap, swiss}
+enum LocationEnum {us, uk, dut, ger, irl, ind, jap, swiss, hun}

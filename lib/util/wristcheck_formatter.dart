@@ -269,6 +269,9 @@ class WristCheckFormatter{
       case LocationEnum.swiss:
         returnText = "fr_CH";
         break;
+      case LocationEnum.hun:
+        returnText = "hu_HU";
+        break;
     }
     return returnText;
   }
@@ -300,6 +303,9 @@ class WristCheckFormatter{
         break;
       case "fr_CH":
         returnNum = LocationEnum.swiss;
+        break;
+      case "hu_HU":
+        returnNum = LocationEnum.hun;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -335,6 +341,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.swiss:
         returnString = "Swiss Franc";
+        break;
+      case LocationEnum.hun:
+        returnString = "Hungarian Forint";
         break;
     }
 
