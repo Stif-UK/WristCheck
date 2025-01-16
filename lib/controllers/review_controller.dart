@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/review_state.dart';
 import 'package:wristcheck/model/watches.dart';
 
@@ -13,6 +14,21 @@ class ReviewController extends GetxController{
   final watchesBoughtInPeriod = <Watches>[].obs;
   final watchesSoldInPeriod = <Watches>[].obs;
 
+  //Create a list of years
+  List<String> yearList = [];
+  populateYearList(){
+    List<Watches> watches = Boxes.getAllWatches();
+    List<String> calculatedYearList = [];
+    for(Watches watch in watches){
+      for(DateTime date in watch.wearList){
+        if(!calculatedYearList.contains(date.year.toString())) {
+          calculatedYearList.add(date.year.toString());
+        };
+      }
+    }
+    calculatedYearList.sort();
+    this.yearList = calculatedYearList;
+  }
 
   updateReviewState(ReviewState state){
     reviewState(state);

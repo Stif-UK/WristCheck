@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/period_review/period_review_body.dart';
 
@@ -13,6 +15,13 @@ class PeriodReviewHome extends StatefulWidget {
 
 class _PeriodReviewHomeState extends State<PeriodReviewHome> {
   final watchBox = Boxes.getAllWatches();
+  final reviewController = Get.put(ReviewController());
+
+  @override
+  void initState() {
+    reviewController.populateYearList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
