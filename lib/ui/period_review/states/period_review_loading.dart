@@ -14,8 +14,7 @@ class PeriodReviewLoading extends StatelessWidget {
     //Trigger a countdown to switch the page
     triggerNavSwitch();
     //Trigger the data calculations - these should easily complete within the timeframe
-    //TODO: remove hard coded year
-    PeriodReviewHelper.calculateReviewData(2023);
+    PeriodReviewHelper.calculateReviewData(reviewController.reviewYear.value!); //Can assume non-null as button to open this page is disabled for a null year
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
