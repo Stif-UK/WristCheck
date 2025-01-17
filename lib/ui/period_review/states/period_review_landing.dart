@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:wristcheck/model/enums/review_state.dart';
 
@@ -20,8 +21,41 @@ class PeriodReviewLanding extends StatelessWidget {
                 "Here you can generate a summary of your wrist habits over a selected period.\n\n",
             style: Theme.of(context).textTheme.bodyLarge,),
           ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Select a Year:", style: Theme.of(context).textTheme.bodyLarge),
+                ),
+                Obx(()=> DropdownButton(
+                    value: reviewController.reviewYear.value,
+                    items: reviewController.yearList.map((int year) {
+                      return DropdownMenuItem<int>(
+                          value: year,
+                          child: Text(year.toString()));
+                    }).toList(),
+                    onChanged: (int? newYear){
+                      if(newYear != null){
+                        reviewController.updateReviewYear(newYear);
+                        print("Year updated: ${reviewController.reviewYear}");
+                      }
+                    }
+                ),
+                ),
+              ],
+            ),
+          ),
+
           ElevatedButton(child: Text("Generate Wrist Recap"),
-          onPressed: () =>reviewController.updateReviewState(ReviewState.loading),),
+          onPressed: () {
+            //Disable the button if no year is selected
+            reviewController.reviewYear.value == null? null :
+            reviewController.updateReviewState(ReviewState.loading);
+          },),
+          const SizedBox(height: 50,),
           Padding(
             padding: EdgeInsets.all(padInsets),
             child: Text("Note: This feature is currently in BETA and will be enhanced over time.\n\n"

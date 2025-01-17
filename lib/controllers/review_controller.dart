@@ -6,7 +6,7 @@ import 'package:wristcheck/model/watches.dart';
 class ReviewController extends GetxController{
   final reviewState = ReviewState.selectParameters.obs;
   final isLastPage = false.obs;
-  final reviewYear = 2023.obs;
+  final reviewYear = Rxn<int>();
   final firstWearInYear = DateTime.now().obs;
   final daysSinceFirstRecordInYear = 0.obs;
   final wearsInPeriod = 0.obs;
@@ -15,14 +15,14 @@ class ReviewController extends GetxController{
   final watchesSoldInPeriod = <Watches>[].obs;
 
   //Create a list of years
-  List<String> yearList = [];
+  List<int> yearList = [];
   populateYearList(){
     List<Watches> watches = Boxes.getAllWatches();
-    List<String> calculatedYearList = [];
+    List<int> calculatedYearList = [];
     for(Watches watch in watches){
       for(DateTime date in watch.wearList){
-        if(!calculatedYearList.contains(date.year.toString())) {
-          calculatedYearList.add(date.year.toString());
+        if(!calculatedYearList.contains(date.year)) {
+          calculatedYearList.add(date.year);
         };
       }
     }
@@ -49,7 +49,7 @@ class ReviewController extends GetxController{
       daysSinceFirstRecordInYear(DateTime.now().difference(firstWorn).inDays);
     }
     else{
-      daysSinceFirstRecordInYear(DateTime(reviewYear.value, 12, 31).difference(firstWorn).inDays);
+      daysSinceFirstRecordInYear(DateTime(reviewYear.value!, 12, 31).difference(firstWorn).inDays);
     }
   }
 
