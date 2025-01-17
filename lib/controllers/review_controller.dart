@@ -35,7 +35,6 @@ class ReviewController extends GetxController{
   }
 
   updateIsLastPage(bool lastPage){
-    print("last page check: $lastPage");
     isLastPage(lastPage);
   }
 
