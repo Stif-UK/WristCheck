@@ -34,8 +34,11 @@ class PeriodReviewLoading extends StatelessWidget {
 
   void triggerNavSwitch() {
     Future.delayed(const Duration(milliseconds: 8000), () {
-      reviewController.updateReviewState(ReviewState.showResults);
-
+      if(reviewController.wearsInPeriod.value < reviewController.minimumRecords){
+        reviewController.updateReviewState(ReviewState.empty);
+      } else {
+        reviewController.updateReviewState(ReviewState.showResults);
+      }
     });
 
   }

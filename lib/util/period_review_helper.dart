@@ -15,6 +15,7 @@ class PeriodReviewHelper{
 
     //Get List of watches worn in the given year
     List<Watches> wornInPeriodWatchList = Boxes.getWatchesWornBetweenTwoDates(watchBox, startDate, endDate);
+
     //Set the filtered wear list of each watch - we can use this in further calculations
     for(Watches watch in wornInPeriodWatchList){
       //Fill the filtered list

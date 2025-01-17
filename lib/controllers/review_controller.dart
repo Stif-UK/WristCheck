@@ -4,6 +4,7 @@ import 'package:wristcheck/model/enums/review_state.dart';
 import 'package:wristcheck/model/watches.dart';
 
 class ReviewController extends GetxController{
+  final minimumRecords = 30;
   final reviewState = ReviewState.selectParameters.obs;
   final isLastPage = false.obs;
   final reviewYear = Rxn<int>();

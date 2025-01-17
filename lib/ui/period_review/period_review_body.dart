@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/model/enums/review_state.dart';
+import 'package:wristcheck/ui/period_review/states/period_review_empty.dart';
 import 'package:wristcheck/ui/period_review/states/period_review_landing.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class PeriodReviewBody extends StatelessWidget {
         return PeriodReviewLanding();
         break;
       case ReviewState.empty:
-      // TODO: Handle this case.
+        return PeriodReviewEmpty();
         break;
       case ReviewState.noData:
       // TODO: Handle this case.
