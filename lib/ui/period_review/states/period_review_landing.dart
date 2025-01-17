@@ -40,7 +40,6 @@ class PeriodReviewLanding extends StatelessWidget {
                     onChanged: (int? newYear){
                       if(newYear != null){
                         reviewController.updateReviewYear(newYear);
-                        print("Year updated: ${reviewController.reviewYear}");
                       }
                     }
                 ),
