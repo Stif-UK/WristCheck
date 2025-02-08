@@ -45,7 +45,7 @@ class _MovementChartState extends State<MovementChart> {
     }
 
     return SfCartesianChart(
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         BarSeries<MovementData, String>(
           dataSource: getChartData,
           xValueMapper: (MovementData mvmt, _) => mvmt.movement,

@@ -23,7 +23,6 @@ class WristCheckLocalNotificationService{
           requestSoundPermission: false,
           requestBadgePermission: false,
           requestAlertPermission: false,
-          onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
         );
 
     final InitializationSettings settings = InitializationSettings(

@@ -90,7 +90,7 @@ class _WatchDayChartState extends State<WatchDayChart> {
 
 Widget _buildBarChart(List<DayWearData> data, Map<int, String> dayMap){
   return SfCartesianChart(
-    series: <ChartSeries>[
+    series: <CartesianSeries>[
       BarSeries<DayWearData, String>(
         dataSource: data,
         xValueMapper: (DayWearData value, _) => value.day.toString(),

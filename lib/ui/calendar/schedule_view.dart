@@ -225,13 +225,14 @@ class _ScheduleViewState extends State<ScheduleView> {
                     popupProps: PopupProps.menu(
                       showSearchBox: true,
                     ),
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
+                    decoratorProps: DropDownDecoratorProps(
+                        decoration: InputDecoration(
                             labelText: "Pick Watch",
                             hintText: "Search by watch name"
                         )
                     ),
-                    items: Boxes.sortWatchBox(Boxes.getCollectionWatches(), widget.wristCheckController.watchboxOrder.value!),
+
+                    items: (filter, infiniteScrollProps) =>  Boxes.sortWatchBox(Boxes.getCollectionWatches(), widget.wristCheckController.watchboxOrder.value!),
                     onChanged: (watch){
                       widget.wristCheckController.updateNullWatchMemo(false);
                       widget.wristCheckController.updateSelectedWatch(watch);
@@ -301,14 +302,14 @@ class _ScheduleViewState extends State<ScheduleView> {
                     popupProps: PopupProps.menu(
                       showSearchBox: true,
                     ),
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
+                    decoratorProps: DropDownDecoratorProps(
+                        decoration: InputDecoration(
                             labelText: "Pick Watch",
                             hintText: "Search by watch name"
                         )
                     ),
                     //Only display watches with a date that matches
-                    items: Boxes.getWatchesWornOnDate(Boxes.getCollectionAndSoldWatches(),
+                    items: (filter, infiniteScrollProps) => Boxes.getWatchesWornOnDate(Boxes.getCollectionAndSoldWatches(),
                         widget.wristCheckController.selectedDate.value!.year,
                         widget.wristCheckController.selectedDate.value!.month,
                         widget.wristCheckController.selectedDate.value!.day),

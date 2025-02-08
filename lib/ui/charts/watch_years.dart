@@ -40,7 +40,7 @@ class WatchYearChart extends StatelessWidget {
 
   _buildBarChart(List<YearWearData> data){
     return SfCartesianChart(
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         BarSeries<YearWearData, String>(
           dataSource: data,
           xValueMapper: (YearWearData value, _) => value.year,

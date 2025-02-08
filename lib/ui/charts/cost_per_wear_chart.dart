@@ -55,7 +55,7 @@ class _CostPerWearChartState extends State<CostPerWearChart> {
     getChartData.sort((e1, e2) => e1.costPerWear.compareTo(e2.costPerWear));
 
     return SfCartesianChart(
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         BarSeries<CostPerWearData, String>(
           dataSource: getChartData,
           xValueMapper: (CostPerWearData mvmt, _) => mvmt.watch,

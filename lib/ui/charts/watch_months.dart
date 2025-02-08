@@ -88,7 +88,7 @@ Widget _buildPieChart(List<MonthWearData> data, TooltipBehavior tooltip) {
 
 Widget _buildBarChart(List<MonthWearData> data) {
   return SfCartesianChart(
-    series: <ChartSeries>[
+    series: <CartesianSeries>[
       BarSeries<MonthWearData, String>(
         dataSource: data,
         xValueMapper: (MonthWearData value, _) => value.month,

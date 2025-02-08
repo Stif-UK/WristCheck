@@ -114,15 +114,17 @@ class ImagesUtil {
     //create UI settings for the crop
     AndroidUiSettings androidUIsettingsForCrop() => AndroidUiSettings(
       toolbarTitle: "Crop watch image",
+      aspectRatioPresets: [CropAspectRatioPreset.square],
     );
 
     IOSUiSettings iOSUIsettingsForCrop() => IOSUiSettings(
-        title: "Crop Image"
+        title: "Crop Image",
+      aspectRatioPresets: [CropAspectRatioPreset.square]
+
     );
 
     return await ImageCropper.platform.cropImage(sourcePath: imageFile.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-        aspectRatioPresets: [CropAspectRatioPreset.square],
         compressQuality: 70,
         compressFormat: ImageCompressFormat.jpg,
         uiSettings: [androidUIsettingsForCrop(),iOSUIsettingsForCrop()]

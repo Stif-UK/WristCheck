@@ -48,7 +48,7 @@ class _CategoryChartState extends State<CategoryChart> {
     }
 
     return SfCartesianChart(
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         BarSeries<CategoryData, String>(
           dataSource: getChartData,
           xValueMapper: (CategoryData mvmt, _) => mvmt.category,
