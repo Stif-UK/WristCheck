@@ -25,17 +25,17 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
 
   @override
   Widget build(BuildContext context) {
-    print("Test: SoldList = ${reviewController.watchesSoldInPeriod}");
+    List<Widget> pageList = _generatePages();
+
     return Obx(()=>
       Scaffold(
         body: Container(
             padding: const EdgeInsets.only(bottom: 80),
             child: PageView(
               controller: periodPageViewController,
-              //TODO: Need to programmatically understand the final index? If hard coding must update in line with pages built
-              onPageChanged: (index) => reviewController.updateIsLastPage(index == 4),
+              onPageChanged: (index) => reviewController.updateIsLastPage(index == pageList.length-1),
               children:
-              _generatePages(),
+              pageList,
             ),
           ),
         bottomSheet:  reviewController.isLastPage.value? Padding(
