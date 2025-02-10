@@ -34,42 +34,8 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               controller: periodPageViewController,
               //TODO: Need to programmatically understand the final index? If hard coding must update in line with pages built
               onPageChanged: (index) => reviewController.updateIsLastPage(index == 4),
-              children: [
-                //Result 1 - Total wears tracked
-                ReviewTrackingSummary(),
-                //TODO: Test results where there are less than three watches to report results on
-                //Result 2 - Top 3 - position 3
-                reviewController.wearsInPeriodWatchList.length > 3? ReviewPage(
-                    colour: Theme.of(context).canvasColor,
-                    title: "The Top Three!",
-                    subtitle1: "In at number three,\nyour third most worn watch this year was your...",
-                    watch: reviewController.wearsInPeriodWatchList[2],
-                    subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].manufacturer} ${reviewController.wearsInPeriodWatchList[2].model}",
-                    subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times",
-                    subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].filteredWearList!.length).toStringAsFixed(2)} days since you started tracking this year!)"
-                ) : ReviewPage(colour: Theme.of(context).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
-                //Result 3 - Top 3 - position 2
-                reviewController.wearsInPeriodWatchList.length > 2? ReviewPage(
-                    colour: Theme.of(context).canvasColor,
-                    title: "The Runner Up!",
-                    subtitle1: "In second place,\nyour second most worn watch in ${reviewController.reviewYear} was...",
-                    watch: reviewController.wearsInPeriodWatchList[1],
-                    subtitle2: reviewController.wearsInPeriodWatchList[1].frontImagePath == null || reviewController.wearsInPeriodWatchList[1].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
-                    subtitleBig2: "${reviewController.wearsInPeriodWatchList[1].manufacturer} ${reviewController.wearsInPeriodWatchList[1].model}",
-                    subtitle3: "You tracked it on your wrist ${reviewController.wearsInPeriodWatchList[1].filteredWearList!.length} times"
-                ): ReviewPage(colour: Theme.of(context).canvasColor, title: "Second Place...", subtitle1: "You haven't tracked two watches for ${reviewController.reviewYear}!"),
-                //Result 4 - Top 3 - position 1
-                ReviewPage(
-                    colour: Theme.of(context).canvasColor,
-                    title: "The Top Dog!",
-                    subtitle1: "Your most worn watch of ${reviewController.reviewYear} is the...",
-                    watch: reviewController.wearsInPeriodWatchList[0],
-                    subtitle2: reviewController.wearsInPeriodWatchList[0].frontImagePath == null || reviewController.wearsInPeriodWatchList[0].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
-                    subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
-                    subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].filteredWearList!.length} wears tracked!"
-                ),
-                ReviewPage(colour: Theme.of(context).canvasColor, title: "Your Collection Grew in ${reviewController.reviewYear}!", subtitle1: "You tracked ${reviewController.watchesBoughtInPeriod.length} purchases", subtitle2: "and ${reviewController.watchesSoldInPeriod.length} sales!",)
-              ],
+              children:
+              _generatePages(),
             ),
           ),
         bottomSheet:  reviewController.isLastPage.value? Padding(
@@ -135,4 +101,44 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
       ),
     );
   }
+}
+
+List<Widget> _generatePages() {
+  final reviewController = Get.put(ReviewController());
+  return [
+    //Result 1 - Total wears tracked
+    ReviewTrackingSummary(),
+    //TODO: Test results where there are less than three watches to report results on
+    //Result 2 - Top 3 - position 3
+    reviewController.wearsInPeriodWatchList.length > 3? ReviewPage(
+        colour: Theme.of(Get.context!).canvasColor,
+        title: "The Top Three!",
+        subtitle1: "In at number three,\nyour third most worn watch this year was your...",
+        watch: reviewController.wearsInPeriodWatchList[2],
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].manufacturer} ${reviewController.wearsInPeriodWatchList[2].model}",
+        subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times",
+        subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].filteredWearList!.length).toStringAsFixed(2)} days since you started tracking this year!)"
+    ) : ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
+    //Result 3 - Top 3 - position 2
+    reviewController.wearsInPeriodWatchList.length > 2? ReviewPage(
+        colour: Theme.of(Get.context!).canvasColor,
+        title: "The Runner Up!",
+        subtitle1: "In second place,\nyour second most worn watch in ${reviewController.reviewYear} was...",
+        watch: reviewController.wearsInPeriodWatchList[1],
+        subtitle2: reviewController.wearsInPeriodWatchList[1].frontImagePath == null || reviewController.wearsInPeriodWatchList[1].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[1].manufacturer} ${reviewController.wearsInPeriodWatchList[1].model}",
+        subtitle3: "You tracked it on your wrist ${reviewController.wearsInPeriodWatchList[1].filteredWearList!.length} times"
+    ): ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "Second Place...", subtitle1: "You haven't tracked two watches for ${reviewController.reviewYear}!"),
+    //Result 4 - Top 3 - position 1
+    ReviewPage(
+        colour: Theme.of(Get.context!).canvasColor,
+        title: "The Top Dog!",
+        subtitle1: "Your most worn watch of ${reviewController.reviewYear} is the...",
+        watch: reviewController.wearsInPeriodWatchList[0],
+        subtitle2: reviewController.wearsInPeriodWatchList[0].frontImagePath == null || reviewController.wearsInPeriodWatchList[0].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
+        subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].filteredWearList!.length} wears tracked!"
+    ),
+    ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "Your Collection Grew in ${reviewController.reviewYear}!", subtitle1: "You tracked ${reviewController.watchesBoughtInPeriod.length} purchases", subtitle2: "and ${reviewController.watchesSoldInPeriod.length} sales!",)
+  ];
 }
