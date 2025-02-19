@@ -107,6 +107,10 @@ class ViewWatchHelper{
     return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
+  static double getDoubleFromStringInput(String inputString){
+    return inputString.length == 0? 0.0 : double.parse(inputString);
+  }
+
   static String getWearButtonText(Watches watch){
     String returnString = "Wear this watch today";
     if(watch.wearList.isNotEmpty) {

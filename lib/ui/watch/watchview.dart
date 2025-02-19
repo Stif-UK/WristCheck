@@ -19,6 +19,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/header/wear_row.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
+import 'package:wristcheck/ui/watch/tabs/pro_data_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
 import 'package:wristcheck/ui/watch/header/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
@@ -95,6 +96,7 @@ class _WatchViewState extends State<WatchView> {
   DateTime? _soldDate;
   DateTime? _deliveryDate;
   DateTime? _warrantyEndDate;
+  double? _caseDiameter;
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -117,6 +119,7 @@ class _WatchViewState extends State<WatchView> {
   final soldDateFieldController = TextEditingController();
   final deliveryDateFieldController = TextEditingController();
   final warrantyEndDateFieldController = TextEditingController();
+  final caseDiameterFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -140,12 +143,15 @@ class _WatchViewState extends State<WatchView> {
     soldDateFieldController.dispose();
     deliveryDateFieldController.dispose();
     warrantyEndDateFieldController.dispose();
+    caseDiameterFieldController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Current Watch Info: ${widget.currentWatch.toString()}");
+    //Variable for the final tab index, to ensure next tab button shows on the correct screens when app is pro
+    int finalTabIndex = widget.wristCheckController.isAppPro.value ? 4 : 3;
+
     //On build initialise watchViewController values
     //On first build default edit state - only default to true if this is a new watch record
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
@@ -191,6 +197,7 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
             widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
             _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
+            _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -215,6 +222,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.soldDate = _soldDate;
             widget.currentWatch!.deliveryDate = _deliveryDate;
             widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
+            widget.currentWatch!.caseDiameter = _caseDiameter;
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -298,6 +306,7 @@ class _WatchViewState extends State<WatchView> {
         purchasePriceFieldController.value = TextEditingValue(text: purchasePriceValue != null? purchasePriceValue.toString() : "" );
         var soldPriceValue = widget.currentWatch!.soldPrice;
         soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
+        caseDiameterFieldController.value = TextEditingValue(text: widget.currentWatch!.caseDiameter != null?" ${widget.currentWatch!.caseDiameter}" : "" );
       }
     }
 
@@ -374,7 +383,32 @@ class _WatchViewState extends State<WatchView> {
                         widget.watchViewController.updateTabIndex(index);
                       }
                     },
-                    items: const [
+                    items: widget.wristCheckController.isAppPro.value?
+                        //If the app is pro then the list is longer and contains the extra tab
+                    //TODO: This is poor code! Dynamically populate the list
+                    const [
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.watch),
+                        label: "Info",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.calendar),
+                        label: "Schedule",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.dollarSign),
+                        label: "Value",
+                      ),
+                      BottomNavigationBarItem(
+                          icon: Icon(FontAwesomeIcons.glasses),
+                        label: "Nerd"
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.book),
+                        label: "Notes",
+                      )
+                    ]
+                        : const [
                       BottomNavigationBarItem(
                         icon: Icon(Icons.watch),
                         label: "Info",
@@ -451,15 +485,26 @@ class _WatchViewState extends State<WatchView> {
                                             headlineSmall: Theme.of(context).textTheme.headlineSmall,
                                             locale: locale) : const SizedBox(height: 0,),
 
-                                        //Tab four - Notebook
-                                        widget.watchViewController.tabIndex.value == 3
+                                        //Tab four when app is pro - Pro Data
+                                        //Only show if app is pro
+                                        widget.watchViewController.tabIndex.value == 3 && widget.wristCheckController.isAppPro.value
+                                            ? ProDataTab(caseDiameterController: caseDiameterFieldController,)
+                                            : const SizedBox(height: 0,),
+
+                                        //Tab four when app is not pro- Notebook
+                                        widget.watchViewController.tabIndex.value == 3 && !widget.wristCheckController.isAppPro.value
+                                            ? NotesTab(notesFieldController: notesFieldController)
+                                            : const SizedBox(height: 0,),
+
+                                        //Tab five - Notebook (index 4 only exists when the app is pro)
+                                        widget.watchViewController.tabIndex.value == 4
                                             ? NotesTab(notesFieldController: notesFieldController)
                                             : const SizedBox(height: 0,),
 
                                         const Divider(thickness: 2,),
                                         //Implement Add / Save button and next button to show if in an 'add' state
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
-                                            widget.watchViewController.tabIndex.value < 3
+                                            widget.watchViewController.tabIndex.value < finalTabIndex
                                             ? _nextTabButton()
                                             : const SizedBox(height: 10,),
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.add
@@ -630,6 +675,7 @@ class _WatchViewState extends State<WatchView> {
               _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
               _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = ViewWatchHelper.getServiceInterval(serviceIntervalFieldController.value.text);
+              _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
@@ -654,7 +700,7 @@ class _WatchViewState extends State<WatchView> {
                 _soldDate,
                 _deliveryDate,
                 _warrantyEndDate,
-                0,0,0,0
+                _caseDiameter,0,0,0
               );
               //TODO: Populate values
               //if a front image has been set, we add this to the newly created watch before exiting
