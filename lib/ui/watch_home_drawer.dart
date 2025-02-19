@@ -104,6 +104,18 @@ class WatchHomeDrawer extends StatelessWidget {
               await GeneralHelper.launchInstagram();
             },
           ),
+          const Divider(thickness: 2,),
+          ListTile(
+            trailing: const Icon(FontAwesomeIcons.envelope),
+            title: const Text("Email Feedback"),
+            onTap: () async {
+              analytics.logEvent(name: "email_link_clicked",
+              parameters: {
+                "feedback_link" : "email"
+              });
+              await GeneralHelper.sendFeedbackEmail();
+            },
+          ),
           const Divider(thickness: 2,)
 
         ],
