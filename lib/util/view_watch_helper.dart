@@ -107,4 +107,12 @@ class ViewWatchHelper{
     return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
+  static String getWearButtonText(Watches watch){
+    if(ViewWatchHelper.isDateToday(watch.wearList.last)){
+      return "Worn Today";
+    } else {
+      return "Wear this watch today";
+    }
+  }
+
 }

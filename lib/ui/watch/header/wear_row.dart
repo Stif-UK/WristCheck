@@ -136,7 +136,7 @@ class _WearRowState extends State<WearRow> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          child: const Text("Wear this watch today"),
+          child: Text(ViewWatchHelper.getWearButtonText(widget.currentWatch!)),
           onPressed: () {
             if(widget.watchViewController.canRecordWear.value) {
               var wearDate = DateTime.now();
