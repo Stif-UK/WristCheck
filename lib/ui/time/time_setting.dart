@@ -139,7 +139,7 @@ class _TimeSettingState extends State<TimeSetting> {
             ),
             widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
             //TODO: Finish moonphase implementation
-            //widget.wristCheckController.isAppPro.value? MoonPhaseWidget() : const SizedBox(height: 0,),
+            widget.wristCheckController.isAppPro.value? MoonPhaseWidget() : const SizedBox(height: 0,),
             const SizedBox(height: 20,)
 
           ],
