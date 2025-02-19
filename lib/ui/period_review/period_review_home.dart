@@ -27,7 +27,7 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wrist Recap"),
+        title: Text("Wrist Recap [BETA]"),
       ),
       body: calculateEnoughData()? PeriodReviewBody() : notEnoughData(),
     );

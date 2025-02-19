@@ -18,7 +18,7 @@ class PeriodReviewLanding extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(padInsets),
             child: Text("Welcome to the WristTrack Wrist Recap!\n\n"
-                "Here you can generate a summary of your wrist habits over a selected period.\n\n",
+                "Here you can generate an annual summary of your collection and wear habits.\n\n",
             style: Theme.of(context).textTheme.bodyLarge,),
           ),
           Padding(
@@ -57,7 +57,7 @@ class PeriodReviewLanding extends StatelessWidget {
           const SizedBox(height: 50,),
           Padding(
             padding: EdgeInsets.all(padInsets),
-            child: Text("Note: This feature is currently in BETA and will be enhanced over time.\n\n"
+            child: Text("Note: This feature is currently in BETA and will be enhanced over time - please consider it a work in progress!\n\n"
                 "Results can currently only be generated for years with at least 30 days of tracked wear.\n\n"
                 "Please feel free to reach out with feedback!",
               style: Theme.of(context).textTheme.bodyMedium,),
