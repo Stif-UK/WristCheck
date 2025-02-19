@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
+import 'package:wristcheck/ui/period_review/pages/collection_growth.dart';
 import 'package:wristcheck/ui/period_review/pages/tracking_summary.dart';
 import 'package:wristcheck/ui/period_review/widgets/review_page.dart';
 
@@ -108,6 +109,7 @@ List<Widget> _generatePages() {
   return [
     //Result 1 - Total wears tracked
     ReviewTrackingSummary(),
+    CollectionGrowth(),
     //TODO: Test results where there are less than three watches to report results on
     //Result 2 - Top 3 - position 3
     reviewController.wearsInPeriodWatchList.length > 3? ReviewPage(
@@ -139,6 +141,5 @@ List<Widget> _generatePages() {
         subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
         subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].filteredWearList!.length} wears tracked!"
     ),
-    ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "Your Collection Grew in ${reviewController.reviewYear}!", subtitle1: "You tracked ${reviewController.watchesBoughtInPeriod.length} purchases", subtitle2: "and ${reviewController.watchesSoldInPeriod.length} sales!",)
   ];
 }
