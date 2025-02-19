@@ -51,9 +51,9 @@ class _PeriodReviewResultsState extends State<PeriodReviewResults> {
               minimumSize: const Size.fromHeight(80),
             ),
             child: const Text("Thanks for using WristTrack!",
-              style: TextStyle(fontSize: 22),),
+              style: TextStyle(fontSize: 22),textAlign: TextAlign.center,),
             onPressed: () async {
-              //TODO: Remove buttons
+              Get.back();
             },
           ),
         ) :Container(
