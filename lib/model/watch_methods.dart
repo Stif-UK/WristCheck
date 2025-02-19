@@ -12,7 +12,8 @@ class WatchMethods {
 
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
-      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice, DateTime? soldDate, DateTime? deliveryDate, DateTime? warrantyEndDate){
+      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice, DateTime? soldDate, DateTime? deliveryDate, DateTime? warrantyEndDate,
+      double? caseDiameter, int? lugWidth, double? lug2lug, double? caseThickness){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -32,6 +33,12 @@ class WatchMethods {
     DateTime? sd = soldDate;
     DateTime? dd = deliveryDate;
     DateTime? wed = warrantyEndDate;
+    double? diameter = caseDiameter;
+    int? lw = lugWidth;
+    double? l2l = lug2lug;
+    double? thickness = caseThickness;
+
+
 
 
     final watch = Watches()
@@ -58,7 +65,11 @@ class WatchMethods {
     ..soldPrice = sp
     ..soldDate = sd
     ..deliveryDate = dd
-    ..warrantyEndDate = wed;
+    ..warrantyEndDate = wed
+    ..caseDiameter = diameter
+    ..lugWidth = lw
+    ..lug2lug = l2l
+    ..caseThickness = thickness;
 
     final box = Boxes.getWatches();
     return box.add(watch);
@@ -66,7 +77,6 @@ class WatchMethods {
 
   static void removeWearDate(DateTime dateToRemove, Watches watch){
     //Get the wearList index of the current date
-    print("Date to remove: $dateToRemove");
     try {
       int index = watch.wearList.indexWhere((element) {
         return element.day == dateToRemove.day && element.month == dateToRemove.month && element.year == dateToRemove.year;

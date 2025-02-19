@@ -108,11 +108,14 @@ class ViewWatchHelper{
   }
 
   static String getWearButtonText(Watches watch){
-    if(ViewWatchHelper.isDateToday(watch.wearList.last)){
-      return "Worn Today";
-    } else {
-      return "Wear this watch today";
+    String returnString = "Wear this watch today";
+    if(watch.wearList.isNotEmpty) {
+      if (ViewWatchHelper.isDateToday(watch.wearList.last)) {
+        returnString = "Worn Today";
+      }
     }
+
+    return returnString;
   }
 
 }

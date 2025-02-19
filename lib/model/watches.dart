@@ -77,6 +77,18 @@ class Watches extends HiveObject{
   @HiveField(23)
   late DateTime? warrantyEndDate;
 
+  @HiveField(24)
+  late double? caseDiameter;
+
+  @HiveField(25)
+  late int? lugWidth;
+
+  @HiveField(26)
+  late double? lug2lug;
+  
+  @HiveField(27)
+  late double? caseThickness;
+
   @override
   String toString() {
     return "${this.manufacturer} ${this.model}";

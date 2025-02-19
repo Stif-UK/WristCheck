@@ -40,13 +40,17 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..soldPrice = fields[20] as int?
       ..soldDate = fields[21] as DateTime?
       ..deliveryDate = fields[22] as DateTime?
-      ..warrantyEndDate = fields[23] as DateTime?;
+      ..warrantyEndDate = fields[23] as DateTime?
+      ..caseDiameter = fields[24] as double?
+      ..lugWidth = fields[25] as int?
+      ..lug2lug = fields[26] as double?
+      ..caseThickness = fields[27] as double?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(24)
+      ..writeByte(28)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -94,7 +98,15 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(22)
       ..write(obj.deliveryDate)
       ..writeByte(23)
-      ..write(obj.warrantyEndDate);
+      ..write(obj.warrantyEndDate)
+      ..writeByte(24)
+      ..write(obj.caseDiameter)
+      ..writeByte(25)
+      ..write(obj.lugWidth)
+      ..writeByte(26)
+      ..write(obj.lug2lug)
+      ..writeByte(27)
+      ..write(obj.caseThickness);
   }
 
   @override

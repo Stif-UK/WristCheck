@@ -145,6 +145,7 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Current Watch Info: ${widget.currentWatch.toString()}");
     //On build initialise watchViewController values
     //On first build default edit state - only default to true if this is a new watch record
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
@@ -652,8 +653,10 @@ class _WatchViewState extends State<WatchView> {
                 widget.watchViewController.soldPrice.value,
                 _soldDate,
                 _deliveryDate,
-                _warrantyEndDate
+                _warrantyEndDate,
+                0,0,0,0
               );
+              //TODO: Populate values
               //if a front image has been set, we add this to the newly created watch before exiting
               if(frontImage != null){
                 tempWatch = watchBox.get(watchKey);
