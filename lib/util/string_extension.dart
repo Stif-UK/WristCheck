@@ -18,7 +18,7 @@ extension ExtString on String{
 
   bool get isDouble{
     //in range 0-99 with a single digit past decimal or blank
-    final titleRegExp = RegExp(r'^(?:[0-9]|[1-9][0-9])(?:\.\d)?$');
+    final titleRegExp = RegExp(r"^(?:[0-9]|[1-9][0-9])(?:\.\d)?$|^$");
     return titleRegExp.hasMatch(this);
   }
 

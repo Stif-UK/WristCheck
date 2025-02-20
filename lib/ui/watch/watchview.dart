@@ -97,6 +97,7 @@ class _WatchViewState extends State<WatchView> {
   DateTime? _deliveryDate;
   DateTime? _warrantyEndDate;
   double? _caseDiameter;
+  int? _lugWidth;
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -120,6 +121,7 @@ class _WatchViewState extends State<WatchView> {
   final deliveryDateFieldController = TextEditingController();
   final warrantyEndDateFieldController = TextEditingController();
   final caseDiameterFieldController = TextEditingController();
+  final lugWidthFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -144,6 +146,7 @@ class _WatchViewState extends State<WatchView> {
     deliveryDateFieldController.dispose();
     warrantyEndDateFieldController.dispose();
     caseDiameterFieldController.dispose();
+    lugWidthFieldController.dispose();
     super.dispose();
   }
 
@@ -198,6 +201,7 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
             _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
             _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
+            _lugWidth = ViewWatchHelper.getServiceInterval(lugWidthFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -223,6 +227,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.deliveryDate = _deliveryDate;
             widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
             widget.currentWatch!.caseDiameter = _caseDiameter;
+            widget.currentWatch!.lugWidth = _lugWidth;
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -306,7 +311,8 @@ class _WatchViewState extends State<WatchView> {
         purchasePriceFieldController.value = TextEditingValue(text: purchasePriceValue != null? purchasePriceValue.toString() : "" );
         var soldPriceValue = widget.currentWatch!.soldPrice;
         soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
-        caseDiameterFieldController.value = TextEditingValue(text: widget.currentWatch!.caseDiameter != null?" ${widget.currentWatch!.caseDiameter}" : "" );
+        caseDiameterFieldController.value = TextEditingValue(text: widget.currentWatch!.caseDiameter != null?"${widget.currentWatch!.caseDiameter}" : "" );
+        lugWidthFieldController.value = TextEditingValue(text: widget.currentWatch!.lugWidth != null? widget.currentWatch!.lugWidth.toString() : "");
       }
     }
 
@@ -488,7 +494,7 @@ class _WatchViewState extends State<WatchView> {
                                         //Tab four when app is pro - Pro Data
                                         //Only show if app is pro
                                         widget.watchViewController.tabIndex.value == 3 && widget.wristCheckController.isAppPro.value
-                                            ? ProDataTab(caseDiameterController: caseDiameterFieldController,)
+                                            ? ProDataTab(caseDiameterController: caseDiameterFieldController,lugWidthController: lugWidthFieldController,)
                                             : const SizedBox(height: 0,),
 
                                         //Tab four when app is not pro- Notebook
@@ -676,6 +682,7 @@ class _WatchViewState extends State<WatchView> {
               _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
               _serviceInterval = ViewWatchHelper.getServiceInterval(serviceIntervalFieldController.value.text);
               _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
+              _lugWidth = ViewWatchHelper.getServiceInterval(lugWidthFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
@@ -700,7 +707,7 @@ class _WatchViewState extends State<WatchView> {
                 _soldDate,
                 _deliveryDate,
                 _warrantyEndDate,
-                _caseDiameter,0,0,0
+                _caseDiameter,_lugWidth,0,0
               );
               //TODO: Populate values
               //if a front image has been set, we add this to the newly created watch before exiting
