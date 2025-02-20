@@ -452,6 +452,14 @@ static String getCurrencyValue(String locale, int price, int? digits){
     return returnText;
 }
 
+static String trimDecimalZero(String value) {
+  if (value.endsWith(".0")) {
+    value = value.substring(0, value.length - 2);
+  }
+  print("Trimmed value: $value");
+  return value;
+}
+
 static String getDayFilterName(WatchDayChartFilterEnum filter){
     String returnString = "";
 
@@ -497,6 +505,7 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     return returnString;
   }
+
 
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/ui/charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
@@ -36,7 +37,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
         children: [
           Padding(
             padding: getPagePadding(),
-            child: Text("Cost Per Wear", style: Theme.of(context).textTheme.headlineSmall,),
+            child: Obx(()=> Text(wristCheckController.isAppPro.value? "Cost Per Wear" : "Go Pro!", style: Theme.of(context).textTheme.headlineSmall,)),
           ),
           Obx(()=> Padding(
               padding: getPagePadding(),
@@ -66,6 +67,21 @@ class _CollectionChartsState extends State<CollectionCharts> {
           Padding(
             padding: getPagePadding(),
             child: const CategoryChart(),
+          ),
+          const Divider(thickness: 2,),
+          //Separate out other Pro charts for dimensions
+          Obx(()=> wristCheckController.isAppPro.value? Column(
+              children: [
+                Padding(
+                  padding: getPagePadding(),
+                  child: Text("Dimensions: Case Diameter", style: Theme.of(context).textTheme.headlineSmall,),
+                ),
+                Padding(
+                  padding: getPagePadding(),
+                  child: const CaseDiameterChart(),
+                ),
+              ],
+            ) : SizedBox(height: 0,),
           ),
         ],
       ),
