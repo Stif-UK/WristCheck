@@ -10,11 +10,13 @@ class ProDataTab extends StatelessWidget {
     super.key,
     required this.caseDiameterController,
     required this.lugWidthController,
+    required this.lug2lugController,
   });
 
   final watchViewController = Get.put(WatchViewController());
   final TextEditingController caseDiameterController;
   final TextEditingController lugWidthController;
+  final TextEditingController lug2lugController;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,20 @@ class ProDataTab extends StatelessWidget {
           validator: (String? val) {
             if(!val!.isServiceNumber) {
               return 'Must be a whole number less than 99';
+            }
+          },
+        ),
+        WatchFormField(
+          icon: const Icon(FontAwesomeIcons.ruler),
+          enabled: watchViewController.inEditState.value,
+          fieldTitle: "Lug to Lug(mm):",
+          hintText: "Lug to Lug",
+          maxLines: 1,
+          controller: lug2lugController,
+          textCapitalization: TextCapitalization.none,
+          validator: (String? val) {
+            if(!val!.isDouble) {
+              return 'Must be numbers only with up to one decimal point';
             }
           },
         ),
