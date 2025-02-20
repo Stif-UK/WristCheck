@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
-import 'package:wristcheck/ui/charts/case_diameters_chart.dart';
+import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
+import 'package:wristcheck/ui/charts/dimension_charts/lug_width_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 
@@ -79,6 +80,14 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 Padding(
                   padding: getPagePadding(),
                   child: const CaseDiameterChart(),
+                ),
+                Padding(
+                  padding: getPagePadding(),
+                  child: Text("Dimensions: Lug Width", style: Theme.of(context).textTheme.headlineSmall,),
+                ),
+                Padding(
+                  padding: getPagePadding(),
+                  child: const LugWidthChart(),
                 ),
               ],
             ) : SizedBox(height: 0,),
