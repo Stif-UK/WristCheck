@@ -34,6 +34,12 @@ class ManufacturerClass extends ChartClass{
   late final String manufacturer;
 }
 
+class CaseDiameterClass extends ChartClass{
+  CaseDiameterClass(this.caseDiameter, int count) : super(count);
+
+  late final String caseDiameter;
+}
+
 class ChartHelper{
 
   static List<CategoryClass> calculateCategoryList(List<Watches> data){
@@ -109,6 +115,32 @@ class ChartHelper{
 
     }
     returnSeries = sortChartData(returnSeries) as List<ManufacturerClass>;
+    return returnSeries;
+  }
+
+  static List<CaseDiameterClass> calculateCaseDiameterList(List<Watches> data){
+    List<CaseDiameterClass> returnSeries = [];
+    Map<String,int> chartData = <String,int>{};
+    data.removeWhere((watch) => watch.caseDiameter == null);
+    data.sort((a, b) => b.caseDiameter!.compareTo(a.caseDiameter!));
+    for(var watch in data){
+      if(watch.caseDiameter != null){
+        chartData.update(
+          watch.caseDiameter!.toString(),
+              (value) => ++value,
+          ifAbsent: () => 1,
+        );
+      }
+      //remove empty values
+      if (chartData.containsKey("0.0")) {
+        chartData.remove("0.0");
+      }
+      for(var item in chartData.entries){
+        returnSeries.add(CaseDiameterClass(item.key, item.value));
+      }
+    }
+
+    returnSeries = sortChartData(returnSeries) as List<CaseDiameterClass>;
     return returnSeries;
   }
   

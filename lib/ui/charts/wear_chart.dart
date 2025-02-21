@@ -101,6 +101,27 @@ class _WearChartState extends State<WearChart> {
           )
         ];
         break;
+      case ChartGrouping.caseDiameter:
+        returnSeries =  <BarSeries<CaseDiameterClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateCaseDiameterList(widget.data),
+            xValueMapper: (CaseDiameterClass series, _) => series.count == 0? null: series.caseDiameter,
+            yValueMapper: (CaseDiameterClass series, _) => series.count == 0? null : series.count,
+            dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.caseDiameter}mm: ${caseDiameter.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
+            // animationDuration: 0 Set to zero to stop it animating!
+          )
+        ];
+        break;
+      case ChartGrouping.lugWidth:
+        // TODO: Handle this case.
+        break;
+      case ChartGrouping.lug2lug:
+        // TODO: Handle this case.
+        break;
+      case ChartGrouping.caseThickness:
+        // TODO: Handle this case.
+        break;
     }
     return returnSeries;
   }
