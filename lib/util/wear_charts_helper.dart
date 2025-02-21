@@ -60,7 +60,7 @@ class WearChartsHelper {
     String returnText = "";
     //Text for grouping
     if(showGrouping){
-      returnText = "$returnText Group by ${grouping.name}, ";
+      returnText = "$returnText Group by ${WristCheckFormatter.getChartGroupingText(grouping)}, ";
     }
     //Text for category filter
     if(filterCategories){
