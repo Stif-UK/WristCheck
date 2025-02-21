@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class LugWidthChart extends StatefulWidget {
-  const LugWidthChart({Key? key}) : super(key: key);
+class L2LChart extends StatefulWidget {
+  const L2LChart({Key? key}) : super(key: key);
 
   @override
-  State<LugWidthChart> createState() => _LugWidthChartState();
+  State<L2LChart> createState() => _L2LChartState();
 }
 
-class _LugWidthChartState extends State<LugWidthChart> {
+class _L2LChartState extends State<L2LChart> {
   final List<Watches> data = Boxes.getCollectionWatches();
 
 
@@ -20,9 +21,9 @@ class _LugWidthChartState extends State<LugWidthChart> {
     //Calculate the chart data - generate a map of case diameters and counts
     Map<String,int> chartData = <String,int>{};
     for(var watch in data){
-      if(watch.lugWidth != null){
+      if(watch.lug2lug != null){
         chartData.update(
-          watch.lugWidth.toString(),
+          watch.lug2lug.toString(),
               (value) => ++value,
           ifAbsent: () => 1,
         );
@@ -30,8 +31,8 @@ class _LugWidthChartState extends State<LugWidthChart> {
     }
     //TODO: Consider adding an optional count of zero values
     //remove zero values
-    if(chartData.containsKey("0")){
-      chartData.remove("0");
+    if(chartData.containsKey("0.0")){
+      chartData.remove("0.0");
     }
 
     //sort map
@@ -39,19 +40,19 @@ class _LugWidthChartState extends State<LugWidthChart> {
         chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
 
 
-    List<LugWidthData> getChartData = [];
+    List<L2LData> getChartData = [];
 
     for(var item in sortedChartData.entries){
-      getChartData.add(LugWidthData(item.key, item.value));
+      getChartData.add(L2LData(item.key, item.value));
     }
 
     return SfCartesianChart(
       series: <CartesianSeries>[
-        BarSeries<LugWidthData, String>(
+        BarSeries<L2LData, String>(
           dataSource: getChartData,
-          xValueMapper: (LugWidthData mvmt, _) => mvmt.lugwidth,
-          yValueMapper: (LugWidthData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${moov.lugwidth}mm: ${moov.count}",
+          xValueMapper: (L2LData mvmt, _) => mvmt.lug2lug,
+          yValueMapper: (L2LData mvmt, _) => mvmt.count,
+          dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.lug2lug)}mm: ${moov.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],
@@ -60,9 +61,9 @@ class _LugWidthChartState extends State<LugWidthChart> {
   }
 }
 
-class LugWidthData{
-  LugWidthData(this.lugwidth, this.count);
-  final String lugwidth;
+class L2LData{
+  L2LData(this.lug2lug, this.count);
+  final String lug2lug;
   final int count;
 }
 
