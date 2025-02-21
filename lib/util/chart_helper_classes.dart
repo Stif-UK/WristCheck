@@ -34,10 +34,10 @@ class ManufacturerClass extends ChartClass{
   late final String manufacturer;
 }
 
-class CaseDiameterClass extends ChartClass{
-  CaseDiameterClass(this.caseDiameter, int count) : super(count);
+class DimensionsClass extends ChartClass{
+  DimensionsClass(this.dimension, int count) : super(count);
 
-  late final String caseDiameter;
+  late final String dimension;
 }
 
 class ChartHelper{
@@ -118,8 +118,8 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<CaseDiameterClass> calculateCaseDiameterList(List<Watches> data){
-    List<CaseDiameterClass> returnSeries = [];
+  static List<DimensionsClass> calculateCaseDiameterList(List<Watches> data){
+    List<DimensionsClass> returnSeries = [];
     //Get set of case diameters (to ensure all unique)
     Set<double> caseDiameters = {};
     for(Watches watch in data){
@@ -135,11 +135,11 @@ class ChartHelper{
           count += watch.filteredWearList!.length;
         }
       }
-      returnSeries.add(CaseDiameterClass(caseDiameter.toString(), count));
+      returnSeries.add(DimensionsClass(caseDiameter.toString(), count));
 
     }
 
-    returnSeries = sortChartData(returnSeries) as List<CaseDiameterClass>;
+    returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
     return returnSeries;
   }
   
