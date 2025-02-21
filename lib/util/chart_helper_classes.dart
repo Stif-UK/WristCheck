@@ -120,24 +120,23 @@ class ChartHelper{
 
   static List<CaseDiameterClass> calculateCaseDiameterList(List<Watches> data){
     List<CaseDiameterClass> returnSeries = [];
-    Map<String,int> chartData = <String,int>{};
-    data.removeWhere((watch) => watch.caseDiameter == null);
-    data.sort((a, b) => b.caseDiameter!.compareTo(a.caseDiameter!));
-    for(var watch in data){
-      if(watch.caseDiameter != null){
-        chartData.update(
-          watch.caseDiameter!.toString(),
-              (value) => ++value,
-          ifAbsent: () => 1,
-        );
+    //Get set of case diameters (to ensure all unique)
+    Set<double> caseDiameters = {};
+    for(Watches watch in data){
+      if(watch.caseDiameter != null) {
+        caseDiameters.add(watch.caseDiameter!);
       }
-      //remove empty values
-      if (chartData.containsKey("0.0")) {
-        chartData.remove("0.0");
+    }
+    for(double caseDiameter in caseDiameters) {
+      int count = 0;
+      List<Watches> cdList = data.where((watch) => watch.caseDiameter == caseDiameter).toList();
+      for(Watches watch in cdList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
       }
-      for(var item in chartData.entries){
-        returnSeries.add(CaseDiameterClass(item.key, item.value));
-      }
+      returnSeries.add(CaseDiameterClass(caseDiameter.toString(), count));
+
     }
 
     returnSeries = sortChartData(returnSeries) as List<CaseDiameterClass>;
