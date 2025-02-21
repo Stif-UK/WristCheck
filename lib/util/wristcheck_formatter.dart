@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
@@ -504,6 +505,29 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
     }
 
     return returnString;
+  }
+
+  static String getChartGroupingText(ChartGrouping value){
+    switch(value) {
+      case ChartGrouping.watch:
+        return "Watch";
+      case ChartGrouping.movement:
+        return "Movement";
+      case ChartGrouping.category:
+        return "Category";
+      case ChartGrouping.manufacturer:
+        return "Manufacturer";
+      case ChartGrouping.caseDiameter:
+        return "Case Diameter";
+      case ChartGrouping.lugWidth:
+        return "Lug Width";
+      case ChartGrouping.lug2lug:
+        return "Lug to Lug";
+      case ChartGrouping.caseThickness:
+        return "Case Thickness";
+        default:
+          return "";
+    }
   }
 
 

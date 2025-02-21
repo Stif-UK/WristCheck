@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -11,6 +12,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class AdvancedFiltersWidget extends StatefulWidget {
   AdvancedFiltersWidget({super.key});
   final filterController = Get.put(FilterController());
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   State<AdvancedFiltersWidget> createState() => _AdvancedFiltersWidgetState();
@@ -117,6 +119,15 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
   }
 
   Widget _buildGroupingSelection(){
+
+    //Create a list of grouping values, minus the 'Pro' values
+    //if the app is non-pro this is used in place of the full list in the chip choice
+    List<ChartGrouping> groupList = List.from(ChartGrouping.values);
+    groupList.remove(ChartGrouping.caseDiameter);
+    groupList.remove(ChartGrouping.lug2lug);
+    groupList.remove(ChartGrouping.lugWidth);
+    groupList.remove(ChartGrouping.caseThickness);
+
     void setSelectedValue(ChartGrouping? grouping){
       widget.filterController.updateChartGrouping(grouping!);
     }
@@ -126,14 +137,14 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         InlineChoice.single(
             clearable: true,
             value: widget.filterController.chartGrouping.value,
-            itemCount: ChartGrouping.values.length,
+            itemCount: widget.wristCheckController.isAppPro.value? ChartGrouping.values.length : groupList.length,
             onChanged: setSelectedValue,
             itemBuilder: (state, i) {
               return ChoiceChip(
                 selectedColor: Colors.red,
                 selected: state.selected(ChartGrouping.values[i]),
                 onSelected: state.onSelected(ChartGrouping.values[i]),
-                label: Text(ChartGrouping.values[i].name),
+                label: Text(WristCheckFormatter.getChartGroupingText(ChartGrouping.values[i])),
               );
             },
             listBuilder: ChoiceList.createWrapped()
