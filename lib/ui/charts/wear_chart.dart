@@ -102,19 +102,10 @@ class _WearChartState extends State<WearChart> {
         ];
         break;
       case ChartGrouping.caseDiameter:
-        returnSeries =  <BarSeries<DimensionsClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateCaseDiameterList(widget.data),
-            xValueMapper: (DimensionsClass series, _) => series.count == 0? null: series.dimension,
-            yValueMapper: (DimensionsClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.dimension}mm: ${caseDiameter.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(widget.data));
         break;
       case ChartGrouping.lugWidth:
-        // TODO: Handle this case.
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(widget.data));
         break;
       case ChartGrouping.lug2lug:
         // TODO: Handle this case.
@@ -125,5 +116,18 @@ class _WearChartState extends State<WearChart> {
     }
     return returnSeries;
   }
+}
+
+List<BarSeries> _calculateDimensionReturn(List<DimensionsClass> dataSource) {
+  return  <BarSeries<DimensionsClass, String>>[
+    BarSeries(
+      dataSource: dataSource,
+      xValueMapper: (DimensionsClass series, _) => series.count == 0? null: series.dimension,
+      yValueMapper: (DimensionsClass series, _) => series.count == 0? null : series.count,
+      dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.dimension}mm: ${caseDiameter.count}",
+      dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
+      // animationDuration: 0 Set to zero to stop it animating!
+    )
+  ];
 }
 

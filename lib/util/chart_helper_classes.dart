@@ -38,6 +38,11 @@ class DimensionsClass extends ChartClass{
   DimensionsClass(this.dimension, int count) : super(count);
 
   late final String dimension;
+
+  @override
+  String toString() {
+    return 'DimensionsClass{dimension: $dimension, count: $count}';
+  }
 }
 
 class ChartHelper{
@@ -123,7 +128,7 @@ class ChartHelper{
     //Get set of case diameters (to ensure all unique)
     Set<double> caseDiameters = {};
     for(Watches watch in data){
-      if(watch.caseDiameter != null) {
+      if(watch.caseDiameter != null && watch.caseDiameter != 0.0) {
         caseDiameters.add(watch.caseDiameter!);
       }
     }
@@ -136,6 +141,33 @@ class ChartHelper{
         }
       }
       returnSeries.add(DimensionsClass(caseDiameter.toString(), count));
+
+    }
+
+    returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
+    return returnSeries;
+  }
+
+  static List<DimensionsClass> calculateLugWidthList(List<Watches> data){
+    List<DimensionsClass> returnSeries = [];
+    //Get set of lugWidths (to ensure all unique)
+    Set<int> lugWidths = {};
+    for(Watches watch in data){
+      if(watch.lugWidth != null && watch.lugWidth != 0) {
+        lugWidths.add(watch.lugWidth!);
+      }
+    }
+    print(lugWidths);
+    for(int lugWidth in lugWidths) {
+      int count = 0;
+      List<Watches> watchList = data.where((watch) => watch.lugWidth == lugWidth).toList();
+      for(Watches watch in watchList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      returnSeries.add(DimensionsClass(lugWidth.toString(), count));
+      print(returnSeries);
 
     }
 
