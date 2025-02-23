@@ -68,7 +68,7 @@ class _TimeSettingState extends State<TimeSetting> {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(height: 20,),

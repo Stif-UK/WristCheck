@@ -7,17 +7,24 @@ class MoonPhaseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
 
       children: [
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text("Current Moon Phase", style: Theme.of(context).textTheme.headlineSmall,),
         ),
-        SizedBox(height: 10,),
-        MoonWidget(date: DateTime.now(),
-        size: 100,
-        resolution: 150,)
+        Row(
+          children: [
+            SizedBox(width: 137.5,),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: MoonWidget(date: DateTime.now(),
+              size: 150,
+              resolution: 150,),
+            ),
+          ],
+        )
       ],
     );
   }
