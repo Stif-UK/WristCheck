@@ -108,10 +108,10 @@ class _WearChartState extends State<WearChart> {
         returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(widget.data));
         break;
       case ChartGrouping.lug2lug:
-        // TODO: Handle this case.
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugToLugList(widget.data));
         break;
       case ChartGrouping.caseThickness:
-        // TODO: Handle this case.
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(widget.data));
         break;
     }
     return returnSeries;

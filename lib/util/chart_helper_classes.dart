@@ -166,11 +166,67 @@ class ChartHelper{
           count += watch.filteredWearList!.length;
         }
       }
-      returnSeries.add(DimensionsClass(lugWidth.toString(), count));
-      print(returnSeries);
 
+      //Only add records where the wear count is > 0;
+      if (count > 0) {
+        returnSeries.add(DimensionsClass(lugWidth.toString(), count));
+      }
     }
 
+    returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
+    return returnSeries;
+  }
+
+  static List<DimensionsClass> calculateLugToLugList(List<Watches> data){
+    List<DimensionsClass> returnSeries = [];
+    //Get set of lugWidths (to ensure all unique)
+    Set<double> lug2lugs = {};
+    for(Watches watch in data){
+      if(watch.lug2lug != null && watch.lug2lug != 0.0) {
+        lug2lugs.add(watch.lug2lug!);
+      }
+    }
+    for(double lug2lug in lug2lugs) {
+      int count = 0;
+      List<Watches> watchList = data.where((watch) => watch.lug2lug == lug2lug).toList();
+      for(Watches watch in watchList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      //Only add records where the wear count is > 0;
+      if (count > 0) {
+        returnSeries.add(DimensionsClass(lug2lug.toString(), count));
+      }
+
+    }
+    returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
+    return returnSeries;
+  }
+
+  static List<DimensionsClass> calculateCaseThicknessList(List<Watches> data){
+    List<DimensionsClass> returnSeries = [];
+    //Get set of case thicknesses (to ensure all unique)
+    Set<double> caseThicknesses = {};
+    for(Watches watch in data){
+      if(watch.caseThickness != null && watch.caseThickness != 0.0) {
+        caseThicknesses.add(watch.caseThickness!);
+      }
+    }
+    for(double caseThickness in caseThicknesses) {
+      int count = 0;
+      List<Watches> watchList = data.where((watch) => watch.caseThickness == caseThickness).toList();
+      for(Watches watch in watchList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      //Only add records where the wear count is > 0;
+      if (count > 0) {
+        returnSeries.add(DimensionsClass(caseThickness.toString(), count));
+      }
+
+    }
     returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
     return returnSeries;
   }
