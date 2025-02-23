@@ -26,6 +26,7 @@ class ProDataTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         WatchFormField(
+          keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.rulerCombined),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Case Diameter(mm):",
@@ -35,11 +36,12 @@ class ProDataTab extends StatelessWidget {
           textCapitalization: TextCapitalization.none,
           validator: (String? val) {
             if(!val!.isDouble) {
-              return 'Must be numbers only with up to one decimal point';
+              return 'Must be numbers only with up to two decimal points';
             }
           },
         ),
         WatchFormField(
+          keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.rulerHorizontal),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Lug Width(mm):",
@@ -54,6 +56,7 @@ class ProDataTab extends StatelessWidget {
           },
         ),
         WatchFormField(
+          keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.ruler),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Lug to Lug(mm):",
@@ -63,11 +66,12 @@ class ProDataTab extends StatelessWidget {
           textCapitalization: TextCapitalization.none,
           validator: (String? val) {
             if(!val!.isDouble) {
-              return 'Must be numbers only with up to one decimal point';
+              return 'Must be numbers only with up to two decimal points';
             }
           },
         ),
         WatchFormField(
+          keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.rulerVertical),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Case Thickness(mm):",
@@ -77,7 +81,7 @@ class ProDataTab extends StatelessWidget {
           textCapitalization: TextCapitalization.none,
           validator: (String? val) {
             if(!val!.isDouble) {
-              return 'Must be numbers only with up to one decimal point';
+              return 'Must be numbers only with up to two decimal points';
             }
           },
         ),
