@@ -4,66 +4,45 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class L2LChart extends StatefulWidget {
-  const L2LChart({Key? key}) : super(key: key);
+class L2LChartV2 extends StatefulWidget {
+  const L2LChartV2({Key? key}) : super(key: key);
 
   @override
-  State<L2LChart> createState() => _L2LChartState();
+  State<L2LChartV2> createState() => _L2LChartV2State();
 }
 
-class _L2LChartState extends State<L2LChart> {
+class _L2LChartV2State extends State<L2LChartV2> {
   final List<Watches> data = Boxes.getCollectionWatches();
 
 
   @override
   Widget build(BuildContext context) {
 
-    //Calculate the chart data - generate a map of case diameters and counts
-    Map<String,int> chartData = <String,int>{};
-    for(var watch in data){
-      if(watch.lug2lug != null){
-        chartData.update(
-          watch.lug2lug.toString(),
-              (value) => ++value,
-          ifAbsent: () => 1,
-        );
-      }
-    }
-    //TODO: Consider adding an optional count of zero values
-    //remove zero values
-    if(chartData.containsKey("0.0")){
-      chartData.remove("0.0");
-    }
+    //Calculate the chart data - generate a list of all lug2lug values
+    data.removeWhere((watch) => watch.lug2lug == null);
+    data.removeWhere((watch) => watch.lug2lug == 0.0);
 
-    //sort map
-    var sortedChartData = Map.fromEntries(
-        chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
-
-
-    List<L2LData> getChartData = [];
-
-    for(var item in sortedChartData.entries){
-      getChartData.add(L2LData(item.key, item.value));
-    }
 
     return SfCartesianChart(
       series: <CartesianSeries>[
-        BarSeries<L2LData, String>(
-          dataSource: getChartData,
-          xValueMapper: (L2LData mvmt, _) => mvmt.lug2lug,
-          yValueMapper: (L2LData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.lug2lug)}mm: ${moov.count}",
+        LineSeries<Watches, String>(
+          dataSource: data,
+          xValueMapper: (Watches watch, _) => watch.toString(),
+          yValueMapper: (Watches watch, _) => watch.lug2lug,
+          dataLabelMapper: (watch, _)=> "${watch.lug2lug}mm",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
+          markerSettings: MarkerSettings(isVisible: true),
         )
       ],
       primaryXAxis: CategoryAxis(isVisible: false),
     );
+
   }
 }
 
 class L2LData{
-  L2LData(this.lug2lug, this.count);
+  L2LData(this.lug2lug, this.index);
   final String lug2lug;
-  final int count;
+  final int index;
 }
 

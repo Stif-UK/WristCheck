@@ -10,7 +10,7 @@ import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart'
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_thickness_chart.dart';
-import 'package:wristcheck/ui/charts/dimension_charts/lug2lug_chartv2.dart';
+import 'package:wristcheck/ui/charts/dimension_charts/lug2lug_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/lug_width_chart.dart';
 import 'package:wristcheck/ui/charts/movement_chart.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
