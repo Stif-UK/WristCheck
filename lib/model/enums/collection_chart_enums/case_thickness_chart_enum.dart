@@ -1,0 +1,1 @@
+enum CaseThicknessChartEnum {line, bar}
