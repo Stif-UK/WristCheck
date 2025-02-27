@@ -73,6 +73,9 @@ Widget _getChart(CaseThicknessChartEnum type, List<Watches> data){
 }
 
 List<CaseThicknessData> _getChartData(List<Watches> data) {
+  //start by sorting the watches based on their case thickness (we have already removed nulls)
+  data.sort((a,b) => b.caseThickness!.compareTo(a.caseThickness!));
+
   Map<String,int> chartData = <String,int>{};
   for(var watch in data){
     if(watch.caseThickness != null){
@@ -88,14 +91,10 @@ List<CaseThicknessData> _getChartData(List<Watches> data) {
     chartData.remove("0.0");
   }
 
-  //sort map
-  var sortedChartData = Map.fromEntries(
-      chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
-
 
   List<CaseThicknessData> getChartData = [];
 
-  for(var item in sortedChartData.entries){
+  for(var item in chartData.entries){
     getChartData.add(CaseThicknessData(item.key, item.value));
   }
   return getChartData;

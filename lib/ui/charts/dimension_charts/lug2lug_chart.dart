@@ -85,6 +85,9 @@ String _calculateAverageLug2Lug(List<Watches> data) {
 }
 
 List<L2LData> _getChartData(List<Watches> data) {
+  //start by sorting the watches based on their lug to lug (we have already removed nulls)
+  data.sort((a,b) => b.lug2lug!.compareTo(a.lug2lug!));
+
   Map<String,int> chartData = <String,int>{};
   for(var watch in data){
     if(watch.lug2lug != null){
@@ -100,14 +103,9 @@ List<L2LData> _getChartData(List<Watches> data) {
     chartData.remove("0.0");
   }
 
-  //sort map
-  var sortedChartData = Map.fromEntries(
-      chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
-
-
   List<L2LData> getChartData = [];
 
-  for(var item in sortedChartData.entries){
+  for(var item in chartData.entries){
     getChartData.add(L2LData(item.key, item.value));
   }
   return getChartData;
