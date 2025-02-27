@@ -6,6 +6,7 @@ import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
+import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
@@ -97,13 +98,29 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   child: const LugWidthChart(),
                 ),
                 const Divider(thickness: 2,),
-                Padding(
-                  padding: getPagePadding(),
-                  child: Text("Lug to Lug", style: Theme.of(context).textTheme.headlineSmall,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: getPagePadding(),
+                      child: Text("Lug to Lug", style: Theme.of(context).textTheme.headlineSmall,),
+                    ),
+                    IconButton(
+                      icon: widget.collectionStatsController.lug2lugChartType.value == Lug2lugChartEnum.line?
+                      Icon(FontAwesomeIcons.chartLine):
+                      Icon(FontAwesomeIcons.chartBar),
+                      onPressed: (){
+                        //On press swap between line and bar chart types
+                        widget.collectionStatsController.lug2lugChartType.value == Lug2lugChartEnum.line ?
+                        widget.collectionStatsController.updateLug2LugChartType(Lug2lugChartEnum.bar) :
+                        widget.collectionStatsController.updateLug2LugChartType(Lug2lugChartEnum.line);
+                      },
+                    )
+                  ],
                 ),
                 Padding(
                   padding: getPagePadding(),
-                  child: const L2LChartV2(),
+                  child: L2LChart(),
                 ),
                 const Divider(thickness: 2,),
                 Row(

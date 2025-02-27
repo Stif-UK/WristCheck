@@ -107,7 +107,7 @@ String _calculateAverageCaseThickness(List<Watches> data) {
 
   if(data.length != 0){
     double average = data.map((m) => m.caseThickness!).average;
-    returnString = "Average Case Thickness: $average mm";
+    returnString = "Average Case Thickness: ${double.parse(average.toStringAsFixed(2))} mm";
   }
 
   return returnString;
