@@ -87,6 +87,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   padding: getPagePadding(),
                   child: const CaseDiameterChart(),
                 ),
+                const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
                   child: Text("Lug Width", style: Theme.of(context).textTheme.headlineSmall,),
@@ -95,6 +96,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   padding: getPagePadding(),
                   child: const LugWidthChart(),
                 ),
+                const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
                   child: Text("Lug to Lug", style: Theme.of(context).textTheme.headlineSmall,),
@@ -103,6 +105,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   padding: getPagePadding(),
                   child: const L2LChartV2(),
                 ),
+                const Divider(thickness: 2,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -127,6 +130,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   padding: getPagePadding(),
                   child: CaseThicknessChart(),
                 ),
+                const Divider(thickness: 2,),
               ],
             ) : SizedBox(height: 0,),
           ),
