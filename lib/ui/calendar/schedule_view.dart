@@ -300,6 +300,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownSearch<Watches>(
+                    compareFn: (watch1, watch2) => watch1.key == watch2.key,
                     popupProps: PopupProps.menu(
                       showSearchBox: true,
                     ),
