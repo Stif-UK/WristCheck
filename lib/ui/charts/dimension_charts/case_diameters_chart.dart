@@ -3,6 +3,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:collection/collection.dart';
 
 class CaseDiameterChart extends StatefulWidget {
   const CaseDiameterChart({Key? key}) : super(key: key);
@@ -46,20 +47,38 @@ class _CaseDiameterChartState extends State<CaseDiameterChart> {
       getChartData.add(DiameterData(item.key, item.value));
     }
 
-    return SfCartesianChart(
-      series: <CartesianSeries>[
-        BarSeries<DiameterData, String>(
-          dataSource: getChartData,
-          xValueMapper: (DiameterData mvmt, _) => mvmt.diameter,
-          yValueMapper: (DiameterData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.diameter)}mm: ${moov.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
-        )
+    return Column(
+      children: [
+        SfCartesianChart(
+          series: <CartesianSeries>[
+            BarSeries<DiameterData, String>(
+              dataSource: getChartData,
+              xValueMapper: (DiameterData mvmt, _) => mvmt.diameter,
+              yValueMapper: (DiameterData mvmt, _) => mvmt.count,
+              dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.diameter)}mm: ${moov.count}",
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+            )
+          ],
+          primaryXAxis: CategoryAxis(isVisible: false),
+        ),
+        Text(_calculateAverageCaseDiameter(data)),
       ],
-      primaryXAxis: CategoryAxis(isVisible: false),
     );
   }
 }
+
+String _calculateAverageCaseDiameter(List<Watches> data) {
+  String returnString = "";
+  if(data.length != 0){
+    data.removeWhere((watch) => watch.caseDiameter == null || watch.caseDiameter == 0.0);
+    double average = data.map((m) => m.caseDiameter!).average;
+    returnString = "Average Case Diameter: ${double.parse(average.toStringAsFixed(2))} mm";
+  }
+
+  return returnString;
+
+}
+
 
 class DiameterData{
   DiameterData(this.diameter, this.count);
