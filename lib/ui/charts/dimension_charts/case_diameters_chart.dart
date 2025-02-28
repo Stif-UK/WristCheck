@@ -20,6 +20,11 @@ class _CaseDiameterChartState extends State<CaseDiameterChart> {
 
     //Calculate the chart data - generate a map of case diameters and counts
     Map<String,int> chartData = <String,int>{};
+
+    //Start by removing nulls and sorting based on case diameter
+    data.removeWhere((watch) => watch.caseDiameter == null);
+    data.sort((a, b) => b.caseDiameter!.compareTo(a.caseDiameter!));
+
     for(var watch in data){
       if(watch.caseDiameter != null){
         chartData.update(
@@ -35,14 +40,9 @@ class _CaseDiameterChartState extends State<CaseDiameterChart> {
       chartData.remove("0.0");
     }
 
-    //sort map
-    var sortedChartData = Map.fromEntries(
-        chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
-
-
     List<DiameterData> getChartData = [];
 
-    for(var item in sortedChartData.entries){
+    for(var item in chartData.entries){
       getChartData.add(DiameterData(item.key, item.value));
     }
 
