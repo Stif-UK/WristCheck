@@ -5,14 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.11 \n"
+        "### Version 1.12 \n"
         "\n"
 
-            "* New 'Retired' status added to tracking\n"
-            "* Ability to choose first day of week for calendar view added\n"
-            "* Can now filter wear charts 'since last purchase'\n"
-            "* Dark/Light theme can now be selected manually, in addition to system default\n"
-            "* (Pro) Improvements to the day and month watch charts\n"
+            "* Added CHF and HUF currencies\n"
+            "* Implemented Wrist Recap annual summary feature [BETA - please share feedback and suggestions!]\n"
+            "* (Pro) Added ability to track watch dimension data\n"
+            "* (Pro) Additional collection charts and wear chart filters as above\n"
+            "* (Pro) Added Moon Phase info to time setting tab\n"
             "* Additional Bug fixes & Improvements";
 
   }
@@ -27,6 +27,19 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.12 \n"
+                      "\n"
+
+                      "* Added CHF and HUF currencies\n"
+                      "* Implemented Wrist Recap annual summary feature [BETA]\n"
+                      "* (Pro) Added ability to track watch dimension data\n"
+                      "* (Pro) Additional collection charts and wear chart filters as above\n"
+                      "* (Pro) Added Moon Phase info to time setting tab\n"
+                      "* Updates to core libraries\n"
+                      "* Updates to target latest OS versions\n"
+                      "* Wear button now changes when watch worn that day\n"
+                      "* Feedback email link added to sidebar"
+                      "---\n\n"
                       "### Version 1.11 \n"
                       "\n"
 
