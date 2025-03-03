@@ -88,8 +88,12 @@ class ViewWatchHelper{
     if(dateField == "Not Recorded" || dateField == "N/A"){
       return null;
     } else {
-      final dateFormat = DateFormat('MMM d, yyyy');
-      return dateField.length != 0 ? dateFormat.parse(dateField) : null;
+      try {
+        final dateFormat = DateFormat('MMM d, yyyy');
+        return dateField.length != 0 ? dateFormat.parse(dateField) : null;
+      } on Exception catch (e) {
+        return null;
+      }
     }
   }
 
