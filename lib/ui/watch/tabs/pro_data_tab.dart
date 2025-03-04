@@ -26,7 +26,7 @@ class ProDataTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         WatchFormField(
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
           icon: const Icon(FontAwesomeIcons.rulerCombined),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Case Diameter(mm):",
@@ -56,7 +56,7 @@ class ProDataTab extends StatelessWidget {
           },
         ),
         WatchFormField(
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
           icon: const Icon(FontAwesomeIcons.ruler),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Lug to Lug(mm):",
@@ -71,7 +71,7 @@ class ProDataTab extends StatelessWidget {
           },
         ),
         WatchFormField(
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
           icon: const Icon(FontAwesomeIcons.rulerVertical),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "Case Thickness(mm):",
