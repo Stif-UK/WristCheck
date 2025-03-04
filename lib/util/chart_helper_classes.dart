@@ -70,6 +70,7 @@ class ChartHelper{
       }
 
     }
+    returnSeries.removeWhere((category) => category.count == 0);
     returnSeries = sortChartData(returnSeries) as List<CategoryClass>;
     return returnSeries;
   }
@@ -97,6 +98,8 @@ class ChartHelper{
       }
 
     }
+
+    returnSeries.removeWhere((movement) => movement.count == 0);
     returnSeries = sortChartData(returnSeries) as List<MovementClass>;
     return returnSeries;
   }
