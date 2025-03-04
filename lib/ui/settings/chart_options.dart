@@ -73,7 +73,10 @@ class _ChartOptionsState extends State<ChartOptions> {
                     title: const Text("Wear Stats default filter"),
                     leading: const Icon(Icons.filter_alt_outlined),
                     children: [
-                      const Text("Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default."),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: const Text("Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default."),
+                      ),
                       ListTile(
                         title: const Text("Show all recorded wears"),
                         leading: Radio<WearChartOptions>(
@@ -166,7 +169,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                     leading: const Icon(Icons.bar_chart_rounded),
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: const Text("Set the default order that results show in the graph - by default watches are listed in the same order selected for the collection view, however can also be displayed in ascending or descending order."),
                       ),
                       ListTile(
@@ -219,7 +222,10 @@ class _ChartOptionsState extends State<ChartOptions> {
                       title: const Text("Default chart type"),
                     leading: const Icon(Icons.pie_chart),
                     children: [
-                      const Text("Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used."),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: const Text("Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used."),
+                      ),
                       ListTile(
                         title: const Text("Bar Chart"),
                         leading: Radio<DefaultChartType>(
