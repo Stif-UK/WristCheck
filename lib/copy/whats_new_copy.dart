@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.12 \n"
+        "### Version 1.12.1 \n"
         "\n"
 
             "* Added CHF and HUF currencies\n"
@@ -13,6 +13,7 @@ class WhatsNewCopy{
             "* (Pro) Added ability to track watch dimension data\n"
             "* (Pro) Additional collection charts and wear chart filters as above\n"
             "* (Pro) Added Moon Phase info to time setting tab\n"
+            "* v1.12.1: Bug fix for 'This Month' wear chart label bug\n"
             "* Additional Bug fixes & Improvements";
 
   }
@@ -27,7 +28,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.12 \n"
+                      "### Version 1.12.1 \n"
                       "\n"
 
                       "* Added CHF and HUF currencies\n"
@@ -35,10 +36,11 @@ class WhatsNewCopy{
                       "* (Pro) Added ability to track watch dimension data\n"
                       "* (Pro) Additional collection charts and wear chart filters as above\n"
                       "* (Pro) Added Moon Phase info to time setting tab\n"
+                      "* v1.12.1: Bug fix for 'This Month' wear chart label bug\n"
                       "* Updates to core libraries\n"
                       "* Updates to target latest OS versions\n"
                       "* Wear button now changes when watch worn that day\n"
-                      "* Feedback email link added to sidebar"
+                      "* Feedback email link added to sidebar\n"
                       "---\n\n"
                       "### Version 1.11 \n"
                       "\n"
