@@ -307,6 +307,7 @@ class Boxes {
 
   static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
 
+    final controller = Get.put(FilterController());
     var now = DateTime.now();
     var lastMonth = DateTime(now.year, now.month-1);
     //Populate the initial list based on settings chosen
@@ -365,7 +366,6 @@ class Boxes {
         //Use a copy of list to get the last purchase date to avoid deleting values from the list
         List<Watches> copyList = List.from(initialList);
         DateTime? lastPurchaseDate = getLastPurchaseDate(copyList);
-        var controller = Get.put(FilterController());
         controller.updateLastPurchaseDate(lastPurchaseDate);
         if(lastPurchaseDate != null){
           DateTime now = DateTime.now();
@@ -378,7 +378,6 @@ class Boxes {
       }
       break;
       case WearChartOptions.manual:{
-        var controller = Get.put(FilterController());
         int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
         int? yearInt = controller.selectedYear.value == "All"? null : int.parse(controller.selectedYear.value);
         returnValue = Boxes.getWatchesWornFilter(initialList, monthInt, yearInt);
