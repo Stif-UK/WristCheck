@@ -386,6 +386,10 @@ class Boxes {
         returnValue = Boxes.getWatchesWornFilter(initialList, null, null);
       }
     }
+
+    //Remove any unworn or null values
+    returnValue.removeWhere((watch) => watch.filteredWearList == null);
+    returnValue.removeWhere((watch) => watch.filteredWearList!.isEmpty);
     return returnValue;
   }
 
