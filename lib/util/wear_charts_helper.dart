@@ -108,8 +108,11 @@ class WearChartsHelper {
       returnText = "$returnText inc. Archived, ";
     }
     returnText = returnText.trim();
+    if(returnText.length > 2){
+      returnText = returnText.substring(0, returnText.length-1);
+    }
 
-    return returnText.substring(0, returnText.length-1);
+    return returnText;
   }
 
   static String getLabelSuffix(Watches watch){

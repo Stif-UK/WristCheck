@@ -91,24 +91,23 @@ class _WearStatsState extends State<WearStatsV2> {
             controller: screenshotController,
             child: Container(
               color: Theme.of(context).canvasColor,
-              child: Column(
+              child: Obx(()=> Column(
 
-                children: [
-                  _buildFilterRow(context),
-                  Obx(
-                      ()=>  SizedBox(
-                          height: _calculateChartSpace(barChart, context),
-                          child: _drawCharts(barChart))
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const SizedBox(height: 10),
-                      widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristTrack Pro") : const Text ("This chart generated with WristTrack"),
-                      const SizedBox(height: 20,)
-                    ],
-                  )
-                ],
+                  children: [
+                    _buildFilterRow(context),
+                    SizedBox(
+                            height: _calculateChartSpace(barChart, context),
+                            child: _drawCharts(barChart)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const SizedBox(height: 10),
+                        widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristTrack Pro") : const Text ("This chart generated with WristTrack"),
+                        const SizedBox(height: 20,)
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

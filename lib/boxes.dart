@@ -396,6 +396,7 @@ class Boxes {
   }
 
   static DateTime? getLastPurchaseDate(List<Watches> initialList){
+    var filterController = Get.put(FilterController());
     //remove nulls
     initialList.removeWhere((watch) => watch.purchaseDate == null);
 
@@ -403,7 +404,9 @@ class Boxes {
     initialList.sort((a, b) => b.purchaseDate!.compareTo(a.purchaseDate!));
 
     if(initialList.isNotEmpty) {
-      return initialList.first.purchaseDate!;
+      DateTime returnTime = initialList.first.purchaseDate!;
+      filterController.updateLastPurchaseDate(returnTime);
+      return returnTime;
     } else {
       return null;
     }

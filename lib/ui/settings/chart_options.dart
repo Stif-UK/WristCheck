@@ -161,6 +161,20 @@ class _ChartOptionsState extends State<ChartOptions> {
                           },
                         ),
                       ),
+                      ListTile(
+                        title: const Text("Since Last Purchase"),
+                        leading: Radio<WearChartOptions>(
+                          value: WearChartOptions.lastPurchase,
+                          groupValue: _chartOption ,
+                          onChanged: (WearChartOptions? value) async {
+                            await WristCheckPreferences.setWearChartOptions(value!);
+                            setState(() {
+                              _chartOption = value;
+                            });
+
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   const Divider(thickness: 2,),
