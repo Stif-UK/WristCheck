@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/charts/wear_chart.dart';
 import 'package:wristcheck/ui/charts/wear_pie_chart.dart';
@@ -116,7 +117,8 @@ class _WearStatsState extends State<WearStatsV2> {
 
   bool get _showAdvanced {
     return !widget.filterController.includeCollection.value || widget.filterController.includeSold.value || widget.filterController.includeRetired.value ||
-        widget.filterController.includeArchived.value || widget.filterController.pickGrouping.value || widget.filterController.filterByCategory.value || widget.filterController.filterByMovement.value;
+        widget.filterController.includeArchived.value || widget.filterController.pickGrouping.value || widget.filterController.filterByCategory.value || widget.filterController.filterByMovement.value
+    || widget.filterController.basicWearFilter.value == WearChartOptions.lastPurchase;
   }
 
   Widget _buildFilterRow(BuildContext context){

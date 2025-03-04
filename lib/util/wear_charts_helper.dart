@@ -7,6 +7,8 @@ import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
+import '../boxes.dart';
+
 class WearChartsHelper {
 
   static String getBasicFilterHeaderText(WearChartOptions option){
@@ -57,7 +59,12 @@ class WearChartsHelper {
 
   static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showRetired, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
 
+    final filterController = Get.put(FilterController());
     String returnText = "";
+    //If filter
+    if(filterController.basicWearFilter.value == WearChartOptions.lastPurchase && filterController.lastPurchaseTracked.value){
+      returnText = "$returnText Last Purchase: ${WristCheckFormatter.getFormattedDate(filterController.lastPurchaseDate.value)}, ";
+    }
     //Text for grouping
     if(showGrouping){
       returnText = "$returnText Group by ${WristCheckFormatter.getChartGroupingText(grouping)}, ";

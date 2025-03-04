@@ -26,6 +26,8 @@ class FilterController extends GetxController{
   final selectedCategories = <CategoryEnum>[].obs;
   final selectedMovements = <MovementEnum>[].obs;
   final chartGrouping = ChartGrouping.watch.obs;
+  final lastPurchaseDate = DateTime.now().obs;
+  final lastPurchaseTracked = false.obs;
 
   List<String> yearList = ["All"];
 
@@ -108,6 +110,15 @@ class FilterController extends GetxController{
 
   updateFilterByMovement(bool byMovement){
     filterByMovement(byMovement);
+  }
+
+  updateLastPurchaseDate(DateTime? lastPurchase){
+    if(lastPurchase != null){
+      lastPurchaseDate(lastPurchase);
+      lastPurchaseTracked(true);
+    } else {
+      lastPurchaseDate(DateTime.now());
+    }
   }
 
   populateYearList(){

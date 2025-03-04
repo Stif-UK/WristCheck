@@ -365,6 +365,8 @@ class Boxes {
         //Use a copy of list to get the last purchase date to avoid deleting values from the list
         List<Watches> copyList = List.from(initialList);
         DateTime? lastPurchaseDate = getLastPurchaseDate(copyList);
+        var controller = Get.put(FilterController());
+        controller.updateLastPurchaseDate(lastPurchaseDate);
         if(lastPurchaseDate != null){
           DateTime now = DateTime.now();
           //set end date to tomorrow to avoid filtering out current date
@@ -400,9 +402,11 @@ class Boxes {
     //Sort list
     initialList.sort((a, b) => b.purchaseDate!.compareTo(a.purchaseDate!));
 
-    return initialList.first.purchaseDate!;
-
-
+    if(initialList.isNotEmpty) {
+      return initialList.first.purchaseDate!;
+    } else {
+      return null;
+    }
   }
 
   static List<Watches> runCategoryFilter(List<Watches> watchList, List<CategoryEnum> categories){
