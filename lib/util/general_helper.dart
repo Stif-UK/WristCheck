@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class GeneralHelper{
 
@@ -19,11 +21,15 @@ class GeneralHelper{
           .join('&');
     }
 
+    String platform = Platform.isAndroid? "Android": "iOS";
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String appVersion = ", App Version: ${packageInfo.version}";
+
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'feedback@wristtrack.app',
       query: encodeQueryParameters(<String, String>{
-        'subject': 'WristTrack Feedback',
+        'subject': 'WristTrack Feedback (Platform: $platform$appVersion)',
       }),
     );
 
