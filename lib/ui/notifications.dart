@@ -219,9 +219,9 @@ class _NotificationsState extends State<Notifications> {
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
     _selectedTime = customTime.toString();
     await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
-    notificationService.showScheduledNotification(id: 1, title: "WristCheck Reminder", body: "Don't forget to track what's on your wrist today!", time: customTime!);
+    notificationService.showScheduledNotification(id: 1, title: "WristTrack Reminder", body: "Don't forget to track what's on your wrist today!", time: customTime!);
     String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
-    notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Your notifications have now been scheduled for $timeString every day!");
+    notificationService.showNotification(id: 0, title: "WristTrack Reminder", body: "Your notifications have now been scheduled for $timeString every day!");
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
@@ -229,9 +229,9 @@ class _NotificationsState extends State<Notifications> {
     Future<void> _setSecondNotification(TimeOfDay? customTime) async {
     _secondTime = customTime.toString();
     await WristCheckPreferences.setSecondNotificationTime(customTime.toString());
-    notificationService.showScheduledNotification(id: 2, title: "WristCheck Reminder", body: "It's time to track what's on your wrist!", time: customTime!);
+    notificationService.showScheduledNotification(id: 2, title: "WristTrack Reminder", body: "It's time to track what's on your wrist!", time: customTime!);
     String timeString = _secondTime!.substring(10, _secondTime!.length-1);
-    notificationService.showNotification(id: 0, title: "WristCheck Reminder", body: "Your second notification is set for $timeString every day!");
+    notificationService.showNotification(id: 0, title: "WristTrack Reminder", body: "Your second notification is set for $timeString every day!");
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
