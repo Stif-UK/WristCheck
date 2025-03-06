@@ -214,15 +214,18 @@ class ImagesUtil {
   }
 
   /**
-   * getImages() returns a list of all of the images paths stored in the watchbox
+   * getImages() returns a list of all of the images Files stored in the watchbox
    * //TODO: Extend this to include options for sold/archived/retired/wishlist
    */
-  static Future<List<String>> getImages() async{
+  static Future<List<File>> getImages() async{
     final watchList = Boxes.getCollectionWatches();
-    List<String> returnList = [];
+    List<File> returnList = [];
     for(Watches watch in watchList){
       if(watch.frontImagePath != null && watch.frontImagePath != ""){
-        returnList.add(watch.frontImagePath!);
+        File? currentImage = await ImagesUtil.getImage(watch, true);
+        if(currentImage != null){
+          returnList.add(currentImage);
+        }
       }
     }
 

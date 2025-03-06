@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -29,7 +31,7 @@ class _GalleryState extends State<Gallery> {
                   style: Theme.of(context).textTheme.headlineSmall,),
                 );
               } else if (snapshot.hasData){
-                final data = snapshot.data as List<String>;
+                final data = snapshot.data as List<File>;
                 return SingleChildScrollView(
                   child: Column(
                     children: [
@@ -40,7 +42,7 @@ class _GalleryState extends State<Gallery> {
                           itemBuilder: (BuildContext context, int index){
                             return ListTile(
                               leading: const Icon(FontAwesomeIcons.image),
-                              title: Text("Image path: ${data[index]}"),
+                              title: Text("Image File: ${data[index].toString()}"),
                             );
                           }
                       )
