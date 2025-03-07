@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
+import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -527,6 +528,37 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         default:
           return "";
     }
+  }
+
+  static String getGallerySelectionName(GallerySelectionEnum selection){
+    String returnString = "";
+
+    switch(selection) {
+      case GallerySelectionEnum.watchbox:
+        returnString = "collection watches";
+        break;
+      case GallerySelectionEnum.favourite:
+        returnString = "favourite watches";
+        break;
+      case GallerySelectionEnum.sold:
+        returnString = "sold watches";
+        break;
+      case GallerySelectionEnum.archived:
+        returnString = "archived watches";
+        break;
+      case GallerySelectionEnum.retired:
+        returnString = "retired watches";
+        break;
+      case GallerySelectionEnum.preordered:
+        returnString = "pre-ordered watches";
+        break;
+      case GallerySelectionEnum.wishlist:
+        returnString = "wishlisted watches";
+        break;
+    }
+
+    return returnString;
+
   }
 
 

@@ -8,6 +8,7 @@ import 'package:wristcheck/ui/more_menu/gallery/image_overlay.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Gallery extends StatefulWidget {
   Gallery({super.key});
@@ -55,56 +56,59 @@ class _GalleryState extends State<Gallery> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Text("Show off your collection!\n\n"
-                              "Generate a gallery of your saved watch images.",
+                          child: Text("Show off your collection!",
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyLarge,),
+                            ),
                         ),
                         _getCollectionPickerRow(),
-                        ElevatedButton(
-                          child: Text("Go"),
-                          //TODO: Handle empty list
-                          onPressed: ()=> SwipeImageGallery(
-                            context: context,
-                            itemBuilder: (context, index){
-                              return FutureBuilder(
-                                  builder: (ctx, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                      if (snapshot.hasError) {
-                                        return Center(
-                                          child: Text(
-                                            "${snapshot.error} occurred",
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineSmall,),
-                                        );
-                                      } else if (snapshot.hasData) {
-                                        final imageData = snapshot.data as File;
-                                        return Image.file(imageData);
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            child: Text("Go",
+                            style: TextStyle(fontSize: 20.0),),
+                            //TODO: Handle empty list
+                            onPressed: ()=> SwipeImageGallery(
+                              context: context,
+                              itemBuilder: (context, index){
+                                return FutureBuilder(
+                                    builder: (ctx, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        if (snapshot.hasError) {
+                                          return Center(
+                                            child: Text(
+                                              "${snapshot.error} occurred",
+                                              style: Theme
+                                                  .of(context)
+                                                  .textTheme
+                                                  .headlineSmall,),
+                                          );
+                                        } else if (snapshot.hasData) {
+                                          final imageData = snapshot.data as File;
+                                          return Image.file(imageData);
+                                        }
                                       }
-                                    }
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
 
-                                  },
-                                    future: ImagesUtil.getImage(data[index], true));
+                                    },
+                                      future: ImagesUtil.getImage(data[index], true));
+                                },
+                                itemCount: data.length,
+                              // children: data,
+                              onSwipe: (index) {
+                                overlayController.add(ImageOverlay(
+                                  title: '${index + 1}/${data.length}',
+                                  subtitle: "${data[index].manufacturer} ${data[index].model}",
+                                ));
                               },
-                              itemCount: data.length,
-                            // children: data,
-                            onSwipe: (index) {
-                              overlayController.add(ImageOverlay(
-                                title: '${index + 1}/${data.length}',
-                                subtitle: "${data[index].manufacturer} ${data[index].model}",
-                              ));
-                            },
-                            overlayController: overlayController,
-                            initialOverlay: ImageOverlay(
-                              title: '1/${data.length}',
-                              subtitle: "${data[0].manufacturer} ${data[0].model}",
-                          )).show(),
+                              overlayController: overlayController,
+                              initialOverlay: ImageOverlay(
+                                title: '1/${data.length}',
+                                subtitle: "${data[0].manufacturer} ${data[0].model}",
+                            )).show(),
+                          ),
                         )
                       ],
                     ),
@@ -125,15 +129,15 @@ Widget _getCollectionPickerRow(){
   final galController = Get.put(GalleryController());
 
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text("Show me my"),
+      Text("Show me my ", style: Theme.of(Get.context!).textTheme.bodyLarge,),
       Obx(()=> DropdownButton<GallerySelectionEnum>(
           value: galController.gallerySelection.value,
           items: GallerySelectionEnum.values.map((selection) {
             return DropdownMenuItem<GallerySelectionEnum>(
                 value: selection,
-                child: Text(selection.toString()));
+                child: Text(WristCheckFormatter.getGallerySelectionName(selection)));
           }).toList(),
           onChanged: (selection) => galController.updateGallerySelection(selection!)
 
