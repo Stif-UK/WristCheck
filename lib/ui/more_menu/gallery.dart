@@ -31,7 +31,7 @@ class _GalleryState extends State<Gallery> {
                   style: Theme.of(context).textTheme.headlineSmall,),
                 );
               } else if (snapshot.hasData){
-                final data = snapshot.data as List<File>;
+                final data = snapshot.data as List<Image>;
                 return SingleChildScrollView(
                   child: Column(
                     children: [
