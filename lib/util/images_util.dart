@@ -131,6 +131,7 @@ class ImagesUtil {
     );
   }
 
+  //TODO: Update getImage() to utilise the imageExists() helper method to reduce code duplication
   //Helper method to return the watch image
   static Future<File?> getImage(Watches currentWatch, bool front) async {
     final directory = await getApplicationDocumentsDirectory();
@@ -139,6 +140,12 @@ class ImagesUtil {
 
     //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
     return name == "" || !exists ? null : File("${directory.path}/$name");
+  }
+
+  static Future<bool> imageExists(Watches currentWatch, bool front) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = front? currentWatch.frontImagePath ?? "" : currentWatch.backImagePath ?? "";
+    return await File("${directory.path}/$name").exists();
   }
 
 
@@ -230,6 +237,17 @@ class ImagesUtil {
     }
 
     return returnList;
+  }
+
+  static Future<List<Watches>> getWatchesWithImages() async{
+    final watchList = Boxes.getCollectionWatches();
+    List<Watches> returnlist = [];
+    for(Watches watch in watchList){
+      if(await ImagesUtil.imageExists(watch, true)){
+        returnlist.add(watch);
+      }
+    }
+    return returnlist;
   }
 
 
