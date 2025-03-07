@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/ui/more_menu/gallery.dart';
+import 'package:wristcheck/ui/more_menu/gallery/gallery.dart';
 
 class MoreMenu extends StatelessWidget {
   const MoreMenu({super.key});
