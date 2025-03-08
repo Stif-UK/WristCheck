@@ -136,7 +136,10 @@ Widget _getCollectionPickerRow(){
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text("Show me my ", style: Theme.of(Get.context!).textTheme.bodyLarge,),
+      Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Text("Show me my ", style: Theme.of(Get.context!).textTheme.bodyLarge,),
+      ),
       Obx(()=> DropdownButton<GallerySelectionEnum>(
           value: galController.gallerySelection.value,
           items: GallerySelectionEnum.values.map((selection) {
