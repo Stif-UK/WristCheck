@@ -89,6 +89,9 @@ class Watches extends HiveObject{
   @HiveField(27)
   late double? caseThickness;
 
+  @HiveField(28)
+  late int? waterResistance;
+
   @override
   String toString() {
     return "${this.manufacturer} ${this.model}";

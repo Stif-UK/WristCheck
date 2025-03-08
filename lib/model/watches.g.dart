@@ -44,13 +44,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..caseDiameter = fields[24] as double?
       ..lugWidth = fields[25] as int?
       ..lug2lug = fields[26] as double?
-      ..caseThickness = fields[27] as double?;
+      ..caseThickness = fields[27] as double?
+      ..waterResistance = fields[28] as int?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -106,7 +107,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(26)
       ..write(obj.lug2lug)
       ..writeByte(27)
-      ..write(obj.caseThickness);
+      ..write(obj.caseThickness)
+      ..writeByte(28)
+      ..write(obj.waterResistance);
   }
 
   @override
