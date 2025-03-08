@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 
 class ImagesUtil {
@@ -239,8 +240,36 @@ class ImagesUtil {
     return returnList;
   }
 
-  static Future<List<Watches>> getWatchesWithImages() async{
-    final watchList = Boxes.getCollectionWatches();
+  static Future<List<Watches>> getWatchesWithImages(GallerySelectionEnum selection) async{
+    var watchList = [];
+
+    switch(selection) {
+      case GallerySelectionEnum.watchbox:
+        watchList = Boxes.getCollectionWatches();
+        break;
+      case GallerySelectionEnum.favourite:
+        watchList = Boxes.getFavouriteWatches();
+        break;
+      case GallerySelectionEnum.sold:
+        watchList = Boxes.getSoldWatches();
+        break;
+      case GallerySelectionEnum.archived:
+        watchList = Boxes.getArchivedWatches();
+        break;
+      case GallerySelectionEnum.retired:
+        watchList = Boxes.getRetiredWatches();
+        break;
+      case GallerySelectionEnum.preordered:
+        watchList = Boxes.getPreOrderWatches();
+        break;
+      case GallerySelectionEnum.wishlist:
+        watchList = Boxes.getWishlistWatches();
+        break;
+      default:
+        watchList = Boxes.getCollectionWatches();
+        break;
+    }
+
     List<Watches> returnlist = [];
     for(Watches watch in watchList){
       if(await ImagesUtil.imageExists(watch, true)){

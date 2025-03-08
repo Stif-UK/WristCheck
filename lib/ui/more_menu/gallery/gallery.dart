@@ -38,89 +38,90 @@ class _GalleryState extends State<Gallery> {
       appBar: AppBar(
         title: Text("Watch Gallery"),
       ),
-      body:  FutureBuilder(
-          builder: (ctx, snapshot){
-            if(snapshot.connectionState == ConnectionState.done){
-              if(snapshot.hasError){
-                return Center(
-                  child: Text("${snapshot.error} occurred",
-                  style: Theme.of(context).textTheme.headlineSmall,),
-                );
-              } else if (snapshot.hasData){
-                final data = snapshot.data as List<Watches>;
-                return SingleChildScrollView(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text("Show off your collection!",
-                            textAlign: TextAlign.center,
-                            ),
-                        ),
-                        _getCollectionPickerRow(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            child: Text("Go",
-                            style: TextStyle(fontSize: 20.0),),
-                            //TODO: Handle empty list
-                            onPressed: ()=> SwipeImageGallery(
-                              context: context,
-                              itemBuilder: (context, index){
-                                return FutureBuilder(
-                                    builder: (ctx, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        if (snapshot.hasError) {
-                                          return Center(
-                                            child: Text(
-                                              "${snapshot.error} occurred",
-                                              style: Theme
-                                                  .of(context)
-                                                  .textTheme
-                                                  .headlineSmall,),
-                                          );
-                                        } else if (snapshot.hasData) {
-                                          final imageData = snapshot.data as File;
-                                          return Image.file(imageData);
-                                        }
-                                      }
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-
-                                    },
-                                      future: ImagesUtil.getImage(data[index], true));
-                                },
-                                itemCount: data.length,
-                              // children: data,
-                              onSwipe: (index) {
-                                overlayController.add(ImageOverlay(
-                                  title: '${index + 1}/${data.length}',
-                                  subtitle: "${data[index].manufacturer} ${data[index].model}",
-                                ));
-                              },
-                              overlayController: overlayController,
-                              initialOverlay: ImageOverlay(
-                                title: '1/${data.length}',
-                                subtitle: "${data[0].manufacturer} ${data[0].model}",
-                            )).show(),
+      body:  Obx(()=> FutureBuilder(
+            builder: (ctx, snapshot){
+              if(snapshot.connectionState == ConnectionState.done){
+                if(snapshot.hasError){
+                  return Center(
+                    child: Text("${snapshot.error} occurred",
+                    style: Theme.of(context).textTheme.headlineSmall,),
+                  );
+                } else if (snapshot.hasData){
+                  final data = snapshot.data as List<Watches>;
+                  return SingleChildScrollView(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text("Show off your collection!",
+                              textAlign: TextAlign.center,
+                              ),
                           ),
-                        )
-                      ],
+                          _getCollectionPickerRow(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              child: Text("Go",
+                              style: TextStyle(fontSize: 20.0),),
+                              //TODO: Handle empty list
+                              onPressed: ()=> SwipeImageGallery(
+                                context: context,
+                                itemBuilder: (context, index){
+                                  return FutureBuilder(
+                                      builder: (ctx, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                          if (snapshot.hasError) {
+                                            return Center(
+                                              child: Text(
+                                                "${snapshot.error} occurred",
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .headlineSmall,),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            final imageData = snapshot.data as File;
+                                            return Image.file(imageData);
+                                          }
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+
+                                      },
+                                        future: ImagesUtil.getImage(data[index], true));
+                                  },
+                                  itemCount: data.length,
+                                // children: data,
+                                onSwipe: (index) {
+                                  overlayController.add(ImageOverlay(
+                                    title: '${index + 1}/${data.length}',
+                                    subtitle: "${data[index].manufacturer} ${data[index].model}",
+                                  ));
+                                },
+                                overlayController: overlayController,
+                                initialOverlay: ImageOverlay(
+                                  title: '1/${data.length}',
+                                  subtitle: "${data[0].manufacturer} ${data[0].model}",
+                              )).show(),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              };
-            }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          future: ImagesUtil.getWatchesWithImages(), )
+                  );
+                };
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+            future: ImagesUtil.getWatchesWithImages(widget.galleryController.gallerySelection.value), ),
+      )
     );
   }
 }
