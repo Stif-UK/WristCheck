@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/notification_time_options.dart';
@@ -59,6 +60,9 @@ class WristCheckPreferences {
 
   //Light & Dark theme
   static const _keyThemePreference = 'themePreference';
+
+  //WR Units
+  static const _keyWRUnitsPreference = 'WRUnits';
 
 
 
@@ -541,6 +545,29 @@ class WristCheckPreferences {
 
   static Future setThemePreference(ThemeMode preferredTheme) async {
     await _preferences.setString(_keyThemePreference, preferredTheme.toString());
+  }
+
+  static WRUnitsEnum getWaterResistancePreference(){
+    String? value = _preferences.getString(_keyWRUnitsPreference);
+    WRUnitsEnum returnValue;
+    switch (value){
+      case "WRUnitsEnum.metres":{
+        returnValue = WRUnitsEnum.metres;
+      }
+      break;
+      case "WRUnitsEnum.feet":{
+        returnValue = WRUnitsEnum.feet;
+      }
+      break;
+      default:{
+        returnValue = WRUnitsEnum.metres;
+      }
+    }
+    return returnValue;
+  }
+
+  static Future setWaterResistancePreference(WRUnitsEnum preferredUnits) async {
+    await _preferences.setString(_keyWRUnitsPreference, preferredUnits.toString());
   }
 
 }

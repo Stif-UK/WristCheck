@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/location.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
@@ -194,6 +195,14 @@ final lightThemeChoice = WristCheckPreferences.getThemePreference().obs;
   updateLightThemeChoice(ThemeMode theme) async {
     await WristCheckPreferences.setThemePreference(theme);
     lightThemeChoice(theme);
+  }
+
+  //WR Unit choice
+final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference().obs;
+
+  updateWaterResistanceUnit(WRUnitsEnum units) async {
+    await WristCheckPreferences.setWaterResistancePreference(units);
+    waterResistanceUnit(units);
   }
 
 }

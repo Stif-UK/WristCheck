@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -262,6 +263,28 @@ class _ViewOptionsState extends State<ViewOptions> {
                           widget.wristCheckController.updateLightThemeChoice(value);
                       }
                       )
+                    ],),
+                  ),
+                  const Divider(thickness: 2,),
+                  Obx(()=> ExpansionTile(
+                    title: Text("WR Units", style: Theme.of(context).textTheme.headlineSmall,),
+                    leading: Icon(FontAwesomeIcons.water),
+                    children: [
+                      RadioListTile(
+                          title: const Text("metres"),
+                          value: WRUnitsEnum.metres,
+                          groupValue: widget.wristCheckController.waterResistanceUnit.value,
+                          onChanged:<WRUnitsEnum>(value){
+                            widget.wristCheckController.updateWaterResistanceUnit(value);
+                          }
+                      ),
+                      RadioListTile(
+                          title: const Text("feet"),
+                          value: WRUnitsEnum.feet,
+                          groupValue: widget.wristCheckController.waterResistanceUnit.value,
+                          onChanged:<WRUnitsEnum>(value){
+                            widget.wristCheckController.updateWaterResistanceUnit(value);
+                          }),
                     ],),
                   ),
                   const Divider(thickness: 2,)

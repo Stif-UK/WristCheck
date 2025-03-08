@@ -1,0 +1,1 @@
+enum WRUnitsEnum {metres, feet}
