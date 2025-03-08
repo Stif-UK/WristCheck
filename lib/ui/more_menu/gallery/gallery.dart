@@ -102,7 +102,7 @@ class _GalleryState extends State<Gallery> {
                                   onSwipe: (index) {
                                     overlayController.add(ImageOverlay(
                                       title: '${index + 1}/${data.length}',
-                                      subtitle: "${data[index].manufacturer} ${data[index].model}",
+                                      subtitle: "${data[index].toString()}",
                                     ));
                                   },
                                   overlayController: overlayController,
