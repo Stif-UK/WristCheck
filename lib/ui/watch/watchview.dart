@@ -100,6 +100,7 @@ class _WatchViewState extends State<WatchView> {
   int? _lugWidth;
   double? _lug2lug;
   double? _caseThickness;
+  int? _waterResistance;
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -126,6 +127,7 @@ class _WatchViewState extends State<WatchView> {
   final lugWidthFieldController = TextEditingController();
   final lug2lugFieldController = TextEditingController();
   final caseThicknessFieldController = TextEditingController();
+  final waterResistanceFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -153,6 +155,7 @@ class _WatchViewState extends State<WatchView> {
     lugWidthFieldController.dispose();
     lug2lugFieldController.dispose();
     caseThicknessFieldController.dispose();
+    waterResistanceFieldController.dispose();
     super.dispose();
   }
 
@@ -210,6 +213,7 @@ class _WatchViewState extends State<WatchView> {
             _lugWidth = ViewWatchHelper.getServiceInterval(lugWidthFieldController.value.text);
             _lug2lug = ViewWatchHelper.getDoubleFromStringInput(lug2lugFieldController.value.text);
             _caseThickness = ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text);
+            _waterResistance = ViewWatchHelper.getServiceInterval(waterResistanceFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -238,6 +242,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.lugWidth = _lugWidth;
             widget.currentWatch!.lug2lug = _lug2lug;
             widget.currentWatch!.caseThickness = _caseThickness;
+            widget.currentWatch!.waterResistance = _waterResistance;
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -325,6 +330,7 @@ class _WatchViewState extends State<WatchView> {
         lugWidthFieldController.value = TextEditingValue(text: widget.currentWatch!.lugWidth != null? widget.currentWatch!.lugWidth.toString() : "");
         lug2lugFieldController.value = TextEditingValue(text: widget.currentWatch!.lug2lug != null?"${widget.currentWatch!.lug2lug}" : "");
         caseThicknessFieldController.value = TextEditingValue(text: widget.currentWatch!.caseThickness != null?"${widget.currentWatch!.caseThickness}" : "");
+        waterResistanceFieldController.value = TextEditingValue(text: widget.currentWatch!.waterResistance != null?"${widget.currentWatch!.waterResistance}" : "");
       }
     }
 
@@ -510,7 +516,8 @@ class _WatchViewState extends State<WatchView> {
                                                 caseDiameterController: caseDiameterFieldController,
                                                 lugWidthController: lugWidthFieldController,
                                                 lug2lugController: lug2lugFieldController,
-                                                caseThicknessController: caseThicknessFieldController,)
+                                                caseThicknessController: caseThicknessFieldController,
+                                                waterResistanceController: waterResistanceFieldController,)
                                             : const SizedBox(height: 0,),
 
                                         //Tab four when app is not pro- Notebook
@@ -701,6 +708,7 @@ class _WatchViewState extends State<WatchView> {
               _lugWidth = ViewWatchHelper.getServiceInterval(lugWidthFieldController.value.text);
               _lug2lug = ViewWatchHelper.getDoubleFromStringInput(lug2lugFieldController.value.text);
               _caseThickness = ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text);
+              _waterResistance = ViewWatchHelper.getServiceInterval(waterResistanceFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
@@ -728,7 +736,8 @@ class _WatchViewState extends State<WatchView> {
                 _caseDiameter, 
                   _lugWidth,
                   _lug2lug,
-                  _caseThickness
+                  _caseThickness,
+                _waterResistance
               );
 
               //if a front image has been set, we add this to the newly created watch before exiting
@@ -816,7 +825,8 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.caseDiameter != ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text) ||
       widget.currentWatch!.lugWidth != ViewWatchHelper.getServiceInterval(lugWidthFieldController.value.text) ||
       widget.currentWatch!.lug2lug != ViewWatchHelper.getDoubleFromStringInput(lug2lugFieldController.value.text) ||
-      widget.currentWatch!.caseThickness != ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text)
+      widget.currentWatch!.caseThickness != ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text) ||
+      widget.currentWatch!.waterResistance != ViewWatchHelper.getServiceInterval(waterResistanceFieldController.value.text)
     ){
       returnValue = true;
     }
