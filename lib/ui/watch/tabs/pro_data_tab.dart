@@ -99,8 +99,8 @@ class ProDataTab extends StatelessWidget {
           controller: waterResistanceController,
           textCapitalization: TextCapitalization.none,
           validator: (String? val) {
-            if(!val!.isServiceNumber) {
-              return 'Must be a whole number less than 99';
+            if(!val!.isUnboundPositiveInteger) {
+              return 'Must be a whole number';
             }
           },
         ),

@@ -15,6 +15,12 @@ extension ExtString on String{
     final titleRegExp = RegExp(r"^([0-9]{1,2}|)$");
     return titleRegExp.hasMatch(this);
   }
+  
+  bool get isUnboundPositiveInteger{
+    //Is a positive integer, allowing null or empty string
+    final titleRegExp = RegExp(r'^(|[-+]?\d+)$');
+    return titleRegExp.hasMatch(this);
+  }
 
   bool get isDouble{
     //in range 0-99 with two digit past decimal or blank
