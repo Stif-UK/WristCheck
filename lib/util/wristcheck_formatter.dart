@@ -6,6 +6,7 @@ import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 
@@ -166,6 +167,97 @@ class WristCheckFormatter{
         break;
       default:
         returnValue = MovementEnum.blank;
+    }
+    return returnValue;
+  }
+
+  static String getCaseMaterialText(CaseMaterialEnum material){
+    String returnText = "";
+
+    switch(material) {
+      case CaseMaterialEnum.blank:
+        returnText = "Not Entered";
+        break;
+      case CaseMaterialEnum.steel:
+        returnText = "Steel";
+        break;
+      case CaseMaterialEnum.titanium:
+        returnText = "Titanium";
+        break;
+      case CaseMaterialEnum.gold:
+        returnText = "Gold";
+        break;
+      case CaseMaterialEnum.twotone:
+        returnText = "Two-Tone";
+        break;
+      case CaseMaterialEnum.platinum:
+        returnText = "Platinum";
+        break;
+      case CaseMaterialEnum.bronze:
+        returnText = "Bronze";
+        break;
+      case CaseMaterialEnum.ceramic:
+        returnText = "Ceramic";
+        break;
+      case CaseMaterialEnum.carbon:
+        returnText = "Carbon";
+        break;
+      case CaseMaterialEnum.resin:
+        returnText = "Resin";
+        break;
+      case CaseMaterialEnum.plastic:
+        returnText = "Plastic";
+        break;
+      case CaseMaterialEnum.other:
+        returnText = "Other";
+        break;
+    }
+    return returnText;
+  }
+
+  static CaseMaterialEnum getCaseMaterialEnum(String? material){
+    CaseMaterialEnum returnValue = CaseMaterialEnum.blank;
+
+    switch(material) {
+      case "Not Entered":
+        returnValue = CaseMaterialEnum.blank;
+        break;
+      case "Steel":
+        returnValue = CaseMaterialEnum.steel;
+        break;
+      case "Titanium":
+        returnValue = CaseMaterialEnum.titanium;
+        break;
+      case "Gold":
+        returnValue = CaseMaterialEnum.gold;
+        break;
+      case "Two-Tone":
+        returnValue = CaseMaterialEnum.twotone;
+        break;
+      case "Platinum":
+        returnValue = CaseMaterialEnum.platinum;
+        break;
+      case "Bronze":
+        returnValue = CaseMaterialEnum.bronze;
+        break;
+      case "Ceramic":
+        returnValue = CaseMaterialEnum.ceramic;
+        break;
+      case "Carbon":
+        returnValue = CaseMaterialEnum.carbon;
+        break;
+      case "Resin":
+        returnValue = CaseMaterialEnum.resin;
+        break;
+      case "Plastic":
+        returnValue = CaseMaterialEnum.plastic;
+        break;
+      case "Other":
+        returnValue = CaseMaterialEnum.other;
+        break;
+      default:
+        returnValue = CaseMaterialEnum.blank;
+        break;
     }
     return returnValue;
   }

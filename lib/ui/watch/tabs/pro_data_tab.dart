@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class ProDataTab extends StatelessWidget {
   ProDataTab({
@@ -13,7 +16,8 @@ class ProDataTab extends StatelessWidget {
     required this.lugWidthController,
     required this.lug2lugController,
     required this.caseThicknessController,
-    required this.waterResistanceController
+    required this.waterResistanceController,
+    required this.caseMaterialController
   });
 
   final watchViewController = Get.put(WatchViewController());
@@ -23,6 +27,7 @@ class ProDataTab extends StatelessWidget {
   final TextEditingController lug2lugController;
   final TextEditingController caseThicknessController;
   final TextEditingController waterResistanceController;
+  final TextEditingController caseMaterialController;
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +109,41 @@ class ProDataTab extends StatelessWidget {
             }
           },
         ),
+        _buildCaseMaterialField()
       ],
     ),
     );
   }
+
+  Widget _buildCaseMaterialField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Case Material:",
+          textAlign: TextAlign.start,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,),
+        Padding(
+          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+          child: DropdownButtonFormField<CaseMaterialEnum>(
+              dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+              borderRadius: BorderRadius.circular(24),
+              menuMaxHeight: 300,
+              value: WristCheckFormatter.getCaseMaterialEnum(watchViewController.caseMaterial.value),
+              iconSize: watchViewController.inEditState.value? 24.0: 0.0,
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(Icons.watch), Get.context!),
+              items: CaseMaterialEnum.values.map((material) {
+                return DropdownMenuItem<CaseMaterialEnum>(
+                    value: material,
+                    child: Text(WristCheckFormatter.getCaseMaterialText(material)));
+              }).toList(),
+              onChanged: watchViewController.inEditState.value? (material){
+                watchViewController.updateCaseMaterial(WristCheckFormatter.getCaseMaterialText(material!));
+                caseMaterialController.value = TextEditingValue(text:WristCheckFormatter.getCaseMaterialText(material!));
+              } : null ),
+        ),
+      ],
+    );
+  }
 }
+
+
