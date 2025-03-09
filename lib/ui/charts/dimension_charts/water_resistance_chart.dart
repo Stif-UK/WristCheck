@@ -80,7 +80,7 @@ String _calculateAverageWaterResistance(List<Watches> data) {
 
   if(data.length != 0){
     double average = data.map((watch) => watch.waterResistance!).average;
-    returnString = "Average Water Resistance: ${double.parse(average.toStringAsFixed(2))} ${wristcheckController.waterResistanceUnit.value.name}";
+    returnString = "Average Water Resistance: ${double.parse(average.toStringAsFixed(2)).round()} ${wristcheckController.waterResistanceUnit.value.name}";
   }
 
   return returnString;
