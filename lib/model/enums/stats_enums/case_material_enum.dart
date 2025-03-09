@@ -1,0 +1,1 @@
+enum CaseMaterialEnum {steel, titanium, gold, twotone, platinum, bronze, ceramic, carbon, resin, plastic, other}
