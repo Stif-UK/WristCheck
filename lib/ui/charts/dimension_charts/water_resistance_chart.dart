@@ -86,26 +86,6 @@ String _calculateAverageWaterResistance(List<Watches> data) {
   return returnString;
 
 }
-// String _getMedianLugWidth(List<Watches> data) {
-//   String returnString = "";
-//
-//   if(data.length != 0){
-//
-//     int median;
-//     //remove nulls and zeros
-//     data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
-//     List<int> lugWidthList = data.map((obj) => obj.lugWidth!).toList();
-//
-//     int middle = lugWidthList.length ~/ 2;
-//     if (lugWidthList.length % 2 == 1) {
-//       median = lugWidthList[middle];
-//     } else {
-//       median = ((lugWidthList[middle - 1] + lugWidthList[middle]) / 2.0).round();
-//     }
-//     returnString = "Median Lug Width: $median mm";
-//   }
-//   return returnString;
-// }
 
 class WaterResistanceData{
   WaterResistanceData(this.waterResistance, this.count);
