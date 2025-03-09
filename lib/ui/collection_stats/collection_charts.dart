@@ -10,6 +10,7 @@ import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/cost_per_wear_chart.dart';
+import 'package:wristcheck/ui/charts/dimension_charts/case_material_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_thickness_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/lug2lug_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/lug_width_chart.dart';
@@ -151,9 +152,22 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
+                  child: Text("Water Resistance", style: Theme.of(context).textTheme.headlineSmall,),
+                ),
+                Padding(
+                  padding: getPagePadding(),
                   child: WaterResistanceChart(),
                 ),
                 const Divider(thickness: 2,),
+                Padding(
+                  padding: getPagePadding(),
+                  child: Text("Case Materials", style: Theme.of(context).textTheme.headlineSmall,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CaseMaterialChart(),
+                ),
+                const Divider(thickness: 2,)
               ],
             ) : SizedBox(height: 0,),
           ),
