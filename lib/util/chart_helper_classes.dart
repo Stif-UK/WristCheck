@@ -160,7 +160,6 @@ class ChartHelper{
         lugWidths.add(watch.lugWidth!);
       }
     }
-    print(lugWidths);
     for(int lugWidth in lugWidths) {
       int count = 0;
       List<Watches> watchList = data.where((watch) => watch.lugWidth == lugWidth).toList();
@@ -230,6 +229,34 @@ class ChartHelper{
       }
 
     }
+    returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
+    return returnSeries;
+  }
+
+  static List<DimensionsClass> calculateWaterResistanceList(List<Watches> data){
+    List<DimensionsClass> returnSeries = [];
+    //Get set of water resistance values (to ensure all unique)
+    Set<int> waterResistanceList = {};
+    for(Watches watch in data){
+      if(watch.waterResistance != null && watch.waterResistance != 0) {
+        waterResistanceList.add(watch.waterResistance!);
+      }
+    }
+    for(int wr in waterResistanceList) {
+      int count = 0;
+      List<Watches> watchList = data.where((watch) => watch.waterResistance == wr).toList();
+      for(Watches watch in watchList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+
+      //Only add records where the wear count is > 0;
+      if (count > 0) {
+        returnSeries.add(DimensionsClass(wr.toString(), count));
+      }
+    }
+
     returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
     return returnSeries;
   }

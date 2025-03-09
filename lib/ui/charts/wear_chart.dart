@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
@@ -13,6 +15,7 @@ class WearChart extends StatefulWidget {
   final List<Watches> data;
   final bool animate;
   final ChartGrouping grouping;
+  final wristCheckController = Get.put(WristCheckController());
 
 
 
@@ -102,29 +105,32 @@ class _WearChartState extends State<WearChart> {
         ];
         break;
       case ChartGrouping.caseDiameter:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(widget.data));
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(widget.data), "mm");
         break;
       case ChartGrouping.lugWidth:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(widget.data));
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(widget.data), "mm");
         break;
       case ChartGrouping.lug2lug:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugToLugList(widget.data));
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugToLugList(widget.data), "mm");
         break;
       case ChartGrouping.caseThickness:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(widget.data));
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(widget.data), "mm");
+        break;
+      case ChartGrouping.waterResistance:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateWaterResistanceList(widget.data), widget.wristCheckController.waterResistanceUnit.value.name);
         break;
     }
     return returnSeries;
   }
 }
 
-List<BarSeries> _calculateDimensionReturn(List<DimensionsClass> dataSource) {
+List<BarSeries> _calculateDimensionReturn(List<DimensionsClass> dataSource, String units) {
   return  <BarSeries<DimensionsClass, String>>[
     BarSeries(
       dataSource: dataSource,
       xValueMapper: (DimensionsClass series, _) => series.count == 0? null: series.dimension,
       yValueMapper: (DimensionsClass series, _) => series.count == 0? null : series.count,
-      dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.dimension}mm: ${caseDiameter.count}",
+      dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.dimension}$units: ${caseDiameter.count}",
       dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
       // animationDuration: 0 Set to zero to stop it animating!
     )

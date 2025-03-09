@@ -525,6 +525,8 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         return "Lug to Lug";
       case ChartGrouping.caseThickness:
         return "Case Thickness";
+      case ChartGrouping.waterResistance:
+        return "Water Resistance";
         default:
           return "";
     }
