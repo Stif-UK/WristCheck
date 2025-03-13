@@ -81,8 +81,9 @@ class _MoreMenuState extends State<MoreMenu> {
 Widget _buildAdSpace(BannerAd? banner, BuildContext context){
   return banner == null
       ? SizedBox(height: MediaQuery.of(context).size.height > 500.0? 250: 100,)
-      : Container(
+      : StatefulBuilder(
+      builder: (context, setState) => Container(
     height: MediaQuery.of(context).size.height > 500.0? 250: 100,
     child: AdWidget(ad: banner!),
-  );
+  ));
 }
