@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -11,9 +13,11 @@ class WearPieChart extends StatelessWidget {
   final List<Watches> data;
   final bool animate;
   final ChartGrouping grouping;
+  final wristCheckController = Get.put(WristCheckController());
 
 
-  const WearPieChart({required this.data, required this.animate, required this.grouping});
+
+  WearPieChart({required this.data, required this.animate, required this.grouping});
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +107,58 @@ class WearPieChart extends StatelessWidget {
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
+      case ChartGrouping.caseDiameter:
+        returnSeries = <PieSeries<DimensionsClass, String>>[PieSeries<DimensionsClass, String>(
+            dataSource: ChartHelper.calculateCaseDiameterList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (DimensionsClass series, _) =>
+            series.dimension,
+            yValueMapper: (DimensionsClass series, _) =>
+            series.count == 0
+                ? null
+                : series.count,
+            dataLabelMapper: (man, _) =>
+            man.count == 0 ? "" : "${man.dimension}mm: ${man.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
+      case ChartGrouping.lugWidth:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(data), "mm");
+        break;
+      case ChartGrouping.lug2lug:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugToLugList(data), "mm");
+        break;
+      case ChartGrouping.caseThickness:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(data), "mm");
+        break;
+      case ChartGrouping.waterResistance:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(data), wristCheckController.waterResistanceUnit.value.name);
+        break;
+      case ChartGrouping.caseMaterial:
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(data), "mm");
+        break;
     }
 
     return returnSeries;
 
+  }
+
+  List<PieSeries> _calculateDimensionReturn(List<DimensionsClass> dataSource, String units){
+     return <PieSeries<DimensionsClass, String>>[PieSeries<DimensionsClass, String>(
+        dataSource: dataSource,
+        explode: true,
+        explodeIndex: 0,
+        xValueMapper: (DimensionsClass series, _) =>
+        series.dimension,
+        yValueMapper: (DimensionsClass series, _) =>
+        series.count == 0
+            ? null
+            : series.count,
+        dataLabelMapper: (man, _) =>
+        man.count == 0 ? "" : "${man.dimension} $units: ${man.count}",
+        dataLabelSettings: const DataLabelSettings(
+            isVisible: true, showZeroValue: false))];
   }
 
 }

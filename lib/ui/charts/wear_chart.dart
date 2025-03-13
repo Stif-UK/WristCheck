@@ -123,9 +123,9 @@ class _WearChartState extends State<WearChart> {
         returnSeries =  <BarSeries<MaterialClass, String>>[
           BarSeries(
             dataSource: ChartHelper.calculateCaseMaterialList(widget.data),
-            xValueMapper: (MaterialClass series, _) => series.count == 0? null: series.material,
+            xValueMapper: (MaterialClass series, _) => series.count == 0? null: WristCheckFormatter.getCaseMaterialText(series.material),
             yValueMapper: (MaterialClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (watch, _) => watch.count == 0? "":"${watch.material}: ${watch.count}",
+            dataLabelMapper: (watch, _) => watch.count == 0? "":"${WristCheckFormatter.getCaseMaterialText(watch.material)}: ${watch.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
             // animationDuration: 0 Set to zero to stop it animating!
           )

@@ -4,6 +4,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -37,7 +38,7 @@ class ManufacturerClass extends ChartClass{
 class MaterialClass extends ChartClass{
   MaterialClass(this.material, int count) : super(count);
 
-  late final String material;
+  late final CaseMaterialEnum material;
 }
 
 class DimensionsClass extends ChartClass{
@@ -149,7 +150,7 @@ class ChartHelper{
           count += watch.filteredWearList!.length;
         }
       }
-      returnSeries.add(MaterialClass(material, count));
+      returnSeries.add(MaterialClass(WristCheckFormatter.getCaseMaterialEnum(material), count));
 
     }
     returnSeries = sortChartData(returnSeries) as List<MaterialClass>;
