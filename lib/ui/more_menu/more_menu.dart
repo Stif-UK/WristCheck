@@ -49,7 +49,7 @@ class _MoreMenuState extends State<MoreMenu> {
   @override
   Widget build(BuildContext context) {
     final pagePadding = EdgeInsets.all(10.0);
-    
+
     return Obx(()=> Column(
         children: [
           Expanded(
