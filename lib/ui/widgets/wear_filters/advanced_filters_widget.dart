@@ -128,6 +128,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
     groupList.remove(ChartGrouping.lugWidth);
     groupList.remove(ChartGrouping.caseThickness);
     groupList.remove(ChartGrouping.waterResistance);
+    groupList.remove(ChartGrouping.caseMaterial);
 
     void setSelectedValue(ChartGrouping? grouping){
       widget.filterController.updateChartGrouping(grouping!);
