@@ -619,6 +619,8 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         return "Case Thickness";
       case ChartGrouping.waterResistance:
         return "Water Resistance";
+      case ChartGrouping.caseMaterial:
+        return "Case Material";
         default:
           return "";
     }

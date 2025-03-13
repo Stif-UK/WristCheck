@@ -34,6 +34,12 @@ class ManufacturerClass extends ChartClass{
   late final String manufacturer;
 }
 
+class MaterialClass extends ChartClass{
+  MaterialClass(this.material, int count) : super(count);
+
+  late final String material;
+}
+
 class DimensionsClass extends ChartClass{
   DimensionsClass(this.dimension, int count) : super(count);
 
@@ -123,6 +129,30 @@ class ChartHelper{
 
     }
     returnSeries = sortChartData(returnSeries) as List<ManufacturerClass>;
+    return returnSeries;
+  }
+
+  static List<MaterialClass> calculateCaseMaterialList(List<Watches> data){
+    List<MaterialClass> returnSeries = [];
+    //Get set of materials (to ensure all unique)
+    Set<String> caseMaterials = {};
+    for(Watches watch in data){
+      if(watch.caseMaterial != null) {
+        caseMaterials.add(watch.caseMaterial!);
+      }
+    }
+    for(String material in caseMaterials) {
+      int count = 0;
+      List<Watches> matList = data.where((watch) => watch.caseMaterial == material).toList();
+      for(Watches watch in matList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      returnSeries.add(MaterialClass(material, count));
+
+    }
+    returnSeries = sortChartData(returnSeries) as List<MaterialClass>;
     return returnSeries;
   }
 

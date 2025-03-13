@@ -119,6 +119,18 @@ class _WearChartState extends State<WearChart> {
       case ChartGrouping.waterResistance:
         returnSeries = _calculateDimensionReturn(ChartHelper.calculateWaterResistanceList(widget.data), widget.wristCheckController.waterResistanceUnit.value.name);
         break;
+      case ChartGrouping.caseMaterial:
+        returnSeries =  <BarSeries<MaterialClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateCaseMaterialList(widget.data),
+            xValueMapper: (MaterialClass series, _) => series.count == 0? null: series.material,
+            yValueMapper: (MaterialClass series, _) => series.count == 0? null : series.count,
+            dataLabelMapper: (watch, _) => watch.count == 0? "":"${watch.material}: ${watch.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
+            // animationDuration: 0 Set to zero to stop it animating!
+          )
+        ];
+        break;
     }
     return returnSeries;
   }
