@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -20,8 +21,15 @@ class MoreMenu extends StatefulWidget {
 }
 
 class _MoreMenuState extends State<MoreMenu> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -48,6 +56,7 @@ class _MoreMenuState extends State<MoreMenu> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.logScreenView(screenName: "more_menu");
     final pagePadding = EdgeInsets.all(10.0);
 
     return Obx(()=> Column(
