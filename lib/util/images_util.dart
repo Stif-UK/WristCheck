@@ -8,7 +8,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
+import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class ImagesUtil {
 
@@ -243,6 +245,7 @@ class ImagesUtil {
   //TODO: Update this method to take a sort order as input
   static Future<List<Watches>> getWatchesWithImages(GallerySelectionEnum selection) async{
     var watchList = [];
+    WatchOrder sortOrder = await WristCheckPreferences.getWatchOrder() ?? WatchOrder.watchbox;
 
     switch(selection) {
       case GallerySelectionEnum.watchbox:
@@ -278,6 +281,8 @@ class ImagesUtil {
       }
     }
     //TODO: Implement sort method - use Boxes sort method for collection & favourites
+    //Initially just sort by the users selected watchbox order preference
+    returnlist = Boxes.sortWatchBox(returnlist, sortOrder);
     return returnlist;
   }
 
