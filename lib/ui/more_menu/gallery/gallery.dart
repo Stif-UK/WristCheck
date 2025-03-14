@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -31,11 +32,16 @@ class Gallery extends StatefulWidget {
 
 
 class _GalleryState extends State<Gallery> {
-
-  StreamController<Widget> overlayController =
-  StreamController<Widget>.broadcast();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  StreamController<Widget> overlayController = StreamController<Widget>.broadcast();
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -68,6 +74,7 @@ class _GalleryState extends State<Gallery> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.logScreenView(screenName: "gallery");
 
     return Scaffold(
       appBar: AppBar(
@@ -93,12 +100,7 @@ class _GalleryState extends State<Gallery> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Text("Show off your collection!",
-                                      textAlign: TextAlign.center,
-                                      ),
-                                  ),
+                                  
                                   _getCollectionPickerRow(),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
