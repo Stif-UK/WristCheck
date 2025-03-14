@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/watch_methods.dart';
@@ -195,6 +196,9 @@ class WristCheckDialogs {
           child: Column(
             //mainAxisSize: MainAxisSize.min,
             children: [
+              Icon(FontAwesomeIcons.gripLines,
+                size: Theme.of(Get.context!).textTheme.headlineMedium!.fontSize,
+                color: Theme.of(Get.context!).textTheme.headlineMedium!.color ,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text("WristTrack just updated...", style: Theme.of(Get.context!).textTheme.headlineMedium, textAlign: TextAlign.center,),
