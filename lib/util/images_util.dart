@@ -240,6 +240,7 @@ class ImagesUtil {
     return returnList;
   }
 
+  //TODO: Update this method to take a sort order as input
   static Future<List<Watches>> getWatchesWithImages(GallerySelectionEnum selection) async{
     var watchList = [];
 
@@ -276,6 +277,7 @@ class ImagesUtil {
         returnlist.add(watch);
       }
     }
+    //TODO: Implement sort method - use Boxes sort method for collection & favourites
     return returnlist;
   }
 

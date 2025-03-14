@@ -100,14 +100,12 @@ class _GalleryState extends State<Gallery> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  
                                   _getCollectionPickerRow(),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ElevatedButton(
                                       child: Text("Go",
                                       style: TextStyle(fontSize: 20.0),),
-                                      //TODO: Handle empty list
                                       onPressed: ()=> data.isNotEmpty? SwipeImageGallery(
                                         context: context,
                                         itemBuilder: (context, index){
