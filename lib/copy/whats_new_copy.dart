@@ -5,15 +5,12 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.12.1 \n"
+        "### Version 1.13.0 \n"
         "\n"
 
-            "* Added CHF and HUF currencies\n"
-            "* Implemented Wrist Recap annual summary feature [BETA - please share feedback and suggestions!]\n"
-            "* (Pro) Added ability to track watch dimension data\n"
-            "* (Pro) Additional collection charts and wear chart filters as above\n"
-            "* (Pro) Added Moon Phase info to time setting tab\n"
-            "* v1.12.1: Bug fix for 'This Month' wear chart label bug\n"
+            "* Added new Watch Gallery View \n"
+            "* (Pro) New data and charts: Water Resistance & Case Materials\n"
+            "* Since Last Purchase now selectable as default chart filter\n"
             "* Additional Bug fixes & Improvements";
 
   }
@@ -28,6 +25,20 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.13.0 \n"
+                      "\n"
+
+                      "* Added new Watch Gallery View \n"
+                      "* (Pro) New data and charts: Water Resistance & Case Materials\n"
+                      "* Since Last Purchase now selectable as default chart filter\n"
+                      "* Improvement: Last Purchase date is shown when 'Since Last Purchase' filter is used\n"
+                      "* Bug Fix: iOS keyboards amended to allow decimal places in dimension stats\n"
+                      "* Bug Fix: Image Cropping now repaired for users on Android 15\n"
+                      "* Bug Fix: Data Labels fixed when charts grouped by Movement or Category\n"
+                      "* Bug Fix: Daily Reminder text updated from WristCheck to WristTrack\n"
+                      "* Bug Fix: Pie Charts now support all new data points available to Pro users\n"
+                      "* Bug Fix: Added defensive code to protect against Google Admob triggered crash\n"
+                      "---\n\n"
                       "### Version 1.12.1 \n"
                       "\n"
 
