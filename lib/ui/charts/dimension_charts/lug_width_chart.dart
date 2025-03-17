@@ -77,13 +77,18 @@ String _getMedianLugWidth(List<Watches> data) {
     data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
     List<int> lugWidthList = data.map((obj) => obj.lugWidth!).toList();
 
-    int middle = lugWidthList.length ~/ 2;
-    if (lugWidthList.length % 2 == 1) {
-      median = lugWidthList[middle];
-    } else {
-      median = ((lugWidthList[middle - 1] + lugWidthList[middle]) / 2.0).round();
+    //check that the list isn't empty before continuing - as null and zero has already been removed, this confirms
+    //we have a valid list to perform operations on.
+    if(lugWidthList.isNotEmpty) {
+      int middle = lugWidthList.length ~/ 2;
+      if (lugWidthList.length % 2 == 1) {
+        median = lugWidthList[middle];
+      } else {
+        median =
+            ((lugWidthList[middle - 1] + lugWidthList[middle]) / 2.0).round();
+      }
+      returnString = "Median Lug Width: $median mm";
     }
-     returnString = "Median Lug Width: $median mm";
   }
   return returnString;
 }
