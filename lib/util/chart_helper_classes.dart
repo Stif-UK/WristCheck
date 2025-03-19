@@ -398,4 +398,23 @@ class ChartHelper{
     wristCheckController.updateDayChartPreference(values[index]);
   }
 
+  static String getMedianAsString(List<int> data, String units){
+    num median;
+    String returnString = "";
+
+    //check that the list isn't empty before continuing - as null and zero has already been removed, this confirms
+    //we have a valid list to perform operations on.
+    if(data.isNotEmpty) {
+      int middle = data.length ~/ 2;
+      if (data.length % 2 == 1) {
+        median = data[middle];
+      } else {
+        median =
+            ((data[middle - 1] + data[middle]) / 2.0).round();
+      }
+      returnString = "$median $units";
+    }
+  return returnString;
+  }
+
 }

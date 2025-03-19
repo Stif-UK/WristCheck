@@ -3,6 +3,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:collection/collection.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 
 class LugWidthChart extends StatefulWidget {
   const LugWidthChart({Key? key}) : super(key: key);
@@ -70,24 +71,15 @@ class _LugWidthChartState extends State<LugWidthChart> {
 String _getMedianLugWidth(List<Watches> data) {
   String returnString = "";
 
-  if(data.length != 0){
-
-    int median;
+  if (data.length != 0) {
+    //int median;
     //remove nulls and zeros
     data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
     List<int> lugWidthList = data.map((obj) => obj.lugWidth!).toList();
 
-    //check that the list isn't empty before continuing - as null and zero has already been removed, this confirms
-    //we have a valid list to perform operations on.
-    if(lugWidthList.isNotEmpty) {
-      int middle = lugWidthList.length ~/ 2;
-      if (lugWidthList.length % 2 == 1) {
-        median = lugWidthList[middle];
-      } else {
-        median =
-            ((lugWidthList[middle - 1] + lugWidthList[middle]) / 2.0).round();
-      }
-      returnString = "Median Lug Width: $median mm";
+    String median = ChartHelper.getMedianAsString(lugWidthList, "mm");
+    if (median.length > 1) {
+      returnString = "Median Lug Width: $median";
     }
   }
   return returnString;
