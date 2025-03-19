@@ -366,6 +366,9 @@ class WristCheckFormatter{
       case LocationEnum.hun:
         returnText = "hu_HU";
         break;
+      case LocationEnum.pol:
+        returnText = "pl_PL";
+        break;
     }
     return returnText;
   }
@@ -400,6 +403,9 @@ class WristCheckFormatter{
         break;
       case "hu_HU":
         returnNum = LocationEnum.hun;
+        break;
+      case "pl_PL":
+        returnNum = LocationEnum.pol;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -438,6 +444,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.hun:
         returnString = "Hungarian Forint";
+        break;
+      case LocationEnum.pol:
+        returnString = "Polish Zloty";
         break;
     }
 
