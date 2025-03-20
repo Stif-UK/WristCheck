@@ -10,6 +10,11 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get isAlphaNumericIncCyrillicAndNotEmpty{
+    final titleRegExp = RegExp(r'^[\p{L}\p{N}!£$&+()-.\s/]+$', unicode: true);
+    return titleRegExp.hasMatch(this);
+  }
+
   bool get isServiceNumber{
     //in range 0-99 or blank
     final titleRegExp = RegExp(r"^([0-9]{1,2}|)$");

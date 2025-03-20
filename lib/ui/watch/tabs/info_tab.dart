@@ -59,7 +59,7 @@ class InfoTab extends StatelessWidget {
       controller: manufacturerFieldController,
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
-        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
+        if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
           return 'Manufacturer missing or invalid characters included';
         }
       },
@@ -76,7 +76,7 @@ class InfoTab extends StatelessWidget {
       controller: modelFieldController,
       textCapitalization: TextCapitalization.words,
       validator: (String? val) {
-        if(!val!.isAlphaNumericIncAccentsAndSymbolsAndNotEmpty) {
+        if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
           return 'Model is missing or invalid characters included';
         }
       },
