@@ -17,7 +17,8 @@ class ProDataTab extends StatelessWidget {
     required this.lug2lugController,
     required this.caseThicknessController,
     required this.waterResistanceController,
-    required this.caseMaterialController
+    required this.caseMaterialController,
+    required this.winderTPDController
   });
 
   final watchViewController = Get.put(WatchViewController());
@@ -28,6 +29,7 @@ class ProDataTab extends StatelessWidget {
   final TextEditingController caseThicknessController;
   final TextEditingController waterResistanceController;
   final TextEditingController caseMaterialController;
+  final TextEditingController winderTPDController;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,9 @@ class ProDataTab extends StatelessWidget {
             }
           },
         ),
-        _buildCaseMaterialField()
+        _buildCaseMaterialField(),
+        const Divider(thickness: 2,),
+        _buildWinderSettingsRow()
       ],
     ),
     );
@@ -141,6 +145,33 @@ class ProDataTab extends StatelessWidget {
                 caseMaterialController.value = TextEditingValue(text:WristCheckFormatter.getCaseMaterialText(material!));
               } : null ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildWinderSettingsRow(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Winder Settings",
+          textAlign: TextAlign.start,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,),
+        WatchFormField(
+          keyboardType: TextInputType.number,
+          icon: const Icon(FontAwesomeIcons.rotate),
+          enabled: watchViewController.inEditState.value,
+          fieldTitle: "TPD:",
+          hintText: "TPD",
+          maxLines: 1,
+          controller: winderTPDController,
+          textCapitalization: TextCapitalization.none,
+          validator: (String? val) {
+            if(!val!.isUnboundPositiveInteger) {
+              return 'Must be a whole number';
+            }
+          },
+        ),
+
       ],
     );
   }

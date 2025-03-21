@@ -1,1 +1,1 @@
-enum WinderDirectionEnum {clockwise, counterclockwise, both}
+enum WinderDirectionEnum {clockwise, counterclockwise, both, blank}

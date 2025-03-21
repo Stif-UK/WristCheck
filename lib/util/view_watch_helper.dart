@@ -107,7 +107,7 @@ class ViewWatchHelper{
   /**
    * getServiceInterval takes a String as input and if this is empty returns 0, otherwise it parses an integer value from the string to return
    */
-  static int getServiceInterval(String serviceIntervalString){
+  static int getIntInputValue(String serviceIntervalString){
     return serviceIntervalString.length == 0? 0: int.parse(serviceIntervalString);
   }
 
