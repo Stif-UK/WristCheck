@@ -49,7 +49,7 @@ class ProDataTab extends StatelessWidget {
 
   Widget _buildCaseDetailsSection(){
     return ExpansionTile(
-        title: Text("Case Dimensions",
+        title: Text("Watch Details",
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
