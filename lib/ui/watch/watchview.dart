@@ -12,6 +12,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -132,6 +133,7 @@ class _WatchViewState extends State<WatchView> {
   final waterResistanceFieldController = TextEditingController();
   final caseMaterialFieldController = TextEditingController();
   final winderTPDFieldController = TextEditingController();
+  final winderDirectionFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -162,6 +164,7 @@ class _WatchViewState extends State<WatchView> {
     waterResistanceFieldController.dispose();
     caseMaterialFieldController.dispose();
     winderTPDFieldController.dispose();
+    winderDirectionFieldController.dispose();
     super.dispose();
   }
 
@@ -190,6 +193,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
     widget.watchViewController.updateSkipBackCheck(false);
     widget.watchViewController.updateCaseMaterial("");
+    widget.watchViewController.updateWinderDirection("");
 
     void saveAndUpdate(){
       //Validate the form
@@ -223,6 +227,7 @@ class _WatchViewState extends State<WatchView> {
             _waterResistance = ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text);
             widget.watchViewController.updateCaseMaterial(caseMaterialFieldController.value.text);
             _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
+            widget.watchViewController.updateWinderDirection(winderDirectionFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -254,6 +259,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.waterResistance = _waterResistance;
             widget.currentWatch!.caseMaterial = widget.watchViewController.caseMaterial.value;
             widget.currentWatch!.winderTPD = _winderTPD;
+            widget.currentWatch!.winderDirection = widget.watchViewController.winderDirection.value;
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -308,6 +314,7 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
       widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
       widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
+      widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
 
       //Load watch content, only if watch is not being edited
       if(!widget.watchViewController.inEditState.value) {
@@ -345,6 +352,7 @@ class _WatchViewState extends State<WatchView> {
         waterResistanceFieldController.value = TextEditingValue(text: widget.currentWatch!.waterResistance != null?"${widget.currentWatch!.waterResistance}" : "");
         caseMaterialFieldController.value = TextEditingValue(text: widget.currentWatch!.caseMaterial?? WristCheckFormatter.getCaseMaterialText(CaseMaterialEnum.blank));
         winderTPDFieldController.value = TextEditingValue(text: widget.currentWatch!.winderTPD != null? "${widget.currentWatch!.winderTPD}" : "");
+        winderDirectionFieldController.value = TextEditingValue(text: widget.currentWatch!.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank));
       }
     }
 
@@ -534,6 +542,7 @@ class _WatchViewState extends State<WatchView> {
                                                 waterResistanceController: waterResistanceFieldController,
                                                 caseMaterialController: caseMaterialFieldController,
                                                 winderTPDController: winderTPDFieldController,
+                                                winderDirectionController: winderDirectionFieldController,
                                         )
                                             : const SizedBox(height: 0,),
 
@@ -757,8 +766,8 @@ class _WatchViewState extends State<WatchView> {
                   _caseThickness,
                 _waterResistance,
                 caseMaterialFieldController.value.text,
-                _winderTPD
-
+                _winderTPD,
+                winderDirectionFieldController.value.text
               );
 
               //if a front image has been set, we add this to the newly created watch before exiting
@@ -849,7 +858,8 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.caseThickness != ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text) ||
       widget.currentWatch!.waterResistance != ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text) ||
       widget.currentWatch!.caseMaterial != caseMaterialFieldController.value.text ||
-      widget.currentWatch!.winderTPD != ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text)
+      widget.currentWatch!.winderTPD != ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text) ||
+      widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text
     ){
       returnValue = true;
     }

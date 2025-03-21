@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
@@ -7,6 +9,7 @@ import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 
@@ -333,6 +336,69 @@ class WristCheckFormatter{
         returnValue = CategoryEnum.blank;
     }
     return returnValue;
+  }
+
+  static String getWinderDirectionText(WinderDirectionEnum direction){
+    String returnString = "";
+
+    switch(direction) {
+      case WinderDirectionEnum.clockwise:
+        returnString = "Clockwise";
+        break;
+      case WinderDirectionEnum.counterclockwise:
+        returnString = "Counter-Clockwise";
+        break;
+      case WinderDirectionEnum.both:
+        returnString = "Both";
+        break;
+      case WinderDirectionEnum.blank:
+        returnString = "";
+        break;
+    }
+    return returnString;
+  }
+
+  static WinderDirectionEnum getWinderDirectionEnum(String direction){
+    WinderDirectionEnum returnValue = WinderDirectionEnum.blank;
+
+    switch(direction) {
+      case "Clockwise":
+        returnValue = WinderDirectionEnum.clockwise;
+        break;
+      case "Counter-Clockwise":
+        returnValue = WinderDirectionEnum.counterclockwise;
+        break;
+      case "Both":
+        returnValue = WinderDirectionEnum.both;
+        break;
+      case "":
+        returnValue = WinderDirectionEnum.blank;
+        break;
+      default:
+        returnValue = WinderDirectionEnum.blank;
+    }
+    return returnValue;
+  }
+
+  static Icon getWinderDirectionIcon(WinderDirectionEnum direction){
+    Icon returnIcon = Icon(Icons.watch);
+
+    switch(direction) {
+      case WinderDirectionEnum.clockwise:
+        returnIcon = Icon(FontAwesomeIcons.rotateRight);
+        break;
+      case WinderDirectionEnum.counterclockwise:
+        returnIcon = Icon(FontAwesomeIcons.rotateLeft);
+        break;
+      case WinderDirectionEnum.both:
+        returnIcon = Icon(FontAwesomeIcons.rotate);
+        break;
+      case WinderDirectionEnum.blank:
+        returnIcon = Icon(FontAwesomeIcons.circle);
+        break;
+    }
+
+    return returnIcon;
   }
 
   static String getLocaleString(LocationEnum location){

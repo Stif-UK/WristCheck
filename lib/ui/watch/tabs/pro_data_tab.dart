@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,8 @@ class ProDataTab extends StatelessWidget {
     required this.caseThicknessController,
     required this.waterResistanceController,
     required this.caseMaterialController,
-    required this.winderTPDController
+    required this.winderTPDController,
+    required this.winderDirectionController
   });
 
   final watchViewController = Get.put(WatchViewController());
@@ -30,6 +32,7 @@ class ProDataTab extends StatelessWidget {
   final TextEditingController waterResistanceController;
   final TextEditingController caseMaterialController;
   final TextEditingController winderTPDController;
+  final TextEditingController winderDirectionController;
 
   @override
   Widget build(BuildContext context) {
@@ -150,12 +153,11 @@ class ProDataTab extends StatelessWidget {
   }
 
   Widget _buildWinderSettingsRow(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Winder Settings",
+    return ExpansionTile(
+        title: Text("Winder Settings",
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.bodyLarge,),
+      children: [
         WatchFormField(
           keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.rotate),
@@ -171,7 +173,39 @@ class ProDataTab extends StatelessWidget {
             }
           },
         ),
+        _buildWinderDirectionField(),
+      ],
+    );
 
+  }
+
+  Widget _buildWinderDirectionField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Winder Direction:",
+          textAlign: TextAlign.start,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,),
+        Padding(
+          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+          child: Obx(()=> DropdownButtonFormField<WinderDirectionEnum>(
+                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                borderRadius: BorderRadius.circular(24),
+                menuMaxHeight: 300,
+                value: WristCheckFormatter.getWinderDirectionEnum(watchViewController.winderDirection.value),
+                iconSize: watchViewController.inEditState.value? 24.0: 0.0,
+                decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(WristCheckFormatter.getWinderDirectionIcon(WristCheckFormatter.getWinderDirectionEnum(watchViewController.winderDirection.value)), Get.context!),
+                items: WinderDirectionEnum.values.map((direction) {
+                  return DropdownMenuItem<WinderDirectionEnum>(
+                      value: direction,
+                      child: Text(WristCheckFormatter.getWinderDirectionText(direction)));
+                }).toList(),
+                onChanged: watchViewController.inEditState.value? (direction){
+                  watchViewController.updateWinderDirection(WristCheckFormatter.getWinderDirectionText(direction!));
+                  winderDirectionController.value = TextEditingValue(text:WristCheckFormatter.getWinderDirectionText(direction!));
+                } : null ),
+          ),
+        ),
       ],
     );
   }

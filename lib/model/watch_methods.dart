@@ -13,7 +13,7 @@ class WatchMethods {
   static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
       DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
       String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice, DateTime? soldDate, DateTime? deliveryDate, DateTime? warrantyEndDate,
-      double? caseDiameter, int? lugWidth, double? lug2lug, double? caseThickness, int? waterResistance, String? caseMaterial, int? winderTPD){
+      double? caseDiameter, int? lugWidth, double? lug2lug, double? caseThickness, int? waterResistance, String? caseMaterial, int? winderTPD, String? winderDirection){
     String m = manufacturer!;
     String mo = model!;
     String? sn = serialNumber;
@@ -40,6 +40,7 @@ class WatchMethods {
     int? wr = waterResistance;
     String? cr = caseMaterial;
     int? wtpd = winderTPD;
+    String? windDir = winderDirection;
 
 
 
@@ -75,7 +76,8 @@ class WatchMethods {
     ..caseThickness = thickness
     ..waterResistance = wr
     ..caseMaterial = cr
-    ..winderTPD = wtpd;
+    ..winderTPD = wtpd
+    ..winderDirection = windDir;
 
     final box = Boxes.getWatches();
     return box.add(watch);
