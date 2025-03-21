@@ -433,7 +433,7 @@ class _WatchViewState extends State<WatchView> {
                       ),
                       BottomNavigationBarItem(
                           icon: Icon(FontAwesomeIcons.glasses),
-                        label: "Nerd"
+                        label: "Pro Data"
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.book),
