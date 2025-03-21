@@ -39,6 +39,20 @@ class ProDataTab extends StatelessWidget {
     return Obx(()=> Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        _buildCaseDetailsSection(),
+        _buildWinderSettingsRow(),
+
+      ],
+    ),
+    );
+  }
+
+  Widget _buildCaseDetailsSection(){
+    return ExpansionTile(
+        title: Text("Case Dimensions",
+          textAlign: TextAlign.start,
+          style: Theme.of(Get.context!).textTheme.headlineSmall,),
+      children: [
         WatchFormField(
           keyboardType: TextInputType.numberWithOptions(decimal: true),
           icon: const Icon(FontAwesomeIcons.rulerCombined),
@@ -115,10 +129,7 @@ class ProDataTab extends StatelessWidget {
           },
         ),
         _buildCaseMaterialField(),
-        const Divider(thickness: 2,),
-        _buildWinderSettingsRow()
       ],
-    ),
     );
   }
 
@@ -156,11 +167,11 @@ class ProDataTab extends StatelessWidget {
     return ExpansionTile(
         title: Text("Winder Settings",
           textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,),
+          style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
         WatchFormField(
           keyboardType: TextInputType.number,
-          icon: const Icon(FontAwesomeIcons.rotate),
+          icon: const Icon(FontAwesomeIcons.gaugeHigh),
           enabled: watchViewController.inEditState.value,
           fieldTitle: "TPD:",
           hintText: "TPD",

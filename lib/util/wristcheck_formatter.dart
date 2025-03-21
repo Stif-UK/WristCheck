@@ -394,7 +394,7 @@ class WristCheckFormatter{
         returnIcon = Icon(FontAwesomeIcons.rotate);
         break;
       case WinderDirectionEnum.blank:
-        returnIcon = Icon(FontAwesomeIcons.circle);
+        returnIcon = Icon(FontAwesomeIcons.rotate);
         break;
     }
 
