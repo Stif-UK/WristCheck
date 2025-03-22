@@ -13,6 +13,7 @@ import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/more_menu/gallery/image_overlay.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
@@ -185,6 +186,7 @@ Widget _getCollectionPickerRow(){
         child: Text("Show me my ", style: Theme.of(Get.context!).textTheme.bodyLarge,),
       ),
       Obx(()=> DropdownButton<GallerySelectionEnum>(
+        dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
           value: galController.gallerySelection.value,
           items: GallerySelectionEnum.values.map((selection) {
             return DropdownMenuItem<GallerySelectionEnum>(
