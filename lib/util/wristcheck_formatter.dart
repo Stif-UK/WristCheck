@@ -738,6 +738,9 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
   static String getGallerySubheaderText(Watches watch){
     String returnString = "${watch.status}";
+    
+    //["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
+    
     switch(watch.status){
       case "In Collection":
         var favourite = watch.favourite? " (Favourite)" : "";
@@ -752,6 +755,14 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
           returnString = "$returnString - $soldDate";
         }
         break;
+      case "Pre-Order":
+        if(watch.deliveryDate != null){
+          var dueDateText = "Due Date:";
+          var dueDate = watch.deliveryDate == ""
+              ? "$dueDateText (not captured)"
+              : "$dueDateText ${WristCheckFormatter.getFormattedDate(watch.deliveryDate!)}";
+          returnString = "$returnString - $dueDate";
+        }
     }
 
     return returnString;
