@@ -8,6 +8,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/watch_charts.dart';
 import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WearRow extends StatefulWidget {
   WearRow({super.key,
@@ -125,8 +126,7 @@ class _WearRowState extends State<WearRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wearCount == 1? const Text("Worn 1 time"): Text("Worn: $wearCount times",
-        ),
+        Text(WristCheckFormatter.getWearCountText(wearCount))
       ],
     );
   }

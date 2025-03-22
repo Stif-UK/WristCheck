@@ -12,6 +12,7 @@ import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
+import 'package:wristcheck/model/watches.dart';
 
 class WristCheckFormatter{
 
@@ -730,6 +731,20 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     return returnString;
 
+  }
+
+  // static String getGallerySubheaderText(Watches watch){
+  //   String returnString = "Status: ${watch.status}";
+  //   switch(watch.status){
+  //     case "In Collection":
+  //       returnString = "$returnString, Worn"
+  //   }
+  //
+  //   return returnString;
+  // }
+
+  static String getWearCountText(int wearCount){
+    return wearCount == 1? "Worn 1 time" : "Worn: $wearCount times";
   }
 
 
