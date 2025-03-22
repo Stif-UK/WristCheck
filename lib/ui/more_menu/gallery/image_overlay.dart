@@ -4,10 +4,13 @@ class ImageOverlay extends StatelessWidget {
   const ImageOverlay({
     super.key,
     required this.title,
-    required this.subtitle
+    required this.subtitle,
+    required this.subtitle2
   });
   final String title;
   final String subtitle;
+  final String subtitle2;
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,24 @@ class ImageOverlay extends StatelessWidget {
       ),
     ),
 ]
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: Colors.black.withAlpha(50),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    subtitle2,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+              ]
           )
         ],
       ),

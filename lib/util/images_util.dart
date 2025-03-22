@@ -269,6 +269,9 @@ class ImagesUtil {
       case GallerySelectionEnum.wishlist:
         watchList = Boxes.getWishlistWatches();
         break;
+      case GallerySelectionEnum.all:
+        watchList = Boxes.getAllNonArchivedWatches();
+        break;
       default:
         watchList = Boxes.getCollectionWatches();
         break;

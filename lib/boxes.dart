@@ -60,6 +60,12 @@ class Boxes {
     return Hive.box<Watches>("WatchBox").values.toList();
   }
 
+  static List<Watches> getAllNonArchivedWatches(){
+    List<Watches> returnList = Hive.box<Watches>("WatchBox").values.toList();
+    returnList.removeWhere((watch) => watch.status == "Archived");
+    return returnList;
+  }
+
   static List<Watches> getRandomWatch() {
     List<Watches> returnList = [];
     List<Watches> collection = getCollectionWatches();

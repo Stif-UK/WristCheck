@@ -727,21 +727,35 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case GallerySelectionEnum.wishlist:
         returnString = "wishlisted watches";
         break;
+      case GallerySelectionEnum.all:
+        returnString = "Everything";
+        break;
     }
 
     return returnString;
 
   }
 
-  // static String getGallerySubheaderText(Watches watch){
-  //   String returnString = "Status: ${watch.status}";
-  //   switch(watch.status){
-  //     case "In Collection":
-  //       returnString = "$returnString, Worn"
-  //   }
-  //
-  //   return returnString;
-  // }
+  static String getGallerySubheaderText(Watches watch){
+    String returnString = "${watch.status}";
+    switch(watch.status){
+      case "In Collection":
+        var favourite = watch.favourite? " (Favourite)" : "";
+        returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
+        break;
+      case "Sold":
+        if(watch.soldDate != null) {
+          var soldDateText = "Sold Date:";
+          var soldDate = watch.soldDate == ""
+              ? "$soldDateText (not captured)"
+              : "$soldDateText ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}";
+          returnString = "$returnString - $soldDate";
+        }
+        break;
+    }
+
+    return returnString;
+  }
 
   static String getWearCountText(int wearCount){
     return wearCount == 1? "Worn 1 time" : "Worn: $wearCount times";
