@@ -758,10 +758,10 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case "Pre-Order":
         if(watch.deliveryDate != null){
           var dueDateText = "Due Date:";
-          var dueDate = watch.deliveryDate == ""
+          var soldDate = watch.deliveryDate == ""
               ? "$dueDateText (not captured)"
               : "$dueDateText ${WristCheckFormatter.getFormattedDate(watch.deliveryDate!)}";
-          returnString = "$returnString - $dueDate";
+          returnString = "$returnString - $soldDate";
         }
     }
 
