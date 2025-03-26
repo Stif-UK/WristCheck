@@ -5,6 +5,7 @@ import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum
 class CollectionStatsController extends GetxController{
   final caseThicknessChartType = CaseThicknessChartEnum.line.obs;
   final lug2lugChartType = Lug2lugChartEnum.line.obs;
+  final showPrice = true.obs;//
 
   updateCaseThicknessChartType(type){
     caseThicknessChartType(type);
@@ -12,5 +13,9 @@ class CollectionStatsController extends GetxController{
 
   updateLug2LugChartType(type){
     lug2lugChartType(type);
+  }
+
+  updateShowPrice(price){
+    showPrice(price);
   }
 }

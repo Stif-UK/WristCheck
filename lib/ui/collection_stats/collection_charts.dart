@@ -47,7 +47,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
         children: [
           Padding(
             padding: getPagePadding(),
-            child: Obx(()=> Text(wristCheckController.isAppPro.value? "Cost Per Wear" : "Go Pro!", style: Theme.of(context).textTheme.headlineSmall,)),
+            child: Obx(()=> getCostPerWearHeader(wristCheckController.isAppPro.value)),
           ),
           Obx(()=> Padding(
               padding: getPagePadding(),
@@ -178,6 +178,23 @@ class _CollectionChartsState extends State<CollectionCharts> {
 
   EdgeInsets getPagePadding(){
     return const EdgeInsets.all(8.0);
+  }
+
+  Widget getCostPerWearHeader(bool isPro){
+
+    return !isPro? Text("Go Pro!", style: Theme.of(context).textTheme.headlineSmall,):
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: 24,),
+            Expanded(child: Center(child: Text( "Cost Per Wear", style: Theme.of(context).textTheme.headlineSmall,))),
+            IconButton(
+                icon: Icon(widget.collectionStatsController.showPrice.value? FontAwesomeIcons.dollarSign: Icons.money_off),
+            onPressed: (){
+                  widget.collectionStatsController.updateShowPrice(!widget.collectionStatsController.showPrice.value);
+            },)
+          ],
+        );
   }
 }
 
