@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -9,7 +10,9 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:get/get.dart';
 
 class CostPerWearChart extends StatefulWidget {
-  const CostPerWearChart({Key? key}) : super(key: key);
+  CostPerWearChart({Key? key, required this.showData}) : super(key: key);
+  final collectionController = Get.put(CollectionStatsController());
+  final showData;
 
   @override
   State<CostPerWearChart> createState() => _CostPerWearChartState();
@@ -55,17 +58,22 @@ class _CostPerWearChartState extends State<CostPerWearChart> {
     getChartData.sort((e1, e2) => e1.costPerWear.compareTo(e2.costPerWear));
 
     return SfCartesianChart(
-      series: <CartesianSeries>[
-        BarSeries<CostPerWearData, String>(
-          dataSource: getChartData,
-          xValueMapper: (CostPerWearData mvmt, _) => mvmt.watch,
-          yValueMapper: (CostPerWearData mvmt, _) => mvmt.costPerWear,
-          dataLabelMapper: (moov, _)=> "${moov.watch}: ${NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(moov.costPerWear)}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
-        )
-      ],
-      primaryXAxis: CategoryAxis(isVisible: false),
+        series: <CartesianSeries>[
+          BarSeries<CostPerWearData, String>(
+            dataSource: getChartData,
+            xValueMapper: (CostPerWearData mvmt, _) => mvmt.watch,
+            yValueMapper: (CostPerWearData mvmt, _) => mvmt.costPerWear,
+            dataLabelMapper: (moov, _)=> "${moov.watch}${_getLabelSuffix(moov, locale)}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          )
+        ],
+        primaryXAxis: CategoryAxis(isVisible: false),
     );
+  }
+
+  String _getLabelSuffix(CostPerWearData data, String locale){
+    return widget.showData ? ": ${NumberFormat.simpleCurrency(locale: locale, decimalDigits: null).format(data.costPerWear)}":
+    "";
   }
 }
 

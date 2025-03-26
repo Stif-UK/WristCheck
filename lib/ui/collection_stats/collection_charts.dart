@@ -53,7 +53,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
               padding: getPagePadding(),
               child: wristCheckController.isAppPro.value? SizedBox(
                   height: _calculateChartSpace(context, ChartHelper.getCostPerWearChartSize()),
-                  child: const CostPerWearChart()) : ListTile(
+                  child: Obx(()=> CostPerWearChart(showData: widget.collectionStatsController.showPrice.value))) : ListTile(
                 title: Text("Upgrade to WristTrack Pro for more charts here..."),
                   trailing: Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:30.0,width:30.0,color: Theme.of(context).hintColor),
                   onTap: () => WristCheckDialogs.getProUpgradeMessage(context)
