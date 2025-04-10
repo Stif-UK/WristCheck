@@ -1,0 +1,1 @@
+enum DateComplicationEnum {date, nodate, daydate, pointerdate, subdialdate, perpetualdate, digitaldate}
