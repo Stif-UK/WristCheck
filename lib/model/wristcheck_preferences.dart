@@ -30,6 +30,7 @@ class WristCheckPreferences {
   static const _keyDefaultMonthChartTypeV2 = 'defaultMonthChartTypev2';
   static const _keyDefaultDayChartType = 'defaultDayChartType'; //TODO: Remove in future release - last used in v1.10.3
   static const _keyDefaultDayChartTypeV2 = 'defaultDayChartTypeV2';
+  static const _keyShowCPWvalue = 'costPerWearValue';
 
   //notification preference values
   static const _keyDailyNotificationStatus = 'dailyNotificationStatus';
@@ -569,5 +570,11 @@ class WristCheckPreferences {
   static Future setWaterResistancePreference(WRUnitsEnum preferredUnits) async {
     await _preferences.setString(_keyWRUnitsPreference, preferredUnits.toString());
   }
+
+  //Getter and Setter for cost per wear chart value preference
+  static Future setCostPerWearValuePref(bool cpwValue) async =>
+      await _preferences.setBool(_keyShowCPWvalue, cpwValue);
+
+  static bool getCostPerWearValuePref() => _preferences.getBool(_keyShowCPWvalue) ?? true;
 
 }
