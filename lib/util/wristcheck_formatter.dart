@@ -762,6 +762,11 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case "Digital Date":
         returnValue = DateComplicationEnum.digitaldate;
         break;
+      case "":
+        returnValue = DateComplicationEnum.blank;
+        break;
+      default:
+        returnValue = DateComplicationEnum.blank;
     }
     return returnValue;
   }
@@ -790,6 +795,9 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         break;
       case DateComplicationEnum.digitaldate:
         returnString = "Digital Date";
+        break;
+      case DateComplicationEnum.blank:
+        returnString = "Not Entered";
         break;
     }
     return returnString;
