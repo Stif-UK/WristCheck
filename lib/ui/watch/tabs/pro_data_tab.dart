@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
@@ -20,7 +21,8 @@ class ProDataTab extends StatelessWidget {
     required this.waterResistanceController,
     required this.caseMaterialController,
     required this.winderTPDController,
-    required this.winderDirectionController
+    required this.winderDirectionController,
+    required this.dateComplicationController
   });
 
   final watchViewController = Get.put(WatchViewController());
@@ -33,6 +35,7 @@ class ProDataTab extends StatelessWidget {
   final TextEditingController caseMaterialController;
   final TextEditingController winderTPDController;
   final TextEditingController winderDirectionController;
+  final TextEditingController dateComplicationController;
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +132,7 @@ class ProDataTab extends StatelessWidget {
           },
         ),
         _buildCaseMaterialField(),
+        _buildDateComplicationField()
       ],
     );
   }
@@ -216,6 +220,36 @@ class ProDataTab extends StatelessWidget {
                   winderDirectionController.value = TextEditingValue(text:WristCheckFormatter.getWinderDirectionText(direction!));
                 } : null ),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDateComplicationField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Date Complication:",
+          textAlign: TextAlign.start,
+          style: Theme.of(Get.context!).textTheme.bodyLarge,),
+        Padding(
+          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+          child: DropdownButtonFormField<DateComplicationEnum>(
+              dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+              borderRadius: BorderRadius.circular(24),
+              menuMaxHeight: 300,
+              value: WristCheckFormatter.getDateComplicationEnum(watchViewController.dateComplication.value),
+              iconSize: watchViewController.inEditState.value? 24.0: 0.0,
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.calendarDay), Get.context!),
+              items: DateComplicationEnum.values.map((dateType) {
+                return DropdownMenuItem<DateComplicationEnum>(
+                    value: dateType,
+                    child: Text(WristCheckFormatter.getDateComplicationName(dateType)));
+              }).toList(),
+              onChanged: watchViewController.inEditState.value? (dateType){
+                watchViewController.updateDateComplication(WristCheckFormatter.getDateComplicationName(dateType!));
+                dateComplicationController.value = TextEditingValue(text:WristCheckFormatter.getDateComplicationName(dateType));
+              } : null ),
         ),
       ],
     );

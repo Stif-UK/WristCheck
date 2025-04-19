@@ -10,6 +10,7 @@ import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
@@ -104,6 +105,7 @@ class _WatchViewState extends State<WatchView> {
   double? _caseThickness;
   int? _waterResistance;
   int? _winderTPD;
+  String? _dateComplication;
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -134,6 +136,7 @@ class _WatchViewState extends State<WatchView> {
   final caseMaterialFieldController = TextEditingController();
   final winderTPDFieldController = TextEditingController();
   final winderDirectionFieldController = TextEditingController();
+  final dateComplicationFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -165,6 +168,7 @@ class _WatchViewState extends State<WatchView> {
     caseMaterialFieldController.dispose();
     winderTPDFieldController.dispose();
     winderDirectionFieldController.dispose();
+    dateComplicationFieldController.dispose();
     super.dispose();
   }
 
@@ -194,6 +198,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateSkipBackCheck(false);
     widget.watchViewController.updateCaseMaterial("");
     widget.watchViewController.updateWinderDirection("");
+    widget.watchViewController.updateDateComplication("");
 
     void saveAndUpdate(){
       //Validate the form
@@ -228,6 +233,7 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.updateCaseMaterial(caseMaterialFieldController.value.text);
             _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
             widget.watchViewController.updateWinderDirection(winderDirectionFieldController.value.text);
+            widget.watchViewController.updateDateComplication(dateComplicationFieldController.value.text);
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -260,6 +266,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.caseMaterial = widget.watchViewController.caseMaterial.value;
             widget.currentWatch!.winderTPD = _winderTPD;
             widget.currentWatch!.winderDirection = widget.watchViewController.winderDirection.value;
+            widget.currentWatch!.dateComplication = widget.watchViewController.dateComplication.value;
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -315,6 +322,7 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
       widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
       widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
+      widget.watchViewController.updateDateComplication(widget.currentWatch!.dateComplication);
 
       //Load watch content, only if watch is not being edited
       if(!widget.watchViewController.inEditState.value) {
@@ -353,6 +361,7 @@ class _WatchViewState extends State<WatchView> {
         caseMaterialFieldController.value = TextEditingValue(text: widget.currentWatch!.caseMaterial?? WristCheckFormatter.getCaseMaterialText(CaseMaterialEnum.blank));
         winderTPDFieldController.value = TextEditingValue(text: widget.currentWatch!.winderTPD != null? "${widget.currentWatch!.winderTPD}" : "");
         winderDirectionFieldController.value = TextEditingValue(text: widget.currentWatch!.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank));
+        dateComplicationFieldController.value = TextEditingValue(text: widget.currentWatch!.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank));
       }
     }
 
@@ -543,6 +552,7 @@ class _WatchViewState extends State<WatchView> {
                                                 caseMaterialController: caseMaterialFieldController,
                                                 winderTPDController: winderTPDFieldController,
                                                 winderDirectionController: winderDirectionFieldController,
+                                                dateComplicationController: dateComplicationFieldController,
                                         )
                                             : const SizedBox(height: 0,),
 
@@ -767,7 +777,8 @@ class _WatchViewState extends State<WatchView> {
                 _waterResistance,
                 caseMaterialFieldController.value.text,
                 _winderTPD,
-                winderDirectionFieldController.value.text
+                winderDirectionFieldController.value.text,
+                dateComplicationFieldController.value.text
               );
 
               //if a front image has been set, we add this to the newly created watch before exiting
@@ -859,7 +870,8 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.waterResistance != ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text) ||
       widget.currentWatch!.caseMaterial != caseMaterialFieldController.value.text ||
       widget.currentWatch!.winderTPD != ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text) ||
-      widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text
+      widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text ||
+      widget.currentWatch!.dateComplication != dateComplicationFieldController.value.text
     ){
       returnValue = true;
     }
@@ -879,7 +891,8 @@ class _WatchViewState extends State<WatchView> {
         categoryFieldController.value.text.isNotEmpty ||
         serialNumberFieldController.value.text.isNotEmpty ||
         referenceNumberFieldController.value.text.isNotEmpty ||
-        movementFieldController.value.text.isNotEmpty
+        movementFieldController.value.text.isNotEmpty ||
+        dateComplicationFieldController.value.text.isNotEmpty
     ){
       returnValue = true;
     }

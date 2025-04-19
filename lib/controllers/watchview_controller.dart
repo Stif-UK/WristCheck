@@ -16,6 +16,7 @@ class WatchViewController extends GetxController{
   final category = "".obs;
   final caseMaterial = "".obs;
   final winderDirection = "".obs;
+  final dateComplication = "".obs;
   final showDays = false.obs;
   final favourite = false.obs;
   final  nextServiceDue = "N/A".obs;
@@ -69,6 +70,10 @@ class WatchViewController extends GetxController{
 
   updateWinderDirection(String? _winderDirection){
     winderDirection(_winderDirection);
+  }
+
+  updateDateComplication(String? _dateComplication){
+    dateComplication(_dateComplication);
   }
 
   updateShowdays(bool value){
