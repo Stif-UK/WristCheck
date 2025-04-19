@@ -43,6 +43,7 @@ class ProDataTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildCaseDetailsSection(),
+        const Divider(thickness: 2,),
         _buildWinderSettingsRow(),
 
       ],
