@@ -101,6 +101,9 @@ class Watches extends HiveObject{
   @HiveField(31)
   late String? winderDirection;
 
+  @HiveField(32)
+  late String? dateComplication;
+
   @override
   String toString() {
     return "${this.manufacturer} ${this.model}";
