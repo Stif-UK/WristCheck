@@ -7,6 +7,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
+import 'package:wristcheck/ui/charts/collection_charts/date_complication_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/cost_per_wear_chart.dart';
@@ -82,6 +83,13 @@ class _CollectionChartsState extends State<CollectionCharts> {
           //Separate out other Pro charts for dimensions
           Obx(()=> wristCheckController.isAppPro.value? Column(
               children: [
+                Padding(padding: getPagePadding(),
+                  child: Text("Date Complications", style: Theme.of(context).textTheme.headlineSmall,)
+                  ,),
+                Padding(
+                  padding: getPagePadding(),
+                  child: const DateComplicationChart(),
+                ),
                 Padding(
                   padding: getPagePadding(),
                   child: Text("Case Diameter", style: Theme.of(context).textTheme.headlineSmall,),
