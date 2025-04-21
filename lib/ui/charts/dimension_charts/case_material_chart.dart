@@ -32,6 +32,10 @@ class _CaseMaterialChartState extends State<CaseMaterialChart> {
     if (chartData.containsKey("Not Entered")) {
       chartData.remove("Not Entered");
     }
+    //remove blank entries
+    if (chartData.containsKey("")){
+      chartData.remove("");
+    }
 
     //sort map
     var sortedChartData = Map.fromEntries(
