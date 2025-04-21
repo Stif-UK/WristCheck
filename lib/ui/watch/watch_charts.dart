@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/copy.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/charts/watch_charts_body.dart';
+import 'package:wristcheck/ui/charts/watch_charts/watch_charts_body.dart';
 import 'package:wristcheck/ui/wristcheck_pro_prompt.dart';
 
 class WatchCharts extends StatefulWidget {

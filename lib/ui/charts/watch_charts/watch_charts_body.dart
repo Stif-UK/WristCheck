@@ -7,14 +7,14 @@ import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_year_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/charts/watch_days.dart';
-import 'package:wristcheck/ui/charts/watch_months.dart';
-import 'package:wristcheck/ui/charts/watch_years.dart';
+import 'package:wristcheck/ui/charts/watch_charts/watch_days.dart';
+import 'package:wristcheck/ui/charts/watch_charts/watch_months.dart';
+import 'package:wristcheck/ui/charts/watch_charts/watch_years.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:choice/choice.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-import '../../model/enums/watch_month_chart_filter_enum.dart';
+import '../../../model/enums/watch_month_chart_filter_enum.dart';
 
 class WatchChartsBody extends StatelessWidget {
   WatchChartsBody({
