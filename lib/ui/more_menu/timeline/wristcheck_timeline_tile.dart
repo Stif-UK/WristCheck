@@ -25,7 +25,7 @@ class WristCheckTimelineTile extends StatelessWidget {
             color: Colors.white, fontSize: 25)
       ),
 
-      endChild: WristCheckTimelineCard(childWidget: Text(event.description)),
+      endChild: WristCheckTimelineCard(description: event.description, date: event.date,),
     );
   }
 }
