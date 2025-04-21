@@ -16,7 +16,7 @@ class WristCheckTimelineCard extends StatelessWidget {
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: event.type == TimeLineEventType.year ? null : Colors.deepPurple[100],
+        color: event.type == TimeLineEventType.year ? null : _lightenColour(TimeLineHelper.getTimeLineIndicatorColour(event.type), 0.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,3 +43,11 @@ _getSectionText(String text){
 _getStyledText(String text){
   return Text(text, style: TextStyle(color: Colors.black), textAlign: TextAlign.start,);
 }
+
+Color _lightenColour(Color givenColour, double amount){
+
+    assert(amount >= 0 && amount <= 1);
+    final hslColor = HSLColor.fromColor(givenColour);
+    final lightenedHslColor = hslColor.withLightness((hslColor.lightness + amount).clamp(0.0, 1.0));
+    return lightenedHslColor.toColor();
+  }

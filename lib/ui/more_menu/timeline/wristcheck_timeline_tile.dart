@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/ui/more_menu/timeline/wristcheck_timeline_card.dart';
 import 'package:wristcheck/util/timeline_helper.dart';
 
