@@ -10,7 +10,6 @@ class WristCheckTimelineTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final TimeLineEvent event;
-  //TODO: bools for if date is in future, to enable a dotted line connector?
 
   @override
   Widget build(BuildContext context) {

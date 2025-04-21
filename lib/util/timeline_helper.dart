@@ -12,18 +12,21 @@ class TimeLineHelper{
     //Populate purchase and sale dates
     for(Watches watch in initialList){
       if(watch.purchaseDate != null){
-        returnList.add(TimeLineEvent(TimeLineType.purchase, watch.purchaseDate!, "${watch.toString()} purchased."));
+        returnList.add(TimeLineEvent(TimeLineEventType.purchase, watch.purchaseDate!, "${watch.toString()} purchased."));
         years.add(watch.purchaseDate!.year);
       }
       if(watch.soldDate != null){
-        returnList.add(TimeLineEvent(TimeLineType.sold, watch.soldDate!, "${watch.toString()} sold."));
+        returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
         years.add(watch.purchaseDate!.year);
+      }
+      if(watch.lastServicedDate != null){
+        returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
       }
     }
     
     //For each year add an event
     for(int year in years){
-      returnList.add(TimeLineEvent(TimeLineType.year, DateTime(year), year.toString()));
+      returnList.add(TimeLineEvent(TimeLineEventType.year, DateTime(year), year.toString()));
     }
     
 
@@ -34,42 +37,48 @@ class TimeLineHelper{
 
   }
 
-  static IconData? getTimeLineIcon(TimeLineType? type){
+  static IconData? getTimeLineIcon(TimeLineEventType? type){
     IconData? returnIcon;
 
     switch(type) {
-      case TimeLineType.purchase:
+      case TimeLineEventType.purchase:
         returnIcon = Icons.attach_money_outlined;// FontAwesomeIcons.dollarSign;
         break;
-      case TimeLineType.sold:
+      case TimeLineEventType.sold:
         returnIcon = Icons.local_grocery_store; //FontAwesomeIcons.handHoldingDollar;
         break;
       case null:
         returnIcon;
         break;
-      case TimeLineType.year:
+      case TimeLineEventType.year:
         returnIcon = Icons.calendar_month_outlined;
+        break;
+      case TimeLineEventType.service:
+        returnIcon = Icons.build_rounded;
         break;
     }
 
     return returnIcon;
   }
 
-  static Color getTimeLineIndicatorColour(TimeLineType? type){
+  static Color getTimeLineIndicatorColour(TimeLineEventType? type){
     Color returnColour = Colors.grey;
 
     switch(type) {
-      case TimeLineType.purchase:
+      case TimeLineEventType.purchase:
         returnColour = Colors.green;
         break;
-      case TimeLineType.sold:
+      case TimeLineEventType.sold:
         returnColour = Colors.redAccent;
         break;
       case null:
        returnColour = Colors.grey;
         break;
-      case TimeLineType.year:
+      case TimeLineEventType.year:
         returnColour = Colors.grey;
+        break;
+      case TimeLineEventType.service:
+        returnColour = Colors.blueAccent;
         break;
     }
 
@@ -83,7 +92,7 @@ class TimeLineEvent{
       this.date,
       this.description);
 
-  late final TimeLineType type;
+  late final TimeLineEventType type;
   late final DateTime date;
   late final String description;
 }

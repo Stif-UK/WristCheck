@@ -27,15 +27,6 @@ class WristCheckTimeline extends StatelessWidget {
                 isLast: index == data.length-1,
                 event: data[index],);
             },
-            // children: [
-            //   //Quick example
-            //   //Start
-            //   WristCheckTimelineTile(isFirst: true, isLast: false, type: TimeLineType.purchase,),
-            //   //Middle
-            //   WristCheckTimelineTile(isFirst: false, isLast: false, type: TimeLineType.sold),
-            //   //End
-            //   WristCheckTimelineTile(isFirst: false, isLast: true)
-            // ],
           ),
         ),
       )
