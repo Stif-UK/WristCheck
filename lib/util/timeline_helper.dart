@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/model/watches.dart';
