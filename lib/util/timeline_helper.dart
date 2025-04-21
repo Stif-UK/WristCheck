@@ -19,8 +19,11 @@ class TimeLineHelper{
         returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
         years.add(watch.purchaseDate!.year);
       }
-      if(watch.lastServicedDate != null){
+      if(watch.lastServicedDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
+      }
+      if(watch.warrantyEndDate != null && watch.status == "In Collection"){
+        returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, "${watch.toString()} warranty expires."));
       }
     }
     
@@ -56,6 +59,9 @@ class TimeLineHelper{
       case TimeLineEventType.service:
         returnIcon = Icons.build_rounded;
         break;
+      case TimeLineEventType.warranty:
+        returnIcon = Icons.construction_outlined;
+        break;
     }
 
     return returnIcon;
@@ -79,6 +85,9 @@ class TimeLineHelper{
         break;
       case TimeLineEventType.service:
         returnColour = Colors.blueAccent;
+        break;
+      case TimeLineEventType.warranty:
+        returnColour = Colors.purpleAccent;
         break;
     }
 
