@@ -36,6 +36,7 @@ _getSectionText(String text){
   return Text(text, style: TextStyle(
     color: Get.isDarkMode ? Colors.white : Colors.black,
     fontSize: Theme.of(Get.context!).textTheme.headlineSmall!.fontSize,
+    fontWeight: FontWeight.bold
   ),
   textAlign: TextAlign.center,);
 }
