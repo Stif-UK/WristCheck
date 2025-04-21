@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/timeline_type_enum.dart';
+import 'package:wristcheck/util/timeline_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckTimelineCard extends StatelessWidget {
-  WristCheckTimelineCard({super.key, required this.description, required this.date});
+  WristCheckTimelineCard({super.key, required this.event});
 
-  final DateTime date;
-  final String description;
+  final TimeLineEvent event;
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +16,28 @@ class WristCheckTimelineCard extends StatelessWidget {
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.deepPurple[100],
+        color: event.type == TimeLineType.year ? null : Colors.deepPurple[100],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: event.type == TimeLineType.year ? [_getSectionText(event.description)]
+            : [
           Padding(
             padding: EdgeInsets.only(bottom: 8),
-            child: _getStyledText(WristCheckFormatter.getFormattedDate(date)),),
-          _getStyledText(description)
+            child: _getStyledText(WristCheckFormatter.getFormattedDate(event.date)),),
+          _getStyledText(event.description)
         ],
       ),
     );
   }
+}
+
+_getSectionText(String text){
+  return Text(text, style: TextStyle(
+    color: Get.isDarkMode ? Colors.white : Colors.black,
+    fontSize: Theme.of(Get.context!).textTheme.headlineSmall!.fontSize,
+  ),
+  textAlign: TextAlign.center,);
 }
 
 _getStyledText(String text){
