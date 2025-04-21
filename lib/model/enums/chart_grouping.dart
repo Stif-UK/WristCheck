@@ -1,1 +1,1 @@
-enum ChartGrouping {watch, movement, category, manufacturer, caseDiameter, lugWidth, lug2lug, caseThickness, waterResistance, caseMaterial}
+enum ChartGrouping {watch, movement, category, manufacturer, caseDiameter, lugWidth, lug2lug, caseThickness, waterResistance, caseMaterial, dateComplication}

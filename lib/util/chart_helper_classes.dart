@@ -3,6 +3,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
@@ -39,6 +40,12 @@ class MaterialClass extends ChartClass{
   MaterialClass(this.material, int count) : super(count);
 
   late final CaseMaterialEnum material;
+}
+
+class DateComplicationClass extends ChartClass{
+  DateComplicationClass(this.dateComplication, int count) : super(count);
+
+  late final DateComplicationEnum dateComplication;
 }
 
 class DimensionsClass extends ChartClass{
@@ -154,6 +161,30 @@ class ChartHelper{
 
     }
     returnSeries = sortChartData(returnSeries) as List<MaterialClass>;
+    return returnSeries;
+  }
+
+  static List<DateComplicationClass> calculateDateComplicationList(List<Watches> data){
+    List<DateComplicationClass> returnSeries = [];
+    //Get set of materials (to ensure all unique)
+    Set<String> dateComplication = {};
+    for(Watches watch in data){
+      if(watch.dateComplication != null) {
+        dateComplication.add(watch.dateComplication!);
+      }
+    }
+    for(String date in dateComplication) {
+      int count = 0;
+      List<Watches> dateTypeList = data.where((watch) => watch.dateComplication == date).toList();
+      for(Watches watch in dateTypeList){
+        if(watch.filteredWearList != null){
+          count += watch.filteredWearList!.length;
+        }
+      }
+      returnSeries.add(DateComplicationClass(WristCheckFormatter.getDateComplicationEnum(date)!, count));
+
+    }
+    returnSeries = sortChartData(returnSeries) as List<DateComplicationClass>;
     return returnSeries;
   }
 

@@ -131,6 +131,18 @@ class _WearChartState extends State<WearChart> {
           )
         ];
         break;
+      case ChartGrouping.dateComplication:
+        returnSeries =  <BarSeries<DateComplicationClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateDateComplicationList(widget.data),
+            xValueMapper: (DateComplicationClass series, _) => series.count == 0? null: WristCheckFormatter.getDateComplicationName(series.dateComplication),
+            yValueMapper: (DateComplicationClass series, _) => series.count == 0? null : series.count,
+            dataLabelMapper: (watch, _) => watch.count == 0? "":"${WristCheckFormatter.getDateComplicationName(watch.dateComplication)}: ${watch.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
+            // animationDuration: 0 Set to zero to stop it animating!
+          )
+        ];
+        break;
     }
     return returnSeries;
   }

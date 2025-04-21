@@ -122,7 +122,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
 
     //Create a list of grouping values, minus the 'Pro' values
     //if the app is non-pro this is used in place of the full list in the chip choice
-    //TODO: Make this a list of what to show, rather than what to remove to minimise the chance of errorsg
+    //TODO: Make this a list of what to show, rather than what to remove to minimise the chance of errors
     List<ChartGrouping> groupList = List.from(ChartGrouping.values);
     groupList.remove(ChartGrouping.caseDiameter);
     groupList.remove(ChartGrouping.lug2lug);
@@ -130,6 +130,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
     groupList.remove(ChartGrouping.caseThickness);
     groupList.remove(ChartGrouping.waterResistance);
     groupList.remove(ChartGrouping.caseMaterial);
+    groupList.remove(ChartGrouping.dateComplication);
 
     void setSelectedValue(ChartGrouping? grouping){
       widget.filterController.updateChartGrouping(grouping!);
