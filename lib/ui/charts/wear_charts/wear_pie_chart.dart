@@ -136,7 +136,37 @@ class WearPieChart extends StatelessWidget {
         returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(data), wristCheckController.waterResistanceUnit.value.name);
         break;
       case ChartGrouping.caseMaterial:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(data), "mm");
+        //TODO: Remove "Not Entered" and "" values
+        returnSeries = <PieSeries<MaterialClass, String>>[PieSeries<MaterialClass, String>(
+            dataSource: ChartHelper.calculateCaseMaterialList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (MaterialClass series, _) =>
+            (WristCheckFormatter.getCaseMaterialText(series.material)),
+            yValueMapper: (MaterialClass series, _) =>
+            series.count == 0
+                ? null
+                : series.count,
+            dataLabelMapper: (cat, _) =>
+            cat.count == 0 ? "" : "${WristCheckFormatter.getCaseMaterialText(cat.material)}: ${cat.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
+      case ChartGrouping.dateComplication:
+        returnSeries = <PieSeries<DateComplicationClass, String>>[PieSeries<DateComplicationClass, String>(
+            dataSource: ChartHelper.calculateDateComplicationList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (DateComplicationClass series, _) =>
+            (WristCheckFormatter.getDateComplicationName(series.dateComplication)),
+            yValueMapper: (DateComplicationClass series, _) =>
+            series.count == 0
+                ? null
+                : series.count,
+            dataLabelMapper: (cat, _) =>
+            cat.count == 0 ? "" : "${WristCheckFormatter.getDateComplicationName(cat.dateComplication)}: ${cat.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
         break;
     }
 

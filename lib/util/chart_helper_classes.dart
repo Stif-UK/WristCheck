@@ -74,7 +74,8 @@ class ChartHelper{
         }
         returnSeries.add(CategoryClass(category, count));
       }else{
-        List<Watches> categoryList = data.where((watch) => watch.category == null || watch.category == "").toList();
+        //TODO: Why did I add this else clause here?
+        List<Watches> categoryList = data.where((watch) => watch.category == null).toList();
         for(Watches watch in categoryList){
           if (watch.filteredWearList != null) {
             count += watch.filteredWearList!.length;
@@ -85,6 +86,8 @@ class ChartHelper{
 
     }
     returnSeries.removeWhere((category) => category.count == 0);
+    //TODO: This can be made optional
+    returnSeries.removeWhere((category) => category.category == CategoryEnum.blank);
     returnSeries = sortChartData(returnSeries) as List<CategoryClass>;
     return returnSeries;
   }
@@ -114,6 +117,8 @@ class ChartHelper{
     }
 
     returnSeries.removeWhere((movement) => movement.count == 0);
+    //TODO: This can be made optional
+    returnSeries.removeWhere((movement) => movement.movement == MovementEnum.blank);
     returnSeries = sortChartData(returnSeries) as List<MovementClass>;
     return returnSeries;
   }
@@ -145,7 +150,7 @@ class ChartHelper{
     //Get set of materials (to ensure all unique)
     Set<String> caseMaterials = {};
     for(Watches watch in data){
-      if(watch.caseMaterial != null) {
+      if(watch.caseMaterial != null && watch.caseMaterial != "Not Entered" && watch.caseMaterial != "") {
         caseMaterials.add(watch.caseMaterial!);
       }
     }
@@ -157,6 +162,7 @@ class ChartHelper{
           count += watch.filteredWearList!.length;
         }
       }
+
       returnSeries.add(MaterialClass(WristCheckFormatter.getCaseMaterialEnum(material), count));
 
     }
@@ -169,7 +175,7 @@ class ChartHelper{
     //Get set of materials (to ensure all unique)
     Set<String> dateComplication = {};
     for(Watches watch in data){
-      if(watch.dateComplication != null) {
+      if(watch.dateComplication != null && watch.dateComplication != "Not Entered" && watch.dateComplication != "") {
         dateComplication.add(watch.dateComplication!);
       }
     }
