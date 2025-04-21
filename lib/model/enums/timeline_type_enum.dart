@@ -1,0 +1,1 @@
+enum TimeLineType {purchase, sold}

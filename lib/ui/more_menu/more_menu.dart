@@ -10,6 +10,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/more_menu/gallery/gallery.dart';
+import 'package:wristcheck/ui/more_menu/timeline/timeline.dart';
 
 class MoreMenu extends StatefulWidget {
   MoreMenu({super.key});
@@ -73,6 +74,17 @@ class _MoreMenuState extends State<MoreMenu> {
                     textAlign: TextAlign.center,),
                     trailing: Icon(FontAwesomeIcons.images),
                     onTap: ()=> Get.to(Gallery()),
+                  ),
+                ),
+                const Divider(thickness: 2,),
+                Padding(
+                  padding: pagePadding,
+                  child: ListTile(
+                    title: Text("Timeline",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,),
+                    trailing: Icon(FontAwesomeIcons.timeline),
+                    onTap: ()=> Get.to(WristCheckTimeline()),
                   ),
                 ),
                 const Divider(thickness: 2,),
