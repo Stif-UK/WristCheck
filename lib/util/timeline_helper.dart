@@ -5,25 +5,25 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
 class TimeLineHelper{
-  static List<TimeLineEvent>getTimeLineData(){
+  static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showWarranty){
     List<TimeLineEvent> returnList = [];
     Set<int> years = {};
     List<Watches> initialList = Boxes.getAllNonArchivedWatches();
     //Populate purchase and sale dates
     for(Watches watch in initialList){
-      if(watch.purchaseDate != null){
+      if(showPurchases && watch.purchaseDate != null){
         returnList.add(TimeLineEvent(TimeLineEventType.purchase, watch.purchaseDate!, "${watch.toString()} purchased."));
         years.add(watch.purchaseDate!.year);
       }
-      if(watch.soldDate != null){
+      if(showSold && watch.soldDate != null){
         returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
         years.add(watch.soldDate!.year);
       }
-      if(watch.lastServicedDate != null && watch.status == "In Collection"){
+      if(showServiced && watch.lastServicedDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
         years.add(watch.lastServicedDate!.year);
       }
-      if(watch.warrantyEndDate != null && watch.status == "In Collection"){
+      if(showWarranty && watch.warrantyEndDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, "${watch.toString()} warranty expires."));
         years.add(watch.warrantyEndDate!.year);
       }
@@ -31,13 +31,14 @@ class TimeLineHelper{
     
     //For each year add an event
     for(int year in years){
-      returnList.add(TimeLineEvent(TimeLineEventType.year, DateTime(year), year.toString()));
+      DateTime trackedYear = orderAscending? DateTime(year) : DateTime(year, 12, 31, 23, 59, 59);
+      returnList.add(TimeLineEvent(TimeLineEventType.year, trackedYear, year.toString()));
     }
     
 
     //Sort the list by date
     returnList.sort((a, b) => a.date.compareTo(b.date));
-
+    if(!orderAscending) returnList = returnList.reversed.toList();
     return returnList;
 
   }

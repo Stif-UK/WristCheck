@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wristcheck/model/enums/timeline_type_enum.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/timeline_controller.dart';
+import 'package:wristcheck/ui/more_menu/timeline/timeline_body.dart';
 import 'package:wristcheck/ui/more_menu/timeline/timeline_settings_bottomsheet.dart';
-import 'package:wristcheck/ui/more_menu/timeline/wristcheck_timeline_tile.dart';
-import 'package:wristcheck/util/timeline_helper.dart';
 
 class WristCheckTimeline extends StatelessWidget {
-  const WristCheckTimeline({super.key});
+  WristCheckTimeline({super.key});
+  final timelineController = Get.put(TimelineController());
 
   @override
   Widget build(BuildContext context) {
-    //Get Data
-    List<TimeLineEvent> data = TimeLineHelper.getTimeLineData();
+
 
     return Scaffold(
       appBar: AppBar(
@@ -34,21 +34,14 @@ class WristCheckTimeline extends StatelessWidget {
           )
         ],
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-          child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index){
-              return WristCheckTimelineTile(
-                isFirst: index == 0,
-                isLast: index == data.length-1,
-                event: data[index],);
-            },
-          ),
+      body: Obx(() => TimelineBody(
+          orderAscending: timelineController.timelineOrderAscending.value,
+          showPurchases: timelineController.showPurchases.value,
+          showSold: timelineController.showSales.value,
+          showServiced: timelineController.showLastServiced.value,
+          showWarranty: timelineController.showWarrantyEnd.value,
         ),
       )
-
     );
   }
 }
