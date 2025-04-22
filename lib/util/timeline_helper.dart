@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
 class TimeLineHelper{
   static List<TimeLineEvent>getTimeLineData(){
@@ -16,7 +17,7 @@ class TimeLineHelper{
       }
       if(watch.soldDate != null){
         returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
-        years.add(watch.purchaseDate!.year);
+        years.add(watch.soldDate!.year);
       }
       if(watch.lastServicedDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
@@ -68,8 +69,9 @@ class TimeLineHelper{
     return returnIcon;
   }
 
-  static Color getTimeLineIndicatorColour(TimeLineEventType? type){
+  static Color getTimeLineIndicatorColour(TimeLineEvent event){
     Color returnColour = Colors.grey;
+    TimeLineEventType type = event.type;
 
     switch(type) {
       case TimeLineEventType.purchase:
@@ -77,9 +79,6 @@ class TimeLineHelper{
         break;
       case TimeLineEventType.sold:
         returnColour = Colors.redAccent;
-        break;
-      case null:
-       returnColour = Colors.grey;
         break;
       case TimeLineEventType.year:
         returnColour = Colors.grey;
@@ -92,6 +91,18 @@ class TimeLineHelper{
         break;
     }
 
+    if(event.date.isAfter(DateTime.now())){
+      returnColour = DecorationHelper.lightenColour(returnColour, 0.2);
+    }
+
+    return returnColour;
+  }
+
+  static Color getCardColour(TimeLineEvent event) {
+    Color returnColour = DecorationHelper.lightenColour(TimeLineHelper.getTimeLineIndicatorColour(event), 0.2);
+    if(event.date.isAfter(DateTime.now())){
+      returnColour = DecorationHelper.lightenColour(returnColour, 0.2);
+    }
     return returnColour;
   }
 }
