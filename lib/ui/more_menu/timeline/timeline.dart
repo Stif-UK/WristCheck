@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/model/enums/timeline_type_enum.dart';
+import 'package:wristcheck/ui/more_menu/timeline/timeline_settings_bottomsheet.dart';
 import 'package:wristcheck/ui/more_menu/timeline/wristcheck_timeline_tile.dart';
 import 'package:wristcheck/util/timeline_helper.dart';
 
@@ -20,7 +21,16 @@ class WristCheckTimeline extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
                 icon: Icon(FontAwesomeIcons.gear),
-            onPressed: (){},),
+            onPressed: (){
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context){
+                      return TimelineSettingsBottomSheet();
+                    }
+                );
+              },
+            ),
           )
         ],
       ),
