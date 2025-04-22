@@ -20,9 +20,11 @@ class TimeLineHelper{
       }
       if(watch.lastServicedDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
+        years.add(watch.lastServicedDate!.year);
       }
       if(watch.warrantyEndDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, "${watch.toString()} warranty expires."));
+        years.add(watch.warrantyEndDate!.year);
       }
     }
     
