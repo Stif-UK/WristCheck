@@ -15,6 +15,14 @@ class WristCheckTimeline extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Timeline"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+                icon: Icon(FontAwesomeIcons.gear),
+            onPressed: (){},),
+          )
+        ],
       ),
       body: Container(
         child: Padding(
