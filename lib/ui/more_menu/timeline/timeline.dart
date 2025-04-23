@@ -94,6 +94,7 @@ class _WristCheckTimelineState extends State<WristCheckTimeline> {
                 showServiced: widget.timelineController.showLastServiced.value,
                 showNextService: widget.timelineController.showNextServiceDue.value,
                 showWarranty: widget.timelineController.showWarrantyEnd.value,
+                showPreOrders: widget.timelineController.showPreOrders.value,
               ),
           ),
           ),

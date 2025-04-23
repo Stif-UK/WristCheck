@@ -71,6 +71,14 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           ),
           ),
           Obx(()=> SwitchListTile(
+            value: widget.timelineController.showPreOrders.value,
+            onChanged: (newValue) => widget.timelineController.updateShowPreOrders(newValue),
+            title: Text("Show pre-order due dates."),
+            activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.preorder, DateTime.now(), "")),
+            secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.preorder)),
+          ),
+          ),
+          Obx(()=> SwitchListTile(
             value: widget.timelineController.showLastServiced.value,
             onChanged: (newValue) => widget.timelineController.updateShowLastServiced(newValue),
             title: Text("Show last serviced dates."),

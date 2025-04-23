@@ -5,7 +5,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
 class TimeLineHelper{
-  static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showNextService, bool showWarranty){
+  static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showNextService, bool showWarranty, bool showPreOrders){
     List<TimeLineEvent> returnList = [];
     Set<int> years = {};
     List<Watches> initialList = Boxes.getAllNonArchivedWatches();
@@ -18,6 +18,9 @@ class TimeLineHelper{
       if(showSold && watch.soldDate != null){
         returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
         years.add(watch.soldDate!.year);
+      }
+      if(showPreOrders && watch.status == "Pre-Order" && watch.deliveryDate != null){
+        returnList.add(TimeLineEvent(TimeLineEventType.preorder, watch.deliveryDate!, "${watch.toString()} pre-order due"));
       }
       if(showServiced && watch.lastServicedDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.lastService, watch.lastServicedDate!, "${watch.toString()} last serviced."));
@@ -72,6 +75,9 @@ class TimeLineHelper{
       case TimeLineEventType.nextService:
         returnIcon = Icons.handyman;
         break;
+      case TimeLineEventType.preorder:
+        returnIcon = Icons.mail;
+        break;
     }
 
     return returnIcon;
@@ -99,6 +105,9 @@ class TimeLineHelper{
         break;
       case TimeLineEventType.nextService:
         returnColour = Colors.amber;
+        break;
+      case TimeLineEventType.preorder:
+        returnColour = Colors.teal;
         break;
     }
 

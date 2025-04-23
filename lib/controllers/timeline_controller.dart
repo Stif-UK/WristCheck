@@ -8,6 +8,7 @@ class TimelineController extends GetxController{
   final showLastServiced = true.obs;
   final showNextServiceDue = true.obs;
   final showWarrantyEnd = true.obs;
+  final showPreOrders = true.obs;
 
   updateTimelineOrderAscending(bool ascending){
     timelineOrderAscending(ascending);
@@ -31,6 +32,10 @@ class TimelineController extends GetxController{
 
   updateShowWarrantyEnd(bool warranty){
     showWarrantyEnd(warranty);
+  }
+
+  updateShowPreOrders(bool preOrder){
+    showPreOrders(preOrder);
   }
 
 }
