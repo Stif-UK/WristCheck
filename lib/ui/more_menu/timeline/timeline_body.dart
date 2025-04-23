@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/ui/more_menu/timeline/wristcheck_timeline_tile.dart';
 import 'package:wristcheck/util/timeline_helper.dart';
 
@@ -20,7 +21,7 @@ class TimelineBody extends StatelessWidget {
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50.0),
-        child: ListView.builder(
+        child: data.isEmpty? _getEmptyDataPage() : ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index){
             return WristCheckTimelineTile(
@@ -29,6 +30,23 @@ class TimelineBody extends StatelessWidget {
               event: data[index],);
           },
         ),
+      ),
+    );
+  }
+
+  //Handle empty data
+  Widget _getEmptyDataPage() {
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 100,),
+          Center(
+            child: Text("No data was found to display.\n\n"
+                "Add dates to the 'schedule' tab for your watches to populate your timeline.", style: Theme.of(Get.context!).textTheme.bodyLarge,),
+          ),
+        ],
       ),
     );
   }
