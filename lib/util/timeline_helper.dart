@@ -5,7 +5,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
 class TimeLineHelper{
-  static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showWarranty){
+  static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showNextService, bool showWarranty){
     List<TimeLineEvent> returnList = [];
     Set<int> years = {};
     List<Watches> initialList = Boxes.getAllNonArchivedWatches();
@@ -20,8 +20,12 @@ class TimeLineHelper{
         years.add(watch.soldDate!.year);
       }
       if(showServiced && watch.lastServicedDate != null && watch.status == "In Collection"){
-        returnList.add(TimeLineEvent(TimeLineEventType.service, watch.lastServicedDate!, "${watch.toString()} last serviced."));
+        returnList.add(TimeLineEvent(TimeLineEventType.lastService, watch.lastServicedDate!, "${watch.toString()} last serviced."));
         years.add(watch.lastServicedDate!.year);
+      }
+      if(showNextService && watch.nextServiceDue != null && watch.status == "In Collection"){
+        returnList.add(TimeLineEvent(TimeLineEventType.nextService, watch.nextServiceDue!, "${watch.toString()} next service due."));
+        years.add(watch.nextServiceDue!.year);
       }
       if(showWarranty && watch.warrantyEndDate != null && watch.status == "In Collection"){
         returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, "${watch.toString()} warranty expires."));
@@ -59,11 +63,14 @@ class TimeLineHelper{
       case TimeLineEventType.year:
         returnIcon = Icons.calendar_month_outlined;
         break;
-      case TimeLineEventType.service:
+      case TimeLineEventType.lastService:
         returnIcon = Icons.build_rounded;
         break;
       case TimeLineEventType.warranty:
         returnIcon = Icons.construction_outlined;
+        break;
+      case TimeLineEventType.nextService:
+        returnIcon = Icons.handyman;
         break;
     }
 
@@ -84,11 +91,14 @@ class TimeLineHelper{
       case TimeLineEventType.year:
         returnColour = Colors.grey;
         break;
-      case TimeLineEventType.service:
+      case TimeLineEventType.lastService:
         returnColour = Colors.blueAccent;
         break;
       case TimeLineEventType.warranty:
         returnColour = Colors.purpleAccent;
+        break;
+      case TimeLineEventType.nextService:
+        returnColour = Colors.amber;
         break;
     }
 

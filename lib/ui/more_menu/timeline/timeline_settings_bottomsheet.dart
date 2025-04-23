@@ -74,8 +74,16 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
             value: widget.timelineController.showLastServiced.value,
             onChanged: (newValue) => widget.timelineController.updateShowLastServiced(newValue),
             title: Text("Show last serviced dates."),
-            activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.service, DateTime.now(), "")),
-            secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.service)),
+            activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.lastService, DateTime.now(), "")),
+            secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.lastService)),
+          ),
+          ),
+          Obx(()=> SwitchListTile(
+            value: widget.timelineController.showNextServiceDue.value,
+            onChanged: (newValue) => widget.timelineController.updateShowNextServiceDue(newValue),
+            title: Text("Show next service dates."),
+            activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.nextService, DateTime.now(), "")),
+            secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.nextService)),
           ),
           ),
           Obx(()=> SwitchListTile(

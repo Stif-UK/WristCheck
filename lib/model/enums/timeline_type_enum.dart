@@ -1,1 +1,1 @@
-enum TimeLineEventType {purchase, sold, year, service, warranty}
+enum TimeLineEventType {purchase, sold, year, lastService, nextService, warranty}

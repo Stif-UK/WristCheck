@@ -4,19 +4,20 @@ import 'package:wristcheck/ui/more_menu/timeline/wristcheck_timeline_tile.dart';
 import 'package:wristcheck/util/timeline_helper.dart';
 
 class TimelineBody extends StatelessWidget {
-  const TimelineBody({super.key, required this.showPurchases, required this.showSold, required this.showServiced, required this.showWarranty, required this.orderAscending});
+  const TimelineBody({super.key, required this.showPurchases, required this.showSold, required this.showServiced, required this.showWarranty, required this.orderAscending, required this.showNextService});
 
   final bool orderAscending;
   final bool showPurchases;
   final bool showSold;
   final bool showServiced;
+  final bool showNextService;
   final bool showWarranty;
 
 
   @override
   Widget build(BuildContext context) {
     //Get Data
-    List<TimeLineEvent> data = TimeLineHelper.getTimeLineData(orderAscending, showPurchases, showSold, showServiced, showWarranty);
+    List<TimeLineEvent> data = TimeLineHelper.getTimeLineData(orderAscending, showPurchases, showSold, showServiced, showNextService, showWarranty);
 
     return Container(
       child: Padding(
