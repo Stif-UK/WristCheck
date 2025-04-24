@@ -5,12 +5,16 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.13.0 \n"
+        "### Version 1.14.0 \n"
         "\n"
 
-            "* Added new Watch Gallery View \n"
-            "* (Pro) New data and charts: Water Resistance & Case Materials\n"
-            "* Since Last Purchase now selectable as default chart filter\n"
+            "* Added new Timeline View \n"
+            "* Updated validation rules to accept Cyrillic alphabet\n"
+            "* Polish Zloty added to currency options\n"
+            "* Watch detail notes added to Gallery view\n"
+            "* (Pro) Toggle added to hide value labels on Cost per Wear chart\n"
+            "* (Pro) Ability to track date complication of your watches, along with associated chart updates\n"
+            "* (Pro) Ability to save watch winder settings added.\n"
             "* Additional Bug fixes & Improvements";
 
   }
@@ -25,6 +29,23 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.14.0 \n"
+                      "\n"
+
+                      "* Added new Timeline View \n"
+                      "* Updated validation rules to accept Cyrillic alphabet\n"
+                      "* Polish Zloty added to currency options\n"
+                      "* Watch detail notes added to Gallery view\n"
+                      "* (Pro) Toggle added to hide value labels on Cost per Wear chart\n"
+                      "* (Pro) Ability to track date complication of your watches, along with associated chart updates\n"
+                      "* (Pro) Ability to save watch winder settings added.\n"
+                      "* Improvement: Background colour added to watchbox dropdown to improve visibility\n"
+                      "* Improvement: Background colour added to selection dropdown to improve visibility\n"
+                      "* Improvement: 'Not Entered' value removed from Case Material chart\n"
+                      "* Improvement: 'All' option added to Gallery view (showing all non-archived watches: Collection, Wishlist, Sold etc)\n"
+                      "* Improvement: (Pro) 'Nerd Data' renamed to 'Pro Data' on the Watch detail view\n"
+                      "* Bug Fix: Fixed an issue where some collection charts would fail to load where null values were encountered\n"
+                      "---\n\n"
                       "### Version 1.13.0 \n"
                       "\n"
 
