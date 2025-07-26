@@ -437,6 +437,9 @@ class WristCheckFormatter{
       case LocationEnum.pol:
         returnText = "pl_PL";
         break;
+      case LocationEnum.thai:
+        returnText = "th_TH";
+        break;
     }
     return returnText;
   }
@@ -474,6 +477,9 @@ class WristCheckFormatter{
         break;
       case "pl_PL":
         returnNum = LocationEnum.pol;
+        break;
+      case "th_TH":
+        returnNum = LocationEnum.thai;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -515,6 +521,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.pol:
         returnString = "Polish Zloty";
+        break;
+      case LocationEnum.thai:
+        returnString = "Thai Baht";
         break;
     }
 
