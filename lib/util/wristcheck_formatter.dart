@@ -440,6 +440,9 @@ class WristCheckFormatter{
       case LocationEnum.thai:
         returnText = "th_TH";
         break;
+      case LocationEnum.nor:
+        returnText = "no_NO";
+        break;
     }
     return returnText;
   }
@@ -480,6 +483,9 @@ class WristCheckFormatter{
         break;
       case "th_TH":
         returnNum = LocationEnum.thai;
+        break;
+      case "no_NO":
+        returnNum = LocationEnum.nor;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -524,6 +530,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.thai:
         returnString = "Thai Baht";
+        break;
+      case LocationEnum.nor:
+        returnString = "Norwegian Krone";
         break;
     }
 
