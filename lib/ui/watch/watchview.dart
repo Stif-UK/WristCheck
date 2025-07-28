@@ -426,8 +426,23 @@ class _WatchViewState extends State<WatchView> {
                                 },
                               ),
                           ),
-                          )
-                    ]
+                          ),
+                      Obx(()=> Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          //child: widget.watchViewController.inEditState.value? IconButton(onPressed:(){} , icon: Icon(FontAwesomeIcons.ellipsisVertical)): const SizedBox(height: 0,),
+                          child: widget.watchViewController.inEditState.value? PopupMenuButton(
+                            offset: const Offset(0, 50),
+                              icon: Icon(FontAwesomeIcons.ellipsisVertical),
+                              itemBuilder: (context) => [
+                            PopupMenuItem(child:
+                            ListTile(
+                              title: Text("Delete Watch"),
+                              trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),)
+                            )
+                          ]): const SizedBox(height: 0,),
+                        ),
+                      )
+                    ],
 
                 ),
                 bottomNavigationBar: Obx(()=> BottomNavigationBar(
