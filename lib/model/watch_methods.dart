@@ -92,6 +92,11 @@ class WatchMethods {
     return true;
   }
 
+  static void updateStatus(Watches watch, String status){
+    watch.status = status;
+    watch.save();
+  }
+
   static void removeWearDate(DateTime dateToRemove, Watches watch){
     //Get the wearList index of the current date
     try {

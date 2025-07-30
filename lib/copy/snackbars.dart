@@ -42,6 +42,15 @@ class WristCheckSnackBars{
     );
   }
 
+  static restoreWatch(String watch, String status){
+    Get.snackbar(
+      "Watch Restored",
+      "$watch has been restored with status $status",
+      icon: const Icon(Icons.restore_from_trash),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
   static dailyNotification(String selectedTime){
     Get.snackbar(
     "Reminder Set",
