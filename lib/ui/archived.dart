@@ -104,11 +104,10 @@ class _ArchivedState extends State<Archived> {
                             await analytics.logEvent(name: "watch_deleted");
                             setState(() {
                               archiveList.removeAt(index);
-                              var watchInfo = "${watch.manufacturer} ${watch.model}";
                               ImagesUtil.deleteImages(watch);
                               watchBox.delete(watch.key);
                               // Then show a snackbar.
-                              WristCheckSnackBars.deleteWatch(watchInfo);
+                              WristCheckSnackBars.deleteWatch(watch.toString());
                             });
 
                           },
