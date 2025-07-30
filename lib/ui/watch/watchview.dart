@@ -178,6 +178,9 @@ class _WatchViewState extends State<WatchView> {
     //Variable for the final tab index, to ensure next tab button shows on the correct screens when app is pro
     int finalTabIndex = widget.wristCheckController.isAppPro.value ? 4 : 3;
 
+    //initialise override back nav to false
+    widget.watchViewController.updateOverrideBacknav(false);
+
     //On build initialise watchViewController values
     //On first build default edit state - only default to true if this is a new watch record
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
@@ -373,7 +376,7 @@ class _WatchViewState extends State<WatchView> {
           // Check if changes have been made to the data on the page
           final backNavigationAllowed = await isBackNavigationAllowed();
 
-          if (backNavigationAllowed) {
+          if (backNavigationAllowed || widget.watchViewController.overrideBackNav.value) {
             Get.back();
           } else {
             Get.defaultDialog(

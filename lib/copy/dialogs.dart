@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -277,15 +278,17 @@ class WristCheckDialogs {
   // }
 
   static showDeleteWatchDialog(BuildContext context, Watches currentWatch) {
-
+    final watchViewController = Get.put(WatchViewController());
     // set up the delete button
     Widget deleteButton = ElevatedButton(
       child: Text("Delete Watch"),
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
       onPressed: () async {
         await WatchMethods.archiveWatch(currentWatch);
+        //Use back navigation twice to close overlay and move back while maintaining widget tree
+        watchViewController.updateOverrideBacknav(true);
         Get.back(closeOverlays: true);
-        Get.to(WristCheckHome());
+        Get.back();
         Get.snackbar("Watch Deleted", "${currentWatch.toString()} has been moved to the Archive");
       },
     );

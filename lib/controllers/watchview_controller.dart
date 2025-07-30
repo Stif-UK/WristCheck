@@ -23,6 +23,7 @@ class WatchViewController extends GetxController{
   final timeInCollection = "N/A".obs;
   final canRecordWear = false.obs;
   final skipBackCheck = false.obs;
+  final overrideBackNav = false.obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -99,6 +100,10 @@ class WatchViewController extends GetxController{
 
   updateSkipBackCheck(bool value){
     skipBackCheck(value);
+  }
+
+  updateOverrideBacknav(bool value){
+    overrideBackNav(value);
   }
 
 }
