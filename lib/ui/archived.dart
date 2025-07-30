@@ -105,24 +105,6 @@ class _ArchivedState extends State<Archived> {
                           key: Key(item),
                           direction: DismissDirection.horizontal,
 
-                          // onDismissed: (direction) async {
-                          //   if(direction == DismissDirection.endToStart) {
-                          //     await analytics.logEvent(name: "watch_deleted");
-                          //     setState(() {
-                          //       archiveList.removeAt(index);
-                          //       ImagesUtil.deleteImages(watch);
-                          //       watchBox.delete(watch.key);
-                          //       // Then show a snackbar.
-                          //       WristCheckSnackBars.deleteWatch(
-                          //           watch.toString());
-                          //     });
-                          //   }
-                          //   else if(direction == DismissDirection.startToEnd){
-                          //     WristCheckSnackBars.deleteWatch("TESTING");
-                          //   }
-                          //
-                          // },
-
                           child: ListTile(
                             leading: const Icon(Icons.watch),
                             title: Text(_title),
@@ -138,7 +120,7 @@ class _ArchivedState extends State<Archived> {
                                     return AlertDialog(
                                       title: Text("Confirm Delete"),
                                       content: Text(
-                                          "Are you sure you want to delete ${watch.toString()}?"),
+                                          "Are you sure you want to delete ${watch.toString()}? This cannot be undone."),
                                       actions: <Widget>[
                                         TextButton(
                                           child: Text(
@@ -149,8 +131,7 @@ class _ArchivedState extends State<Archived> {
                                         ),
                                         ElevatedButton(
                                           child: Text(
-                                            "Delete",
-                                          ),
+                                            "Delete"),
                                           onPressed: () async {
                                             await analytics.logEvent(name: "watch_deleted");
                                             setState(() {
@@ -163,7 +144,7 @@ class _ArchivedState extends State<Archived> {
                                             });
                                             Navigator.of(context).pop();
                                           },
-                                        ),
+                                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)))
                                       ],
                                     );
                                   });
