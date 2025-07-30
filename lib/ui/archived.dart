@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -120,8 +121,17 @@ class _ArchivedState extends State<Archived> {
                           ),
 
                           background: Container(
-                          alignment: Alignment.center,color: Colors.red,
-                          child: const Text("Deleting"),),
+                          alignment: Alignment.centerRight,color: Colors.red,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text("Deleting...", textAlign: TextAlign.end,),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: const Icon(FontAwesomeIcons.trash, color: Colors.white,),
+                              )
+                            ],
+                          ),),
                         );
                       },
                       separatorBuilder: (context, index){
