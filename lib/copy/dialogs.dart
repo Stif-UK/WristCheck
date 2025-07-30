@@ -261,22 +261,6 @@ class WristCheckDialogs {
     );
   }
 
-  // static getDeleteWatchDialog(Watches currentWatch){
-  //   Get.defaultDialog(
-  //     title: "Delete Watch",
-  //     middleText: "Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)",
-  //     confirm: ElevatedButton(onPressed: () async {
-  //       await WatchMethods.archiveWatch(currentWatch);
-  //       //Get.back(closeOverlays: true);
-  //       Get.to(WristCheckHome());
-  //       Get.snackbar("Watch Deleted", "${currentWatch.toString()} has been moved to the Archive");
-  //       },
-  //       child: Text("Delete Watch"), style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),),
-  //     cancel: ElevatedButton(onPressed: () => Navigator.pop(Get.overlayContext!), child: Text("Cancel")),
-  //
-  //   );
-  // }
-
   static showDeleteWatchDialog(BuildContext context, Watches currentWatch) {
     final watchViewController = Get.put(WatchViewController());
     // set up the delete button
