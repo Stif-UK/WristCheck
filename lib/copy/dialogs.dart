@@ -13,6 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckDialogs {
@@ -259,12 +260,68 @@ class WristCheckDialogs {
     );
   }
 
+  // static getDeleteWatchDialog(Watches currentWatch){
+  //   Get.defaultDialog(
+  //     title: "Delete Watch",
+  //     middleText: "Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)",
+  //     confirm: ElevatedButton(onPressed: () async {
+  //       await WatchMethods.archiveWatch(currentWatch);
+  //       //Get.back(closeOverlays: true);
+  //       Get.to(WristCheckHome());
+  //       Get.snackbar("Watch Deleted", "${currentWatch.toString()} has been moved to the Archive");
+  //       },
+  //       child: Text("Delete Watch"), style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),),
+  //     cancel: ElevatedButton(onPressed: () => Navigator.pop(Get.overlayContext!), child: Text("Cancel")),
+  //
+  //   );
+  // }
+
+  static showDeleteWatchDialog(BuildContext context, Watches currentWatch) {
+
+    // set up the delete button
+    Widget deleteButton = ElevatedButton(
+      child: Text("Delete Watch"),
+      style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+      onPressed: () async {
+        await WatchMethods.archiveWatch(currentWatch);
+        Get.back(closeOverlays: true);
+        Get.to(WristCheckHome());
+        Get.snackbar("Watch Deleted", "${currentWatch.toString()} has been moved to the Archive");
+      },
+    );
+
+    // set up the cancel button
+    Widget cancelButton = ElevatedButton(
+      child: Text("Cancel"),
+      onPressed: ()=> Navigator.pop(context),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Watch"),
+      content: Text("Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)"),
+      actions: [
+        cancelButton,
+        deleteButton
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   static getFailedToPickImageDialog(PlatformException e){
     Get.defaultDialog(
       title: "Failed to Pick Image",
       middleText: "The platform encountered an error:\n\n"
           "${e.toString()}"
     );
+
 
   }
 

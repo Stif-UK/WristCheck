@@ -86,6 +86,12 @@ class WatchMethods {
     return box.add(watch);
   }
 
+  static Future<bool> archiveWatch(Watches watch) async{
+    watch.status = "Archived";
+    watch.save();
+    return true;
+  }
+
   static void removeWearDate(DateTime dateToRemove, Watches watch){
     //Get the wearList index of the current date
     try {

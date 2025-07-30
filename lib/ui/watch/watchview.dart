@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
@@ -430,16 +431,11 @@ class _WatchViewState extends State<WatchView> {
                       Obx(()=> Padding(
                           padding: const EdgeInsets.all(0.0),
                           //child: widget.watchViewController.inEditState.value? IconButton(onPressed:(){} , icon: Icon(FontAwesomeIcons.ellipsisVertical)): const SizedBox(height: 0,),
-                          child: widget.watchViewController.inEditState.value? PopupMenuButton(
-                            offset: const Offset(0, 50),
-                              icon: Icon(FontAwesomeIcons.ellipsisVertical),
-                              itemBuilder: (context) => [
-                            PopupMenuItem(child:
-                            ListTile(
-                              title: Text("Delete Watch"),
-                              trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),)
-                            )
-                          ]): const SizedBox(height: 0,),
+                          child: widget.watchViewController.inEditState.value?
+                              IconButton(
+                                icon: Icon(FontAwesomeIcons.trash, color: Colors.red,),
+                                  onPressed: ()=> WristCheckDialogs.showDeleteWatchDialog(context, widget.currentWatch!), )
+                              :const SizedBox(height: 0,),
                         ),
                       )
                     ],
