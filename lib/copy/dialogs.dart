@@ -79,7 +79,7 @@ class WristCheckDialogs {
         title: "Watch Archive",
         barrierDismissible: true,
         middleText: "When a watch status is marked as 'Archived' it is removed from the main collection and stored here."
-            "\n\nWatches in the archive can be permanently deleted with a swipe to the left."
+            "\n\nWatches in the archive can be permanently deleted with a swipe to the left or restored to your watchbox by swiping right"
     );
   }
 
