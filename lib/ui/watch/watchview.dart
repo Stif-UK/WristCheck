@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,6 +19,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/header/watch_image_row.dart';
 import 'package:wristcheck/ui/watch/header/wear_row.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
@@ -89,12 +89,7 @@ class _WatchViewState extends State<WatchView> {
   DateTime? _purchaseDate;
   DateTime? _lastServicedDate;
   int _serviceInterval = 0;
-  File? image;
-  bool front = true;
-  File? frontImage;
-  File? backImage;
   int? watchKey; //Used to save images to newly added watches
-  //bool canRecordWear = false;
   String? _purchasedFrom = "";
   String? _soldTo = "";
   DateTime? _soldDate;
@@ -389,19 +384,7 @@ class _WatchViewState extends State<WatchView> {
             );
           }
       },
-      //Wrap Scaffold in a FutureBuilder to show images once loaded
-      child:FutureBuilder<File?>(
-          future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, front): addWatchImage(front),
-          builder: (context, AsyncSnapshot<File?> snapshot) {
-            if (snapshot.hasData || snapshot.data == null) {
-              try {
-                snapshot.data == File("") ? image = null :
-                image = snapshot.data;
-              } on Exception catch (e) {
-                print("Exception caught in implementing file: $e");
-                image = null;
-              }
-              return Scaffold(
+      child: Scaffold(
                 appBar: AppBar(
                     title: ViewWatchHelper.getTitle(
                         widget.watchViewController.watchViewState.value, _manufacturer, _model),
@@ -434,6 +417,7 @@ class _WatchViewState extends State<WatchView> {
                       Obx(()=> Padding(
                           padding: const EdgeInsets.all(0.0),
                           //child: widget.watchViewController.inEditState.value? IconButton(onPressed:(){} , icon: Icon(FontAwesomeIcons.ellipsisVertical)): const SizedBox(height: 0,),
+                        //TODO: Fix this to not show trash icon during add watch - only show on state = edit
                           child: widget.watchViewController.inEditState.value?
                               IconButton(
                                 icon: Icon(FontAwesomeIcons.trash, color: Colors.red,),
@@ -511,7 +495,8 @@ class _WatchViewState extends State<WatchView> {
                                   children: [
                                     //Build the UI from components
                                     //Watch Images
-                                    _displayWatchImageViewEdit(),
+                                    WatchImageRow(currentWatch: widget.currentWatch),
+                                    // _displayWatchImageViewEdit(),
                                     widget.watchViewController.watchViewState.value == WatchViewEnum.view
                                         ? WearRow(currentWatch: widget.currentWatch,)
                                         : const SizedBox(height: 0,),
@@ -605,103 +590,8 @@ class _WatchViewState extends State<WatchView> {
                         ))
                   ],
                 ),
-              );
+              ));
             }
-            else {
-              return Container(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator()
-              );
-            }
-          }
-      ),
-    );
-  }
-
-  //Code to create individual sections of the UI - consider externalising these!
-
-  Widget _displayWatchImageViewEdit(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children:  [
-        const Expanded(
-            flex: 2,
-            child: SizedBox(height: 10)),
-        Expanded(
-          flex: 6,
-          child: Container(
-              height: 180,
-              margin: const EdgeInsets.all(20),
-              //Padding and borderradius not required once image is selected
-              padding: image == null? const EdgeInsets.all(40): null,
-              decoration: image == null? BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
-              //If we have an image display it (ClipRRect used to round corners to soften the image)
-              child: image == null? Column(
-                mainAxisSize: MainAxisSize.min,
-                children:  [
-                  const Icon(Icons.camera_alt, size: 75),
-                  front? const Text("Front"): const Text("Back"),
-                ],
-              ): ClipRRect(
-                child: Image.file(image!),
-                borderRadius: BorderRadius.circular(16),
-              )
-          ),
-
-        ),
-        Expanded(
-          flex: 2,
-          //Column to display the pick image and switch image icons
-          child: Column(
-            children: [
-              InkWell(
-                  child: const Icon(Icons.add_a_photo_outlined),
-                  onTap: () async {
-
-
-                    var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                    //Split this method depending on status
-                    if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-                      await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
-                    } else{
-                      if(front) {
-                        imageSource != null
-                            ? frontImage =
-                                await ImagesUtil.pickImage(source: imageSource!)
-                            : null;
-                      } else {
-                        imageSource != null
-                            ? backImage =
-                        await ImagesUtil.pickImage(source: imageSource!)
-                            : null;
-                      }
-                    }
-
-                    //pickAndSaveImage will have set the image for the given watch
-                    //Now call setstate to ensure the display is updated
-                    setState(() {
-
-                    });
-                  }
-              ),
-              const SizedBox(height: 25,),
-              IconButton(
-                  icon: const Icon(Icons.flip_camera_android_rounded),
-                  onPressed: (){
-                    setState(() {
-                      front = !front;
-                    });
-                  })
-            ],
-          ),
-        ),
-
-
-      ],
-    );
-  }
 
   Widget _nextTabButton(){
     return Center(
@@ -796,14 +686,14 @@ class _WatchViewState extends State<WatchView> {
               );
 
               //if a front image has been set, we add this to the newly created watch before exiting
-              if(frontImage != null){
+              if(widget.watchViewController.frontImage.value != null){
                 tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(frontImage!.path, tempWatch!, true);
+            ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, true);
             }
             //and repeat for the back image
-            if(backImage != null){
+            if(widget.watchViewController.backImage.value != null){
             tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(backImage!.path, tempWatch!, false);
+            ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, false);
             }
               //Before Navigating back, clear the form, to prevent the back navigation being stopped
               _formKey.currentState!.reset();
@@ -831,10 +721,6 @@ class _WatchViewState extends State<WatchView> {
         ),
       ),
     );
-  }
-
-  Future<File?>addWatchImage(bool front) async {
-    return front? frontImage: backImage;
   }
 
   Future<bool> isBackNavigationAllowed() async {
@@ -898,8 +784,8 @@ class _WatchViewState extends State<WatchView> {
     the user is prevented from changing tabs without entering data on this one
      */
     bool returnValue = false;
-    if(frontImage != null ||
-        backImage != null ||
+    if(widget.watchViewController.frontImage.value != null ||
+        widget.watchViewController.backImage.value != null ||
         manufacturerFieldController.value.text.isNotEmpty ||
         modelFieldController.value.text.isNotEmpty ||
         categoryFieldController.value.text.isNotEmpty ||

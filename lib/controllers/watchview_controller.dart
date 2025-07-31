@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
@@ -24,6 +25,10 @@ class WatchViewController extends GetxController{
   final canRecordWear = false.obs;
   final skipBackCheck = false.obs;
   final overrideBackNav = false.obs;
+  //TODO: Refactor to change this to a cycling index count rather than a bool
+  final front = true.obs;
+  final frontImage = Rxn<File>();
+  final backImage = Rxn<File>();
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -104,6 +109,18 @@ class WatchViewController extends GetxController{
 
   updateOverrideBacknav(bool value){
     overrideBackNav(value);
+  }
+
+  updateFrontValue(bool value){
+    front(value);
+  }
+
+  updateFrontImage(File? file){
+    frontImage(file);
+  }
+
+  updateBackImage(File? file){
+    backImage(file);
   }
 
 }
