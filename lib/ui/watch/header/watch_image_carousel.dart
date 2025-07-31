@@ -1,26 +1,26 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/images_util.dart';
 
-class WatchImageRow extends StatefulWidget {
-  WatchImageRow({super.key, required this.currentWatch});
+class WatchImageCarousel extends StatefulWidget {
+  WatchImageCarousel({super.key, required this.currentWatch});
   final watchViewController = Get.put(WatchViewController());
   final Watches? currentWatch;
 
 
   @override
-  State<WatchImageRow> createState() => _WatchImageRowState();
+  State<WatchImageCarousel> createState() => _WatchImageCarouselState();
 }
 
-class _WatchImageRowState extends State<WatchImageRow> {
+class _WatchImageCarouselState extends State<WatchImageCarousel> {
   @override
   Widget build(BuildContext context) {
     File? image;
+    bool front = true;
 
     return Obx(()=> FutureBuilder<File?>(
           future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, widget.watchViewController.front.value): addWatchImage(widget.watchViewController.front.value),
@@ -104,8 +104,7 @@ class _WatchImageRowState extends State<WatchImageRow> {
                       icon: const Icon(Icons.flip_camera_android_rounded),
                       onPressed: (){
                         widget.watchViewController.updateFrontValue(!widget.watchViewController.front.value);
-                      }),
-                  
+                      })
                 ],
               ),
             ),

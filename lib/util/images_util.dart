@@ -145,6 +145,21 @@ class ImagesUtil {
     return name == "" || !exists ? null : File("${directory.path}/$name");
   }
 
+  //Helper method to return the watch image
+  static Future<List<File?>> getAllImages(Watches currentWatch) async {
+    List<File?> returnList = [];
+    List<String> nameList= [];
+    final directory = await getApplicationDocumentsDirectory();
+    nameList.add(currentWatch.frontImagePath ?? "");
+    nameList.add(currentWatch.backImagePath ?? "");
+
+    for(String imagePath in nameList){
+      //bool exists = await File("${directory.path}/$imagePath").exists();
+      returnList.add(await File("${directory.path}/$imagePath").exists()? File("${directory.path}/$imagePath") : null);
+    }
+    return returnList;
+  }
+
   static Future<bool> imageExists(Watches currentWatch, bool front) async {
     final directory = await getApplicationDocumentsDirectory();
     final name = front? currentWatch.frontImagePath ?? "" : currentWatch.backImagePath ?? "";
