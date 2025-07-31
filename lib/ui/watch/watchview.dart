@@ -416,9 +416,7 @@ class _WatchViewState extends State<WatchView> {
                           ),
                       Obx(()=> Padding(
                           padding: const EdgeInsets.all(0.0),
-                          //child: widget.watchViewController.inEditState.value? IconButton(onPressed:(){} , icon: Icon(FontAwesomeIcons.ellipsisVertical)): const SizedBox(height: 0,),
-                        //TODO: Fix this to not show trash icon during add watch - only show on state = edit
-                          child: widget.watchViewController.inEditState.value?
+                          child: widget.watchViewController.watchViewState.value == WatchViewEnum.edit?
                               IconButton(
                                 icon: Icon(FontAwesomeIcons.trash, color: Colors.red,),
                                   onPressed: ()=> WristCheckDialogs.showDeleteWatchDialog(context, widget.currentWatch!), )
