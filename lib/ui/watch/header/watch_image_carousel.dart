@@ -74,13 +74,13 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 15.0),
                     child: SmoothPageIndicator(
                         controller: _imagePageController,
                         effect: WormEffect(
                           type: WormType.thin,
                           dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
-                          activeDotColor: WristCheckConfig.getWCColour(),
+                          activeDotColor: Theme.of(context).colorScheme.primary,
                         ),
                         onDotClicked: (index) => _imagePageController.animateToPage(
                             index,
