@@ -21,6 +21,7 @@ class _WatchImageRowState extends State<WatchImageRow> {
   @override
   Widget build(BuildContext context) {
     File? image;
+    List<File?> images;
 
     return Obx(()=> FutureBuilder<File?>(
           future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, widget.watchViewController.front.value): addWatchImage(widget.watchViewController.front.value),
@@ -105,7 +106,7 @@ class _WatchImageRowState extends State<WatchImageRow> {
                       onPressed: (){
                         widget.watchViewController.updateFrontValue(!widget.watchViewController.front.value);
                       }),
-                  
+
                 ],
               ),
             ),
