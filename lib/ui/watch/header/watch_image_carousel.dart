@@ -19,23 +19,27 @@ class WatchImageCarousel extends StatefulWidget {
 
 class _WatchImageCarouselState extends State<WatchImageCarousel> {
   late PageController _imagePageController;
+  late CarouselController _watchCarouselController;
   int _currentPage = 0;
 
   @override
   void initState() {
     _imagePageController = PageController(initialPage: _currentPage, viewportFraction: 0.6);
+    _watchCarouselController = CarouselController(initialItem: _currentPage);
     super.initState();
   }
 
   @override
   void dispose() {
     _imagePageController.dispose();
+    _watchCarouselController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     List<File?> images;
+    List<Widget> imageList = [];
 
     return Obx(()=> FutureBuilder<List<File?>>(
           future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getAllImages(widget.currentWatch!): addWatchImageList(),
@@ -44,6 +48,12 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
               try {
                 // snapshot.data == File("") ? images = [null] :
                 images = snapshot.data!;
+                for (int i = 0; i < images.length; i++){
+                  File? pic = images[i];
+                  pic == null? imageList.add(const Icon(Icons.add_a_photo_outlined, size: 85)):
+                    imageList.add(Image.file(pic, fit: BoxFit.cover,));
+
+                }
               } on Exception catch (e) {
                 print("Exception caught in implementing image file list: $e");
                 images = [];
@@ -56,38 +66,19 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
               children: [
                 Container(
                   width: MediaQuery.sizeOf(context).width*0.95,
-                  height: MediaQuery.sizeOf(context).height*0.27,
-                  child: PageView.builder(
-                    controller: _imagePageController,
-                    itemCount: images.length,
-                    physics: const ClampingScrollPhysics(),
-                    itemBuilder: (context, index){
-                      return Column(
-                        children: [
-                          imageView(images, index),
+                  height: MediaQuery.sizeOf(context).width*0.8,
+                  child:
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                        child: CarouselView.weighted(
+                          onTap: (index)=> print("image tapped $index"),
+                          flexWeights: [1,8,1],
+                            controller: _watchCarouselController,
+                            shrinkExtent: 200.0,
+                            itemSnapping: true,
+                            children: imageList,),
+                      )
 
-                        ],
-                      );
-                    },
-
-                              ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 15.0),
-                    child: SmoothPageIndicator(
-                        controller: _imagePageController,
-                        effect: WormEffect(
-                          type: WormType.thin,
-                          dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
-                          activeDotColor: Theme.of(context).colorScheme.primary,
-                        ),
-                        onDotClicked: (index) => _imagePageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeIn),
-                        count: images.length),
-                  ),
                 ),
               ],
             ),

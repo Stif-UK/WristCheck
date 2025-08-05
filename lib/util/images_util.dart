@@ -150,6 +150,7 @@ class ImagesUtil {
     List<File?> returnList = [];
     List<String> nameList= [];
     final directory = await getApplicationDocumentsDirectory();
+    //Order is always front, back //TODO: Implement Lume image
     nameList.add(currentWatch.frontImagePath ?? "");
     nameList.add(currentWatch.backImagePath ?? "");
 
