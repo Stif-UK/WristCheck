@@ -18,20 +18,19 @@ class WatchImageCarousel extends StatefulWidget {
 }
 
 class _WatchImageCarouselState extends State<WatchImageCarousel> {
-  late PageController _imagePageController;
   late CarouselController _watchCarouselController;
   int _currentPage = 0;
+  late Future<List<File?>> _pageData;
 
   @override
   void initState() {
-    _imagePageController = PageController(initialPage: _currentPage, viewportFraction: 0.6);
     _watchCarouselController = CarouselController(initialItem: _currentPage);
+    _pageData = getPageData();
     super.initState();
   }
 
   @override
   void dispose() {
-    _imagePageController.dispose();
     _watchCarouselController.dispose();
     super.dispose();
   }
@@ -41,23 +40,25 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
     List<File?> images;
     List<Widget> imageList = [];
 
-    return Obx(()=> FutureBuilder<List<File?>>(
-          future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getAllImages(widget.currentWatch!): addWatchImageList(),
+    return FutureBuilder<List<File?>>(
+          future: _pageData,
           builder: (context, AsyncSnapshot<List<File?>> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               try {
                 // snapshot.data == File("") ? images = [null] :
                 images = snapshot.data!;
-                for (int i = 0; i < images.length; i++){
-                  File? pic = images[i];
-                  pic == null? imageList.add(const Icon(Icons.add_a_photo_outlined, size: 85)):
-                    imageList.add(Image.file(pic, fit: BoxFit.cover,));
-
-                }
               } on Exception catch (e) {
                 print("Exception caught in implementing image file list: $e");
                 images = [];
               }
+              for (int i = 0; i < images.length; i++){
+                File? pic = images[i];
+                pic == null? imageList.add(const Icon(Icons.add_a_photo_outlined, size: 85)):
+                imageList.add(Image.file(pic, fit: BoxFit.cover,));
+              }
+              //Temporary, remove!
+              imageList.add(const Icon(Icons.ac_unit, size: 90,));
+
               return Row(
                 mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +72,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                         child: CarouselView.weighted(
-                          onTap: (index)=> print("image tapped $index"),
+                          onTap: (index) async => imageList[index].runtimeType == Icon? await AddImage(index).then((_)=> setState(() {})) : print("image tapped $index, object type: ${imageList[index].runtimeType}"),
                           flexWeights: [1,8,1],
                             controller: _watchCarouselController,
                             shrinkExtent: 200.0,
@@ -138,53 +139,99 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
               );
             }
           }
-      ),
-    );
+      );
 
 }
 
+Future <List<File?>> getPageData(){
+  return widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getAllImages(widget.currentWatch!): addWatchImageList();
+  }
+
+/*
+When in an add state, get values for temporary images from the controller (will be null if not yet added)
+ */
   Future<List<File?>>addWatchImageList() async {
     return <File?>[widget.watchViewController.frontImage.value, widget.watchViewController.backImage.value];
   }
 
-  Widget imageView(List<File?> data, int index) {
-    return Column(
-      children: [
-        imageCard(data[index]),
-      ],
-    );
-  }
+  Future<bool> AddImage(int index) async {
+    //TODO: Refactor method along with ImagesUtil methods to take an index instead of bool
+    bool front = true;
+    switch(index){
+      case 1:
+        front = false;
+        break;
+      case 3:
+        front = false;
+        break;
+    }
 
-  Widget imageCard(File? image) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-              //height: 180,
-              margin: const EdgeInsets.all(5),
-              //Padding and borderradius not required once image is selected
-              padding: image == null? const EdgeInsets.all(40): null,
-              decoration: image == null? BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
-              //If we have an image display it (ClipRRect used to round corners to soften the image)
-              child: image == null? Column(
-                mainAxisSize: MainAxisSize.min,
-                children:  [
-                  const Icon(Icons.camera_alt, size: 75),
-                  // widget.watchViewController.front.value? const Text("Front"): const Text("Back"),
-                ],
-              ): ClipRRect(
-                child: Image.file(image),
-                borderRadius: BorderRadius.circular(16),
-              )
-        )
-      ],
-    );
+
+  var imageSource = await ImagesUtil.imageSourcePopUp(context);
+  //Split this method depending on status
+  if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
+  await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
+  } else{
+  if(front) {
+  imageSource != null
+  ? widget.watchViewController.updateFrontImage(
+  await ImagesUtil.pickImage(source: imageSource))
+      : null;
+  } else {
+  imageSource != null
+  ? widget.watchViewController.updateBackImage(
+  await ImagesUtil.pickImage(source: imageSource))
+      : null;
   }
+  }
+  
+  return true;
+
+  //pickAndSaveImage will have set the image for the given watch
+  //Now call setstate to ensure the display is updated
+  setState(() {
+
+  });
 }
+
+  // Widget imageView(List<File?> data, int index) {
+  //   return Column(
+  //     children: [
+  //       imageCard(data[index]),
+  //     ],
+  //   );
+  // }
+
+//   Widget imageCard(File? image) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         Container(
+//               //height: 180,
+//               margin: const EdgeInsets.all(5),
+//               //Padding and borderradius not required once image is selected
+//               padding: image == null? const EdgeInsets.all(40): null,
+//               decoration: image == null? BoxDecoration(
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
+//               //If we have an image display it (ClipRRect used to round corners to soften the image)
+//               child: image == null? Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children:  [
+//                   const Icon(Icons.camera_alt, size: 75),
+//                   // widget.watchViewController.front.value? const Text("Front"): const Text("Back"),
+//                 ],
+//               ): ClipRRect(
+//                 child: Image.file(image),
+//                 borderRadius: BorderRadius.circular(16),
+//               )
+//         )
+//       ],
+//     );
+//   }
+// }
 
   // Future<File?>addWatchImage(bool front) async {
   //   return front? widget.watchViewController.frontImage.value: widget.watchViewController.backImage.value;
   // }
-// }
+}

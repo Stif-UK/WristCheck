@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:wristcheck/model/enums/WatchViewFieldsEnum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -29,6 +30,8 @@ class WatchViewController extends GetxController{
   final front = true.obs;
   final frontImage = Rxn<File>();
   final backImage = Rxn<File>();
+  //testing moving imagesList to the controller
+  final imageList = <Widget>[].obs;
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -121,6 +124,11 @@ class WatchViewController extends GetxController{
 
   updateBackImage(File? file){
     backImage(file);
+  }
+
+  updateImageList(List<Widget> images){
+    imageList(images);
+    print("In controller length: ${imageList.length}");
   }
 
 }
