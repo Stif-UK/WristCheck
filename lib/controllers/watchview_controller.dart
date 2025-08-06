@@ -31,6 +31,7 @@ class WatchViewController extends GetxController{
   final front = true.obs;
   final frontImage = Rxn<File>();
   final backImage = Rxn<File>();
+  final lumeImage = Rxn<File>();
   //testing moving imagesList to the controller
   final imageList = <ImageCardWidget>[].obs;
 
@@ -129,6 +130,10 @@ class WatchViewController extends GetxController{
     backImage(file);
   }
 
+  updateLumeImage(File? file){
+    lumeImage(file);
+  }
+
   updateImage(File? file, index){
     switch(index){
       case 0:
@@ -136,6 +141,9 @@ class WatchViewController extends GetxController{
         break;
       case 1:
         backImage(file);
+        break;
+      case 2:
+        lumeImage(file);
         break;
     }
   }

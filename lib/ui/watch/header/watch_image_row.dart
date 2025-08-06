@@ -24,7 +24,7 @@ class _WatchImageRowState extends State<WatchImageRow> {
     List<File?> images;
 
     return Obx(()=> FutureBuilder<File?>(
-          future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, widget.watchViewController.front.value): addWatchImage(widget.watchViewController.front.value),
+          future: widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getImage(widget.currentWatch!, 0): addWatchImage(widget.watchViewController.front.value),
           builder: (context, AsyncSnapshot<File?> snapshot) {
             if (snapshot.hasData || snapshot.data == null) {
               try {
@@ -78,7 +78,7 @@ class _WatchImageRowState extends State<WatchImageRow> {
                         var imageSource = await ImagesUtil.imageSourcePopUp(context);
                         //Split this method depending on status
                         if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-                          await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: widget.watchViewController.front.value);
+                          await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, index: 0);
                         } else{
                           if(widget.watchViewController.front.value) {
                             imageSource != null

@@ -80,7 +80,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                           Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
                           //Add image to listtile
                           FutureBuilder(
-                              future: ImagesUtil.getImage(currentWatch, true),
+                              future: ImagesUtil.getImage(currentWatch, 0),
                               builder: (context, snapshot) {
                                 //start
                                 if (snapshot.connectionState == ConnectionState.done) {

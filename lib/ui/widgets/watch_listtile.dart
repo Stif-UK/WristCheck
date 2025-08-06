@@ -32,7 +32,7 @@ class WatchListTile extends ListTile {
     return ListTile(
       leading: showImage ?
       FutureBuilder(
-          future: ImagesUtil.getImage(currentWatch, true),
+          future: ImagesUtil.getImage(currentWatch, 0),
           builder: (context, snapshot) {
             //start
             if (snapshot.connectionState == ConnectionState.done) {

@@ -23,7 +23,7 @@ class ImagesUtil {
   static pickAndSaveImage({
     required ImageSource source,
     required Watches currentWatch,
-    required bool front
+    required int index
   }) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -36,7 +36,7 @@ class ImagesUtil {
         return null;
       } else{
         returnImage = File(croppedImage.path);
-        await ImagesUtil.saveImage(croppedImage.path, currentWatch, front);
+        await ImagesUtil.saveImage(croppedImage.path, currentWatch, index);
 
       }
     } on PlatformException catch (e) {
@@ -134,11 +134,28 @@ class ImagesUtil {
     );
   }
 
+  static String getNamePath(Watches currentWatch, int index){
+    String name;
+
+    switch(index){
+      case(0):
+        name = currentWatch.frontImagePath ?? "";
+        break;
+      case(1):
+        name = currentWatch.backImagePath ?? "";
+        break;
+      case(2):
+        name = currentWatch.lumeImagePath ?? "";
+        break;
+      default: name = currentWatch.frontImagePath ?? "";
+    }
+    return name;
+  }
   //TODO: Update getImage() to utilise the imageExists() helper method to reduce code duplication
   //Helper method to return the watch image
-  static Future<File?> getImage(Watches currentWatch, bool front) async {
+  static Future<File?> getImage(Watches currentWatch, int index) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = front? currentWatch.frontImagePath ?? "" : currentWatch.backImagePath ?? "";
+    final String name = getNamePath(currentWatch, index);
     final exists = await File("${directory.path}/$name").exists();
 
     //if no image path has been saved or if the image cannot be found return null? otherwise give the path name
@@ -150,9 +167,10 @@ class ImagesUtil {
     List<File?> returnList = [];
     List<String> nameList= [];
     final directory = await getApplicationDocumentsDirectory();
-    //Order is always front, back //TODO: Implement Lume image
+    //Order is always front, back, lume
     nameList.add(currentWatch.frontImagePath ?? "");
     nameList.add(currentWatch.backImagePath ?? "");
+    nameList.add(currentWatch.lumeImagePath ?? "");
 
     for(String imagePath in nameList){
       //bool exists = await File("${directory.path}/$imagePath").exists();
@@ -161,16 +179,31 @@ class ImagesUtil {
     return returnList;
   }
 
-  static Future<bool> imageExists(Watches currentWatch, bool front) async {
+  static Future<bool> imageExists(Watches currentWatch, int index) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = front? currentWatch.frontImagePath ?? "" : currentWatch.backImagePath ?? "";
+    final name = getNamePath(currentWatch, index);
     return await File("${directory.path}/$name").exists();
   }
 
 
-  static Future<File> saveImage(String imagePath, Watches currentWatch, bool front) async {
+  static Future<File> saveImage(String imagePath, Watches currentWatch, int index) async {
     String name = "${currentWatch.key}_${currentWatch.manufacturer}_${currentWatch.model}";
-    String perspective = front? "_front": "_back";
+    String perspective;
+
+    switch(index){
+      case(0):
+        perspective = "_front";
+        break;
+      case(1):
+        perspective = "_back";
+        break;
+      case(2):
+        perspective = "_lume";
+        break;
+      default:
+        perspective = "_front";
+    }
+
     //Get the directory and save the file
     var directory = await getApplicationDocumentsDirectory();
     //Check if image directory exists - if it doesn't then create it
@@ -182,35 +215,57 @@ class ImagesUtil {
     //final name = basename(imagePath);
 
     //Check if file already exists - if so delete it
-    if (front) {
-      //Deal with front image scenario
-      if(currentWatch.frontImagePath != null){
-        bool exists = await File("${directory.path}${currentWatch.frontImagePath!}").exists();
-        if(exists){
-          await File("${directory.path}${currentWatch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
-
-        }
-      }
-    } else{
-      //Deal with back image scenario
-      if(currentWatch.backImagePath != null){
-        bool exists = await File("${directory.path}${currentWatch.backImagePath!}").exists();
-        if(exists){
-          await File("${directory.path}${currentWatch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
-
-        }
+    final pathName = getNamePath(currentWatch, index);
+    //is this check needed?
+    if(pathName != ""){
+      bool exists = await File("${directory.path}$pathName").exists();
+      if(exists){
+        await File("${directory.path}$pathName").delete().catchError((Object error) => print("Failed to delete old image: $error"));
       }
     }
+
+    // if (front) {
+    //   //Deal with front image scenario
+    //   if(currentWatch.frontImagePath != null){
+    //     bool exists = await File("${directory.path}${currentWatch.frontImagePath!}").exists();
+    //     if(exists){
+    //       await File("${directory.path}${currentWatch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+    //
+    //     }
+    //   }
+    // } else{
+    //   //Deal with back image scenario
+    //   if(currentWatch.backImagePath != null){
+    //     bool exists = await File("${directory.path}${currentWatch.backImagePath!}").exists();
+    //     if(exists){
+    //       await File("${directory.path}${currentWatch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+    //
+    //     }
+    //   }
+    // }
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     timestamp = timestamp.substring(timestamp.length-6);
     String safeName = name.replaceAll(RegExp('[^A-Za-z0-9]'), '');
     final String imgPath = '${directory.path}/img/$timestamp$safeName$perspective.jpg';
     final image = File(imgPath);
-    if(front){
-      currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
-    }else{
-      currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
+
+    switch(index){
+      case(0):
+        currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        break;
+      case(1):
+        currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        break;
+      case(2):
+        currentWatch.lumeImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        break;
     }
+
+    // if(front){
+    //   currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
+    // }else{
+    //   currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
+    // }
     currentWatch.save();
 
     return File(imagePath).copy(image.path);
@@ -228,6 +283,11 @@ class ImagesUtil {
     if(backExists){
       await File("${directory.path}${watch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
     }
+    final lume = watch.lumeImagePath ?? "";
+    final lumeExists = await File("${directory.path}/$lume").exists();
+    if(lumeExists){
+      await File("${directory.path}${watch.lumeImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+    }
 
   }
 
@@ -242,13 +302,14 @@ class ImagesUtil {
   /**
    * getImages() returns a list of all of the Images stored in the watchbox
    * //TODO: Extend this to include options for sold/archived/retired/wishlist
+   * //TODO: Implement index to allow pictures 2 & 3 to be returned
    */
   static Future<List<Image>> getImages() async{
     final watchList = Boxes.getCollectionWatches();
     List<Image> returnList = [];
     for(Watches watch in watchList){
       if(watch.frontImagePath != null && watch.frontImagePath != ""){
-        File? currentImage = await ImagesUtil.getImage(watch, true);
+        File? currentImage = await ImagesUtil.getImage(watch, 0);
         if(currentImage != null){
           returnList.add(Image.file(currentImage));
         }
@@ -295,7 +356,7 @@ class ImagesUtil {
 
     List<Watches> returnlist = [];
     for(Watches watch in watchList){
-      if(await ImagesUtil.imageExists(watch, true)){
+      if(await ImagesUtil.imageExists(watch, 0)){
         returnlist.add(watch);
       }
     }

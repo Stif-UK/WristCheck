@@ -73,7 +73,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                               flexWeights: [1,8,1],
                                 controller: _watchCarouselController,
                                 itemSnapping: true,
-                                children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1]],
+                                children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1], widget.watchViewController.imageList[2],]
                           ),
                         ),
                       )
@@ -146,7 +146,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
 When in an add state, get values for temporary images from the controller (will be null if not yet added)
  */
   Future<List<File?>>addWatchImageList() async {
-    return <File?>[widget.watchViewController.frontImage.value, widget.watchViewController.backImage.value];
+    return <File?>[widget.watchViewController.frontImage.value, widget.watchViewController.backImage.value, widget.watchViewController.lumeImage.value];
   }
 
   Future<bool> AddImage(int index) async {
@@ -159,8 +159,8 @@ When in an add state, get values for temporary images from the controller (will 
     var imageSource = await ImagesUtil.imageSourcePopUp(context);
   //Split this method depending on status
   if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-  await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
-  widget.watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(widget.currentWatch!, front)),  index);
+  await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, index: index);
+  widget.watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(widget.currentWatch!, index)),  index);
   }
   else {
   var tempImage = imageSource!= null? await ImagesUtil.pickImage(source: imageSource): null;

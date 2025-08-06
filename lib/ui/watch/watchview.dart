@@ -688,13 +688,18 @@ class _WatchViewState extends State<WatchView> {
               //if a front image has been set, we add this to the newly created watch before exiting
               if(widget.watchViewController.frontImage.value != null){
                 tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, true);
+            ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, 0);
             }
             //and repeat for the back image
             if(widget.watchViewController.backImage.value != null){
             tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, false);
+            ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, 1);
             }
+            //and for the lume image
+              if(widget.watchViewController.lumeImage.value != null){
+                tempWatch = watchBox.get(watchKey);
+                ImagesUtil.saveImage(widget.watchViewController.lumeImage.value!.path, tempWatch!, 2);
+              }
               //Before Navigating back, clear the form, to prevent the back navigation being stopped
               _formKey.currentState!.reset();
               widget.watchViewController.updateSkipBackCheck(true);

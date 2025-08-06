@@ -80,7 +80,8 @@ class WatchMethods {
     ..caseMaterial = cr
     ..winderTPD = wtpd
     ..winderDirection = windDir
-    ..dateComplication = date;
+    ..dateComplication = date
+    ..lumeImagePath = "";
 
     final box = Boxes.getWatches();
     return box.add(watch);

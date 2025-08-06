@@ -71,7 +71,7 @@ class ReviewPage extends StatelessWidget {
             //If we have an image, use a Futurebuilder to return it
             watch != null?
             FutureBuilder(
-                future: ImagesUtil.getImage(watch!, true),
+                future: ImagesUtil.getImage(watch!, 0),
                 builder: (context, snapshot) {
                   //start
                   if (snapshot.connectionState == ConnectionState.done) {

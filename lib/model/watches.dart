@@ -104,6 +104,9 @@ class Watches extends HiveObject{
   @HiveField(32)
   late String? dateComplication;
 
+  @HiveField(33)
+  late String? lumeImagePath;
+
   @override
   String toString() {
     return "${this.manufacturer} ${this.model}";
