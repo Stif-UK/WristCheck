@@ -1,11 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 class WatchImageCarousel extends StatefulWidget {
@@ -29,6 +28,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
     super.initState();
   }
 
+
   @override
   void dispose() {
     _watchCarouselController.dispose();
@@ -38,26 +38,19 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
   @override
   Widget build(BuildContext context) {
     List<File?> images;
-    List<Widget> imageList = [];
 
     return FutureBuilder<List<File?>>(
           future: _pageData,
           builder: (context, AsyncSnapshot<List<File?>> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               try {
-                // snapshot.data == File("") ? images = [null] :
                 images = snapshot.data!;
+                widget.watchViewController.updateImageList(<Widget>[]);
               } on Exception catch (e) {
                 print("Exception caught in implementing image file list: $e");
                 images = [];
               }
-              for (int i = 0; i < images.length; i++){
-                File? pic = images[i];
-                pic == null? imageList.add(const Icon(Icons.add_a_photo_outlined, size: 85)):
-                imageList.add(Image.file(pic, fit: BoxFit.cover,));
-              }
-              //Temporary, remove!
-              imageList.add(const Icon(Icons.ac_unit, size: 90,));
+              _prepDataList(images);
 
               return Row(
                 mainAxisSize: MainAxisSize.min,
@@ -71,19 +64,21 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                   child:
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                        child: CarouselView.weighted(
-                          onTap: (index) async => imageList[index].runtimeType == Icon? await AddImage(index).then((_)=> setState(() {})) : print("image tapped $index, object type: ${imageList[index].runtimeType}"),
-                          flexWeights: [1,8,1],
-                            controller: _watchCarouselController,
-                            shrinkExtent: 200.0,
-                            itemSnapping: true,
-                            children: imageList,),
+                        child: Obx(()=> CarouselView.weighted(
+                              onTap: (index) async {
+                                  await AddImage(index);},
+                              flexWeights: [1,8,1],
+                                controller: _watchCarouselController,
+                                shrinkExtent: 200.0,
+                                itemSnapping: true,
+                                children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1]],
+                          ),
+                        ),
                       )
-
                 ),
               ],
             ),
-            //TODO: Unhide buttons and refactor
+            //TODO: Keep the below comments as reference until the new UI is implemented
             // Expanded(
             //   flex: 2,
             //   //Column to display the pick image and switch image icons
@@ -143,9 +138,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
 
 }
 
-Future <List<File?>> getPageData(){
-  return widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getAllImages(widget.currentWatch!): addWatchImageList();
-  }
+
 
 /*
 When in an add state, get values for temporary images from the controller (will be null if not yet added)
@@ -157,26 +150,20 @@ When in an add state, get values for temporary images from the controller (will 
   Future<bool> AddImage(int index) async {
     //TODO: Refactor method along with ImagesUtil methods to take an index instead of bool
     bool front = true;
-    switch(index){
-      case 1:
-        front = false;
-        break;
-      case 3:
-        front = false;
-        break;
+    if(index == 1) {
+      front = false;
     }
 
-
-  var imageSource = await ImagesUtil.imageSourcePopUp(context);
+    var imageSource = await ImagesUtil.imageSourcePopUp(context);
   //Split this method depending on status
   if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
   await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: front);
-  } else{
+  widget.watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(widget.currentWatch!, front)),  index);
+  }
+  else {
   if(front) {
-  imageSource != null
-  ? widget.watchViewController.updateFrontImage(
-  await ImagesUtil.pickImage(source: imageSource))
-      : null;
+  imageSource != null ? widget.watchViewController.updateFrontImage(await ImagesUtil.pickImage(source: imageSource)) : null;
+    //for new watch also need to update the front/back image values
   } else {
   imageSource != null
   ? widget.watchViewController.updateBackImage(
@@ -193,6 +180,34 @@ When in an add state, get values for temporary images from the controller (will 
 
   });
 }
+
+/*
+Get the data to show on the page - this is either a list of File? objects (including null) where the page is in view/edit state, or a series of 'Add Watch' images in the case of new watch records.
+ */
+  Future <List<File?>> getPageData(){
+    return widget.watchViewController.watchViewState.value != WatchViewEnum.add? ImagesUtil.getAllImages(widget.currentWatch!): addWatchImageList();
+  }
+
+  /*
+  Prep the data - use the returned images and nulls to generate a series of either images or icons
+   */
+  void _prepDataList(List<File?> images) {
+    //Clear the current list
+    widget.watchViewController.updateImageList(<Widget>[]);
+    //We need to create a list of Widgets - images or icons depending on what's currently saved
+    for (int i = 0; i < images.length; i++){
+      widget.watchViewController.imageList.add(ImageCardWidget(image: images[i]));
+    }
+    //TODO: Temporary, remove! Adding a third dummy icon tile for testing
+    widget.watchViewController.imageList.add(const Icon(Icons.camera, size: 90,));
+  }
+
+  // Widget imageCard(File? image){
+  //   return Container(
+  //     child: image == null?  const Icon(Icons.add_a_photo_outlined, size: 85):
+  //     Image.file(image, fit: BoxFit.cover,),
+  //   );
+  // }
 
   // Widget imageView(List<File?> data, int index) {
   //   return Column(
