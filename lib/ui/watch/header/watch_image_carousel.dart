@@ -72,7 +72,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                                   },
                               flexWeights: [1,8,1],
                                 controller: _watchCarouselController,
-                                shrinkExtent: 200.0,
+                                shrinkExtent: 50.0,
                                 itemSnapping: true,
                                 children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1]],
                           ),
