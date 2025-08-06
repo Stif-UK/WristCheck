@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/watch/header/watch_image_gallery.dart';
 import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -66,9 +67,8 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                         child: Obx(()=> CarouselView.weighted(
                               onTap: (index) async {
                                 //If there is no image selected, show the new image pop-up. Otherwise...
-                                widget.watchViewController.imageList[index].image == null?
-                                await AddImage(index) : print("test");
-
+                                widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
+                                await AddImage(index) : Get.to(WatchImageGallery(watch: widget.currentWatch!));
                                   },
                               flexWeights: [1,8,1],
                                 controller: _watchCarouselController,
