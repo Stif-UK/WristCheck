@@ -45,7 +45,6 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
             if (snapshot.hasData && snapshot.data != null) {
               try {
                 images = snapshot.data!;
-                widget.watchViewController.updateImageList(<Widget>[]);
               } on Exception catch (e) {
                 print("Exception caught in implementing image file list: $e");
                 images = [];
@@ -66,7 +65,11 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                         padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                         child: Obx(()=> CarouselView.weighted(
                               onTap: (index) async {
-                                  await AddImage(index);},
+                                //If there is no image selected, show the new image pop-up. Otherwise...
+                                widget.watchViewController.imageList[index].image == null?
+                                await AddImage(index) : print("test");
+
+                                  },
                               flexWeights: [1,8,1],
                                 controller: _watchCarouselController,
                                 shrinkExtent: 200.0,
@@ -161,24 +164,11 @@ When in an add state, get values for temporary images from the controller (will 
   widget.watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(widget.currentWatch!, front)),  index);
   }
   else {
-  if(front) {
-  imageSource != null ? widget.watchViewController.updateFrontImage(await ImagesUtil.pickImage(source: imageSource)) : null;
-    //for new watch also need to update the front/back image values
-  } else {
-  imageSource != null
-  ? widget.watchViewController.updateBackImage(
-  await ImagesUtil.pickImage(source: imageSource))
-      : null;
+  var tempImage = imageSource!= null? await ImagesUtil.pickImage(source: imageSource): null;
+  widget.watchViewController.updateImage(tempImage, index);
+  widget.watchViewController.updateImageListIndex(ImageCardWidget(image: tempImage), index);
   }
-  }
-  
   return true;
-
-  //pickAndSaveImage will have set the image for the given watch
-  //Now call setstate to ensure the display is updated
-  setState(() {
-
-  });
 }
 
 /*
@@ -193,29 +183,12 @@ Get the data to show on the page - this is either a list of File? objects (inclu
    */
   void _prepDataList(List<File?> images) {
     //Clear the current list
-    widget.watchViewController.updateImageList(<Widget>[]);
-    //We need to create a list of Widgets - images or icons depending on what's currently saved
+    widget.watchViewController.clearImageList();
+    //We need to create a list of ImageCards - images or icons depending on what's currently saved
     for (int i = 0; i < images.length; i++){
       widget.watchViewController.imageList.add(ImageCardWidget(image: images[i]));
     }
-    //TODO: Temporary, remove! Adding a third dummy icon tile for testing
-    widget.watchViewController.imageList.add(const Icon(Icons.camera, size: 90,));
   }
-
-  // Widget imageCard(File? image){
-  //   return Container(
-  //     child: image == null?  const Icon(Icons.add_a_photo_outlined, size: 85):
-  //     Image.file(image, fit: BoxFit.cover,),
-  //   );
-  // }
-
-  // Widget imageView(List<File?> data, int index) {
-  //   return Column(
-  //     children: [
-  //       imageCard(data[index]),
-  //     ],
-  //   );
-  // }
 
 //   Widget imageCard(File? image) {
 //     return Column(

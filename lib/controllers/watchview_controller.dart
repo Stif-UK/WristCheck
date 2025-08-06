@@ -34,11 +34,7 @@ class WatchViewController extends GetxController{
   //testing moving imagesList to the controller
   final imageList = <ImageCardWidget>[].obs;
 
-  updateImageListIndex(ImageCardWidget newValue, int index){
-    List<ImageCardWidget> updatedList = List.from(imageList);
-    updatedList[index] = newValue;
-    imageList(updatedList);
-  }
+
 
   updateInEditState(bool edit){
     inEditState(edit);
@@ -131,6 +127,27 @@ class WatchViewController extends GetxController{
 
   updateBackImage(File? file){
     backImage(file);
+  }
+
+  updateImage(File? file, index){
+    switch(index){
+      case 0:
+        frontImage(file);
+        break;
+      case 1:
+        backImage(file);
+        break;
+    }
+  }
+
+  clearImageList(){
+    imageList(<ImageCardWidget>[]);
+  }
+
+  updateImageListIndex(ImageCardWidget newValue, int index){
+    List<ImageCardWidget> updatedList = List.from(imageList);
+    updatedList[index] = newValue;
+    imageList(updatedList);
   }
 
 }
