@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watches.dart';
 
 class ImageUpdateBottomsheet extends StatelessWidget {
@@ -42,6 +43,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
           ListTile(
             title: Text("Delete Image"),
             trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),
+            onTap: ()=> WristCheckDialogs.showImageDeleteDialog(context, watch, index),
           ),
           const Divider(thickness: 2,),
           ListTile(

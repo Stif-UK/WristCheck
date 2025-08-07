@@ -14,7 +14,10 @@ import 'package:hive/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/watch/watchview.dart';
+import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
+import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckDialogs {
@@ -258,6 +261,50 @@ class WristCheckDialogs {
         middleText: "This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\n"
             "To add or delete wear dates directly, long press on an individual date."
 
+    );
+  }
+
+  static showImageDeleteDialog(BuildContext context, Watches currentWatch, int index) {
+    final watchViewController = Get.put(WatchViewController());
+
+    Widget deleteButton = ElevatedButton(
+        child: Text("Delete Image"),
+      style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+    onPressed: () async {
+          //Code to delete the watch image and update the controller view
+      //1. Delete the image
+      await ImagesUtil.deleteImageByIndex(currentWatch, index);
+      //2. Update the controller //TODO: Implement a test the above is successful first
+      watchViewController.updateImageListIndex(ImageCardWidget(image: null),  index);
+      //Pop twice to close alert and bottomsheet
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+    },
+    );
+
+    // set up the cancel button
+    //TODO: Create buttons for reuse across the app
+    Widget cancelButton = ElevatedButton(
+      child: Text("Cancel"),
+      onPressed: ()=> Navigator.pop(context),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Image"),
+      content: Text("Do you want to delete this image?\nThis cannot be undone"),
+      actions: [
+        cancelButton,
+        deleteButton
+      ]
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
