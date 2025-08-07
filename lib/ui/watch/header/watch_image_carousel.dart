@@ -64,17 +64,20 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                   child:
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                        child: Obx(()=> CarouselView.weighted(
-                              onTap: (index) async {
-                                //If there is no image selected, show the new image pop-up. Otherwise...
-                                widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
-                                await AddImage(index) : Get.to(WatchImageGallery(watch: widget.currentWatch!));
-                                  },
-                              flexWeights: [1,8,1],
-                                controller: _watchCarouselController,
-                                itemSnapping: true,
-                                children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1], widget.watchViewController.imageList[2],]
-                          ),
+                        child: Obx(()=> Hero(
+                          tag: "ImageCarousel",
+                          child: CarouselView.weighted(
+                                onTap: (index) async {
+                                  //If there is no image selected, show the new image pop-up. Otherwise...
+                                  widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
+                                  await AddImage(index) : Get.to(WatchImageGallery(watch: widget.currentWatch!, index: index,));
+                                    },
+                                flexWeights: [1,8,1],
+                                  controller: _watchCarouselController,
+                                  itemSnapping: true,
+                                  children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1], widget.watchViewController.imageList[2],]
+                            ),
+                        ),
                         ),
                       )
                 ),
