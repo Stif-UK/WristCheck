@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 class ImageUpdateBottomsheet extends StatelessWidget {
   ImageUpdateBottomsheet({super.key, required this.index, required this.watch});
@@ -38,6 +39,10 @@ class ImageUpdateBottomsheet extends StatelessWidget {
           ListTile(
             title: Text("Update Image"),
             trailing: Icon(FontAwesomeIcons.repeat, color: Colors.green,),
+            onTap: () async {
+              Navigator.pop(context);
+              await ImagesUtil.addImageViaController(index, context, watch);
+            }
           ),
           const Divider(thickness: 2,),
           ListTile(
