@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 
 class ImageUpdateBottomsheet extends StatelessWidget {
@@ -25,7 +26,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text("Update Image ${index + 1} for ${watch.toString()}",
+                child: Text("${watch.toString()}\nImage ${index + 1}",
                   style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,),
               ),
@@ -33,7 +34,21 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20,),
-          Text("Test"),
+          ListTile(
+            title: Text("Update Image"),
+            trailing: Icon(FontAwesomeIcons.repeat, color: Colors.green,),
+          ),
+          const Divider(thickness: 2,),
+          ListTile(
+            title: Text("Delete Image"),
+            trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),
+          ),
+          const Divider(thickness: 2,),
+          ListTile(
+            title: Text("Cancel"),
+            onTap: ()=> Navigator.pop(context),
+            trailing: Icon(FontAwesomeIcons.ban),
+          )
 
         ],
       ),
