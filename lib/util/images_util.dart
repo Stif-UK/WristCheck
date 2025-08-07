@@ -224,25 +224,6 @@ class ImagesUtil {
       }
     }
 
-    // if (front) {
-    //   //Deal with front image scenario
-    //   if(currentWatch.frontImagePath != null){
-    //     bool exists = await File("${directory.path}${currentWatch.frontImagePath!}").exists();
-    //     if(exists){
-    //       await File("${directory.path}${currentWatch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
-    //
-    //     }
-    //   }
-    // } else{
-    //   //Deal with back image scenario
-    //   if(currentWatch.backImagePath != null){
-    //     bool exists = await File("${directory.path}${currentWatch.backImagePath!}").exists();
-    //     if(exists){
-    //       await File("${directory.path}${currentWatch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
-    //
-    //     }
-    //   }
-    // }
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     timestamp = timestamp.substring(timestamp.length-6);
     String safeName = name.replaceAll(RegExp('[^A-Za-z0-9]'), '');
@@ -261,14 +242,38 @@ class ImagesUtil {
         break;
     }
 
-    // if(front){
-    //   currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
-    // }else{
-    //   currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
-    // }
-    currentWatch.save();
+     currentWatch.save();
 
     return File(imagePath).copy(image.path);
+  }
+
+  static deleteImageByIndex(Watches watch, int index) async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    switch(index){
+      case(0):
+        final front = watch.frontImagePath ?? "";
+        final frontExists = await File("${directory.path}/$front").exists();
+        if(frontExists){
+          await File("${directory.path}${watch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+        }
+        break;
+      case(1):
+        final back = watch.backImagePath ?? "";
+        final backExists = await File("${directory.path}/$back").exists();
+        if(backExists){
+          await File("${directory.path}${watch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+        }
+        break;
+      case(2):
+        final lume = watch.lumeImagePath ?? "";
+        final lumeExists = await File("${directory.path}/$lume").exists();
+        if(lumeExists){
+          await File("${directory.path}${watch.lumeImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
+        }
+        break;
+    }
+
   }
 
   static deleteImages(Watches watch) async {

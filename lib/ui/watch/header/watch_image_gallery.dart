@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 class WatchImageGallery extends StatefulWidget {
   WatchImageGallery({
@@ -49,28 +50,30 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
             height: MediaQuery.of(context).size.width*0.90,
             child: Obx(()=> Hero(
               tag: "ImageCarousel",
-              child: CarouselView.weighted(
-                controller: _watchCarouselController,
-                  itemSnapping: true,
-                  flexWeights: [1,8,1],
-                    children: [widget.watchViewController.imageList[0],widget.watchViewController.imageList[1], widget.watchViewController.imageList[2]]
-                ),
+              child: GestureDetector(
+                onHorizontalDragEnd: (_)=>print("dragged"),
+                child: CarouselView.weighted(
+                  controller: _watchCarouselController,
+                    itemSnapping: true,
+                    flexWeights: [1,8,1],
+                      enableSplash: false,
+                      children: [GestureDetector(
+                        onLongPress: ()=> print("long press detected for front image") ,
+                          child: widget.watchViewController.imageList[0]),
+                        GestureDetector(
+                            onLongPress: ()=> print("long press detected for back image") ,
+                            child: widget.watchViewController.imageList[1]),
+                        GestureDetector(
+                            onLongPress: ()=>print("long press detected for lume image"),
+                            child: widget.watchViewController.imageList[2])]
+                  ),
+              ),
             ),
             ),
           ),
-
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(icon: Icon(FontAwesomeIcons.repeat, color: Colors.green,),
-                onPressed: ()=> print("Replace button pressed"),),
-                IconButton(icon: Icon(FontAwesomeIcons.trash, color: Colors.red,),
-                  onPressed: ()=> print("Delete button pressed"),)
-              ],
-            ),
-          )
+          Center(
+            child: Text("Long press to edit or delete"),
+          ),
         ],
       ),
 

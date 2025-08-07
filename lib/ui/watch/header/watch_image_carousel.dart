@@ -142,5 +142,5 @@ Get the data to show on the page - this is either a list of File? objects (inclu
       widget.watchViewController.imageList.add(ImageCardWidget(image: images[i]));
     }
   }
-  
+
 }
