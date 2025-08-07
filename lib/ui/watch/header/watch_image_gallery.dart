@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/image_update_bottomsheet.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 class WatchImageGallery extends StatefulWidget {
@@ -58,13 +58,13 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
                     flexWeights: [1,8,1],
                       enableSplash: false,
                       children: [GestureDetector(
-                        onLongPress: ()=> print("long press detected for front image") ,
+                          onLongPress: ()=> showUpdateBottomSheet(0),
                           child: widget.watchViewController.imageList[0]),
                         GestureDetector(
-                            onLongPress: ()=> print("long press detected for back image") ,
+                            onLongPress: ()=> showUpdateBottomSheet(1),
                             child: widget.watchViewController.imageList[1]),
                         GestureDetector(
-                            onLongPress: ()=>print("long press detected for lume image"),
+                            onLongPress: ()=> showUpdateBottomSheet(2),
                             child: widget.watchViewController.imageList[2])]
                   ),
               ),
@@ -78,5 +78,18 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
       ),
 
     );
+  }
+
+  showUpdateBottomSheet(int index){
+    return showModalBottomSheet(
+        context: context,
+        builder:
+          (context){
+            return Container(
+              child: ImageUpdateBottomsheet(index: index, watch: widget.watch,)
+            );
+          }
+        );
+
   }
 }
