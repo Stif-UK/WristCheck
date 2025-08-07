@@ -70,7 +70,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                                 onTap: (index) async {
                                   //If there is no image selected, show the new image pop-up. Otherwise...
                                   widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
-                                  await AddImage(index) : Get.to(WatchImageGallery(watch: widget.currentWatch!, index: index,));
+                                  await AddImage(index) : Get.to(()=> WatchImageGallery(watch: widget.currentWatch!, index: index,));
                                     },
                                 flexWeights: [1,8,1],
                                   controller: _watchCarouselController,
@@ -83,53 +83,6 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                 ),
               ],
             ),
-            //TODO: Keep the below comments as reference until the new UI is implemented
-            // Expanded(
-            //   flex: 2,
-            //   //Column to display the pick image and switch image icons
-            //   child: Column(
-            //     children: [
-            //       InkWell(
-            //           child: const Icon(Icons.add_a_photo_outlined),
-            //           onTap: () async {
-            //
-            //
-            //             var imageSource = await ImagesUtil.imageSourcePopUp(context);
-            //             //Split this method depending on status
-            //             if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-            //               await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, front: widget.watchViewController.front.value);
-            //             } else{
-            //               if(widget.watchViewController.front.value) {
-            //                 imageSource != null
-            //                     ? widget.watchViewController.updateFrontImage(
-            //                 await ImagesUtil.pickImage(source: imageSource))
-            //                     : null;
-            //               } else {
-            //                 imageSource != null
-            //                     ? widget.watchViewController.updateBackImage(
-            //                 await ImagesUtil.pickImage(source: imageSource))
-            //                     : null;
-            //               }
-            //             }
-            //
-            //             //pickAndSaveImage will have set the image for the given watch
-            //             //Now call setstate to ensure the display is updated
-            //             setState(() {
-            //
-            //             });
-            //           }
-            //       ),
-            //       const SizedBox(height: 25,),
-            //       IconButton(
-            //           icon: const Icon(Icons.flip_camera_android_rounded),
-            //           onPressed: (){
-            //             widget.watchViewController.updateFrontValue(!widget.watchViewController.front.value);
-            //           })
-            //     ],
-            //   ),
-            // ),
-
-
           ],
         );
       }else {
@@ -142,8 +95,6 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
       );
 
 }
-
-
 
 /*
 When in an add state, get values for temporary images from the controller (will be null if not yet added)
@@ -191,37 +142,5 @@ Get the data to show on the page - this is either a list of File? objects (inclu
       widget.watchViewController.imageList.add(ImageCardWidget(image: images[i]));
     }
   }
-
-//   Widget imageCard(File? image) {
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         Container(
-//               //height: 180,
-//               margin: const EdgeInsets.all(5),
-//               //Padding and borderradius not required once image is selected
-//               padding: image == null? const EdgeInsets.all(40): null,
-//               decoration: image == null? BoxDecoration(
-//                   borderRadius: BorderRadius.circular(16),
-//                   border: Border.all(width: 2, color: Get.isDarkMode? Colors.white: Colors.black)) : null,
-//               //If we have an image display it (ClipRRect used to round corners to soften the image)
-//               child: image == null? Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children:  [
-//                   const Icon(Icons.camera_alt, size: 75),
-//                   // widget.watchViewController.front.value? const Text("Front"): const Text("Back"),
-//                 ],
-//               ): ClipRRect(
-//                 child: Image.file(image),
-//                 borderRadius: BorderRadius.circular(16),
-//               )
-//         )
-//       ],
-//     );
-//   }
-// }
-
-  // Future<File?>addWatchImage(bool front) async {
-  //   return front? widget.watchViewController.frontImage.value: widget.watchViewController.backImage.value;
-  // }
+  
 }
