@@ -2,15 +2,19 @@ import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
+import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 
 class ImagesUtil {
 
@@ -369,6 +373,22 @@ class ImagesUtil {
     //Initially just sort by the users selected watchbox order preference
     returnlist = Boxes.sortWatchBox(returnlist, sortOrder);
     return returnlist;
+  }
+
+  static addImageViaController(int index, BuildContext context, Watches? watch) async {
+    final watchViewController = Get.put(WatchViewController());
+
+    var imageSource = await ImagesUtil.imageSourcePopUp(context);
+    //Split this method depending on status
+    if (watchViewController.watchViewState.value != WatchViewEnum.add) {
+      await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: watch!, index: index);
+      watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(watch!, index)),  index);
+    }
+    else {
+      var tempImage = imageSource!= null? await ImagesUtil.pickImage(source: imageSource): null;
+      watchViewController.updateImage(tempImage, index);
+      watchViewController.updateImageListIndex(ImageCardWidget(image: tempImage), index);
+    }
   }
 
 

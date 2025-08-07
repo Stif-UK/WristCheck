@@ -70,7 +70,7 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                                 onTap: (index) async {
                                   //If there is no image selected, show the new image pop-up. Otherwise...
                                   widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
-                                  await AddImage(index) : Get.to(()=> WatchImageGallery(watch: widget.currentWatch!, index: index,));
+                                  await ImagesUtil.addImageViaController(index, context, widget.currentWatch): Get.to(()=> WatchImageGallery(watch: widget.currentWatch!, index: index,));
                                     },
                                 flexWeights: [1,8,1],
                                   controller: _watchCarouselController,
@@ -103,28 +103,7 @@ When in an add state, get values for temporary images from the controller (will 
     return <File?>[widget.watchViewController.frontImage.value, widget.watchViewController.backImage.value, widget.watchViewController.lumeImage.value];
   }
 
-  Future<bool> AddImage(int index) async {
-    //TODO: Refactor method along with ImagesUtil methods to take an index instead of bool
-    bool front = true;
-    if(index == 1) {
-      front = false;
-    }
-
-    var imageSource = await ImagesUtil.imageSourcePopUp(context);
-  //Split this method depending on status
-  if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-  await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: widget.currentWatch!, index: index);
-  widget.watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(widget.currentWatch!, index)),  index);
-  }
-  else {
-  var tempImage = imageSource!= null? await ImagesUtil.pickImage(source: imageSource): null;
-  widget.watchViewController.updateImage(tempImage, index);
-  widget.watchViewController.updateImageListIndex(ImageCardWidget(image: tempImage), index);
-  }
-  return true;
-}
-
-/*
+  /*
 Get the data to show on the page - this is either a list of File? objects (including null) where the page is in view/edit state, or a series of 'Add Watch' images in the case of new watch records.
  */
   Future <List<File?>> getPageData(){

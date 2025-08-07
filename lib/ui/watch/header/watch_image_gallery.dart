@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/image_update_bottomsheet.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -50,24 +51,26 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
             height: MediaQuery.of(context).size.width*0.90,
             child: Obx(()=> Hero(
               tag: "ImageCarousel",
-              child: GestureDetector(
-                onHorizontalDragEnd: (_)=>print("dragged"),
-                child: CarouselView.weighted(
-                  controller: _watchCarouselController,
-                    itemSnapping: true,
-                    flexWeights: [1,8,1],
-                      enableSplash: false,
-                      children: [GestureDetector(
-                          onLongPress: ()=> showUpdateBottomSheet(0),
-                          child: widget.watchViewController.imageList[0]),
-                        GestureDetector(
-                            onLongPress: ()=> showUpdateBottomSheet(1),
-                            child: widget.watchViewController.imageList[1]),
-                        GestureDetector(
-                            onLongPress: ()=> showUpdateBottomSheet(2),
-                            child: widget.watchViewController.imageList[2])]
-                  ),
-              ),
+              child: CarouselView.weighted(
+                controller: _watchCarouselController,
+                  itemSnapping: true,
+                  flexWeights: [1,8,1],
+                    enableSplash: false,
+                    children: [GestureDetector(
+                        onLongPress: ()=> showUpdateBottomSheet(0),
+                        child: widget.watchViewController.imageList[0]),
+                      GestureDetector(
+                          onLongPress: ()=> showUpdateBottomSheet(1),
+                          child: widget.watchViewController.imageList[1]),
+                      GestureDetector(
+                          onLongPress: ()=> showUpdateBottomSheet(2),
+                          child: widget.watchViewController.imageList[2])],
+                onTap: (index) async {
+                  //If there is no image selected, show the new image pop-up. Otherwise...
+                  widget.watchViewController.imageList[index].image == null ?
+                  await ImagesUtil.addImageViaController(index, context, widget.watch) : null;
+                },
+                ),
             ),
             ),
           ),
