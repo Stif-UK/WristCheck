@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:wristcheck/model/upload_methods.dart';
 
 class Uploads extends StatefulWidget {
   const Uploads({super.key});
@@ -14,7 +16,14 @@ class _UploadsState extends State<Uploads> {
       appBar: AppBar(
         title: Text("Uploads"),
       ),
-      body: Center(child: Text("Placeholder")),
+      body: Center(child: ElevatedButton(
+          child: Text("Test Button"),
+      onPressed: (){
+            UploadMethods.getCSVImport();
+
+      }
+
+        ,)),
     );
   }
 }
