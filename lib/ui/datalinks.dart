@@ -13,6 +13,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/backup/alternative_exports.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
+import 'package:wristcheck/ui/backup/uploads.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 class DataLinks extends StatefulWidget {
@@ -89,6 +90,14 @@ class _DataLinksState extends State<DataLinks> {
                         leading: const Icon(FontAwesomeIcons.fileExport),
                         onTap: (){
                           Get.to(()=> AlternativeExports());
+                        }
+                    ),
+                    const Divider(thickness: 2,),
+                    ListTile(
+                        title: const Text("Data Import"),
+                        leading: const Icon(FontAwesomeIcons.fileExport),
+                        onTap: (){
+                          Get.to(()=> Uploads());
                         }
                     ),
                     const Divider(thickness: 2,),
