@@ -40,11 +40,11 @@ class ExtractMethods{
     //Produce a list of Rows to convert
     List<List<String?>> csvList = [];
     //Create Header Row
-    csvList.add(["Status", "Manufacturer", "Model", "Date Worn", "Category", "Serial Number", "Reference Number", "Movement",  "Warranty Expiry Date", "Last Serviced Date", "Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price", "Sold To", "Case Diameter", "Case Thickness", "Case Material", "Lug Width", "Lug to Lug", "Water Resistance", "Winder TPD", "Winder Direction",]);
+    csvList.add(["Status", "Manufacturer", "Model", "Date Worn", "Category", "Serial Number", "Reference Number", "Movement", "Date Complication", "Warranty Expiry Date", "Last Serviced Date", "Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price", "Sold To", "Case Diameter", "Case Thickness", "Case Material", "Lug Width", "Lug to Lug", "Water Resistance", "Winder TPD", "Winder Direction",]);
     //Add additional rows per watch
     for(Watches watch in watchbox){
       for(DateTime date in watch.wearList){
-        csvList.add([watch.status, watch.manufacturer, watch.model, date.toString(), watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchaseDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldDate.toString(), watch.soldPrice.toString(), watch.soldTo, watch.caseDiameter.toString(), watch.caseThickness.toString(), watch.caseMaterial, watch.lugWidth.toString(), watch.lug2lug.toString(), watch.waterResistance.toString(), watch.winderTPD.toString(), watch.winderDirection,]);
+        csvList.add([watch.status, watch.manufacturer, watch.model, date.toString(), watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.dateComplication, watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchaseDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldDate.toString(), watch.soldPrice.toString(), watch.soldTo, watch.caseDiameter.toString(), watch.caseThickness.toString(), watch.caseMaterial, watch.lugWidth.toString(), watch.lug2lug.toString(), watch.waterResistance.toString(), watch.winderTPD.toString(), watch.winderDirection,]);
       }
     }
     String csv = const ListToCsvConverter().convert(csvList);
