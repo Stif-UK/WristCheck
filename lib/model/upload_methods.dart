@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
@@ -35,25 +36,24 @@ class UploadMethods{
   /*
   Validates that the header row matches spec for v0.1 of CSV upload template
    */
-  //TODO: Generate errors to help users identify data issues
   static Future<bool> validateHeader(List<String> header) async {
-    bool result = true;
     List<String> expectedColumns = ["Status", "Manufacturer", "Model", "Serial Number", "Reference Number","Warranty Expiry Date",
       "Last Serviced Date","Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price",
       "Sold To", "Case Diameter", "Case Thickness", "Lug Width", "Lug to Lug", "Water Resistance"
     ];
-    //map headerFieldResults
-    //Check we have the expected number of columns
-    if(header.length != 18){result = false;}
+    Map<String, bool> headerFieldResults = Map.fromIterable(expectedColumns,
+    key: (item) => item, value: (item)=> true);
+
     //Check each row matches the spec
     //TODO: Externalise this list to reference a standard (Template CSV in assets to validate against)
     for(int index = 0; index < expectedColumns.length; index++){
       var currentHeaderValue = header[index] ?? "";
       if(currentHeaderValue != expectedColumns[index]){
-        result = false;
+        headerFieldResults[header[index]] = false;
       }
     }
 
-    return result;
+    return !headerFieldResults.containsValue(false);
+
   }
 }
