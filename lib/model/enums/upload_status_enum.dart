@@ -1,0 +1,1 @@
+enum UploadStatusEnum {pass, fail, partialpass}

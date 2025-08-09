@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
-import 'package:wristcheck/model/upload_methods.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/upload_status_enum.dart';
 
 class UploadsValidation extends StatefulWidget {
   UploadsValidation({
@@ -37,7 +37,7 @@ class _UploadsValidationState extends State<UploadsValidation> {
                   leading: Icon(Icons.data_array),
                   title: Text("Header Status"),
                   subtitle: Text("Test"),
-                  trailing: _getStatusIcon(widget.uploadsController.headerValidationStatus.value),
+                  trailing: _getHeaderStatusIcon(widget.uploadsController.headerValidationStatus.value),
 
                 ),
               ),
@@ -55,48 +55,15 @@ class _UploadsValidationState extends State<UploadsValidation> {
                   ),
                 );
               },
-        
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: Table(
-            //     border: TableBorder.all(width: 1.0),
-            //     children: widget.data.map((item) {
-            //       return TableRow(
-            //           children: item.map((row) {
-            //             return Container(
-            //               child: Padding(
-            //                 padding: const EdgeInsets.all(8.0),
-            //                 child: Text(
-            //                   row.toString(),
-            //                 ),
-            //               ),
-            //             );
-            //           }).toList());
-            //     }).toList(),
-            //   ),
-            // ),
-        
                 ),
           ],
         ),
       )
     );
   }
-
-  // Widget _createTable(List<List<dynamic>> data) {
-  //   List<TableRow> rows = [];
-  //   List<Widget> children = [];
-  //   for (var row in data) {
-  //     for(var column in row){
-  //       children.add(Text(column.toString()));
-  //     };
-  //     rows.add(TableRow(children: children));
-  //   }
-  //   return Table(children: rows);
-  // }
 }
 
-Widget _getStatusIcon(bool? status) {
+Widget _getHeaderStatusIcon(bool? status) {
   switch(status){
     case true:
       return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 45,);
@@ -104,5 +71,20 @@ Widget _getStatusIcon(bool? status) {
       return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 45,);
     default:
       return CircularProgressIndicator();
+  }
+}
+
+Widget _getStatusIcon(UploadStatusEnum? status) {
+  switch(status){
+    case UploadStatusEnum.pass:
+      return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 45,);
+      break;
+    case UploadStatusEnum.fail:
+      return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 45,);
+      break;
+    case UploadStatusEnum.partialpass:
+      return Icon(FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent, size: 45,);
+      break;
+    default: return CircularProgressIndicator();
   }
 }
