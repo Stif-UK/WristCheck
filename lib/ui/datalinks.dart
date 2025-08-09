@@ -13,7 +13,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/backup/alternative_exports.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
-import 'package:wristcheck/ui/backup/uploads.dart';
+import 'package:wristcheck/ui/uploads/uploads_landing.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 class DataLinks extends StatefulWidget {
@@ -97,7 +97,7 @@ class _DataLinksState extends State<DataLinks> {
                         title: const Text("Data Import"),
                         leading: const Icon(FontAwesomeIcons.fileImport),
                         onTap: (){
-                          Get.to(()=> Uploads());
+                          Get.to(()=> UploadsLanding());
                         }
                     ),
                     const Divider(thickness: 2,),
