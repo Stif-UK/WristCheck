@@ -38,28 +38,21 @@ class UploadMethods{
   //TODO: Generate errors to help users identify data issues
   static Future<bool> validateHeader(List<String> header) async {
     bool result = true;
+    List<String> expectedColumns = ["Status", "Manufacturer", "Model", "Serial Number", "Reference Number","Warranty Expiry Date",
+      "Last Serviced Date","Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price",
+      "Sold To", "Case Diameter", "Case Thickness", "Lug Width", "Lug to Lug", "Water Resistance"
+    ];
+    //map headerFieldResults
     //Check we have the expected number of columns
     if(header.length != 18){result = false;}
     //Check each row matches the spec
     //TODO: Externalise this list to reference a standard (Template CSV in assets to validate against)
-    if(header[0] != "Status") {result = false;}
-    if(header[1] != "Manufacturer") {result = false;}
-    if(header[2] != "Model") {result = false;}
-    if(header[3] != "Serial Number") {result = false;}
-    if(header[4] != "Reference Number") {result = false;}
-    if(header[5] != "Warranty Expiry Date") {result = false;}
-    if(header[6] != "Last Serviced Date") {result = false;}
-    if(header[7] != "Purchase Date") {result = false;}
-    if(header[8] != "Purchase Price") {result = false;}
-    if(header[9] != "Purchased From") {result = false;}
-    if(header[10] != "Sold Date") {result = false;}
-    if(header[11] != "Sold Price") {result = false;}
-    if(header[12] != "Sold To") {result = false;}
-    if(header[13] != "Case Diameter") {result = false;}
-    if(header[14] != "Case Thickness") {result = false;}
-    if(header[15] != "Lug Width") {result = false;}
-    if(header[16] != "Lug to Lug") {result = false;}
-    if(header[17] != "Water Resistance") {result = false;}
+    for(int index = 0; index < expectedColumns.length; index++){
+      var currentHeaderValue = header[index] ?? "";
+      if(currentHeaderValue != expectedColumns[index]){
+        result = false;
+      }
+    }
 
     return result;
   }
