@@ -53,6 +53,7 @@ class UploadMethods{
       }
     }
 
+    //TODO: Pass results to controller to populate detailed results view
     return !headerFieldResults.containsValue(false);
 
   }
