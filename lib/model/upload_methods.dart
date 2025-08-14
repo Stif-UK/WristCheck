@@ -53,8 +53,21 @@ class UploadMethods{
       }
     }
 
-    //TODO: Pass results to controller to populate detailed results view
+    //TODO: Pass results to controller to populate detailed results view?
     return !headerFieldResults.containsValue(false);
+
+  }
+
+  static Future<bool> validateCSVRows(List<List<String>> inputList) async{
+    //Check all rows have the same number of columns
+    final columnCount = inputList.first.length;
+    for(var row in inputList){
+      if(row.length != columnCount){
+        //TODO: write error rows (to controller?) for meaningful feedback to user
+        return false; //invalid row found
+      }
+    }
+    return true; //if this point is reached then all rows are valid lengths
 
   }
 }
