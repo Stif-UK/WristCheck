@@ -51,6 +51,7 @@ extension ExtString on String{
 
   /*
   Validate if a filename meets the criteria of being an image saved by the app
+  //TODO: This doesn't appear to be used in the app, but needs reviewed as doesn't match with changes to how images work
    */
   bool get isWCJpg{
     final isFront = RegExp(r'_front.jpg', caseSensitive: false);
