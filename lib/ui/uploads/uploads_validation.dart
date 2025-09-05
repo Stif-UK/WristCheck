@@ -7,9 +7,7 @@ import 'package:wristcheck/model/upload_methods.dart';
 
 class UploadsValidation extends StatefulWidget {
   UploadsValidation({
-    required this.data,
     super.key});
-  final List<List<dynamic>> data;
   final uploadsController = Get.put(UploadsController());
 
   @override
@@ -20,10 +18,10 @@ class _UploadsValidationState extends State<UploadsValidation> {
   @override
   Widget build(BuildContext context) {
     //Trigger header row validation
-    List<String> header = List<String>.from(widget.data[0]);
+    List<String> header = List<String>.from(widget.uploadsController.uploadData[0]);
     widget.uploadsController.validateHeader(header);
     //remove the header row from data (first row is created below
-    widget.data.removeAt(0);
+    widget.uploadsController.uploadData.removeAt(0);
     return Scaffold(
       appBar: AppBar(
         title: Text("Data Review"),
@@ -46,14 +44,14 @@ class _UploadsValidationState extends State<UploadsValidation> {
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: widget.data.length,
+              itemCount: widget.uploadsController.uploadData.length,
               itemBuilder: (_, index) {
                 //var currentData = List<String>.from(widget.data[index]);
                 return Card(
                   child: ListTile(
                     leading: Icon(Icons.watch),
-                    title: Text("${widget.data[index][1]} ${widget.data[index][2]}"),
-                    trailing: _getStatusIcon(UploadMethods.validateCSVRowContent(widget.data[index])),
+                    title: Text("${widget.uploadsController.uploadData[index][1]} ${widget.uploadsController.uploadData[index][2]}"),
+                    trailing: _getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[index])),
                   ),
                 );
               },
