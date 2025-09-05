@@ -38,6 +38,18 @@ class UploadMethods{
   }
 
   /*
+  Gets the watch name if present in the data, or returns placeholder text
+   */
+  static String getWatchName(List<dynamic> inputRow){
+    if(inputRow.isNotEmpty && inputRow.length > 3){
+      var returnString = "";
+      returnString = "${inputRow[1].toString()} ${inputRow[2].toString()}";
+      return returnString;
+    }
+    return "Unknown";
+  }
+
+  /*
   Validates that the header row matches spec for v0.1 of CSV upload template
    */
   static Future<bool> validateHeader(List<String> header) async {

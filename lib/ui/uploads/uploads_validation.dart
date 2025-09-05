@@ -4,6 +4,7 @@ import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
+import 'package:wristcheck/ui/uploads/watch_validation.dart';
 
 class UploadsValidation extends StatefulWidget {
   UploadsValidation({
@@ -50,8 +51,9 @@ class _UploadsValidationState extends State<UploadsValidation> {
                 return Card(
                   child: ListTile(
                     leading: Icon(Icons.watch),
-                    title: Text("${widget.uploadsController.uploadData[index][1]} ${widget.uploadsController.uploadData[index][2]}"),
+                    title: Text(UploadMethods.getWatchName(widget.uploadsController.uploadData[index])),
                     trailing: _getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[index])),
+                    onTap: ()=> Get.to(()=>WatchValidation(index: index,)),
                   ),
                 );
               },
