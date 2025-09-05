@@ -82,6 +82,11 @@ dependencies:
 
 dependency_overrides:
   watcher: ^1.1.0
+  #JSON theme override for current version 9.0.1+2 and flutter v3.35 - can be removed once update available
+  json_theme:
+    git:
+      url: https://github.com/wardbj93/json_theme
+      path: packages/json_theme
 
 dev_dependencies:
   flutter_test:

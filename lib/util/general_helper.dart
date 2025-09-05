@@ -51,5 +51,22 @@ class GeneralHelper{
     }
     return result;
   }
+
+  static bool isValidDate(String input) {
+    try {
+      DateTime.parse(input);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool isValidDateOrEmpty(String? input){
+    if(input == null || input == ""){
+      return true;
+    }
+    return isValidDate(input);
+  }
+
 }
 

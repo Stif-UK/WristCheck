@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
+import 'package:wristcheck/model/upload_methods.dart';
 
 class UploadsValidation extends StatefulWidget {
   UploadsValidation({
@@ -47,11 +48,12 @@ class _UploadsValidationState extends State<UploadsValidation> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: widget.data.length,
               itemBuilder: (_, index) {
+                //var currentData = List<String>.from(widget.data[index]);
                 return Card(
                   child: ListTile(
                     leading: Icon(Icons.watch),
                     title: Text("${widget.data[index][1]} ${widget.data[index][2]}"),
-                    trailing: Icon(FontAwesomeIcons.circleCheck, color: Colors.green,),
+                    trailing: _getStatusIcon(UploadMethods.validateCSVRowContent(widget.data[index])),
                   ),
                 );
               },
@@ -77,13 +79,13 @@ Widget _getHeaderStatusIcon(bool? status) {
 Widget _getStatusIcon(UploadStatusEnum? status) {
   switch(status){
     case UploadStatusEnum.pass:
-      return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 45,);
+      return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 30,);
       break;
     case UploadStatusEnum.fail:
-      return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 45,);
+      return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 30,);
       break;
     case UploadStatusEnum.partialpass:
-      return Icon(FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent, size: 45,);
+      return Icon(FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent, size: 30,);
       break;
     default: return CircularProgressIndicator();
   }
