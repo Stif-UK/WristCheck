@@ -88,12 +88,9 @@ class UploadMethods{
     for(var i=0; i < inputRow.length; i++){
       validationResults.add(false);
     }
-    print("Validation setup: $validationResults");
     UploadStatusEnum result = UploadStatusEnum.fail;
 
     //Evaluate each field and capture results in the validation list
-    //TODO: Handle NULLS! - Check this, may not be necessary - empty values in CSV may treated as empty strings (but type is dynamic?)
-
     //Position 0: Status
     validationResults[0] = WatchDataValidationFacade.validateStatus(inputRow[0]);
 
@@ -147,9 +144,6 @@ class UploadMethods{
 
     //Position 17: Water Resistance
     validationResults[17] = WatchDataValidationFacade.validateWaterResistance(inputRow[17]);
-
-    print("Validated results: ${inputRow[1]}${inputRow[2]}$validationResults");
-
 
     //TODO: Once all fields are evaluated, confirm the final status for the row
     //TODO: Also need to confirm if Manufacturer + Model already exists + highlight if watch is a duplicate (new method in watch methods + update to add watch...)
