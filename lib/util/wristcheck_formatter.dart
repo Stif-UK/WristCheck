@@ -11,6 +11,7 @@ import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
+import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -857,6 +858,29 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
   static String getWearCountText(int wearCount){
     return wearCount == 1? "Worn 1 time" : "Worn: $wearCount times";
+  }
+
+  static String getUploadStatusSubtitle(UploadStatusEnum status){
+    String returnString = "";
+
+    switch(status) {
+      case UploadStatusEnum.pass:
+        returnString = "All Watch fields successfully validate";
+        break;
+      case UploadStatusEnum.fail:
+        returnString = "This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.";
+        break;
+      case UploadStatusEnum.partialpass:
+        returnString = "Some fields are failing validation and will be ignored if not corrected";
+        break;
+      case UploadStatusEnum.duplicate:
+        returnString = "A record already exists in the app with this make and model. Please ensure this is unique";
+        break;
+      default:
+        returnString = "";
+        break;
+    }
+    return returnString;
   }
 
 

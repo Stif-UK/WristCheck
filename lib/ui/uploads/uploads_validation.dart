@@ -52,7 +52,7 @@ class _UploadsValidationState extends State<UploadsValidation> {
                   child: ListTile(
                     leading: Icon(Icons.watch),
                     title: Text(UploadMethods.getWatchName(widget.uploadsController.uploadData[index])),
-                    trailing: _getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[index])),
+                    trailing: UploadMethods.getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[index])),
                     onTap: ()=> Get.to(()=>WatchValidation(index: index,)),
                   ),
                 );
@@ -76,16 +76,3 @@ Widget _getHeaderStatusIcon(bool? status) {
   }
 }
 
-Widget _getStatusIcon(UploadStatusEnum? status) {
-  switch(status){
-    case UploadStatusEnum.pass:
-      return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 30,);
-    case UploadStatusEnum.fail:
-      return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 30,);
-    case UploadStatusEnum.partialpass:
-      return Icon(FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent, size: 30,);
-    case UploadStatusEnum.duplicate:
-      return Icon(FontAwesomeIcons.clone, color:  Colors.red,);
-    default: return CircularProgressIndicator();
-  }
-}
