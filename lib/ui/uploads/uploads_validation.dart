@@ -80,13 +80,12 @@ Widget _getStatusIcon(UploadStatusEnum? status) {
   switch(status){
     case UploadStatusEnum.pass:
       return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 30,);
-      break;
     case UploadStatusEnum.fail:
       return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 30,);
-      break;
     case UploadStatusEnum.partialpass:
       return Icon(FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent, size: 30,);
-      break;
+    case UploadStatusEnum.duplicate:
+      return Icon(FontAwesomeIcons.clone, color:  Colors.red,);
     default: return CircularProgressIndicator();
   }
 }

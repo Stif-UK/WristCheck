@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/watch_data_validation_facade.dart';
@@ -170,6 +171,13 @@ class UploadMethods{
     } else {
       result = UploadStatusEnum.pass;
     }
+    //Do a final check for duplicate - only perform this test if manufacturer and model are present
+    if(result != UploadStatusEnum.fail){
+      if(WatchMethods.checkForDuplicate(inputRow[1].toString(), inputRow[2].toString())){
+        result = UploadStatusEnum.duplicate;
+      }
+    }
+
     return result;
 
   }

@@ -98,6 +98,24 @@ class WatchMethods {
     watch.save();
   }
 
+  /*
+  Returns true if a watch already exists with the same values for Manufacturer and Model
+   */
+  static bool checkForDuplicate(String manufacturer, String model){
+    manufacturer = manufacturer.toLowerCase();
+    model = model.toLowerCase();
+    List<Watches> collection = Boxes.getAllNonArchivedWatches();
+    //Check if the given manufacturer is already in the collection
+    List<Watches> manufacturerResult = collection.where((c) => c.manufacturer.toLowerCase() == manufacturer).toList();
+    //If the manufacturer is found, check if the same model exists already in the collection
+    if(manufacturerResult.isNotEmpty){
+      List<Watches> modelResult = manufacturerResult.where((c) => c.model.toLowerCase() == model).toList();
+      return modelResult.isNotEmpty;
+    }
+    return false;
+
+  }
+
   static void removeWearDate(DateTime dateToRemove, Watches watch){
     //Get the wearList index of the current date
     try {

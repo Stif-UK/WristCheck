@@ -1,1 +1,1 @@
-enum UploadStatusEnum {pass, fail, partialpass}
+enum UploadStatusEnum {pass, fail, partialpass, duplicate}
