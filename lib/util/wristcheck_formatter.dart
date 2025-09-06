@@ -860,6 +860,27 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
     return wearCount == 1? "Worn 1 time" : "Worn: $wearCount times";
   }
 
+  static String getUploadStatusText(UploadStatusEnum status){
+    String returnString = "";
+
+    switch(status) {
+      case UploadStatusEnum.pass:
+        returnString = "Pass";
+        break;
+      case UploadStatusEnum.fail:
+        returnString = "Fail";
+        break;
+      case UploadStatusEnum.partialpass:
+        returnString = "Partial Pass";
+        break;
+      case UploadStatusEnum.duplicate:
+        returnString = "Duplicate Found";
+        break;
+    }
+    return returnString;
+  }
+
+
   static String getUploadStatusSubtitle(UploadStatusEnum status){
     String returnString = "";
 

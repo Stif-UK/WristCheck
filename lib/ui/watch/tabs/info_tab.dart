@@ -6,6 +6,7 @@ import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
+import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -39,7 +40,7 @@ class InfoTab extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _manufacturerRow(),
+        ManufacturerRow(enabled: watchViewController.inEditState.value, manufacturerFieldController: manufacturerFieldController),
         _modelRow(),
         _buildCategoryField(),
         _serialNumberRow(),
@@ -49,22 +50,22 @@ class InfoTab extends StatelessWidget {
     );
   }
 
-  Widget _manufacturerRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.building),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Manufacturer:",
-      hintText: "Manufacturer",
-      maxLines: 1,
-      controller: manufacturerFieldController,
-      textCapitalization: TextCapitalization.words,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
-          return 'Manufacturer missing or invalid characters included';
-        }
-      },
-    );
-  }
+  // Widget _manufacturerRow(){
+  //   return WatchFormField(
+  //     icon: const Icon(FontAwesomeIcons.building),
+  //     enabled: watchViewController.inEditState.value,
+  //     fieldTitle: "Manufacturer:",
+  //     hintText: "Manufacturer",
+  //     maxLines: 1,
+  //     controller: manufacturerFieldController,
+  //     textCapitalization: TextCapitalization.words,
+  //     validator: (String? val) {
+  //       if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
+  //         return 'Manufacturer missing or invalid characters included';
+  //       }
+  //     },
+  //   );
+  // }
 
   Widget _modelRow(){
     return WatchFormField(
