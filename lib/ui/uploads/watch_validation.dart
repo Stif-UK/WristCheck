@@ -53,9 +53,10 @@ class _WatchValidationState extends State<WatchValidation> {
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
     serialNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][3].toString());
     referenceNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][4].toString());
-    warrantyEndDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][5].toString()); //widget.uploadsController.uploadData[widget.index][5] != null? WristCheckFormatter.getFormattedDate(DateTime.parse(widget.uploadsController.uploadData[widget.index][4].toString())): "Not Recorded");
-    lastServicedDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][6].toString()); //TODO: Should use Formatter methods to convert this date, rather than toString()
-    purchaseDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][7].toString());
+    warrantyEndDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][5].toString()));
+    lastServicedDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][6].toString()));
+    purchaseDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][7].toString()));
+
 
     return Scaffold(
       appBar: AppBar(
@@ -93,4 +94,18 @@ class _WatchValidationState extends State<WatchValidation> {
       ),
     );
   }
+}
+
+String _fillDateField(String? inputText){
+  var returnString = "";
+  if(inputText != null && inputText != ""){
+    try {
+      var date = DateTime.parse(inputText);
+      returnString = WristCheckFormatter.getFormattedDate(date);
+    } on Exception catch (e){
+      returnString = "Error parsing date"; //TODO: Handle this status at point of upload
+    }
+  }
+
+  return returnString;
 }
