@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
@@ -42,7 +43,7 @@ class ServiceTab extends StatelessWidget {
           watchViewController.selectedStatus.value =="Sold"? Obx(()=> _soldDateRow()): const SizedBox(height: 0,),
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
           _serviceIntervalRow(),
-          _warrantyExpiryRow(),
+          WarrantyEndRow(enabled: watchViewController.inEditState.value, warrantyEndDateFieldController: warrantyEndDateFieldController),
           _lastServicedDateRow(),
           watchViewController.watchViewState.value == WatchViewEnum.view? _nextServiceDueRow(): const SizedBox(height: 0,)
         ],
@@ -133,18 +134,18 @@ class ServiceTab extends StatelessWidget {
     );
   }
 
-  Widget _warrantyExpiryRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.screwdriverWrench),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Warranty Expiry Date:",
-      hintText: "Warranty Expiry Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: warrantyEndDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
+  // Widget _warrantyExpiryRow(){
+  //   return WatchFormField(
+  //     icon: const Icon(FontAwesomeIcons.screwdriverWrench),
+  //     enabled: watchViewController.inEditState.value,
+  //     fieldTitle: "Warranty Expiry Date:",
+  //     hintText: "Warranty Expiry Date",
+  //     maxLines: 1,
+  //     datePicker: true,
+  //     controller: warrantyEndDateFieldController,
+  //     textCapitalization: TextCapitalization.none,
+  //   );
+  // }
 
   Widget _lastServicedDateRow(){
     return WatchFormField(

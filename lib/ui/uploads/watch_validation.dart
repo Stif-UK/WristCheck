@@ -9,6 +9,7 @@ import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
+import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchValidation extends StatefulWidget {
@@ -28,6 +29,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController modelFieldController = TextEditingController();
   TextEditingController serialNumberFieldController = TextEditingController();
   TextEditingController referenceNumberFieldController = TextEditingController();
+  TextEditingController warrantyEndDateFieldController = TextEditingController();
 
   @override
   void dispose() {
@@ -35,6 +37,7 @@ class _WatchValidationState extends State<WatchValidation> {
     modelFieldController.dispose();
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
+    warrantyEndDateFieldController.dispose();
     super.dispose();
   }
   @override
@@ -44,6 +47,7 @@ class _WatchValidationState extends State<WatchValidation> {
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
     serialNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][3].toString());
     referenceNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][4].toString());
+    warrantyEndDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][5].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +67,7 @@ class _WatchValidationState extends State<WatchValidation> {
             ModelRow(enabled: true, modelFieldController: modelFieldController),
             SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: viewState),
             ReferenceNumberRow(enabled: true, referenceNumberFieldController: referenceNumberFieldController, viewState: viewState),
-    //Position 5: Warranty Expiry Date
+            WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController)
     //Position 6: Last Serviced Date
     //Position 7: Purchase Date
     //Position 8: Purchase Price
