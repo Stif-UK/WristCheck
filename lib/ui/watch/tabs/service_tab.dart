@@ -6,6 +6,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
+import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -40,7 +41,7 @@ class ServiceTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
-          _purchaseDateRow(),
+          PurchaseDateRow(enabled: watchViewController.inEditState.value, purchaseDateFieldController: purchaseDateFieldController),
           watchViewController.selectedStatus.value =="Sold"? Obx(()=> _soldDateRow()): const SizedBox(height: 0,),
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
           _serviceIntervalRow(),
@@ -63,19 +64,6 @@ class ServiceTab extends StatelessWidget {
       controller: deliveryDateFieldController,
       textCapitalization: TextCapitalization.none,
 
-    );
-  }
-
-  Widget _purchaseDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendar),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Purchase Date:",
-      hintText: "Purchase Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: purchaseDateFieldController,
-      textCapitalization: TextCapitalization.none,
     );
   }
 
@@ -135,32 +123,6 @@ class ServiceTab extends StatelessWidget {
     );
   }
 
-  // Widget _warrantyExpiryRow(){
-  //   return WatchFormField(
-  //     icon: const Icon(FontAwesomeIcons.screwdriverWrench),
-  //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: "Warranty Expiry Date:",
-  //     hintText: "Warranty Expiry Date",
-  //     maxLines: 1,
-  //     datePicker: true,
-  //     controller: warrantyEndDateFieldController,
-  //     textCapitalization: TextCapitalization.none,
-  //   );
-  // }
-
-  // Widget _lastServicedDateRow(){
-  //   return WatchFormField(
-  //     icon: const Icon(FontAwesomeIcons.calendarCheck),
-  //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: "Last Serviced Date:",
-  //     hintText: "Last Serviced Date",
-  //     maxLines: 1,
-  //     datePicker: true,
-  //     controller: lastServicedDateFieldController,
-  //     textCapitalization: TextCapitalization.none,
-  //   );
-  // }
-
   Widget _nextServiceDueRow(){
     nextServiceDueFieldController.value = TextEditingValue(text: watchViewController.nextServiceDue.value);
     return WatchFormField(
@@ -174,8 +136,4 @@ class ServiceTab extends StatelessWidget {
       textCapitalization: TextCapitalization.none,
     );
   }
-
-
-
-
 }
