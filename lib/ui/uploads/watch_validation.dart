@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
+import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
@@ -30,6 +31,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController serialNumberFieldController = TextEditingController();
   TextEditingController referenceNumberFieldController = TextEditingController();
   TextEditingController warrantyEndDateFieldController = TextEditingController();
+  TextEditingController lastServicedDateFieldController = TextEditingController();
 
   @override
   void dispose() {
@@ -38,6 +40,7 @@ class _WatchValidationState extends State<WatchValidation> {
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
     warrantyEndDateFieldController.dispose();
+    lastServicedDateFieldController.dispose();
     super.dispose();
   }
   @override
@@ -47,7 +50,8 @@ class _WatchValidationState extends State<WatchValidation> {
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
     serialNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][3].toString());
     referenceNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][4].toString());
-    warrantyEndDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][5].toString());
+    warrantyEndDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][5].toString()); //TODO: Should use Formatter methods to convert this date, rather than toString()
+    lastServicedDateFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][6].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -67,8 +71,8 @@ class _WatchValidationState extends State<WatchValidation> {
             ModelRow(enabled: true, modelFieldController: modelFieldController),
             SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: viewState),
             ReferenceNumberRow(enabled: true, referenceNumberFieldController: referenceNumberFieldController, viewState: viewState),
-            WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController)
-    //Position 6: Last Serviced Date
+            WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController),
+            LastServicedRow(enabled: true, lastServicedDateFieldController: lastServicedDateFieldController),
     //Position 7: Purchase Date
     //Position 8: Purchase Price
     //Position 9: Purchased From

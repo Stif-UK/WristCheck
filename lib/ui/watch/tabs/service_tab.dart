@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -44,7 +45,7 @@ class ServiceTab extends StatelessWidget {
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
           _serviceIntervalRow(),
           WarrantyEndRow(enabled: watchViewController.inEditState.value, warrantyEndDateFieldController: warrantyEndDateFieldController),
-          _lastServicedDateRow(),
+          LastServicedRow(enabled: watchViewController.inEditState.value, lastServicedDateFieldController: lastServicedDateFieldController),
           watchViewController.watchViewState.value == WatchViewEnum.view? _nextServiceDueRow(): const SizedBox(height: 0,)
         ],
       ),
@@ -147,18 +148,18 @@ class ServiceTab extends StatelessWidget {
   //   );
   // }
 
-  Widget _lastServicedDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarCheck),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Last Serviced Date:",
-      hintText: "Last Serviced Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: lastServicedDateFieldController,
-      textCapitalization: TextCapitalization.none,
-    );
-  }
+  // Widget _lastServicedDateRow(){
+  //   return WatchFormField(
+  //     icon: const Icon(FontAwesomeIcons.calendarCheck),
+  //     enabled: watchViewController.inEditState.value,
+  //     fieldTitle: "Last Serviced Date:",
+  //     hintText: "Last Serviced Date",
+  //     maxLines: 1,
+  //     datePicker: true,
+  //     controller: lastServicedDateFieldController,
+  //     textCapitalization: TextCapitalization.none,
+  //   );
+  // }
 
   Widget _nextServiceDueRow(){
     nextServiceDueFieldController.value = TextEditingValue(text: watchViewController.nextServiceDue.value);
