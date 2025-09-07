@@ -3,9 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
+import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
+import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchValidation extends StatefulWidget {
@@ -23,17 +25,20 @@ class WatchValidation extends StatefulWidget {
 class _WatchValidationState extends State<WatchValidation> {
   TextEditingController manufacturerFieldController = TextEditingController();
   TextEditingController modelFieldController = TextEditingController();
+  TextEditingController serialNumberFieldController = TextEditingController();
 
   @override
   void dispose() {
     manufacturerFieldController.dispose();
     modelFieldController.dispose();
+    serialNumberFieldController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     manufacturerFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][1].toString());
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
+    serialNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][3].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -51,6 +56,21 @@ class _WatchValidationState extends State<WatchValidation> {
             const Divider(thickness: 2,),
             ManufacturerRow(enabled: true, manufacturerFieldController: manufacturerFieldController),
             ModelRow(enabled: true, modelFieldController: modelFieldController),
+            SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: WatchViewEnum.edit)
+    //Position 4: Reference Number
+    //Position 5: Warranty Expiry Date
+    //Position 6: Last Serviced Date
+    //Position 7: Purchase Date
+    //Position 8: Purchase Price
+    //Position 9: Purchased From
+    //Position 10: Sold Date
+    //Position 11: Sold Price
+    //Position 12: Sold To
+    //Position 13: Case Diameter
+    //Position 14: Case Thickness
+    //Position 15: Lug Width
+    //Position 16: Lug to Lug
+    //Position 17: Water Resistance
           ],
         ),
       ),

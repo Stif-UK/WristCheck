@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
+import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -44,63 +45,29 @@ class InfoTab extends StatelessWidget {
         ManufacturerRow(enabled: watchViewController.inEditState.value, manufacturerFieldController: manufacturerFieldController),
         ModelRow(enabled: watchViewController.inEditState.value, modelFieldController: modelFieldController),
         _buildCategoryField(),
-        _serialNumberRow(),
+        SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: watchViewController.inEditState.value, viewState: watchViewController.watchViewState.value),
         _referenceNumberRow(),
         _buildMovementField()
       ],
     );
   }
 
-  // Widget _manufacturerRow(){
+  // Widget _serialNumberRow(){
   //   return WatchFormField(
-  //     icon: const Icon(FontAwesomeIcons.building),
+  //     icon: const Icon(FontAwesomeIcons.barcode),
   //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: "Manufacturer:",
-  //     hintText: "Manufacturer",
+  //     fieldTitle: watchViewController.watchViewState.value == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
+  //     hintText: "Serial Number",
   //     maxLines: 1,
-  //     controller: manufacturerFieldController,
-  //     textCapitalization: TextCapitalization.words,
+  //     controller: serialNumberFieldController,
+  //     textCapitalization: TextCapitalization.none,
   //     validator: (String? val) {
-  //       if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
-  //         return 'Manufacturer missing or invalid characters included';
+  //       if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
+  //         return 'Serial Number contains invalid characters';
   //       }
   //     },
   //   );
   // }
-
-  // Widget _modelRow(){
-  //   return WatchFormField(
-  //     icon: const Icon(Icons.watch),
-  //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: "Model:",
-  //     hintText: "Model",
-  //     maxLines: 1,
-  //     controller: modelFieldController,
-  //     textCapitalization: TextCapitalization.words,
-  //     validator: (String? val) {
-  //       if(!val!.isAlphaNumericIncCyrillicAndNotEmpty) {
-  //         return 'Model is missing or invalid characters included';
-  //       }
-  //     },
-  //   );
-  // }
-
-  Widget _serialNumberRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.barcode),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: watchViewController.watchViewState.value == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
-      hintText: "Serial Number",
-      maxLines: 1,
-      controller: serialNumberFieldController,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Serial Number contains invalid characters';
-        }
-      },
-    );
-  }
 
   Widget _referenceNumberRow(){
     return WatchFormField(
