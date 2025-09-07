@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
+import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
@@ -46,43 +47,9 @@ class InfoTab extends StatelessWidget {
         ModelRow(enabled: watchViewController.inEditState.value, modelFieldController: modelFieldController),
         _buildCategoryField(),
         SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: watchViewController.inEditState.value, viewState: watchViewController.watchViewState.value),
-        _referenceNumberRow(),
+        ReferenceNumberRow(enabled: watchViewController.inEditState.value, referenceNumberFieldController: referenceNumberFieldController, viewState: watchViewController.watchViewState.value),
         _buildMovementField()
       ],
-    );
-  }
-
-  // Widget _serialNumberRow(){
-  //   return WatchFormField(
-  //     icon: const Icon(FontAwesomeIcons.barcode),
-  //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: watchViewController.watchViewState.value == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
-  //     hintText: "Serial Number",
-  //     maxLines: 1,
-  //     controller: serialNumberFieldController,
-  //     textCapitalization: TextCapitalization.none,
-  //     validator: (String? val) {
-  //       if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-  //         return 'Serial Number contains invalid characters';
-  //       }
-  //     },
-  //   );
-  // }
-
-  Widget _referenceNumberRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.hashtag),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: watchViewController.watchViewState.value == WatchViewEnum.add? "Reference Number (Optional)": "Reference Number:",
-      hintText: "Reference Number",
-      maxLines: 1,
-      controller: referenceNumberFieldController,
-      textCapitalization: TextCapitalization.none,
-      validator: (String? val) {
-        if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Reference Number is missing or invalid characters included';
-        }
-      },
     );
   }
 

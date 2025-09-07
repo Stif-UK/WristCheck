@@ -7,6 +7,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
+import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -26,19 +27,23 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController manufacturerFieldController = TextEditingController();
   TextEditingController modelFieldController = TextEditingController();
   TextEditingController serialNumberFieldController = TextEditingController();
+  TextEditingController referenceNumberFieldController = TextEditingController();
 
   @override
   void dispose() {
     manufacturerFieldController.dispose();
     modelFieldController.dispose();
     serialNumberFieldController.dispose();
+    referenceNumberFieldController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
+    final WatchViewEnum viewState = WatchViewEnum.edit; //Static value for this page to drive some text for formfields
     manufacturerFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][1].toString());
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
     serialNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][3].toString());
+    referenceNumberFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][4].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -56,8 +61,8 @@ class _WatchValidationState extends State<WatchValidation> {
             const Divider(thickness: 2,),
             ManufacturerRow(enabled: true, manufacturerFieldController: manufacturerFieldController),
             ModelRow(enabled: true, modelFieldController: modelFieldController),
-            SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: WatchViewEnum.edit)
-    //Position 4: Reference Number
+            SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: viewState),
+            ReferenceNumberRow(enabled: true, referenceNumberFieldController: referenceNumberFieldController, viewState: viewState),
     //Position 5: Warranty Expiry Date
     //Position 6: Last Serviced Date
     //Position 7: Purchase Date
