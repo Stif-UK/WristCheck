@@ -7,6 +7,7 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
+import 'package:wristcheck/ui/watch/rows/sold_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -42,7 +43,7 @@ class ServiceTab extends StatelessWidget {
         children: [
           watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
           PurchaseDateRow(enabled: watchViewController.inEditState.value, purchaseDateFieldController: purchaseDateFieldController),
-          watchViewController.selectedStatus.value =="Sold"? Obx(()=> _soldDateRow()): const SizedBox(height: 0,),
+          watchViewController.selectedStatus.value =="Sold"? Obx(()=> SoldDateRow(enabled: watchViewController.inEditState.value, soldDateFieldController: soldDateFieldController)): const SizedBox(height: 0,),
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
           _serviceIntervalRow(),
           WarrantyEndRow(enabled: watchViewController.inEditState.value, warrantyEndDateFieldController: warrantyEndDateFieldController),
@@ -64,19 +65,6 @@ class ServiceTab extends StatelessWidget {
       controller: deliveryDateFieldController,
       textCapitalization: TextCapitalization.none,
 
-    );
-  }
-
-  Widget _soldDateRow(){
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarXmark),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Sold Date:",
-      hintText: "Sold Date",
-      maxLines: 1,
-      datePicker: true,
-      controller: soldDateFieldController,
-      textCapitalization: TextCapitalization.none,
     );
   }
 
