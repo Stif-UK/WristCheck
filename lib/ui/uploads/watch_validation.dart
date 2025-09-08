@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
@@ -9,6 +10,7 @@ import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
+import 'package:wristcheck/ui/watch/rows/purchase_price_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
@@ -18,6 +20,8 @@ class WatchValidation extends StatefulWidget {
   WatchValidation({super.key, this.index});
   final uploadsController = Get.put(UploadsController());
   final index;
+  final wristCheckController = Get.put(WristCheckController());
+
 
 
 
@@ -34,6 +38,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController warrantyEndDateFieldController = TextEditingController();
   TextEditingController lastServicedDateFieldController = TextEditingController();
   TextEditingController purchaseDateFieldController = TextEditingController();
+  TextEditingController purchasePriceFieldController = TextEditingController();
 
   @override
   void dispose() {
@@ -44,10 +49,12 @@ class _WatchValidationState extends State<WatchValidation> {
     warrantyEndDateFieldController.dispose();
     lastServicedDateFieldController.dispose();
     purchaseDateFieldController.dispose();
+    purchasePriceFieldController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
+    final String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
     final WatchViewEnum viewState = WatchViewEnum.edit; //Static value for this page to drive some text for formfields
     manufacturerFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][1].toString());
     modelFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][2].toString());
@@ -56,7 +63,7 @@ class _WatchValidationState extends State<WatchValidation> {
     warrantyEndDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][5].toString()));
     lastServicedDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][6].toString()));
     purchaseDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][7].toString()));
-
+    purchasePriceFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][8].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -79,7 +86,7 @@ class _WatchValidationState extends State<WatchValidation> {
             WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController),
             LastServicedRow(enabled: true, lastServicedDateFieldController: lastServicedDateFieldController),
             PurchaseDateRow(enabled: true, purchaseDateFieldController: purchaseDateFieldController),
-    //Position 8: Purchase Price
+            PurchasePriceRow(enabled: true, purchasePriceFieldController: purchasePriceFieldController, viewState: viewState, locale: locale, price: 0)
     //Position 9: Purchased From
     //Position 10: Sold Date
     //Position 11: Sold Price
