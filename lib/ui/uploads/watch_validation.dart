@@ -11,6 +11,7 @@ import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_price_row.dart';
+import 'package:wristcheck/ui/watch/rows/purchased_from_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
@@ -39,6 +40,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController lastServicedDateFieldController = TextEditingController();
   TextEditingController purchaseDateFieldController = TextEditingController();
   TextEditingController purchasePriceFieldController = TextEditingController();
+  TextEditingController purchasedFromFieldController = TextEditingController();
 
   @override
   void dispose() {
@@ -50,6 +52,7 @@ class _WatchValidationState extends State<WatchValidation> {
     lastServicedDateFieldController.dispose();
     purchaseDateFieldController.dispose();
     purchasePriceFieldController.dispose();
+    purchasedFromFieldController.dispose();
     super.dispose();
   }
   @override
@@ -64,6 +67,7 @@ class _WatchValidationState extends State<WatchValidation> {
     lastServicedDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][6].toString()));
     purchaseDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][7].toString()));
     purchasePriceFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][8].toString());
+    purchasedFromFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][9].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -86,8 +90,8 @@ class _WatchValidationState extends State<WatchValidation> {
             WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController),
             LastServicedRow(enabled: true, lastServicedDateFieldController: lastServicedDateFieldController),
             PurchaseDateRow(enabled: true, purchaseDateFieldController: purchaseDateFieldController),
-            PurchasePriceRow(enabled: true, purchasePriceFieldController: purchasePriceFieldController, viewState: viewState, locale: locale, price: 0)
-    //Position 9: Purchased From
+            PurchasePriceRow(enabled: true, purchasePriceFieldController: purchasePriceFieldController, viewState: viewState, locale: locale, price: 0),
+            PurchasedFromRow(enabled: true, purchasedFromFieldController: purchasedFromFieldController),
     //Position 10: Sold Date
     //Position 11: Sold Price
     //Position 12: Sold To

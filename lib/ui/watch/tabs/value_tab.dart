@@ -6,6 +6,7 @@ import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_price_row.dart';
+import 'package:wristcheck/ui/watch/rows/purchased_from_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -42,7 +43,7 @@ class ValueTab extends StatelessWidget {
             Obx(()=> PurchasePriceRow(enabled: watchViewController.inEditState.value, purchasePriceFieldController: purchasePriceFieldController, viewState: watchViewController.watchViewState.value, locale: locale,
                 price: watchViewController.purchasePrice.value, bodyLarge: bodyLarge, headlineSmall: headlineSmall,)),
             //_purchasePriceRow(locale),
-            Obx(()=> _purchaseFromRow()),
+            Obx(()=> PurchasedFromRow(enabled: watchViewController.inEditState.value, purchasedFromFieldController: purchasedFromFieldController)),
             watchViewController.selectedStatus.value == "Sold" ? Obx(()=> _soldPriceRow(locale)): const SizedBox(height: 0,),
             watchViewController.selectedStatus.value == "Sold" ? Obx(()=> _soldToRow()): const SizedBox(height: 0,),
             _costPerWearRow(locale)
@@ -101,22 +102,22 @@ class ValueTab extends StatelessWidget {
   //   ;
   // }
 
-  Widget _purchaseFromRow() {
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.cartShopping),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Purchased From:",
-      hintText: "Purchased From",
-      maxLines: 1,
-      controller: purchasedFromFieldController,
-      textCapitalization: TextCapitalization.sentences,
-      validator: (String? val) {
-        if (!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Invalid characters detected.';
-        }
-      },
-    );
-  }
+  // Widget _purchaseFromRow() {
+  //   return WatchFormField(
+  //     icon: const Icon(FontAwesomeIcons.cartShopping),
+  //     enabled: watchViewController.inEditState.value,
+  //     fieldTitle: "Purchased From:",
+  //     hintText: "Purchased From",
+  //     maxLines: 1,
+  //     controller: purchasedFromFieldController,
+  //     textCapitalization: TextCapitalization.sentences,
+  //     validator: (String? val) {
+  //       if (!val!.isAlphaNumericWithSymbolsOrEmpty) {
+  //         return 'Invalid characters detected.';
+  //       }
+  //     },
+  //   );
+  // }
 
   Widget _soldPriceRow(String locale) {
     //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
