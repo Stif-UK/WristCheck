@@ -16,6 +16,7 @@ import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_price_row.dart';
+import 'package:wristcheck/ui/watch/rows/sold_to_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -45,6 +46,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController purchasedFromFieldController = TextEditingController();
   TextEditingController soldDateFieldController = TextEditingController();
   TextEditingController soldPriceFieldController = TextEditingController();
+  TextEditingController soldToFieldController = TextEditingController();
 
   @override
   void dispose() {
@@ -59,6 +61,7 @@ class _WatchValidationState extends State<WatchValidation> {
     purchasedFromFieldController.dispose();
     soldDateFieldController.dispose();
     soldPriceFieldController.dispose();
+    soldToFieldController.dispose();
     super.dispose();
   }
   @override
@@ -76,6 +79,7 @@ class _WatchValidationState extends State<WatchValidation> {
     purchasedFromFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][9].toString());
     soldDateFieldController.value = TextEditingValue(text: _fillDateField(widget.uploadsController.uploadData[widget.index][10].toString()));
     soldPriceFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][11].toString());
+    soldToFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][12].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -102,7 +106,7 @@ class _WatchValidationState extends State<WatchValidation> {
             PurchasedFromRow(enabled: true, purchasedFromFieldController: purchasedFromFieldController),
             SoldDateRow(enabled: true, soldDateFieldController: soldDateFieldController),
             SoldPriceRow(enabled: true, soldPriceFieldController: soldPriceFieldController, viewState: viewState, locale: locale, price: 0),
-    //Position 12: Sold To
+            SoldToRow(enabled: true, soldToFieldController: soldToFieldController)
     //Position 13: Case Diameter
     //Position 14: Case Thickness
     //Position 15: Lug Width

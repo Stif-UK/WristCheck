@@ -8,6 +8,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_price_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchased_from_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_price_row.dart';
+import 'package:wristcheck/ui/watch/rows/sold_to_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -47,74 +48,11 @@ class ValueTab extends StatelessWidget {
             Obx(()=> PurchasedFromRow(enabled: watchViewController.inEditState.value, purchasedFromFieldController: purchasedFromFieldController)),
             watchViewController.selectedStatus.value == "Sold" ? Obx(()=> SoldPriceRow(enabled: watchViewController.inEditState.value, soldPriceFieldController: soldPriceFieldController, viewState: watchViewController.watchViewState.value,locale: locale,
             price: watchViewController.soldPrice.value, bodyLarge: bodyLarge, headlineSmall: headlineSmall,)): const SizedBox(height: 0,),
-            watchViewController.selectedStatus.value == "Sold" ? Obx(()=> _soldToRow()): const SizedBox(height: 0,),
+            watchViewController.selectedStatus.value == "Sold" ? Obx(()=> SoldToRow(enabled: watchViewController.inEditState.value, soldToFieldController: soldToFieldController)): const SizedBox(height: 0,),
             _costPerWearRow(locale)
           ],
 
         )
-    );
-  }
-
-  // Widget _soldPriceRow(String locale) {
-  //   //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
-  //   return watchViewController.watchViewState.value != WatchViewEnum.view
-  //       ? WatchFormField(
-  //     icon: const Icon(FontAwesomeIcons.handHoldingDollar),
-  //     enabled: watchViewController.inEditState.value,
-  //     fieldTitle: "Sold Price:",
-  //     hintText: "Sold Price",
-  //     maxLines: 1,
-  //     controller: soldPriceFieldController,
-  //     keyboardType: TextInputType.number,
-  //     textCapitalization: TextCapitalization.none,
-  //     validator: (String? val) {
-  //       if (!val!.isWcCurrency) {
-  //         return "Enter digits only, no decimals, we'll take care of the rest!";
-  //       }
-  //     },
-  //   )
-  //       :
-  //   //Alternate return view
-  //   Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text("Sold Price:",
-  //         textAlign: TextAlign.start,
-  //         style: bodyLarge,),
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.start,
-  //         children: [
-  //           const Padding(
-  //             padding: EdgeInsets.all(10.0),
-  //             child: Icon(FontAwesomeIcons.handHoldingDollar),
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.all(10.0),
-  //             child: Text(
-  //               WristCheckFormatter.getCurrencyValue(locale, watchViewController.soldPrice.value, 0),
-  //               style: headlineSmall,),
-  //           ),
-  //         ],
-  //       )
-  //     ],
-  //   )
-  //   ;
-  // }
-
-  Widget _soldToRow() {
-    return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.handHoldingHand),
-      enabled: watchViewController.inEditState.value,
-      fieldTitle: "Sold To:",
-      hintText: "Sold to",
-      maxLines: 1,
-      controller: soldToFieldController,
-      textCapitalization: TextCapitalization.sentences,
-      validator: (String? val) {
-        if (!val!.isAlphaNumericWithSymbolsOrEmpty) {
-          return 'Invalid characters detected.';
-        }
-      },
     );
   }
 
