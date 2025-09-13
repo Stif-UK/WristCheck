@@ -6,6 +6,7 @@ import 'package:wristcheck/model/enums/complication_enums/date_complication_enum
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
+import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -57,21 +58,7 @@ class ProDataTab extends StatelessWidget {
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
-        WatchFormField(
-          keyboardType: TextInputType.numberWithOptions(decimal: true),
-          icon: const Icon(FontAwesomeIcons.rulerCombined),
-          enabled: watchViewController.inEditState.value,
-          fieldTitle: "Case Diameter(mm):",
-          hintText: "Case Diameter",
-          maxLines: 1,
-          controller: caseDiameterController,
-          textCapitalization: TextCapitalization.none,
-          validator: (String? val) {
-            if(!val!.isDouble) {
-              return 'Must be numbers only with up to two decimal points';
-            }
-          },
-        ),
+        CaseDiameterRow(enabled: watchViewController.inEditState.value, caseDiameterController: caseDiameterController),
         WatchFormField(
           keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.rulerHorizontal),
