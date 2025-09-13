@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
+import 'package:wristcheck/ui/watch/rows/lug_to_lug_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
@@ -62,21 +63,7 @@ class ProDataTab extends StatelessWidget {
       children: [
         CaseDiameterRow(enabled: watchViewController.inEditState.value, caseDiameterController: caseDiameterController),
         LugWidthRow(enabled: watchViewController.inEditState.value, lugWidthController: lugWidthController),
-        WatchFormField(
-          keyboardType: TextInputType.numberWithOptions(decimal: true),
-          icon: const Icon(FontAwesomeIcons.ruler),
-          enabled: watchViewController.inEditState.value,
-          fieldTitle: "Lug to Lug(mm):",
-          hintText: "Lug to Lug",
-          maxLines: 1,
-          controller: lug2lugController,
-          textCapitalization: TextCapitalization.none,
-          validator: (String? val) {
-            if(!val!.isDouble) {
-              return 'Must be numbers only with up to two decimal points';
-            }
-          },
-        ),
+        LugToLugRow(enabled: watchViewController.inEditState.value, lug2lugController: lug2lugController),
         CaseThicknessRow(enabled: watchViewController.inEditState.value, caseThicknessController: caseThicknessController),
         WatchFormField(
           keyboardType: TextInputType.number,

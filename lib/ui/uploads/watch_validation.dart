@@ -7,6 +7,7 @@ import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
 import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
+import 'package:wristcheck/ui/watch/rows/lug_to_lug_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
@@ -51,6 +52,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController caseDiameterController = TextEditingController();
   TextEditingController caseThicknessController = TextEditingController();
   TextEditingController lugWidthController = TextEditingController();
+  TextEditingController lug2lugController = TextEditingController();
 
   @override
   void dispose() {
@@ -69,6 +71,7 @@ class _WatchValidationState extends State<WatchValidation> {
     caseDiameterController.dispose();
     caseThicknessController.dispose();
     lugWidthController.dispose();
+    lug2lugController.dispose();
     super.dispose();
   }
   @override
@@ -90,6 +93,7 @@ class _WatchValidationState extends State<WatchValidation> {
     caseDiameterController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][13].toString());
     caseThicknessController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][14].toString());
     lugWidthController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][15].toString());
+    lug2lugController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][16].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -120,7 +124,7 @@ class _WatchValidationState extends State<WatchValidation> {
             CaseDiameterRow(enabled: true, caseDiameterController: caseDiameterController),
             CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
             LugWidthRow(enabled: true, lugWidthController: lugWidthController),
-    //Position 16: Lug to Lug
+            LugToLugRow(enabled: true, lug2lugController: lug2lugController),
     //Position 17: Water Resistance
           ],
         ),
