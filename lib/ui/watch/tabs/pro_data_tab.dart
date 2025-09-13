@@ -10,6 +10,7 @@ import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_to_lug_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
+import 'package:wristcheck/ui/watch/rows/water_resistance_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -65,21 +66,7 @@ class ProDataTab extends StatelessWidget {
         LugWidthRow(enabled: watchViewController.inEditState.value, lugWidthController: lugWidthController),
         LugToLugRow(enabled: watchViewController.inEditState.value, lug2lugController: lug2lugController),
         CaseThicknessRow(enabled: watchViewController.inEditState.value, caseThicknessController: caseThicknessController),
-        WatchFormField(
-          keyboardType: TextInputType.number,
-          icon: const Icon(FontAwesomeIcons.water),
-          enabled: watchViewController.inEditState.value,
-          fieldTitle: "Water Resistance (${wristCheckController.waterResistanceUnit.value.name}):",
-          hintText: "Water Resistance",
-          maxLines: 1,
-          controller: waterResistanceController,
-          textCapitalization: TextCapitalization.none,
-          validator: (String? val) {
-            if(!val!.isUnboundPositiveInteger) {
-              return 'Must be a whole number';
-            }
-          },
-        ),
+        WaterResistanceRow(enabled: watchViewController.inEditState.value, waterResistanceController: waterResistanceController, units: wristCheckController.waterResistanceUnit.value.name),
         _buildCaseMaterialField(),
         _buildDateComplicationField()
       ],

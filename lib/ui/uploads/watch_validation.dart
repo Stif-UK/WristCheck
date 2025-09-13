@@ -20,6 +20,7 @@ import 'package:wristcheck/ui/watch/rows/sold_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_price_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_to_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
+import 'package:wristcheck/ui/watch/rows/water_resistance_row.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchValidation extends StatefulWidget {
@@ -53,6 +54,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController caseThicknessController = TextEditingController();
   TextEditingController lugWidthController = TextEditingController();
   TextEditingController lug2lugController = TextEditingController();
+  TextEditingController waterResistanceController = TextEditingController();
 
   @override
   void dispose() {
@@ -72,6 +74,7 @@ class _WatchValidationState extends State<WatchValidation> {
     caseThicknessController.dispose();
     lugWidthController.dispose();
     lug2lugController.dispose();
+    waterResistanceController.dispose();
     super.dispose();
   }
   @override
@@ -94,6 +97,7 @@ class _WatchValidationState extends State<WatchValidation> {
     caseThicknessController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][14].toString());
     lugWidthController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][15].toString());
     lug2lugController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][16].toString());
+    waterResistanceController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][17].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -125,7 +129,7 @@ class _WatchValidationState extends State<WatchValidation> {
             CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
             LugWidthRow(enabled: true, lugWidthController: lugWidthController),
             LugToLugRow(enabled: true, lug2lugController: lug2lugController),
-    //Position 17: Water Resistance
+            WaterResistanceRow(enabled: true, waterResistanceController: waterResistanceController, units: widget.wristCheckController.waterResistanceUnit.value.name)
           ],
         ),
       ),
