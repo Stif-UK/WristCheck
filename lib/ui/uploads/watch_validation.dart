@@ -31,13 +31,12 @@ class WatchValidation extends StatefulWidget {
 
 
 
-
-
   @override
   State<WatchValidation> createState() => _WatchValidationState();
 }
 
 class _WatchValidationState extends State<WatchValidation> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController manufacturerFieldController = TextEditingController();
   TextEditingController modelFieldController = TextEditingController();
   TextEditingController serialNumberFieldController = TextEditingController();
@@ -104,36 +103,48 @@ class _WatchValidationState extends State<WatchValidation> {
         title: Text(UploadMethods.getWatchName(widget.uploadsController.uploadData[widget.index])),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListTile(
-              //leading: Icon(FontAwesomeIcons.rotate),//TODO: Implement icon for refreshing data?
-              title: Text("Current Status: ${WristCheckFormatter.getUploadStatusText(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index]))}"),
-              subtitle: Text(WristCheckFormatter.getUploadStatusSubtitle(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index]))),
-              trailing: UploadMethods.getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index])),
-            ),
-            const Divider(thickness: 2,),
-            ManufacturerRow(enabled: true, manufacturerFieldController: manufacturerFieldController),
-            ModelRow(enabled: true, modelFieldController: modelFieldController),
-            SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: viewState),
-            ReferenceNumberRow(enabled: true, referenceNumberFieldController: referenceNumberFieldController, viewState: viewState),
-            WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController),
-            LastServicedRow(enabled: true, lastServicedDateFieldController: lastServicedDateFieldController),
-            PurchaseDateRow(enabled: true, purchaseDateFieldController: purchaseDateFieldController),
-            PurchasePriceRow(enabled: true, purchasePriceFieldController: purchasePriceFieldController, viewState: viewState, locale: locale, price: 0),
-            PurchasedFromRow(enabled: true, purchasedFromFieldController: purchasedFromFieldController),
-            SoldDateRow(enabled: true, soldDateFieldController: soldDateFieldController),
-            SoldPriceRow(enabled: true, soldPriceFieldController: soldPriceFieldController, viewState: viewState, locale: locale, price: 0),
-            SoldToRow(enabled: true, soldToFieldController: soldToFieldController),
-            CaseDiameterRow(enabled: true, caseDiameterController: caseDiameterController),
-            CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
-            LugWidthRow(enabled: true, lugWidthController: lugWidthController),
-            LugToLugRow(enabled: true, lug2lugController: lug2lugController),
-            WaterResistanceRow(enabled: true, waterResistanceController: waterResistanceController, units: widget.wristCheckController.waterResistanceUnit.value.name)
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              ListTile(
+                //leading: Icon(FontAwesomeIcons.rotate),//TODO: Implement icon for refreshing data?
+                title: Text("Current Status: ${WristCheckFormatter.getUploadStatusText(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index]))}"),
+                subtitle: Text(WristCheckFormatter.getUploadStatusSubtitle(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index]))),
+                trailing: UploadMethods.getStatusIcon(UploadMethods.validateCSVRowContent(widget.uploadsController.uploadData[widget.index])),
+              ),
+              const Divider(thickness: 2,),
+              ManufacturerRow(enabled: true, manufacturerFieldController: manufacturerFieldController),
+              ModelRow(enabled: true, modelFieldController: modelFieldController),
+              SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: true, viewState: viewState),
+              ReferenceNumberRow(enabled: true, referenceNumberFieldController: referenceNumberFieldController, viewState: viewState),
+              WarrantyEndRow(enabled: true, warrantyEndDateFieldController: warrantyEndDateFieldController),
+              LastServicedRow(enabled: true, lastServicedDateFieldController: lastServicedDateFieldController),
+              PurchaseDateRow(enabled: true, purchaseDateFieldController: purchaseDateFieldController),
+              PurchasePriceRow(enabled: true, purchasePriceFieldController: purchasePriceFieldController, viewState: viewState, locale: locale, price: 0),
+              PurchasedFromRow(enabled: true, purchasedFromFieldController: purchasedFromFieldController),
+              SoldDateRow(enabled: true, soldDateFieldController: soldDateFieldController),
+              SoldPriceRow(enabled: true, soldPriceFieldController: soldPriceFieldController, viewState: viewState, locale: locale, price: 0),
+              SoldToRow(enabled: true, soldToFieldController: soldToFieldController),
+              CaseDiameterRow(enabled: true, caseDiameterController: caseDiameterController),
+              CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
+              LugWidthRow(enabled: true, lugWidthController: lugWidthController),
+              LugToLugRow(enabled: true, lug2lugController: lug2lugController),
+              WaterResistanceRow(enabled: true, waterResistanceController: waterResistanceController, units: widget.wristCheckController.waterResistanceUnit.value.name)
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Trigger validation after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _formKey.currentState?.validate();
+    });
   }
 }
 
