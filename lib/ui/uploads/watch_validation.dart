@@ -7,6 +7,7 @@ import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
+import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
 import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
@@ -49,6 +50,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController soldPriceFieldController = TextEditingController();
   TextEditingController soldToFieldController = TextEditingController();
   TextEditingController caseDiameterController = TextEditingController();
+  TextEditingController caseThicknessController = TextEditingController();
 
   @override
   void dispose() {
@@ -65,6 +67,7 @@ class _WatchValidationState extends State<WatchValidation> {
     soldPriceFieldController.dispose();
     soldToFieldController.dispose();
     caseDiameterController.dispose();
+    caseThicknessController.dispose();
     super.dispose();
   }
   @override
@@ -84,6 +87,7 @@ class _WatchValidationState extends State<WatchValidation> {
     soldPriceFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][11].toString());
     soldToFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][12].toString());
     caseDiameterController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][13].toString());
+    caseThicknessController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][14].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -112,7 +116,7 @@ class _WatchValidationState extends State<WatchValidation> {
             SoldPriceRow(enabled: true, soldPriceFieldController: soldPriceFieldController, viewState: viewState, locale: locale, price: 0),
             SoldToRow(enabled: true, soldToFieldController: soldToFieldController),
             CaseDiameterRow(enabled: true, caseDiameterController: caseDiameterController),
-    //Position 14: Case Thickness
+            CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
     //Position 15: Lug Width
     //Position 16: Lug to Lug
     //Position 17: Water Resistance
