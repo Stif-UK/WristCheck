@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
+import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -60,21 +61,7 @@ class ProDataTab extends StatelessWidget {
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
         CaseDiameterRow(enabled: watchViewController.inEditState.value, caseDiameterController: caseDiameterController),
-        WatchFormField(
-          keyboardType: TextInputType.number,
-          icon: const Icon(FontAwesomeIcons.rulerHorizontal),
-          enabled: watchViewController.inEditState.value,
-          fieldTitle: "Lug Width(mm):",
-          hintText: "Lug Width",
-          maxLines: 1,
-          controller: lugWidthController,
-          textCapitalization: TextCapitalization.none,
-          validator: (String? val) {
-            if(!val!.isServiceNumber) {
-              return 'Must be a whole number less than 99';
-            }
-          },
-        ),
+        LugWidthRow(enabled: watchViewController.inEditState.value, lugWidthController: lugWidthController),
         WatchFormField(
           keyboardType: TextInputType.numberWithOptions(decimal: true),
           icon: const Icon(FontAwesomeIcons.ruler),

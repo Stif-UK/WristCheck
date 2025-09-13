@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
-import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
 import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
+import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
@@ -51,6 +50,7 @@ class _WatchValidationState extends State<WatchValidation> {
   TextEditingController soldToFieldController = TextEditingController();
   TextEditingController caseDiameterController = TextEditingController();
   TextEditingController caseThicknessController = TextEditingController();
+  TextEditingController lugWidthController = TextEditingController();
 
   @override
   void dispose() {
@@ -68,6 +68,7 @@ class _WatchValidationState extends State<WatchValidation> {
     soldToFieldController.dispose();
     caseDiameterController.dispose();
     caseThicknessController.dispose();
+    lugWidthController.dispose();
     super.dispose();
   }
   @override
@@ -88,6 +89,7 @@ class _WatchValidationState extends State<WatchValidation> {
     soldToFieldController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][12].toString());
     caseDiameterController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][13].toString());
     caseThicknessController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][14].toString());
+    lugWidthController.value = TextEditingValue(text: widget.uploadsController.uploadData[widget.index][15].toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -117,7 +119,7 @@ class _WatchValidationState extends State<WatchValidation> {
             SoldToRow(enabled: true, soldToFieldController: soldToFieldController),
             CaseDiameterRow(enabled: true, caseDiameterController: caseDiameterController),
             CaseThicknessRow(enabled: true, caseThicknessController: caseThicknessController),
-    //Position 15: Lug Width
+            LugWidthRow(enabled: true, lugWidthController: lugWidthController),
     //Position 16: Lug to Lug
     //Position 17: Water Resistance
           ],
