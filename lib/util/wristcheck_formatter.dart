@@ -444,6 +444,9 @@ class WristCheckFormatter{
       case LocationEnum.nor:
         returnText = "no_NO";
         break;
+      case LocationEnum.czh:
+        returnText = "cs-CZ";
+        break;
     }
     return returnText;
   }
@@ -487,6 +490,9 @@ class WristCheckFormatter{
         break;
       case "no_NO":
         returnNum = LocationEnum.nor;
+        break;
+      case "cs-CZ":
+        returnNum = LocationEnum.czh;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -534,6 +540,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.nor:
         returnString = "Norwegian Krone";
+        break;
+      case LocationEnum.czh:
+        returnString = "Czech Koruna";
         break;
     }
 
