@@ -93,14 +93,15 @@ class _DataLinksState extends State<DataLinks> {
                         }
                     ),
                     const Divider(thickness: 2,),
-                    ListTile(
-                        title: const Text("Data Import"),
-                        leading: const Icon(FontAwesomeIcons.fileImport),
-                        onTap: (){
-                          Get.to(()=> UploadsLanding());
-                        }
-                    ),
-                    const Divider(thickness: 2,),
+                    //TODO: Uncomment to re-enable data upload journey
+                    // ListTile(
+                    //     title: const Text("Data Import"),
+                    //     leading: const Icon(FontAwesomeIcons.fileImport),
+                    //     onTap: (){
+                    //       Get.to(()=> UploadsLanding());
+                    //     }
+                    // ),
+                    // const Divider(thickness: 2,),
                     ListTile(
                         title:const Text("Delete collection"),
                         leading: const Icon(Icons.warning),
