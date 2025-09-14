@@ -155,6 +155,7 @@ String _fillDateField(String? inputText){
       var date = DateTime.parse(inputText);
       returnString = WristCheckFormatter.getFormattedDate(date);
     } on Exception catch (e){
+      //TODO: Handle empty case separately
       returnString = "Error parsing date"; //TODO: Handle this status at point of upload
     }
   }
