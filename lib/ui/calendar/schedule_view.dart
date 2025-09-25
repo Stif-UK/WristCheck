@@ -452,6 +452,19 @@ class _ScheduleViewState extends State<ScheduleView> {
       ));
     }
 
+    List<Watches> preOrderSchedule = Boxes.getPreOrderWatches();
+    for(Watches watch in preOrderSchedule){
+      if(watch.deliveryDate != null) {
+        appointments.add(Appointment(
+            isAllDay: true,
+            startTime: watch.deliveryDate!,
+            endTime: watch.deliveryDate!,
+            subject: "${watch.toString()} delivery expected",
+            color: Colors.grey
+        ));
+      }
+    }
+
     return _WatchDataSource(appointments);
   }
 }
