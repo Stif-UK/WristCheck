@@ -5,17 +5,16 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.14.0 \n"
+        "### Version 1.15.0 \n"
         "\n"
 
-            "* Added new Timeline View \n"
-            "* Updated validation rules to accept Cyrillic alphabet\n"
-            "* Polish Zloty added to currency options\n"
-            "* Watch detail notes added to Gallery view\n"
-            "* (Pro) Toggle added to hide value labels on Cost per Wear chart\n"
-            "* (Pro) Ability to track date complication of your watches, along with associated chart updates\n"
-            "* (Pro) Ability to save watch winder settings added.\n"
-            "* Additional Bug fixes & Improvements";
+            "* Improved watch image gallery experience \n"
+            "* Made it easier to update and delete images \n"
+            "* Made it easier to delete a watch from your collection \n"
+            "* CSV data extracts updated to include all data fields \n"
+            "* Updated Calendar view to show all watch statuses \n"
+            "* New currencies added: Norwegian Krone, Thai Baht & Czeck Koruna \n"
+            "* Under the hood compliance changes";
 
   }
 
@@ -29,6 +28,18 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.15.0 \n"
+                      "\n"
+
+                      "* Improved watch image gallery experience \n"
+                      "* Made it easier to update and delete images \n"
+                      "* Made it easier to delete a watch from your collection \n"
+                      "* CSV data extracts updated to include all data fields \n"
+                      "* Updated Calendar view to show all watch statuses \n"
+                      "* New currencies added: Norwegian Krone, Thai Baht & Czeck Koruna \n"
+                      "* Updates to OS target versions and updates to internal libraries"
+                      "---\n\n"
+
                       "### Version 1.14.0 \n"
                       "\n"
 
