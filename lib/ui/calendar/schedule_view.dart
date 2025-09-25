@@ -389,41 +389,52 @@ class _ScheduleViewState extends State<ScheduleView> {
 
     List<Watches> watchSchedule = Boxes.getCollectionWatches();
     for(Watches watch in watchSchedule){
-      String watchTitle = "${watch.manufacturer} ${watch.model}";
 
       for(DateTime wearDate in watch.wearList){
         appointments.add(Appointment(
           isAllDay: true,
             startTime: wearDate,
            endTime: wearDate,
-          subject: "$watchTitle"
+          subject: watch.toString()
         ));
       }
     }
 
     List<Watches> soldSchedule = Boxes.getSoldWatches();
     for(Watches watch in soldSchedule){
-      String watchTitle = "${watch.manufacturer} ${watch.model}";
 
       for(DateTime wearDate in watch.wearList){
         appointments.add(Appointment(
             isAllDay: true,
             startTime: wearDate,
             endTime: wearDate,
-            subject: "$watchTitle (Sold)",
+            subject: "${watch.toString()} (Sold)",
             color: Colors.deepOrangeAccent
+        ));
+      }
+    }
+
+    List<Watches> retiredSchedule = Boxes.getRetiredWatches();
+    for(Watches watch in retiredSchedule){
+
+      for(DateTime wearDate in watch.wearList){
+        appointments.add(Appointment(
+            isAllDay: true,
+            startTime: wearDate,
+            endTime: wearDate,
+            subject: "${watch.toString()} (Retired)",
+            color: Colors.green
         ));
       }
     }
 
     List<Watches> serviceSchedule = Boxes.getServiceSchedule();
     for(Watches watch in serviceSchedule){
-      String watchTitle = "${watch.manufacturer} ${watch.model}";
       appointments.add(Appointment(
           isAllDay: true,
           startTime: watch.nextServiceDue!,
           endTime: watch.nextServiceDue!,
-        subject: "$watchTitle Service Due",
+        subject: "${watch.toString()} Service Due",
         color: Colors.red
 
       ));
@@ -431,12 +442,11 @@ class _ScheduleViewState extends State<ScheduleView> {
 
     List<Watches> warrantySchedule = Boxes.getWarrantySchedule();
     for(Watches watch in warrantySchedule){
-      String watchTitle = "${watch.manufacturer} ${watch.model}";
       appointments.add(Appointment(
           isAllDay: true,
           startTime: watch.warrantyEndDate!,
           endTime: watch.warrantyEndDate!,
-          subject: "$watchTitle Warranty Expires",
+          subject: "${watch.toString()} Warranty Expires",
           color: Colors.deepPurpleAccent
 
       ));
