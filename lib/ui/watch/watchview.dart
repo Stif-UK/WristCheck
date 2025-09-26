@@ -484,7 +484,7 @@ class _WatchViewState extends State<WatchView> {
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    purchaseStatus ? const SizedBox(height: 0,) : AdWidgetHelper
+                    widget.wristCheckController.isAppPro.value ? const SizedBox(height: 0,) : AdWidgetHelper
                         .buildSmallAdSpace(banner, context),
                     Expanded(
                         child: SingleChildScrollView(
