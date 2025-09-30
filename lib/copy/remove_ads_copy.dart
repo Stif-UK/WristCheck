@@ -22,8 +22,8 @@ class RemoveAdsCopy{
               "However, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristTrack Pro**.\n\n"
               "**WristTrack Pro** also unlocks:\n\n"
               "* The option to set a second daily reminder\n"
-              "* Individual watch charts showing wear stats by months and weekdays.\n"
-              "* A Cost Per Wear chart for your collection. "
+              "* Individual watch charts showing wear stats by months and weekdays\n"
+              "* Additional watch data fields and charts "
 
       ),
     );
