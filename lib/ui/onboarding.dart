@@ -33,89 +33,92 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
       AppTrackingTransparency.requestTrackingAuthorization();
     }
 
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(bottom: 80),
-        child: PageView(
-          controller: pageViewController,
-          onPageChanged: (index){
-            setState(()=> isLastPage = index == 3);
-          },
-          children: [
-            buildPage(
-                colour: Theme.of(context).canvasColor,
-                urlImage: 'assets/demo/page1_logo.png',
-                title: "WristTrack",
-                subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do..."),
-            buildPage(
-                colour: Theme.of(context).canvasColor,
-                urlImage: Get.isDarkMode? 'assets/demo/watchbox_dark.png':'assets/demo/watchbox_light.png',
-                title: "Your Digital Watchbox",
-                subtitle: "Record all your watches - quickly search, re-organise or get a random pick"),
-            buildPage(
-                colour: Theme.of(context).canvasColor,
-                urlImage: Get.isDarkMode? 'assets/demo/watch_info_dark.png': 'assets/demo/watch_info_light.png',
-                title: "Track The Detail",
-                subtitle: "Categorise and capture the particulars of your watches, or add your own notes"),
-            buildPage(
-                colour: Theme.of(context).canvasColor,
-                urlImage: Get.isDarkMode? 'assets/demo/graph_dark.png':'assets/demo/graph_light.png',
-                title: "Analyse The Data",
-                subtitle: "Get insights into your collection through data and charts"),
-          ],
-        ),
-      ),
-      bottomSheet:  isLastPage? Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: TextButton(
-          style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)
-              ),
-            foregroundColor: Colors.white,
-            backgroundColor: WristCheckConfig.getWCColour(),
-            minimumSize: const Size.fromHeight(80),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        body: Container(
+          padding: const EdgeInsets.only(bottom: 80),
+          child: PageView(
+            controller: pageViewController,
+            onPageChanged: (index){
+              setState(()=> isLastPage = index == 3);
+            },
+            children: [
+              buildPage(
+                  colour: Theme.of(context).canvasColor,
+                  urlImage: 'assets/demo/page1_logo.png',
+                  title: "WristTrack",
+                  subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do..."),
+              buildPage(
+                  colour: Theme.of(context).canvasColor,
+                  urlImage: Get.isDarkMode? 'assets/demo/watchbox_dark.png':'assets/demo/watchbox_light.png',
+                  title: "Your Digital Watchbox",
+                  subtitle: "Record all your watches - quickly search, re-organise or get a random pick"),
+              buildPage(
+                  colour: Theme.of(context).canvasColor,
+                  urlImage: Get.isDarkMode? 'assets/demo/watch_info_dark.png': 'assets/demo/watch_info_light.png',
+                  title: "Track The Detail",
+                  subtitle: "Categorise and capture the particulars of your watches, or add your own notes"),
+              buildPage(
+                  colour: Theme.of(context).canvasColor,
+                  urlImage: Get.isDarkMode? 'assets/demo/graph_dark.png':'assets/demo/graph_light.png',
+                  title: "Analyse The Data",
+                  subtitle: "Get insights into your collection through data and charts"),
+            ],
           ),
-          child: const Text("Let's go!",
-          style: TextStyle(fontSize: 22),),
-          onPressed: () async {
-            await WristCheckPreferences.setHasSeenDemo(true);
-            Get.off(()=> InitialiseScreen(targetWidget: WristCheckHome()));
-          },
         ),
-      ) :Container(
-        padding: const EdgeInsets.all(10.0),
-        height: 80,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-                child: const Text("SKIP"),
-            onPressed: (){
-                  pageViewController.jumpToPage(3);
-            },),
-            Center(
-              child: SmoothPageIndicator(
-                  controller: pageViewController,
-                  effect: SlideEffect(
-                    type: SlideType.slideUnder,
-                    dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
-                    activeDotColor: WristCheckConfig.getWCColour(),
-                  ),
-                  onDotClicked: (index) => pageViewController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeIn),
-                  count: 4),
+        bottomSheet:  isLastPage? Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: TextButton(
+            style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)
+                ),
+              foregroundColor: Colors.white,
+              backgroundColor: WristCheckConfig.getWCColour(),
+              minimumSize: const Size.fromHeight(80),
             ),
-            TextButton(
-              child: const Text("NEXT"),
+            child: const Text("Let's go!",
+            style: TextStyle(fontSize: 22),),
+            onPressed: () async {
+              await WristCheckPreferences.setHasSeenDemo(true);
+              Get.off(()=> InitialiseScreen(targetWidget: WristCheckHome()));
+            },
+          ),
+        ) :Container(
+          padding: const EdgeInsets.all(10.0),
+          height: 80,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                  child: const Text("SKIP"),
               onPressed: (){
-                pageViewController.nextPage(
-                    duration: const Duration(microseconds: 500),
-                    curve: Curves.easeInOut);
+                    pageViewController.jumpToPage(3);
               },),
-          ],
+              Center(
+                child: SmoothPageIndicator(
+                    controller: pageViewController,
+                    effect: SlideEffect(
+                      type: SlideType.slideUnder,
+                      dotColor: Get.isDarkMode? Colors.white24: Colors.black26,
+                      activeDotColor: WristCheckConfig.getWCColour(),
+                    ),
+                    onDotClicked: (index) => pageViewController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn),
+                    count: 4),
+              ),
+              TextButton(
+                child: const Text("NEXT"),
+                onPressed: (){
+                  pageViewController.nextPage(
+                      duration: const Duration(microseconds: 500),
+                      curve: Curves.easeInOut);
+                },),
+            ],
+          ),
         ),
       ),
     );
