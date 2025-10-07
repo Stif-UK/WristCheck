@@ -46,7 +46,7 @@ dependencies:
   jiffy: ^6.2.1
   syncfusion_flutter_charts: ^28.2.4+1
   image_picker: ^1.0.4
-  image_cropper: ^9.0.0
+  image_cropper: ^10.0.0
   flutter_markdown: ^0.7.6+1
   package_info_plus: ^8.2.1
   shared_preferences: ^2.0.15
