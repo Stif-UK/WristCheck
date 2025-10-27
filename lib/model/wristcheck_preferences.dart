@@ -494,7 +494,7 @@ class WristCheckPreferences {
 
   //Getter and Setter for 24 hour time preference
   static Future setMilitaryTime(bool milTime) async =>
-      await _preferences.setBool(_keyEnableBeep, milTime);
+      await _preferences.setBool(_keyMilitaryTime, milTime);
 
   static bool getMilitaryTime() => _preferences.getBool(_keyMilitaryTime) ?? true;
 
