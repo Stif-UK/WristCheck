@@ -111,6 +111,7 @@ final watchBox = Boxes.getWatches();
                   builder: (context, box, _) {
                     return SfCalendar(
                       view: CalendarView.month,
+                      firstDayOfWeek: widget.wristCheckController.firstDayOfWeek.value,
                       dataSource: _getCalendarDataSource(),
                       monthViewSettings: MonthViewSettings(showAgenda: true,
                           showTrailingAndLeadingDates: false,
