@@ -106,6 +106,20 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                 children: [
                   Expanded(
                     child: RadioListTile(
+                        title: const Text("Last 365 days"),
+                        value: WearChartOptions.last365days,
+                        groupValue: widget.filterController.basicWearFilter.value,
+                        onChanged: (value) async {
+                          await widget.filterController.updateFilterName(value as WearChartOptions);
+                        }
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile(
                         title: const Text("Since Last Purchase"),
                         value: WearChartOptions.lastPurchase,
                         groupValue: widget.filterController.basicWearFilter.value,

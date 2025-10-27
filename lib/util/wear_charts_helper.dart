@@ -52,6 +52,9 @@ class WearChartsHelper {
       case WearChartOptions.lastPurchase:
         returnString = "Since Last Purchase";
         break;
+      case WearChartOptions.last365days:
+        returnString = "Worn in last 365 days";
+        break;
     }
 
     return returnString;

@@ -225,6 +225,10 @@ class WristCheckPreferences {
         returnValue = WearChartOptions.last90days;
       }
       break;
+      case "WearChartOptions.last365days":{
+        returnValue = WearChartOptions.last365days;
+      }
+      break;
       case "WearChartOptions.lastPurchase":{
         returnValue = WearChartOptions.lastPurchase;
       }

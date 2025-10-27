@@ -368,6 +368,10 @@ class Boxes {
         returnValue = Boxes.getRollingWatchesWornFilter(initialList, 90);
       }
       break;
+      case WearChartOptions.last365days:{
+        returnValue = Boxes.getRollingWatchesWornFilter(initialList, 365);
+      }
+      break;
       case WearChartOptions.lastPurchase:{
         //Use a copy of list to get the last purchase date to avoid deleting values from the list
         List<Watches> copyList = List.from(initialList);
