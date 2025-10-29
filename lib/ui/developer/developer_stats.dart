@@ -6,6 +6,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/ui/developer/developer_accuracy_view.dart';
 import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -272,6 +273,12 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               },
             ): const SizedBox(height: 0,),
             _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: const Text("Show Accuracy Database"),
+              onTap: () => Get.to(()=> DeveloperAccuracyView()),
+            ) : const SizedBox(height: 0,),
+            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
+
 
 
           ],
