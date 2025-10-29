@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/settings/chart_options.dart';
-import 'package:wristcheck/ui/developer_stats.dart';
+import 'package:wristcheck/ui/developer/developer_stats.dart';
 import 'package:wristcheck/ui/settings/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/onboarding.dart';

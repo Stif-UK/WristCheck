@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -59,6 +60,7 @@ Future main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
+  await Hive.openBox<Measurement>("AccuracyBox");
 
   //Get SharedPreferences for watches and set opencount
   await WristCheckPreferences.init().then((_) => _updateOpenCount());

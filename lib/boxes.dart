@@ -8,6 +8,7 @@ import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -16,6 +17,9 @@ class Boxes {
   // static Box<Watches> getWatches() =>
   //   Hive.box<Watches>("WatchBox");
 
+  /*
+  getWatches() returns the main app database of all Watches
+   */
   static Box<Watches> getWatches() {
     //Check first that box is open, if it isn't re-open it before returning.
     return Hive.box<Watches>("WatchBox").isOpen? Hive.box<Watches>("WatchBox") : openAndReturn();
@@ -24,6 +28,13 @@ class Boxes {
   static Box<Watches> openAndReturn(){
     Hive.openBox<Watches>("WatchBox");
     return Hive.box<Watches>("WatchBox");
+  }
+
+  /*
+  getMeasurements() returns the secondary database of all tracked watch accuracy data points
+   */
+  static Box<Measurement> getMeasurements(){
+    return Hive.box<Measurement>("AccuracyBox");
   }
 
   static List<Watches> getWatchesByFilter(CollectionView collectionValue){
