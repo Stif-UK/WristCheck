@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Accuracy extends StatefulWidget {
   Accuracy({super.key, required this.currentWatch});
@@ -34,6 +35,8 @@ class _AccuracyState extends State<Accuracy> {
             icon: Icon(FontAwesomeIcons.caretUp),
             onPressed: ()=> widget.accuracyController.addAMinute(),
           ),
+          Obx(()=> Text(WristCheckFormatter.getShortTime(widget.accuracyController.watchDateTime.value, false),
+            style: Theme.of(context).textTheme.headlineLarge ,)),
           IconButton(
             icon: Icon(FontAwesomeIcons.caretDown),
             onPressed: ()=> widget.accuracyController.subtractAMinute(),

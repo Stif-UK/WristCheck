@@ -40,6 +40,11 @@ class WristCheckFormatter{
     return returnString;
   }
 
+  static String getShortTime(DateTime date, bool militaryTime){
+    final DateFormat formatter = militaryTime? DateFormat('Hm') : DateFormat('h:mm a');
+    return formatter.format(date);
+  }
+
   static String getMonthFromDate(DateTime date){
     final DateFormat formatter = DateFormat('LLLL');
     return formatter.format(date);

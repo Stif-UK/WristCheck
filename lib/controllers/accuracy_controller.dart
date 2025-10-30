@@ -14,7 +14,6 @@ class AccuracyController extends GetxController{
 
   updateBaseline(bool newValue){
     baseLine(newValue);
-    print(baseLine.value);
   }
 
   addAMinute(){
