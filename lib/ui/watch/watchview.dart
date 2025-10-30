@@ -19,8 +19,8 @@ import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/watch/header/accuracy_row.dart';
 import 'package:wristcheck/ui/watch/header/watch_image_carousel.dart';
-import 'package:wristcheck/ui/watch/header/watch_image_row.dart';
 import 'package:wristcheck/ui/watch/header/wear_row.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
@@ -499,6 +499,10 @@ class _WatchViewState extends State<WatchView> {
                                     // _displayWatchImageViewEdit(),
                                     widget.watchViewController.watchViewState.value == WatchViewEnum.view
                                         ? WearRow(currentWatch: widget.currentWatch,)
+                                        : const SizedBox(height: 0,),
+                                    const Divider(thickness: 2,),
+                                    widget.watchViewController.watchViewState.value == WatchViewEnum.view
+                                        ? AccuracyRow(currentWatch: widget.currentWatch,)
                                         : const SizedBox(height: 0,),
                                     const Divider(thickness: 2,),
                                     WatchStatusHeader(currentWatch: widget.currentWatch),
