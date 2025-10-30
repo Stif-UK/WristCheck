@@ -39,14 +39,14 @@ class WatchStatusHeader extends StatelessWidget {
       child: Obx(()=> Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            (watchViewController.inEditState.value == false) && (watchViewController.watchViewState.value == WatchViewEnum.view)? Text(currentWatch!.status.toString()):
+            (watchViewController.inEditState.value == false) && (watchViewController.watchViewState.value == WatchViewEnum.view)? Text(currentWatch!.status.toString(), style: Theme.of(Get.context!).textTheme.bodyLarge,):
             Obx(()=> DropdownButton(
                 dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                 value: watchViewController.selectedStatus.value,
                 items: _statusList
                     .map((status) => DropdownMenuItem(
                     value: status,
-                    child: Text(status))
+                    child: Text(status, style: Theme.of(Get.context!).textTheme.bodyLarge,))
 
                 ).toList(),
                 onChanged: (status) {
