@@ -60,6 +60,7 @@ Future main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
+  Hive.registerAdapter(MeasurementAdapter());
   await Hive.openBox<Measurement>("AccuracyBox");
 
   //Get SharedPreferences for watches and set opencount

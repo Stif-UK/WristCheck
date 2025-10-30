@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
+import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -52,7 +53,12 @@ class _AccuracyState extends State<Accuracy> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text("00 seconds", style: Theme.of(context).textTheme.headlineSmall,),
               ),
-              onPressed: (){},
+              onPressed: (){
+                MeasurementMethods.addMeasurement(widget.currentWatch.key,
+                    widget.accuracyController.baseLine.value,
+                    DateTime.now(),
+                    widget.accuracyController.watchDateTime.value);
+              },
             ),
           ),
           Row(
