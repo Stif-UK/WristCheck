@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/Accuracy.dart';
 
 class AccuracyRow extends StatelessWidget {
   AccuracyRow({super.key,
@@ -20,7 +21,7 @@ class AccuracyRow extends StatelessWidget {
           Expanded(child: Text("Accuracy:", style: Theme.of(context).textTheme.bodyLarge,)),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),
-          onPressed: (){},)
+          onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)),)
         ],
       ),
     );
