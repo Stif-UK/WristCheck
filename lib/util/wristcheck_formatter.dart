@@ -35,7 +35,7 @@ class WristCheckFormatter{
   }
 
   static String getTime(DateTime date, bool militaryTime){
-    final DateFormat formatter = militaryTime? DateFormat('Hms') : DateFormat('hh:mm:ss a');
+    final DateFormat formatter = militaryTime? DateFormat('Hms') : DateFormat('h:mm:ss a');
     String returnString = formatter.format(date);
     return returnString;
   }
