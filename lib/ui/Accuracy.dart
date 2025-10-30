@@ -26,6 +26,10 @@ class _AccuracyState extends State<Accuracy> {
       body: Column(
         children: [
           Obx(()=> Text("Time now: $now, \nPlus one: $nowPlus, \nController: ${widget.accuracyController.watchDateTime}")),
+          Obx(()=> SwitchListTile(
+            title: const Text("Baseline measurement:"),
+              value: widget.accuracyController.baseLine.value,
+              onChanged:(value) =>widget.accuracyController.updateBaseline(value) )),
           IconButton(
             icon: Icon(FontAwesomeIcons.caretUp),
             onPressed: ()=> widget.accuracyController.addAMinute(),
