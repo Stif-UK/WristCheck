@@ -37,6 +37,10 @@ class Boxes {
     return Hive.box<Measurement>("AccuracyBox");
   }
 
+  static Iterable<Measurement> getMeasurementsForWatch(Watches watch){
+    return getMeasurements().values.toList().where((measurement) => measurement.watchKey == watch.key);
+  }
+
   static List<Watches> getWatchesByFilter(CollectionView collectionValue){
     List<Watches> returnlist = [];
 

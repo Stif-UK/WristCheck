@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class AccuracyController extends GetxController{
   final watchDateTime = DateTime.now().obs;
   final baseLine = true.obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
-
+  final data = <Measurement>[].obs;
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -32,5 +33,9 @@ class AccuracyController extends GetxController{
   updateMilitaryTime(bool mt) async {
     await WristCheckPreferences.setMilitaryTime(mt);
     militaryTime(mt);
+  }
+
+  updateData(List<Measurement> newData){
+    data(newData);
   }
 }
