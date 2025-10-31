@@ -24,48 +24,57 @@ class _AccuracyState extends State<Accuracy> {
     //On build, set the value of watch time to 1 minute ahead (ignore seconds)
     var now = DateTime.now();
     var nowPlus = now.add(Duration(minutes: 1));
-    widget.accuracyController.updateWatchDateTime(DateTime(nowPlus.year, nowPlus.month, nowPlus.day, nowPlus.hour, nowPlus.minute));
+    widget.accuracyController.updateWatchDateTime(DateTime(
+        nowPlus.year, nowPlus.month, nowPlus.day, nowPlus.hour,
+        nowPlus.minute));
     //and initialise the record list in the controller
-    widget.accuracyController.updateData(Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
+    widget.accuracyController.updateData(
+        Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
 
     return Scaffold(
       appBar: AppBar(title: const Text("Accuracy Tracker"),),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Obx(()=> SwitchListTile(
-              title: const Text("24 Hour Display:"),
-                value: widget.accuracyController.militaryTime.value,
-                onChanged:(value) =>widget.accuracyController.updateMilitaryTime(value) )),
-            Obx(()=> SwitchListTile(
-                title: const Text("Baseline measurement:"),
-                value: widget.accuracyController.baseLine.value,
-                onChanged:(value) =>widget.accuracyController.updateBaseline(value) )),
+            Obx(() =>
+                SwitchListTile(
+                    title: const Text("24 Hour Display:"),
+                    value: widget.accuracyController.militaryTime.value,
+                    onChanged: (value) =>
+                        widget.accuracyController.updateMilitaryTime(value))),
+            Obx(() =>
+                SwitchListTile(
+                    title: const Text("Baseline measurement:"),
+                    value: widget.accuracyController.baseLine.value,
+                    onChanged: (value) =>
+                        widget.accuracyController.updateBaseline(value))),
             IconButton(
               icon: Icon(FontAwesomeIcons.caretUp),
-              onPressed: ()=> widget.accuracyController.addAMinute(),
+              onPressed: () => widget.accuracyController.addAMinute(),
             ),
-            Obx(()=> Text(WristCheckFormatter.getShortTime(widget.accuracyController.watchDateTime.value, widget.accuracyController.militaryTime.value),
-              style: Theme.of(context).textTheme.headlineLarge ,)),
+            Obx(() =>
+                Text(WristCheckFormatter.getShortTime(
+                    widget.accuracyController.watchDateTime.value,
+                    widget.accuracyController.militaryTime.value),
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineLarge,)),
             IconButton(
               icon: Icon(FontAwesomeIcons.caretDown),
-              onPressed: ()=> widget.accuracyController.subtractAMinute(),
+              onPressed: () => widget.accuracyController.subtractAMinute(),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("00 seconds", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text("00 seconds", style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineSmall,),
                 ),
-                onPressed: (){
-                  MeasurementMethods.addMeasurement(widget.currentWatch.key,
-                      widget.accuracyController.baseLine.value,
-                      DateTime.now(),
-                      widget.accuracyController.watchDateTime.value);
-                  //refresh the data in the widget by updating the controller
-                  widget.accuracyController.updateData(Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
-                },
+                onPressed: () => _addMeasurement(00),
               ),
             ),
             Row(
@@ -75,15 +84,21 @@ class _AccuracyState extends State<Accuracy> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 15.0, 25.0, 15.0),
                   child: ElevatedButton(
-                    child: Text("45 seconds", style: Theme.of(context).textTheme.bodyLarge,),
-                    onPressed: (){},
+                    child: Text("45 seconds", style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,),
+                    onPressed: () => _addMeasurement(45),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(25.0, 15.0, 8.0, 15.0),
                   child: ElevatedButton(
-                    child: Text("15 seconds",style: Theme.of(context).textTheme.bodyLarge,),
-                    onPressed: (){},
+                    child: Text("15 seconds", style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,),
+                    onPressed: () => _addMeasurement(15),
                   ),
                 ),
               ],
@@ -91,26 +106,56 @@ class _AccuracyState extends State<Accuracy> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
-                child: Text("30 seconds", style: Theme.of(context).textTheme.bodyLarge,),
-                onPressed: (){},
+                child: Text("30 seconds", style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge,),
+                onPressed: () => _addMeasurement(30),
               ),
             ),
             const Divider(thickness: 2,),
-            Obx(()=> ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: widget.accuracyController.data.length,
-                itemBuilder: (BuildContext context, int index){
+            Text("Records", style: Theme
+                .of(context)
+                .textTheme
+                .headlineSmall, textAlign: TextAlign.center,),
+            Obx(() =>
+                ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: widget.accuracyController.data.length,
+                    itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                      title: Text("Key: ${widget.accuracyController.data[index].key}"),
-                      subtitle: Text("Timestamp: ${widget.accuracyController.data[index].watchTime}"),
+                        title: Text(
+                            "Key: ${widget.accuracyController.data[index]
+                                .key}"),
+                        subtitle: Text(
+                            "Timestamp: ${widget.accuracyController.data[index]
+                                .watchTime}"),
 
                       );
-                      }),
+                    }),
             )
           ],
         ),
       ),
     );
+  }
+
+  /*
+  refreshData() calls the controller and updates the stored version of the measurement database for the watch
+   */
+  void _refreshData() {
+    widget.accuracyController.updateData(
+        Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
+  }
+
+  void _addMeasurement(int offset) {
+    //TODO: Implement the offset to add 15, 30, 45 seconds
+    print(offset);
+    MeasurementMethods.addMeasurement(widget.currentWatch.key,
+        widget.accuracyController.baseLine.value,
+        DateTime.now(),
+        widget.accuracyController.watchDateTime.value);
+    _refreshData();
   }
 }
