@@ -7,6 +7,7 @@ class AccuracyController extends GetxController{
   final baseLine = false.obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final data = <Measurement>[].obs;
+  final lastBaseline = Rxn<Measurement>();
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -37,5 +38,9 @@ class AccuracyController extends GetxController{
 
   updateData(List<Measurement> newData){
     data(newData);
+  }
+
+  updateLastBaseline(Measurement? record){
+    lastBaseline(record);
   }
 }

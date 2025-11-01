@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
-import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -33,6 +32,8 @@ class _AccuracyState extends State<Accuracy> {
         Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
     //If there are no records for the watch, set baseline to true
     if(widget.accuracyController.data.isEmpty) widget.accuracyController.updateBaseline(true);
+    //Initiate the value of the last baseline
+    widget.accuracyController.updateLastBaseline(MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
 
     return Scaffold(
       appBar: AppBar(title: const Text("Accuracy Tracker"),),
@@ -148,8 +149,12 @@ class _AccuracyState extends State<Accuracy> {
   refreshData() calls the controller and updates the stored version of the measurement database for the watch
    */
   void _refreshData() {
+    //Refresh data list
     widget.accuracyController.updateData(
         Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
+    //Refresh last baseline value
+    widget.accuracyController.updateLastBaseline(
+        MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
   }
 
   void _addMeasurement(int offset) {
