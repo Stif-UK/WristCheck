@@ -4,7 +4,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class AccuracyController extends GetxController{
   final watchDateTime = DateTime.now().obs;
-  final baseLine = true.obs;
+  final baseLine = false.obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final data = <Measurement>[].obs;
 

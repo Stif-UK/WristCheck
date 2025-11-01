@@ -21,7 +21,8 @@ class Accuracy extends StatefulWidget {
 class _AccuracyState extends State<Accuracy> {
   @override
   Widget build(BuildContext context) {
-    //On build, set the value of watch time to 1 minute ahead (ignore seconds)
+    //Initialise the page
+    //Set the value of watch time to 1 minute ahead (ignore seconds)
     var now = DateTime.now();
     var nowPlus = now.add(Duration(minutes: 1));
     widget.accuracyController.updateWatchDateTime(DateTime(
@@ -30,6 +31,8 @@ class _AccuracyState extends State<Accuracy> {
     //and initialise the record list in the controller
     widget.accuracyController.updateData(
         Boxes.getMeasurementsForWatch(widget.currentWatch).toList());
+    //If there are no records for the watch, set baseline to true
+    if(widget.accuracyController.data.isEmpty) widget.accuracyController.updateBaseline(true);
 
     return Scaffold(
       appBar: AppBar(title: const Text("Accuracy Tracker"),),
@@ -158,5 +161,7 @@ class _AccuracyState extends State<Accuracy> {
         DateTime.now(),
         record);
     _refreshData();
+    //Once a measurement is made, set baseline to false ready for the next measurement
+    widget.accuracyController.updateBaseline(false);
   }
 }
