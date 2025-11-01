@@ -150,12 +150,13 @@ class _AccuracyState extends State<Accuracy> {
   }
 
   void _addMeasurement(int offset) {
-    //TODO: Implement the offset to add 15, 30, 45 seconds
-    print(offset);
+    //Add the seconds offset
+    DateTime record = widget.accuracyController.watchDateTime.value.add(Duration(seconds: offset));
+
     MeasurementMethods.addMeasurement(widget.currentWatch.key,
         widget.accuracyController.baseLine.value,
         DateTime.now(),
-        widget.accuracyController.watchDateTime.value);
+        record);
     _refreshData();
   }
 }
