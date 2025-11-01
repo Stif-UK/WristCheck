@@ -152,6 +152,7 @@ class _AccuracyState extends State<Accuracy> {
                           title: Text(
                               "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
                                   .watchTime)}"),
+                          trailing: Text("spd"),
                         
                         ),
                       );
