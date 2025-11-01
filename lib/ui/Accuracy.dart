@@ -52,6 +52,9 @@ class _AccuracyState extends State<Accuracy> {
                     value: widget.accuracyController.baseLine.value,
                     onChanged: (value) =>
                         widget.accuracyController.updateBaseline(value))),
+            Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
+                Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
+            const Divider(thickness: 2,),
             IconButton(
               icon: Icon(FontAwesomeIcons.caretUp),
               onPressed: () => widget.accuracyController.addAMinute(),
