@@ -3,8 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
+import 'package:wristcheck/model/enums/rate_unit.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/accuracty_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Accuracy extends StatefulWidget {
@@ -152,7 +155,7 @@ class _AccuracyState extends State<Accuracy> {
                           title: Text(
                               "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
                                   .watchTime)}"),
-                          trailing: Text("spd"),
+                          trailing: Text(_getDisplayRate(index)),
                         
                         ),
                       );
@@ -176,16 +179,49 @@ class _AccuracyState extends State<Accuracy> {
         MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
   }
 
-  void _addMeasurement(int offset) {
+  Future<void> _addMeasurement(int offset) async {
+    double? rate;
+    bool calculateRate = true;
+    int index;
+
     //Add the seconds offset
     DateTime record = widget.accuracyController.watchDateTime.value.add(Duration(seconds: offset));
 
-    MeasurementMethods.addMeasurement(widget.currentWatch.key,
+    //TODO: Implement calculation as below
+    //1. Get the last baseline value - if no baseline, this MUST be treated as a baseline and no calculation
+    //should be completed.
+    Measurement? baseline = MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch);
+    if(baseline == null) {
+      widget.accuracyController.updateBaseline(true);
+      calculateRate = false;
+    }
+
+    //2. Save the record (at this point rate is zero)
+    index = await MeasurementMethods.addMeasurement(widget.currentWatch.key,
         widget.accuracyController.baseLine.value,
         DateTime.now(),
-        record);
+        record,
+        rate);
+
+    //3. If this is not a baseline calculate the rate
+    if(calculateRate) {
+      rate = AccuracyHelper.calculateRate(baseline!, MeasurementMethods.getMeasurementByIndex(index)!);
+      MeasurementMethods.addRateToRecord(index, rate);
+    }
     _refreshData();
     //Once a measurement is made, set baseline to false ready for the next measurement
     widget.accuracyController.updateBaseline(false);
+  }
+
+  String _getDisplayRate(int index) {
+    String returnText = " - ";
+    double? rate;
+
+    rate = widget.accuracyController.data[index].rawAccuracy == null? null :
+    AccuracyHelper.getScaledRate(widget.accuracyController.data[index].rawAccuracy!,RateUnit.day);
+
+    if(rate != null) returnText = rate.toString();
+    return returnText;
+
   }
 }

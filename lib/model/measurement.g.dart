@@ -20,13 +20,14 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       ..watchKey = fields[0] as int
       ..baseLine = fields[1] as bool
       ..atomicTime = fields[2] as DateTime
-      ..watchTime = fields[3] as DateTime;
+      ..watchTime = fields[3] as DateTime
+      ..rawAccuracy = fields[4] as double?;
   }
 
   @override
   void write(BinaryWriter writer, Measurement obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.watchKey)
       ..writeByte(1)
@@ -34,7 +35,9 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       ..writeByte(2)
       ..write(obj.atomicTime)
       ..writeByte(3)
-      ..write(obj.watchTime);
+      ..write(obj.watchTime)
+      ..writeByte(4)
+      ..write(obj.rawAccuracy);
   }
 
   @override

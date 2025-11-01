@@ -8,15 +8,15 @@ This class provides static methods to interact with the Measurements database
  */
 class MeasurementMethods{
 
-  static Future addMeasurement(int watchKey, bool baseLine, DateTime atomicTime, DateTime watchTime){
+  static Future<int> addMeasurement(int watchKey, bool baseLine, DateTime atomicTime, DateTime watchTime, double? rate){
 
     final measurement = Measurement()
       ..watchKey = watchKey
       ..baseLine = baseLine
       ..atomicTime = atomicTime
-      ..watchTime = watchTime;
+      ..watchTime = watchTime
+      ..rawAccuracy = rate;
 
-    print("Measurement: ${measurement.watchKey}: ${measurement.baseLine}: ${measurement.atomicTime}: ${measurement.watchTime}; ");
     final box = Boxes.getMeasurements();
     return box.add(measurement);
   }
@@ -27,6 +27,20 @@ class MeasurementMethods{
     if(baselines.isEmpty) return null;
     baselines.sort((a,b)=> b.atomicTime.compareTo(a.atomicTime));
     return baselines.first;
+  }
+
+  static Measurement? getMeasurementByIndex(int index){
+    final Box<Measurement> box = Boxes.getMeasurements();
+    return box.getAt(index);
+  }
+
+  static addRateToRecord(int index, double rate){
+    final Box<Measurement> box = Boxes.getMeasurements();
+    Measurement? record = box.getAt(index);
+    if(record != null) {
+      record.rawAccuracy = rate;
+      record.save();
+    }
   }
 
   static clearMeasurementData(){

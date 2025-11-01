@@ -3,8 +3,9 @@ import 'package:wristcheck/model/measurement.dart';
 
 class AccuracyHelper {
 
-  /// Calculates the watch's rate (accuracy) in seconds per the specified unit (s/unit)
-  /// based on two sequential measurements.
+  /// Calculates the watch's rate (accuracy) based on two sequential measurements.
+  /// Once calculated the getScaledRate method should be called on the output to
+  /// convert to the desired units (seconds per day/month/year)
   ///
   /// A positive result means the watch is running fast (gaining time).
   /// A negative result means the watch is running slow (losing time).
@@ -12,29 +13,7 @@ class AccuracyHelper {
   /// Arguments:
   /// - baseline: The initial (older) measurement point.
   /// - latest: The final (newer) measurement point.
-  /// - unit: The desired output unit (Day, Month, or Year).
-  static double calculateRatePerDay(Measurement baseline, Measurement latest,
-      RateUnit unit) {
-
-    // Constants for rate calculation scaling
-    final double _SECONDS_PER_DAY = 86400.0;
-    final double _DAYS_PER_MONTH = 30.4375; // 365.25 / 12
-    final double _DAYS_PER_YEAR = 365.25;
-
-    /// Helper function to get the correct scaling factor based on the desired RateUnit.
-    double _getRateFactor(RateUnit unit) {
-      switch (unit) {
-        case RateUnit.day:
-        // Rate is scaled by seconds per day (86400)
-          return _SECONDS_PER_DAY;
-        case RateUnit.month:
-        // Rate is scaled by seconds per average month (86400 * 30.4375)
-          return _SECONDS_PER_DAY * _DAYS_PER_MONTH;
-        case RateUnit.year:
-        // Rate is scaled by seconds per average year (86400 * 365.25)
-          return _SECONDS_PER_DAY * _DAYS_PER_YEAR;
-      }
-    }
+  static double calculateRate(Measurement baseline, Measurement latest) {
 
     // 1. Calculate the raw error (deviation) for the initial measurement.
     // Error = Watch Time - Atomic Time.
@@ -60,17 +39,45 @@ class AccuracyHelper {
           'The second measurement must be taken after the first.');
     }
 
-    // 5. Scale the drift to the specified unit (Rate).
-    final double scaleFactor = _getRateFactor(unit);
+    // 5. Calculate the drift and interval.
     final double driftInSeconds = drift.inMicroseconds /
         Duration.microsecondsPerSecond;
     final double intervalInSeconds = interval.inMicroseconds /
         Duration.microsecondsPerSecond;
 
-    // Rate formula: (Drift in Seconds / Interval in Seconds) * Scaling Factor (e.g., seconds/day)
-    final double rate = (driftInSeconds / intervalInSeconds) * scaleFactor;
+    final double rate = (driftInSeconds / intervalInSeconds);
     return rate;
   }
+
+  ///Takes the Provided rate and requested unit (seconds per day/month/year
+  ///and returns a result ready to display
+  static double getScaledRate(double rate, RateUnit unit){
+    // Constants for rate calculation scaling
+    final double _SECONDS_PER_DAY = 86400.0;
+    final double _DAYS_PER_MONTH = 30.4375; // 365.25 / 12
+    final double _DAYS_PER_YEAR = 365.25;
+
+    /// Helper function to get the correct scaling factor based on the desired RateUnit.
+    double _getRateFactor(RateUnit unit) {
+      switch (unit) {
+        case RateUnit.day:
+        // Rate is scaled by seconds per day (86400)
+          return _SECONDS_PER_DAY;
+        case RateUnit.month:
+        // Rate is scaled by seconds per average month (86400 * 30.4375)
+          return _SECONDS_PER_DAY * _DAYS_PER_MONTH;
+        case RateUnit.year:
+        // Rate is scaled by seconds per average year (86400 * 365.25)
+          return _SECONDS_PER_DAY * _DAYS_PER_YEAR;
+      }
+    }
+
+    final double scaleFactor = _getRateFactor(unit);
+    return rate * scaleFactor;
+
+  }
+
+
 
 // --- UPDATED FUNCTION FOR MULTIPLE MEASUREMENTS ---
 

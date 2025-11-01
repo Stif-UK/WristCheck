@@ -17,4 +17,7 @@ class Measurement extends HiveObject {
   @HiveField(3)
   late DateTime watchTime;
 
+  @HiveField(4)
+  late double? rawAccuracy;
+
 }
