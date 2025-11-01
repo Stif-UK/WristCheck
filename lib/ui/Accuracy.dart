@@ -125,20 +125,35 @@ class _AccuracyState extends State<Accuracy> {
                 .of(context)
                 .textTheme
                 .headlineSmall, textAlign: TextAlign.center,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: Text("Baseline", textAlign: TextAlign.start,)),
+                  Expanded(child: Text("Time", textAlign: TextAlign.center,)),
+                  Expanded(child: Text("Result", textAlign: TextAlign.end,)),
+                ],
+              ),
+            ),
             Obx(() =>
                 ListView.builder(
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: widget.accuracyController.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(
-                            "Key: ${widget.accuracyController.data[index]
-                                .key}"),
-                        subtitle: Text(
-                            "Timestamp: ${widget.accuracyController.data[index]
-                                .watchTime}"),
-
+                      return Card(
+                        child: ListTile(
+                          leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
+                          // title: Text(
+                          //     "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
+                          //         .atomicTime)}"),
+                          title: Text(
+                              "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
+                                  .watchTime)}"),
+                        
+                        ),
                       );
                     }),
             )
