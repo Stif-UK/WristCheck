@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/measurement.dart';
 
@@ -17,6 +18,11 @@ class MeasurementMethods{
     print("Measurement: ${measurement.watchKey}: ${measurement.baseLine}: ${measurement.atomicTime}: ${measurement.watchTime}; ");
     final box = Boxes.getMeasurements();
     return box.add(measurement);
+  }
+
+  static clearMeasurementData(){
+    final Box<Measurement> box = Boxes.getMeasurements();
+    box.clear();
   }
 
 }
