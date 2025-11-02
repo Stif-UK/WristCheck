@@ -43,6 +43,15 @@ class MeasurementMethods{
     }
   }
 
+  static bool deleteRecord(int key){
+    final Box<Measurement> box = Boxes.getMeasurements();
+    if(box.containsKey(key)) {
+      box.get(key)!.delete();
+      return true;
+    }
+    return false;
+  }
+
   static clearMeasurementData(){
     final Box<Measurement> box = Boxes.getMeasurements();
     box.clear();
