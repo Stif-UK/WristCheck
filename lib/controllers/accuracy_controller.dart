@@ -10,6 +10,7 @@ class AccuracyController extends GetxController{
   final data = <Measurement>[].obs;
   final lastBaseline = Rxn<Measurement>();
   final scale = RateUnit.day.obs;
+  final syncTimestamp = Rxn<DateTime>();
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -48,5 +49,9 @@ class AccuracyController extends GetxController{
 
   updateScale(RateUnit unit){
     scale(unit);
+  }
+
+  updateSyncTimestamp(DateTime? synced){
+    syncTimestamp(synced);
   }
 }

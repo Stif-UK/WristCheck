@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
@@ -21,6 +23,30 @@ class Accuracy extends StatefulWidget {
 }
 
 class _AccuracyState extends State<Accuracy> {
+
+  @override
+  void initState() {
+    // analytics.setAnalyticsCollectionEnabled(true);
+    initPlatformState();
+    super.initState();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    FlutterKronosPlus.sync();
+    try {
+      //Try to get the date and capture sync timestamp
+      DateTime? _currentNTPDateTime = await FlutterKronosPlus.getNtpDateTime;
+      widget.accuracyController.updateSyncTimestamp(_currentNTPDateTime);
+    } on PlatformException {}
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+  }
   @override
   Widget build(BuildContext context) {
     //Initialise the page
@@ -48,6 +74,8 @@ class _AccuracyState extends State<Accuracy> {
               child: Text(widget.currentWatch.toString(),
                 style: Theme.of(context).textTheme.headlineSmall ,),
             ),
+            Obx(()=> Text("Time synced with server: ${_getLastSyncTime()}")),
+            const Divider(thickness: 2,),
             Text("Show results in seconds per:"),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -220,14 +248,17 @@ class _AccuracyState extends State<Accuracy> {
       calculateRate = false;
     }
 
-    //2. Save the record (at this point rate is zero)
+    //2. Get the atomic time from the server, or default to system time if not synced
+    DateTime timestamp = await FlutterKronosPlus.getNtpDateTime ?? DateTime.now();
+
+    //3. Save the record (at this point rate is zero)
     index = await MeasurementMethods.addMeasurement(widget.currentWatch.key,
         widget.accuracyController.baseLine.value,
-        DateTime.now(),
+        timestamp,
         record,
         rate);
 
-    //3. If this is not a baseline calculate the rate
+    //4. If this is not a baseline calculate the rate
     if(calculateRate) {
       rate = AccuracyHelper.calculateRate(baseline!, MeasurementMethods.getMeasurementByIndex(index)!);
       MeasurementMethods.addRateToRecord(index, rate);
@@ -250,5 +281,11 @@ class _AccuracyState extends State<Accuracy> {
     returnText = "$returnText\ns/$unit";
     return returnText;
 
+  }
+
+  _getLastSyncTime() {
+    return widget.accuracyController.syncTimestamp.value != null?
+    WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.syncTimestamp.value!)
+        : "... system time in use";
   }
 }
