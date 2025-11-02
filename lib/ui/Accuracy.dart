@@ -43,6 +43,30 @@ class _AccuracyState extends State<Accuracy> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.currentWatch.toString(),
+                style: Theme.of(context).textTheme.headlineSmall ,),
+            ),
+            Text("Show results in seconds per:"),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            spacing: 8.0, // Horizontal space between chips
+            runSpacing: 4.0, // Vertical space between lines
+            children: RateUnit.values.map((unit) {
+
+              return Obx(()=>ChoiceChip(
+                  label: Text(unit.name, style: Theme.of(context).textTheme.bodyLarge, selectionColor: Colors.grey,),
+                  selected: widget.accuracyController.scale.value == unit,
+                  onSelected: (bool selected) => widget.accuracyController.updateScale(unit),
+                  selectedColor: Theme.of(context).primaryColor,
+                ),
+              );
+            }).toList(), // Don't forget .toList()!
+          ),
+        ),
+
             Obx(() =>
                 SwitchListTile(
                     title: const Text("24 Hour Display:"),
@@ -155,7 +179,7 @@ class _AccuracyState extends State<Accuracy> {
                           title: Text(
                               "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
                                   .watchTime)}"),
-                          trailing: Text(_getDisplayRate(index)),
+                          trailing: Obx(()=> Text(_getDisplayRate(index))),
                         
                         ),
                       );
@@ -216,11 +240,14 @@ class _AccuracyState extends State<Accuracy> {
   String _getDisplayRate(int index) {
     String returnText = " - ";
     double? rate;
+    String unit = widget.accuracyController.scale.value.name;
+    // /unit = unit.substring(0,1).toUpperCase();
 
     rate = widget.accuracyController.data[index].rawAccuracy == null? null :
-    AccuracyHelper.getScaledRate(widget.accuracyController.data[index].rawAccuracy!,RateUnit.day);
+    AccuracyHelper.getScaledRate(widget.accuracyController.data[index].rawAccuracy!,widget.accuracyController.scale.value);
 
-    if(rate != null) returnText = rate.toString();
+    if(rate != null) returnText = rate.toStringAsFixed(1);
+    returnText = "$returnText\ns/$unit";
     return returnText;
 
   }

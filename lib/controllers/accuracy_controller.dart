@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
@@ -8,6 +9,7 @@ class AccuracyController extends GetxController{
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final data = <Measurement>[].obs;
   final lastBaseline = Rxn<Measurement>();
+  final scale = RateUnit.day.obs;
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -42,5 +44,9 @@ class AccuracyController extends GetxController{
 
   updateLastBaseline(Measurement? record){
     lastBaseline(record);
+  }
+
+  updateScale(RateUnit unit){
+    scale(unit);
   }
 }
