@@ -14,7 +14,6 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/time/moon_phase.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
