@@ -99,12 +99,6 @@ class _TimeSettingState extends State<TimeSetting> {
                           width: 10,
                           child: CircularProgressIndicator(strokeWidth: 1.5,)
                       ),
-                      // IconButton(
-                      //     icon: Icon(FontAwesomeIcons.arrowRotateRight,
-                      //       color: Theme.of(context).textTheme.bodySmall?.color,
-                      //       size: Theme.of(context).textTheme.bodySmall?.fontSize,),
-                      //     onPressed: () {}
-                      // )
                     ],
                   ),
                 ),
