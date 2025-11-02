@@ -176,10 +176,21 @@ class _AccuracyState extends State<Accuracy> {
               ),
             ),
             const Divider(thickness: 2,),
-            Text("Records", style: Theme
-                .of(context)
-                .textTheme
-                .headlineSmall, textAlign: TextAlign.center,),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Records", style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineSmall, textAlign: TextAlign.center,),
+                Obx(()=> IconButton(icon: widget.accuracyController.dataLastFirst.value?
+                  Icon(FontAwesomeIcons.arrowDown):
+                      Icon(FontAwesomeIcons.arrowUp),
+                  onPressed: widget.accuracyController.toggleDataOrder,),
+                )
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -195,6 +206,7 @@ class _AccuracyState extends State<Accuracy> {
             Obx(() =>
                 ListView.builder(
                     physics: BouncingScrollPhysics(),
+                    reverse: widget.accuracyController.dataLastFirst.value,
                     shrinkWrap: true,
                     itemCount: widget.accuracyController.data.length,
                     itemBuilder: (BuildContext context, int index) {
