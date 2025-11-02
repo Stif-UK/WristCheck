@@ -43,7 +43,7 @@ class MeasurementMethods{
     }
   }
 
-  static bool deleteRecord(int key){
+  static Future<bool> deleteRecord(int key) async {
     final Box<Measurement> box = Boxes.getMeasurements();
     if(box.containsKey(key)) {
       box.get(key)!.delete();

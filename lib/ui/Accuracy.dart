@@ -210,17 +210,32 @@ class _AccuracyState extends State<Accuracy> {
                     shrinkWrap: true,
                     itemCount: widget.accuracyController.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: ListTile(
-                          leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
-                          // title: Text(
-                          //     "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
-                          //         .atomicTime)}"),
-                          title: Text(
-                              "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
-                                  .watchTime)}"),
-                          trailing: Obx(()=> Text(_getDisplayRate(index))),
+                      return Dismissible(
                         
+                        key: Key(widget.accuracyController.data[index].key.toString()),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Icon(FontAwesomeIcons.trash, color: Colors.white),
+                        ),
+                        onDismissed: (direction) async {
+                          var result = await MeasurementMethods.deleteRecord(widget.accuracyController.data[index].key);
+                          if(result) _refreshData();
+                        },
+                        child: Card(
+                          child: ListTile(
+                            leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
+                            // title: Text(
+                            //     "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
+                            //         .atomicTime)}"),
+                            title: Text(
+                                "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
+                                    .watchTime)}"),
+                            trailing: Obx(()=> Text(_getDisplayRate(index))),
+                          
+                          ),
                         ),
                       );
                     }),
