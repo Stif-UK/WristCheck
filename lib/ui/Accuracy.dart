@@ -72,7 +72,8 @@ class _AccuracyState extends State<Accuracy> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(widget.currentWatch.toString(),
-                style: Theme.of(context).textTheme.headlineSmall ,),
+                style: Theme.of(context).textTheme.headlineSmall ,
+              textAlign: TextAlign.center,),
             ),
             Obx(()=> Text("Time synced with server: ${_getLastSyncTime()}")),
             const Divider(thickness: 2,),
