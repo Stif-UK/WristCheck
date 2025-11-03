@@ -136,8 +136,7 @@ class _ArchivedState extends State<Archived> {
                                             await analytics.logEvent(name: "watch_deleted");
                                             setState(() {
                                               archiveList.removeAt(index);
-                                              ImagesUtil.deleteImages(watch);
-                                              watchBox.delete(watch.key);
+                                              WatchMethods.deleteWatch(watch);
                                               // Then show a snackbar.
                                               WristCheckSnackBars.deleteWatch(
                                                   watch.toString());

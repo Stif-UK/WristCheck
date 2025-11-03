@@ -1,10 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:hive/hive.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -91,6 +94,22 @@ class WatchMethods {
     watch.status = "Archived";
     watch.save();
     return true;
+  }
+
+  static Future<void> deleteWatch(Watches watch) async{
+    //Get the databases
+    final Box watchbox = Boxes.getWatches();
+    final Box<Measurement> measurements = Boxes.getMeasurements();
+    //1.Delete associated images
+    ImagesUtil.deleteImages(watch);
+    //2. Delete any associated Measurement records
+    List<Measurement> recordList = measurements.values.where((record) => record.watchKey == watch.key).toList();
+    for(Measurement record in recordList){
+      measurements.delete(record.key);
+    }
+    //3. Delete the watch
+    watchbox.delete(watch.key);
+
   }
 
   static void updateStatus(Watches watch, String status){

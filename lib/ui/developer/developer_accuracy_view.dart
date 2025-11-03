@@ -60,7 +60,7 @@ class _DeveloperAccuracyViewState extends State<DeveloperAccuracyView> {
             DataCell(Text(m.baseLine.toString())),
             DataCell(Text(m.atomicTime.toString())),
             DataCell(Text(m.watchTime.toString())),
-            DataCell(Text('')),//final column currently blank
+            DataCell(Text(m.rawAccuracy.toString())),//final column currently blank
           ]));
 
     }
