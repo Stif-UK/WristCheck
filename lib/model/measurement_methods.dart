@@ -34,6 +34,13 @@ class MeasurementMethods{
     return box.get(key);
   }
 
+  static Measurement? getLatestMeasurementForWatch(Watches watch){
+    final List<Measurement> records = Boxes.getMeasurementsForWatch(watch).toList();
+    if(records.isEmpty) return null;
+    records.sort((a,b)=> b.atomicTime.compareTo(a.atomicTime));
+    return records.first;
+  }
+
   static addRateToRecord(int key, double rate){
     final Box<Measurement> box = Boxes.getMeasurements();
     Measurement? record = box.get(key);
