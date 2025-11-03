@@ -29,14 +29,14 @@ class MeasurementMethods{
     return baselines.first;
   }
 
-  static Measurement? getMeasurementByIndex(int index){
+  static Measurement? getMeasurementByIndex(int key){
     final Box<Measurement> box = Boxes.getMeasurements();
-    return box.getAt(index);
+    return box.get(key);
   }
 
-  static addRateToRecord(int index, double rate){
+  static addRateToRecord(int key, double rate){
     final Box<Measurement> box = Boxes.getMeasurements();
-    Measurement? record = box.getAt(index);
+    Measurement? record = box.get(key);
     if(record != null) {
       record.rawAccuracy = rate;
       record.save();

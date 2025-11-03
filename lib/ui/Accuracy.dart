@@ -227,9 +227,6 @@ class _AccuracyState extends State<Accuracy> {
                         child: Card(
                           child: ListTile(
                             leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
-                            // title: Text(
-                            //     "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
-                            //         .atomicTime)}"),
                             title: Text(
                                 "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
                                     .watchTime)}"),
@@ -266,7 +263,6 @@ class _AccuracyState extends State<Accuracy> {
     //Add the seconds offset
     DateTime record = widget.accuracyController.watchDateTime.value.add(Duration(seconds: offset));
 
-    //TODO: Implement calculation as below
     //1. Get the last baseline value - if no baseline, this MUST be treated as a baseline and no calculation
     //should be completed.
     Measurement? baseline = MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch);
