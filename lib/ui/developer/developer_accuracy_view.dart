@@ -34,21 +34,17 @@ class _DeveloperAccuracyViewState extends State<DeveloperAccuracyView> {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Expanded(
-                    child: DataTable(
-                        columns:[
-                          DataColumn(label: Text('Key')),
-                          DataColumn(label: Text(' Watch ID')),
-                          DataColumn(label: Text('Baseline')),
-                          DataColumn(label: Text('Atomic Time')),
-                          DataColumn(label: Text('Watch Time')),
-                          DataColumn(label: Text('Accuracy'))],
-                        rows: getRows(data)),
-                  ),
-                ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                    columns:[
+                      DataColumn(label: Text('Key')),
+                      DataColumn(label: Text(' Watch ID')),
+                      DataColumn(label: Text('Baseline')),
+                      DataColumn(label: Text('Atomic Time')),
+                      DataColumn(label: Text('Watch Time')),
+                      DataColumn(label: Text('Accuracy'))],
+                    rows: getRows(data)),
               ),
             ),
           ),
