@@ -31,19 +31,25 @@ class _DeveloperAccuracyViewState extends State<DeveloperAccuracyView> {
                 });
               },),),
           const Divider(thickness: 2,),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: DataTable(
-                  columns:[
-                    DataColumn(label: Text('Key')),
-                    DataColumn(label: Text(' Watch ID')),
-                    DataColumn(label: Text('Baseline')),
-                    DataColumn(label: Text('Atomic Time')),
-                    DataColumn(label: Text('Watch Time')),
-                    DataColumn(label: Text('Accuracy'))],
-                  rows: getRows(data)),
+              child: Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Expanded(
+                    child: DataTable(
+                        columns:[
+                          DataColumn(label: Text('Key')),
+                          DataColumn(label: Text(' Watch ID')),
+                          DataColumn(label: Text('Baseline')),
+                          DataColumn(label: Text('Atomic Time')),
+                          DataColumn(label: Text('Watch Time')),
+                          DataColumn(label: Text('Accuracy'))],
+                        rows: getRows(data)),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
