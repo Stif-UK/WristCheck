@@ -42,9 +42,17 @@ class AccuracyRow extends StatelessWidget {
     if(latest != null){
       //TODO: Handle case where rawAccuracy is null to prevent getScaledRate failing
       //TODO: Add units text
-      returnText = latest.baseLine? "Measurement in progress..." : AccuracyHelper.getScaledRate(latest.rawAccuracy!, RateUnit.day).toStringAsFixed(1);
+      returnText = latest.baseLine? "Measurement in progress..." : _getRateText(latest, RateUnit.day);
     };
 
     return returnText;
+  }
+
+  String _getRateText(Measurement latest, RateUnit suffix) {
+
+    String rate = latest.rawAccuracy != null? AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix).toStringAsFixed(1)
+    : "No rate found";
+    String units = "seconds/${suffix.name}";
+    return "$rate $units";
   }
 }
