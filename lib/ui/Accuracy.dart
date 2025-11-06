@@ -127,7 +127,7 @@ class _AccuracyState extends State<Accuracy> {
             Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
                 Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
             const Divider(thickness: 2,),
-                Text("Record time:", style: Theme.of(context).textTheme.headlineSmall,),
+                Text("Add Checkpoint:", style: Theme.of(context).textTheme.headlineSmall,),
                 IconButton(
                   icon: Icon(FontAwesomeIcons.caretUp),
                   onPressed: () => widget.accuracyController.addAMinute(),
