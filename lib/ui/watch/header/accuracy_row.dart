@@ -50,9 +50,15 @@ class AccuracyRow extends StatelessWidget {
 
   String _getRateText(Measurement latest, RateUnit suffix) {
 
-    String rate = latest.rawAccuracy != null? AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix).toStringAsFixed(1)
-    : "No rate found";
+    String rate = "No rate found";
+    String prefix = "";
+    if(latest.rawAccuracy != null){
+      rate = AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix).toStringAsFixed(1);
+      if(latest.rawAccuracy! >= 0) prefix = "+";
+    }
+
+
     String units = "seconds/${suffix.name}";
-    return "$rate $units";
+    return "$prefix$rate $units";
   }
 }
