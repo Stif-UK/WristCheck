@@ -51,4 +51,25 @@ class WristCheckCopy {
     );
   }
 
+  static Widget getAccuracyHelpCopy(){
+    return Container(
+      child: const Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Markdown(
+            shrinkWrap: true,
+            data:
+            "Track your watches accuracy by creating checkpoints - "
+                "WristTrack can then compare the change in the time on your watch,"
+                " to the change in time from the atomic clock and calculate if it is gaining or losing time\n\n"
+                "**Baselines**\n\n"
+                "When you set a checkpoint as a baseline, all following measurements"
+                " will be compared to it. You should set a new baseline any time you have manually adjusted your watch since the last baseline."
+                "If you have no records saved, the first result is always tagged as a baseline record.\n\n"
+                "**Capturing a measurement**\n\n"
+                "lorem ipsum"
+        ),
+      ),
+    );
+  }
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/copy/copy.dart';
 
 class AccuracyHelpBottomsheet extends StatelessWidget {
   const AccuracyHelpBottomsheet({super.key});
@@ -13,7 +14,6 @@ class AccuracyHelpBottomsheet extends StatelessWidget {
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(15),
         ),
-        height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.all(15),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -28,6 +28,7 @@ class AccuracyHelpBottomsheet extends StatelessWidget {
                 ],
               ),
               const Divider(thickness: 2,),
+              SingleChildScrollView(child: WristCheckCopy.getAccuracyHelpCopy()),
 
             ]),);
 

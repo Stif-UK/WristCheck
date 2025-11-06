@@ -332,9 +332,11 @@ class _AccuracyState extends State<Accuracy> {
 
   Future showAccuracyHelpBottomSheet() {
     return showModalBottomSheet(
+      isScrollControlled: true,
         context: context,
         builder: (context){
           return Container(
+            height: MediaQuery.of(context).size.height*0.8,
           child: AccuracyHelpBottomsheet());
         });
   }
