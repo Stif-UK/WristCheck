@@ -40,8 +40,6 @@ class AccuracyRow extends StatelessWidget {
       latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
     };
     if(latest != null){
-      //TODO: Handle case where rawAccuracy is null to prevent getScaledRate failing
-      //TODO: Add units text
       returnText = latest.baseLine? "Measurement in progress..." : _getRateText(latest, RateUnit.day);
     };
 
