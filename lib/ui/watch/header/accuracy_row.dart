@@ -22,8 +22,8 @@ class AccuracyRow extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10.0, 8.0, 0, 8.0),
       child: Row(
         children: [
-          Expanded(child: Text("Accuracy:", style: Theme.of(context).textTheme.bodyLarge,)),
-          Expanded(child: Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,)),
+          Expanded(flex: 2, child: Text("Accuracy:", style: Theme.of(context).textTheme.bodyLarge,)),
+          Expanded(flex: 3, child: Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,)),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),
           onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)),)
