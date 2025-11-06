@@ -9,6 +9,7 @@ import 'package:wristcheck/model/enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/accuracy_help_bottomsheet.dart';
 import 'package:wristcheck/util/accuracty_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -65,7 +66,12 @@ class _AccuracyState extends State<Accuracy> {
     widget.accuracyController.updateLastBaseline(MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Accuracy Tracker"),),
+      appBar: AppBar(title: const Text("Accuracy Tracker"),
+      actions: [Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(icon: Icon(FontAwesomeIcons.circleQuestion),
+        onPressed: ()=> showAccuracyHelpBottomSheet(),),
+      )],),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -322,5 +328,14 @@ class _AccuracyState extends State<Accuracy> {
     return widget.accuracyController.syncTimestamp.value != null?
     WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.syncTimestamp.value!)
         : "... system time in use";
+  }
+
+  Future showAccuracyHelpBottomSheet() {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return Container(
+          child: AccuracyHelpBottomsheet());
+        });
   }
 }
