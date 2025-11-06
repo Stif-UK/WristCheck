@@ -75,7 +75,12 @@ class _AccuracyState extends State<Accuracy> {
                 style: Theme.of(context).textTheme.headlineSmall ,
               textAlign: TextAlign.center,),
             ),
-            Obx(()=> Text("Time synced with server: ${_getLastSyncTime()}")),
+            Obx(()=> Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Time synced with server:\n${_getLastSyncTime()}"),
+              ),
+            )),
             const Divider(thickness: 2,),
             Text("Show results in seconds per:"),
         Padding(
@@ -97,36 +102,42 @@ class _AccuracyState extends State<Accuracy> {
         ),
 
             Obx(() =>
-                SwitchListTile(
-                    title: const Text("24 Hour Display:"),
-                    value: widget.accuracyController.militaryTime.value,
-                    onChanged: (value) =>
-                        widget.accuracyController.updateMilitaryTime(value))),
+                Card(
+                  child: SwitchListTile(
+                      title: const Text("24 Hour Display:"),
+                      value: widget.accuracyController.militaryTime.value,
+                      onChanged: (value) =>
+                          widget.accuracyController.updateMilitaryTime(value)),
+                )),
             Obx(() =>
-                SwitchListTile(
-                    title: const Text("Baseline measurement:"),
-                    value: widget.accuracyController.baseLine.value,
-                    onChanged: (value) =>
-                        widget.accuracyController.updateBaseline(value))),
+                Card(
+                  child: SwitchListTile(
+                      title: const Text("Baseline measurement:"),
+                      subtitle: const Text("Set a new baseline if you've just set the time of your watch"),
+                      value: widget.accuracyController.baseLine.value,
+                      onChanged: (value) =>
+                          widget.accuracyController.updateBaseline(value)),
+                )),
             Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
                 Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
             const Divider(thickness: 2,),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.caretUp),
-              onPressed: () => widget.accuracyController.addAMinute(),
-            ),
-            Obx(() =>
-                Text(WristCheckFormatter.getShortTime(
-                    widget.accuracyController.watchDateTime.value,
-                    widget.accuracyController.militaryTime.value),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineLarge,)),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.caretDown),
-              onPressed: () => widget.accuracyController.subtractAMinute(),
-            ),
+                Text("Record time:", style: Theme.of(context).textTheme.headlineSmall,),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.caretUp),
+                  onPressed: () => widget.accuracyController.addAMinute(),
+                ),
+                Obx(() =>
+                    Text(WristCheckFormatter.getShortTime(
+                        widget.accuracyController.watchDateTime.value,
+                        widget.accuracyController.militaryTime.value),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headlineLarge,)),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.caretDown),
+                  onPressed: () => widget.accuracyController.subtractAMinute(),
+                ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
