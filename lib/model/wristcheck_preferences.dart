@@ -51,6 +51,7 @@ class WristCheckPreferences {
   //Dismissable pop-ups
   static const _keyShowSoldDialog = 'showSoldDialog';
   static const _keyShowPreOrderDialog = 'showPreOrderDialog';
+  static const _keyShowAccuracyHelp = 'showAccuracyHelp';
 
   //TimeSettingFeatures
   static const _keyEnableBeep = 'enableBeep';
@@ -82,6 +83,12 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyShowPreOrderDialog, showDialog);
 
   static bool getShowPreOrderDialog() => _preferences.getBool(_keyShowPreOrderDialog) ?? true;
+
+  //Getter and setter for show accuracy help
+  static Future setShowAccuracyHelp(bool showHelp) async =>
+      await _preferences.setBool(_keyShowAccuracyHelp, showHelp);
+
+  static bool getShowAccuracyHelp() => _preferences.getBool(_keyShowAccuracyHelp) ?? true;
 
   //Getter and setter for first use demo
   static Future setHasSeenDemo(bool hasSeenDemo) async =>
