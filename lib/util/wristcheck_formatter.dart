@@ -222,6 +222,12 @@ class WristCheckFormatter{
       case CaseMaterialEnum.other:
         returnText = "Other";
         break;
+      case CaseMaterialEnum.pvdsteel:
+        returnText = "PVD/DLC Steel";
+        break;
+      case CaseMaterialEnum.tungsten:
+        returnText = "Tungsten";
+        break;
     }
     return returnText;
   }
@@ -265,6 +271,12 @@ class WristCheckFormatter{
         break;
       case "Other":
         returnValue = CaseMaterialEnum.other;
+        break;
+      case "PVD/DLC Steel":
+        returnValue = CaseMaterialEnum.pvdsteel;
+        break;
+      case "Tungsten":
+        returnValue = CaseMaterialEnum.tungsten;
         break;
       default:
         returnValue = CaseMaterialEnum.blank;
