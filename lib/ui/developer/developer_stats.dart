@@ -240,6 +240,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               subtitle: const Text("Any dialogs that were chosen to 'not show again' will now be set to show"),
               onTap: (){
                 WristCheckPreferences.setShowSoldDialog(true);
+                WristCheckPreferences.setShowAccuracyHelp(true);
                 Get.snackbar(
                   "Action",
                   "All Dialogs reset to show",

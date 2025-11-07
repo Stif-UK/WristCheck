@@ -9,6 +9,7 @@ import 'package:wristcheck/model/enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/accuracy_help_bottomsheet.dart';
 import 'package:wristcheck/util/accuracty_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -30,6 +31,10 @@ class _AccuracyState extends State<Accuracy> {
     // analytics.setAnalyticsCollectionEnabled(true);
     initPlatformState();
     super.initState();
+    //After the page is loaded, check and show the help overlay if first use
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showHelpOverlayOnFirstUse();
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -338,5 +343,15 @@ class _AccuracyState extends State<Accuracy> {
             height: MediaQuery.of(context).size.height*0.8,
           child: AccuracyHelpBottomsheet());
         });
+  }
+
+  void _showHelpOverlayOnFirstUse() {
+    //Check if this is the first time the user has used the accuracy check - if so, open the help dialog
+    if(WristCheckPreferences.getShowAccuracyHelp()){
+      //show help overlay on first use
+      showAccuracyHelpBottomSheet();
+      //Hide on future openings
+      WristCheckPreferences.setShowAccuracyHelp(false);
+    }
   }
 }
