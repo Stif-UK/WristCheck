@@ -97,10 +97,10 @@ class _AccuracyState extends State<Accuracy> {
             children: RateUnit.values.map((unit) {
 
               return Obx(()=>ChoiceChip(
-                  label: Text(unit.name, style: Theme.of(context).textTheme.bodyLarge, selectionColor: Colors.grey,),
+                  label: Text(unit.name, ),
                   selected: widget.accuracyController.scale.value == unit,
                   onSelected: (bool selected) => widget.accuracyController.updateScale(unit),
-                  selectedColor: Theme.of(context).primaryColor,
+                  selectedColor: Colors.red,
                 ),
               );
             }).toList(), // Don't forget .toList()!
@@ -149,10 +149,9 @@ class _AccuracyState extends State<Accuracy> {
               child: ElevatedButton(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("00 seconds", style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineSmall,),
+                  child: Text("00 seconds", style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                  ),),
                 ),
                 onPressed: () => _addMeasurement(00),
               ),
@@ -164,20 +163,20 @@ class _AccuracyState extends State<Accuracy> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 15.0, 25.0, 15.0),
                   child: ElevatedButton(
-                    child: Text("45 seconds", style: Theme
+                    child: Text("45 seconds", style: TextStyle(fontSize: Theme
                         .of(context)
                         .textTheme
-                        .bodyLarge,),
+                        .bodyLarge?.fontSize),),
                     onPressed: () => _addMeasurement(45),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(25.0, 15.0, 8.0, 15.0),
                   child: ElevatedButton(
-                    child: Text("15 seconds", style: Theme
+                    child: Text("15 seconds", style: TextStyle(fontSize: Theme
                         .of(context)
                         .textTheme
-                        .bodyLarge,),
+                        .bodyLarge?.fontSize)),
                     onPressed: () => _addMeasurement(15),
                   ),
                 ),
@@ -186,10 +185,10 @@ class _AccuracyState extends State<Accuracy> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
-                child: Text("30 seconds", style: Theme
+                child: Text("30 seconds", style: TextStyle(fontSize: Theme
                     .of(context)
                     .textTheme
-                    .bodyLarge,),
+                    .bodyLarge?.fontSize)),
                 onPressed: () => _addMeasurement(30),
               ),
             ),
