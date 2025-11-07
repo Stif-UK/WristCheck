@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
@@ -25,10 +26,11 @@ class Accuracy extends StatefulWidget {
 }
 
 class _AccuracyState extends State<Accuracy> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
-    // analytics.setAnalyticsCollectionEnabled(true);
+    analytics.setAnalyticsCollectionEnabled(true);
     initPlatformState();
     super.initState();
     //After the page is loaded, check and show the help overlay if first use
@@ -55,6 +57,7 @@ class _AccuracyState extends State<Accuracy> {
   }
   @override
   Widget build(BuildContext context) {
+    analytics.logScreenView(screenName: "accuracy");
     //Initialise the page
     //Set the value of watch time to 1 minute ahead (ignore seconds)
     var now = DateTime.now();
@@ -278,6 +281,7 @@ class _AccuracyState extends State<Accuracy> {
   }
 
   Future<void> _addMeasurement(int offset) async {
+    await analytics.logEvent(name: "accuracy_tracked");
     double? rate;
     bool calculateRate = true;
     int index;
