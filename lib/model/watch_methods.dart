@@ -84,7 +84,8 @@ class WatchMethods {
     ..winderTPD = wtpd
     ..winderDirection = windDir
     ..dateComplication = date
-    ..lumeImagePath = "";
+    ..lumeImagePath = ""
+    ..primaryImageIndex = 0;
 
     final box = Boxes.getWatches();
     return box.add(watch);
@@ -114,6 +115,11 @@ class WatchMethods {
 
   static void updateStatus(Watches watch, String status){
     watch.status = status;
+    watch.save();
+  }
+
+  static void setPrimaryImage(Watches watch, int index){
+    watch.primaryImageIndex = index;
     watch.save();
   }
 
