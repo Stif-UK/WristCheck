@@ -271,10 +271,12 @@ class WristCheckDialogs {
         child: Text("Delete Image"),
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
     onPressed: () async {
+          //TODO: All of this code should be externalised rather than in the copy/dialogs!!
           //Code to delete the watch image and update the controller view
       //1. Delete the image
       await ImagesUtil.deleteImageByIndex(currentWatch, index);
       //1a. If the image was primary, set primary image to zero
+      //TODO: If the passed index is zero, we should check if other images exist and set the first as primary
       int primaryIndex = currentWatch.primaryImageIndex ?? 0;
       if(index == primaryIndex){
         WatchMethods.setPrimaryImage(currentWatch, 0);
