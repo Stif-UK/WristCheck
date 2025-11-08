@@ -133,7 +133,7 @@ class _GalleryState extends State<Gallery> {
                                                 );
 
                                               },
-                                                future: ImagesUtil.getImage(data[index], 0));
+                                                future: ImagesUtil.getImage(data[index], data[index].primaryImageIndex ?? 0));
                                           },
                                           itemCount: data.length,
                                         // children: data,
