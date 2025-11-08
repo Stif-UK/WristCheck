@@ -24,6 +24,8 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
 
   @override
   void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
+    _currentPage = widget.currentWatch?.primaryImageIndex ?? 0;
     _watchCarouselController = CarouselController(initialItem: _currentPage);
     _pageData = getPageData();
     super.initState();
