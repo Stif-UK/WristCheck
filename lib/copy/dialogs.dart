@@ -274,6 +274,11 @@ class WristCheckDialogs {
           //Code to delete the watch image and update the controller view
       //1. Delete the image
       await ImagesUtil.deleteImageByIndex(currentWatch, index);
+      //1a. If the image was primary, set primary image to zero
+      int primaryIndex = currentWatch.primaryImageIndex ?? 0;
+      if(index == primaryIndex){
+        WatchMethods.setPrimaryImage(currentWatch, 0);
+      }
       //2. Update the controller //TODO: Implement a test the above is successful first
       watchViewController.updateImageListIndex(ImageCardWidget(image: null),  index);
       //Pop twice to close alert and bottomsheet
