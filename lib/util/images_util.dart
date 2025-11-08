@@ -308,6 +308,7 @@ class ImagesUtil {
     }
   }
 
+  //TODO: getImages() doesn't seem to be used - check if it can be removed as unnecessary
   /**
    * getImages() returns a list of all of the Images stored in the watchbox
    * //TODO: Extend this to include options for sold/archived/retired/wishlist
