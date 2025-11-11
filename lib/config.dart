@@ -11,7 +11,7 @@ class WristCheckConfig{
   /*
   Feature Flags: Setting to false disables the features for potential build/testing across multiple releases
    */
-  static bool enableCSVUploads = true;
+  static bool enableCSVUploads = false;
 
   /*
   getWCColour returns the shade of teal used in the WristTrack logo, to make it easily available throughout the app.
