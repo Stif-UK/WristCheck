@@ -265,24 +265,11 @@ class WristCheckDialogs {
   }
 
   static showImageDeleteDialog(BuildContext context, Watches currentWatch, int index) {
-    final watchViewController = Get.put(WatchViewController());
-
     Widget deleteButton = ElevatedButton(
         child: Text("Delete Image"),
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
     onPressed: () async {
-          //TODO: All of this code should be externalised rather than in the copy/dialogs!!
-          //Code to delete the watch image and update the controller view
-      //1. Delete the image
-      await ImagesUtil.deleteImageByIndex(currentWatch, index);
-      //1a. If the image was primary, set primary image to zero
-      //TODO: If the passed index is zero, we should check if other images exist and set the first as primary
-      int primaryIndex = currentWatch.primaryImageIndex ?? 0;
-      if(index == primaryIndex){
-        WatchMethods.setPrimaryImage(currentWatch, 0);
-      }
-      //2. Update the controller //TODO: Implement a test the above is successful first
-      watchViewController.updateImageListIndex(ImageCardWidget(image: null),  index);
+          await ImagesUtil.deleteImageAndUpdateView(currentWatch, index);
       //Pop twice to close alert and bottomsheet
       Navigator.pop(context);
       Navigator.pop(context);

@@ -12,6 +12,7 @@ import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
@@ -187,6 +188,24 @@ class ImagesUtil {
     final directory = await getApplicationDocumentsDirectory();
     final name = getNamePath(currentWatch, index);
     return await File("${directory.path}/$name").exists();
+  }
+
+  /*
+  Takes a watch and image index, deletes the given image, resets the primary image to
+  the first and updates the controller to ensure any UI is updated.
+   */
+  static Future<bool> deleteImageAndUpdateView(Watches currentWatch, int index) async {
+    final watchViewController = Get.put(WatchViewController());
+    //1. Delete the image
+    await ImagesUtil.deleteImageByIndex(currentWatch, index);
+    //2. If the image was primary, set primary image to zero
+    int primaryIndex = currentWatch.primaryImageIndex ?? 0;
+    if(index == primaryIndex){
+      WatchMethods.setPrimaryImage(currentWatch, 0);
+    }
+    //3. Update the controller
+    watchViewController.updateImageListIndex(ImageCardWidget(image: null),  index);
+    return true;
   }
 
 
