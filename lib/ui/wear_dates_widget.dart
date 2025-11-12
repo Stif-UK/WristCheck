@@ -104,6 +104,13 @@ final watchBox = Boxes.getWatches();
               trailing: SizedBox(width: 20, height: 20,),
               tileColor: Theme.of(context).focusColor,
             ),
+            Card(
+              child: ListTile(
+                leading: Icon(FontAwesomeIcons.calendar),
+                title: const Text("Tap here to add dates"),
+                onTap: (){print("Add dates tapped");},
+              ),
+            ),
             Expanded(
               child: Container(
                 child: ValueListenableBuilder(
