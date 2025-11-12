@@ -11,7 +11,9 @@ class WristCheckConfig{
   /*
   Feature Flags: Setting to false disables the features for potential build/testing across multiple releases
    */
-  static bool enableCSVUploads = false;
+  static bool enableCSVUploads = false; //CSV Uploading
+  static bool enableMultiDateWatchCalendar = true; //Multi-date picker on watch calendar view
+
 
   /*
   getWCColour returns the shade of teal used in the WristTrack logo, to make it easily available throughout the app.
