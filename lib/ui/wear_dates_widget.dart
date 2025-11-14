@@ -12,12 +12,14 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/datepicker_bottomsheet.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 
 class WearDatesWidget extends StatefulWidget {
@@ -98,17 +100,26 @@ final watchBox = Boxes.getWatches();
             : Column(
           children: [
             purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-            ListTile(
-              leading: Icon(FontAwesomeIcons.circleInfo),
-              title: Text("Long press to add/remove wear dates"),
-              trailing: SizedBox(width: 20, height: 20,),
-              tileColor: Theme.of(context).focusColor,
+            Card(
+              child: ListTile(
+                leading: Icon(FontAwesomeIcons.circleInfo),
+                title: Text("Long press to add/remove wear dates"),
+                trailing: SizedBox(width: 20, height: 20,),
+                tileColor: Theme.of(context).focusColor,
+              ),
             ),
             Card(
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.calendar),
-                title: const Text("Tap here to add dates"),
-                onTap: (){print("Add dates tapped");},
+                title: const Text("Tap here to add multiple dates"),
+                onTap: (){
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height*0.8,
+                      child: DatePickerBottomSheet(currentWatch: widget.currentWatch,)));
+                },
               ),
             ),
             Expanded(

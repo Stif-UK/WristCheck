@@ -188,7 +188,32 @@ class WatchMethods {
     } else{
       WristCheckDialogs.getFutureDateDialog();
     }
+  }
 
+  static Future<Map<String, List<DateTime>>> recordMultipleWearDates(Watches watch, List<DateTime> dates) async {
+    Map<String, List<DateTime>> results = {"Success": <DateTime>[], "In Future": <DateTime>[], "Duplicate": <DateTime>[]};
+    for(DateTime date in dates){
+      //First, create a list statuses
+      //1. Check that the date isn't in the future
+      if(!date.isAfter(DateTime.now())){
+        //2. Check date doesn't already exist in the list
+        if(!checkForDuplicateWear(watch, date)){
+          results["Success"]?.add(date);
+        } else { //result is duplicate
+          results["Duplicate"]?.add(date);
+        }
+      } else { //result is in the future
+        results["In Future"]?.add(date);
+      }
+    }
+
+    List<DateTime> successList = results["Success"]!;
+    for(DateTime date in successList){
+      watch.wearList.add(date);
+    }
+    watch.save();
+
+    return results;
   }
 
   static Future<void> attemptToRecordWear(Watches watch, DateTime date, bool acceptDuplicate) async {
@@ -206,21 +231,12 @@ class WatchMethods {
 
   }
 
+  /*
+  Returns True if the given date already exists in the watch wearlist - the comparison is based on day/month/year elements of the timestamp
+   */
   static bool checkForDuplicateWear(Watches watch, DateTime date){
-    if(watch.wearList == null || watch.wearList.isEmpty){
-      return false;
-    }
-    //check if the date already exists in our list
-    var inputDate = WristCheckFormatter.getFormattedDate(date);
-
-    for (var date2 in watch.wearList.reversed) {
-      var selectedDate = WristCheckFormatter.getFormattedDate(date2);
-      if(inputDate == selectedDate){
-        return true;
-      }else{
-        return false;
-      }
-
+    for(var date2 in watch.wearList){
+      if(date.day == date2.day && date.month == date2.month && date.year == date2.year) return true;
     }
     return false;
   }
