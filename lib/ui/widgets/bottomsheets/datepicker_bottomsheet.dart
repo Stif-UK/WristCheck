@@ -105,6 +105,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                                                     )),
                                       ListView.builder(
                                         shrinkWrap: true,
+                                          physics: ClampingScrollPhysics(),
                                           itemCount: futures.length,
                                           itemBuilder: (context, index) => ListTile(
                                             leading: Icon(FontAwesomeIcons.hourglass, color: Colors.red,),
