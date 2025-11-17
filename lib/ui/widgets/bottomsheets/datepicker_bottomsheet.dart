@@ -26,7 +26,7 @@ class DatePickerBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
-              Text("Date Picker"),
+              Text("Select Dates to Add", style: Theme.of(context).textTheme.headlineSmall,),
               Card(
                 child: Obx(() =>
                     SwitchListTile(
