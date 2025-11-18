@@ -92,7 +92,9 @@ class _AccuracyState extends State<Accuracy> {
             Obx(()=> Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Time synced with server:\n${_getLastSyncTime()}"),
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text("Time synced with server:\n${_getLastSyncTime()}", textAlign: TextAlign.center,)),
               ),
             )),
             const Divider(thickness: 2,),
