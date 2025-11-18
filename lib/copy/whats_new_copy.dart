@@ -5,16 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.15.0 \n"
+        "### Version 1.16.0 \n"
         "\n"
 
-            "* Improved watch image gallery experience \n"
-            "* Made it easier to update and delete images \n"
-            "* Made it easier to delete a watch from your collection \n"
-            "* CSV data extracts updated to include all data fields \n"
-            "* Updated Calendar view to show all watch statuses \n"
-            "* New currencies added: Norwegian Krone, Thai Baht & Czeck Koruna \n"
-            "* Under the hood compliance changes";
+            "* Watch accuracy checking added.\n"
+            "* Added ability to add multiple dates together for watches.\n"
+            "* Added ability to filter wear charts by last rolling 12 months.\n"
+            "* Set any image as 'primary' for each watch to show on thumbnails/gallery\n"
+            "* Additional small enhancements and bug fixes";
 
   }
 
@@ -28,6 +26,21 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.16.0 \n"
+                      "\n"
+
+                      "* Watch accuracy checking added.\n"
+                      "* Added ability to add multiple dates together for watches.\n"
+                      "* Added ability to filter wear charts by last rolling 12 months.\n"
+                      "* Set any image as 'primary' for each watch to show on thumbnails/gallery.\n"
+                      "* Fixed adaptive app icon for Android users.\n"
+                      "* Removed leading zero when time setting is in am/pm mode.\n"
+                      "* PVD Steel and Tungsten added to watch materials list.\n"
+                      "* Bug fix: Clock preferences no saving.\n"
+                      "* Bug fix: All calendars now follow the set 'first day of week' preference.\n"
+                      ""
+                      "---\n\n"
+
                       "### Version 1.15.0 \n"
                       "\n"
 
@@ -37,7 +50,7 @@ class WhatsNewCopy{
                       "* CSV data extracts updated to include all data fields \n"
                       "* Updated Calendar view to show all watch statuses \n"
                       "* New currencies added: Norwegian Krone, Thai Baht & Czeck Koruna \n"
-                      "* Updates to OS target versions and updates to internal libraries"
+                      "* Updates to OS target versions and updates to internal libraries\n"
                       "---\n\n"
 
                       "### Version 1.14.0 \n"
