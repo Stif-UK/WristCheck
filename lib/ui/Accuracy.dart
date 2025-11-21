@@ -73,6 +73,9 @@ class _AccuracyState extends State<Accuracy> {
     //Initiate the value of the last baseline
     widget.accuracyController.updateLastBaseline(MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
 
+    //Selectable values for the time offset
+    final List<int> _chipValues = [00, 15, 30, 45];
+
     return Scaffold(
       appBar: AppBar(title: const Text("Accuracy Tracker"),
       actions: [Padding(
@@ -154,52 +157,69 @@ class _AccuracyState extends State<Accuracy> {
                   icon: Icon(FontAwesomeIcons.caretDown),
                   onPressed: () => widget.accuracyController.subtractAMinute(),
                 ),
+            const Divider(thickness: 2,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text("Seconds:"),
+            ),
+            //Select the time offset
+            Wrap(
+              spacing: 15.0,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: _chipValues.map((value) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Obx(()=> ChoiceChip(
+                      label: Container(
+                          width: 45,
+                          child: Text(value.toString(), textAlign: TextAlign.center,)),
+                      selected: widget.accuracyController.selectedOffset == value,
+                      selectedColor: Colors.red,
+                      onSelected: (bool selected) =>
+                        widget.accuracyController.updateSelectedOffset(
+                            value)
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+
+            const Divider(thickness: 2,),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: ElevatedButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("00 seconds", style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
-                  ),),
-                ),
-                onPressed: () => _addMeasurement(00),
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 25.0, 15.0),
-                  child: ElevatedButton(
-                    child: Text("45 seconds", style: TextStyle(fontSize: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge?.fontSize),),
-                    onPressed: () => _addMeasurement(45),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                      child: const SizedBox(width: 20,)),
+                  Obx(()=> ElevatedButton(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(widget.accuracyController.valueRecorded.value? "Saved!" : "Record", style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                        ),),
+                      ),
+                      onPressed: () {
+                        _addMeasurement(
+                            widget.accuracyController.selectedOffset.value);
+                        widget.accuracyController.updateValueRecorded(true);
+                      }
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25.0, 15.0, 8.0, 15.0),
-                  child: ElevatedButton(
-                    child: Text("15 seconds", style: TextStyle(fontSize: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge?.fontSize)),
-                    onPressed: () => _addMeasurement(15),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(FontAwesomeIcons.arrowsRotate,
+                        ), onPressed: () {
+                          widget.accuracyController.updateValueRecorded(false);
+                      },
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ElevatedButton(
-                child: Text("30 seconds", style: TextStyle(fontSize: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyLarge?.fontSize)),
-                onPressed: () => _addMeasurement(30),
+                ],
               ),
             ),
             const Divider(thickness: 2,),

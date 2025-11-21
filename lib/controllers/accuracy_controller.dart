@@ -14,6 +14,8 @@ class AccuracyController extends GetxController{
   final dataLastFirst = true.obs;
   final lastMeasurement = Rxn<Measurement>();
   final valueRecorded = false.obs;
+  final selectedOffset = 0.obs;
+
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -69,5 +71,9 @@ class AccuracyController extends GetxController{
 
   updateValueRecorded(bool recorded){
     valueRecorded(recorded);
+  }
+
+  updateSelectedOffset(int offset){
+    selectedOffset(offset);
   }
 }
