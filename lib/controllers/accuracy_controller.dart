@@ -12,6 +12,8 @@ class AccuracyController extends GetxController{
   final scale = RateUnit.day.obs;
   final syncTimestamp = Rxn<DateTime>();
   final dataLastFirst = true.obs;
+  final lastMeasurement = Rxn<Measurement>();
+  final valueRecorded = false.obs;
 
   updateWatchDateTime(DateTime time){
     watchDateTime(time);
@@ -59,5 +61,13 @@ class AccuracyController extends GetxController{
 
   toggleDataOrder(){
     dataLastFirst(!dataLastFirst.value);
+  }
+
+  updateLastMeasurement(Measurement? record){
+    lastMeasurement(record);
+  }
+
+  updateValueRecorded(bool recorded){
+    valueRecorded(recorded);
   }
 }
