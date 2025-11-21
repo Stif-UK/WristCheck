@@ -1,4 +1,4 @@
-import 'package:wristcheck/model/enums/rate_unit.dart';
+import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 
 class AccuracyHelper {
