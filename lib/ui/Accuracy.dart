@@ -280,6 +280,10 @@ class _AccuracyState extends State<Accuracy> {
     //Refresh last baseline value
     widget.accuracyController.updateLastBaseline(
         MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch));
+    //Add latest measurement record to controller
+    widget.accuracyController.updateLastMeasurement(
+      MeasurementMethods.getLatestMeasurementForWatch(widget.currentWatch)
+    );
   }
 
   Future<void> _addMeasurement(int offset) async {

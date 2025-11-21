@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/controllers/accuracy_controller.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
@@ -14,16 +15,19 @@ class AccuracyRow extends StatelessWidget {
      this.currentWatch});
 
   final watchViewController = Get.put(WatchViewController());
+  final accuracyController = Get.put(AccuracyController());
   final Watches? currentWatch;
 
   @override
   Widget build(BuildContext context) {
+    //populate the required controller data
+    accuracyController.updateLastMeasurement(MeasurementMethods.getLatestMeasurementForWatch(currentWatch!));
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 8.0, 0, 8.0),
       child: Row(
         children: [
           Expanded(flex: 2, child: Text("Accuracy:", style: Theme.of(context).textTheme.bodyLarge,)),
-          Expanded(flex: 3, child: Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,)),
+          Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),
           onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)),)
@@ -36,11 +40,11 @@ class AccuracyRow extends StatelessWidget {
     Measurement? latest;
     String returnText = "No records tracked";
     //Get latest accuracy record for the watch
-    if(currentWatch!=null) {
-      latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
-    };
-    if(latest != null){
-      returnText = latest.baseLine? "Measurement in progress..." : _getRateText(latest, RateUnit.day);
+    // if(currentWatch!=null) {
+    //   latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
+    // };
+    if(accuracyController.lastMeasurement.value != null){
+      returnText = accuracyController.lastMeasurement.value?.baseLine == null ? "Measurement in progress..." : _getRateText(accuracyController.lastMeasurement.value!, RateUnit.day);
     };
 
     return returnText;
