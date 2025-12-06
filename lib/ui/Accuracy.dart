@@ -337,15 +337,18 @@ class _AccuracyState extends State<Accuracy> {
 
   String _getDisplayRate(int index) {
     String returnText = " - ";
-    double? rate;
-    String unit = widget.accuracyController.scale.value.name;
-    // /unit = unit.substring(0,1).toUpperCase();
+    //Wrap in if - if the record is a baseline, don't show a value
+    if (!widget.accuracyController.data[index].baseLine) {
+      double? rate;
+      String unit = widget.accuracyController.scale.value.name;
+      // /unit = unit.substring(0,1).toUpperCase();
 
-    rate = widget.accuracyController.data[index].rawAccuracy == null? null :
-    AccuracyHelper.getScaledRate(widget.accuracyController.data[index].rawAccuracy!,widget.accuracyController.scale.value);
+      rate = widget.accuracyController.data[index].rawAccuracy == null? null :
+      AccuracyHelper.getScaledRate(widget.accuracyController.data[index].rawAccuracy!,widget.accuracyController.scale.value);
 
-    if(rate != null) returnText = rate.toStringAsFixed(1);
-    returnText = "$returnText\ns/$unit";
+      if(rate != null) returnText = rate.toStringAsFixed(1);
+      returnText = "$returnText\ns/$unit";
+    }
     return returnText;
 
   }
