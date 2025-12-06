@@ -307,13 +307,15 @@ class _AccuracyState extends State<Accuracy> {
     //Add the seconds offset
     DateTime record = widget.accuracyController.watchDateTime.value.add(Duration(seconds: offset));
 
+
     //1. Get the last baseline value - if no baseline, this MUST be treated as a baseline and no calculation
     //should be completed.
     Measurement? baseline = MeasurementMethods.getLastBaseLineForWatch(widget.currentWatch);
     if(baseline == null) {
       widget.accuracyController.updateBaseline(true);
-      calculateRate = false;
     }
+    //Set calculate rate to false if this record is a baseline
+    if(widget.accuracyController.baseLine.value) calculateRate = false;
 
     //2. Get the atomic time from the server, or default to system time if not synced
     DateTime timestamp = await FlutterKronosPlus.getNtpDateTime ?? DateTime.now();
