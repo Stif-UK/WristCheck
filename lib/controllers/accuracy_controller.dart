@@ -11,7 +11,7 @@ class AccuracyController extends GetxController{
   final lastBaseline = Rxn<Measurement>();
   final scale = RateUnit.day.obs;
   final syncTimestamp = Rxn<DateTime>();
-  final dataLastFirst = true.obs;
+  //final dataLastFirst = true.obs;
   final lastMeasurement = Rxn<Measurement>();
   final valueRecorded = false.obs;
   final selectedOffset = 0.obs;
@@ -45,8 +45,8 @@ class AccuracyController extends GetxController{
   }
 
   updateData(List<Measurement> newData){
-    if(dataLastFirst.value) newData = newData.reversed.toList();
-    data(newData);
+    //Always reverse the list for display
+    data(newData.reversed.toList());
   }
 
   updateLastBaseline(Measurement? record){
@@ -61,9 +61,9 @@ class AccuracyController extends GetxController{
     syncTimestamp(synced);
   }
 
-  toggleDataOrder(){
-    dataLastFirst(!dataLastFirst.value);
-  }
+  // toggleDataOrder(){
+  //   dataLastFirst(!dataLastFirst.value);
+  // }
 
   updateLastMeasurement(Measurement? record){
     lastMeasurement(record);
