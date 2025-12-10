@@ -36,6 +36,7 @@ class AccuracyRow extends StatelessWidget {
     );
   }
 
+  //TODO: These two methods need to be tidied up into a single method to return the result text
   String _getAccuracyResult() {
     Measurement? latest;
     String returnText = "No records tracked";
@@ -52,6 +53,9 @@ class AccuracyRow extends StatelessWidget {
 
   String _getRateText(Measurement latest, RateUnit suffix) {
 
+    if(latest.baseLine){
+      return "Measurement in progress...";
+    }
     String rate = "No rate found";
     String prefix = "";
     if(latest.rawAccuracy != null){
