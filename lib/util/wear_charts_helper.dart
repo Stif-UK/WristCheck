@@ -55,6 +55,10 @@ class WearChartsHelper {
       case WearChartOptions.last365days:
         returnString = "Worn in last 365 days";
         break;
+      case WearChartOptions.betweenDates:
+        var controller = Get.put(FilterController());
+        returnString = "Worn between ${WristCheckFormatter.getFormattedDate(controller.startDate.value)} & ${WristCheckFormatter.getFormattedDate(controller.endDate.value)}";
+        break;
     }
 
     return returnString;
