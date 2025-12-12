@@ -408,6 +408,10 @@ class Boxes {
         returnValue = Boxes.getWatchesWornFilter(initialList, monthInt, yearInt);
       }
       break;
+      case WearChartOptions.betweenDates:{
+        returnValue = Boxes.getWatchesWornBetweenTwoDates(initialList, controller.startDate.value, controller.endDate.value);
+      }
+      break;
       default:{
         returnValue = Boxes.getWatchesWornFilter(initialList, null, null);
       }
