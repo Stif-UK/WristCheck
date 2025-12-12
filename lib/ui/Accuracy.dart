@@ -4,15 +4,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/accuracy_help_bottomsheet.dart';
 import 'package:wristcheck/util/accuracty_helper.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class Accuracy extends StatefulWidget {
@@ -20,6 +27,8 @@ class Accuracy extends StatefulWidget {
 
   final Watches currentWatch;
   final accuracyController = Get.put(AccuracyController());
+  final wristCheckController = Get.put(WristCheckController());
+
 
   @override
   State<Accuracy> createState() => _AccuracyState();
@@ -27,6 +36,29 @@ class Accuracy extends StatefulWidget {
 
 class _AccuracyState extends State<Accuracy> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  BannerAd? banner;
+  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!purchaseStatus)
+    {
+      final adState = Provider.of<AdState>(context);
+      adState.initialization.then((status) {
+        setState(() {
+          banner = BannerAd(
+              adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.accuracyAdUnitID,
+              //If the device screen is large enough display a larger ad on this screen
+              size: AdSize.banner,
+              request: const AdRequest(),
+              listener: adState.adListener)
+            ..load();
+        });
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -84,199 +116,203 @@ class _AccuracyState extends State<Accuracy> {
         onPressed: ()=> showAccuracyHelpBottomSheet(),),
       )],),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(widget.currentWatch.toString(),
-                style: Theme.of(context).textTheme.headlineSmall ,
-              textAlign: TextAlign.center,),
-            ),
-            Obx(()=> Card(
-              child: Padding(
+        child: Obx(()=> Column(
+            children: [
+              //Insert Ad unit into tree
+              widget.wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+
+              Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Text("Time synced with server:\n${_getLastSyncTime()}", textAlign: TextAlign.center,)),
+                child: Text(widget.currentWatch.toString(),
+                  style: Theme.of(context).textTheme.headlineSmall ,
+                textAlign: TextAlign.center,),
               ),
-            )),
-            const Divider(thickness: 2,),
-            Text("Show results in seconds per:"),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 8.0, // Horizontal space between chips
-            runSpacing: 4.0, // Vertical space between lines
-            children: RateUnit.values.map((unit) {
+              Obx(()=> Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text("Time synced with server:\n${_getLastSyncTime()}", textAlign: TextAlign.center,)),
+                ),
+              )),
+              const Divider(thickness: 2,),
+              Text("Show results in seconds per:"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 8.0, // Horizontal space between chips
+              runSpacing: 4.0, // Vertical space between lines
+              children: RateUnit.values.map((unit) {
 
-              return Obx(()=>ChoiceChip(
-                  label: Text(unit.name, ),
-                  selected: widget.accuracyController.scale.value == unit,
-                  onSelected: (bool selected) => widget.accuracyController.updateScale(unit),
-                  selectedColor: Colors.red,
-                ),
-              );
-            }).toList(), // Don't forget .toList()!
-          ),
-        ),
-
-            Obx(() =>
-                Card(
-                  child: SwitchListTile(
-                      title: const Text("24 Hour Display:"),
-                      value: widget.accuracyController.militaryTime.value,
-                      onChanged: (value) =>
-                          widget.accuracyController.updateMilitaryTime(value)),
-                )),
-            Obx(() =>
-                Card(
-                  child: SwitchListTile(
-                      title: const Text("Baseline measurement:"),
-                      subtitle: const Text("Set a new baseline if you've just set the time of your watch"),
-                      value: widget.accuracyController.baseLine.value,
-                      onChanged: (value) =>
-                          widget.accuracyController.updateBaseline(value)),
-                )),
-            Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
-                Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
-            const Divider(thickness: 2,),
-                Text("Add Checkpoint:", style: Theme.of(context).textTheme.headlineSmall,),
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.caretUp),
-                  onPressed: () => widget.accuracyController.addAMinute(),
-                ),
-                Obx(() =>
-                    Text(WristCheckFormatter.getShortTime(
-                        widget.accuracyController.watchDateTime.value,
-                        widget.accuracyController.militaryTime.value),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineLarge,)),
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.caretDown),
-                  onPressed: () => widget.accuracyController.subtractAMinute(),
-                ),
-            const Divider(thickness: 2,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const Text("Seconds:"),
-            ),
-            //Select the time offset
-            Wrap(
-              spacing: 15.0,
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: _chipValues.map((value) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Obx(()=> ChoiceChip(
-                      label: Container(
-                          width: 45,
-                          child: Text(value.toString(), textAlign: TextAlign.center,)),
-                      selected: widget.accuracyController.selectedOffset == value,
-                      selectedColor: Colors.red,
-                      onSelected: (bool selected) =>
-                        widget.accuracyController.updateSelectedOffset(
-                            value)
-                    ),
+                return Obx(()=>ChoiceChip(
+                    label: Text(unit.name, ),
+                    selected: widget.accuracyController.scale.value == unit,
+                    onSelected: (bool selected) => widget.accuracyController.updateScale(unit),
+                    selectedColor: Colors.red,
                   ),
                 );
-              }).toList(),
+              }).toList(), // Don't forget .toList()!
             ),
+          ),
 
-            const Divider(thickness: 2,),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 2,
-                      child: const SizedBox(width: 20,)),
-                  Obx(()=> ElevatedButton(
+              Obx(() =>
+                  Card(
+                    child: SwitchListTile(
+                        title: const Text("24 Hour Display:"),
+                        value: widget.accuracyController.militaryTime.value,
+                        onChanged: (value) =>
+                            widget.accuracyController.updateMilitaryTime(value)),
+                  )),
+              Obx(() =>
+                  Card(
+                    child: SwitchListTile(
+                        title: const Text("Baseline measurement:"),
+                        subtitle: const Text("Set a new baseline if you've just set the time of your watch"),
+                        value: widget.accuracyController.baseLine.value,
+                        onChanged: (value) =>
+                            widget.accuracyController.updateBaseline(value)),
+                  )),
+              Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
+                  Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
+              const Divider(thickness: 2,),
+                  Text("Add Checkpoint:", style: Theme.of(context).textTheme.headlineSmall,),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.caretUp),
+                    onPressed: () => widget.accuracyController.addAMinute(),
+                  ),
+                  Obx(() =>
+                      Text(WristCheckFormatter.getShortTime(
+                          widget.accuracyController.watchDateTime.value,
+                          widget.accuracyController.militaryTime.value),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headlineLarge,)),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.caretDown),
+                    onPressed: () => widget.accuracyController.subtractAMinute(),
+                  ),
+              const Divider(thickness: 2,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text("Seconds:"),
+              ),
+              //Select the time offset
+              Wrap(
+                spacing: 15.0,
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: _chipValues.map((value) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Obx(()=> ChoiceChip(
+                        label: Container(
+                            width: 45,
+                            child: Text(value.toString(), textAlign: TextAlign.center,)),
+                        selected: widget.accuracyController.selectedOffset == value,
+                        selectedColor: Colors.red,
+                        onSelected: (bool selected) =>
+                          widget.accuracyController.updateSelectedOffset(
+                              value)
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+
+              const Divider(thickness: 2,),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                        child: const SizedBox(width: 20,)),
+                    Obx(()=> ElevatedButton(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(widget.accuracyController.valueRecorded.value? "Saved!" : "Record", style: TextStyle(
+                            fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                          ),),
+                        ),
+                        onPressed: () {
+                          if(!widget.accuracyController.valueRecorded.value) {
+                              _addMeasurement(
+                                  widget.accuracyController.selectedOffset.value);
+                              widget.accuracyController.updateValueRecorded(true);
+                            }
+                          null;
+                          }
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(widget.accuracyController.valueRecorded.value? "Saved!" : "Record", style: TextStyle(
-                          fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
-                        ),),
-                      ),
-                      onPressed: () {
-                        if(!widget.accuracyController.valueRecorded.value) {
-                            _addMeasurement(
-                                widget.accuracyController.selectedOffset.value);
-                            widget.accuracyController.updateValueRecorded(true);
-                          }
-                        null;
-                        }
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                        icon: Icon(FontAwesomeIcons.arrowsRotate,
-                        ), onPressed: () {
-                          widget.accuracyController.updateValueRecorded(false);
-                      },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(thickness: 2,),
-            Text("Records", style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineSmall, textAlign: TextAlign.center,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(child: Text("Baseline", textAlign: TextAlign.start,)),
-                  Expanded(child: Text("Time", textAlign: TextAlign.center,)),
-                  Expanded(child: Text("Result", textAlign: TextAlign.end,)),
-                ],
-              ),
-            ),
-            Obx(() =>
-                ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    //reverse: true,//widget.accuracyController.dataLastFirst.value,
-                    shrinkWrap: true,
-                    itemCount: widget.accuracyController.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Dismissible(
-                        
-                        key: Key(widget.accuracyController.data[index].key.toString()),
-                        direction: DismissDirection.endToStart,
-                        background: Container(
-                          color: Colors.red,
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Icon(FontAwesomeIcons.trash, color: Colors.white),
-                        ),
-                        onDismissed: (direction) async {
-                          var result = await MeasurementMethods.deleteRecord(widget.accuracyController.data[index].key);
-                          if(result) _refreshData();
+                        child: IconButton(
+                          icon: Icon(FontAwesomeIcons.arrowsRotate,
+                          ), onPressed: () {
+                            widget.accuracyController.updateValueRecorded(false);
                         },
-                        child: Card(
-                          child: ListTile(
-                            leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
-                            title: Text(
-                                "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
-                                    .watchTime)}"),
-                            trailing: Obx(()=> Text(_getDisplayRate(index))),
-                          
-                          ),
                         ),
-                      );
-                    }),
-            )
-          ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(thickness: 2,),
+              Text("Records", style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineSmall, textAlign: TextAlign.center,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(child: Text("Baseline", textAlign: TextAlign.start,)),
+                    Expanded(child: Text("Time", textAlign: TextAlign.center,)),
+                    Expanded(child: Text("Result", textAlign: TextAlign.end,)),
+                  ],
+                ),
+              ),
+              Obx(() =>
+                  ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      //reverse: true,//widget.accuracyController.dataLastFirst.value,
+                      shrinkWrap: true,
+                      itemCount: widget.accuracyController.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Dismissible(
+
+                          key: Key(widget.accuracyController.data[index].key.toString()),
+                          direction: DismissDirection.endToStart,
+                          background: Container(
+                            color: Colors.red,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Icon(FontAwesomeIcons.trash, color: Colors.white),
+                          ),
+                          onDismissed: (direction) async {
+                            var result = await MeasurementMethods.deleteRecord(widget.accuracyController.data[index].key);
+                            if(result) _refreshData();
+                          },
+                          child: Card(
+                            child: ListTile(
+                              leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
+                              title: Text(
+                                  "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
+                                      .watchTime)}"),
+                              trailing: Obx(()=> Text(_getDisplayRate(index))),
+
+                            ),
+                          ),
+                        );
+                      }),
+              )
+            ],
+          ),
         ),
       ),
     );
