@@ -19,6 +19,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: ClampingScrollPhysics(),
       child: Obx(()=>
           RadioGroup(
             groupValue: widget.filterController.basicWearFilter.value,
@@ -63,6 +64,13 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                     ),
                   ],
                 ),
+                const Divider(thickness: 2,),
+                // Row(
+                //   children: [
+                //     Text("test"),
+                //
+                //   ],
+                // ),
                 Row(
                   children: [
                     Expanded(
@@ -89,6 +97,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                     ),
                   ],
                 ),
+                const Divider(thickness: 2,),
                 Row(
                   children: [
                     Expanded(
@@ -103,50 +112,109 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                     title: const Text("Select Month/Year"),
                     value: WearChartOptions.manual,
                 ),
-                widget.filterController.basicWearFilter.value == WearChartOptions.manual? Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Text("Month:", style: Theme.of(context).textTheme.bodyLarge,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: DropdownButton(
-                        value: widget.filterController.selectedMonth.value,
-                        items: MonthList.values.map((month) => DropdownMenuItem(
-                            value: month,
-                            child:Text(WristCheckFormatter.getMonthText(month),) )).toList(),
-                        onChanged: (month){
-                          widget.filterController.updateSelectedMonth(month as MonthList);
-                        },
-                      ),
-                    )
-                  ],
-                ): const SizedBox(height: 0,),
-                widget.filterController.basicWearFilter.value == WearChartOptions.manual? Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Text("Year:", style: Theme.of(context).textTheme.bodyLarge,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: DropdownButton(
-                        value: widget.filterController.selectedYear.value,
-                        items: widget.filterController.yearList.map((year) => DropdownMenuItem(
-                            value: year,
-                            child:Text(year) )).toList(),
-                        onChanged: (year){
-                          widget.filterController.updateSelectedYear(year as String);
-                        },
-                      ),
-                    )
-                  ],
-                ): const SizedBox(height: 0,)
+                RadioListTile(
+                  title: const Text("Between selected dates"),
+                  value: WearChartOptions.betweenDates,
+                ),
+                const Divider(thickness: 2,),
+                widget.filterController.basicWearFilter.value == WearChartOptions.manual? _getManualPickers()
+                : const SizedBox(height: 0,),
+                widget.filterController.basicWearFilter.value == WearChartOptions.betweenDates? _getBetweenDatesPickers()
+                    : const SizedBox(height: 0,)
               ],
             ),
           ),
       ),
     );
   }
+
+  Widget _getManualPickers() {
+    return Column(
+      children: [
+      Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 25),
+          child: Text("Month:", style: Theme.of(context).textTheme.bodyLarge,),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: DropdownButton(
+            value: widget.filterController.selectedMonth.value,
+            items: MonthList.values.map((month) => DropdownMenuItem(
+                value: month,
+                child:Text(WristCheckFormatter.getMonthText(month),) )).toList(),
+            onChanged: (month){
+              widget.filterController.updateSelectedMonth(month as MonthList);
+            },
+          ),
+        )
+      ]),
+      Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 25),
+            child: Text("Year:", style: Theme.of(context).textTheme.bodyLarge,),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: DropdownButton(
+              value: widget.filterController.selectedYear.value,
+              items: widget.filterController.yearList.map((year) => DropdownMenuItem(
+              value: year,
+              child:Text(year) )).toList(),
+              onChanged: (year){
+              widget.filterController.updateSelectedYear(year as String);
+              },
+            ),
+          )
+        ],
+      )
+    ]);
+  }
+
+  Widget _getBetweenDatesPickers(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Text("Start Date:", style: Theme.of(context).textTheme.bodyLarge,),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(()=>ElevatedButton(child: Text(WristCheckFormatter.getFormattedDate(widget.filterController.startDate.value)),
+                  onPressed: () async {
+                    DateTime? pickedDate = await showDatePicker(context: context, firstDate: DateTime(DateTime.now().year -10, DateTime.now().month, DateTime.now().day), lastDate: DateTime.now());
+                    if(pickedDate != null) widget.filterController.updateStartDate(pickedDate);
+                  },
+              ),
+              ),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Text("  End Date:", style: Theme.of(context).textTheme.bodyLarge,),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(()=> ElevatedButton(child: Text(WristCheckFormatter.getFormattedDate(widget.filterController.endDate.value)),
+                  onPressed: () async {
+                    DateTime? pickedDate = await showDatePicker(context: context, firstDate: DateTime(DateTime.now().year -10, DateTime.now().month, DateTime.now().day), lastDate: DateTime.now());
+                    if(pickedDate != null) widget.filterController.updateEndDate(pickedDate);
+                  }, ),
+              ),
+            ),
+
+          ],
+        ),
+        const SizedBox(height: 50,)
+  ],
+      );
+}
 }

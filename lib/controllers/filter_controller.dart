@@ -28,6 +28,8 @@ class FilterController extends GetxController{
   final chartGrouping = ChartGrouping.watch.obs;
   final lastPurchaseDate = DateTime.now().obs;
   final lastPurchaseTracked = false.obs;
+  final startDate = DateTime(DateTime.now().year-1, DateTime.now().month, DateTime.now().day).obs;
+  final endDate = DateTime.now().obs;
 
   List<String> yearList = ["All"];
 
@@ -119,6 +121,14 @@ class FilterController extends GetxController{
     } else {
       lastPurchaseDate(DateTime.now());
     }
+  }
+
+  updateStartDate(DateTime newStartDate){
+    startDate(newStartDate);
+  }
+
+  updateEndDate(DateTime newEndDate){
+    endDate(newEndDate);
   }
 
   populateYearList(){
