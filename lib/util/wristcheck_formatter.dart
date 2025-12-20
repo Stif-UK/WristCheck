@@ -129,6 +129,9 @@ class WristCheckFormatter{
       case MovementEnum.other:
         returnText = "Other";
         break;
+      case MovementEnum.springdrive:
+        returnText = "Spring Drive";
+        break;
     }
     return returnText;
   }
@@ -172,6 +175,9 @@ class WristCheckFormatter{
         break;
       case "Tuning Fork":
         returnValue = MovementEnum.tuning_fork;
+        break;
+      case "Spring Drive":
+        returnValue = MovementEnum.springdrive;
         break;
       case "Other":
         returnValue = MovementEnum.other;
