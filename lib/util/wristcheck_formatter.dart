@@ -464,6 +464,9 @@ class WristCheckFormatter{
       case LocationEnum.czh:
         returnText = "cs-CZ";
         break;
+      case LocationEnum.my:
+        returnText = "ms-MY";
+        break;
     }
     return returnText;
   }
@@ -511,6 +514,9 @@ class WristCheckFormatter{
       case "cs-CZ":
         returnNum = LocationEnum.czh;
         break;
+      case "ms-MY":
+        returnNum = LocationEnum.my;
+        break;
       default:
         returnNum = LocationEnum.us;
         break;
@@ -523,19 +529,19 @@ class WristCheckFormatter{
 
     switch(location) {
       case LocationEnum.uk:
-        returnString = "Pound";
+        returnString = "British Pound";
         break;
       case LocationEnum.irl:
         returnString = "Euro (Ireland)";
         break;
       case LocationEnum.ind:
-        returnString = "Rupee";
+        returnString = "Indian Rupee";
         break;
       case LocationEnum.us:
-        returnString = "Dollar";
+        returnString = "US Dollar";
         break;
       case LocationEnum.jap:
-        returnString = "Yen";
+        returnString = "Japanese Yen";
         break;
       case LocationEnum.ger:
         returnString = "Euro (trailing icon)";
@@ -560,6 +566,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.czh:
         returnString = "Czech Koruna";
+        break;
+      case LocationEnum.my:
+        returnString = "Malaysian Ringgit";
         break;
     }
 
