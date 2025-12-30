@@ -462,13 +462,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_kronos_plus:
+  flutter_kronos:
     dependency: "direct main"
     description:
-      path: "../flutter-kronos-plus"
-      relative: true
-    source: path
-    version: "1.0.0"
+      name: flutter_kronos
+      sha256: "9ed0bea3e34ee5051cbf92d4e5067c75558aab418e0e88769d56d534b29700b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1+2"
   flutter_launcher_icons:
     dependency: "direct main"
     description:

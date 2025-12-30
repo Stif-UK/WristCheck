@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
+import 'package:flutter_kronos/flutter_kronos.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -149,7 +149,7 @@ class _TimeSettingState extends State<TimeSetting> {
   updateTime() {
     Future.delayed(Duration(seconds: 2), () async {
       //small delay, then check if time is synced - if it is, set the value of synced in the controller
-      var synced = await FlutterKronosPlus.getNtpDateTime;
+      var synced = await FlutterKronos.getNtpDateTime;
       if(synced != null) {
         widget.timeController.updateTimeSynced(true);
         widget.timeController.updateLastSyncTime(_currentNTPDateTime ?? synced);
@@ -164,7 +164,7 @@ class _TimeSettingState extends State<TimeSetting> {
       if(!widget.timeController.isTimerActive.value){
         t.cancel();
       }
-      var date = widget.timeController.timeSynced.value? await FlutterKronosPlus.getNtpDateTime : DateTime.now();
+      var date = widget.timeController.timeSynced.value? await FlutterKronos.getNtpDateTime : DateTime.now();
       if(date == null) {
         widget.timeController.updateTimeSynced(false);
         date = DateTime.now();
@@ -212,9 +212,9 @@ class _TimeSettingState extends State<TimeSetting> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
-    FlutterKronosPlus.sync();
+    FlutterKronos.sync();
     try {
-      _currentNTPDateTime = await FlutterKronosPlus.getNtpDateTime;
+      _currentNTPDateTime = await FlutterKronos.getNtpDateTime;
     } on PlatformException {}
 
     // If the widget was removed from the tree while the asynchronous platform

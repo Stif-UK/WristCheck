@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kronos_plus/flutter_kronos_plus.dart';
+import 'package:flutter_kronos/flutter_kronos.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -74,10 +74,10 @@ class _AccuracyState extends State<Accuracy> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
-    FlutterKronosPlus.sync();
+    FlutterKronos.sync();
     try {
       //Try to get the date and capture sync timestamp
-      DateTime? _currentNTPDateTime = await FlutterKronosPlus.getNtpDateTime;
+      DateTime? _currentNTPDateTime = await FlutterKronos.getNtpDateTime;
       widget.accuracyController.updateSyncTimestamp(_currentNTPDateTime);
     } on PlatformException {}
 
@@ -354,7 +354,7 @@ class _AccuracyState extends State<Accuracy> {
     if(widget.accuracyController.baseLine.value) calculateRate = false;
 
     //2. Get the atomic time from the server, or default to system time if not synced
-    DateTime timestamp = await FlutterKronosPlus.getNtpDateTime ?? DateTime.now();
+    DateTime timestamp = await FlutterKronos.getNtpDateTime ?? DateTime.now();
 
     //3. Save the record (at this point rate is zero)
     index = await MeasurementMethods.addMeasurement(widget.currentWatch.key,
