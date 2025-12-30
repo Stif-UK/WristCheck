@@ -5,13 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.16.0 \n"
+        "### Version 1.16.1 \n"
         "\n"
 
-            "* Watch accuracy checking added.\n"
-            "* Added ability to add multiple dates together for watches.\n"
-            "* Added ability to filter wear charts by last rolling 12 months.\n"
-            "* Set any image as 'primary' for each watch to show on thumbnails/gallery\n"
+            "* Updates to Accuracy UI.\n"
+            "* Latest accuracy measurement appears immediately on watch view\n"
+            "* Wear Charts can now be filtered between two given dates.\n"
+            "* Malaysian Ringgit added to currency options\n"
+            "* Spring Drive added to movement list\n"
             "* Additional small enhancements and bug fixes";
 
   }
@@ -26,6 +27,17 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.16.1 \n"
+                      "\n"
+
+                      "* Updates to Accuracy UI.\n"
+                      "* Latest accuracy measurement appears immediately on watch view\n"
+                      "* Wear Charts can now be filtered between two given dates.\n"
+                      "* Malaysian Ringgit added to currency options\n"
+                      "* Spring Drive added to movement list\n"
+                      "* Updated time sync library version\n"
+                      ""
+                      "---\n\n"
                       "### Version 1.16.0 \n"
                       "\n"
 
