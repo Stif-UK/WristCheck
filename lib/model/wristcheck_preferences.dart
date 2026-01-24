@@ -44,7 +44,10 @@ class WristCheckPreferences {
   static const _keyWatchboxOrder = 'watchBoxOrder';
   static const _keyWatchBoxView = 'watchBoxView';
   //Locale
+  //1. Currency
   static const _keyLocale = 'locale';
+  //2. Language
+  static const _keyLanguage = 'language';
   //First Use Demo & other first uses
   static const _keyFirstDemo = 'firstUseDemo';
   static const _keyHasSeenWatchCharts = 'seenWatchCharts';
@@ -481,11 +484,17 @@ class WristCheckPreferences {
     await _preferences.setString(_keyWatchBoxView, watchBoxView.toString());
   }
 
-  //Getter and Setter for locale preference
+  //Getter and Setter for locale preference used for currency layout preference
   static Future setLocale(String locale) async =>
       await _preferences.setString(_keyLocale, locale);
 
   static String? getLocale() => _preferences.getString(_keyLocale);
+
+  //Getter and setter for locale preference used for language selection
+  static Future setLanguage(String lang) async =>
+    await _preferences.setString(_keyLanguage, lang);
+
+  static String getLanguage() => _preferences.getString(_keyLanguage) ?? 'en'; //return English if no preference saved
 
   //Getter and Setter for last sale prompt acknowledged
   static DateTime? getLastSalePrompt() {
