@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/model/enums/language_enum.dart';
 import 'package:wristcheck/ui/archived.dart';
@@ -58,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: ListView(
               children: [
-                Obx(()=> ListTile(
+                WristCheckConfig.enableLanguagePicker? Obx(()=> ListTile(
                   title: Text("Language:"),
                   leading: Icon(FontAwesomeIcons.earthEurope),
                   trailing: DropdownButton(
@@ -79,8 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   ),
                 ),
-                ),
-                const Divider(thickness: 2,),
+                ) : const SizedBox(height: 0,),
+                WristCheckConfig.enableLanguagePicker? const Divider(thickness: 2,) : const SizedBox(height: 0,),
                 ListTile(
                     title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),
