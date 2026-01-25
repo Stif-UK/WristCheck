@@ -2,6 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/language_controller.dart';
+import 'package:wristcheck/model/enums/language_enum.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/settings/chart_options.dart';
@@ -25,6 +27,8 @@ class SettingsPage extends StatefulWidget{
 
 class _SettingsPageState extends State<SettingsPage> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  final langController = Get.put(LanguageController());
+
 
   String _buildVersion = "Not Determined";
   int _clickCount = 0;
@@ -54,6 +58,29 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: ListView(
               children: [
+                Obx(()=> ListTile(
+                  title: Text("Language:"),
+                  leading: Icon(FontAwesomeIcons.earthEurope),
+                  trailing: DropdownButton(
+                      //icon: FlagHelper.getFlag(widget.languageController.locale.value),
+                      value: langController.language.value.languageCode,
+                      items: LanguageEnum.values.map((lang) {
+                        return DropdownMenuItem<String>(
+                          value: lang.name,
+                          child: Text(lang.name), // .name gives the enum case name
+                        );
+                      }).toList(),
+                      onChanged: (newValue){
+                        Locale loc = Locale(newValue.toString());
+                        langController.updateLocalePref(loc);
+                      }
+
+
+
+                  ),
+                ),
+                ),
+                const Divider(thickness: 2,),
                 ListTile(
                     title: const Text("Daily Reminder"),
                     leading: const Icon(Icons.notifications_active_outlined),

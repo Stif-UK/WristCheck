@@ -79,6 +79,8 @@ dependencies:
   timeline_tile: ^2.0.0
   syncfusion_flutter_datepicker: ^28.2.12
   flutter_kronos: ^0.1.1+2
+  flutter_localizations:
+    sdk: flutter
 
 dependency_overrides:
   watcher: ^1.1.0

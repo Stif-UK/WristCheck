@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -21,6 +22,8 @@ import 'package:json_theme/json_theme.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,8 +85,10 @@ Future main() async{
   //Check if user has seen the first use demo
   final hasSeenDemo = WristCheckPreferences.getHasSeenDemo() ?? false;
 
-  //Get Controller
+  //Get Controllers
   final wristCheckController = Get.put(WristCheckController());
+  final langController = Get.put(LanguageController());
+
 
   initializeDateFormatting().then((_)=>
   runApp(
@@ -103,7 +108,16 @@ Future main() async{
                         theme: themeLight ,
                         darkTheme: themeDark,
                         themeMode: wristCheckController.lightThemeChoice.value,
-                        //themeMode: ThemeMode.system,
+              locale: langController.language.value,
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: [
+                Locale('en'), // English
+                Locale('fr'), // French
+              ],
 
                         home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
                       ),
