@@ -1,10 +1,18 @@
 {
   "watchBox": "Watch Box",
-  "@ovenTemp": {
+  "@watchBox": {
     "description": "Watch box label"
   },
   "@_SIDEBAR_LINKS": {},
   "settings": "Settings",
+  "appData" : "App Data",
+  "privacy" : "Privacy",
+  "removeAds" : "Remove Ads",
+  "support" : "Support WristTrack",
+  "review" : "Leave an app review",
+  "about" : "About",
+  "follow" : "Follow WristTrack",
+  "email" : "Email Feedback",
 
   "@_SETTINGS_LINKS": {},
   "languageLink" : "Language",

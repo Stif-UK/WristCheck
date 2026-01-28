@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/datalinks.dart';
@@ -42,7 +43,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(Icons.settings),
-            title: const Text("Settings"),
+            title: Text(AppLocalizations.of(context)!.settings),
             onTap: (){
               Get.to(() => SettingsPage());
 
@@ -51,7 +52,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(Icons.data_array),
-            title: const Text("App Data"),
+            title: Text(AppLocalizations.of(context)!.appData),
             onTap: (){
               Get.to(() => DataLinks());
             },
@@ -59,7 +60,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(Icons.warning_amber_rounded),
-            title: const Text("Privacy"),
+            title: Text(AppLocalizations.of(context)!.privacy),
             onTap: (){
               Get.to(() => PrivacyLanding());
             },
@@ -67,7 +68,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
               trailing: const Icon(Icons.ad_units_outlined),
-            title: wristCheckController.isAppPro.value? const Text("Support WristCheck"):  const Text("Remove Ads"),
+            title: wristCheckController.isAppPro.value? Text(AppLocalizations.of(context)!.support):  Text(AppLocalizations.of(context)!.removeAds),
             onTap: (){
               Get.to(() => RemoveAds());
             }
@@ -75,7 +76,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(Icons.rate_review_outlined),
-              title: const Text("Leave an app review"),
+              title: Text(AppLocalizations.of(context)!.review),
             onTap: () async {
               await analytics.logEvent(name: "manual_app_review");
               inAppReview.openStoreListing(
@@ -86,7 +87,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(Icons.info),
-            title: const Text("About"),
+            title: Text(AppLocalizations.of(context)!.about),
             onTap: (){
               Get.to(() => AboutApp());
             },
@@ -95,7 +96,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(FontAwesomeIcons.instagram),
-            title: const Text("Follow WristTrack"),
+            title: Text(AppLocalizations.of(context)!.follow),
             onTap: () async {
               analytics.logEvent(name: "social_link_clicked",
                   parameters: {
@@ -107,7 +108,7 @@ class WatchHomeDrawer extends StatelessWidget {
           const Divider(thickness: 2,),
           ListTile(
             trailing: const Icon(FontAwesomeIcons.envelope),
-            title: const Text("Email Feedback"),
+            title: Text(AppLocalizations.of(context)!.email),
             onTap: () async {
               analytics.logEvent(name: "email_link_clicked",
               parameters: {

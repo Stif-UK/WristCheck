@@ -12,7 +12,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get watchBox => 'Boîte à montres';
 
   @override
-  String get settings => 'Paramètres';
+  String get settings => 'Réglages';
+
+  @override
+  String get appData => 'Données de l\'app';
+
+  @override
+  String get privacy => 'Confidentialité';
+
+  @override
+  String get removeAds => 'Supprimer les publicités';
+
+  @override
+  String get support => 'Soutenir WristTrack';
+
+  @override
+  String get review => 'Laisser un avis';
+
+  @override
+  String get about => 'À propos';
+
+  @override
+  String get follow => 'Suivre WristTrack';
+
+  @override
+  String get email => 'Commentaires par e-mail';
 
   @override
   String get languageLink => 'Langue';

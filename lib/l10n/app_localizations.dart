@@ -98,7 +98,7 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
-  /// No description provided for @watchBox.
+  /// Watch box label
   ///
   /// In en, this message translates to:
   /// **'Watch Box'**
@@ -109,6 +109,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @appData.
+  ///
+  /// In en, this message translates to:
+  /// **'App Data'**
+  String get appData;
+
+  /// No description provided for @privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get privacy;
+
+  /// No description provided for @removeAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Ads'**
+  String get removeAds;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support WristTrack'**
+  String get support;
+
+  /// No description provided for @review.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave an app review'**
+  String get review;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @follow.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow WristTrack'**
+  String get follow;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Feedback'**
+  String get email;
 
   /// No description provided for @languageLink.
   ///

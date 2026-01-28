@@ -4,7 +4,15 @@
     "description": "étiquette de boîte de montre"
   },
   "@_SIDEBAR_LINKS": {},
-  "settings": "Paramètres",
+  "settings": "Réglages",
+  "appData" : "Données de l'app",
+  "privacy" : "Confidentialité",
+  "removeAds" : "Supprimer les publicités",
+  "support" : "Soutenir WristTrack",
+  "review" : "Laisser un avis",
+  "about" : "À propos",
+  "follow" : "Suivre WristTrack",
+  "email" : "Commentaires par e-mail",
 
   "@_SETTINGS_LINKS": {},
   "languageLink" : "Langue",

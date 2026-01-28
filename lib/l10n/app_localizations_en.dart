@@ -15,6 +15,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
+  String get appData => 'App Data';
+
+  @override
+  String get privacy => 'Privacy';
+
+  @override
+  String get removeAds => 'Remove Ads';
+
+  @override
+  String get support => 'Support WristTrack';
+
+  @override
+  String get review => 'Leave an app review';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get follow => 'Follow WristTrack';
+
+  @override
+  String get email => 'Email Feedback';
+
+  @override
   String get languageLink => 'Language';
 
   @override
