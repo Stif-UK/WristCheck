@@ -15,6 +15,33 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settings => 'Paramètres';
 
   @override
+  String get languageLink => 'Langue';
+
+  @override
+  String get reminderLink => 'Rappel quotidien';
+
+  @override
+  String get currencyLink => 'Options de devise';
+
+  @override
+  String get chartOptionsLink => 'Options de graphique';
+
+  @override
+  String get appPreferencesLink => 'Préférences de l\'application';
+
+  @override
+  String get showArchiveLink => 'Afficher les montres archivées';
+
+  @override
+  String get showDemoLink => 'Afficher la démo de première utilisation';
+
+  @override
+  String get appVersion => 'Version de l\'app : ';
+
+  @override
+  String get unknownAppVersionText => 'Indéterminé';
+
+  @override
   String get wearStatsButton => 'Statistiques d\'usure';
 
   @override

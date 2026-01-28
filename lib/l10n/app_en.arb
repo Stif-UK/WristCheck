@@ -6,6 +6,17 @@
   "@_SIDEBAR_LINKS": {},
   "settings": "Settings",
 
+  "@_SETTINGS_LINKS": {},
+  "languageLink" : "Language",
+  "reminderLink" : "Daily Reminder",
+  "currencyLink" : "Currency Options",
+  "chartOptionsLink" : "Chart Options",
+  "appPreferencesLink" : "App Preferences",
+  "showArchiveLink" : "Show Archived Watches",
+  "showDemoLink" : "Show First Use Demo",
+  "appVersion" : "App Version: ",
+  "unknownAppVersionText": "Not determined",
+
   "@_STATS_LINKS": {},
   "wearStatsButton": "Wear Stats",
   "collectionStatsButton" : "Collection Stats",

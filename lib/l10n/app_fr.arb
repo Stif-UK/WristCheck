@@ -6,6 +6,17 @@
   "@_SIDEBAR_LINKS": {},
   "settings": "Paramètres",
 
+  "@_SETTINGS_LINKS": {},
+  "languageLink" : "Langue",
+  "reminderLink" : "Rappel quotidien",
+  "currencyLink" : "Options de devise",
+  "chartOptionsLink" : "Options de graphique",
+  "appPreferencesLink" : "Préférences de l'application",
+  "showArchiveLink" : "Afficher les montres archivées",
+  "showDemoLink" : "Afficher la démo de première utilisation",
+  "appVersion" : "Version de l'app : ",
+  "unknownAppVersionText": "Indéterminé",
+
   "@_STATS_LINKS": {},
   "wearStatsButton": "Statistiques d'usure",
   "collectionStatsButton" : "Statistiques de collecte",

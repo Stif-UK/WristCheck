@@ -15,6 +15,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
+  String get languageLink => 'Language';
+
+  @override
+  String get reminderLink => 'Daily Reminder';
+
+  @override
+  String get currencyLink => 'Currency Options';
+
+  @override
+  String get chartOptionsLink => 'Chart Options';
+
+  @override
+  String get appPreferencesLink => 'App Preferences';
+
+  @override
+  String get showArchiveLink => 'Show Archived Watches';
+
+  @override
+  String get showDemoLink => 'Show First Use Demo';
+
+  @override
+  String get appVersion => 'App Version: ';
+
+  @override
+  String get unknownAppVersionText => 'Not determined';
+
+  @override
   String get wearStatsButton => 'Wear Stats';
 
   @override

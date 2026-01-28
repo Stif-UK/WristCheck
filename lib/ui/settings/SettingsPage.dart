@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/language_enum.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -31,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final langController = Get.put(LanguageController());
 
 
-  String _buildVersion = "Not Determined";
+  String _buildVersion = "";
   int _clickCount = 0;
 
 
@@ -39,11 +40,16 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
-    _getBuildVersion().then((val) {
-      setState(() {
-        _buildVersion = val;
-      });
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_){
+          _buildVersion = AppLocalizations.of(context)!.unknownAppVersionText;
+          _getBuildVersion().then((val) {
+            setState(() {
+              _buildVersion = val;
+            });
+          });
+        }
+    );
   }
 
   @override
@@ -51,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
     analytics.logScreenView(screenName: "settings");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(AppLocalizations.of(context)!.settings),
         leading:  IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
       ),
       body: Column(
@@ -60,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               children: [
                 WristCheckConfig.enableLanguagePicker? Obx(()=> ListTile(
-                  title: Text("Language:"),
+                  title: Text(AppLocalizations.of(context)!.languageLink),
                   leading: Icon(FontAwesomeIcons.earthEurope),
                   trailing: DropdownButton(
                       //icon: FlagHelper.getFlag(widget.languageController.locale.value),
@@ -84,37 +90,37 @@ class _SettingsPageState extends State<SettingsPage> {
                 ) : const SizedBox(height: 0,),
                 WristCheckConfig.enableLanguagePicker? const Divider(thickness: 2,) : const SizedBox(height: 0,),
                 ListTile(
-                    title: const Text("Daily Reminder"),
+                    title: Text(AppLocalizations.of(context)!.reminderLink),
                     leading: const Icon(Icons.notifications_active_outlined),
                     onTap: ()=> Get.to(()=> Notifications())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("Currency Options"),
+                  title: Text(AppLocalizations.of(context)!.currencyLink),
                   leading: const Icon(FontAwesomeIcons.earthAmericas),
                   onTap: ()=> Get.to(()=> LocationOptions())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                    title: const Text("Chart Options"),
+                    title: Text(AppLocalizations.of(context)!.chartOptionsLink),
                     leading: const Icon(Icons.bar_chart_outlined),
                     onTap: ()=> Get.to(()=> const ChartOptions())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("App Preferences"),
+                  title: Text(AppLocalizations.of(context)!.appPreferencesLink),
                   leading: const Icon(FontAwesomeIcons.display),
                   onTap: () => Get.to(() => ViewOptions()),
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("Show Archived Watches"),
+                  title: Text(AppLocalizations.of(context)!.showArchiveLink),
                     leading: const Icon(Icons.archive_outlined),
                   onTap: ()=> Get.to(()=> const Archived())
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
-                  title: const Text("Show First Use Demo"),
+                  title: Text(AppLocalizations.of(context)!.showDemoLink),
                   leading: const Icon(FontAwesomeIcons.mobileScreen),
                   onTap: ()=> Get.to(()=> const WristCheckOnboarding())
                 ),
@@ -128,15 +134,11 @@ class _SettingsPageState extends State<SettingsPage> {
               _clickCount = _clickCount+1;
               if(_clickCount > 5){
                 Get.to(() => const DeveloperStats());
-                // int? _openCount = WristCheckPreferences.getOpenCount() ?? 0;
-                // int? _wearCount = WristCheckPreferences.getWearCount() ?? 0;
-                // DateTime? refDate = WristCheckPreferences.getReferenceDate();
-                // WristCheckDialogs.getHiddenStats(_openCount, _wearCount, refDate);
               }
             },
             child: SizedBox(
               height: 50,
-              child: Text("App Version: $_buildVersion")
+              child: Text("${AppLocalizations.of(context)!.appVersion}$_buildVersion"),
             ),
           )
         ],

@@ -110,6 +110,60 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
+  /// No description provided for @languageLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageLink;
+
+  /// No description provided for @reminderLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminder'**
+  String get reminderLink;
+
+  /// No description provided for @currencyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Options'**
+  String get currencyLink;
+
+  /// No description provided for @chartOptionsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Chart Options'**
+  String get chartOptionsLink;
+
+  /// No description provided for @appPreferencesLink.
+  ///
+  /// In en, this message translates to:
+  /// **'App Preferences'**
+  String get appPreferencesLink;
+
+  /// No description provided for @showArchiveLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Archived Watches'**
+  String get showArchiveLink;
+
+  /// No description provided for @showDemoLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Show First Use Demo'**
+  String get showDemoLink;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version: '**
+  String get appVersion;
+
+  /// No description provided for @unknownAppVersionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Not determined'**
+  String get unknownAppVersionText;
+
   /// No description provided for @wearStatsButton.
   ///
   /// In en, this message translates to:
