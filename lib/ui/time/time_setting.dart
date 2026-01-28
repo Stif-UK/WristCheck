@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -89,7 +90,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Text("Last Synced:", style: Theme.of(context).textTheme.bodySmall,),
+                        child: Text(AppLocalizations.of(context)!.lastSync, style: Theme.of(context).textTheme.bodySmall,),
                       ),
                       widget.timeController.timeSynced.value ?
                       Text(widget.timeController.lastSyncTime.value,
@@ -104,11 +105,11 @@ class _TimeSettingState extends State<TimeSetting> {
                 ),
                 //TODO: Implement text if time sync fails
                 Obx(()=> Center(child: widget.timeController.timeSynced.value?
-                    Text("System time deviation: ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
-                    Text("Sync in progress - displaying system time...", style: Theme.of(context).textTheme.bodySmall))),
+                    Text("${AppLocalizations.of(context)!.deviation} ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
+                    Text(AppLocalizations.of(context)!.inProgress, style: Theme.of(context).textTheme.bodySmall))),
                 const Divider(thickness: 2,),
                 Obx(() => SwitchListTile(
-                  title: Text("Beep Countdown"),
+                  title: Text(AppLocalizations.of(context)!.beepCountdown),
                     value: widget.timeController.enableBeep.value,
                     onChanged: (beep) {
                       analytics.logEvent(name: "enablebeep",
@@ -119,7 +120,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     })),
                 const Divider(thickness: 2,),
                 Obx(() => SwitchListTile(
-                  title: Text("24 hour time"),
+                  title: Text(AppLocalizations.of(context)!.timeFormat),
                     value: widget.timeController.militaryTime.value,
                     onChanged: (mt) {
                       analytics.logEvent(name: "enable24hrtime",

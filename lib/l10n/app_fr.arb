@@ -28,5 +28,13 @@
   "@_STATS_LINKS": {},
   "wearStatsButton": "Statistiques d'usure",
   "collectionStatsButton" : "Statistiques de collecte",
-  "wristRecap" : "Wrist Recap"
+  "wristRecap" : "Wrist Recap",
+
+  "@_TIME_SETTING": {},
+  "lastSync" : "Dernière synchro :",
+  "deviation" : "Écart de l'heure système :",
+  "inProgress" : "Synchronisation en cours – affichage de l'heure système...",
+  "beepCountdown" : "Compte à rebours sonore",
+  "timeFormat" : "Format 24 heures",
+  "moonPhase" : "Phase lunaire actuelle"
 }

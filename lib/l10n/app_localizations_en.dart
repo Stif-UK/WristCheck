@@ -73,4 +73,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wristRecap => 'Wrist Recap';
+
+  @override
+  String get lastSync => 'Last Synced:';
+
+  @override
+  String get deviation => 'System time deviation:';
+
+  @override
+  String get inProgress => 'Sync in progress - displaying system time...';
+
+  @override
+  String get beepCountdown => 'Beep Countdown';
+
+  @override
+  String get timeFormat => '24 hour time';
+
+  @override
+  String get moonPhase => 'Current Moon Phase';
 }

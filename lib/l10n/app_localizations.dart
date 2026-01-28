@@ -229,6 +229,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrist Recap'**
   String get wristRecap;
+
+  /// No description provided for @lastSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Synced:'**
+  String get lastSync;
+
+  /// No description provided for @deviation.
+  ///
+  /// In en, this message translates to:
+  /// **'System time deviation:'**
+  String get deviation;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync in progress - displaying system time...'**
+  String get inProgress;
+
+  /// No description provided for @beepCountdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Beep Countdown'**
+  String get beepCountdown;
+
+  /// No description provided for @timeFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'24 hour time'**
+  String get timeFormat;
+
+  /// No description provided for @moonPhase.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Moon Phase'**
+  String get moonPhase;
 }
 
 class _AppLocalizationsDelegate

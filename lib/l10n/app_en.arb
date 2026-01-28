@@ -28,5 +28,13 @@
   "@_STATS_LINKS": {},
   "wearStatsButton": "Wear Stats",
   "collectionStatsButton" : "Collection Stats",
-  "wristRecap" : "Wrist Recap"
+  "wristRecap" : "Wrist Recap",
+
+  "@_TIME_SETTING": {},
+  "lastSync" : "Last Synced:",
+  "deviation" : "System time deviation:",
+  "inProgress" : "Sync in progress - displaying system time...",
+  "beepCountdown" : "Beep Countdown",
+  "timeFormat" : "24 hour time",
+  "moonPhase" : "Current Moon Phase"
 }
