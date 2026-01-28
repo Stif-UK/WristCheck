@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
@@ -67,11 +68,11 @@ class _StatsWidgetState extends State<StatsWidget> {
                     width: (MediaQuery.of(context).size.width)*0.8,
                     height: (MediaQuery.of(context).size.height)*0.1,
                     child: ElevatedButton(
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child: Text("Wear Stats",
+                        child: Text(AppLocalizations.of(context)!.wearStatsButton, textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 25, overflow: TextOverflow.fade,
                         ),),
                       ),
                       onPressed: (){ Get.to(() => WearStatsV2());},
@@ -97,11 +98,11 @@ class _StatsWidgetState extends State<StatsWidget> {
                     width: (MediaQuery.of(context).size.width)*0.8,
                     height: (MediaQuery.of(context).size.height)*0.1,
                     child: ElevatedButton(
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text("Collection Stats",
+                          child: Text(AppLocalizations.of(context)!.collectionStatsButton, textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 25, overflow: TextOverflow.fade,
                             ),),
                         ),
                         onPressed: (){

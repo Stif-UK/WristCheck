@@ -1,0 +1,13 @@
+{
+  "watchBox": "Boîte à montres",
+  "@ovenTemp": {
+    "description": "étiquette de boîte de montre"
+  },
+  "@_SIDEBAR_LINKS": {},
+  "settings": "Paramètres",
+
+  "@_STATS_LINKS": {},
+  "wearStatsButton": "Statistiques d'usure",
+  "collectionStatsButton" : "Statistiques de collecte",
+  "wristRecap" : "Wrist Recap"
+}

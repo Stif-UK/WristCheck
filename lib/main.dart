@@ -23,6 +23,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
+
 
 
 Future main() async{
@@ -110,6 +112,7 @@ Future main() async{
                         themeMode: wristCheckController.lightThemeChoice.value,
               locale: langController.language.value,
               localizationsDelegates: [
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,

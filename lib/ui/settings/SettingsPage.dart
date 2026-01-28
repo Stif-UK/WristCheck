@@ -73,6 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       }).toList(),
                       onChanged: (newValue){
                         Locale loc = Locale(newValue.toString());
+                        print(loc);
                         langController.updateLocalePref(loc);
                       }
 
