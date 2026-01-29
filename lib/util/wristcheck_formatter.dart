@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/controllers/language_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
@@ -15,17 +17,20 @@ import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:get/get.dart';
 
 class WristCheckFormatter{
 
   static String getFormattedDate(DateTime date){
-    final DateFormat formatter = DateFormat('yMMMd');
+    final langController = Get.put(LanguageController());
+    final DateFormat formatter = DateFormat('yMMMd', langController.language.value.toString());
     String returnString = formatter.format(date);
     return returnString;
   }
 
   static String getFormattedDateWithDay(DateTime date){
-    final DateFormat formatter = DateFormat('E');
+    final langController = Get.put(LanguageController());
+    final DateFormat formatter = DateFormat('E', langController.language.value.toString());
     String returnString = "${formatter.format(date)}, ${WristCheckFormatter.getFormattedDate(date)}";
     return returnString;
   }
@@ -46,14 +51,16 @@ class WristCheckFormatter{
   }
 
   static String getMonthFromDate(DateTime date){
-    final DateFormat formatter = DateFormat('LLLL');
+    final langController = Get.put(LanguageController());
+    final DateFormat formatter = DateFormat('LLLL', langController.language.value.toString());
     return formatter.format(date);
 
   }
 
   static String getMonthName(int monthNumber) {
+    final langController = Get.put(LanguageController());
     DateTime date = DateTime(0, monthNumber);
-    return DateFormat.MMM().format(date);
+    return DateFormat.MMM(langController.language.value.toString()).format(date);
   }
 
   static String getCollectionText(CollectionView view){
@@ -586,43 +593,43 @@ static String getMonthText(MonthList month){
 
     switch(month) {
       case MonthList.all:
-        returnText = "All";
+        returnText = AppLocalizations.of(Get.context!)!.all;
         break;
       case MonthList.january:
-        returnText = "January";
+        returnText = AppLocalizations.of(Get.context!)!.january;
         break;
       case MonthList.february:
-        returnText = "February";
+        returnText = AppLocalizations.of(Get.context!)!.february;
         break;
       case MonthList.march:
-        returnText = "March";
+        returnText = AppLocalizations.of(Get.context!)!.march;
         break;
       case MonthList.april:
-        returnText = "April";
+        returnText = AppLocalizations.of(Get.context!)!.april;
         break;
       case MonthList.may:
-        returnText = "May";
+        returnText = AppLocalizations.of(Get.context!)!.may;
         break;
       case MonthList.june:
-        returnText = "June";
+        returnText = AppLocalizations.of(Get.context!)!.june;
         break;
       case MonthList.july:
-        returnText = "July";
+        returnText = AppLocalizations.of(Get.context!)!.july;
         break;
       case MonthList.august:
-        returnText = "August";
+        returnText = AppLocalizations.of(Get.context!)!.august;
         break;
       case MonthList.september:
-        returnText = "September";
+        returnText = AppLocalizations.of(Get.context!)!.september;
         break;
       case MonthList.october:
-        returnText = "October";
+        returnText = AppLocalizations.of(Get.context!)!.october;
         break;
       case MonthList.november:
-        returnText = "November";
+        returnText = AppLocalizations.of(Get.context!)!.november;
         break;
       case MonthList.december:
-        returnText = "December";
+        returnText = AppLocalizations.of(Get.context!)!.december;
         break;
     }
 

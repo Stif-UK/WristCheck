@@ -113,4 +113,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get timeline => 'Chronologie';
+
+  @override
+  String get all => 'tout';
+
+  @override
+  String get january => 'janvier';
+
+  @override
+  String get february => 'février';
+
+  @override
+  String get march => 'mars';
+
+  @override
+  String get april => 'avril';
+
+  @override
+  String get may => 'mai';
+
+  @override
+  String get june => 'juin';
+
+  @override
+  String get july => 'juillet';
+
+  @override
+  String get august => 'août';
+
+  @override
+  String get september => 'septembre';
+
+  @override
+  String get october => 'octobre';
+
+  @override
+  String get november => 'novembre';
+
+  @override
+  String get december => 'décembre';
 }

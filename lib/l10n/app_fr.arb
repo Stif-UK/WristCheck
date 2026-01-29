@@ -48,5 +48,20 @@
 
   "@_MORE_MENU": {},
   "gallery" : "Galerie",
-  "timeline" : "Chronologie"
+  "timeline" : "Chronologie",
+
+  "@_LIST_ITEMS" : {},
+  "all" : "tout",
+  "january" : "janvier",
+  "february" : "février",
+  "march" : "mars",
+  "april" : "avril",
+  "may" : "mai",
+  "june" : "juin",
+  "july" : "juillet",
+  "august" : "août",
+  "september" : "septembre",
+  "october" : "octobre",
+  "november" : "novembre",
+  "december" : "décembre"
 }
