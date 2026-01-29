@@ -295,6 +295,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Current Moon Phase'**
   String get moonPhase;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @timeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline'**
+  String get timeline;
 }
 
 class _AppLocalizationsDelegate

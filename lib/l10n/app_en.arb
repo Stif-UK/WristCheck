@@ -44,5 +44,9 @@
   "inProgress" : "Sync in progress - displaying system time...",
   "beepCountdown" : "Beep Countdown",
   "timeFormat" : "24 hour time",
-  "moonPhase" : "Current Moon Phase"
+  "moonPhase" : "Current Moon Phase",
+
+  "@_MORE_MENU": {},
+  "gallery" : "Gallery",
+  "timeline" : "Timeline"
 }

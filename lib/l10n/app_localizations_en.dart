@@ -106,4 +106,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moonPhase => 'Current Moon Phase';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get timeline => 'Timeline';
 }

@@ -44,5 +44,9 @@
   "inProgress" : "Synchronisation en cours – affichage de l'heure système...",
   "beepCountdown" : "Compte à rebours sonore",
   "timeFormat" : "Format 24 heures",
-  "moonPhase" : "Phase lunaire actuelle"
+  "moonPhase" : "Phase lunaire actuelle",
+
+  "@_MORE_MENU": {},
+  "gallery" : "Galerie",
+  "timeline" : "Chronologie"
 }

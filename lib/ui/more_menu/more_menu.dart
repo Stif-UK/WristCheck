@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -69,7 +70,7 @@ class _MoreMenuState extends State<MoreMenu> {
                 Padding(
                   padding: pagePadding,
                   child: ListTile(
-                    title: Text("Gallery",
+                    title: Text(AppLocalizations.of(context)!.gallery,
                     style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,),
                     trailing: Icon(FontAwesomeIcons.images),
@@ -80,7 +81,7 @@ class _MoreMenuState extends State<MoreMenu> {
                 Padding(
                   padding: pagePadding,
                   child: ListTile(
-                    title: Text("Timeline",
+                    title: Text(AppLocalizations.of(context)!.timeline,
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,),
                     trailing: Icon(FontAwesomeIcons.timeline),
