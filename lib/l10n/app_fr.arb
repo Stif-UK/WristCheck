@@ -63,5 +63,6 @@
   "september" : "septembre",
   "october" : "octobre",
   "november" : "novembre",
-  "december" : "décembre"
+  "december" : "décembre",
+  "month" : "Mois"
 }

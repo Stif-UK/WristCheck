@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -14,28 +15,8 @@ class WatchDayChart extends StatefulWidget {
     required this.currentWatch
   }) : super(key: key);
 
-  Watches currentWatch;
+  final Watches currentWatch;
   final wristCheckController = Get.put(WristCheckController());
-
-  Map<int, String> dayMap = <int, String>{
-    1 : "Monday",
-    2 : "Tuesday",
-    3 : "Wednesday",
-    4 : "Thursday",
-    5 : "Friday",
-    6 : "Saturday",
-    7 : "Sunday"
-  };
-
-  Map<int, String> shortDayMap = <int, String>{
-    1 : "Mon",
-    2 : "Tue",
-    3 : "Wed",
-    4 : "Thu",
-    5 : "Fri",
-    6 : "Sat",
-    7 : "Sun"
-  };
 
 
   @override
@@ -65,19 +46,19 @@ class _WatchDayChartState extends State<WatchDayChart> {
 
     switch(type){
       case WatchDayChartEnum.bar:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.dayMap);
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value));
         break;
       case WatchDayChartEnum.pie:
-        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), _tooltipBehavior, widget.dayMap);
+        returnChart =_buildPieChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), _tooltipBehavior);
         break;
       case WatchDayChartEnum.grouped:
-        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
+        returnChart =_buildGroupedChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value));
         break;
       case WatchDayChartEnum.line:
-        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.shortDayMap);
+        returnChart = _buildLineChart(_getSplitChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value));
         break;
       default:
-        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value), widget.dayMap);
+        returnChart = _buildBarChart(_getBasicChartData(widget.currentWatch, widget.wristCheckController.dayChartFilter.value));
         break;
     }
 
@@ -88,14 +69,14 @@ class _WatchDayChartState extends State<WatchDayChart> {
 }
 
 
-Widget _buildBarChart(List<DayWearData> data, Map<int, String> dayMap){
+Widget _buildBarChart(List<DayWearData> data){
   return SfCartesianChart(
     series: <CartesianSeries>[
       BarSeries<DayWearData, String>(
         dataSource: data,
         xValueMapper: (DayWearData value, _) => value.day.toString(),
         yValueMapper: (DayWearData value, _) => value.count,
-        dataLabelMapper: (value, _)=> "${dayMap[value.day]}: ${value.count}",
+        dataLabelMapper: (value, _)=> "${WristCheckFormatter.getDay(value.day, false)}: ${value.count}",
         dataLabelSettings: const DataLabelSettings(isVisible: true,),
       )
     ],
@@ -104,7 +85,7 @@ Widget _buildBarChart(List<DayWearData> data, Map<int, String> dayMap){
 }
 
 
-Widget _buildPieChart(List<DayWearData> data, TooltipBehavior tooltip, Map<int, String> dayMap) {
+Widget _buildPieChart(List<DayWearData> data, TooltipBehavior tooltip) {
   return SfCircularChart(
       tooltipBehavior: tooltip,
       legend: Legend(isVisible: true,
@@ -112,21 +93,21 @@ Widget _buildPieChart(List<DayWearData> data, TooltipBehavior tooltip, Map<int, 
       series: <CircularSeries<DayWearData, String>>[
         DoughnutSeries<DayWearData, String>(
             dataSource: data,
-            xValueMapper: (DayWearData data, _) => dayMap[data.day],//data.day.toString(),
+            xValueMapper: (DayWearData data, _) => WristCheckFormatter.getDay(data.day, false),
             yValueMapper: (DayWearData data, _) => data.count,
             dataLabelSettings: DataLabelSettings(isVisible: true, showZeroValue: false),
             enableTooltip: true)
       ]);
 }
 
-Widget _buildGroupedChart(Map<int, List<DayWearData>> data, Map<int, String> dayMap){
+Widget _buildGroupedChart(Map<int, List<DayWearData>> data){
   var chartSeries = <StackedBarSeries>[];
   for(int month in data.keys){
 
     StackedBarSeries yearSeries = StackedBarSeries<DayWearData, String>(
       name: WristCheckFormatter.getMonthName(month),
       dataSource: data[month]!.reversed.toList(), //reverse list to show January first
-      xValueMapper: (DayWearData value, _) => dayMap[value.day],
+      xValueMapper: (DayWearData value, _) => WristCheckFormatter.getDay(value.day, true),
       yValueMapper: (DayWearData value, _) => value.count,
     );
     chartSeries.add(yearSeries);
@@ -138,19 +119,19 @@ Widget _buildGroupedChart(Map<int, List<DayWearData>> data, Map<int, String> day
     legend: Legend(
         isVisible: true,
         position: LegendPosition.top,
-        title: LegendTitle(text: "Month")
+        title: LegendTitle(text: AppLocalizations.of(Get.context!)!.month)
     ),
   );
 }
 
-Widget _buildLineChart(Map<int, List<DayWearData>> data, Map<int, String> dayMap){
+Widget _buildLineChart(Map<int, List<DayWearData>> data){
   var chartSeries = <StackedLineSeries>[];
   for(int month in data.keys){
     StackedLineSeries yearSeries = StackedLineSeries<DayWearData, String>(
       groupName: month.toString(),
       name: WristCheckFormatter.getMonthName(month),
       dataSource: data[month]!,
-      xValueMapper: (DayWearData data, _) => dayMap[data.day],
+      xValueMapper: (DayWearData data, _) => WristCheckFormatter.getDay(data.day, true),
       yValueMapper: (DayWearData data, _) => data.count,
     );
     chartSeries.add(yearSeries);
@@ -162,7 +143,7 @@ Widget _buildLineChart(Map<int, List<DayWearData>> data, Map<int, String> dayMap
     legend: Legend(
         isVisible: true,
         position: LegendPosition.top,
-        title: LegendTitle(text: "Month")
+        title: LegendTitle(text: AppLocalizations.of(Get.context!)!.month)
     ),
 
   );

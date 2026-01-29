@@ -152,4 +152,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get december => 'décembre';
+
+  @override
+  String get month => 'Mois';
 }

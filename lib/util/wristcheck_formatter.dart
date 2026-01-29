@@ -63,6 +63,23 @@ class WristCheckFormatter{
     return DateFormat.MMM(langController.language.value.toString()).format(date);
   }
 
+  /*
+  getDay takes an int value between 1 & 7 and returns the day in text form.
+  The bool 'short' defines the format of the return i.e. "Monday" vs "Monday"
+  The String "error" is returned if the given input is outside of the 1-7 range.
+  The method pulls the locale from the languageController to return the day in the correct language
+   */
+  static String getDay(int day, bool short){
+    String format = short? 'EEE': 'EEEE';
+    if(day < 1 || day > 7){
+      return "error";
+    }
+    final langController = Get.put(LanguageController());
+    // Create a reference date where Monday = 1
+    DateTime referenceDate = DateTime(2024, 1, day); // January 1, 2024 is Monday, therefore each int gives the correct day
+    return DateFormat(format, langController.language.value.toString()).format(referenceDate);
+  }
+
   static String getCollectionText(CollectionView view){
     String returnText = "";
 
