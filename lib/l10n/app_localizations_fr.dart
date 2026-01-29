@@ -12,6 +12,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get watchBox => 'Boîte à montres';
 
   @override
+  String get collection => 'Collection';
+
+  @override
+  String get stats => 'Stats';
+
+  @override
+  String get calendar => 'Calendrier';
+
+  @override
+  String get time => 'Heure';
+
+  @override
+  String get more => 'Plus';
+
+  @override
   String get settings => 'Réglages';
 
   @override

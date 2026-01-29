@@ -12,6 +12,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get watchBox => 'Watch Box';
 
   @override
+  String get collection => 'Collection';
+
+  @override
+  String get stats => 'Stats';
+
+  @override
+  String get calendar => 'Calendar';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get more => 'More';
+
+  @override
   String get settings => 'Settings';
 
   @override

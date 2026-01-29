@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/more_menu/more_menu.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
@@ -131,26 +132,26 @@ class _WristCheckHomeState extends State<WristCheckHome> {
           type: BottomNavigationBarType.fixed,
           currentIndex: widget.wristCheckController.homePageIndex.value,
           onTap: _onTabTapped,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon:  Icon(Icons.watch),
-              label: "Collection",
+              label: AppLocalizations.of(context)!.collection,
             ),
             BottomNavigationBarItem(
               icon:  Icon(Icons.bar_chart),
-              label: "Stats",
+              label: AppLocalizations.of(context)!.stats,
             ),
             BottomNavigationBarItem(
               icon:  Icon(Icons.calendar_month_sharp),
-              label: "Calendar",
+              label: AppLocalizations.of(context)!.calendar,
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.clock),
-              label: "Time"
+              label: AppLocalizations.of(context)!.time
             ),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.chevronRight),
-                label: "More"
+                label: AppLocalizations.of(context)!.more
             )
           ],
 

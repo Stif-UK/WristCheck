@@ -3,6 +3,14 @@
   "@ovenTemp": {
     "description": "étiquette de boîte de montre"
   },
+
+  "@_HOME_TABS": {},
+  "collection" : "Collection",
+  "stats" : "Stats",
+  "calendar" : "Calendrier",
+  "time" : "Heure",
+  "more" : "Plus",
+
   "@_SIDEBAR_LINKS": {},
   "settings": "Réglages",
   "appData" : "Données de l'app",
