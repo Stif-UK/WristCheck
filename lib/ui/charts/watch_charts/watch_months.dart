@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -14,7 +16,7 @@ class WatchMonthChart extends StatefulWidget {
     required this.currentWatch
   }) : super(key: key);
 
-  Watches currentWatch;
+  final Watches currentWatch;
   final wristCheckController = Get.put(WristCheckController());
 
 
@@ -71,6 +73,7 @@ class _WatchMonthChartState extends State<WatchMonthChart> {
 }
 
 Widget _buildPieChart(List<MonthWearData> data, TooltipBehavior tooltip) {
+  final languageController = Get.put(LanguageController());
 
   return SfCircularChart(
       tooltipBehavior: tooltip,
@@ -79,7 +82,7 @@ Widget _buildPieChart(List<MonthWearData> data, TooltipBehavior tooltip) {
       series: <CircularSeries<MonthWearData, String>>[
         DoughnutSeries<MonthWearData, String>(
             dataSource: data,
-            xValueMapper: (MonthWearData data, _) => "${DateFormat('MMMM').format(DateTime(0, int.parse(data.month)))}" ,
+            xValueMapper: (MonthWearData data, _) => "${DateFormat('MMMM', languageController.language.value.toString()).format(DateTime(0, int.parse(data.month)))}" ,
             yValueMapper: (MonthWearData data, _) => data.count,
             dataLabelSettings: DataLabelSettings(isVisible: true, showZeroValue: false),
             enableTooltip: true)
@@ -87,13 +90,15 @@ Widget _buildPieChart(List<MonthWearData> data, TooltipBehavior tooltip) {
 }
 
 Widget _buildBarChart(List<MonthWearData> data) {
+  final languageController = Get.put(LanguageController());
+
   return SfCartesianChart(
     series: <CartesianSeries>[
       BarSeries<MonthWearData, String>(
         dataSource: data,
         xValueMapper: (MonthWearData value, _) => value.month,
         yValueMapper: (MonthWearData value, _) => value.count,
-        dataLabelMapper: (value, _)=> "${DateFormat('MMMM').format(DateTime(0, int.parse(value.month)))
+        dataLabelMapper: (value, _)=> "${DateFormat('MMMM', languageController.language.value.toString()).format(DateTime(0, int.parse(value.month)))
 
         }: ${value.count}",
         dataLabelSettings: const DataLabelSettings(isVisible: true,),
@@ -123,7 +128,7 @@ Widget _buildGroupedChart(Map<int, List<MonthWearData>> data) {
     legend: Legend(
         isVisible: true,
         position: LegendPosition.top,
-        title: LegendTitle(text: "Year")
+        title: LegendTitle(text: AppLocalizations.of(Get.context!)!.year)
     ),
   );
 }
@@ -148,7 +153,7 @@ Widget _buildLineChart(Map<int, List<MonthWearData>> data) {
                     legend: Legend(
                       isVisible: true,
                       position: LegendPosition.top,
-                      title: LegendTitle(text: "Year")
+                      title: LegendTitle(text: AppLocalizations.of(Get.context!)!.year)
                     ),
 
                 );

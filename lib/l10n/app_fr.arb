@@ -64,5 +64,19 @@
   "october" : "octobre",
   "november" : "novembre",
   "december" : "décembre",
-  "month" : "Mois"
+  "month" : "Mois",
+  "year" : "Année",
+
+  "@_CHARTS_AND_FILTERS" : {},
+  "filter" : "Filtrer :",
+  "wearsByDay" : "Portées par jour",
+  "wearsByMonth" : "Portées par mois",
+  "wearsByYear" : "Portées par an",
+  "thisYear" : "Cette année",
+  "lastYear" : "L'année dernière",
+  "last12Months" : "12 derniers mois",
+  "last90days" : "90 derniers jours",
+
+  "@_COMMON" : {},
+  "noDataRecorded" : "Aucune donnée"
 }

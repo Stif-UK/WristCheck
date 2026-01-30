@@ -391,6 +391,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Month'**
   String get month;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter:'**
+  String get filter;
+
+  /// No description provided for @wearsByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Wears by Day'**
+  String get wearsByDay;
+
+  /// No description provided for @wearsByMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Wears by Month'**
+  String get wearsByMonth;
+
+  /// No description provided for @wearsByYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Wears by Year'**
+  String get wearsByYear;
+
+  /// No description provided for @thisYear.
+  ///
+  /// In en, this message translates to:
+  /// **'This Year'**
+  String get thisYear;
+
+  /// No description provided for @lastYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Year'**
+  String get lastYear;
+
+  /// No description provided for @last12Months.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 12 Months'**
+  String get last12Months;
+
+  /// No description provided for @last90days.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 90 Days'**
+  String get last90days;
+
+  /// No description provided for @noDataRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'No Data Recorded'**
+  String get noDataRecorded;
 }
 
 class _AppLocalizationsDelegate

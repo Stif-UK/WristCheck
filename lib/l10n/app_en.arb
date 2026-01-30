@@ -64,5 +64,20 @@
   "october" : "October",
   "november" : "November",
   "december" : "December",
-  "month" : "Month"
+  "month" : "Month",
+  "year" : "Year",
+
+
+  "@_CHARTS_AND_FILTERS" : {},
+  "filter" : "Filter:",
+  "wearsByDay" : "Wears by Day",
+  "wearsByMonth" : "Wears by Month",
+  "wearsByYear" : "Wears by Year",
+  "thisYear" : "This Year",
+  "lastYear" : "Last Year",
+  "last12Months" : "Last 12 Months",
+  "last90days" : "Last 90 Days",
+
+  "@_COMMON" : {},
+  "noDataRecorded" : "No Data Recorded"
 }

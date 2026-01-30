@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/copy.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
 import 'package:wristcheck/model/enums/watch_year_chart_enum.dart';
@@ -13,7 +14,6 @@ import 'package:wristcheck/ui/charts/watch_charts/watch_years.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:choice/choice.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-
 import '../../../model/enums/watch_month_chart_filter_enum.dart';
 
 class WatchChartsBody extends StatelessWidget {
@@ -27,6 +27,7 @@ class WatchChartsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return currentWatch.wearList.isNotEmpty ? SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -34,7 +35,7 @@ class WatchChartsBody extends StatelessWidget {
         children: [
 
           ListTile(
-              title: Text("Wears by Month",
+              title: Text(l!.wearsByMonth,
                 style: Theme
                     .of(context)
                     .textTheme
@@ -56,7 +57,7 @@ class WatchChartsBody extends StatelessWidget {
           WatchMonthChart(currentWatch: currentWatch),
           const Divider(thickness: 2,),
           ListTile(
-              title: Text("Wears by Day",
+              title: Text(l.wearsByDay,
                 style: Theme
                     .of(context)
                     .textTheme
@@ -77,7 +78,7 @@ class WatchChartsBody extends StatelessWidget {
           _buildDayFilterToggleRow(),
           WatchDayChart(currentWatch: currentWatch),
           const Divider(thickness: 2,),
-          ListTile(title: Text("Wears by Year",
+          ListTile(title: Text(l.wearsByYear,
                     style: Theme
                         .of(context)
                         .textTheme
@@ -107,7 +108,7 @@ class WatchChartsBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
-          title: Text("No Data Recorded", style: Theme
+          title: Text(l!.noDataRecorded, style: Theme
               .of(context)
               .textTheme
               .headlineSmall, textAlign: TextAlign.center,),
@@ -135,7 +136,7 @@ class WatchChartsBody extends StatelessWidget {
             child: Card(
               clipBehavior: Clip.antiAlias,
               child: Obx(()=> PromptedChoice<String>.single(
-                  title: 'Filter:',
+                  title: AppLocalizations.of(Get.context!)!.filter,
                     value: WristCheckFormatter.getDayFilterName(wristCheckController.dayChartFilter.value),
                     onChanged: setSingleSelected,
                     itemCount: WatchDayChartFilterEnum.values.length,
@@ -177,7 +178,7 @@ class WatchChartsBody extends StatelessWidget {
           child: Card(
             clipBehavior: Clip.antiAlias,
             child: Obx(()=> PromptedChoice<String>.single(
-              title: 'Filter:',
+              title: AppLocalizations.of(Get.context!)!.filter,
               value: WristCheckFormatter.getMonthFilterName(wristCheckController.monthChartFilter.value),
               onChanged: setSingleSelected,
               itemCount: WatchMonthChartFilterEnum.values.length,

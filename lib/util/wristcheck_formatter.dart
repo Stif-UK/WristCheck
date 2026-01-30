@@ -719,19 +719,19 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     switch(filter) {
       case WatchDayChartFilterEnum.all:
-        returnString = "All";
+        returnString = AppLocalizations.of(Get.context!)!.all;
         break;
       case WatchDayChartFilterEnum.thisYear:
-        returnString = "This Year";
+        returnString = AppLocalizations.of(Get.context!)!.thisYear;
         break;
       case WatchDayChartFilterEnum.lastYear:
-        returnString = "Last Year";
+        returnString = AppLocalizations.of(Get.context!)!.lastYear;
         break;
       case WatchDayChartFilterEnum.last12months:
-        returnString = "Last 12 months";
+        returnString = AppLocalizations.of(Get.context!)!.last12Months;
         break;
       case WatchDayChartFilterEnum.last90days:
-        returnString = "Last 90 days";
+        returnString = AppLocalizations.of(Get.context!)!.last90days;
         break;
     }
 
@@ -744,16 +744,16 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
     switch(filter) {
 
       case WatchMonthChartFilterEnum.all:
-        returnString = "All";
+        returnString = AppLocalizations.of(Get.context!)!.all;
         break;
       case WatchMonthChartFilterEnum.thisYear:
-        returnString = "This Year";
+        returnString = AppLocalizations.of(Get.context!)!.thisYear;
         break;
       case WatchMonthChartFilterEnum.lastYear:
-        returnString = "Last Year";
+        returnString = AppLocalizations.of(Get.context!)!.lastYear;
         break;
       case WatchMonthChartFilterEnum.last12months:
-        returnString = "Last 12 Months";
+        returnString = AppLocalizations.of(Get.context!)!.last12Months;
         break;
     }
 

@@ -155,4 +155,34 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get month => 'Mois';
+
+  @override
+  String get year => 'Année';
+
+  @override
+  String get filter => 'Filtrer :';
+
+  @override
+  String get wearsByDay => 'Portées par jour';
+
+  @override
+  String get wearsByMonth => 'Portées par mois';
+
+  @override
+  String get wearsByYear => 'Portées par an';
+
+  @override
+  String get thisYear => 'Cette année';
+
+  @override
+  String get lastYear => 'L\'année dernière';
+
+  @override
+  String get last12Months => '12 derniers mois';
+
+  @override
+  String get last90days => '90 derniers jours';
+
+  @override
+  String get noDataRecorded => 'Aucune donnée';
 }
