@@ -185,4 +185,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noDataRecorded => 'Aucune donnée';
+
+  @override
+  String get warning => 'Attention';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get backupRestore => 'Sauvegarde / Restauration';
+
+  @override
+  String get altExports => 'Exports alternatifs';
+
+  @override
+  String get dataImport => 'Importation de données';
+
+  @override
+  String get deleteCollection => 'Supprimer la collection';
+
+  @override
+  String get deleteWarning =>
+      'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 }

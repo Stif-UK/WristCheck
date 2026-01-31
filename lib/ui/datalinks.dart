@@ -8,6 +8,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/snackbars.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -67,10 +68,11 @@ class _DataLinksState extends State<DataLinks> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "app_data");
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("App Data"),
+        title: Text(l!.appData),
       ),
       body: Column(
         children: [
@@ -78,7 +80,7 @@ class _DataLinksState extends State<DataLinks> {
           child: ListView(
                   children: [
                     ListTile(
-                        title: const Text("Backup / Restore Database"),
+                        title: Text(l.backupRestore),
                         leading: const Icon(Icons.save_alt),
                         onTap: (){
                           Get.to(()=> const BackupRestore());
@@ -86,7 +88,7 @@ class _DataLinksState extends State<DataLinks> {
                     ),
                     const Divider(thickness: 2,),
                     ListTile(
-                        title: const Text("Alternative Exports"),
+                        title:  Text(l.altExports),
                         leading: const Icon(FontAwesomeIcons.fileExport),
                         onTap: (){
                           Get.to(()=> AlternativeExports());
@@ -95,7 +97,7 @@ class _DataLinksState extends State<DataLinks> {
                     const Divider(thickness: 2,),
                     //TODO: Uncomment to re-enable data upload journey
                     WristCheckConfig.enableCSVUploads ?ListTile(
-                        title: const Text("Data Import"),
+                        title: Text(l.dataImport),
                         leading: const Icon(FontAwesomeIcons.fileImport),
                         onTap: (){
                           Get.to(()=> UploadsLanding());
@@ -103,16 +105,16 @@ class _DataLinksState extends State<DataLinks> {
                     ): const SizedBox(height: 0,),
                     WristCheckConfig.enableCSVUploads? const Divider(thickness: 2,) : const SizedBox(height: 0,),
                     ListTile(
-                        title:const Text("Delete collection"),
+                        title: Text(l.deleteCollection),
                         leading: const Icon(Icons.warning),
                         trailing: OutlinedButton(
                             child: const Icon(Icons.delete, color: Colors.redAccent),
                             onPressed: (){
                               Get.defaultDialog(
-                                  title: "Warning",
-                                  middleText: "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
-                                  textConfirm: "OK",
-                                  textCancel: "Cancel",
+                                  title: l.warning,
+                                  middleText: l.deleteWarning,
+                                  textConfirm: l.ok,
+                                  textCancel: l.cancel,
                                   onConfirm: (){
                                     _deleteCollection();
                                     Get.back();

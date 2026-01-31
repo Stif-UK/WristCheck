@@ -78,5 +78,17 @@
   "last90days" : "90 derniers jours",
 
   "@_COMMON" : {},
-  "noDataRecorded" : "Aucune donnée"
+  "noDataRecorded" : "Aucune donnée",
+  "warning" : "Attention",
+  "ok" : "OK",
+  "cancel" : "Annuler",
+
+  "@_APPDATA": {},
+  "backupRestore" : "Sauvegarde / Restauration",
+  "altExports" : "Exports alternatifs",
+  "dataImport" : "Importation de données",
+  "deleteCollection" : "Supprimer la collection",
+
+  "@_MESSAGES" : {},
+  "deleteWarning" : "En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE"
 }

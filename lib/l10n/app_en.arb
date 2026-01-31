@@ -79,5 +79,18 @@
   "last90days" : "Last 90 Days",
 
   "@_COMMON" : {},
-  "noDataRecorded" : "No Data Recorded"
+  "noDataRecorded" : "No Data Recorded",
+  "warning" : "Warning",
+  "ok" : "OK",
+  "cancel" : "Cancel",
+
+
+  "@_APPDATA": {},
+  "backupRestore" : "Backup / Restore Database",
+  "altExports" : "Alternative Exports",
+  "dataImport" : "Data Import",
+  "deleteCollection" : "Delete Collection",
+
+  "@_MESSAGES" : {},
+  "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE"
 }

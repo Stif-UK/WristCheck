@@ -184,4 +184,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noDataRecorded => 'No Data Recorded';
+
+  @override
+  String get warning => 'Warning';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get backupRestore => 'Backup / Restore Database';
+
+  @override
+  String get altExports => 'Alternative Exports';
+
+  @override
+  String get dataImport => 'Data Import';
+
+  @override
+  String get deleteCollection => 'Delete Collection';
+
+  @override
+  String get deleteWarning =>
+      'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 }

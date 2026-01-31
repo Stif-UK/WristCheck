@@ -451,6 +451,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Data Recorded'**
   String get noDataRecorded;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @backupRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup / Restore Database'**
+  String get backupRestore;
+
+  /// No description provided for @altExports.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Exports'**
+  String get altExports;
+
+  /// No description provided for @dataImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Import'**
+  String get dataImport;
+
+  /// No description provided for @deleteCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Collection'**
+  String get deleteCollection;
+
+  /// No description provided for @deleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE'**
+  String get deleteWarning;
 }
 
 class _AppLocalizationsDelegate
