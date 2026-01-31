@@ -470,6 +470,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @tellMeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me more'**
+  String get tellMeMore;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -571,6 +577,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Detailed Extract (CSV)'**
   String get detailedExtractButton;
+
+  /// No description provided for @wristTrackProFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack Pro Feature'**
+  String get wristTrackProFeature;
 
   /// No description provided for @deleteWarning.
   ///

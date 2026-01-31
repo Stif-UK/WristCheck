@@ -196,6 +196,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cancel => 'Annuler';
 
   @override
+  String get tellMeMore => 'En savoir plus';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override
@@ -246,6 +249,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get detailedExtractButton => 'Extraction détaillée (CSV)';
+
+  @override
+  String get wristTrackProFeature => 'Fonctionnalité WristTrack Pro';
 
   @override
   String get deleteWarning =>

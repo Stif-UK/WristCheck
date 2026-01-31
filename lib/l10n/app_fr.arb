@@ -82,6 +82,7 @@
   "warning" : "Attention",
   "ok" : "OK",
   "cancel" : "Annuler",
+  "tellMeMore" : "En savoir plus",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -101,6 +102,9 @@
   "backupWatchImages" : "Sauvegarder les images des montres",
   "simpleExtractButton": "Extraction simple (CSV)",
   "detailedExtractButton": "Extraction détaillée (CSV)",
+
+  "@_PRO_AND_PURCHASE": {},
+  "wristTrackProFeature" : "Fonctionnalité WristTrack Pro",
 
 
   "@_MESSAGES" : {},

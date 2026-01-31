@@ -83,6 +83,7 @@
   "warning" : "Warning",
   "ok" : "OK",
   "cancel" : "Cancel",
+  "tellMeMore" : "Tell me more",
 
 
   "@_APPDATA": {},
@@ -103,6 +104,9 @@
   "backupWatchImages" : "Backup Watch Images",
   "simpleExtractButton": "Simple Extract (CSV)",
   "detailedExtractButton": "Detailed Extract (CSV)",
+
+  "@_PRO_AND_PURCHASE": {},
+  "wristTrackProFeature" : "WristTrack Pro Feature",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
