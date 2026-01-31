@@ -560,6 +560,18 @@ abstract class AppLocalizations {
   /// **'Backup Watch Images'**
   String get backupWatchImages;
 
+  /// No description provided for @simpleExtractButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Simple Extract (CSV)'**
+  String get simpleExtractButton;
+
+  /// No description provided for @detailedExtractButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Extract (CSV)'**
+  String get detailedExtractButton;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:
@@ -577,6 +589,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch Images can be separately exported.'**
   String get imageBackupInstructions;
+
+  /// No description provided for @altExtractsGuidance.
+  ///
+  /// In en, this message translates to:
+  /// **'**Alternative Data Extracts**\n\nThese options allow your watch and wear data to be extracted from **WristTrack**\n\nThey are meant to free your data, rather than as a backup _(see the Backup/Restore options if you are simply looking to move data from one device to another)._\n\nThe simple extract provides a list of all watch data, including wear count and notes **(one row per watch)**\n\nThe detailed extract provides a line of data for each **tracked wear date** and only includes watches which have been tracked as worn.**(multiple rows per watch)**\n\nThis raw data is output in CSV format, allowing easy import into your favourite spreadsheet application.'**
+  String get altExtractsGuidance;
 }
 
 class _AppLocalizationsDelegate

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/copy.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/extract_methods.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -55,10 +56,11 @@ class _AlternativeExportsState extends State<AlternativeExports> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "alt_exports");
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Alternative Exports"),
+        title: Text(l!.altExports),
       ),
       body: Column(
         children: [
@@ -77,7 +79,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("Generate Simple Extract"),
+                            child: Text(l.simpleExtractButton),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -96,7 +98,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Generate Complex Extract"),
+                        child: Text(l.detailedExtractButton),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
