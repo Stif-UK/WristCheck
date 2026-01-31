@@ -7,6 +7,11 @@ class WristCheckConfig{
   ads rather than using the prod ad units.
    */
   static bool prodBuild = true;
+  /*
+  To enable quickly and safely toggling between ad supported and Pro views in dev, this boolean can be toggled.
+  When True the app acts as a prod app, acknowledging the set purchase status. If false the app is in a constant 'pro' state.
+   */
+  static bool acknowledgePurchase = true;
 
   /*
   Feature Flags: Setting to false disables the features for potential build/testing across multiple releases

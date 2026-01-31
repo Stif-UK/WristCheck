@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
@@ -19,7 +20,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class WristCheckController extends GetxController {
 
   //Manage app purchase status
-  final isAppPro =  WristCheckPreferences.getAppPurchasedStatus()!.obs;
+  final isAppPro =  WristCheckConfig.acknowledgePurchase? WristCheckPreferences.getAppPurchasedStatus()!.obs : true.obs;
   //Manage Watchbox view order
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
