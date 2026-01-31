@@ -93,6 +93,12 @@
   "backupRestoreHeader" : "Backup / Restore",
   "backup" : "Backup",
   "restore" : "Restore",
+  "restoreDatabase" : "Restore Database",
+  "pleaseSelectFile" : "Please select backup file",
+  "selectFile" : "Select Backup File",
+  "fileSelected" : "File selected: ",
+  "readyToLoad" : "Ready to load",
+  "restoreFromBackup" : "Restore from Backup",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE"

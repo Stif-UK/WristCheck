@@ -217,6 +217,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get restore => 'Restaurer';
 
   @override
+  String get restoreDatabase => 'Restaurer la base de données';
+
+  @override
+  String get pleaseSelectFile =>
+      'Veuillez sélectionner le fichier de sauvegarde';
+
+  @override
+  String get selectFile => 'Sélectionner le fichier de sauvegarde';
+
+  @override
+  String get fileSelected => 'Fichier sélectionné : ';
+
+  @override
+  String get readyToLoad => 'Prêt à charger';
+
+  @override
+  String get restoreFromBackup => 'Restaurer depuis la sauvegarde';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 }

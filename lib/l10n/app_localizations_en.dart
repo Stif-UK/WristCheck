@@ -216,6 +216,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restore => 'Restore';
 
   @override
+  String get restoreDatabase => 'Restore Database';
+
+  @override
+  String get pleaseSelectFile => 'Please select backup file';
+
+  @override
+  String get selectFile => 'Select Backup File';
+
+  @override
+  String get fileSelected => 'File selected: ';
+
+  @override
+  String get readyToLoad => 'Ready to load';
+
+  @override
+  String get restoreFromBackup => 'Restore from Backup';
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 }

@@ -91,6 +91,12 @@
   "backupRestoreHeader" : "Sauvegarde / Restauration",
   "backup" : "Sauvegarder",
   "restore" : "Restaurer",
+  "restoreDatabase" : "Restaurer la base de données",
+  "pleaseSelectFile" : "Veuillez sélectionner le fichier de sauvegarde",
+  "selectFile" : "Sélectionner le fichier de sauvegarde",
+  "fileSelected" : "Fichier sélectionné : ",
+  "readyToLoad" : "Prêt à charger",
+  "restoreFromBackup" : "Restaurer depuis la sauvegarde",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE"

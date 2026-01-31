@@ -512,6 +512,42 @@ abstract class AppLocalizations {
   /// **'Restore'**
   String get restore;
 
+  /// No description provided for @restoreDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Database'**
+  String get restoreDatabase;
+
+  /// No description provided for @pleaseSelectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select backup file'**
+  String get pleaseSelectFile;
+
+  /// No description provided for @selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Backup File'**
+  String get selectFile;
+
+  /// No description provided for @fileSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'File selected: '**
+  String get fileSelected;
+
+  /// No description provided for @readyToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to load'**
+  String get readyToLoad;
+
+  /// No description provided for @restoreFromBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from Backup'**
+  String get restoreFromBackup;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:

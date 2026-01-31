@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'dart:io';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -55,9 +56,10 @@ class _RestoreState extends State<Restore> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "restore");
+    final l = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Restore Database"),
+        title: Text(l!.restoreDatabase),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -76,14 +78,14 @@ class _RestoreState extends State<Restore> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20,),
-                  Text("Please select backup file", style: Theme.of(context).textTheme.bodyLarge,),
+                  Text(l.pleaseSelectFile, style: Theme.of(context).textTheme.bodyLarge,),
                   const SizedBox(height: 20,),
                   ElevatedButton(
                     child: Column(
                       children: [
                         Padding(
                           padding: _textPadding(),
-                          child: const Text("Select Backup File"),
+                          child: Text(l.selectFile),
                         ),
                         Padding(
                           padding: _imagePadding(),
@@ -102,7 +104,7 @@ class _RestoreState extends State<Restore> {
                   },
                   ),
                   const SizedBox(height: 20,),
-                  _backupFile != null? Text("File selected: $_backupFile. \n\nReady to load"): const Text(""),
+                  _backupFile != null? Text("${l.fileSelected} $_backupFile. \n\n${l.readyToLoad}"): const Text(""),
                   const Divider(thickness: 2,),
                   const SizedBox(height: 20,),
                   _backupFile == null? const SizedBox(height: 20,): ElevatedButton(
@@ -110,7 +112,7 @@ class _RestoreState extends State<Restore> {
                         children: [
                           Padding(
                             padding: _textPadding(),
-                            child: const Text("Restore from Backup"),
+                            child: Text(l.restoreFromBackup),
                           ),
                           Padding(
                             padding: _imagePadding(),
@@ -125,22 +127,6 @@ class _RestoreState extends State<Restore> {
                    ),
                   const SizedBox(height: 20,),
                   _backupFile == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
-                  // ElevatedButton(
-                  //     child: Column(
-                  //       children: [
-                  //         Padding(
-                  //           padding: _textPadding(),
-                  //           child: const Text("Restore Images"),
-                  //         ),
-                  //         Padding(
-                  //           padding: _imagePadding(),
-                  //           child: const Icon(FontAwesomeIcons.fileImage),
-                  //         )
-                  //       ],
-                  //     ),
-                  // onPressed: (){
-                  //       //BackupRestoreMethods.restoreImages();
-                  // },)
                 ],
               ),
             ),
