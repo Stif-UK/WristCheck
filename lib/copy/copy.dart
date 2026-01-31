@@ -20,14 +20,11 @@ class WristCheckCopy {
 
   static Widget getWatchWearChartsUpgradeCopy() {
     return Container(
-      child: const Padding(
+      child: Padding(
         padding: EdgeInsets.all(12.0),
         child: Markdown(
             shrinkWrap: true,
-            data: "**Watch Wear Charts**\n\n"
-                "Watch charts are a **WristTrack Pro** feature.\n\n"
-                "They allow you to view charts breaking down which months and days this watch has been worn.\n\n"
-                "Want to know more about **WristTrack Pro**? Click the button below..."
+            data: AppLocalizations.of(Get.context!)!.watchChartsUpgradeCopy
         ),
       ),
     );

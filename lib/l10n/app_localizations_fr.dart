@@ -268,4 +268,8 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get altExtractsGuidance =>
       '**Extractions de données alternatives**\n\nCes options permettent d\'extraire vos données de montres et de portées depuis **WristTrack**.\n\nElles sont conçues pour libérer vos données plutôt que de servir de sauvegarde _(consultez les options Sauvegarde/Restauration si vous souhaitez simplement transférer vos données d\'un appareil à un autre)._\n\nL\'extraction simple fournit une liste de toutes les données de vos montres, incluant le nombre de portées et les notes **(une ligne par montre)**.\n\nL\'extraction détaillée fournit une ligne de données pour chaque **date de portée enregistrée** et inclut uniquement les montres ayant été marquées comme portées. **(plusieurs lignes par montre)**.\n\nCes données brutes sont exportées au format CSV, permettant une importation facile dans votre tableur préféré.';
+
+  @override
+  String get watchChartsUpgradeCopy =>
+      '**Graphiques de portée**\n\nLes graphiques de montre sont une fonctionnalité **WristTrack Pro**.\n\nIls vous permettent de visualiser des graphiques détaillant les mois et les jours où cette montre a été portée.\n\nVous voulez en savoir plus sur **WristTrack Pro** ? Cliquez sur le bouton ci-dessous...';
 }
