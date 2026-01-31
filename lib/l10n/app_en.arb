@@ -90,6 +90,9 @@
   "altExports" : "Alternative Exports",
   "dataImport" : "Data Import",
   "deleteCollection" : "Delete Collection",
+  "backupRestoreHeader" : "Backup / Restore",
+  "backup" : "Backup",
+  "restore" : "Restore",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE"

@@ -208,6 +208,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteCollection => 'Supprimer la collection';
 
   @override
+  String get backupRestoreHeader => 'Sauvegarde / Restauration';
+
+  @override
+  String get backup => 'Sauvegarder';
+
+  @override
+  String get restore => 'Restaurer';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 }

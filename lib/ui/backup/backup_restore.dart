@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:get/get.dart';
@@ -59,7 +60,7 @@ class _BackupRestoreState extends State<BackupRestore> {
     analytics.logScreenView(screenName: "backup_restore_landing");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Backup / Restore"),
+        title: Text(AppLocalizations.of(context)!.backupRestoreHeader),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -80,9 +81,9 @@ class _BackupRestoreState extends State<BackupRestore> {
                   width: (MediaQuery.of(context).size.width)*0.8,
                   height: (MediaQuery.of(context).size.height)*0.15,
                   child: ElevatedButton(
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child: Text("Backup",
+                        child: Text(AppLocalizations.of(context)!.backup,
                           style: TextStyle(
                             fontSize: 30,
                           ),),
@@ -111,9 +112,9 @@ class _BackupRestoreState extends State<BackupRestore> {
                     width: (MediaQuery.of(context).size.width)*0.8,
                     height: (MediaQuery.of(context).size.height)*0.15,
                     child: ElevatedButton(
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text("Restore",
+                          child: Text(AppLocalizations.of(context)!.restore,
                             style: TextStyle(
                               fontSize: 30,
                             ),),

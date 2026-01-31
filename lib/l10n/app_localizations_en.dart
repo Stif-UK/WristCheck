@@ -207,6 +207,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteCollection => 'Delete Collection';
 
   @override
+  String get backupRestoreHeader => 'Backup / Restore';
+
+  @override
+  String get backup => 'Backup';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 }

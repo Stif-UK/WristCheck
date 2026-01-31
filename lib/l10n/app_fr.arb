@@ -88,6 +88,9 @@
   "altExports" : "Exports alternatifs",
   "dataImport" : "Importation de données",
   "deleteCollection" : "Supprimer la collection",
+  "backupRestoreHeader" : "Sauvegarde / Restauration",
+  "backup" : "Sauvegarder",
+  "restore" : "Restaurer",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE"

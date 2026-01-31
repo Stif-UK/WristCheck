@@ -494,6 +494,24 @@ abstract class AppLocalizations {
   /// **'Delete Collection'**
   String get deleteCollection;
 
+  /// No description provided for @backupRestoreHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup / Restore'**
+  String get backupRestoreHeader;
+
+  /// No description provided for @backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get backup;
+
+  /// No description provided for @restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:
