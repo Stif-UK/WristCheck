@@ -93,13 +93,17 @@
   "backupRestoreHeader" : "Backup / Restore",
   "backup" : "Backup",
   "restore" : "Restore",
+  "backupDatabase": "Backup Database",
   "restoreDatabase" : "Restore Database",
   "pleaseSelectFile" : "Please select backup file",
   "selectFile" : "Select Backup File",
   "fileSelected" : "File selected: ",
   "readyToLoad" : "Ready to load",
   "restoreFromBackup" : "Restore from Backup",
+  "backupWatchImages" : "Backup Watch Images",
 
   "@_MESSAGES" : {},
-  "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE"
+  "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",
+  "backupInstruction" : "Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a 'share' pop-up should appear, allowing you to choose where to send the backup file.  ",
+  "imageBackupInstructions" : "Watch Images can be separately exported."
 }

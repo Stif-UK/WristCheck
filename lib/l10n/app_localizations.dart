@@ -512,6 +512,12 @@ abstract class AppLocalizations {
   /// **'Restore'**
   String get restore;
 
+  /// No description provided for @backupDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Database'**
+  String get backupDatabase;
+
   /// No description provided for @restoreDatabase.
   ///
   /// In en, this message translates to:
@@ -548,11 +554,29 @@ abstract class AppLocalizations {
   /// **'Restore from Backup'**
   String get restoreFromBackup;
 
+  /// No description provided for @backupWatchImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Watch Images'**
+  String get backupWatchImages;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:
   /// **'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE'**
   String get deleteWarning;
+
+  /// No description provided for @backupInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a \'share\' pop-up should appear, allowing you to choose where to send the backup file.  '**
+  String get backupInstruction;
+
+  /// No description provided for @imageBackupInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Images can be separately exported.'**
+  String get imageBackupInstructions;
 }
 
 class _AppLocalizationsDelegate

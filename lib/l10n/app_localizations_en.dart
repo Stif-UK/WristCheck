@@ -216,6 +216,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restore => 'Restore';
 
   @override
+  String get backupDatabase => 'Backup Database';
+
+  @override
   String get restoreDatabase => 'Restore Database';
 
   @override
@@ -234,6 +237,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restoreFromBackup => 'Restore from Backup';
 
   @override
+  String get backupWatchImages => 'Backup Watch Images';
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
+
+  @override
+  String get backupInstruction =>
+      'Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a \'share\' pop-up should appear, allowing you to choose where to send the backup file.  ';
+
+  @override
+  String get imageBackupInstructions =>
+      'Watch Images can be separately exported.';
 }

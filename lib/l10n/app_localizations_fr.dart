@@ -217,6 +217,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get restore => 'Restaurer';
 
   @override
+  String get backupDatabase => 'Sauvegarder la base de données';
+
+  @override
   String get restoreDatabase => 'Restaurer la base de données';
 
   @override
@@ -236,6 +239,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get restoreFromBackup => 'Restaurer depuis la sauvegarde';
 
   @override
+  String get backupWatchImages => 'Sauvegarder les images des montres';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
+
+  @override
+  String get backupInstruction =>
+      'Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a \'share\' pop-up should appear, allowing you to choose where to send the backup file.  ';
+
+  @override
+  String get imageBackupInstructions =>
+      'Les images des montres peuvent être exportées séparément.';
 }

@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -57,9 +58,10 @@ class _ShareBackupState extends State<ShareBackup> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "backup");
+    final l = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Backup"),
+        title: Text(l!.backup),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -73,7 +75,7 @@ class _ShareBackupState extends State<ShareBackup> {
           children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text("Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a 'share' pop-up should appear, allowing you to choose where to send the backup file.  ",
+              child: Text(l.backupInstruction,
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.start,),
             ),
@@ -83,8 +85,8 @@ class _ShareBackupState extends State<ShareBackup> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Backup Database",
-                    style: Theme.of(context).textTheme.headlineSmall,),
+                    Text(l.backupDatabase,
+                    style: Theme.of(context).textTheme.headlineSmall,textAlign: TextAlign.center,),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Icon(FontAwesomeIcons.download),
@@ -100,7 +102,7 @@ class _ShareBackupState extends State<ShareBackup> {
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text("Watch Images can be separately exported.",
+              child: Text(l.imageBackupInstructions,
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.start,),
             ),
@@ -111,8 +113,8 @@ class _ShareBackupState extends State<ShareBackup> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Backup Watch Images",
-                      style: Theme.of(context).textTheme.headlineSmall,),
+                    Text(l.backupWatchImages,
+                      style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Icon(FontAwesomeIcons.fileExport),
