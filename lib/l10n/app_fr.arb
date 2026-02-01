@@ -77,6 +77,12 @@
   "last12Months" : "12 derniers mois",
   "last90days" : "90 derniers jours",
 
+  "@_COLLECTION_STATS" : {},
+  "pageTitleCollectionStats": "Stats de la collection",
+  "labelCharts" : "Graphiques",
+  "labelInfo" : "Infos",
+  "labelValue" : "Valeur",
+
   "@_COMMON" : {},
   "noDataRecorded" : "Aucune donnée",
   "warning" : "Attention",

@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -67,10 +68,11 @@ class _CollectionStatsState extends State<CollectionStats> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "collection_stats");
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Collection Stats"),
+        title: Text(l!.pageTitleCollectionStats),
         actions: [
           IconButton(onPressed: (){WristCheckDialogs.getCollectionStatsDialog();}, icon: const Icon(Icons.help_outline))
         ],
@@ -87,18 +89,18 @@ class _CollectionStatsState extends State<CollectionStats> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon:  Icon(FontAwesomeIcons.chartBar),
-            label: "Charts",
+            label: l.labelCharts,
           ),
           BottomNavigationBarItem(
             icon:  Icon(FontAwesomeIcons.clipboardList),
-            label: "Info",
+            label: l.labelInfo,
           ),
           BottomNavigationBarItem(
             icon:  Icon(FontAwesomeIcons.moneyBillTrendUp),
-            label: "Value Data",
+            label: l.labelValue,
           ),
         ],
       ),

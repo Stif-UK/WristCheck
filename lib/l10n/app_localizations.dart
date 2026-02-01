@@ -446,6 +446,30 @@ abstract class AppLocalizations {
   /// **'Last 90 Days'**
   String get last90days;
 
+  /// No description provided for @pageTitleCollectionStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Stats'**
+  String get pageTitleCollectionStats;
+
+  /// No description provided for @labelCharts.
+  ///
+  /// In en, this message translates to:
+  /// **'Charts'**
+  String get labelCharts;
+
+  /// No description provided for @labelInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get labelInfo;
+
+  /// No description provided for @labelValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Value Data'**
+  String get labelValue;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:

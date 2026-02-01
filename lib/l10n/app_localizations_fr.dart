@@ -184,6 +184,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get last90days => '90 derniers jours';
 
   @override
+  String get pageTitleCollectionStats => 'Stats de la collection';
+
+  @override
+  String get labelCharts => 'Graphiques';
+
+  @override
+  String get labelInfo => 'Infos';
+
+  @override
+  String get labelValue => 'Valeur';
+
+  @override
   String get noDataRecorded => 'Aucune donnée';
 
   @override
