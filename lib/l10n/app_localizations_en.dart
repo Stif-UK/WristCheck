@@ -195,6 +195,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get labelValue => 'Value Data';
 
   @override
+  String get collectionCost => 'Current Collection Cost';
+
+  @override
+  String get noValue => 'No value captured';
+
+  @override
+  String get totalSpend => 'Total Collection Spend';
+
+  @override
+  String get totalSold => 'Total Sold Value';
+
+  @override
+  String get averageResale => 'Average Resale %';
+
+  @override
+  String get noDataTracked => 'No Data Tracked';
+
+  @override
+  String get resaleRatio => 'Resale Ratio =';
+
+  @override
   String get noDataRecorded => 'No Data Recorded';
 
   @override

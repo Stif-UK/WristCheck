@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/value_stats_help_copy.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -18,6 +19,7 @@ class ValueData extends StatelessWidget {
   Widget build(BuildContext context) {
     analytics.setAnalyticsCollectionEnabled(true);
     analytics.logScreenView(screenName: "value_data");
+    final l = AppLocalizations.of(context);
     int collectionCost = WatchMethods.calculateCollectionCost(false);
     int totalSpend = WatchMethods.calculateCollectionCost(true);
     int totalSoldValue = WatchMethods.calculateSoldIncome();
@@ -31,8 +33,8 @@ class ValueData extends StatelessWidget {
             children: [
               ListTile(
                 leading: const Icon(FontAwesomeIcons.dollarSign),
-                title: const Text("Current Collection Cost"),
-                subtitle: Text(collectionCost == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),
+                title: Text(l!.collectionCost),
+                subtitle: Text(collectionCost == 0 ? l.noValue: NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),
                 style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
                   icon: const Icon(FontAwesomeIcons.question),
@@ -44,8 +46,8 @@ class ValueData extends StatelessWidget {
               const Divider(thickness: 2,),
               ListTile(
                 leading: const Icon(FontAwesomeIcons.sackDollar),
-                title: const Text("Total Collection Spend"),
-                subtitle: Text(totalSpend == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),
+                title: Text(l.totalSpend),
+                subtitle: Text(totalSpend == 0 ? l.noValue: NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
                   icon: const Icon(FontAwesomeIcons.question),
@@ -57,8 +59,8 @@ class ValueData extends StatelessWidget {
               const Divider(thickness: 2,),
               ListTile(
                 leading: const Icon(FontAwesomeIcons.handHoldingDollar),
-                title: const Text("Total Sold Value"),
-                subtitle: Text(totalSoldValue == 0 ? "No value captured": NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSoldValue),
+                title: Text(l.totalSold),
+                subtitle: Text(totalSoldValue == 0 ? l.noValue : NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSoldValue),
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
                   icon: const Icon(FontAwesomeIcons.question),
@@ -70,8 +72,8 @@ class ValueData extends StatelessWidget {
               const Divider(thickness: 2,),
               ListTile(
                 leading: const Icon(FontAwesomeIcons.moneyBillTransfer),
-                title: const Text("Average Resale %"),
-                subtitle: Text(resaleRatio == 0? "No Data Tracked" : "Resale Ratio = $resaleRatio%",
+                title: Text(l.averageResale),
+                subtitle: Text(resaleRatio == 0? l.noDataTracked : "${l.resaleRatio} $resaleRatio%",
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
                   icon: const Icon(FontAwesomeIcons.question),

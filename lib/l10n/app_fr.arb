@@ -82,6 +82,13 @@
   "labelCharts" : "Graphiques",
   "labelInfo" : "Infos",
   "labelValue" : "Valeur",
+  "collectionCost" : "Coût actuel de la collection",
+  "noValue" : "Aucune valeur saisie",
+  "totalSpend" : "Dépense totale de la collection",
+  "totalSold" : "Valeur totale vendue",
+  "averageResale" : "% moyen de revente",
+  "noDataTracked" : "Aucune donnée suivie",
+  "resaleRatio" : "Ratio de revente =",
 
   "@_COMMON" : {},
   "noDataRecorded" : "Aucune donnée",

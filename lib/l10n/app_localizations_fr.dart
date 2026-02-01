@@ -196,6 +196,27 @@ class AppLocalizationsFr extends AppLocalizations {
   String get labelValue => 'Valeur';
 
   @override
+  String get collectionCost => 'Coût actuel de la collection';
+
+  @override
+  String get noValue => 'Aucune valeur saisie';
+
+  @override
+  String get totalSpend => 'Dépense totale de la collection';
+
+  @override
+  String get totalSold => 'Valeur totale vendue';
+
+  @override
+  String get averageResale => '% moyen de revente';
+
+  @override
+  String get noDataTracked => 'Aucune donnée suivie';
+
+  @override
+  String get resaleRatio => 'Ratio de revente =';
+
+  @override
   String get noDataRecorded => 'Aucune donnée';
 
   @override

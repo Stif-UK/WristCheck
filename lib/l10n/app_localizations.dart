@@ -470,6 +470,48 @@ abstract class AppLocalizations {
   /// **'Value Data'**
   String get labelValue;
 
+  /// No description provided for @collectionCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Collection Cost'**
+  String get collectionCost;
+
+  /// No description provided for @noValue.
+  ///
+  /// In en, this message translates to:
+  /// **'No value captured'**
+  String get noValue;
+
+  /// No description provided for @totalSpend.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Collection Spend'**
+  String get totalSpend;
+
+  /// No description provided for @totalSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sold Value'**
+  String get totalSold;
+
+  /// No description provided for @averageResale.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Resale %'**
+  String get averageResale;
+
+  /// No description provided for @noDataTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'No Data Tracked'**
+  String get noDataTracked;
+
+  /// No description provided for @resaleRatio.
+  ///
+  /// In en, this message translates to:
+  /// **'Resale Ratio ='**
+  String get resaleRatio;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:

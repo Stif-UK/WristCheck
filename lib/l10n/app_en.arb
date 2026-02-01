@@ -83,6 +83,17 @@
   "labelCharts" : "Charts",
   "labelInfo" : "Info",
   "labelValue" : "Value Data",
+  "collectionCost" : "Current Collection Cost",
+  "noValue" : "No value captured",
+  "totalSpend" : "Total Collection Spend",
+  "totalSold" : "Total Sold Value",
+  "averageResale" : "Average Resale %",
+  "noDataTracked" : "No Data Tracked",
+  "resaleRatio" : "Resale Ratio =",
+
+
+
+
 
   "@_COMMON" : {},
   "noDataRecorded" : "No Data Recorded",
