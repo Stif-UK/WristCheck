@@ -101,7 +101,8 @@
   "ok" : "OK",
   "cancel" : "Cancel",
   "tellMeMore" : "Tell me more",
-
+  "soldSuffix" : "(Sold)",
+  "retiredSuffix": "(Retired)",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -124,6 +125,21 @@
 
   "@_PRO_AND_PURCHASE": {},
   "wristTrackProFeature" : "WristTrack Pro Feature",
+
+  "@_CALENDARS": {},
+  "track" : "Track",
+  "trackWear" : "Track Wear",
+  "removeWear" : "Remove Wear",
+  "removeDate" : "Remove Date",
+  "date" : "Date:",
+  "pickWatch" : "Pick Watch",
+  "pleaseSelectAWatch" : "Please select a watch",
+  "searchByName" : "Search by watch name",
+  "deleteWear" : "Delete Wear Record",
+  "serviceDue" : "Service Due",
+  "warrantyExpires" : "Warranty Expires",
+  "deliveryExpected" : "delivery expected",
+
 
   "@_MESSAGES" : {},
   "deleteWarning" : "Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE",

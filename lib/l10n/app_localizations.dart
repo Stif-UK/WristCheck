@@ -542,6 +542,18 @@ abstract class AppLocalizations {
   /// **'Tell me more'**
   String get tellMeMore;
 
+  /// No description provided for @soldSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'(Sold)'**
+  String get soldSuffix;
+
+  /// No description provided for @retiredSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'(Retired)'**
+  String get retiredSuffix;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -649,6 +661,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WristTrack Pro Feature'**
   String get wristTrackProFeature;
+
+  /// No description provided for @track.
+  ///
+  /// In en, this message translates to:
+  /// **'Track'**
+  String get track;
+
+  /// No description provided for @trackWear.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Wear'**
+  String get trackWear;
+
+  /// No description provided for @removeWear.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Wear'**
+  String get removeWear;
+
+  /// No description provided for @removeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Date'**
+  String get removeDate;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date:'**
+  String get date;
+
+  /// No description provided for @pickWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Watch'**
+  String get pickWatch;
+
+  /// No description provided for @pleaseSelectAWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a watch'**
+  String get pleaseSelectAWatch;
+
+  /// No description provided for @searchByName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by watch name'**
+  String get searchByName;
+
+  /// No description provided for @deleteWear.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Wear Record'**
+  String get deleteWear;
+
+  /// No description provided for @serviceDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Due'**
+  String get serviceDue;
+
+  /// No description provided for @warrantyExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Expires'**
+  String get warrantyExpires;
+
+  /// No description provided for @deliveryExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'delivery expected'**
+  String get deliveryExpected;
 
   /// No description provided for @deleteWarning.
   ///

@@ -96,6 +96,8 @@
   "ok" : "OK",
   "cancel" : "Annuler",
   "tellMeMore" : "En savoir plus",
+  "soldSuffix" : "(Vendu)",
+  "retiredSuffix": "(Retirée)",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -118,6 +120,20 @@
 
   "@_PRO_AND_PURCHASE": {},
   "wristTrackProFeature" : "Fonctionnalité WristTrack Pro",
+
+  "@_CALENDARS": {},
+  "track" : "Suivre",
+  "trackWear" : "Enregistrer une portée",
+  "removeWear" : "Supprimer la portée",
+  "removeDate" : "Supprimer la date",
+  "date" : "Date :",
+  "pickWatch" : "Choisir une montre",
+  "pleaseSelectAWatch" : "Veuillez sélectionner une montre",
+  "searchByName" : "Rechercher par nom de montre",
+  "deleteWear" : "Supprimer l'enregistrement de portée",
+  "serviceDue" : "Révision nécessaire",
+  "warrantyExpires" : "Expiration de la garantie",
+  "deliveryExpected" : "livraison prévue",
 
   "@_MESSAGES" : {},
   "deleteWarning" : "En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE",

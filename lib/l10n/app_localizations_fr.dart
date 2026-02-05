@@ -232,6 +232,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tellMeMore => 'En savoir plus';
 
   @override
+  String get soldSuffix => '(Vendu)';
+
+  @override
+  String get retiredSuffix => '(Retirée)';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override
@@ -285,6 +291,42 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wristTrackProFeature => 'Fonctionnalité WristTrack Pro';
+
+  @override
+  String get track => 'Suivre';
+
+  @override
+  String get trackWear => 'Enregistrer une portée';
+
+  @override
+  String get removeWear => 'Supprimer la portée';
+
+  @override
+  String get removeDate => 'Supprimer la date';
+
+  @override
+  String get date => 'Date :';
+
+  @override
+  String get pickWatch => 'Choisir une montre';
+
+  @override
+  String get pleaseSelectAWatch => 'Veuillez sélectionner une montre';
+
+  @override
+  String get searchByName => 'Rechercher par nom de montre';
+
+  @override
+  String get deleteWear => 'Supprimer l\'enregistrement de portée';
+
+  @override
+  String get serviceDue => 'Révision nécessaire';
+
+  @override
+  String get warrantyExpires => 'Expiration de la garantie';
+
+  @override
+  String get deliveryExpected => 'livraison prévue';
 
   @override
   String get deleteWarning =>

@@ -9,6 +9,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -63,6 +64,7 @@ class _ScheduleViewState extends State<ScheduleView> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "calendar_view");
+    final l = AppLocalizations.of(context);
 
     //initialise date and watch values
     widget.wristCheckController.updateSelectedDate(DateTime.now());
@@ -107,11 +109,8 @@ class _ScheduleViewState extends State<ScheduleView> {
               onViewChanged: (ViewChangedDetails details) {
                 //use pageLoaded to ensure this is not run on first load of the page
                 if(_pageLoaded){
-                  print("tracking view change");
                   widget.wristCheckController.updateSelectedDate(null);
-                  print("View swiped - new date: ${widget.wristCheckController.selectedDate.value}");
                 }
-                print("setting page loaded to true");
                 _pageLoaded = true;
               },
             ),
@@ -140,9 +139,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Remove Wear", style: TextStyle(
-                          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize
-                        )),
+                        child: Text(l!.removeWear, style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                        ), textAlign: TextAlign.center,),
                       ),
                       onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
                         widget.wristCheckController.updateSelectedWatch(null);
@@ -156,7 +155,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     child: ElevatedButton(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("Track Wear", style: TextStyle()),
+                            child: Text(l.trackWear, style: TextStyle(), textAlign: TextAlign.center,),
                           ),
                         onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
                             widget.wristCheckController.updateSelectedWatch(null);
@@ -201,8 +200,9 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   //Tracking dialog pop-up
   _generateTrackDialog(){
+    final l = AppLocalizations.of(context);
     Get.defaultDialog(
-        title: "Track Wear",
+        title: l!.trackWear,
         barrierDismissible: false,
         content: Obx(
               ()=>Column(
@@ -210,11 +210,11 @@ class _ScheduleViewState extends State<ScheduleView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                  child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
                 ),
                 widget.wristCheckController.nullWatchMemo.value ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Please select a watch",
+                  child: Text(l.pleaseSelectAWatch,
                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
                 )
                     : SizedBox(height: 0,),
@@ -228,8 +228,8 @@ class _ScheduleViewState extends State<ScheduleView> {
                     ),
                     decoratorProps: DropDownDecoratorProps(
                         decoration: InputDecoration(
-                            labelText: "Pick Watch",
-                            hintText: "Search by watch name",
+                            labelText: l.pickWatch,
+                            hintText: l.searchByName,
                         )
                     ),
 
@@ -245,8 +245,8 @@ class _ScheduleViewState extends State<ScheduleView> {
                 )
               ]),
         ),
-        textConfirm: "Track",
-        textCancel: "Cancel",
+        textConfirm: l.track,
+        textCancel: l.cancel,
         onConfirm: (){
           //Code to track wear
           if(widget.wristCheckController.selectedWatch.value == null){
@@ -279,8 +279,9 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   //Tracking dialog pop-up
    _generateDeleteDialog(){
+     final l = AppLocalizations.of(context);
     Get.defaultDialog(
-        title: "Delete Wear Record",
+        title: l!.deleteWear,
         barrierDismissible: false,
         content: Obx(
               ()=>Column(
@@ -288,11 +289,11 @@ class _ScheduleViewState extends State<ScheduleView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
+                  child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
                 ),
                 widget.wristCheckController.nullWatchMemo.value ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Please select a watch",
+                  child: Text(l.pleaseSelectAWatch,
                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
                 )
                     : SizedBox(height: 0,),
@@ -306,8 +307,8 @@ class _ScheduleViewState extends State<ScheduleView> {
                     ),
                     decoratorProps: DropDownDecoratorProps(
                         decoration: InputDecoration(
-                            labelText: "Pick Watch",
-                            hintText: "Search by watch name"
+                            labelText: l.pickWatch,
+                            hintText: l.searchByName
                         )
                     ),
                     //Only display watches with a date that matches
@@ -326,8 +327,8 @@ class _ScheduleViewState extends State<ScheduleView> {
                 )
               ]),
         ),
-        textConfirm: "Remove Date",
-        textCancel: "Cancel",
+        textConfirm: l.removeDate,
+        textCancel: l.cancel,
         onConfirm: (){
           //Code to delete wear
           if(widget.wristCheckController.selectedWatch.value == null){
@@ -384,6 +385,7 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   //Populate the calendar data
   _WatchDataSource _getCalendarDataSource() {
+    final l = AppLocalizations.of(context);
     List<Appointment> appointments = <Appointment>[];
 
 
@@ -408,7 +410,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             isAllDay: true,
             startTime: wearDate,
             endTime: wearDate,
-            subject: "${watch.toString()} (Sold)",
+            subject: "${watch.toString()} ${l!.soldSuffix}",
             color: Colors.deepOrangeAccent
         ));
       }
@@ -422,7 +424,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             isAllDay: true,
             startTime: wearDate,
             endTime: wearDate,
-            subject: "${watch.toString()} (Retired)",
+            subject: "${watch.toString()} ${l!.retiredSuffix}",
             color: Colors.green
         ));
       }
@@ -434,7 +436,7 @@ class _ScheduleViewState extends State<ScheduleView> {
           isAllDay: true,
           startTime: watch.nextServiceDue!,
           endTime: watch.nextServiceDue!,
-        subject: "${watch.toString()} Service Due",
+        subject: "${watch.toString()} ${l!.serviceDue}",
         color: Colors.red
 
       ));
@@ -446,7 +448,7 @@ class _ScheduleViewState extends State<ScheduleView> {
           isAllDay: true,
           startTime: watch.warrantyEndDate!,
           endTime: watch.warrantyEndDate!,
-          subject: "${watch.toString()} Warranty Expires",
+          subject: "${watch.toString()} ${l!.warrantyExpires}",
           color: Colors.deepPurpleAccent
 
       ));
@@ -459,7 +461,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             isAllDay: true,
             startTime: watch.deliveryDate!,
             endTime: watch.deliveryDate!,
-            subject: "${watch.toString()} delivery expected",
+            subject: "${watch.toString()} ${l!.deliveryExpected}",
             color: Colors.grey
         ));
       }

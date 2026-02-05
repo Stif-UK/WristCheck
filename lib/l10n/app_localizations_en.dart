@@ -231,6 +231,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tellMeMore => 'Tell me more';
 
   @override
+  String get soldSuffix => '(Sold)';
+
+  @override
+  String get retiredSuffix => '(Retired)';
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -283,6 +289,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wristTrackProFeature => 'WristTrack Pro Feature';
+
+  @override
+  String get track => 'Track';
+
+  @override
+  String get trackWear => 'Track Wear';
+
+  @override
+  String get removeWear => 'Remove Wear';
+
+  @override
+  String get removeDate => 'Remove Date';
+
+  @override
+  String get date => 'Date:';
+
+  @override
+  String get pickWatch => 'Pick Watch';
+
+  @override
+  String get pleaseSelectAWatch => 'Please select a watch';
+
+  @override
+  String get searchByName => 'Search by watch name';
+
+  @override
+  String get deleteWear => 'Delete Wear Record';
+
+  @override
+  String get serviceDue => 'Service Due';
+
+  @override
+  String get warrantyExpires => 'Warranty Expires';
+
+  @override
+  String get deliveryExpected => 'delivery expected';
 
   @override
   String get deleteWarning =>
