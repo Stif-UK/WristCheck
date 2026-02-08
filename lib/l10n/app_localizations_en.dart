@@ -359,6 +359,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allDatesWorn => 'All dates worn';
 
   @override
+  String get accuracyTracker => 'Accuracy Tracker';
+
+  @override
+  String timeSynced(Object timeStamp) {
+    return 'Time synced with server: \n$timeStamp';
+  }
+
+  @override
+  String get showAccuracyResultsOptions => 'Show results in seconds per:';
+
+  @override
+  String get baseLineMeasurement => 'Baseline measurement:';
+
+  @override
+  String get setBaseLineGuide =>
+      'Set a new baseline if you\'ve just set the time of your watch';
+
+  @override
+  String lastBaseLine(Object timeStamp) {
+    return 'Last Baseline: $timeStamp';
+  }
+
+  @override
+  String get addCheckPoint => 'Add Checkpoint:';
+
+  @override
+  String get seconds => 'Seconds:';
+
+  @override
+  String get saved => 'Saved!';
+
+  @override
+  String get record => 'Record';
+
+  @override
+  String get records => 'Records';
+
+  @override
+  String get baseLine => 'Baseline';
+
+  @override
+  String get result => 'Result';
+
+  @override
+  String get systemTimeInUse => '... system time in use';
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 

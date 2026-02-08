@@ -145,6 +145,22 @@
   "noDatesForWatch" : "Aucune date enregistrée pour cette montre.",
   "allDatesWorn" : "Toutes les dates de portée",
 
+  "@_ACCURACY": {},
+  "accuracyTracker" : "Suivi de précision",
+  "timeSynced" : "Heure synchronisée avec le serveur : \n{timeStamp}",
+  "showAccuracyResultsOptions" : "Afficher les résultats en secondes par :",
+  "baseLineMeasurement" : "Mesure de référence :",
+  "setBaseLineGuide" : "Définissez une nouvelle référence si vous venez de régler l'heure de votre montre",
+  "lastBaseLine" : "Dernière référence : {timeStamp}",
+  "addCheckPoint" : "Ajouter un point de contrôle :",
+  "seconds" : "Secondes :",
+  "saved" : "Enregistré !",
+  "record" : "Enregistrement",
+  "records" : "Enregistrements",
+  "baseLine" : "Référence",
+  "Result" : "Résultat",
+  "systemTimeInUse" : "... heure système utilisée",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",
@@ -152,6 +168,15 @@
       "watchName": {
         "type": "String",
         "example": "Longines Spirit"
+      }
+    }
+  },
+  "@timeStamp": {
+    "description": "Une chaîne de date et d'heure",
+    "placeholders": {
+      "watchName": {
+        "type": "String",
+        "example": "dim. 8 fév. 2026 - 09:57:15"
       }
     }
   },

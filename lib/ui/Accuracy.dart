@@ -10,6 +10,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
@@ -90,6 +91,7 @@ class _AccuracyState extends State<Accuracy> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "accuracy");
+    final l = AppLocalizations.of(context);
     //Initialise the page
     //Set the value of watch time to 1 minute ahead (ignore seconds)
     var now = DateTime.now();
@@ -109,7 +111,7 @@ class _AccuracyState extends State<Accuracy> {
     final List<int> _chipValues = [00, 15, 30, 45];
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Accuracy Tracker"),
+      appBar: AppBar(title: Text(l!.accuracyTracker),
       actions: [Padding(
         padding: const EdgeInsets.all(8.0),
         child: IconButton(icon: Icon(FontAwesomeIcons.circleQuestion),
@@ -132,11 +134,11 @@ class _AccuracyState extends State<Accuracy> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width,
-                      child: Text("Time synced with server:\n${_getLastSyncTime()}", textAlign: TextAlign.center,)),
+                      child: Text(l.timeSynced(_getLastSyncTime()), textAlign: TextAlign.center,)),
                 ),
               )),
               const Divider(thickness: 2,),
-              Text("Show results in seconds per:"),
+              Text(l.showAccuracyResultsOptions),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
@@ -158,7 +160,7 @@ class _AccuracyState extends State<Accuracy> {
               Obx(() =>
                   Card(
                     child: SwitchListTile(
-                        title: const Text("24 Hour Display:"),
+                        title: Text(l.timeFormat),
                         value: widget.accuracyController.militaryTime.value,
                         onChanged: (value) =>
                             widget.accuracyController.updateMilitaryTime(value)),
@@ -166,16 +168,16 @@ class _AccuracyState extends State<Accuracy> {
               Obx(() =>
                   Card(
                     child: SwitchListTile(
-                        title: const Text("Baseline measurement:"),
-                        subtitle: const Text("Set a new baseline if you've just set the time of your watch"),
+                        title: Text(l.baseLineMeasurement),
+                        subtitle: Text(l.setBaseLineGuide),
                         value: widget.accuracyController.baseLine.value,
                         onChanged: (value) =>
                             widget.accuracyController.updateBaseline(value)),
                   )),
               Obx(()=> widget.accuracyController.lastBaseline.value == null? const SizedBox(height: 0,):
-                  Text("Last Baseline: ${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime)}") ),
+                  Text(l.lastBaseLine(WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.lastBaseline.value!.atomicTime))) ),
               const Divider(thickness: 2,),
-                  Text("Add Checkpoint:", style: Theme.of(context).textTheme.headlineSmall,),
+                  Text(l.addCheckPoint, style: Theme.of(context).textTheme.headlineSmall,),
                   IconButton(
                     icon: Icon(FontAwesomeIcons.caretUp),
                     onPressed: () => widget.accuracyController.addAMinute(),
@@ -195,7 +197,7 @@ class _AccuracyState extends State<Accuracy> {
               const Divider(thickness: 2,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text("Seconds:"),
+                child: Text(l.seconds),
               ),
               //Select the time offset
               Wrap(
@@ -231,7 +233,7 @@ class _AccuracyState extends State<Accuracy> {
                     Obx(()=> ElevatedButton(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.accuracyController.valueRecorded.value? "Saved!" : "Record", style: TextStyle(
+                          child: Text(widget.accuracyController.valueRecorded.value? l.saved : l.record, style: TextStyle(
                             fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
                           ),),
                         ),
@@ -261,7 +263,7 @@ class _AccuracyState extends State<Accuracy> {
                 ),
               ),
               const Divider(thickness: 2,),
-              Text("Records", style: Theme
+              Text(l.records, style: Theme
                       .of(context)
                       .textTheme
                       .headlineSmall, textAlign: TextAlign.center,),
@@ -271,9 +273,9 @@ class _AccuracyState extends State<Accuracy> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(child: Text("Baseline", textAlign: TextAlign.start,)),
-                    Expanded(child: Text("Time", textAlign: TextAlign.center,)),
-                    Expanded(child: Text("Result", textAlign: TextAlign.end,)),
+                    Expanded(child: Text(l.baseLine, textAlign: TextAlign.start,)),
+                    Expanded(child: Text(l.time, textAlign: TextAlign.center,)),
+                    Expanded(child: Text(l.result, textAlign: TextAlign.end,)),
                   ],
                 ),
               ),
@@ -394,7 +396,7 @@ class _AccuracyState extends State<Accuracy> {
   _getLastSyncTime() {
     return widget.accuracyController.syncTimestamp.value != null?
     WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.syncTimestamp.value!)
-        : "... system time in use";
+        : AppLocalizations.of(context)!.systemTimeInUse;
   }
 
   Future showAccuracyHelpBottomSheet() {

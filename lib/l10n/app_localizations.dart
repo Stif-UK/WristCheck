@@ -794,6 +794,90 @@ abstract class AppLocalizations {
   /// **'All dates worn'**
   String get allDatesWorn;
 
+  /// No description provided for @accuracyTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy Tracker'**
+  String get accuracyTracker;
+
+  /// No description provided for @timeSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Time synced with server: \n{timeStamp}'**
+  String timeSynced(Object timeStamp);
+
+  /// No description provided for @showAccuracyResultsOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Show results in seconds per:'**
+  String get showAccuracyResultsOptions;
+
+  /// No description provided for @baseLineMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline measurement:'**
+  String get baseLineMeasurement;
+
+  /// No description provided for @setBaseLineGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new baseline if you\'ve just set the time of your watch'**
+  String get setBaseLineGuide;
+
+  /// No description provided for @lastBaseLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Baseline: {timeStamp}'**
+  String lastBaseLine(Object timeStamp);
+
+  /// No description provided for @addCheckPoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Checkpoint:'**
+  String get addCheckPoint;
+
+  /// No description provided for @seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds:'**
+  String get seconds;
+
+  /// No description provided for @saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved!'**
+  String get saved;
+
+  /// No description provided for @record.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get record;
+
+  /// No description provided for @records.
+  ///
+  /// In en, this message translates to:
+  /// **'Records'**
+  String get records;
+
+  /// No description provided for @baseLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline'**
+  String get baseLine;
+
+  /// No description provided for @result.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get result;
+
+  /// No description provided for @systemTimeInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'... system time in use'**
+  String get systemTimeInUse;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:

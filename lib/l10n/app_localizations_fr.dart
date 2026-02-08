@@ -363,6 +363,54 @@ class AppLocalizationsFr extends AppLocalizations {
   String get allDatesWorn => 'Toutes les dates de portée';
 
   @override
+  String get accuracyTracker => 'Suivi de précision';
+
+  @override
+  String timeSynced(Object timeStamp) {
+    return 'Heure synchronisée avec le serveur : \n$timeStamp';
+  }
+
+  @override
+  String get showAccuracyResultsOptions =>
+      'Afficher les résultats en secondes par :';
+
+  @override
+  String get baseLineMeasurement => 'Mesure de référence :';
+
+  @override
+  String get setBaseLineGuide =>
+      'Définissez une nouvelle référence si vous venez de régler l\'heure de votre montre';
+
+  @override
+  String lastBaseLine(Object timeStamp) {
+    return 'Dernière référence : $timeStamp';
+  }
+
+  @override
+  String get addCheckPoint => 'Ajouter un point de contrôle :';
+
+  @override
+  String get seconds => 'Secondes :';
+
+  @override
+  String get saved => 'Enregistré !';
+
+  @override
+  String get record => 'Enregistrement';
+
+  @override
+  String get records => 'Enregistrements';
+
+  @override
+  String get baseLine => 'Référence';
+
+  @override
+  String get result => 'Result';
+
+  @override
+  String get systemTimeInUse => '... heure système utilisée';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 

@@ -150,6 +150,22 @@
   "noDatesForWatch" :  "No dates recorded for this watch.",
   "allDatesWorn" : "All dates worn",
 
+  "@_ACCURACY": {},
+  "accuracyTracker" : "Accuracy Tracker",
+  "timeSynced" : "Time synced with server: \n{timeStamp}",
+  "showAccuracyResultsOptions" : "Show results in seconds per:",
+  "baseLineMeasurement" : "Baseline measurement:",
+  "setBaseLineGuide" : "Set a new baseline if you've just set the time of your watch",
+  "lastBaseLine" : "Last Baseline: {timeStamp}",
+  "addCheckPoint" : "Add Checkpoint:",
+  "seconds" : "Seconds:",
+  "saved" : "Saved!",
+  "record" : "Record",
+  "records" : "Records",
+  "baseLine" : "Baseline",
+  "result" : "Result",
+  "systemTimeInUse" : "... system time in use",
+
 
   "@_VARIABLES": {},
   "@watchName": {
@@ -158,6 +174,15 @@
       "watchName": {
         "type": "String",
         "example": "Longines Spirit"
+      }
+    }
+  },
+  "@timeStamp": {
+    "description": "A date and time string",
+    "placeholders": {
+      "watchName": {
+        "type": "String",
+        "example": "Sun, Feb 8, 2026 - 9:57:15 AM"
       }
     }
   },
