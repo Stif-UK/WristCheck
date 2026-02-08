@@ -433,6 +433,18 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get emptyServiceText =>
+      'Aucune donnée d\'entretien à afficher\n\nPour remplir un calendrier d\'entretien, ajoutez des dates d\'achat, des dates de révision et des intervalles d\'entretien à vos montres.\n\n';
+
+  @override
+  String get emptyWarrantyText =>
+      'Aucune donnée de garantie à afficher\n\nPour remplir un calendrier d\'expiration de garantie, ajoutez des dates de fin de garantie à vos montres.\n';
+
+  @override
+  String get serviceScheduleHelpText =>
+      'Calendrier d\'entretien et de garantie\n\nCette page vous permet de consulter un calendrier des dates de révision prévues (calculées selon les dates et fréquences enregistrées dans votre collection) ainsi que les dates de fin de garantie, basées sur les champs saisis manuellement pour chaque montre.\n';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 

@@ -168,6 +168,9 @@
   "helpTab" : "Aide",
   "nextServiceBy" : "Prochaine révision d'ici le : {timeStamp}",
   "warrantyExpiresOn" : "La garantie expire le : {timeStamp}",
+  "emptyServiceText" : "Aucune donnée d'entretien à afficher\n\nPour remplir un calendrier d'entretien, ajoutez des dates d'achat, des dates de révision et des intervalles d'entretien à vos montres.\n\n",
+  "emptyWarrantyText" : "Aucune donnée de garantie à afficher\n\nPour remplir un calendrier d'expiration de garantie, ajoutez des dates de fin de garantie à vos montres.\n",
+  "serviceScheduleHelpText" : "Calendrier d'entretien et de garantie\n\nCette page vous permet de consulter un calendrier des dates de révision prévues (calculées selon les dates et fréquences enregistrées dans votre collection) ainsi que les dates de fin de garantie, basées sur les champs saisis manuellement pour chaque montre.\n",
 
   "@_VARIABLES": {},
   "@watchName": {

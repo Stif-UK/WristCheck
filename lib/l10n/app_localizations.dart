@@ -914,6 +914,24 @@ abstract class AppLocalizations {
   /// **'Warranty Expires on: {timeStamp}'**
   String warrantyExpiresOn(Object timeStamp);
 
+  /// No description provided for @emptyServiceText.
+  ///
+  /// In en, this message translates to:
+  /// **'No Service Data to show\n\nTo populate a service schedule add purchase dates, service dates and service intervals to your watches.\n\n'**
+  String get emptyServiceText;
+
+  /// No description provided for @emptyWarrantyText.
+  ///
+  /// In en, this message translates to:
+  /// **'No Warranty Data to show\n\nTo populate a warranty expiry schedule, add warranty end date values to your watches.\n'**
+  String get emptyWarrantyText;
+
+  /// No description provided for @serviceScheduleHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n'**
+  String get serviceScheduleHelpText;
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:

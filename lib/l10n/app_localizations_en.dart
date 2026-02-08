@@ -428,6 +428,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get emptyServiceText =>
+      'No Service Data to show\n\nTo populate a service schedule add purchase dates, service dates and service intervals to your watches.\n\n';
+
+  @override
+  String get emptyWarrantyText =>
+      'No Warranty Data to show\n\nTo populate a warranty expiry schedule, add warranty end date values to your watches.\n';
+
+  @override
+  String get serviceScheduleHelpText =>
+      'Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n';
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 
