@@ -220,6 +220,30 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resaleRatio => 'Ratio de revente =';
 
   @override
+  String get sizeOfCollection => 'Taille de la collection';
+
+  @override
+  String get oldestWatch => 'Montre la plus ancienne';
+
+  @override
+  String get newestWatch => 'Montre la plus récente';
+
+  @override
+  String get mostWorn => 'La plus portée';
+
+  @override
+  String get leastWorn => 'La moins portée';
+
+  @override
+  String get wishListCount => 'Montres en liste de souhaits';
+
+  @override
+  String get soldWatches => 'Montres vendues';
+
+  @override
+  String get noPurchaseDatesTracked => 'Aucune date d\'achat enregistrée';
+
+  @override
   String get noDataRecorded => 'Aucune donnée';
 
   @override
@@ -463,6 +487,40 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Vous n\'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d\'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».';
+
+  @override
+  String nWears(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Portée $countString fois',
+      one: 'Portée 1 fois',
+      zero: 'Aucune portée enregistrée',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatches(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString montres',
+      one: '1 montre',
+      zero: 'Aucune montre',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get deleteWarning =>

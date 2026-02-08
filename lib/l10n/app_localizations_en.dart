@@ -219,6 +219,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resaleRatio => 'Resale Ratio =';
 
   @override
+  String get sizeOfCollection => 'Size of Collection';
+
+  @override
+  String get oldestWatch => 'Oldest Watch';
+
+  @override
+  String get newestWatch => 'Newest Watch';
+
+  @override
+  String get mostWorn => 'Most Worn';
+
+  @override
+  String get leastWorn => 'Least Worn';
+
+  @override
+  String get wishListCount => 'Wish listed Watches';
+
+  @override
+  String get soldWatches => 'Sold Watches';
+
+  @override
+  String get noPurchaseDatesTracked => 'No purchase dates tracked';
+
+  @override
   String get noDataRecorded => 'No Data Recorded';
 
   @override
@@ -458,6 +482,40 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.';
+
+  @override
+  String nWears(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Worn $countString times',
+      one: 'Worn 1 time',
+      zero: 'No wears tracked',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatches(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString watches',
+      one: '1 watch',
+      zero: 'No watches',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get deleteWarning =>

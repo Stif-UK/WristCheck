@@ -518,6 +518,54 @@ abstract class AppLocalizations {
   /// **'Resale Ratio ='**
   String get resaleRatio;
 
+  /// No description provided for @sizeOfCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Size of Collection'**
+  String get sizeOfCollection;
+
+  /// No description provided for @oldestWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest Watch'**
+  String get oldestWatch;
+
+  /// No description provided for @newestWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest Watch'**
+  String get newestWatch;
+
+  /// No description provided for @mostWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Worn'**
+  String get mostWorn;
+
+  /// No description provided for @leastWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Least Worn'**
+  String get leastWorn;
+
+  /// No description provided for @wishListCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Wish listed Watches'**
+  String get wishListCount;
+
+  /// No description provided for @soldWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold Watches'**
+  String get soldWatches;
+
+  /// No description provided for @noPurchaseDatesTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchase dates tracked'**
+  String get noPurchaseDatesTracked;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:
@@ -961,6 +1009,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.'**
   String get emptyPreOrderCopy;
+
+  /// Returns the number of times a watch has been worn
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No wears tracked} =1{Worn 1 time} other{Worn {count} times}}'**
+  String nWears(num count);
+
+  /// Returns the suitable plural form for the given number of watches
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No watches} =1{1 watch} other{{count} watches}}'**
+  String nWatches(num count);
 
   /// No description provided for @deleteWarning.
   ///

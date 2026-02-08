@@ -91,6 +91,15 @@
   "averageResale" : "Average Resale %",
   "noDataTracked" : "No Data Tracked",
   "resaleRatio" : "Resale Ratio =",
+  "sizeOfCollection" : "Size of Collection",
+  "oldestWatch" : "Oldest Watch",
+  "newestWatch" : "Newest Watch",
+  "mostWorn" : "Most Worn",
+  "leastWorn" : "Least Worn",
+  "wishListCount" : "Wish listed Watches",
+  "soldWatches" : "Sold Watches",
+  "noPurchaseDatesTracked" : "No purchase dates tracked",
+
 
   "@_COMMON" : {},
   "noDataRecorded" : "No Data Recorded",
@@ -196,6 +205,26 @@
       "watchName": {
         "type": "String",
         "example": "Sun, Feb 8, 2026 - 9:57:15 AM"
+      }
+    }
+  },
+  "nWears": "{count, plural, =0{No wears tracked} =1{Worn 1 time} other{Worn {count} times}}",
+  "@nWears": {
+    "description": "Returns the number of times a watch has been worn",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "nWatches": "{count, plural, =0{No watches} =1{1 watch} other{{count} watches}}",
+  "@nWatches": {
+    "description": "Returns the suitable plural form for the given number of watches",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
       }
     }
   },

@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -13,6 +14,7 @@ class CollectionInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     analytics.setAnalyticsCollectionEnabled(true);
     analytics.logScreenView(screenName: "collection_info");
+    final l = AppLocalizations.of(context);
 
     List<Watches> watchBox = Boxes.getCollectionWatches();
     Watches? oldestWatch = WatchMethods.getOldestorNewestWatch(watchBox, true);
@@ -39,15 +41,16 @@ class CollectionInfo extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.shopping_bag_outlined),
-                  title: const Text("Size of Collection"),
-                  subtitle: watchBox.length == 1? Text("${watchBox.length} watch") : Text("${watchBox.length} watches"),
+                  title: Text(l!.sizeOfCollection),
+                  subtitle: Text(l.nWatches(watchBox.length)),
+                  //subtitle: watchBox.length == 1? Text("${watchBox.length} watch") : Text("${watchBox.length} watches"),
                 ),
                 const Divider(thickness: 2,),
                 ListTile(
                   isThreeLine: true,
                   leading: const Icon(Icons.dark_mode_outlined),
-                  title: const Text("Oldest Watch"),
-                  subtitle: oldestWatch == null? const Text("No purchase dates tracked"):Text("${oldestWatch.model}\n${WristCheckFormatter.getFormattedDate(oldestWatch.purchaseDate!)}"),
+                  title: Text(l.oldestWatch),
+                  subtitle: oldestWatch == null? Text(l.noPurchaseDatesTracked):Text("${oldestWatch.toString()}\n${WristCheckFormatter.getFormattedDate(oldestWatch.purchaseDate!)}"),
 
 
                 ),
@@ -55,8 +58,8 @@ class CollectionInfo extends StatelessWidget {
                 ListTile(
                   isThreeLine: true,
                   leading: const Icon(Icons.light_mode_outlined),
-                  title: const Text("Newest Watch"),
-                  subtitle: newestWatch == null? const Text("No purchase dates tracked"):Text("${newestWatch.model}\n${WristCheckFormatter.getFormattedDate(newestWatch.purchaseDate!)}"),
+                  title: Text(l.newestWatch),
+                  subtitle: newestWatch == null? Text(l.noPurchaseDatesTracked):Text("${newestWatch.toString()}\n${WristCheckFormatter.getFormattedDate(newestWatch.purchaseDate!)}"),
 
 
                 ),
@@ -66,8 +69,8 @@ class CollectionInfo extends StatelessWidget {
                 watchBox.isNotEmpty? ListTile(
                     isThreeLine: true,
                     leading: const Icon(Icons.star_border),
-                    title: const Text("Most Worn"),
-                    subtitle: longestWorn.length == 1? Text("${longestWorn[0].model}\nWorn ${longestWorn[0].wearList.length} times") : Text("$longestWornWatches \nWorn ${longestWorn[0].wearList.length} times")
+                    title: Text(l.mostWorn),
+                    subtitle: longestWorn.length == 1? Text("${longestWorn[0].toString()}\n${l.nWears(longestWorn[0].wearList.length)}") :Text("$longestWornWatches ${l.nWears(longestWorn[0].wearList.length)}"),
 
                 ): const SizedBox(height: 0,),
                 watchBox.isNotEmpty? const Divider(thickness: 2,): const SizedBox(height: 0,),
@@ -75,8 +78,8 @@ class CollectionInfo extends StatelessWidget {
                 watchBox.isNotEmpty? ListTile(
                     isThreeLine: true,
                     leading: const Icon(Icons.stacked_bar_chart_outlined),
-                    title: const Text("Least Worn"),
-                    subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].model}\nWorn ${shortestWorn[0].wearList.length} times") : Text("$shortestWornWatches \nWorn ${shortestWorn[0].wearList.length} times")
+                    title: Text(l.leastWorn),
+                    subtitle: shortestWorn.length == 1? Text("${shortestWorn[0].toString()}\n${l.nWears(shortestWorn[0].wearList.length)}") : Text("$shortestWornWatches \n${l.nWears(shortestWorn[0].wearList.length)}")
 
                 ): const SizedBox(height: 0,),
                 watchBox.isNotEmpty? const Divider(thickness: 2,): const SizedBox(height: 0,),
@@ -85,8 +88,8 @@ class CollectionInfo extends StatelessWidget {
                 ListTile(
                     isThreeLine: true,
                     leading: const Icon(Icons.cake_outlined),
-                    title: const Text("Wish listed Watches"),
-                    subtitle: wishList.length == 1? Text("${wishList.length} watch") : Text("${wishList.length} watches")
+                    title: Text(l.wishListCount),
+                    subtitle: Text(l.nWatches(wishList.length)),
 
                 ),
                 const Divider(thickness: 2,),
@@ -94,8 +97,8 @@ class CollectionInfo extends StatelessWidget {
                 ListTile(
                     isThreeLine: true,
                     leading: const Icon(Icons.monetization_on_outlined),
-                    title: const Text("Sold Watches"),
-                    subtitle: soldList.length == 1? Text("${soldList.length} watch") : Text("${soldList.length} watches")
+                    title: Text(l.soldWatches),
+                    subtitle: Text(l.nWatches(soldList.length)),
 
                 ),
                 const Divider(thickness: 2,),
