@@ -445,6 +445,26 @@ class AppLocalizationsFr extends AppLocalizations {
       'Calendrier d\'entretien et de garantie\n\nCette page vous permet de consulter un calendrier des dates de révision prévues (calculées selon les dates et fréquences enregistrées dans votre collection) ainsi que les dates de fin de garantie, basées sur les champs saisis manuellement pour chaque montre.\n';
 
   @override
+  String get emptyWatchboxCopy =>
+      'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l\'icône d\'engrenage en haut à droite.';
+
+  @override
+  String get emptySoldCopy =>
+      'Vous n\'avez aucune montre vendue dans votre collection.\n\nVous pouvez marquer une montre comme vendue en modifiant son statut.\n';
+
+  @override
+  String get emptyWishlistCopy =>
+      'Votre liste de souhaits est vide.\n\nPour ajouter une montre à votre liste de souhaits, créez une nouvelle fiche et réglez son statut sur « Liste de souhaits ».\n';
+
+  @override
+  String get emptyFavouritesCopy =>
+      'Vous n\'avez pas encore de montres marquées comme « favorite ».\n\nPour marquer une montre comme favorite, activez le bouton bascule sur l\'écran de détails de la montre.\n';
+
+  @override
+  String get emptyPreOrderCopy =>
+      'Vous n\'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d\'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».';
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 
