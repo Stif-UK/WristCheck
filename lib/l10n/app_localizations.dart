@@ -884,6 +884,36 @@ abstract class AppLocalizations {
   /// **'... system time in use'**
   String get systemTimeInUse;
 
+  /// No description provided for @servicingTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Servicing'**
+  String get servicingTab;
+
+  /// No description provided for @warrantyTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty'**
+  String get warrantyTab;
+
+  /// No description provided for @helpTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get helpTab;
+
+  /// No description provided for @nextServiceBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Service by: {timeStamp}'**
+  String nextServiceBy(Object timeStamp);
+
+  /// No description provided for @warrantyExpiresOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Expires on: {timeStamp}'**
+  String warrantyExpiresOn(Object timeStamp);
+
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:

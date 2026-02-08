@@ -7,6 +7,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dynamic_copy_helper.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -41,15 +42,15 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
   final List<Tab> myTabs = <Tab>[
     Tab(
       icon: Icon(FontAwesomeIcons.calendarDays),
-      text: "Servicing" ,
+      text: AppLocalizations.of(Get.context!)!.servicingTab ,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
       icon: Icon(FontAwesomeIcons.screwdriverWrench),
-      text: "Warranty",
+      text: AppLocalizations.of(Get.context!)!.warrantyTab,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
       icon: Icon(FontAwesomeIcons.question),
-      text: "Help",
+      text: AppLocalizations.of(Get.context!)!.helpTab,
       iconMargin: EdgeInsets.only(bottom: 5),)
   ];
 
@@ -94,6 +95,7 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "servicing");
     _tabController.index = widget.wristCheckController.lastServicingTabIndex.value;
+
     return Scaffold(
         body: Obx(
             ()=> Column(
@@ -226,7 +228,7 @@ _getServicingListTile(Watches watch){
   return  ListTile(
     leading: ListTileHelper.getServicingIcon(watch.nextServiceDue!),
     title: Text(_title),
-    subtitle: Text("Next Service by: ${DateFormat.yMMMd().format(watch.nextServiceDue!)}"),
+    subtitle: Text(AppLocalizations.of(Get.context!)!.nextServiceBy(WristCheckFormatter.getFormattedDateWithDay(watch.nextServiceDue!))),
     onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
   );
 }
@@ -235,9 +237,9 @@ _getWarrantyListTile(Watches watch){
   String? _title = "${watch.manufacturer} ${watch.model}";
 
   return  ListTile(
-    leading: Icon(FontAwesomeIcons.screwdriverWrench),//ListTileHelper.getServicingIcon(watch.nextServiceDue!),
+    leading: Icon(FontAwesomeIcons.screwdriverWrench),
     title: Text(_title),
-    subtitle: Text("Warranty Expires on: ${WristCheckFormatter.getFormattedDateWithDay(watch.warrantyEndDate!)}"),
+    subtitle: Text(AppLocalizations.of(Get.context!)!.warrantyExpiresOn(WristCheckFormatter.getFormattedDateWithDay(watch.warrantyEndDate!))),
     onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),
   );
 }

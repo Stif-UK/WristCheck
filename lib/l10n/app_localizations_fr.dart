@@ -414,6 +414,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get systemTimeInUse => '... heure système utilisée';
 
   @override
+  String get servicingTab => 'Entretien';
+
+  @override
+  String get warrantyTab => 'Garantie';
+
+  @override
+  String get helpTab => 'Aide';
+
+  @override
+  String nextServiceBy(Object timeStamp) {
+    return 'Prochaine révision d\'ici le : $timeStamp';
+  }
+
+  @override
+  String warrantyExpiresOn(Object timeStamp) {
+    return 'La garantie expire le : $timeStamp';
+  }
+
+  @override
   String get deleteWarning =>
       'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
 

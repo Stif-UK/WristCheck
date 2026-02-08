@@ -162,6 +162,13 @@
   "Result" : "Résultat",
   "systemTimeInUse" : "... heure système utilisée",
 
+  "@_SERVICE" : {},
+  "servicingTab" : "Entretien",
+  "warrantyTab" : "Garantie",
+  "helpTab" : "Aide",
+  "nextServiceBy" : "Prochaine révision d'ici le : {timeStamp}",
+  "warrantyExpiresOn" : "La garantie expire le : {timeStamp}",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",

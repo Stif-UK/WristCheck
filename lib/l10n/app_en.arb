@@ -167,6 +167,12 @@
   "result" : "Result",
   "systemTimeInUse" : "... system time in use",
 
+  "@_SERVICE" : {},
+  "servicingTab" : "Servicing",
+  "warrantyTab" : "Warranty",
+  "helpTab" : "Help",
+  "nextServiceBy" : "Next Service by: {timeStamp}",
+  "warrantyExpiresOn" : "Warranty Expires on: {timeStamp}",
 
 
   "@_VARIABLES": {},

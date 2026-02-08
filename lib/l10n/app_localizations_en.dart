@@ -409,6 +409,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get systemTimeInUse => '... system time in use';
 
   @override
+  String get servicingTab => 'Servicing';
+
+  @override
+  String get warrantyTab => 'Warranty';
+
+  @override
+  String get helpTab => 'Help';
+
+  @override
+  String nextServiceBy(Object timeStamp) {
+    return 'Next Service by: $timeStamp';
+  }
+
+  @override
+  String warrantyExpiresOn(Object timeStamp) {
+    return 'Warranty Expires on: $timeStamp';
+  }
+
+  @override
   String get deleteWarning =>
       'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE';
 
