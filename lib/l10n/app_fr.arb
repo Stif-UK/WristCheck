@@ -98,6 +98,8 @@
   "tellMeMore" : "En savoir plus",
   "soldSuffix" : "(Vendu)",
   "retiredSuffix": "(Retirée)",
+  "watchColon" : "Montre : ",
+  "deleting" : "Suppression en cours",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -131,9 +133,28 @@
   "pleaseSelectAWatch" : "Veuillez sélectionner une montre",
   "searchByName" : "Rechercher par nom de montre",
   "deleteWear" : "Supprimer l'enregistrement de portée",
+  "deleteFromCalendar" : "Supprimer la portée du calendrier",
+  "addWearToCalendar" : "Ajouter la portée au calendrier",
   "serviceDue" : "Révision nécessaire",
   "warrantyExpires" : "Expiration de la garantie",
   "deliveryExpected" : "livraison prévue",
+  "longPressToAddRemove" : "Appui long pour ajouter/supprimer des dates de portée",
+  "tapToAddMultipleDates" : "Appuyez ici pour ajouter plusieurs dates",
+  "deleteDate" : "Supprimer la date",
+  "watchWorn" : "{watchName} portée",
+  "noDatesForWatch" : "Aucune date enregistrée pour cette montre.",
+  "allDatesWorn" : "Toutes les dates de portée",
+
+  "@_VARIABLES": {},
+  "@watchName": {
+    "description": "Un titre composé du fabricant et du modèle d'une montre",
+    "placeholders": {
+      "watchName": {
+        "type": "String",
+        "example": "Longines Spirit"
+      }
+    }
+  },
 
   "@_MESSAGES" : {},
   "deleteWarning" : "En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE",

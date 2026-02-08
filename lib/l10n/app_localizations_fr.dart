@@ -238,6 +238,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get retiredSuffix => '(Retirée)';
 
   @override
+  String get watchColon => 'Montre : ';
+
+  @override
+  String get deleting => 'Suppression en cours';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override
@@ -320,6 +326,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteWear => 'Supprimer l\'enregistrement de portée';
 
   @override
+  String get deleteFromCalendar => 'Supprimer la portée du calendrier';
+
+  @override
+  String get addWearToCalendar => 'Ajouter la portée au calendrier';
+
+  @override
   String get serviceDue => 'Révision nécessaire';
 
   @override
@@ -327,6 +339,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deliveryExpected => 'livraison prévue';
+
+  @override
+  String get longPressToAddRemove =>
+      'Appui long pour ajouter/supprimer des dates de portée';
+
+  @override
+  String get tapToAddMultipleDates =>
+      'Appuyez ici pour ajouter plusieurs dates';
+
+  @override
+  String get deleteDate => 'Supprimer la date';
+
+  @override
+  String watchWorn(Object watchName) {
+    return '$watchName portée';
+  }
+
+  @override
+  String get noDatesForWatch => 'Aucune date enregistrée pour cette montre.';
+
+  @override
+  String get allDatesWorn => 'Toutes les dates de portée';
 
   @override
   String get deleteWarning =>

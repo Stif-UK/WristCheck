@@ -8,6 +8,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -73,6 +74,7 @@ final watchBox = Boxes.getWatches();
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "watch_calendar");
+    final l = AppLocalizations.of(context);
 
     widget.wristCheckController.updateSelectedDate(DateTime.now());
     //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
@@ -103,7 +105,7 @@ final watchBox = Boxes.getWatches();
             Card(
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.circleInfo),
-                title: Text("Long press to add/remove wear dates"),
+                title: Text(l!.longPressToAddRemove),
                 trailing: SizedBox(width: 20, height: 20,),
                 tileColor: Theme.of(context).focusColor,
               ),
@@ -111,7 +113,7 @@ final watchBox = Boxes.getWatches();
             Card(
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.calendar),
-                title: const Text("Tap here to add multiple dates"),
+                title: Text(l.tapToAddMultipleDates),
                 onTap: (){
                   showModalBottomSheet(
                       isScrollControlled: true,
@@ -176,15 +178,15 @@ final watchBox = Boxes.getWatches();
 
                           Get.defaultDialog(
                             titlePadding: EdgeInsets.all(20.0),
-                            title: matchedDate? "Delete Wear from Calendar": "Add Wear to Calendar",
+                            title: matchedDate? l.deleteFromCalendar: l.addWearToCalendar,
                             content: Column(
                               children: [
-                                Text("Date: ${WristCheckFormatter.getFormattedDateWithDay(cal.date!)}"),
-                                Text("Watch: $watchTitle"),
+                                Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(cal.date!)}"),
+                                Text("${l.watchColon} $watchTitle"),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: ElevatedButton(child:
-                                  matchedDate? Text("Delete Date") : Text("Track Wear"),
+                                  matchedDate? Text(l.deleteDate) : Text(l.trackWear),
                                     onPressed: () async {
                                     if(matchedDate) {
                                       analytics.logEvent(name: "watch_date_removed");
@@ -197,7 +199,7 @@ final watchBox = Boxes.getWatches();
                                     }
                                     },),
                                 ),
-                                TextButton(child: Text("Cancel"),
+                                TextButton(child: Text(l.cancel),
                                 onPressed: (){
                                   Get.back();
                                 },)
@@ -237,6 +239,7 @@ final watchBox = Boxes.getWatches();
 _WatchDataSource _getCalendarDataSource() {
   List<Appointment> appointments = <Appointment>[];
   String watchTitle = "${widget.currentWatch.manufacturer} ${widget.currentWatch.model}";
+  final l = AppLocalizations.of(context);
 
   for(DateTime date in widget.currentWatch.wearList){
     appointments.add(
@@ -244,7 +247,7 @@ _WatchDataSource _getCalendarDataSource() {
         isAllDay: true,
           startTime: date,
           endTime: date,
-      subject: "$watchTitle worn")
+      subject: l!.watchWorn(watchTitle))
     );
   }
   if(widget.currentWatch.warrantyEndDate != null) {
@@ -253,7 +256,7 @@ _WatchDataSource _getCalendarDataSource() {
             isAllDay: true,
             startTime: widget.currentWatch.warrantyEndDate!,
             endTime: widget.currentWatch.warrantyEndDate!,
-            subject: "Warranty Expires",
+            subject: l!.warrantyExpires,
             color: Colors.red
         )
     );
@@ -264,7 +267,7 @@ _WatchDataSource _getCalendarDataSource() {
               isAllDay: true,
               startTime: widget.currentWatch.nextServiceDue!,
               endTime: widget.currentWatch.nextServiceDue!,
-              subject: "Service Due",
+              subject: l!.serviceDue,
               color: Colors.deepPurpleAccent
           )
       );
@@ -276,12 +279,13 @@ _WatchDataSource _getCalendarDataSource() {
 
 Widget _buildListView(Watches watch, BuildContext context) {
   final wristCheckController = Get.put(WristCheckController());
+  final l = AppLocalizations.of(context);
   var dateList = watch.wearList;
   wristCheckController.updateDateListLength(dateList.length);
 
 
   return watch.wearList.length == 0? Center(
-    child: Text("No dates recorded for this watch."),
+    child: Text(l!.noDatesForWatch),
   ): SingleChildScrollView(
     child: Obx(()=> Column(
         children: [
@@ -290,7 +294,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text("All dates worn", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text(l!.allDatesWorn, style: Theme.of(context).textTheme.headlineSmall,),
                 ),
               ),
               IconButton(
@@ -324,7 +328,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text("Deleting"),
+                      Text(l!.deleting),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: const Icon(FontAwesomeIcons.trashCan),

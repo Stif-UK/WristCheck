@@ -554,6 +554,18 @@ abstract class AppLocalizations {
   /// **'(Retired)'**
   String get retiredSuffix;
 
+  /// No description provided for @watchColon.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch:'**
+  String get watchColon;
+
+  /// No description provided for @deleting.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting'**
+  String get deleting;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -716,6 +728,18 @@ abstract class AppLocalizations {
   /// **'Delete Wear Record'**
   String get deleteWear;
 
+  /// No description provided for @deleteFromCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Wear from Calendar'**
+  String get deleteFromCalendar;
+
+  /// No description provided for @addWearToCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Wear to Calendar'**
+  String get addWearToCalendar;
+
   /// No description provided for @serviceDue.
   ///
   /// In en, this message translates to:
@@ -733,6 +757,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'delivery expected'**
   String get deliveryExpected;
+
+  /// No description provided for @longPressToAddRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to add/remove wear dates'**
+  String get longPressToAddRemove;
+
+  /// No description provided for @tapToAddMultipleDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap here to add multiple dates'**
+  String get tapToAddMultipleDates;
+
+  /// No description provided for @deleteDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Date'**
+  String get deleteDate;
+
+  /// No description provided for @watchWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} worn'**
+  String watchWorn(Object watchName);
+
+  /// No description provided for @noDatesForWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No dates recorded for this watch.'**
+  String get noDatesForWatch;
+
+  /// No description provided for @allDatesWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'All dates worn'**
+  String get allDatesWorn;
 
   /// No description provided for @deleteWarning.
   ///

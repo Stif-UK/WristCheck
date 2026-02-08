@@ -237,6 +237,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retiredSuffix => '(Retired)';
 
   @override
+  String get watchColon => 'Watch:';
+
+  @override
+  String get deleting => 'Deleting';
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -318,6 +324,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteWear => 'Delete Wear Record';
 
   @override
+  String get deleteFromCalendar => 'Delete Wear from Calendar';
+
+  @override
+  String get addWearToCalendar => 'Add Wear to Calendar';
+
+  @override
   String get serviceDue => 'Service Due';
 
   @override
@@ -325,6 +337,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deliveryExpected => 'delivery expected';
+
+  @override
+  String get longPressToAddRemove => 'Long press to add/remove wear dates';
+
+  @override
+  String get tapToAddMultipleDates => 'Tap here to add multiple dates';
+
+  @override
+  String get deleteDate => 'Delete Date';
+
+  @override
+  String watchWorn(Object watchName) {
+    return '$watchName worn';
+  }
+
+  @override
+  String get noDatesForWatch => 'No dates recorded for this watch.';
+
+  @override
+  String get allDatesWorn => 'All dates worn';
 
   @override
   String get deleteWarning =>

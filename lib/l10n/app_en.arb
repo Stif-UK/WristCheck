@@ -103,6 +103,8 @@
   "tellMeMore" : "Tell me more",
   "soldSuffix" : "(Sold)",
   "retiredSuffix": "(Retired)",
+  "watchColon" : "Watch:",
+  "deleting" : "Deleting",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -136,9 +138,29 @@
   "pleaseSelectAWatch" : "Please select a watch",
   "searchByName" : "Search by watch name",
   "deleteWear" : "Delete Wear Record",
+  "deleteFromCalendar" : "Delete Wear from Calendar",
+  "addWearToCalendar" : "Add Wear to Calendar",
   "serviceDue" : "Service Due",
   "warrantyExpires" : "Warranty Expires",
   "deliveryExpected" : "delivery expected",
+  "longPressToAddRemove" : "Long press to add/remove wear dates",
+  "tapToAddMultipleDates" : "Tap here to add multiple dates",
+  "deleteDate" : "Delete Date",
+  "watchWorn" : "{watchName} worn",
+  "noDatesForWatch" :  "No dates recorded for this watch.",
+  "allDatesWorn" : "All dates worn",
+
+
+  "@_VARIABLES": {},
+  "@watchName": {
+    "description": "A title made up of the Manufacturer and Model of a watch",
+    "placeholders": {
+      "watchName": {
+        "type": "String",
+        "example": "Longines Spirit"
+      }
+    }
+  },
 
 
   "@_MESSAGES" : {},
