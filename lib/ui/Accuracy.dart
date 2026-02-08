@@ -380,7 +380,7 @@ class _AccuracyState extends State<Accuracy> {
     //Wrap in if - if the record is a baseline, don't show a value
     if (!widget.accuracyController.data[index].baseLine) {
       double? rate;
-      String unit = widget.accuracyController.scale.value.name;
+      String unit = WristCheckFormatter.getAccuracyPeriodText(widget.accuracyController.scale.value).toLowerCase();
       // /unit = unit.substring(0,1).toUpperCase();
 
       rate = widget.accuracyController.data[index].rawAccuracy == null? null :
