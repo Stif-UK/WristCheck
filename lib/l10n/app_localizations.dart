@@ -386,6 +386,12 @@ abstract class AppLocalizations {
   /// **'December'**
   String get december;
 
+  /// No description provided for @day.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get day;
+
   /// No description provided for @month.
   ///
   /// In en, this message translates to:

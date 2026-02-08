@@ -64,6 +64,7 @@
   "october" : "October",
   "november" : "November",
   "december" : "December",
+  "day" : "Day",
   "month" : "Month",
   "year" : "Year",
 
@@ -165,6 +166,7 @@
   "baseLine" : "Baseline",
   "result" : "Result",
   "systemTimeInUse" : "... system time in use",
+
 
 
   "@_VARIABLES": {},

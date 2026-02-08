@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
@@ -967,6 +968,25 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         break;
     }
     return returnString;
+  }
+
+  static String getAccuracyPeriodText(RateUnit unit){
+    String returnText = "Day";
+    final l = AppLocalizations.of(Get.context!);
+
+    switch(unit) {
+      case RateUnit.day:
+        returnText = l!.day;
+        break;
+      case RateUnit.month:
+        returnText = l!.month;
+        break;
+      case RateUnit.year:
+        returnText = l!.year;
+        break;
+    }
+
+    return returnText;
   }
 
 

@@ -147,7 +147,7 @@ class _AccuracyState extends State<Accuracy> {
               children: RateUnit.values.map((unit) {
 
                 return Obx(()=>ChoiceChip(
-                    label: Text(unit.name, ),
+                    label: Text(WristCheckFormatter.getAccuracyPeriodText(unit)),
                     selected: widget.accuracyController.scale.value == unit,
                     onSelected: (bool selected) => widget.accuracyController.updateScale(unit),
                     selectedColor: Colors.red,

@@ -153,6 +153,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get december => 'December';
 
   @override
+  String get day => 'Day';
+
+  @override
   String get month => 'Month';
 
   @override
