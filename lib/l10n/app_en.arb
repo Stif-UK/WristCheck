@@ -99,6 +99,17 @@
   "wishListCount" : "Wish listed Watches",
   "soldWatches" : "Sold Watches",
   "noPurchaseDatesTracked" : "No purchase dates tracked",
+  "upgradeToProForMoreCharts" : "Upgrade to WristTrack Pro for more charts here...",
+  "movements" : "Movements",
+  "categories" : "Categories",
+  "dateComplications" : "Date Complications",
+  "caseDiameter" : "Case Diameter",
+  "lugWidth" : "Lug Width",
+  "lugToLug" : "Lug to Lug",
+  "caseThickness" : "Case Thickness",
+  "waterResistance" : "Water Resistance",
+  "caseMaterials" : "Case Materials",
+  "costPerWear" : "Cost Per Wear",
 
 
   "@_COMMON" : {},

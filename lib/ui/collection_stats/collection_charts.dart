@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
 import 'package:wristcheck/ui/charts/collection_charts/date_complication_chart.dart';
@@ -41,6 +42,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "collection_charts");
     final wristCheckController = Get.put(WristCheckController());
+    final l = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Column(
@@ -55,7 +57,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
               child: wristCheckController.isAppPro.value? SizedBox(
                   height: _calculateChartSpace(context, ChartHelper.getCostPerWearChartSize()),
                   child: Obx(()=> CostPerWearChart(showData: widget.collectionStatsController.showPrice.value))) : ListTile(
-                title: Text("Upgrade to WristTrack Pro for more charts here..."),
+                title: Text(l!.upgradeToProForMoreCharts),
                   trailing: Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:30.0,width:30.0,color: Theme.of(context).hintColor),
                   onTap: () => WristCheckDialogs.getProUpgradeMessage(context)
               ),
@@ -64,7 +66,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
           const Divider(thickness: 2,),
           Padding(
             padding: getPagePadding(),
-            child: Text("Movements", style: Theme.of(context).textTheme.headlineSmall,),
+            child: Text(l!.movements, style: Theme.of(context).textTheme.headlineSmall,),
           ),
           Padding(
             padding: getPagePadding(),
@@ -73,7 +75,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
           const Divider(thickness: 2,),
           Padding(
             padding: getPagePadding(),
-            child: Text("Categories", style: Theme.of(context).textTheme.headlineSmall,),
+            child: Text(l!.categories, style: Theme.of(context).textTheme.headlineSmall,),
           ),
           Padding(
             padding: getPagePadding(),
@@ -84,7 +86,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
           Obx(()=> wristCheckController.isAppPro.value? Column(
               children: [
                 Padding(padding: getPagePadding(),
-                  child: Text("Date Complications", style: Theme.of(context).textTheme.headlineSmall,)
+                  child: Text(l.dateComplications, style: Theme.of(context).textTheme.headlineSmall,)
                   ,),
                 Padding(
                   padding: getPagePadding(),
@@ -92,7 +94,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 ),
                 Padding(
                   padding: getPagePadding(),
-                  child: Text("Case Diameter", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text(l.caseDiameter, style: Theme.of(context).textTheme.headlineSmall,),
                 ),
                 Padding(
                   padding: getPagePadding(),
@@ -101,7 +103,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
-                  child: Text("Lug Width", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text(l.lugWidth, style: Theme.of(context).textTheme.headlineSmall,),
                 ),
                 Padding(
                   padding: getPagePadding(),
@@ -113,7 +115,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   children: [
                     Padding(
                       padding: getPagePadding(),
-                      child: Text("Lug to Lug", style: Theme.of(context).textTheme.headlineSmall,),
+                      child: Text(l.lugToLug, style: Theme.of(context).textTheme.headlineSmall,),
                     ),
                     IconButton(
                       icon: widget.collectionStatsController.lug2lugChartType.value == Lug2lugChartEnum.line?
@@ -138,7 +140,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                   children: [
                     Padding(
                       padding: getPagePadding(),
-                      child: Text("Case Thickness", style: Theme.of(context).textTheme.headlineSmall,),
+                      child: Text(l.caseThickness, style: Theme.of(context).textTheme.headlineSmall,),
                     ),
                     IconButton(
                       icon: widget.collectionStatsController.caseThicknessChartType.value == CaseThicknessChartEnum.line?
@@ -160,7 +162,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
-                  child: Text("Water Resistance", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text(l.waterResistance, style: Theme.of(context).textTheme.headlineSmall,),
                 ),
                 Padding(
                   padding: getPagePadding(),
@@ -169,7 +171,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 const Divider(thickness: 2,),
                 Padding(
                   padding: getPagePadding(),
-                  child: Text("Case Materials", style: Theme.of(context).textTheme.headlineSmall,),
+                  child: Text(l.caseMaterials, style: Theme.of(context).textTheme.headlineSmall,),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -195,7 +197,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(width: 24,),
-            Expanded(child: Center(child: Text( "Cost Per Wear", style: Theme.of(context).textTheme.headlineSmall,))),
+            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.costPerWear, style: Theme.of(context).textTheme.headlineSmall,))),
             IconButton(
                 icon: Icon(widget.collectionStatsController.showPrice.value? FontAwesomeIcons.dollarSign: Icons.money_off),
             onPressed: (){
@@ -208,12 +210,10 @@ class _CollectionChartsState extends State<CollectionCharts> {
 
 double _calculateChartSpace(BuildContext context, int dataSize){
   double baseSize = MediaQuery.of(context).size.height*0.45;
-  print("DataSize: $dataSize");
 
     if(dataSize > 10){
       baseSize = baseSize*(dataSize / 10);
     }
-    print("BaseSize: $baseSize");
 
   return baseSize;
 }

@@ -566,6 +566,72 @@ abstract class AppLocalizations {
   /// **'No purchase dates tracked'**
   String get noPurchaseDatesTracked;
 
+  /// No description provided for @upgradeToProForMoreCharts.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to WristTrack Pro for more charts here...'**
+  String get upgradeToProForMoreCharts;
+
+  /// No description provided for @movements.
+  ///
+  /// In en, this message translates to:
+  /// **'Movements'**
+  String get movements;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @dateComplications.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Complications'**
+  String get dateComplications;
+
+  /// No description provided for @caseDiameter.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Diameter'**
+  String get caseDiameter;
+
+  /// No description provided for @lugWidth.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug Width'**
+  String get lugWidth;
+
+  /// No description provided for @lugToLug.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug to Lug'**
+  String get lugToLug;
+
+  /// No description provided for @caseThickness.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Thickness'**
+  String get caseThickness;
+
+  /// No description provided for @waterResistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Resistance'**
+  String get waterResistance;
+
+  /// No description provided for @caseMaterials.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Materials'**
+  String get caseMaterials;
+
+  /// No description provided for @costPerWear.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost Per Wear'**
+  String get costPerWear;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:

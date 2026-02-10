@@ -244,6 +244,40 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noPurchaseDatesTracked => 'Aucune date d\'achat enregistrée';
 
   @override
+  String get upgradeToProForMoreCharts =>
+      'Passez à WristTrack Pro pour plus de graphiques ici...';
+
+  @override
+  String get movements => 'Mouvements';
+
+  @override
+  String get categories => 'Catégories';
+
+  @override
+  String get dateComplications => 'Complications de date';
+
+  @override
+  String get caseDiameter => 'Diamètre du boîtier';
+
+  @override
+  String get lugWidth => 'Entre-corne';
+
+  @override
+  String get lugToLug => 'Corne à corne';
+
+  @override
+  String get caseThickness => 'Épaisseur du boîtier';
+
+  @override
+  String get waterResistance => 'Étanchéité';
+
+  @override
+  String get caseMaterials => 'Matériaux du boîtier';
+
+  @override
+  String get costPerWear => 'Coût par portée';
+
+  @override
   String get noDataRecorded => 'Aucune donnée';
 
   @override

@@ -243,6 +243,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noPurchaseDatesTracked => 'No purchase dates tracked';
 
   @override
+  String get upgradeToProForMoreCharts =>
+      'Upgrade to WristTrack Pro for more charts here...';
+
+  @override
+  String get movements => 'Movements';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get dateComplications => 'Date Complications';
+
+  @override
+  String get caseDiameter => 'Case Diameter';
+
+  @override
+  String get lugWidth => 'Lug Width';
+
+  @override
+  String get lugToLug => 'Lug to Lug';
+
+  @override
+  String get caseThickness => 'Case Thickness';
+
+  @override
+  String get waterResistance => 'Water Resistance';
+
+  @override
+  String get caseMaterials => 'Case Materials';
+
+  @override
+  String get costPerWear => 'Cost Per Wear';
+
+  @override
   String get noDataRecorded => 'No Data Recorded';
 
   @override
