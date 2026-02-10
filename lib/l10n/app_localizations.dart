@@ -632,6 +632,30 @@ abstract class AppLocalizations {
   /// **'Cost Per Wear'**
   String get costPerWear;
 
+  /// No description provided for @showPaymentOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Payment Options'**
+  String get showPaymentOptions;
+
+  /// No description provided for @donateAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Donate Again'**
+  String get donateAgain;
+
+  /// No description provided for @removeAdsMainCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'The core features of **WristTrack** are free, supported by small ads throughout the app.\n\nHowever, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristTrack Pro**.\n\n**WristTrack Pro** also unlocks:\n\n* The option to set a second daily reminder\n* Individual watch charts showing wear stats by months and weekdays\n* Additional watch data fields and charts '**
+  String get removeAdsMainCopy;
+
+  /// No description provided for @supporterCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for supporting WristTrack!\n\nYour support means a lot and makes it possible for me to continue to develop WristTrack and other apps like it.\n\nIf you\'re enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you\'d like to see added to it!\n\nIf you\'d like to continue to support WristTrack additional donations can be made at any time.'**
+  String get supporterCopy;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:

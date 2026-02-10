@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/remove_ads_copy.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/widgets/paywall_widget.dart';
 
 class RemoveAds extends StatefulWidget {
@@ -27,10 +28,12 @@ class _RemoveAdsState extends State<RemoveAds> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "remove_ads");
+    final l = AppLocalizations.of(context);
+
     return Obx(
         () => Scaffold(
         appBar: AppBar(
-          title: widget.wristCheckController.isAppPro.value? RemoveAdsCopy.getPageTitleSupporter() :RemoveAdsCopy.getPageTitle(),
+          title: widget.wristCheckController.isAppPro.value? Text(l!.support) : Text(l!.removeAds),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -40,7 +43,10 @@ class _RemoveAdsState extends State<RemoveAds> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Center(child: widget.wristCheckController.isAppPro.value? RemoveAdsCopy.getSupporterMainCopy(context) : RemoveAdsCopy.getRemoveAdsMainCopy(context)),
+                    child: Center(child: widget.wristCheckController.isAppPro.value? Text(
+                      AppLocalizations.of(context)!.supporterCopy,
+                      style: Theme.of(context).textTheme.bodyLarge,) :
+                    RemoveAdsCopy.getRemoveAdsMainCopy(context)),
                   ),
                   const Divider(thickness: 2,),
                   Padding(

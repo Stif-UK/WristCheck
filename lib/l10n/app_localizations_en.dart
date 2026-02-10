@@ -277,6 +277,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get costPerWear => 'Cost Per Wear';
 
   @override
+  String get showPaymentOptions => 'Show Payment Options';
+
+  @override
+  String get donateAgain => 'Donate Again';
+
+  @override
+  String get removeAdsMainCopy =>
+      'The core features of **WristTrack** are free, supported by small ads throughout the app.\n\nHowever, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristTrack Pro**.\n\n**WristTrack Pro** also unlocks:\n\n* The option to set a second daily reminder\n* Individual watch charts showing wear stats by months and weekdays\n* Additional watch data fields and charts ';
+
+  @override
+  String get supporterCopy =>
+      'Thank you for supporting WristTrack!\n\nYour support means a lot and makes it possible for me to continue to develop WristTrack and other apps like it.\n\nIf you\'re enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you\'d like to see added to it!\n\nIf you\'d like to continue to support WristTrack additional donations can be made at any time.';
+
+  @override
   String get noDataRecorded => 'No Data Recorded';
 
   @override
