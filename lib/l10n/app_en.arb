@@ -224,6 +224,19 @@
   "watchNameNextService" : "{watchName} next service due",
   "watchNameWarrantyExpires" : "{watchName} warranty expires",
 
+  "@_ONBOARDING" : {},
+  "anAppForEnthusiasts" : "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...",
+  "yourDigitalWatchbox" : "Your Digital Watchbox",
+  "recordAllYourWatches" : "Record all your watches - quickly search, re-organise or get a random pick",
+  "trackTheDetail" : "Track The Detail",
+  "categoriseAndCaptureTheDetails" : "Categorise and capture the particulars of your watches, or add your own notes",
+  "analyseTheData" : "Analyse The Data",
+  "getInsightsWithDataAndCharts" : "Get insights into your collection through data and charts",
+  "letsGo" : "Let's go!",
+  "skip" : "SKIP",
+  "next" : "NEXT",
+
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "A title made up of the Manufacturer and Model of a watch",

@@ -220,6 +220,18 @@
   "watchNameNextService" : "Prochaine révision : {watchName}",
   "watchNameWarrantyExpires" : "Expiration de la garantie : {watchName}",
 
+  "@_ONBOARDING" : {},
+  "anAppForEnthusiasts" : "Une application pour les passionnés de montres. \nBalayez pour découvrir ce que WristTrack peut faire...",
+  "yourDigitalWatchbox" : "Votre boîte à montres numérique",
+  "recordAllYourWatches" : "Enregistrez toutes vos montres : recherchez, réorganisez ou obtenez un choix aléatoire rapidement",
+  "trackTheDetail" : "Suivez chaque détail",
+  "categoriseAndCaptureTheDetails" : "Catégorisez et saisissez les spécificités de vos montres, ou ajoutez vos propres notes",
+  "analyseTheData" : "Analysez les données",
+  "getInsightsWithDataAndCharts" : "Obtenez un aperçu de votre collection grâce aux données et aux graphiques",
+  "letsGo" : "C'est parti !",
+  "skip" : "PASSER",
+  "next" : "SUIVANT",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",

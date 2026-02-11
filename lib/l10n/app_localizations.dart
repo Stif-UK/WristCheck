@@ -1184,6 +1184,66 @@ abstract class AppLocalizations {
   /// **'{watchName} warranty expires'**
   String watchNameWarrantyExpires(Object watchName);
 
+  /// No description provided for @anAppForEnthusiasts.
+  ///
+  /// In en, this message translates to:
+  /// **'An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...'**
+  String get anAppForEnthusiasts;
+
+  /// No description provided for @yourDigitalWatchbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Digital Watchbox'**
+  String get yourDigitalWatchbox;
+
+  /// No description provided for @recordAllYourWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Record all your watches - quickly search, re-organise or get a random pick'**
+  String get recordAllYourWatches;
+
+  /// No description provided for @trackTheDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Track The Detail'**
+  String get trackTheDetail;
+
+  /// No description provided for @categoriseAndCaptureTheDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Categorise and capture the particulars of your watches, or add your own notes'**
+  String get categoriseAndCaptureTheDetails;
+
+  /// No description provided for @analyseTheData.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyse The Data'**
+  String get analyseTheData;
+
+  /// No description provided for @getInsightsWithDataAndCharts.
+  ///
+  /// In en, this message translates to:
+  /// **'Get insights into your collection through data and charts'**
+  String get getInsightsWithDataAndCharts;
+
+  /// No description provided for @letsGo.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go!'**
+  String get letsGo;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'SKIP'**
+  String get skip;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT'**
+  String get next;
+
   /// Returns the number of times a watch has been worn
   ///
   /// In en, this message translates to:

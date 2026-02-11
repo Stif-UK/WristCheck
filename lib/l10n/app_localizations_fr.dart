@@ -593,6 +593,40 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get anAppForEnthusiasts =>
+      'Une application pour les passionnés de montres. \nBalayez pour découvrir ce que WristTrack peut faire...';
+
+  @override
+  String get yourDigitalWatchbox => 'Votre boîte à montres numérique';
+
+  @override
+  String get recordAllYourWatches =>
+      'Enregistrez toutes vos montres : recherchez, réorganisez ou obtenez un choix aléatoire rapidement';
+
+  @override
+  String get trackTheDetail => 'Suivez chaque détail';
+
+  @override
+  String get categoriseAndCaptureTheDetails =>
+      'Catégorisez et saisissez les spécificités de vos montres, ou ajoutez vos propres notes';
+
+  @override
+  String get analyseTheData => 'Analysez les données';
+
+  @override
+  String get getInsightsWithDataAndCharts =>
+      'Obtenez un aperçu de votre collection grâce aux données et aux graphiques';
+
+  @override
+  String get letsGo => 'C\'est parti !';
+
+  @override
+  String get skip => 'PASSER';
+
+  @override
+  String get next => 'SUIVANT';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

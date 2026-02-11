@@ -587,6 +587,40 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get anAppForEnthusiasts =>
+      'An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...';
+
+  @override
+  String get yourDigitalWatchbox => 'Your Digital Watchbox';
+
+  @override
+  String get recordAllYourWatches =>
+      'Record all your watches - quickly search, re-organise or get a random pick';
+
+  @override
+  String get trackTheDetail => 'Track The Detail';
+
+  @override
+  String get categoriseAndCaptureTheDetails =>
+      'Categorise and capture the particulars of your watches, or add your own notes';
+
+  @override
+  String get analyseTheData => 'Analyse The Data';
+
+  @override
+  String get getInsightsWithDataAndCharts =>
+      'Get insights into your collection through data and charts';
+
+  @override
+  String get letsGo => 'Let\'s go!';
+
+  @override
+  String get skip => 'SKIP';
+
+  @override
+  String get next => 'NEXT';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

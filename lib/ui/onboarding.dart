@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
@@ -28,6 +29,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     //If first use, request app tracking transparency during onboarding slides
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();
@@ -48,22 +50,22 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                   colour: Theme.of(context).canvasColor,
                   urlImage: 'assets/demo/page1_logo.png',
                   title: "WristTrack",
-                  subtitle: "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do..."),
+                  subtitle: l!.anAppForEnthusiasts),
               buildPage(
                   colour: Theme.of(context).canvasColor,
                   urlImage: Get.isDarkMode? 'assets/demo/watchbox_dark.png':'assets/demo/watchbox_light.png',
-                  title: "Your Digital Watchbox",
-                  subtitle: "Record all your watches - quickly search, re-organise or get a random pick"),
+                  title: l.yourDigitalWatchbox,
+                  subtitle: l.recordAllYourWatches),
               buildPage(
                   colour: Theme.of(context).canvasColor,
                   urlImage: Get.isDarkMode? 'assets/demo/watch_info_dark.png': 'assets/demo/watch_info_light.png',
-                  title: "Track The Detail",
-                  subtitle: "Categorise and capture the particulars of your watches, or add your own notes"),
+                  title: l.trackTheDetail,
+                  subtitle: l.categoriseAndCaptureTheDetails),
               buildPage(
                   colour: Theme.of(context).canvasColor,
                   urlImage: Get.isDarkMode? 'assets/demo/graph_dark.png':'assets/demo/graph_light.png',
-                  title: "Analyse The Data",
-                  subtitle: "Get insights into your collection through data and charts"),
+                  title: l.analyseTheData,
+                  subtitle: l.getInsightsWithDataAndCharts),
             ],
           ),
         ),
@@ -78,7 +80,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
               backgroundColor: WristCheckConfig.getWCColour(),
               minimumSize: const Size.fromHeight(80),
             ),
-            child: const Text("Let's go!",
+            child: Text(l.letsGo,
             style: TextStyle(fontSize: 22),),
             onPressed: () async {
               await WristCheckPreferences.setHasSeenDemo(true);
@@ -92,7 +94,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                  child: const Text("SKIP"),
+                  child: Text(l.skip),
               onPressed: (){
                     pageViewController.jumpToPage(3);
               },),
@@ -111,7 +113,7 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
                     count: 4),
               ),
               TextButton(
-                child: const Text("NEXT"),
+                child: Text(l.next),
                 onPressed: (){
                   pageViewController.nextPage(
                       duration: const Duration(microseconds: 500),
