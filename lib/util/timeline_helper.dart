@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
 class TimeLineHelper{
   static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showNextService, bool showWarranty, bool showPreOrders){
+    final l = AppLocalizations.of(Get.context!);
     List<TimeLineEvent> returnList = [];
     Set<int> years = {};
     List<Watches> initialList = Boxes.getAllNonArchivedWatches();
     //Populate purchase and sale dates
     for(Watches watch in initialList){
       if(showPurchases && watch.purchaseDate != null){
-        returnList.add(TimeLineEvent(TimeLineEventType.purchase, watch.purchaseDate!, "${watch.toString()} purchased."));
+        returnList.add(TimeLineEvent(TimeLineEventType.purchase, watch.purchaseDate!, l!.watchNamePurchased(watch.toString())));
         years.add(watch.purchaseDate!.year);
       }
       if(showSold && watch.soldDate != null){
-        returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, "${watch.toString()} sold."));
+        returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, l!.watchNameSold(watch.toString())));
         years.add(watch.soldDate!.year);
       }
       if(showPreOrders && watch.status == "Pre-Order" && watch.deliveryDate != null){
-        returnList.add(TimeLineEvent(TimeLineEventType.preorder, watch.deliveryDate!, "${watch.toString()} pre-order due"));
+        returnList.add(TimeLineEvent(TimeLineEventType.preorder, watch.deliveryDate!, l!.watchNamePreOrderDue(watch.toString())));
       }
       if(showServiced && watch.lastServicedDate != null && watch.status == "In Collection"){
-        returnList.add(TimeLineEvent(TimeLineEventType.lastService, watch.lastServicedDate!, "${watch.toString()} last serviced."));
+        returnList.add(TimeLineEvent(TimeLineEventType.lastService, watch.lastServicedDate!, l!.watchNameLastServiced(watch.toString())));
         years.add(watch.lastServicedDate!.year);
       }
       if(showNextService && watch.nextServiceDue != null && watch.status == "In Collection"){
-        returnList.add(TimeLineEvent(TimeLineEventType.nextService, watch.nextServiceDue!, "${watch.toString()} next service due."));
+        returnList.add(TimeLineEvent(TimeLineEventType.nextService, watch.nextServiceDue!, l!.watchNameNextService(watch.toString())));
         years.add(watch.nextServiceDue!.year);
       }
       if(showWarranty && watch.warrantyEndDate != null && watch.status == "In Collection"){
-        returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, "${watch.toString()} warranty expires."));
+        returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, l!.watchNameWarrantyExpires(watch.toString())));
         years.add(watch.warrantyEndDate!.year);
       }
     }

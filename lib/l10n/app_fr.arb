@@ -212,6 +212,14 @@
   "emptyFavouritesCopy" : "Vous n'avez pas encore de montres marquées comme « favorite ».\n\nPour marquer une montre comme favorite, activez le bouton bascule sur l'écran de détails de la montre.\n",
   "emptyPreOrderCopy" : "Vous n'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».",
 
+  "@_TIMELINE" : {},
+  "watchNamePurchased" : "{watchName} achetée",
+  "watchNameSold" : "{watchName} vendue",
+  "watchNamePreOrderDue" : "Livraison prévue : {watchName}",
+  "watchNameLastServiced" : "Dernière révision : {watchName}",
+  "watchNameNextService" : "Prochaine révision : {watchName}",
+  "watchNameWarrantyExpires" : "Expiration de la garantie : {watchName}",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",

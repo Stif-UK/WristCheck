@@ -557,6 +557,36 @@ class AppLocalizationsEn extends AppLocalizations {
       'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.';
 
   @override
+  String watchNamePurchased(Object watchName) {
+    return '$watchName purchased';
+  }
+
+  @override
+  String watchNameSold(Object watchName) {
+    return '$watchName sold';
+  }
+
+  @override
+  String watchNamePreOrderDue(Object watchName) {
+    return '$watchName pre-order due';
+  }
+
+  @override
+  String watchNameLastServiced(Object watchName) {
+    return '$watchName last serviced';
+  }
+
+  @override
+  String watchNameNextService(Object watchName) {
+    return '$watchName next service due';
+  }
+
+  @override
+  String watchNameWarrantyExpires(Object watchName) {
+    return '$watchName warranty expires';
+  }
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

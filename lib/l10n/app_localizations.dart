@@ -1148,6 +1148,42 @@ abstract class AppLocalizations {
   /// **'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.'**
   String get emptyPreOrderCopy;
 
+  /// No description provided for @watchNamePurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} purchased'**
+  String watchNamePurchased(Object watchName);
+
+  /// No description provided for @watchNameSold.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} sold'**
+  String watchNameSold(Object watchName);
+
+  /// No description provided for @watchNamePreOrderDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} pre-order due'**
+  String watchNamePreOrderDue(Object watchName);
+
+  /// No description provided for @watchNameLastServiced.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} last serviced'**
+  String watchNameLastServiced(Object watchName);
+
+  /// No description provided for @watchNameNextService.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} next service due'**
+  String watchNameNextService(Object watchName);
+
+  /// No description provided for @watchNameWarrantyExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} warranty expires'**
+  String watchNameWarrantyExpires(Object watchName);
+
   /// Returns the number of times a watch has been worn
   ///
   /// In en, this message translates to:

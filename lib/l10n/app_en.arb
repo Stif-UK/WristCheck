@@ -216,6 +216,14 @@
   "emptyFavouritesCopy" : "You don't have any watches marked as 'favourite' yet. \n\nTo mark a watch as a favourite adjust the toggle on the watch detail screen.\n",
   "emptyPreOrderCopy" : "You're not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of 'pre-ordered'.",
 
+  "@_TIMELINE" : {},
+  "watchNamePurchased" : "{watchName} purchased",
+  "watchNameSold" : "{watchName} sold",
+  "watchNamePreOrderDue" : "{watchName} pre-order due",
+  "watchNameLastServiced" : "{watchName} last serviced",
+  "watchNameNextService" : "{watchName} next service due",
+  "watchNameWarrantyExpires" : "{watchName} warranty expires",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "A title made up of the Manufacturer and Model of a watch",

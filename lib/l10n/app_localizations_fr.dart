@@ -563,6 +563,36 @@ class AppLocalizationsFr extends AppLocalizations {
       'Vous n\'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d\'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».';
 
   @override
+  String watchNamePurchased(Object watchName) {
+    return '$watchName achetée';
+  }
+
+  @override
+  String watchNameSold(Object watchName) {
+    return '$watchName vendue';
+  }
+
+  @override
+  String watchNamePreOrderDue(Object watchName) {
+    return 'Livraison prévue : $watchName';
+  }
+
+  @override
+  String watchNameLastServiced(Object watchName) {
+    return 'Dernière révision : $watchName';
+  }
+
+  @override
+  String watchNameNextService(Object watchName) {
+    return 'Prochaine révision : $watchName';
+  }
+
+  @override
+  String watchNameWarrantyExpires(Object watchName) {
+    return 'Expiration de la garantie : $watchName';
+  }
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
