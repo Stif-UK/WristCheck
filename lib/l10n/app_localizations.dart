@@ -656,6 +656,54 @@ abstract class AppLocalizations {
   /// **'Thank you for supporting WristTrack!\n\nYour support means a lot and makes it possible for me to continue to develop WristTrack and other apps like it.\n\nIf you\'re enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you\'d like to see added to it!\n\nIf you\'d like to continue to support WristTrack additional donations can be made at any time.'**
   String get supporterCopy;
 
+  /// No description provided for @purchaseRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Restored'**
+  String get purchaseRestored;
+
+  /// No description provided for @youreAdFree.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re now ad free!'**
+  String get youreAdFree;
+
+  /// No description provided for @restoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Failed'**
+  String get restoreFailed;
+
+  /// No description provided for @noPurchaseFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous or active purchase found for user'**
+  String get noPurchaseFound;
+
+  /// No description provided for @restorePurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchase Status'**
+  String get restorePurchase;
+
+  /// No description provided for @noOptionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Options Found, try again later'**
+  String get noOptionsFound;
+
+  /// No description provided for @supportWristTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Support WristTrack'**
+  String get supportWristTrack;
+
+  /// No description provided for @payWhatYouLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay what you like! Choose any option upgrade to WristTrack Pro'**
+  String get payWhatYouLike;
+
   /// No description provided for @noDataRecorded.
   ///
   /// In en, this message translates to:

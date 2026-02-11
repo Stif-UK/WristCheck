@@ -74,8 +74,8 @@ class _RemoveAdsState extends State<RemoveAds> {
                   //purchase is restored
                   widget.wristCheckController.updateAppPurchaseStatus();
                   Get.defaultDialog(
-                    title: "Purchase Restored",
-                    middleText: "You're now ad free!",
+                    title: l.purchaseRestored,
+                    middleText: l.youreAdFree,
                     );
                 } else {
                   //purchase restore failed
@@ -84,12 +84,12 @@ class _RemoveAdsState extends State<RemoveAds> {
                         "success": "false"
                       });
                   Get.defaultDialog(
-                    title: "Restore Failed",
-                    middleText: "No previous or active purchase found for user",
+                    title: l.restoreFailed,
+                    middleText: l.noPurchaseFound,
                   );
                 }
 
-              }, child: const Text("Restore Purchase Status"))
+              }, child: Text(l.restorePurchase))
             ],
           ),
         )
@@ -99,9 +99,10 @@ class _RemoveAdsState extends State<RemoveAds> {
 
   Future fetchOffers() async {
     final offerings = await PurchaseApi.fetchOffers();
+    final l = AppLocalizations.of(context);
 
     if(offerings.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Options Found, try again later")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l!.noOptionsFound)));
     } else {
       final packages = offerings
           .map((offer) => offer.availablePackages)
@@ -112,8 +113,8 @@ class _RemoveAdsState extends State<RemoveAds> {
           context: context,
           builder: (context) => PaywallWidget(
         packages: packages,
-        title: "Support WristTrack",
-        description: "Pay what you like! Choose any option upgrade to WristTrack Pro",
+        title: l!.supportWristTrack,
+        description: l!.payWhatYouLike,
         onClickedPackage: (package) async{
           //Pop context first - this will allow any exception dialog to show without being blocked by the bottom sheet.
           Navigator.pop(context);

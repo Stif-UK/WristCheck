@@ -292,6 +292,32 @@ class AppLocalizationsFr extends AppLocalizations {
       'Merci de soutenir WristTrack !\n\nVotre soutien compte énormément et me permet de continuer à développer WristTrack ainsi que d\'autres applications de ce type.\n\nSi vous appréciez l\'application, n\'hésitez pas à en parler à vos amis ou à laisser un avis pour me dire ce qui vous plaît et quelles fonctionnalités vous aimeriez voir ajoutées !\n\nSi vous souhaitez continuer à soutenir WristTrack, des dons supplémentaires peuvent être effectués à tout moment.';
 
   @override
+  String get purchaseRestored => 'Achat restauré';
+
+  @override
+  String get youreAdFree => 'Les publicités sont maintenant supprimées !';
+
+  @override
+  String get restoreFailed => 'Échec de la restauration';
+
+  @override
+  String get noPurchaseFound =>
+      'Aucun achat précédent ou actif trouvé pour cet utilisateur';
+
+  @override
+  String get restorePurchase => 'Restaurer le statut de l\'achat';
+
+  @override
+  String get noOptionsFound => 'Aucune option trouvée, réessayez plus tard';
+
+  @override
+  String get supportWristTrack => 'Soutenir WristTrack';
+
+  @override
+  String get payWhatYouLike =>
+      'Payez ce que vous voulez ! Choisissez n\'importe quelle option pour passer à WristTrack Pro';
+
+  @override
   String get noDataRecorded => 'Aucune donnée';
 
   @override
