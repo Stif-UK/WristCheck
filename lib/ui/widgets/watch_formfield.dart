@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WatchFormField extends StatelessWidget {
   const WatchFormField({
@@ -62,7 +63,7 @@ class WatchFormField extends StatelessWidget {
                   lastDate: DateTime(2100)
               );
               if(pickedDate != null){
-                controller.text = DateFormat('yMMMd').format(pickedDate);
+                controller.text = WristCheckFormatter.getFormattedDate(pickedDate);
             }
             }
                 :null,
