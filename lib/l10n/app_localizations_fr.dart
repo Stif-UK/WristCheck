@@ -738,4 +738,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get archivedHelpDialogText =>
       'Lorsqu\'une montre est marquée comme « Archivée », elle est retirée de la collection principale et stockée ici.\n\nLes montres présentes dans les archives peuvent être supprimées définitivement en faisant glisser vers la gauche, ou restaurées dans votre boîte à montres en faisant glisser vers la droite.';
+
+  @override
+  String get backupHelpDialogTitle =>
+      'Aide à la sauvegarde de la base de données';
+
+  @override
+  String get backupHelpDialogText =>
+      'Vous changez de téléphone ou vous voulez simplement une sauvegarde au cas où ?\nVous êtes au bon endroit !\n\nCréez une sauvegarde de votre boîte à montres ou restaurez une copie existante.\n\nNote : La restauration de la base de données effacera toutes les données actuelles et les REMPLACERA par la sauvegarde.\n\nSi des problèmes surviennent lors du processus de sauvegarde ou de restauration, ils peuvent souvent être résolus en fermant et en redémarrant l\'application.';
 }

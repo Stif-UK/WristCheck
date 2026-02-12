@@ -1381,6 +1381,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'When a watch status is marked as \'Archived\' it is removed from the main collection and stored here.\n\nWatches in the archive can be permanently deleted with a swipe to the left or restored to your watchbox by swiping right'**
   String get archivedHelpDialogText;
+
+  /// No description provided for @backupHelpDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Database Help'**
+  String get backupHelpDialogTitle;
+
+  /// No description provided for @backupHelpDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting a new phone or just want a backup in case the worst happens?\n You\'re in the right place!\n\nCreate a backup of your watchbox or restore an existing copy.\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup.\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application.'**
+  String get backupHelpDialogText;
 }
 
 class _AppLocalizationsDelegate

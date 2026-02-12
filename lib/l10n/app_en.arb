@@ -300,6 +300,8 @@
   "collectionStatsDialogTitle" : "Collection Stats",
   "collectionStatsDialogText" : "All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as 'oldest watch') the data is only as accurate as the data provided to the application.\n\nYou can edit data associated with individual watches by navigating to them via the main watch box screens.",
   "archivedHelpDialogTitle" : "Watch Archive",
-  "archivedHelpDialogText" : "When a watch status is marked as 'Archived' it is removed from the main collection and stored here.\n\nWatches in the archive can be permanently deleted with a swipe to the left or restored to your watchbox by swiping right"
+  "archivedHelpDialogText" : "When a watch status is marked as 'Archived' it is removed from the main collection and stored here.\n\nWatches in the archive can be permanently deleted with a swipe to the left or restored to your watchbox by swiping right",
+  "backupHelpDialogTitle" : "Backup Database Help",
+  "backupHelpDialogText" : "Getting a new phone or just want a backup in case the worst happens?\n You're in the right place!\n\nCreate a backup of your watchbox or restore an existing copy.\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup.\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application."
 
 }
