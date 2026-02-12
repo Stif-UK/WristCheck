@@ -452,6 +452,12 @@ abstract class AppLocalizations {
   /// **'Last 90 Days'**
   String get last90days;
 
+  /// No description provided for @emptyWearListWatchCharts.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t tracked any wear dates for this watch yet.\n\nTrack data by clicking \'wear today\' on the watch page, or add dates via the calendar view. \n\nOnce tracked charts will show here breaking down your records by month and weekday.'**
+  String get emptyWearListWatchCharts;
+
   /// No description provided for @pageTitleCollectionStats.
   ///
   /// In en, this message translates to:
@@ -1069,6 +1075,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'... system time in use'**
   String get systemTimeInUse;
+
+  /// No description provided for @accuracyHelpTextIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your watches accuracy by creating checkpoints - WristTrack can then compare the change in the time on your watch to the change in time from the atomic clock and calculate if it is gaining or losing time\n\n'**
+  String get accuracyHelpTextIntro;
+
+  /// No description provided for @accuracyHelpTextBaselines.
+  ///
+  /// In en, this message translates to:
+  /// **'**Baselines**\n\nWhen you set a checkpoint as a baseline, all following measurements will be compared to it. You should set a new baseline any time you have manually adjusted your watch since the last baseline.\n\nIf you have no records saved, the first result is always tagged as a baseline record.\n\n'**
+  String get accuracyHelpTextBaselines;
+
+  /// No description provided for @accuracyHelpTextAddAMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'**Capturing a Measurement**\n\nTo capture a data point, set the time value under \'add checkpoint\' to match your watch is going to be (it defaults to a minute ahead) and then press the \'00 seconds\' button when the seconds hand reaches twelve o\'clock. Alternatively, set the time to match your watch and use the \'15/30/45 seconds\' buttons when the seconds hand passes those to capture the timestamp.\n\nThe times captured will then appear in the \'Records\' section below, along with an accuracy calculated since the last baseline record (no accuracy value shows for baselines).\n\n'**
+  String get accuracyHelpTextAddAMeasurement;
+
+  /// No description provided for @accuracyHelpTextDeletingARecord.
+  ///
+  /// In en, this message translates to:
+  /// **'**Deleting a Record**\n\nIf you capture a record in error, it can be deleted by swiping it away from right to left in the \'Records\' list.\n\n'**
+  String get accuracyHelpTextDeletingARecord;
+
+  /// No description provided for @accuracyHelpTextWhenToCapture.
+  ///
+  /// In en, this message translates to:
+  /// **'**When to capture records**\n\nThe longer you track the watch from the baseline measurement, the more accurate the results are likely to be (as the small delays when pressing buttons become less prominent). As a guide, it\'s useful to leave 12-24 hours between measurements.\n\n'**
+  String get accuracyHelpTextWhenToCapture;
+
+  /// No description provided for @accuracyHelpTextOutro.
+  ///
+  /// In en, this message translates to:
+  /// **'_*You can re-open this information box at any time by pressing the question mark in the top right of the page*_\n\n '**
+  String get accuracyHelpTextOutro;
 
   /// No description provided for @servicingTab.
   ///

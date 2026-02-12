@@ -187,6 +187,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get last90days => '90 derniers jours';
 
   @override
+  String get emptyWearListWatchCharts =>
+      'Vous n\'avez pas encore enregistré de dates de portée pour cette montre.\n\nEnregistrez des données en cliquant sur « Portée aujourd\'hui » sur la fiche de la montre, ou ajoutez des dates via la vue calendrier.\n\nUne fois enregistrés, des graphiques s\'afficheront ici pour détailler vos statistiques par mois et par jour de la semaine.';
+
+  @override
   String get pageTitleCollectionStats => 'Stats de la collection';
 
   @override
@@ -510,6 +514,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get systemTimeInUse => '... heure système utilisée';
+
+  @override
+  String get accuracyHelpTextIntro =>
+      'Suivez la précision de vos montres en créant des points de contrôle. WristTrack compare ensuite l\'évolution de l\'heure de votre montre à celle de l\'horloge atomique pour calculer si elle avance ou s\'arrête (retarde).\n\n';
+
+  @override
+  String get accuracyHelpTextBaselines =>
+      '**Références**\n\nLorsque vous définissez un point de contrôle comme référence, toutes les mesures suivantes y seront comparées. Vous devriez définir une nouvelle référence chaque fois que vous réglez l\'heure de votre montre manuellement depuis la dernière mesure de référence.\n\nSi vous n\'avez aucun enregistrement sauvegardé, le premier résultat sera toujours marqué comme étant la référence.\n\n';
+
+  @override
+  String get accuracyHelpTextAddAMeasurement =>
+      '**Saisir une mesure**\n\nPour enregistrer une donnée, réglez la valeur sous « Ajouter un point de contrôle » pour qu\'elle corresponde à l\'heure qu\'il sera sur votre montre (par défaut, l\'app propose une minute d\'avance), puis appuyez sur le bouton « 00 secondes » au moment où l\'aiguille des secondes atteint midi. Vous pouvez également régler l\'heure pour qu\'elle corresponde à votre montre et utiliser les boutons « 15/30/45 secondes » lorsque l\'aiguille passe devant ces marqueurs pour enregistrer l\'horodatage.\n\nLes heures saisies apparaîtront ensuite dans la section « Enregistrements » ci-dessous, accompagnées de la précision calculée depuis la dernière référence (aucune valeur de précision ne s\'affiche pour les références).\n\n';
+
+  @override
+  String get accuracyHelpTextDeletingARecord =>
+      '**Supprimer un enregistrement**\n\nSi vous enregistrez une mesure par erreur, elle peut être supprimée en la faisant glisser de droite à gauche dans la liste des « Enregistrements ».\n\n';
+
+  @override
+  String get accuracyHelpTextWhenToCapture =>
+      '**Quand enregistrer des mesures**\n\nPlus le délai entre la mesure de référence et le point de contrôle est long, plus les résultats seront précis (car les légers retards lors de l\'appui sur les boutons deviennent moins significatifs). À titre indicatif, il est utile de laisser s\'écouler 12 à 24 heures entre les mesures.\n\n';
+
+  @override
+  String get accuracyHelpTextOutro =>
+      '_*Vous pouvez rouvrir cette fenêtre d\'information à tout moment en appuyant sur le point d\'interrogation en haut à droite de la page.*_\n\n ';
 
   @override
   String get servicingTab => 'Entretien';
