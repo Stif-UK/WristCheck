@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -14,56 +15,51 @@ import 'package:hive/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
-import 'package:wristcheck/ui/watch/watchview.dart';
-import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
-import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class WristCheckDialogs {
 
   static getServiceIntervalTooltipDialog(){
     Get.defaultDialog(
-      title: "Service Interval",
+      title: AppLocalizations.of(Get.context!)!.serviceIntervalTitle,
       barrierDismissible: true,
-      middleText: "By setting a service interval a 'service due date' will be calculated and displayed on the Service screen of the app (as long as either a purchase date or last service date is set).\n  \n "
-          "The value of this field can be left at zero to disable for this watch.",
+      middleText: AppLocalizations.of(Get.context!)!.serviceIntervalText
     );
   }
 
-  static getServicePageTooltipDialog(){
-    Get.defaultDialog(
-      title: "Service Schedule",
-      barrierDismissible: true,
-      middleText: "This tab shows the next service dates of watches in your collection, based on either their purchase date or last serviced date, along with the given service interval. \n \n"
-          "If a service is due within the next 3 months the leading icon is highlighted in red",
-    );
-  }
+  //TODO: Refactor this out - page no longer in the app
+  // static getServicePageTooltipDialog(){
+  //   Get.defaultDialog(
+  //     title: "Service Schedule",
+  //     barrierDismissible: true,
+  //     middleText: "This tab shows the next service dates of watches in your collection, based on either their purchase date or last serviced date, along with the given service interval. \n \n"
+  //         "If a service is due within the next 3 months the leading icon is highlighted in red",
+  //   );
+  // }
 
   static getDuplicateWearDialog(Watches currentWatch, DateTime date)   {
     Get.defaultDialog(
-      title: "Duplicate Date Warning",
+      title: AppLocalizations.of(Get.context!)!.duplicateWearTitle,
       barrierDismissible: false,
-      middleText: "It looks like you've already worn this watch on the given date! \n \n"
-          "if you want to track an additional wear, select 'Add Again' to track. \n \n"
-          "otherwise cancel to go back",
+      middleText: AppLocalizations.of(Get.context!)!.duplicateWearText,
         confirmTextColor: Colors.white,
         buttonColor: Colors.lightBlueAccent,
       onConfirm: (){
         Get.back();
         WatchMethods.attemptToRecordWear(currentWatch, date, true);
       },
-      textCancel: "Cancel",
-      textConfirm: "Add Again"
+      textCancel: AppLocalizations.of(Get.context!)!.cancel,
+      textConfirm: AppLocalizations.of(Get.context!)!.duplicateWearConfirm
     );
   }
 
   static getCollectionStatsDialog(){
     Get.defaultDialog(
-      title: "Collection Stats",
+      title: AppLocalizations.of(Get.context!)!.collectionStatsDialogTitle,
       barrierDismissible: true,
-      middleText: "All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as 'oldest watch') the data is only as accurate as the data provided to the application.\n"
-          "\nYou can edit data associated with individual watches by navigating to them via the main watch box screens."
+      middleText: AppLocalizations.of(Get.context!)!.collectionStatsDialogText
     );
   }
 

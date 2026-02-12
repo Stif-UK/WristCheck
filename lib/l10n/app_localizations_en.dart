@@ -701,4 +701,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get watchChartsUpgradeCopy =>
       '**Watch Wear Charts**\n\nWatch charts are a **WristTrack Pro** feature.\n\nThey allow you to view charts breaking down which months and days this watch has been worn.\n\nWant to know more about **WristTrack Pro**? Click the button below...';
+
+  @override
+  String get serviceIntervalTitle => 'Service Interval';
+
+  @override
+  String get serviceIntervalText =>
+      'By setting a service interval a \'service due date\' will be calculated and displayed on the Service screen of the app (as long as either a purchase date or last service date is set).\n  \nThe value of this field can be left at zero to disable for this watch.';
+
+  @override
+  String get duplicateWearTitle => 'Duplicate Date Warning';
+
+  @override
+  String get duplicateWearText =>
+      'It looks like you\'ve already worn this watch on the given date! \n \nIf you want to track an additional wear, select \'Add Again\' to track. \n \notherwise cancel to go back';
+
+  @override
+  String get duplicateWearConfirm => 'Add Again';
+
+  @override
+  String get collectionStatsDialogTitle => 'Collection Stats';
+
+  @override
+  String get collectionStatsDialogText =>
+      'All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as \'oldest watch\') the data is only as accurate as the data provided to the application.\n\nYou can edit data associated with individual watches by navigating to them via the main watch box screens.';
 }

@@ -284,5 +284,14 @@
   "backupInstruction" : "Press the button below to create a copy of the app database (this can take a few seconds!). \n\nOnce created a 'share' pop-up should appear, allowing you to choose where to send the backup file.  ",
   "imageBackupInstructions" : "Les images des montres peuvent être exportées séparément.",
   "altExtractsGuidance" : "**Extractions de données alternatives**\n\nCes options permettent d'extraire vos données de montres et de portées depuis **WristTrack**.\n\nElles sont conçues pour libérer vos données plutôt que de servir de sauvegarde _(consultez les options Sauvegarde/Restauration si vous souhaitez simplement transférer vos données d'un appareil à un autre)._\n\nL'extraction simple fournit une liste de toutes les données de vos montres, incluant le nombre de portées et les notes **(une ligne par montre)**.\n\nL'extraction détaillée fournit une ligne de données pour chaque **date de portée enregistrée** et inclut uniquement les montres ayant été marquées comme portées. **(plusieurs lignes par montre)**.\n\nCes données brutes sont exportées au format CSV, permettant une importation facile dans votre tableur préféré.",
-  "watchChartsUpgradeCopy" : "**Graphiques de portée**\n\nLes graphiques de montre sont une fonctionnalité **WristTrack Pro**.\n\nIls vous permettent de visualiser des graphiques détaillant les mois et les jours où cette montre a été portée.\n\nVous voulez en savoir plus sur **WristTrack Pro** ? Cliquez sur le bouton ci-dessous..."
+  "watchChartsUpgradeCopy" : "**Graphiques de portée**\n\nLes graphiques de montre sont une fonctionnalité **WristTrack Pro**.\n\nIls vous permettent de visualiser des graphiques détaillant les mois et les jours où cette montre a été portée.\n\nVous voulez en savoir plus sur **WristTrack Pro** ? Cliquez sur le bouton ci-dessous...",
+
+  "@_DIALOGS" : {},
+  "serviceIntervalTitle": "Intervalle d'entretien",
+  "serviceIntervalText" : "En définissant un intervalle d'entretien, une « date de révision prévue » sera calculée et affichée sur l'écran Entretien de l'application (à condition qu'une date d'achat ou une date de dernière révision soit renseignée).\n\nLa valeur de ce champ peut être laissée à zéro pour désactiver cette fonction pour cette montre.",
+  "duplicateWearTitle" : "Avertissement : Date en double",
+  "duplicateWearText" : "Il semble que vous ayez déjà porté cette montre à la date indiquée !\n\nSi vous souhaitez enregistrer une portée supplémentaire, sélectionnez « Ajouter à nouveau ».\n\nSinon, annulez pour revenir en arrière.",
+  "duplicateWearConfirm" : "Ajouter à nouveau",
+  "collectionStatsDialogTitle" : "Statistiques de la collection",
+  "collectionStatsDialogText" : "Toutes les valeurs sont basées sur les données figurant dans votre collection de montres.\n\nLorsque les calculs reposent sur des dates (comme pour la « montre la plus ancienne »), la précision des résultats dépend des informations saisies dans l'application.\n\nVous pouvez modifier les données de chaque montre en y accédant via les écrans de votre boîte à montres principale."
 }

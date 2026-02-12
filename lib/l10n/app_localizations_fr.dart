@@ -707,4 +707,28 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get watchChartsUpgradeCopy =>
       '**Graphiques de portée**\n\nLes graphiques de montre sont une fonctionnalité **WristTrack Pro**.\n\nIls vous permettent de visualiser des graphiques détaillant les mois et les jours où cette montre a été portée.\n\nVous voulez en savoir plus sur **WristTrack Pro** ? Cliquez sur le bouton ci-dessous...';
+
+  @override
+  String get serviceIntervalTitle => 'Intervalle d\'entretien';
+
+  @override
+  String get serviceIntervalText =>
+      'En définissant un intervalle d\'entretien, une « date de révision prévue » sera calculée et affichée sur l\'écran Entretien de l\'application (à condition qu\'une date d\'achat ou une date de dernière révision soit renseignée).\n\nLa valeur de ce champ peut être laissée à zéro pour désactiver cette fonction pour cette montre.';
+
+  @override
+  String get duplicateWearTitle => 'Avertissement : Date en double';
+
+  @override
+  String get duplicateWearText =>
+      'Il semble que vous ayez déjà porté cette montre à la date indiquée !\n\nSi vous souhaitez enregistrer une portée supplémentaire, sélectionnez « Ajouter à nouveau ».\n\nSinon, annulez pour revenir en arrière.';
+
+  @override
+  String get duplicateWearConfirm => 'Ajouter à nouveau';
+
+  @override
+  String get collectionStatsDialogTitle => 'Statistiques de la collection';
+
+  @override
+  String get collectionStatsDialogText =>
+      'Toutes les valeurs sont basées sur les données figurant dans votre collection de montres.\n\nLorsque les calculs reposent sur des dates (comme pour la « montre la plus ancienne »), la précision des résultats dépend des informations saisies dans l\'application.\n\nVous pouvez modifier les données de chaque montre en y accédant via les écrans de votre boîte à montres principale.';
 }

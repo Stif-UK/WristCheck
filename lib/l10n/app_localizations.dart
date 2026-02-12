@@ -1327,6 +1327,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'**Watch Wear Charts**\n\nWatch charts are a **WristTrack Pro** feature.\n\nThey allow you to view charts breaking down which months and days this watch has been worn.\n\nWant to know more about **WristTrack Pro**? Click the button below...'**
   String get watchChartsUpgradeCopy;
+
+  /// No description provided for @serviceIntervalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Interval'**
+  String get serviceIntervalTitle;
+
+  /// No description provided for @serviceIntervalText.
+  ///
+  /// In en, this message translates to:
+  /// **'By setting a service interval a \'service due date\' will be calculated and displayed on the Service screen of the app (as long as either a purchase date or last service date is set).\n  \nThe value of this field can be left at zero to disable for this watch.'**
+  String get serviceIntervalText;
+
+  /// No description provided for @duplicateWearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Date Warning'**
+  String get duplicateWearTitle;
+
+  /// No description provided for @duplicateWearText.
+  ///
+  /// In en, this message translates to:
+  /// **'It looks like you\'ve already worn this watch on the given date! \n \nIf you want to track an additional wear, select \'Add Again\' to track. \n \notherwise cancel to go back'**
+  String get duplicateWearText;
+
+  /// No description provided for @duplicateWearConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Again'**
+  String get duplicateWearConfirm;
+
+  /// No description provided for @collectionStatsDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Stats'**
+  String get collectionStatsDialogTitle;
+
+  /// No description provided for @collectionStatsDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as \'oldest watch\') the data is only as accurate as the data provided to the application.\n\nYou can edit data associated with individual watches by navigating to them via the main watch box screens.'**
+  String get collectionStatsDialogText;
 }
 
 class _AppLocalizationsDelegate
