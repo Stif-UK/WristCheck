@@ -725,4 +725,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get collectionStatsDialogText =>
       'All values are based on data held within your watch collection.\n\nWhere calculations are made based on dates (such as \'oldest watch\') the data is only as accurate as the data provided to the application.\n\nYou can edit data associated with individual watches by navigating to them via the main watch box screens.';
+
+  @override
+  String get archivedHelpDialogTitle => 'Watch Archive';
+
+  @override
+  String get archivedHelpDialogText =>
+      'When a watch status is marked as \'Archived\' it is removed from the main collection and stored here.\n\nWatches in the archive can be permanently deleted with a swipe to the left or restored to your watchbox by swiping right';
 }

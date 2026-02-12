@@ -731,4 +731,11 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get collectionStatsDialogText =>
       'Toutes les valeurs sont basées sur les données figurant dans votre collection de montres.\n\nLorsque les calculs reposent sur des dates (comme pour la « montre la plus ancienne »), la précision des résultats dépend des informations saisies dans l\'application.\n\nVous pouvez modifier les données de chaque montre en y accédant via les écrans de votre boîte à montres principale.';
+
+  @override
+  String get archivedHelpDialogTitle => 'Archives des montres';
+
+  @override
+  String get archivedHelpDialogText =>
+      'Lorsqu\'une montre est marquée comme « Archivée », elle est retirée de la collection principale et stockée ici.\n\nLes montres présentes dans les archives peuvent être supprimées définitivement en faisant glisser vers la gauche, ou restaurées dans votre boîte à montres en faisant glisser vers la droite.';
 }

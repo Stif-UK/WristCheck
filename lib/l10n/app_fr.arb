@@ -293,5 +293,7 @@
   "duplicateWearText" : "Il semble que vous ayez déjà porté cette montre à la date indiquée !\n\nSi vous souhaitez enregistrer une portée supplémentaire, sélectionnez « Ajouter à nouveau ».\n\nSinon, annulez pour revenir en arrière.",
   "duplicateWearConfirm" : "Ajouter à nouveau",
   "collectionStatsDialogTitle" : "Statistiques de la collection",
-  "collectionStatsDialogText" : "Toutes les valeurs sont basées sur les données figurant dans votre collection de montres.\n\nLorsque les calculs reposent sur des dates (comme pour la « montre la plus ancienne »), la précision des résultats dépend des informations saisies dans l'application.\n\nVous pouvez modifier les données de chaque montre en y accédant via les écrans de votre boîte à montres principale."
+  "collectionStatsDialogText" : "Toutes les valeurs sont basées sur les données figurant dans votre collection de montres.\n\nLorsque les calculs reposent sur des dates (comme pour la « montre la plus ancienne »), la précision des résultats dépend des informations saisies dans l'application.\n\nVous pouvez modifier les données de chaque montre en y accédant via les écrans de votre boîte à montres principale.",
+  "archivedHelpDialogTitle" : "Archives des montres",
+  "archivedHelpDialogText" : "Lorsqu'une montre est marquée comme « Archivée », elle est retirée de la collection principale et stockée ici.\n\nLes montres présentes dans les archives peuvent être supprimées définitivement en faisant glisser vers la gauche, ou restaurées dans votre boîte à montres en faisant glisser vers la droite."
 }
