@@ -347,6 +347,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleting => 'Deleting';
 
   @override
+  String get errorHeader => 'Error';
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -746,5 +749,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String incorrectFilenameDialogText(Object fileName) {
     return 'The file $fileName does not match the expected file of watchbox.hive\n\nPlease select a watchbox.hive file';
+  }
+
+  @override
+  String get confirmRestoreDialogTitle => 'Restore from Backup';
+
+  @override
+  String get confirmRestoreDialogText =>
+      'Restoring this backup will over-write your current watch-box.\n\nDo you want to continue?';
+
+  @override
+  String get restoreFailedTitle => 'Restore Failed';
+
+  @override
+  String restoreFailedText(Object error) {
+    return 'Failed to restore from backup, an error occurred:\n\n$error\n\nPlease try again - if the issue persists please contact the app developer';
+  }
+
+  @override
+  String get restoreSuccessDialogTitle => 'Restore Successful';
+
+  @override
+  String get restoreSuccessDialogText =>
+      'Database successfully restored!\n\nIf watches don\'t show immediately try navigating between the main tabs.';
+
+  @override
+  String get backupLocationNullDialogText =>
+      'No Backup location is specified. Please first select where to store the backup file';
+
+  @override
+  String backupFailedDialogText(Object error) {
+    return 'Backup Failed\n\n$error\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.';
   }
 }

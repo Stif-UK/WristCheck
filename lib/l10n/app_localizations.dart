@@ -764,6 +764,12 @@ abstract class AppLocalizations {
   /// **'Deleting'**
   String get deleting;
 
+  /// No description provided for @errorHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get errorHeader;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -1405,6 +1411,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The file {fileName} does not match the expected file of watchbox.hive\n\nPlease select a watchbox.hive file'**
   String incorrectFilenameDialogText(Object fileName);
+
+  /// No description provided for @confirmRestoreDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from Backup'**
+  String get confirmRestoreDialogTitle;
+
+  /// No description provided for @confirmRestoreDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring this backup will over-write your current watch-box.\n\nDo you want to continue?'**
+  String get confirmRestoreDialogText;
+
+  /// No description provided for @restoreFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Failed'**
+  String get restoreFailedTitle;
+
+  /// No description provided for @restoreFailedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to restore from backup, an error occurred:\n\n{error}\n\nPlease try again - if the issue persists please contact the app developer'**
+  String restoreFailedText(Object error);
+
+  /// No description provided for @restoreSuccessDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Successful'**
+  String get restoreSuccessDialogTitle;
+
+  /// No description provided for @restoreSuccessDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Database successfully restored!\n\nIf watches don\'t show immediately try navigating between the main tabs.'**
+  String get restoreSuccessDialogText;
+
+  /// No description provided for @backupLocationNullDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'No Backup location is specified. Please first select where to store the backup file'**
+  String get backupLocationNullDialogText;
+
+  /// No description provided for @backupFailedDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Failed\n\n{error}\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.'**
+  String backupFailedDialogText(Object error);
 }
 
 class _AppLocalizationsDelegate

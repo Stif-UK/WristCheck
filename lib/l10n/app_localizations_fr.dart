@@ -349,6 +349,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleting => 'Suppression en cours';
 
   @override
+  String get errorHeader => 'Erreur';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override
@@ -753,5 +756,36 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String incorrectFilenameDialogText(Object fileName) {
     return 'Le fichier $fileName ne correspond pas au fichier attendu « watchbox.hive ».\n\nVeuillez sélectionner un fichier nommé « watchbox.hive ».';
+  }
+
+  @override
+  String get confirmRestoreDialogTitle => 'Restaurer depuis une sauvegarde';
+
+  @override
+  String get confirmRestoreDialogText =>
+      'La restauration de cette sauvegarde écrasera votre boîte à montres actuelle.\n\nVoulez-vous continuer ?';
+
+  @override
+  String get restoreFailedTitle => 'Échec de la restauration';
+
+  @override
+  String restoreFailedText(Object error) {
+    return 'Impossible de restaurer la sauvegarde, une erreur est survenue :\n\n$error\n\nVeuillez réessayer — si le problème persiste, veuillez contacter le développeur de l\'application.';
+  }
+
+  @override
+  String get restoreSuccessDialogTitle => 'Restauration réussie';
+
+  @override
+  String get restoreSuccessDialogText =>
+      'La base de données a été restaurée avec succès !\n\nSi les montres ne s\'affichent pas immédiatement, essayez de naviguer entre les onglets principaux.';
+
+  @override
+  String get backupLocationNullDialogText =>
+      'Aucun emplacement de sauvegarde n\'est spécifié. Veuillez d\'abord sélectionner l\'endroit où stocker le fichier de sauvegarde.';
+
+  @override
+  String backupFailedDialogText(Object error) {
+    return 'Échec de la sauvegarde\n\n$error\n\nIl est possible que l\'emplacement sélectionné ne soit pas accessible par l\'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l\'App Store.';
   }
 }

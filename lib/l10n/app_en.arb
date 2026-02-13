@@ -139,6 +139,7 @@
   "retiredSuffix": "(Retired)",
   "watchColon" : "Watch:",
   "deleting" : "Deleting",
+  "errorHeader" : "Error",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -272,6 +273,15 @@
       }
     }
   },
+  "@error" : {
+    "description": "An error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "unable to open file"
+      }
+    }
+  },
   "nWears": "{count, plural, =0{No wears tracked} =1{Worn 1 time} other{Worn {count} times}}",
   "@nWears": {
     "description": "Returns the number of times a watch has been worn",
@@ -313,5 +323,13 @@
   "backupHelpDialogTitle" : "Backup Database Help",
   "backupHelpDialogText" : "Getting a new phone or just want a backup in case the worst happens?\n You're in the right place!\n\nCreate a backup of your watchbox or restore an existing copy.\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup.\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application.",
   "incorrectFilenameDialogTitle" : "Incorrect file",
-  "incorrectFilenameDialogText" : "The file {fileName} does not match the expected file of watchbox.hive\n\nPlease select a watchbox.hive file"
+  "incorrectFilenameDialogText" : "The file {fileName} does not match the expected file of watchbox.hive\n\nPlease select a watchbox.hive file",
+  "confirmRestoreDialogTitle" : "Restore from Backup",
+  "confirmRestoreDialogText" : "Restoring this backup will over-write your current watch-box.\n\nDo you want to continue?",
+  "restoreFailedTitle" : "Restore Failed",
+  "restoreFailedText" : "Failed to restore from backup, an error occurred:\n\n{error}\n\nPlease try again - if the issue persists please contact the app developer",
+  "restoreSuccessDialogTitle" : "Restore Successful",
+  "restoreSuccessDialogText" : "Database successfully restored!\n\nIf watches don't show immediately try navigating between the main tabs.",
+  "backupLocationNullDialogText" : "No Backup location is specified. Please first select where to store the backup file",
+  "backupFailedDialogText" : "Backup Failed\n\n{error}\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn't work, please provide feedback to the developer via the app store."
 }

@@ -135,6 +135,7 @@
   "retiredSuffix": "(Retirée)",
   "watchColon" : "Montre : ",
   "deleting" : "Suppression en cours",
+  "errorHeader" : "Erreur",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -267,6 +268,15 @@
       }
     }
   },
+  "@error" : {
+    "description": "Un message d'erreur",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "impossible d'ouvrir le fichier"
+      }
+    }
+  },
   "nWears": "{count, plural, =0{Aucune portée enregistrée} =1{Portée 1 fois} other{Portée {count} fois}}",
   "@nWears": {
     "description": "Retourne le nombre de fois qu'une montre a été portée",
@@ -308,6 +318,13 @@
   "backupHelpDialogTitle" : "Aide à la sauvegarde de la base de données",
   "backupHelpDialogText" : "Vous changez de téléphone ou vous voulez simplement une sauvegarde au cas où ?\nVous êtes au bon endroit !\n\nCréez une sauvegarde de votre boîte à montres ou restaurez une copie existante.\n\nNote : La restauration de la base de données effacera toutes les données actuelles et les REMPLACERA par la sauvegarde.\n\nSi des problèmes surviennent lors du processus de sauvegarde ou de restauration, ils peuvent souvent être résolus en fermant et en redémarrant l'application.",
   "incorrectFilenameDialogTitle" : "Fichier incorrect",
-  "incorrectFilenameDialogText" : "Le fichier {fileName} ne correspond pas au fichier attendu « watchbox.hive ».\n\nVeuillez sélectionner un fichier nommé « watchbox.hive »."
-
+  "incorrectFilenameDialogText" : "Le fichier {fileName} ne correspond pas au fichier attendu « watchbox.hive ».\n\nVeuillez sélectionner un fichier nommé « watchbox.hive ».",
+  "confirmRestoreDialogTitle" : "Restaurer depuis une sauvegarde",
+  "confirmRestoreDialogText" : "La restauration de cette sauvegarde écrasera votre boîte à montres actuelle.\n\nVoulez-vous continuer ?",
+  "restoreFailedTitle" : "Échec de la restauration",
+  "restoreFailedText" : "Impossible de restaurer la sauvegarde, une erreur est survenue :\n\n{error}\n\nVeuillez réessayer — si le problème persiste, veuillez contacter le développeur de l'application.",
+  "restoreSuccessDialogTitle" : "Restauration réussie",
+  "restoreSuccessDialogText" : "La base de données a été restaurée avec succès !\n\nSi les montres ne s'affichent pas immédiatement, essayez de naviguer entre les onglets principaux.",
+  "backupLocationNullDialogText" : "Aucun emplacement de sauvegarde n'est spécifié. Veuillez d'abord sélectionner l'endroit où stocker le fichier de sauvegarde.",
+  "backupFailedDialogText" : "Échec de la sauvegarde\n\n{error}\n\nIl est possible que l'emplacement sélectionné ne soit pas accessible par l'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store."
 }

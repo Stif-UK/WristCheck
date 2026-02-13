@@ -102,12 +102,13 @@ class WristCheckDialogs {
 
   static getConfirmRestoreDialog(File watchbox){
     Get.defaultDialog(
-      title: "Restore from Backup",
+      title: AppLocalizations.of(Get.context!)!.confirmRestoreDialogTitle,
       barrierDismissible: false,
-      middleText: "Restoring this backup will over-write your current watch-box.\n\n"
-          "Do you want to continue?",
+      middleText: AppLocalizations.of(Get.context!)!.confirmRestoreDialogText,
         confirmTextColor: Colors.white,
         buttonColor: Colors.lightBlueAccent,
+        textCancel: AppLocalizations.of(Get.context!)!.cancel,
+        textConfirm: AppLocalizations.of(Get.context!)!.ok,
       onCancel: (){},
       onConfirm: (){
         BackupRestoreMethods.restoreWatchBox(watchbox);
@@ -118,20 +119,17 @@ class WristCheckDialogs {
 
   static getRestoreFailedDialog(String error){
     Get.defaultDialog(
-      title: "Restore Failed",
+      title: AppLocalizations.of(Get.context!)!.restoreFailedTitle,
       barrierDismissible: true,
-      middleText: "Failed to restore from backup, an error occurred:\n\n"
-          "$error\n\n"
-          "Please try again - if the issue persists please contact the app developer"
+      middleText: AppLocalizations.of(Get.context!)!.restoreFailedText(error)
     );
   }
 
   static getRestoreSuccessDialog(){
     Get.defaultDialog(
-      title: "Restore Successful",
+      title: AppLocalizations.of(Get.context!)!.restoreSuccessDialogTitle,
       barrierDismissible: true,
-      middleText: "Database successfully restored!\n\n"
-          "If watches don't show immediately try navigating between the main tabs.",
+      middleText: AppLocalizations.of(Get.context!)!.restoreSuccessDialogText,
       confirmTextColor: Colors.white,
       buttonColor: Colors.lightBlueAccent,
       onConfirm: () async {
@@ -145,20 +143,17 @@ class WristCheckDialogs {
 
   static getBackupLocationNullDialog(){
     Get.defaultDialog(
-        title: "Backup / Restore",
+        title: AppLocalizations.of(Get.context!)!.backupRestoreHeader,
         barrierDismissible: true,
-        middleText: "No Backup location is specified. Please first select where to store the backup file"
+        middleText: AppLocalizations.of(Get.context!)!.backupLocationNullDialogText
     );
   }
 
   static getBackupFailedDialog(String error){
     Get.defaultDialog(
-        title: "Error",
+        title: AppLocalizations.of(Get.context!)!.errorHeader,
         barrierDismissible: true,
-        middleText: "Backup Failed\n\n"
-            "$error\n\n"
-            "It could be that the selected location is not accessible to the application. Try with a different location.\n\n"
-            "If this doesn't work, please provide feedback to the developer via the app store."
+        middleText: AppLocalizations.of(Get.context!)!.backupFailedDialogText(error)
     );
   }
 
