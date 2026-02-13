@@ -746,4 +746,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get backupHelpDialogText =>
       'Vous changez de téléphone ou vous voulez simplement une sauvegarde au cas où ?\nVous êtes au bon endroit !\n\nCréez une sauvegarde de votre boîte à montres ou restaurez une copie existante.\n\nNote : La restauration de la base de données effacera toutes les données actuelles et les REMPLACERA par la sauvegarde.\n\nSi des problèmes surviennent lors du processus de sauvegarde ou de restauration, ils peuvent souvent être résolus en fermant et en redémarrant l\'application.';
+
+  @override
+  String get incorrectFilenameDialogTitle => 'Fichier incorrect';
+
+  @override
+  String incorrectFilenameDialogText(Object fileName) {
+    return 'Le fichier $fileName ne correspond pas au fichier attendu « watchbox.hive ».\n\nVeuillez sélectionner un fichier nommé « watchbox.hive ».';
+  }
 }

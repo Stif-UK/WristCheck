@@ -1393,6 +1393,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Getting a new phone or just want a backup in case the worst happens?\n You\'re in the right place!\n\nCreate a backup of your watchbox or restore an existing copy.\n\nNote: Restoring the database will clear down any existing data and REPLACE it with the backup.\n\nIf any issues arise during the backup / restore process these can often be resolved by killing and restarting the application.'**
   String get backupHelpDialogText;
+
+  /// No description provided for @incorrectFilenameDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect file'**
+  String get incorrectFilenameDialogTitle;
+
+  /// No description provided for @incorrectFilenameDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'The file {fileName} does not match the expected file of watchbox.hive\n\nPlease select a watchbox.hive file'**
+  String incorrectFilenameDialogText(Object fileName);
 }
 
 class _AppLocalizationsDelegate

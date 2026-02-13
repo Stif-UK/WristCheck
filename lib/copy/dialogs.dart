@@ -94,10 +94,9 @@ class WristCheckDialogs {
 
   static getIncorrectFilenameDialog(String filename){
     Get.defaultDialog(
-      title: "Incorrect file",
+      title: AppLocalizations.of(Get.context!)!.incorrectFilenameDialogTitle,
       barrierDismissible: true,
-      middleText: "The file $filename does not match the expected file of watchbox.hive\n\n"
-          "Please select a watchbox.hive file"
+      middleText: AppLocalizations.of(Get.context!)!.incorrectFilenameDialogText(filename)
     );
   }
 
@@ -224,14 +223,15 @@ class WristCheckDialogs {
     );
   }
 
-  static getHiddenStats(int? _openCount, int? _wearCount, DateTime? _refDate){
-    Get.defaultDialog(
-        title: "Hidden Stats",
-        middleText: "You have opened this application $_openCount times\n\n"
-            "You have tracked wearing your watches $_wearCount times\n\n"
-            "Reference Date is set to: ${_refDate == null? "Not Set" : WristCheckFormatter.getFormattedDate(_refDate)}"
-    );
-  }
+  //TODO: Refactor to remove this dialog as it is no longer used
+  // static getHiddenStats(int? _openCount, int? _wearCount, DateTime? _refDate){
+  //   Get.defaultDialog(
+  //       title: "Hidden Stats",
+  //       middleText: "You have opened this application $_openCount times\n\n"
+  //           "You have tracked wearing your watches $_wearCount times\n\n"
+  //           "Reference Date is set to: ${_refDate == null? "Not Set" : WristCheckFormatter.getFormattedDate(_refDate)}"
+  //   );
+  // }
 
   static getNotificationSettingsHelpDialog(){
     //If the platform is Android help text clarifies the potential for some manufacturers to block background notifications

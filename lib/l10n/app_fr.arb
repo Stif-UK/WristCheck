@@ -252,9 +252,18 @@
   "@timeStamp": {
     "description": "Une chaîne de date et d'heure",
     "placeholders": {
-      "watchName": {
+      "timeStamp": {
         "type": "String",
         "example": "dim. 8 fév. 2026 - 09:57:15"
+      }
+    }
+  },
+  "@fileName" : {
+    "description": "Le nom d'un fichier sélectionné",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "boite_a_montres.hive"
       }
     }
   },
@@ -297,5 +306,8 @@
   "archivedHelpDialogTitle" : "Archives des montres",
   "archivedHelpDialogText" : "Lorsqu'une montre est marquée comme « Archivée », elle est retirée de la collection principale et stockée ici.\n\nLes montres présentes dans les archives peuvent être supprimées définitivement en faisant glisser vers la gauche, ou restaurées dans votre boîte à montres en faisant glisser vers la droite.",
   "backupHelpDialogTitle" : "Aide à la sauvegarde de la base de données",
-  "backupHelpDialogText" : "Vous changez de téléphone ou vous voulez simplement une sauvegarde au cas où ?\nVous êtes au bon endroit !\n\nCréez une sauvegarde de votre boîte à montres ou restaurez une copie existante.\n\nNote : La restauration de la base de données effacera toutes les données actuelles et les REMPLACERA par la sauvegarde.\n\nSi des problèmes surviennent lors du processus de sauvegarde ou de restauration, ils peuvent souvent être résolus en fermant et en redémarrant l'application."
+  "backupHelpDialogText" : "Vous changez de téléphone ou vous voulez simplement une sauvegarde au cas où ?\nVous êtes au bon endroit !\n\nCréez une sauvegarde de votre boîte à montres ou restaurez une copie existante.\n\nNote : La restauration de la base de données effacera toutes les données actuelles et les REMPLACERA par la sauvegarde.\n\nSi des problèmes surviennent lors du processus de sauvegarde ou de restauration, ils peuvent souvent être résolus en fermant et en redémarrant l'application.",
+  "incorrectFilenameDialogTitle" : "Fichier incorrect",
+  "incorrectFilenameDialogText" : "Le fichier {fileName} ne correspond pas au fichier attendu « watchbox.hive ».\n\nVeuillez sélectionner un fichier nommé « watchbox.hive »."
+
 }
