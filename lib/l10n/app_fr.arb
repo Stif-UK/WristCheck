@@ -326,5 +326,8 @@
   "restoreSuccessDialogTitle" : "Restauration réussie",
   "restoreSuccessDialogText" : "La base de données a été restaurée avec succès !\n\nSi les montres ne s'affichent pas immédiatement, essayez de naviguer entre les onglets principaux.",
   "backupLocationNullDialogText" : "Aucun emplacement de sauvegarde n'est spécifié. Veuillez d'abord sélectionner l'endroit où stocker le fichier de sauvegarde.",
-  "backupFailedDialogText" : "Échec de la sauvegarde\n\n{error}\n\nIl est possible que l'emplacement sélectionné ne soit pas accessible par l'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store."
+  "backupFailedDialogText" : "Échec de la sauvegarde\n\n{error}\n\nIl est possible que l'emplacement sélectionné ne soit pas accessible par l'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store.",
+  "watchboxFailedErrorDialog" : "Échec de la réouverture de la boîte à montres\n\n{error}\n\nCertaines erreurs peuvent être résolues en fermant et en redémarrant l'application.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store.",
+  "backupCompleteDialogTitle" : "Backup Complete",
+  "backupCompleteDialogText" : "WatchBox Data has been saved."
 }

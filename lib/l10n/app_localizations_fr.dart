@@ -788,4 +788,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String backupFailedDialogText(Object error) {
     return 'Échec de la sauvegarde\n\n$error\n\nIl est possible que l\'emplacement sélectionné ne soit pas accessible par l\'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l\'App Store.';
   }
+
+  @override
+  String watchboxFailedErrorDialog(Object error) {
+    return 'Échec de la réouverture de la boîte à montres\n\n$error\n\nCertaines erreurs peuvent être résolues en fermant et en redémarrant l\'application.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l\'App Store.';
+  }
+
+  @override
+  String get backupCompleteDialogTitle => 'Backup Complete';
+
+  @override
+  String get backupCompleteDialogText => 'WatchBox Data has been saved.';
 }

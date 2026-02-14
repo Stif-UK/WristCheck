@@ -781,4 +781,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String backupFailedDialogText(Object error) {
     return 'Backup Failed\n\n$error\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.';
   }
+
+  @override
+  String watchboxFailedErrorDialog(Object error) {
+    return 'Failed to re-open watchbox\n\n$error\n\nSome errors can be resolved by killing and restarting the application.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.';
+  }
+
+  @override
+  String get backupCompleteDialogTitle => 'Backup Complete';
+
+  @override
+  String get backupCompleteDialogText => 'WatchBox Data has been saved.';
 }

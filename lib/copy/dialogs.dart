@@ -159,20 +159,18 @@ class WristCheckDialogs {
 
   static getOpenWatchBoxFailed(String error){
     Get.defaultDialog(
-        title: "Error",
+        title: AppLocalizations.of(Get.context!)!.errorHeader,
         barrierDismissible: true,
-        middleText: "Failed to re-open watchbox\n\n"
-            "$error\n\n"
-            "Some errors can be resolved by killing and restarting the application.\n\n"
-            "If this doesn't work, please provide feedback to the developer via the app store."
+        middleText: AppLocalizations.of(Get.context!)!.watchboxFailedErrorDialog(error)
     );
   }
 
+  //TODO: Refactor to remove this and the calling function - sharebackup has deprecated this
   static getBackupSuccessDialog(){
     Get.defaultDialog(
-        title: "Backup Complete",
+        title: AppLocalizations.of(Get.context!)!.backupCompleteDialogTitle,
         barrierDismissible: true,
-        middleText: "WatchBox Data has been saved."
+        middleText: AppLocalizations.of(Get.context!)!.backupCompleteDialogText
     );
   }
 

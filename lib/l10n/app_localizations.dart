@@ -1459,6 +1459,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Backup Failed\n\n{error}\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.'**
   String backupFailedDialogText(Object error);
+
+  /// No description provided for @watchboxFailedErrorDialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to re-open watchbox\n\n{error}\n\nSome errors can be resolved by killing and restarting the application.\n\nIf this doesn\'t work, please provide feedback to the developer via the app store.'**
+  String watchboxFailedErrorDialog(Object error);
+
+  /// No description provided for @backupCompleteDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Complete'**
+  String get backupCompleteDialogTitle;
+
+  /// No description provided for @backupCompleteDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'WatchBox Data has been saved.'**
+  String get backupCompleteDialogText;
 }
 
 class _AppLocalizationsDelegate
