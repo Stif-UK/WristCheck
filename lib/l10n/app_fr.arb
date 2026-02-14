@@ -329,5 +329,10 @@
   "backupFailedDialogText" : "Échec de la sauvegarde\n\n{error}\n\nIl est possible que l'emplacement sélectionné ne soit pas accessible par l'application. Essayez avec un autre emplacement.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store.",
   "watchboxFailedErrorDialog" : "Échec de la réouverture de la boîte à montres\n\n{error}\n\nCertaines erreurs peuvent être résolues en fermant et en redémarrant l'application.\n\nSi cela ne fonctionne pas, merci de faire part de vos commentaires au développeur via l'App Store.",
   "backupCompleteDialogTitle" : "Backup Complete",
-  "backupCompleteDialogText" : "WatchBox Data has been saved."
+  "backupCompleteDialogText" : "WatchBox Data has been saved.",
+  "wristTrackUpdatedBottomSheetTitle" : "WristTrack vient d'être mis à jour...",
+  "futureDateErrorDialogText" : "Les dates de portée doivent être passées, veuillez sélectionner une autre date.",
+  "notificationSettingsHelpDialogTitle" : "Paramètres de notification",
+  "notificationsSettingsHelpDialogText" : "Lorsqu'elles sont activées, une notification se déclenchera quotidiennement à l'heure sélectionnée.",
+  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote : Certains fabricants d'appareils utilisent des versions personnalisées d'Android qui peuvent affecter la capacité de l'application à générer des notifications lorsqu'elle est en arrière-plan.\n\nMalheureusement, en tant que développeur, il n'y a pas grand-chose à faire pour empêcher cela.\n\nCe problème est connu pour affecter les téléphones Huawei et Xiaomi, mais peut également en concerner d'autres."
 }

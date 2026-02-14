@@ -1477,6 +1477,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WatchBox Data has been saved.'**
   String get backupCompleteDialogText;
+
+  /// No description provided for @wristTrackUpdatedBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack just updated...'**
+  String get wristTrackUpdatedBottomSheetTitle;
+
+  /// No description provided for @futureDateErrorDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear dates must be in the past, please select a different date.'**
+  String get futureDateErrorDialogText;
+
+  /// No description provided for @notificationSettingsHelpDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettingsHelpDialogTitle;
+
+  /// No description provided for @notificationsSettingsHelpDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled a notification will trigger daily at the selected time.'**
+  String get notificationsSettingsHelpDialogText;
+
+  /// No description provided for @notificationSettingsHelpDialogTextAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there\'s little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. '**
+  String get notificationSettingsHelpDialogTextAndroid;
 }
 
 class _AppLocalizationsDelegate

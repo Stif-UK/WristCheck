@@ -334,5 +334,10 @@
   "backupFailedDialogText" : "Backup Failed\n\n{error}\n\nIt could be that the selected location is not accessible to the application. Try with a different location.\n\nIf this doesn't work, please provide feedback to the developer via the app store.",
   "watchboxFailedErrorDialog" : "Failed to re-open watchbox\n\n{error}\n\nSome errors can be resolved by killing and restarting the application.\n\nIf this doesn't work, please provide feedback to the developer via the app store.",
   "backupCompleteDialogTitle" : "Backup Complete",
-  "backupCompleteDialogText" : "WatchBox Data has been saved."
+  "backupCompleteDialogText" : "WatchBox Data has been saved.",
+  "wristTrackUpdatedBottomSheetTitle" : "WristTrack just updated...",
+  "futureDateErrorDialogText" : "Wear dates must be in the past, please select a different date.",
+  "notificationSettingsHelpDialogTitle" : "Notification Settings",
+  "notificationsSettingsHelpDialogText" : "When enabled a notification will trigger daily at the selected time.",
+  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there's little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. "
 }

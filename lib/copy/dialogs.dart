@@ -191,7 +191,8 @@ class WristCheckDialogs {
                 color: Theme.of(Get.context!).textTheme.headlineMedium!.color ,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("WristTrack just updated...", style: Theme.of(Get.context!).textTheme.headlineMedium, textAlign: TextAlign.center,),
+                child: Text(AppLocalizations.of(Get.context!)!.wristTrackUpdatedBottomSheetTitle,
+                  style: Theme.of(Get.context!).textTheme.headlineMedium, textAlign: TextAlign.center,),
               ),
               Markdown(data: WhatsNewCopy.getLatestVersionCopy(),
               shrinkWrap: true,),
@@ -200,44 +201,24 @@ class WristCheckDialogs {
         )
       )
     );
-    // Get.defaultDialog(
-    //   title: "What's New?",
-    //   content: SizedBox(
-    //       width: (MediaQuery.of(context).size.width)*0.7,
-    //       height:(MediaQuery.of(context).size.width)*0.65,
-    //       child: Markdown(data: WhatsNewCopy.getLatestVersionCopy(),))
-    // );
   }
 
   static getFutureDateDialog(){
     Get.defaultDialog(
-      title: "Error",
-      middleText: "Wear dates must be in the past, please select a different date."
+      title: AppLocalizations.of(Get.context!)!.errorHeader,
+      middleText: AppLocalizations.of(Get.context!)!.futureDateErrorDialogText
     );
   }
-
-  //TODO: Refactor to remove this dialog as it is no longer used
-  // static getHiddenStats(int? _openCount, int? _wearCount, DateTime? _refDate){
-  //   Get.defaultDialog(
-  //       title: "Hidden Stats",
-  //       middleText: "You have opened this application $_openCount times\n\n"
-  //           "You have tracked wearing your watches $_wearCount times\n\n"
-  //           "Reference Date is set to: ${_refDate == null? "Not Set" : WristCheckFormatter.getFormattedDate(_refDate)}"
-  //   );
-  // }
 
   static getNotificationSettingsHelpDialog(){
     //If the platform is Android help text clarifies the potential for some manufacturers to block background notifications
     Platform.isAndroid? Get.defaultDialog(
-      title: "Notification Settings",
-      middleText: "When enabled a notification will trigger daily at the selected time.\n\n"
-          "Note: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\n"
-          "Unfortunately as a developer there's little that can be done to prevent this. \n\n"
-          "This is known to affect Huawei and Xiaomi phones, but may also affect others. "
+      title: AppLocalizations.of(Get.context!)!.notificationSettingsHelpDialogTitle,
+      middleText: "${AppLocalizations.of(Get.context!)!.notificationsSettingsHelpDialogText}${AppLocalizations.of(Get.context!)!.notificationSettingsHelpDialogTextAndroid}"
     ):
         Get.defaultDialog(
-            title: "Notification Settings",
-            middleText: "When enabled a notification will trigger daily at the selected time."
+            title: AppLocalizations.of(Get.context!)!.notificationSettingsHelpDialogTitle,
+            middleText: AppLocalizations.of(Get.context!)!.notificationsSettingsHelpDialogText
         );
   }
 

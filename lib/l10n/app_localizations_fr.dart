@@ -799,4 +799,24 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get backupCompleteDialogText => 'WatchBox Data has been saved.';
+
+  @override
+  String get wristTrackUpdatedBottomSheetTitle =>
+      'WristTrack vient d\'être mis à jour...';
+
+  @override
+  String get futureDateErrorDialogText =>
+      'Les dates de portée doivent être passées, veuillez sélectionner une autre date.';
+
+  @override
+  String get notificationSettingsHelpDialogTitle =>
+      'Paramètres de notification';
+
+  @override
+  String get notificationsSettingsHelpDialogText =>
+      'Lorsqu\'elles sont activées, une notification se déclenchera quotidiennement à l\'heure sélectionnée.';
+
+  @override
+  String get notificationSettingsHelpDialogTextAndroid =>
+      '\n\nNote : Certains fabricants d\'appareils utilisent des versions personnalisées d\'Android qui peuvent affecter la capacité de l\'application à générer des notifications lorsqu\'elle est en arrière-plan.\n\nMalheureusement, en tant que développeur, il n\'y a pas grand-chose à faire pour empêcher cela.\n\nCe problème est connu pour affecter les téléphones Huawei et Xiaomi, mais peut également en concerner d\'autres.';
 }

@@ -792,4 +792,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backupCompleteDialogText => 'WatchBox Data has been saved.';
+
+  @override
+  String get wristTrackUpdatedBottomSheetTitle => 'WristTrack just updated...';
+
+  @override
+  String get futureDateErrorDialogText =>
+      'Wear dates must be in the past, please select a different date.';
+
+  @override
+  String get notificationSettingsHelpDialogTitle => 'Notification Settings';
+
+  @override
+  String get notificationsSettingsHelpDialogText =>
+      'When enabled a notification will trigger daily at the selected time.';
+
+  @override
+  String get notificationSettingsHelpDialogTextAndroid =>
+      '\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there\'s little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. ';
 }
