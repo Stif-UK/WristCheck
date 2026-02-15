@@ -280,6 +280,21 @@
   "deleteImage" : "Delete Image",
   "imageBottomSheetTitle" : "{watchName}\nImage {count}",
 
+  "@_NOTIFICATIONS" : {},
+  "enableDailyWearReminder" : "Enable Daily Wear Reminder",
+  "morning" : "Morning (8am)",
+  "afternoon" : "Afternoon (12pm)",
+  "evening" : "Evening (6pm)",
+  "customTime" : "Custom Time",
+  "yourReminderIsSetForTime" : "Your daily reminder is scheduled for {hourTimeStamp}",
+  "yourSecondReminderIsSetFor" : "Your second reminder is set for {hourTimeStamp}",
+  "notificationTitle" : "WristTrack Reminder",
+  "notificationOneBody" : "Don't forget to track what's on your wrist today!",
+  "notificationConfirmationBody" : "Your notifications have now been scheduled for {hourTimeStamp} every day!",
+  "notificationTwoBody" : "It's time to track what's on your wrist!",
+  "notificationTwoConfirmationBody" : "Your second notification is set for {hourTimeStamp} every day!",
+  "enableSecondDailyWearReminder" : "Enable Second Daily Reminder",
+
 
 
   "@_VARIABLES": {},
@@ -298,6 +313,15 @@
       "timeStamp": {
         "type": "String",
         "example": "Sun, Feb 8, 2026 - 9:57:15 AM"
+      }
+    }
+  },
+  "@hourTimeStamp": {
+    "description": "A String representing a specific time of day",
+    "placeholders": {
+      "hourTimeStamp": {
+        "type": "String",
+        "example": "12:00"
       }
     }
   },

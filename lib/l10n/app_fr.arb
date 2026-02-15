@@ -274,6 +274,21 @@
   "deleteImage" : "Supprimer l'image",
   "imageBottomSheetTitle" : "{watchName}\nImage {count}",
 
+  "@_NOTIFICATIONS" : {},
+  "enableDailyWearReminder" : "Activer le rappel quotidien",
+  "morning" : "Matin (8h00)",
+  "afternoon" : "Après-midi (12h00)",
+  "evening" : "Soir (18h00)",
+  "customTime" : "Heure personnalisée",
+  "yourReminderIsSetForTime" : "Votre rappel quotidien est programmé pour {hourTimeStamp}",
+  "yourSecondReminderIsSetFor" : "Votre second rappel est programmé pour {hourTimeStamp}",
+  "notificationTitle" : "Rappel WristTrack",
+  "notificationOneBody" : "N'oubliez pas d'enregistrer la montre que vous portez aujourd'hui !",
+  "notificationConfirmationBody" : "Vos notifications sont maintenant programmées pour {hourTimeStamp} chaque jour !",
+  "notificationTwoBody" : "C'est l'heure d'enregistrer ce que vous portez au poignet !",
+  "notificationTwoConfirmationBody" : "Votre seconde notification est programmée pour {hourTimeStamp} chaque jour !",
+  "enableSecondDailyWearReminder" : "Activer un second rappel quotidien",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",
@@ -290,6 +305,15 @@
       "timeStamp": {
         "type": "String",
         "example": "dim. 8 fév. 2026 - 09:57:15"
+      }
+    }
+  },
+  "@hourTimeStamp": {
+    "description": "Une chaîne de caractères représentant une heure précise",
+    "placeholders": {
+      "hourTimeStamp": {
+        "type": "String",
+        "example": "12:00"
       }
     }
   },

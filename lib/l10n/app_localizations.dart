@@ -1472,6 +1472,84 @@ abstract class AppLocalizations {
   /// **'{watchName}\nImage {count}'**
   String imageBottomSheetTitle(Object count, Object watchName);
 
+  /// No description provided for @enableDailyWearReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Daily Wear Reminder'**
+  String get enableDailyWearReminder;
+
+  /// No description provided for @morning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning (8am)'**
+  String get morning;
+
+  /// No description provided for @afternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon (12pm)'**
+  String get afternoon;
+
+  /// No description provided for @evening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening (6pm)'**
+  String get evening;
+
+  /// No description provided for @customTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Time'**
+  String get customTime;
+
+  /// No description provided for @yourReminderIsSetForTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily reminder is scheduled for {hourTimeStamp}'**
+  String yourReminderIsSetForTime(Object hourTimeStamp);
+
+  /// No description provided for @yourSecondReminderIsSetFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Your second reminder is set for {hourTimeStamp}'**
+  String yourSecondReminderIsSetFor(Object hourTimeStamp);
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack Reminder'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationOneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t forget to track what\'s on your wrist today!'**
+  String get notificationOneBody;
+
+  /// No description provided for @notificationConfirmationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notifications have now been scheduled for {hourTimeStamp} every day!'**
+  String notificationConfirmationBody(Object hourTimeStamp);
+
+  /// No description provided for @notificationTwoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s time to track what\'s on your wrist!'**
+  String get notificationTwoBody;
+
+  /// No description provided for @notificationTwoConfirmationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your second notification is set for {hourTimeStamp} every day!'**
+  String notificationTwoConfirmationBody(Object hourTimeStamp);
+
+  /// No description provided for @enableSecondDailyWearReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Second Daily Reminder'**
+  String get enableSecondDailyWearReminder;
+
   /// Returns the number of times a watch has been worn
   ///
   /// In en, this message translates to:

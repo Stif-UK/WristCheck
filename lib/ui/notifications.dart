@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -74,7 +75,7 @@ class _NotificationsState extends State<Notifications> {
     _secondTime = _secondNotificationEnabled? WristCheckPreferences.getSecondNotificationTime() : null;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notification Settings"),
+        title: Text(AppLocalizations.of(context)!.notificationSettingsHelpDialogTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(closeOverlays: true),
@@ -95,7 +96,7 @@ class _NotificationsState extends State<Notifications> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SwitchListTile(
-                  title: const Text("Enable Daily Wear Reminder"),
+                  title: Text(AppLocalizations.of(context)!.enableDailyWearReminder),
                     secondary: const Icon(Icons.notifications_active),
                     value: _notificationsEnabled,
                     onChanged: (bool value) async {
@@ -129,7 +130,7 @@ class _NotificationsState extends State<Notifications> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ListTile(
-                      title: const Text("Morning (8am)"),
+                      title: Text(AppLocalizations.of(context)!.morning),
                       leading: Radio<NotificationTimeOptions>(
                         value: NotificationTimeOptions.morning,
                         groupValue: _notificationTime ,
@@ -144,7 +145,7 @@ class _NotificationsState extends State<Notifications> {
                       ),
                     ),
                     ListTile(
-                      title: const Text("Afternoon (12pm)"),
+                      title: Text(AppLocalizations.of(context)!.afternoon),
                       leading: Radio<NotificationTimeOptions>(
                         value: NotificationTimeOptions.afternoon,
                         groupValue: _notificationTime ,
@@ -159,7 +160,7 @@ class _NotificationsState extends State<Notifications> {
                       ),
                     ),
                     ListTile(
-                      title: const Text("Evening (6pm)"),
+                      title: Text(AppLocalizations.of(context)!.evening),
                       leading: Radio<NotificationTimeOptions>(
                         value: NotificationTimeOptions.evening,
                         groupValue: _notificationTime ,
@@ -174,7 +175,7 @@ class _NotificationsState extends State<Notifications> {
                       ),
                     ),
                     ListTile(
-                      title: const Text("Custom Time"),
+                      title: Text(AppLocalizations.of(context)!.customTime),
                       leading: Radio<NotificationTimeOptions>(
                         value: NotificationTimeOptions.custom,
                         groupValue: _notificationTime ,
@@ -195,13 +196,17 @@ class _NotificationsState extends State<Notifications> {
                 ):
                     //If notifications are off, just show a blank space
                     const SizedBox(height: 0,),
-                _selectedTime == null? const SizedBox(height: 0,): Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
+                _selectedTime == null? const SizedBox(height: 0,):
+                Text(AppLocalizations.of(context)!.yourReminderIsSetForTime(_selectedTime!.substring(10,_selectedTime!.length-1)),
+                //Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
                 style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
                 //2nd Daily Reminder for Pro users
                 Obx(() => _getSecondNotificationListTile(widget.wristCheckController.isAppPro.value)),
                 const Divider(thickness: 2,),
-                _secondNotificationEnabled ? Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}",
+                _secondNotificationEnabled ?
+                Text(AppLocalizations.of(context)!.yourSecondReminderIsSetFor(_secondTime!.substring(10, _secondTime!.length-1)),
+                // Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}",
                 style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold )) : const SizedBox(height: 0,),
                 _secondNotificationEnabled? const Divider(thickness: 2,) : const SizedBox(height: 0,),
 
@@ -219,9 +224,9 @@ class _NotificationsState extends State<Notifications> {
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
     _selectedTime = customTime.toString();
     await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
-    notificationService.showScheduledNotification(id: 1, title: "WristTrack Reminder", body: "Don't forget to track what's on your wrist today!", time: customTime!);
+    notificationService.showScheduledNotification(id: 1, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationOneBody, time: customTime!);
     String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
-    notificationService.showNotification(id: 0, title: "WristTrack Reminder", body: "Your notifications have now been scheduled for $timeString every day!");
+    notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationConfirmationBody(timeString));
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
@@ -229,16 +234,16 @@ class _NotificationsState extends State<Notifications> {
     Future<void> _setSecondNotification(TimeOfDay? customTime) async {
     _secondTime = customTime.toString();
     await WristCheckPreferences.setSecondNotificationTime(customTime.toString());
-    notificationService.showScheduledNotification(id: 2, title: "WristTrack Reminder", body: "It's time to track what's on your wrist!", time: customTime!);
+    notificationService.showScheduledNotification(id: 2, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoBody, time: customTime!);
     String timeString = _secondTime!.substring(10, _secondTime!.length-1);
-    notificationService.showNotification(id: 0, title: "WristTrack Reminder", body: "Your second notification is set for $timeString every day!");
+    notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoConfirmationBody(timeString));
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
   Widget _getSecondNotificationListTile(bool isAppPro){
 
     Icon tileIcon = Icon(Icons.notification_add);
-    Text tileTitle = Text("Enable Second Daily Reminder");
+    Text tileTitle = Text(AppLocalizations.of(context)!.enableSecondDailyWearReminder);
     return isAppPro? SwitchListTile(
       title: tileTitle,
       secondary: tileIcon,

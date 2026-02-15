@@ -764,6 +764,56 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get enableDailyWearReminder => 'Activer le rappel quotidien';
+
+  @override
+  String get morning => 'Matin (8h00)';
+
+  @override
+  String get afternoon => 'Après-midi (12h00)';
+
+  @override
+  String get evening => 'Soir (18h00)';
+
+  @override
+  String get customTime => 'Heure personnalisée';
+
+  @override
+  String yourReminderIsSetForTime(Object hourTimeStamp) {
+    return 'Votre rappel quotidien est programmé pour $hourTimeStamp';
+  }
+
+  @override
+  String yourSecondReminderIsSetFor(Object hourTimeStamp) {
+    return 'Votre second rappel est programmé pour $hourTimeStamp';
+  }
+
+  @override
+  String get notificationTitle => 'Rappel WristTrack';
+
+  @override
+  String get notificationOneBody =>
+      'N\'oubliez pas d\'enregistrer la montre que vous portez aujourd\'hui !';
+
+  @override
+  String notificationConfirmationBody(Object hourTimeStamp) {
+    return 'Vos notifications sont maintenant programmées pour $hourTimeStamp chaque jour !';
+  }
+
+  @override
+  String get notificationTwoBody =>
+      'C\'est l\'heure d\'enregistrer ce que vous portez au poignet !';
+
+  @override
+  String notificationTwoConfirmationBody(Object hourTimeStamp) {
+    return 'Votre seconde notification est programmée pour $hourTimeStamp chaque jour !';
+  }
+
+  @override
+  String get enableSecondDailyWearReminder =>
+      'Activer un second rappel quotidien';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

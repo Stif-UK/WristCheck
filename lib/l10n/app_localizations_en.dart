@@ -757,6 +757,55 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
+
+  @override
+  String get morning => 'Morning (8am)';
+
+  @override
+  String get afternoon => 'Afternoon (12pm)';
+
+  @override
+  String get evening => 'Evening (6pm)';
+
+  @override
+  String get customTime => 'Custom Time';
+
+  @override
+  String yourReminderIsSetForTime(Object hourTimeStamp) {
+    return 'Your daily reminder is scheduled for $hourTimeStamp';
+  }
+
+  @override
+  String yourSecondReminderIsSetFor(Object hourTimeStamp) {
+    return 'Your second reminder is set for $hourTimeStamp';
+  }
+
+  @override
+  String get notificationTitle => 'WristTrack Reminder';
+
+  @override
+  String get notificationOneBody =>
+      'Don\'t forget to track what\'s on your wrist today!';
+
+  @override
+  String notificationConfirmationBody(Object hourTimeStamp) {
+    return 'Your notifications have now been scheduled for $hourTimeStamp every day!';
+  }
+
+  @override
+  String get notificationTwoBody =>
+      'It\'s time to track what\'s on your wrist!';
+
+  @override
+  String notificationTwoConfirmationBody(Object hourTimeStamp) {
+    return 'Your second notification is set for $hourTimeStamp every day!';
+  }
+
+  @override
+  String get enableSecondDailyWearReminder => 'Enable Second Daily Reminder';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
