@@ -242,6 +242,12 @@
   "watchNameNextService" : "Prochaine révision : {watchName}",
   "watchNameWarrantyExpires" : "Expiration de la garantie : {watchName}",
 
+  "@_PRIVACY" : {},
+  "privacyPolicy" : "Politique de confidentialité",
+  "privacySettings" : "Paramètres de confidentialité",
+  "privacySettingsUpdated" : "Vos choix de confidentialité ont été mis à jour",
+  "privacyError" : "Une erreur est survenue lors de la mise à jour des paramètres de confidentialité - veuillez réessayer",
+
   "@_ONBOARDING" : {},
   "anAppForEnthusiasts" : "Une application pour les passionnés de montres. \nBalayez pour découvrir ce que WristTrack peut faire...",
   "yourDigitalWatchbox" : "Votre boîte à montres numérique",

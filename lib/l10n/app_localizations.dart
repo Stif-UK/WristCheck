@@ -1316,6 +1316,30 @@ abstract class AppLocalizations {
   /// **'{watchName} warranty expires'**
   String watchNameWarrantyExpires(Object watchName);
 
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @privacySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Settings'**
+  String get privacySettings;
+
+  /// No description provided for @privacySettingsUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Privacy choices have been updated'**
+  String get privacySettingsUpdated;
+
+  /// No description provided for @privacyError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred whilst attempting to update privacy settings - please try again'**
+  String get privacyError;
+
   /// No description provided for @anAppForEnthusiasts.
   ///
   /// In en, this message translates to:

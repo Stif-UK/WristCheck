@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/privacy/initialisation_helper.dart';
 import 'package:wristcheck/ui/PrivacyPolicy.dart';
 
@@ -16,24 +17,24 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Privacy"),
+        title: Text(AppLocalizations.of(context)!.privacy),
       ),
       body: Column(
         children: [
-          ListTile(title: const Text("Privacy Policy"),
+          ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy),
           leading: const Icon(Icons.privacy_tip_outlined),
           onTap: (){
             Get.to(() => PrivacyPolicy());
           }),
           const Divider(thickness: 2,),
-          ListTile(title: const Text("Privacy Settings"),
+          ListTile(title: Text(AppLocalizations.of(context)!.privacySettings),
           leading: const Icon(Icons.settings),
           onTap: () async{
             final scaffoldMessenger = ScaffoldMessenger.of(context);
             final didChangePreferences =
                 await _initialisationHelper.changePrivacyPreferences();
             scaffoldMessenger.showSnackBar(SnackBar(content: Text(
-              didChangePreferences? 'Your Privacy choices have been updated': 'An error occurred whilst attempting to update privacy settings - please try again'
+              didChangePreferences? AppLocalizations.of(context)!.privacySettingsUpdated : AppLocalizations.of(context)!.privacyError
             ),));
           },),
           const Divider(thickness: 2,),

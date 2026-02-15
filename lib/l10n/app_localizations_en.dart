@@ -670,6 +670,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get privacySettings => 'Privacy Settings';
+
+  @override
+  String get privacySettingsUpdated => 'Your Privacy choices have been updated';
+
+  @override
+  String get privacyError =>
+      'An error occurred whilst attempting to update privacy settings - please try again';
+
+  @override
   String get anAppForEnthusiasts =>
       'An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...';
 

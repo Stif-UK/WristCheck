@@ -676,6 +676,20 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get privacyPolicy => 'Politique de confidentialité';
+
+  @override
+  String get privacySettings => 'Paramètres de confidentialité';
+
+  @override
+  String get privacySettingsUpdated =>
+      'Vos choix de confidentialité ont été mis à jour';
+
+  @override
+  String get privacyError =>
+      'Une erreur est survenue lors de la mise à jour des paramètres de confidentialité - veuillez réessayer';
+
+  @override
   String get anAppForEnthusiasts =>
       'Une application pour les passionnés de montres. \nBalayez pour découvrir ce que WristTrack peut faire...';
 

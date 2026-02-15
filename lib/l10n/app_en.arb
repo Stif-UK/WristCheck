@@ -246,6 +246,14 @@
   "watchNameNextService" : "{watchName} next service due",
   "watchNameWarrantyExpires" : "{watchName} warranty expires",
 
+  "@_PRIVACY" : {},
+  "privacyPolicy" : "Privacy Policy",
+  "privacySettings" : "Privacy Settings",
+  "privacySettingsUpdated" : "Your Privacy choices have been updated",
+  "privacyError" : "An error occurred whilst attempting to update privacy settings - please try again",
+
+
+
   "@_ONBOARDING" : {},
   "anAppForEnthusiasts" : "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...",
   "yourDigitalWatchbox" : "Your Digital Watchbox",
