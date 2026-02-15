@@ -274,6 +274,13 @@
   "skip" : "SKIP",
   "next" : "NEXT",
 
+  "@_IMAGES" : {},
+  "primaryImage" : "Primary Image",
+  "updateImage" : "Update Image",
+  "deleteImage" : "Delete Image",
+  "imageBottomSheetTitle" : "{watchName}\nImage {count}",
+
+
 
   "@_VARIABLES": {},
   "@watchName": {

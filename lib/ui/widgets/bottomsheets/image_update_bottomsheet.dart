@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -31,7 +32,8 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text("${watch.toString()}\nImage ${index + 1}",
+                  //child: Text("${watch.toString()}\nImage ${index + 1}",
+                   child: Text(AppLocalizations.of(context)!.imageBottomSheetTitle(index+1, watch.toString()),
                     style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,),
                 ),
@@ -40,7 +42,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             ListTile(
-                title: Text("Primary Image"),
+                title: Text(AppLocalizations.of(context)!.primaryImage),
                 trailing: primaryIndex == index? Icon(FontAwesomeIcons.solidStar, color: Colors.blue,) : Icon(FontAwesomeIcons.star, color: Colors.blue,),
                 onTap: () async {
                   Navigator.pop(context);
@@ -49,7 +51,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             ),
             const Divider(thickness: 2,),
             ListTile(
-              title: Text("Update Image"),
+              title: Text(AppLocalizations.of(context)!.updateImage),
               trailing: Icon(FontAwesomeIcons.repeat, color: Colors.green,),
               onTap: () async {
                 Navigator.pop(context);
@@ -58,13 +60,13 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             ),
             const Divider(thickness: 2,),
             ListTile(
-              title: Text("Delete Image"),
+              title: Text(AppLocalizations.of(context)!.deleteImage),
               trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),
               onTap: ()=> WristCheckDialogs.showImageDeleteDialog(context, watch, index),
             ),
             const Divider(thickness: 2,),
             ListTile(
-              title: Text("Cancel"),
+              title: Text(AppLocalizations.of(context)!.cancel),
               onTap: ()=> Navigator.pop(context),
               trailing: Icon(FontAwesomeIcons.ban),
             )

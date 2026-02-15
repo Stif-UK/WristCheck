@@ -750,6 +750,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get next => 'SUIVANT';
 
   @override
+  String get primaryImage => 'Image principale';
+
+  @override
+  String get updateImage => 'Modifier l\'image';
+
+  @override
+  String get deleteImage => 'Supprimer l\'image';
+
+  @override
+  String imageBottomSheetTitle(Object count, Object watchName) {
+    return '$watchName\nImage $count';
+  }
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

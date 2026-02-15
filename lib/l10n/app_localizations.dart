@@ -1448,6 +1448,30 @@ abstract class AppLocalizations {
   /// **'NEXT'**
   String get next;
 
+  /// No description provided for @primaryImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Image'**
+  String get primaryImage;
+
+  /// No description provided for @updateImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Image'**
+  String get updateImage;
+
+  /// No description provided for @deleteImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Image'**
+  String get deleteImage;
+
+  /// No description provided for @imageBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName}\nImage {count}'**
+  String imageBottomSheetTitle(Object count, Object watchName);
+
   /// Returns the number of times a watch has been worn
   ///
   /// In en, this message translates to:
