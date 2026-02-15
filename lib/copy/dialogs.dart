@@ -335,9 +335,9 @@ class WristCheckDialogs {
 
   static getSoldStatusPopup(){
     Get.defaultDialog(
-      title: "Sold Watches",
+      title: AppLocalizations.of(Get.context!)!.soldWatches,
       barrierDismissible: true,
-      middleText: "You're marking this watch as sold:\n\nYou can now add a sold date, sale price and information on the buyer under the schedule and value tabs.",
+      middleText: AppLocalizations.of(Get.context!)!.soldStatusPopupDialogText,
       textCancel: AppLocalizations.of(Get.context!)!.dontShowThisMessageAgain,
       textConfirm: AppLocalizations.of(Get.context!)!.ok,
       onConfirm: (){
@@ -352,9 +352,9 @@ class WristCheckDialogs {
 
   static getPreOrderStatusPopUp(){
     Get.defaultDialog(
-        title: "Pre-Ordered Watches",
+        title: AppLocalizations.of(Get.context!)!.preorderStatusPopupDialogTitle,
         barrierDismissible: true,
-        middleText: "You're marking this watch as Pre-Ordered:\n\nYou can now add a due date on the schedule tab.\nThis will enable a countdown to the given date.",
+        middleText: AppLocalizations.of(Get.context!)!.preorderStatusPopupDialogText,
         textCancel: AppLocalizations.of(Get.context!)!.dontShowThisMessageAgain,
         textConfirm: AppLocalizations.of(Get.context!)!.ok,
         onConfirm: (){
@@ -369,63 +369,62 @@ class WristCheckDialogs {
 
   static getNoImagesFoundDialog() {
     Get.defaultDialog(
-        title: "No Images Found",
-        middleText: "No backup has been generated as no watch images were identified"
+        title: AppLocalizations.of(Get.context!)!.noImagesFoundPopupTitle,
+        middleText: AppLocalizations.of(Get.context!)!.noImagesFoundPopupText
     );
   }
 
   static getFailedToBackupImages(Exception e){
     Get.defaultDialog(
-      title: "Failed to Backup Images",
-      middleText: "Failed to backup images, the following error was returned:\n"
-          "${e.toString()}"
+      title: AppLocalizations.of(Get.context!)!.failedToPickImageDialogTitle,
+      middleText: AppLocalizations.of(Get.context!)!.failedToBackupImagesDialogText(e.toString())
     );
   }
 
   static getImageBackupSuccessDialog(int count){
     Get.defaultDialog(
-        title: "Success!",
-        middleText: "$count Images successfully backed up"
+        title: AppLocalizations.of(Get.context!)!.success,
+        middleText: AppLocalizations.of(Get.context!)!.imageBackupSuccessDialogText(count)
     );
   }
 
   static getWatchboxBackupSuccessDialog(){
     Get.defaultDialog(
-        title: "Success!",
-        middleText: "Watchbox successfully backed up"
+        title: AppLocalizations.of(Get.context!)!.success,
+        middleText: AppLocalizations.of(Get.context!)!.watchboxSuccessfullyBackedUpText
     );
   }
 
   static getExtractSuccessDialog(){
     Get.defaultDialog(
-        title: "Success!",
-        middleText: "Extract Successfully Created"
+        title: AppLocalizations.of(Get.context!)!.success,
+        middleText: AppLocalizations.of(Get.context!)!.extractSuccessfullyCreatedDialogText
     );
   }
 
   static getGeneralErrorDialog(Exception e){
     Get.defaultDialog(
-      title: "Something went wrong!",
-      middleText: "An unexpected error occured with message: $e",
+      title: AppLocalizations.of(Get.context!)!.generalErrorDialogTitle,
+      middleText: AppLocalizations.of(Get.context!)!.generalErrorDialogText(e),
     );
   }
 
   static getProUpgradeMessage(BuildContext context){
     Get.defaultDialog(
-      title: "Pro Feature",
+      title: AppLocalizations.of(Get.context!)!.proFeature,
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:50.0,width:50.0, color: Theme.of(context).hintColor),
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Text("This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.",
+            child: Text(AppLocalizations.of(Get.context!)!.proDialogText,
               textAlign: TextAlign.center,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: ElevatedButton(child: Text("Tell me more"),
+            child: ElevatedButton(child: Text(AppLocalizations.of(Get.context!)!.tellMeMore),
             onPressed: () {
               Get.back();
               Get.to(() => RemoveAds());

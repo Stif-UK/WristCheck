@@ -359,6 +359,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dontShowThisMessageAgain => 'Don\'t show this message again';
 
   @override
+  String get success => 'Success!';
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -411,6 +414,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wristTrackProFeature => 'WristTrack Pro Feature';
+
+  @override
+  String get proFeature => 'Pro Feature';
 
   @override
   String get track => 'Track';
@@ -863,4 +869,55 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get setupDailyRemindersDialogText =>
       'WristTrack can send you a daily reminder to track what you\'re wearing\n\nWould you like to set one up?\n\n(This can be found at any time in the settings menu)';
+
+  @override
+  String get soldStatusPopupDialogText =>
+      'You\'re marking this watch as sold:\n\nYou can now add a sold date, sale price and information on the buyer under the schedule and value tabs.';
+
+  @override
+  String get preorderStatusPopupDialogTitle => 'Pre-Ordered Watches';
+
+  @override
+  String get preorderStatusPopupDialogText =>
+      'You\'re marking this watch as Pre-Ordered:\n\nYou can now add a due date on the schedule tab.\nThis will enable a countdown to the given date.';
+
+  @override
+  String get noImagesFoundPopupTitle => 'No Images Found';
+
+  @override
+  String get noImagesFoundPopupText =>
+      'No backup has been generated as no watch images were identified';
+
+  @override
+  String get failedToBackupImagesDialogTitle => 'Failed to Backup Images';
+
+  @override
+  String failedToBackupImagesDialogText(Object error) {
+    return 'Failed to backup images, the following error was returned:\n$error';
+  }
+
+  @override
+  String imageBackupSuccessDialogText(Object count) {
+    return '$count Images successfully backed up';
+  }
+
+  @override
+  String get watchboxSuccessfullyBackedUpText =>
+      'Watchbox successfully backed up';
+
+  @override
+  String get extractSuccessfullyCreatedDialogText =>
+      'Extract Successfully Created';
+
+  @override
+  String get generalErrorDialogTitle => 'Something went wrong!';
+
+  @override
+  String generalErrorDialogText(Object error) {
+    return 'An unexpected error occured with message: $error';
+  }
+
+  @override
+  String get proDialogText =>
+      'This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.';
 }

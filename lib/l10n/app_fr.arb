@@ -139,6 +139,7 @@
   "deleting" : "Suppression en cours",
   "errorHeader" : "Erreur",
   "dontShowThisMessageAgain" : "Ne plus afficher ce message",
+  "success" : "Succès !",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -161,6 +162,7 @@
 
   "@_PRO_AND_PURCHASE": {},
   "wristTrackProFeature" : "Fonctionnalité WristTrack Pro",
+  "proFeature" : "Fonctionnalité Pro",
 
   "@_CALENDARS": {},
   "track" : "Suivre",
@@ -280,6 +282,15 @@
       }
     }
   },
+  "@count" : {
+    "description": "Un entier passé pour représenter une valeur comptée",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
   "nWears": "{count, plural, =0{Aucune portée enregistrée} =1{Portée 1 fois} other{Portée {count} fois}}",
   "@nWears": {
     "description": "Retourne le nombre de fois qu'une montre a été portée",
@@ -349,5 +360,18 @@
   "failedToPickImageDialogTitle" : "Échec de la sélection de l'image",
   "failedToPickImageDialogText" : "La plateforme a rencontré une erreur :\n\n{error}",
   "setupDailyReminderDialogTitle" : "Configurer les rappels quotidiens",
-  "setupDailyRemindersDialogText" : "WristTrack peut vous envoyer un rappel quotidien pour enregistrer la montre que vous portez.\n\nSouhaitez-vous en configurer un ?\n\n(Vous pouvez retrouver ce réglage à tout moment dans le menu des paramètres)"
+  "setupDailyRemindersDialogText" : "WristTrack peut vous envoyer un rappel quotidien pour enregistrer la montre que vous portez.\n\nSouhaitez-vous en configurer un ?\n\n(Vous pouvez retrouver ce réglage à tout moment dans le menu des paramètres)",
+  "soldStatusPopupDialogText" : "Vous marquez cette montre comme vendue :\n\nVous pouvez maintenant ajouter une date de vente, un prix de vente et des informations sur l'acheteur dans les onglets « Calendrier » et « Valeur ».",
+  "preorderStatusPopupDialogTitle" : "Montres en précommande",
+  "preorderStatusPopupDialogText" : "Vous marquez cette montre comme précommandée :\n\nVous pouvez maintenant ajouter une date d'échéance dans l'onglet « Calendrier ».\nCela activera un compte à rebours jusqu'à la date prévue.",
+  "noImagesFoundPopupTitle" : "Aucune image trouvée",
+  "noImagesFoundPopupText" : "Aucune sauvegarde n'a été générée car aucune image de montre n'a été identifiée.",
+  "failedToBackupImagesDialogTitle" : "Échec de la sauvegarde des images",
+  "failedToBackupImagesDialogText" : "Impossible de sauvegarder les images, l'erreur suivante a été renvoyée :\n{error}",
+  "imageBackupSuccessDialogText" : "{count} images sauvegardées avec succès",
+  "watchboxSuccessfullyBackedUpText" : "Boîte à montres sauvegardée avec succès",
+  "extractSuccessfullyCreatedDialogText" : "Extraction créée avec succès",
+  "generalErrorDialogTitle" : "Une erreur est survenue !",
+  "generalErrorDialogText" : "Une erreur inattendue s'est produite avec le message : {error}",
+  "proDialogText" : "Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous."
 }

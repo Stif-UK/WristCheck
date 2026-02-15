@@ -361,6 +361,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dontShowThisMessageAgain => 'Ne plus afficher ce message';
 
   @override
+  String get success => 'Succès !';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override
@@ -414,6 +417,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wristTrackProFeature => 'Fonctionnalité WristTrack Pro';
+
+  @override
+  String get proFeature => 'Fonctionnalité Pro';
 
   @override
   String get track => 'Suivre';
@@ -874,4 +880,56 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get setupDailyRemindersDialogText =>
       'WristTrack peut vous envoyer un rappel quotidien pour enregistrer la montre que vous portez.\n\nSouhaitez-vous en configurer un ?\n\n(Vous pouvez retrouver ce réglage à tout moment dans le menu des paramètres)';
+
+  @override
+  String get soldStatusPopupDialogText =>
+      'Vous marquez cette montre comme vendue :\n\nVous pouvez maintenant ajouter une date de vente, un prix de vente et des informations sur l\'acheteur dans les onglets « Calendrier » et « Valeur ».';
+
+  @override
+  String get preorderStatusPopupDialogTitle => 'Montres en précommande';
+
+  @override
+  String get preorderStatusPopupDialogText =>
+      'Vous marquez cette montre comme précommandée :\n\nVous pouvez maintenant ajouter une date d\'échéance dans l\'onglet « Calendrier ».\nCela activera un compte à rebours jusqu\'à la date prévue.';
+
+  @override
+  String get noImagesFoundPopupTitle => 'Aucune image trouvée';
+
+  @override
+  String get noImagesFoundPopupText =>
+      'Aucune sauvegarde n\'a été générée car aucune image de montre n\'a été identifiée.';
+
+  @override
+  String get failedToBackupImagesDialogTitle =>
+      'Échec de la sauvegarde des images';
+
+  @override
+  String failedToBackupImagesDialogText(Object error) {
+    return 'Impossible de sauvegarder les images, l\'erreur suivante a été renvoyée :\n$error';
+  }
+
+  @override
+  String imageBackupSuccessDialogText(Object count) {
+    return '$count images sauvegardées avec succès';
+  }
+
+  @override
+  String get watchboxSuccessfullyBackedUpText =>
+      'Boîte à montres sauvegardée avec succès';
+
+  @override
+  String get extractSuccessfullyCreatedDialogText =>
+      'Extraction créée avec succès';
+
+  @override
+  String get generalErrorDialogTitle => 'Une erreur est survenue !';
+
+  @override
+  String generalErrorDialogText(Object error) {
+    return 'Une erreur inattendue s\'est produite avec le message : $error';
+  }
+
+  @override
+  String get proDialogText =>
+      'Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous.';
 }

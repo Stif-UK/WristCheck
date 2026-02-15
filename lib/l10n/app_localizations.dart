@@ -788,6 +788,12 @@ abstract class AppLocalizations {
   /// **'Don\'t show this message again'**
   String get dontShowThisMessageAgain;
 
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success!'**
+  String get success;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -895,6 +901,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WristTrack Pro Feature'**
   String get wristTrackProFeature;
+
+  /// No description provided for @proFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Feature'**
+  String get proFeature;
 
   /// No description provided for @track.
   ///
@@ -1597,6 +1609,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WristTrack can send you a daily reminder to track what you\'re wearing\n\nWould you like to set one up?\n\n(This can be found at any time in the settings menu)'**
   String get setupDailyRemindersDialogText;
+
+  /// No description provided for @soldStatusPopupDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re marking this watch as sold:\n\nYou can now add a sold date, sale price and information on the buyer under the schedule and value tabs.'**
+  String get soldStatusPopupDialogText;
+
+  /// No description provided for @preorderStatusPopupDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Ordered Watches'**
+  String get preorderStatusPopupDialogTitle;
+
+  /// No description provided for @preorderStatusPopupDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re marking this watch as Pre-Ordered:\n\nYou can now add a due date on the schedule tab.\nThis will enable a countdown to the given date.'**
+  String get preorderStatusPopupDialogText;
+
+  /// No description provided for @noImagesFoundPopupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Images Found'**
+  String get noImagesFoundPopupTitle;
+
+  /// No description provided for @noImagesFoundPopupText.
+  ///
+  /// In en, this message translates to:
+  /// **'No backup has been generated as no watch images were identified'**
+  String get noImagesFoundPopupText;
+
+  /// No description provided for @failedToBackupImagesDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Backup Images'**
+  String get failedToBackupImagesDialogTitle;
+
+  /// No description provided for @failedToBackupImagesDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to backup images, the following error was returned:\n{error}'**
+  String failedToBackupImagesDialogText(Object error);
+
+  /// No description provided for @imageBackupSuccessDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Images successfully backed up'**
+  String imageBackupSuccessDialogText(Object count);
+
+  /// No description provided for @watchboxSuccessfullyBackedUpText.
+  ///
+  /// In en, this message translates to:
+  /// **'Watchbox successfully backed up'**
+  String get watchboxSuccessfullyBackedUpText;
+
+  /// No description provided for @extractSuccessfullyCreatedDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Extract Successfully Created'**
+  String get extractSuccessfullyCreatedDialogText;
+
+  /// No description provided for @generalErrorDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong!'**
+  String get generalErrorDialogTitle;
+
+  /// No description provided for @generalErrorDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occured with message: {error}'**
+  String generalErrorDialogText(Object error);
+
+  /// No description provided for @proDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.'**
+  String get proDialogText;
 }
 
 class _AppLocalizationsDelegate
