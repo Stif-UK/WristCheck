@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/copy/copy.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class AccuracyHelpBottomsheet extends StatelessWidget {
   const AccuracyHelpBottomsheet({super.key});
@@ -22,7 +23,7 @@ class AccuracyHelpBottomsheet extends StatelessWidget {
               //Header#
                 Row(
                   children: [
-                    Expanded(child: Text("Watch Accuracy", style: Theme.of(context).textTheme.headlineSmall,
+                    Expanded(child: Text(AppLocalizations.of(context)!.watchAccuracy, style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,)),
                     IconButton(icon: Icon(FontAwesomeIcons.x),
                     onPressed: Get.back,)

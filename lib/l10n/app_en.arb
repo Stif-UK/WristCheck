@@ -200,6 +200,7 @@
   "allDatesWorn" : "All dates worn",
 
   "@_ACCURACY": {},
+  "watchAccuracy" : "Watch Accuracy",
   "accuracyTracker" : "Accuracy Tracker",
   "timeSynced" : "Time synced with server: \n{timeStamp}",
   "showAccuracyResultsOptions" : "Show results in seconds per:",

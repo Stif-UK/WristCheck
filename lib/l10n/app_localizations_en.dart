@@ -518,6 +518,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allDatesWorn => 'All dates worn';
 
   @override
+  String get watchAccuracy => 'Watch Accuracy';
+
+  @override
   String get accuracyTracker => 'Accuracy Tracker';
 
   @override

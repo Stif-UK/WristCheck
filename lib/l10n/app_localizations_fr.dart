@@ -523,6 +523,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get allDatesWorn => 'Toutes les dates de portée';
 
   @override
+  String get watchAccuracy => 'Précision de la montre';
+
+  @override
   String get accuracyTracker => 'Suivi de précision';
 
   @override

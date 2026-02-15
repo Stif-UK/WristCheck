@@ -196,6 +196,7 @@
   "allDatesWorn" : "Toutes les dates de portée",
 
   "@_ACCURACY": {},
+  "watchAccuracy" : "Précision de la montre",
   "accuracyTracker" : "Suivi de précision",
   "timeSynced" : "Heure synchronisée avec le serveur : \n{timeStamp}",
   "showAccuracyResultsOptions" : "Afficher les résultats en secondes par :",

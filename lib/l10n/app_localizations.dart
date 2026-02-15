@@ -1082,6 +1082,12 @@ abstract class AppLocalizations {
   /// **'All dates worn'**
   String get allDatesWorn;
 
+  /// No description provided for @watchAccuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Accuracy'**
+  String get watchAccuracy;
+
   /// No description provided for @accuracyTracker.
   ///
   /// In en, this message translates to:
