@@ -224,16 +224,15 @@ class WristCheckDialogs {
 
   static getWearDatesHelpDialog() {
     Get.defaultDialog(
-        title: "Wear History",
-        middleText: "This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\n"
-            "To add or delete wear dates directly, long press on an individual date."
+        title: AppLocalizations.of(Get.context!)!.wearDatesHelpDialogTitle,
+        middleText: AppLocalizations.of(Get.context!)!.wearDatesHelpDialogText
 
     );
   }
 
   static showImageDeleteDialog(BuildContext context, Watches currentWatch, int index) {
     Widget deleteButton = ElevatedButton(
-        child: Text("Delete Image"),
+        child: Text(AppLocalizations.of(Get.context!)!.deleteImageDialogTitle),
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
     onPressed: () async {
           await ImagesUtil.deleteImageAndUpdateView(currentWatch, index);
@@ -247,13 +246,13 @@ class WristCheckDialogs {
     // set up the cancel button
     //TODO: Create buttons for reuse across the app
     Widget cancelButton = ElevatedButton(
-      child: Text("Cancel"),
+      child: Text(AppLocalizations.of(Get.context!)!.cancel),
       onPressed: ()=> Navigator.pop(context),
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text("Delete Image"),
-      content: Text("Do you want to delete this image?\nThis cannot be undone"),
+      title: Text(AppLocalizations.of(Get.context!)!.deleteImageDialogTitle),
+      content: Text(AppLocalizations.of(Get.context!)!.deleteImageDialogText),
       actions: [
         cancelButton,
         deleteButton
@@ -273,7 +272,7 @@ class WristCheckDialogs {
     final watchViewController = Get.put(WatchViewController());
     // set up the delete button
     Widget deleteButton = ElevatedButton(
-      child: Text("Delete Watch"),
+      child: Text(AppLocalizations.of(Get.context!)!.deleteWatchTitle),
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
       onPressed: () async {
         await WatchMethods.archiveWatch(currentWatch);
@@ -281,20 +280,20 @@ class WristCheckDialogs {
         watchViewController.updateOverrideBacknav(true);
         Get.back(closeOverlays: true);
         Get.back();
-        Get.snackbar("Watch Deleted", "${currentWatch.toString()} has been moved to the Archive");
+        Get.snackbar(AppLocalizations.of(Get.context!)!.deleteWatchSnackbarConfirmation, AppLocalizations.of(Get.context!)!.deleteWatchSnackbarText(currentWatch.toString()));
       },
     );
 
     // set up the cancel button
     Widget cancelButton = ElevatedButton(
-      child: Text("Cancel"),
+      child: Text(AppLocalizations.of(Get.context!)!.cancel),
       onPressed: ()=> Navigator.pop(context),
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Delete Watch"),
-      content: Text("Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)"),
+      title: Text(AppLocalizations.of(Get.context!)!.deleteWatchTitle),
+      content: Text(AppLocalizations.of(Get.context!)!.deleteWatchDialogText),
       actions: [
         cancelButton,
         deleteButton
@@ -312,9 +311,8 @@ class WristCheckDialogs {
 
   static getFailedToPickImageDialog(PlatformException e){
     Get.defaultDialog(
-      title: "Failed to Pick Image",
-      middleText: "The platform encountered an error:\n\n"
-          "${e.toString()}"
+      title: AppLocalizations.of(Get.context!)!.failedToPickImageDialogTitle,
+      middleText: AppLocalizations.of(Get.context!)!.failedToPickImageDialogText(e.toString())
     );
 
 
@@ -322,12 +320,10 @@ class WristCheckDialogs {
 
   static getSetupNotificationsDialog(BuildContext context){
     Get.defaultDialog(
-      title: "Setup Daily Reminders",
-      middleText: "WristTrack can send you a daily reminder to track what you're wearing\n\n"
-          "Would you like to set one up?\n\n"
-          "(This can be found at any time in the settings menu)",
-      textConfirm: "Yes",
-      textCancel: "No Thanks",
+      title: AppLocalizations.of(Get.context!)!.setupDailyReminderDialogTitle,
+      middleText: AppLocalizations.of(Get.context!)!.setupDailyRemindersDialogText,
+      textConfirm: AppLocalizations.of(Get.context!)!.yes,
+      textCancel: AppLocalizations.of(Get.context!)!.noThanks,
       confirmTextColor: Colors.white,
       buttonColor: Colors.lightBlueAccent,
       onConfirm: () => Get.to(Notifications()),
@@ -342,8 +338,8 @@ class WristCheckDialogs {
       title: "Sold Watches",
       barrierDismissible: true,
       middleText: "You're marking this watch as sold:\n\nYou can now add a sold date, sale price and information on the buyer under the schedule and value tabs.",
-      textCancel: "Don't show this message again",
-      textConfirm: "OK",
+      textCancel: AppLocalizations.of(Get.context!)!.dontShowThisMessageAgain,
+      textConfirm: AppLocalizations.of(Get.context!)!.ok,
       onConfirm: (){
         Get.back();
       },
@@ -359,8 +355,8 @@ class WristCheckDialogs {
         title: "Pre-Ordered Watches",
         barrierDismissible: true,
         middleText: "You're marking this watch as Pre-Ordered:\n\nYou can now add a due date on the schedule tab.\nThis will enable a countdown to the given date.",
-        textCancel: "Don't show this message again",
-        textConfirm: "OK",
+        textCancel: AppLocalizations.of(Get.context!)!.dontShowThisMessageAgain,
+        textConfirm: AppLocalizations.of(Get.context!)!.ok,
         onConfirm: (){
           Get.back();
         },
@@ -436,7 +432,7 @@ class WristCheckDialogs {
             }
             ),
           ),
-          TextButton(child: Text("Cancel"),
+          TextButton(child: Text(AppLocalizations.of(Get.context!)!.cancel),
           onPressed: () => Get.back(),)
         ],
       )

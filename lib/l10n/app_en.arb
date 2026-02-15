@@ -133,6 +133,8 @@
   "noDataRecorded" : "No Data Recorded",
   "warning" : "Warning",
   "ok" : "OK",
+  "yes" : "Yes",
+  "noThanks" : "No Thanks",
   "cancel" : "Cancel",
   "tellMeMore" : "Tell me more",
   "soldSuffix" : "(Sold)",
@@ -140,6 +142,7 @@
   "watchColon" : "Watch:",
   "deleting" : "Deleting",
   "errorHeader" : "Error",
+  "dontShowThisMessageAgain" : "Don't show this message again",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -339,5 +342,17 @@
   "futureDateErrorDialogText" : "Wear dates must be in the past, please select a different date.",
   "notificationSettingsHelpDialogTitle" : "Notification Settings",
   "notificationsSettingsHelpDialogText" : "When enabled a notification will trigger daily at the selected time.",
-  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there's little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. "
+  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there's little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. ",
+  "wearDatesHelpDialogTitle" : "Wear History",
+  "wearDatesHelpDialogText" : "This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\nTo add or delete wear dates directly, long press on an individual date.",
+  "deleteImageDialogTitle" : "Delete Image",
+  "deleteImageDialogText" : "Do you want to delete this image?\nThis cannot be undone",
+  "deleteWatchTitle" : "Delete Watch",
+  "deleteWatchDialogText" : "Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)",
+  "deleteWatchSnackbarConfirmation" : "Watch Deleted",
+  "deleteWatchSnackbarText" : "{watchName} has been moved to the Archive",
+  "failedToPickImageDialogTitle" : "Failed to Pick Image",
+  "failedToPickImageDialogText" : "The platform encountered an error:\n\n{error}",
+  "setupDailyReminderDialogTitle" : "Setup Daily Reminders",
+  "setupDailyRemindersDialogText" : "WristTrack can send you a daily reminder to track what you're wearing\n\nWould you like to set one up?\n\n(This can be found at any time in the settings menu)"
 }

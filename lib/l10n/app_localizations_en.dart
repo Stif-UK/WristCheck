@@ -329,6 +329,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'OK';
 
   @override
+  String get yes => 'Yes';
+
+  @override
+  String get noThanks => 'No Thanks';
+
+  @override
   String get cancel => 'Cancel';
 
   @override
@@ -348,6 +354,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorHeader => 'Error';
+
+  @override
+  String get dontShowThisMessageAgain => 'Don\'t show this message again';
 
   @override
   String get backupRestore => 'Backup / Restore Database';
@@ -810,4 +819,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationSettingsHelpDialogTextAndroid =>
       '\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there\'s little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. ';
+
+  @override
+  String get wearDatesHelpDialogTitle => 'Wear History';
+
+  @override
+  String get wearDatesHelpDialogText =>
+      'This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\nTo add or delete wear dates directly, long press on an individual date.';
+
+  @override
+  String get deleteImageDialogTitle => 'Delete Image';
+
+  @override
+  String get deleteImageDialogText =>
+      'Do you want to delete this image?\nThis cannot be undone';
+
+  @override
+  String get deleteWatchTitle => 'Delete Watch';
+
+  @override
+  String get deleteWatchDialogText =>
+      'Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)';
+
+  @override
+  String get deleteWatchSnackbarConfirmation => 'Watch Deleted';
+
+  @override
+  String deleteWatchSnackbarText(Object watchName) {
+    return '$watchName has been moved to the Archive';
+  }
+
+  @override
+  String get failedToPickImageDialogTitle => 'Failed to Pick Image';
+
+  @override
+  String failedToPickImageDialogText(Object error) {
+    return 'The platform encountered an error:\n\n$error';
+  }
+
+  @override
+  String get setupDailyReminderDialogTitle => 'Setup Daily Reminders';
+
+  @override
+  String get setupDailyRemindersDialogText =>
+      'WristTrack can send you a daily reminder to track what you\'re wearing\n\nWould you like to set one up?\n\n(This can be found at any time in the settings menu)';
 }

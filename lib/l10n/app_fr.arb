@@ -129,6 +129,8 @@
   "noDataRecorded" : "Aucune donnée",
   "warning" : "Attention",
   "ok" : "OK",
+  "yes" : "Oui",
+  "noThanks" : "Non merci",
   "cancel" : "Annuler",
   "tellMeMore" : "En savoir plus",
   "soldSuffix" : "(Vendu)",
@@ -136,6 +138,7 @@
   "watchColon" : "Montre : ",
   "deleting" : "Suppression en cours",
   "errorHeader" : "Erreur",
+  "dontShowThisMessageAgain" : "Ne plus afficher ce message",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -334,5 +337,17 @@
   "futureDateErrorDialogText" : "Les dates de portée doivent être passées, veuillez sélectionner une autre date.",
   "notificationSettingsHelpDialogTitle" : "Paramètres de notification",
   "notificationsSettingsHelpDialogText" : "Lorsqu'elles sont activées, une notification se déclenchera quotidiennement à l'heure sélectionnée.",
-  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote : Certains fabricants d'appareils utilisent des versions personnalisées d'Android qui peuvent affecter la capacité de l'application à générer des notifications lorsqu'elle est en arrière-plan.\n\nMalheureusement, en tant que développeur, il n'y a pas grand-chose à faire pour empêcher cela.\n\nCe problème est connu pour affecter les téléphones Huawei et Xiaomi, mais peut également en concerner d'autres."
+  "notificationSettingsHelpDialogTextAndroid" : "\n\nNote : Certains fabricants d'appareils utilisent des versions personnalisées d'Android qui peuvent affecter la capacité de l'application à générer des notifications lorsqu'elle est en arrière-plan.\n\nMalheureusement, en tant que développeur, il n'y a pas grand-chose à faire pour empêcher cela.\n\nCe problème est connu pour affecter les téléphones Huawei et Xiaomi, mais peut également en concerner d'autres.",
+  "wearDatesHelpDialogTitle" : "Historique de portée",
+  "wearDatesHelpDialogText" : "Ce calendrier affiche les dates auxquelles cette montre a été portée, ainsi que les autres dates suivies pour celle-ci.\n\nPour ajouter ou supprimer des dates de portée directement, effectuez un appui long sur une date précise.",
+  "deleteImageDialogTitle" : "Supprimer l'image",
+  "deleteImageDialogText" : "Voulez-vous supprimer cette image ?\nCette action est irréversible.",
+  "deleteWatchTitle" : "Supprimer la montre",
+  "deleteWatchDialogText" : "Voulez-vous retirer cette montre de votre collection ?\n\n(Les montres supprimées par erreur peuvent être restaurées depuis les Archives, accessibles dans les Paramètres)",
+  "deleteWatchSnackbarConfirmation" : "Montre supprimée",
+  "deleteWatchSnackbarText" : "{watchName} a été déplacée vers les Archives",
+  "failedToPickImageDialogTitle" : "Échec de la sélection de l'image",
+  "failedToPickImageDialogText" : "La plateforme a rencontré une erreur :\n\n{error}",
+  "setupDailyReminderDialogTitle" : "Configurer les rappels quotidiens",
+  "setupDailyRemindersDialogText" : "WristTrack peut vous envoyer un rappel quotidien pour enregistrer la montre que vous portez.\n\nSouhaitez-vous en configurer un ?\n\n(Vous pouvez retrouver ce réglage à tout moment dans le menu des paramètres)"
 }

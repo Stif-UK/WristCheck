@@ -728,6 +728,18 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get ok;
 
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @noThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'No Thanks'**
+  String get noThanks;
+
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
@@ -769,6 +781,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get errorHeader;
+
+  /// No description provided for @dontShowThisMessageAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t show this message again'**
+  String get dontShowThisMessageAgain;
 
   /// No description provided for @backupRestore.
   ///
@@ -1507,6 +1525,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'\n\nNote: Some device manufacturers run customised versions of Android OS which may impact the ability for the app to generate notifications when in the background.\n\nUnfortunately as a developer there\'s little that can be done to prevent this. \n\nThis is known to affect Huawei and Xiaomi phones, but may also affect others. '**
   String get notificationSettingsHelpDialogTextAndroid;
+
+  /// No description provided for @wearDatesHelpDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear History'**
+  String get wearDatesHelpDialogTitle;
+
+  /// No description provided for @wearDatesHelpDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'This calendar shows the dates this watch was worn, as well as other tracked dates for the watch.\n\nTo add or delete wear dates directly, long press on an individual date.'**
+  String get wearDatesHelpDialogText;
+
+  /// No description provided for @deleteImageDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Image'**
+  String get deleteImageDialogTitle;
+
+  /// No description provided for @deleteImageDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this image?\nThis cannot be undone'**
+  String get deleteImageDialogText;
+
+  /// No description provided for @deleteWatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Watch'**
+  String get deleteWatchTitle;
+
+  /// No description provided for @deleteWatchDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to remove this watch from your collection?\n\n(Watches deleted in error can be restored from the Archive, found in Settings)'**
+  String get deleteWatchDialogText;
+
+  /// No description provided for @deleteWatchSnackbarConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Deleted'**
+  String get deleteWatchSnackbarConfirmation;
+
+  /// No description provided for @deleteWatchSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} has been moved to the Archive'**
+  String deleteWatchSnackbarText(Object watchName);
+
+  /// No description provided for @failedToPickImageDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Pick Image'**
+  String get failedToPickImageDialogTitle;
+
+  /// No description provided for @failedToPickImageDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'The platform encountered an error:\n\n{error}'**
+  String failedToPickImageDialogText(Object error);
+
+  /// No description provided for @setupDailyReminderDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup Daily Reminders'**
+  String get setupDailyReminderDialogTitle;
+
+  /// No description provided for @setupDailyRemindersDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack can send you a daily reminder to track what you\'re wearing\n\nWould you like to set one up?\n\n(This can be found at any time in the settings menu)'**
+  String get setupDailyRemindersDialogText;
 }
 
 class _AppLocalizationsDelegate

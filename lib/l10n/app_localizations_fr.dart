@@ -331,6 +331,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get ok => 'OK';
 
   @override
+  String get yes => 'Oui';
+
+  @override
+  String get noThanks => 'Non merci';
+
+  @override
   String get cancel => 'Annuler';
 
   @override
@@ -350,6 +356,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errorHeader => 'Erreur';
+
+  @override
+  String get dontShowThisMessageAgain => 'Ne plus afficher ce message';
 
   @override
   String get backupRestore => 'Sauvegarde / Restauration';
@@ -819,4 +828,50 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get notificationSettingsHelpDialogTextAndroid =>
       '\n\nNote : Certains fabricants d\'appareils utilisent des versions personnalisées d\'Android qui peuvent affecter la capacité de l\'application à générer des notifications lorsqu\'elle est en arrière-plan.\n\nMalheureusement, en tant que développeur, il n\'y a pas grand-chose à faire pour empêcher cela.\n\nCe problème est connu pour affecter les téléphones Huawei et Xiaomi, mais peut également en concerner d\'autres.';
+
+  @override
+  String get wearDatesHelpDialogTitle => 'Historique de portée';
+
+  @override
+  String get wearDatesHelpDialogText =>
+      'Ce calendrier affiche les dates auxquelles cette montre a été portée, ainsi que les autres dates suivies pour celle-ci.\n\nPour ajouter ou supprimer des dates de portée directement, effectuez un appui long sur une date précise.';
+
+  @override
+  String get deleteImageDialogTitle => 'Supprimer l\'image';
+
+  @override
+  String get deleteImageDialogText =>
+      'Voulez-vous supprimer cette image ?\nCette action est irréversible.';
+
+  @override
+  String get deleteWatchTitle => 'Supprimer la montre';
+
+  @override
+  String get deleteWatchDialogText =>
+      'Voulez-vous retirer cette montre de votre collection ?\n\n(Les montres supprimées par erreur peuvent être restaurées depuis les Archives, accessibles dans les Paramètres)';
+
+  @override
+  String get deleteWatchSnackbarConfirmation => 'Montre supprimée';
+
+  @override
+  String deleteWatchSnackbarText(Object watchName) {
+    return '$watchName a été déplacée vers les Archives';
+  }
+
+  @override
+  String get failedToPickImageDialogTitle =>
+      'Échec de la sélection de l\'image';
+
+  @override
+  String failedToPickImageDialogText(Object error) {
+    return 'La plateforme a rencontré une erreur :\n\n$error';
+  }
+
+  @override
+  String get setupDailyReminderDialogTitle =>
+      'Configurer les rappels quotidiens';
+
+  @override
+  String get setupDailyRemindersDialogText =>
+      'WristTrack peut vous envoyer un rappel quotidien pour enregistrer la montre que vous portez.\n\nSouhaitez-vous en configurer un ?\n\n(Vous pouvez retrouver ce réglage à tout moment dans le menu des paramètres)';
 }
