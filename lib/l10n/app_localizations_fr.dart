@@ -523,6 +523,29 @@ class AppLocalizationsFr extends AppLocalizations {
   String get allDatesWorn => 'Toutes les dates de portée';
 
   @override
+  String get selectDatesToAdd => 'Sélectionner les dates à ajouter';
+
+  @override
+  String get selectionMode => 'Mode de sélection';
+
+  @override
+  String get rangeDefinition => 'Période (sélectionner le début et la fin)';
+
+  @override
+  String get individualSelectionDefinition =>
+      'Individuelle (choisir plusieurs dates)';
+
+  @override
+  String get thereWasAProblemWithSomeDates =>
+      'Un problème est survenu avec certaines dates';
+
+  @override
+  String get dateAlreadyExists => 'La date existe déjà';
+
+  @override
+  String get dateIsInTheFuture => 'La date est dans le futur';
+
+  @override
   String get watchAccuracy => 'Précision de la montre';
 
   @override

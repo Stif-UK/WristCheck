@@ -1082,6 +1082,48 @@ abstract class AppLocalizations {
   /// **'All dates worn'**
   String get allDatesWorn;
 
+  /// No description provided for @selectDatesToAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Dates to Add'**
+  String get selectDatesToAdd;
+
+  /// No description provided for @selectionMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection Mode'**
+  String get selectionMode;
+
+  /// No description provided for @rangeDefinition.
+  ///
+  /// In en, this message translates to:
+  /// **'Range (select start and end of range)'**
+  String get rangeDefinition;
+
+  /// No description provided for @individualSelectionDefinition.
+  ///
+  /// In en, this message translates to:
+  /// **'Individual (pick multiple dates)'**
+  String get individualSelectionDefinition;
+
+  /// No description provided for @thereWasAProblemWithSomeDates.
+  ///
+  /// In en, this message translates to:
+  /// **'There was a problem with some of the dates'**
+  String get thereWasAProblemWithSomeDates;
+
+  /// No description provided for @dateAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Date already exists'**
+  String get dateAlreadyExists;
+
+  /// No description provided for @dateIsInTheFuture.
+  ///
+  /// In en, this message translates to:
+  /// **'Date is in the future'**
+  String get dateIsInTheFuture;
+
   /// No description provided for @watchAccuracy.
   ///
   /// In en, this message translates to:

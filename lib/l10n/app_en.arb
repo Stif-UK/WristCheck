@@ -198,6 +198,13 @@
   "watchWorn" : "{watchName} worn",
   "noDatesForWatch" :  "No dates recorded for this watch.",
   "allDatesWorn" : "All dates worn",
+  "selectDatesToAdd" : "Select Dates to Add",
+  "selectionMode" : "Selection Mode",
+  "rangeDefinition" : "Range (select start and end of range)",
+  "individualSelectionDefinition" : "Individual (pick multiple dates)",
+  "thereWasAProblemWithSomeDates" : "There was a problem with some of the dates",
+  "dateAlreadyExists" : "Date already exists",
+  "dateIsInTheFuture" : "Date is in the future",
 
   "@_ACCURACY": {},
   "watchAccuracy" : "Watch Accuracy",

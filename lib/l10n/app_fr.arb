@@ -194,6 +194,13 @@
   "watchWorn" : "{watchName} portée",
   "noDatesForWatch" : "Aucune date enregistrée pour cette montre.",
   "allDatesWorn" : "Toutes les dates de portée",
+  "selectDatesToAdd" : "Sélectionner les dates à ajouter",
+  "selectionMode" : "Mode de sélection",
+  "rangeDefinition" : "Période (sélectionner le début et la fin)",
+  "individualSelectionDefinition" : "Individuelle (choisir plusieurs dates)",
+  "thereWasAProblemWithSomeDates" : "Un problème est survenu avec certaines dates",
+  "dateAlreadyExists" : "La date existe déjà",
+  "dateIsInTheFuture" : "La date est dans le futur",
 
   "@_ACCURACY": {},
   "watchAccuracy" : "Précision de la montre",

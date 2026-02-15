@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -26,15 +27,15 @@ class DatePickerBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
-              Text("Select Dates to Add", style: Theme.of(context).textTheme.headlineSmall,),
+              Text(AppLocalizations.of(context)!.selectDatesToAdd, style: Theme.of(context).textTheme.headlineSmall,),
               Card(
                 child: Obx(() =>
                     SwitchListTile(
-                        title: const Text("Selection Mode"),
+                        title: Text(AppLocalizations.of(context)!.selectionMode),
                         subtitle: pickerController.allowRange.value
-                            ? const Text(
-                            "Range (select start and end of range)")
-                            : const Text("Individual (pick multiple dates)\n"),
+                            ? Text(
+                            AppLocalizations.of(context)!.rangeDefinition)
+                            : Text("${AppLocalizations.of(context)!.individualSelectionDefinition}\n"),
                         //TODO: Implement controller to manage this view via GET
                         value: pickerController.allowRange.value,
                         onChanged: (test) {
@@ -92,7 +93,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                   padding: const EdgeInsets.all(15),
                                   child: Column(
                                     children: [
-                                      Text("There was a problem with some of the dates",
+                                      Text(AppLocalizations.of(context)!.thereWasAProblemWithSomeDates,
                                           style: Theme.of(context).textTheme.bodyLarge,),
                                       ListView.builder(
                                         shrinkWrap: true,
@@ -100,7 +101,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                         itemCount: duplicates.length,
                                           itemBuilder: (context, index) => ListTile(
                                             leading: Icon(FontAwesomeIcons.clone, color: Colors.red,),
-                                        subtitle: const Text("Date already exists"),
+                                        subtitle: Text(AppLocalizations.of(context)!.dateAlreadyExists),
                                             title: Text(WristCheckFormatter.getFormattedDate(duplicates[index])),
                                                                     )),
                                       ListView.builder(
@@ -109,7 +110,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                           itemCount: futures.length,
                                           itemBuilder: (context, index) => ListTile(
                                             leading: Icon(FontAwesomeIcons.hourglass, color: Colors.red,),
-                                            subtitle: const Text("Date is in the future"),
+                                            subtitle: Text(AppLocalizations.of(context)!.dateIsInTheFuture),
                                             title: Text(WristCheckFormatter.getFormattedDate(futures[index])),
                                           ))
                                     ],
