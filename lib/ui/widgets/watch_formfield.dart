@@ -63,7 +63,8 @@ class WatchFormField extends StatelessWidget {
                   lastDate: DateTime(2100)
               );
               if(pickedDate != null){
-                controller.text = WristCheckFormatter.getFormattedDate(pickedDate);
+                //DO NOT USE FORMATTER HERE
+                controller.text = DateFormat('yMMMd').format(pickedDate);
             }
             }
                 :null,

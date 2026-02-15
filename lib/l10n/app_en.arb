@@ -144,6 +144,15 @@
   "errorHeader" : "Error",
   "dontShowThisMessageAgain" : "Don't show this message again",
   "success" : "Success!",
+  "today" : "Today",
+  "notWornYet" : "Not worn yet",
+  "lastWornDate" : "Last worn: {shortDate}",
+  "wearCount" : "Worn {count} times",
+  "notRecorded" : "Not Recorded",
+  "soldDetails" : "Sold on {shortDate} \nfor {price}",
+  "countDownNA" :  "Countdown: N/A",
+  "dueInXDays" : "Due: {nDays}",
+  "overdueXDays" : "Overdue: {nDays}",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -269,6 +278,24 @@
       }
     }
   },
+  "@price": {
+    "description": "A string representing a currency value",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "$500"
+      }
+    }
+  },
+  "@shortDate": {
+    "description": "A date string",
+    "placeholders": {
+      "shortDate": {
+        "type": "String",
+        "example": "Feb 8, 2026"
+      }
+    }
+  },
   "@fileName" : {
     "description": "The name of a selected file",
     "placeholders": {
@@ -290,7 +317,7 @@
   "@count" : {
     "description": "An integer passed in to represent a counted value",
     "placeholders": {
-      "error": {
+      "count": {
         "type": "int",
         "example": "5"
       }
@@ -309,6 +336,16 @@
   "nWatches": "{count, plural, =0{No watches} =1{1 watch} other{{count} watches}}",
   "@nWatches": {
     "description": "Returns the suitable plural form for the given number of watches",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "nDays": "{count, plural, =0{0 days} =1{1 day} other{{count} days}}",
+  "@nDays": {
+    "description": "Returns the suitable plural of days",
     "placeholders": {
       "count": {
         "type": "num",

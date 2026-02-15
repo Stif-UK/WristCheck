@@ -362,6 +362,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get success => 'Success!';
 
   @override
+  String get today => 'Today';
+
+  @override
+  String get notWornYet => 'Not worn yet';
+
+  @override
+  String lastWornDate(Object shortDate) {
+    return 'Last worn: $shortDate';
+  }
+
+  @override
+  String wearCount(Object count) {
+    return 'Worn $count times';
+  }
+
+  @override
+  String get notRecorded => 'Not Recorded';
+
+  @override
+  String soldDetails(Object price, Object shortDate) {
+    return 'Sold on $shortDate \nfor $price';
+  }
+
+  @override
+  String get countDownNA => 'Countdown: N/A';
+
+  @override
+  String dueInXDays(Object nDays) {
+    return 'Due: $nDays';
+  }
+
+  @override
+  String overdueXDays(Object nDays) {
+    return 'Overdue: $nDays';
+  }
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -696,6 +733,23 @@ class AppLocalizationsEn extends AppLocalizations {
       other: '$countString watches',
       one: '1 watch',
       zero: 'No watches',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nDays(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString days',
+      one: '1 day',
+      zero: '0 days',
     );
     return '$_temp0';
   }

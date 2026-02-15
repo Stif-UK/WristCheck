@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:intl/intl.dart';
@@ -85,11 +87,13 @@ class ViewWatchHelper{
   }
 
   static DateTime? getDateFromFieldString(String dateField){
+    final langController = Get.put(LanguageController());
+
     if(dateField == "Not Recorded" || dateField == "N/A"){
       return null;
     } else {
       try {
-        final dateFormat = DateFormat('MMM d, yyyy');
+        final dateFormat = DateFormat('MMM d, yyyy', langController.language.value.countryCode);
         return dateField.length != 0 ? dateFormat.parse(dateField) : null;
       } on Exception catch (e) {
         return null;

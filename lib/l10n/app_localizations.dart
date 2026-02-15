@@ -794,6 +794,60 @@ abstract class AppLocalizations {
   /// **'Success!'**
   String get success;
 
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @notWornYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not worn yet'**
+  String get notWornYet;
+
+  /// No description provided for @lastWornDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Last worn: {shortDate}'**
+  String lastWornDate(Object shortDate);
+
+  /// No description provided for @wearCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn {count} times'**
+  String wearCount(Object count);
+
+  /// No description provided for @notRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Recorded'**
+  String get notRecorded;
+
+  /// No description provided for @soldDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold on {shortDate} \nfor {price}'**
+  String soldDetails(Object price, Object shortDate);
+
+  /// No description provided for @countDownNA.
+  ///
+  /// In en, this message translates to:
+  /// **'Countdown: N/A'**
+  String get countDownNA;
+
+  /// No description provided for @dueInXDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Due: {nDays}'**
+  String dueInXDays(Object nDays);
+
+  /// No description provided for @overdueXDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue: {nDays}'**
+  String overdueXDays(Object nDays);
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -1333,6 +1387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{No watches} =1{1 watch} other{{count} watches}}'**
   String nWatches(num count);
+
+  /// Returns the suitable plural of days
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 days} =1{1 day} other{{count} days}}'**
+  String nDays(num count);
 
   /// No description provided for @deleteWarning.
   ///

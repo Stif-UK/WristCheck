@@ -140,6 +140,15 @@
   "errorHeader" : "Erreur",
   "dontShowThisMessageAgain" : "Ne plus afficher ce message",
   "success" : "Succès !",
+  "today" : "Aujourd'hui",
+  "notWornYet" : "Pas encore portée",
+  "lastWornDate" : "Dernière portée : {shortDate}",
+  "wearCount" : "Portée {count} fois",
+  "notRecorded" : "Non enregistrée",
+  "soldDetails" : "Vendue le {shortDate} \npour {price}",
+  "countDownNA" : "Compte à rebours : N/A",
+  "dueInXDays" : "Échéance : {nDays}",
+  "overdueXDays" : "En retard : {nDays}",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -264,6 +273,24 @@
       }
     }
   },
+  "@price": {
+    "description": "Une chaîne de caractères représentant une valeur monétaire",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "500 €"
+      }
+    }
+  },
+  "@shortDate": {
+    "description": "Une chaîne de caractères représentant une date",
+    "placeholders": {
+      "shortDate": {
+        "type": "String",
+        "example": "8 févr. 2026"
+      }
+    }
+  },
   "@fileName" : {
     "description": "Le nom d'un fichier sélectionné",
     "placeholders": {
@@ -304,6 +331,16 @@
   "nWatches": "{count, plural, =0{Aucune montre} =1{1 montre} other{{count} montres}}",
   "@nWatches": {
     "description": "Retourne la forme plurielle appropriée pour le nombre de montres donné",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "nDays": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
+  "@nDays": {
+    "description": "Renvoie le pluriel approprié pour les jours",
     "placeholders": {
       "count": {
         "type": "num",

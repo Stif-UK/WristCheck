@@ -87,6 +87,7 @@ class WatchMethods {
     ..lumeImagePath = ""
     ..primaryImageIndex = 0;
 
+
     final box = Boxes.getWatches();
     return box.add(watch);
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -91,12 +92,14 @@ class ListTileHelper {
       int _wearCount = watch.wearList.length;
       watch.wearList.sort();
       String _lastWorn = ViewWatchHelper.isDateToday(watch.wearList.last)
-          ? "Today"
+          ? AppLocalizations.of(Get.context!)!.today
           : WristCheckFormatter.getFormattedDate(watch.wearList.last);
 
-      returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
+      //returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
+      returnText = "${AppLocalizations.of(Get.context!)!.lastWornDate(_lastWorn)}\n"
+          "${AppLocalizations.of(Get.context!)!.wearCount(_wearCount)}";
     } else {
-      returnText = "Not worn yet";
+      returnText = AppLocalizations.of(Get.context!)!.notWornYet;
     }
     return returnText;
   }
@@ -104,23 +107,28 @@ class ListTileHelper {
   static String _getSoldReturnText(Watches watch){
     final wristCheckController = Get.put(WristCheckController());
     String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
-    String returnText = "Sold Test";
+    String returnText = "";
     DateTime? soldDate = watch.soldDate;
     int soldPrice = watch.soldPrice ?? 0;
-    returnText = "Sold on: ${soldDate != null? WristCheckFormatter.getFormattedDate(soldDate): "Not Recorded"}\n"
-        "for: ${soldPrice == 0? "Not Recorded":WristCheckFormatter.getCurrencyValue(locale, soldPrice, 0)}";
+    //Where the date or price is not available a placeholder is substituted, i.e Not Recorded
+    returnText = AppLocalizations.of(Get.context!)!.soldDetails((soldPrice == 0? AppLocalizations.of(Get.context!)!.notRecorded :
+        WristCheckFormatter.getCurrencyValue(locale, soldPrice, 0)),
+        (soldDate != null? WristCheckFormatter.getFormattedDate(soldDate):
+            AppLocalizations.of(Get.context!)!.notRecorded));
     return returnText;
   }
 
   static String _getPreOrderReturnText(Watches watch){
-    String returnText = "Countdown: N/A";
+    String returnText = AppLocalizations.of(Get.context!)!.countDownNA;
     DateTime? dueDate = watch.deliveryDate;
     if(dueDate != null){
       Duration countdown = DateTime.now().difference(dueDate);
       if(countdown.inDays <= 0){
-        returnText = "Due: ${countdown.inDays} days";
+        returnText = AppLocalizations.of(Get.context!)!.dueInXDays(AppLocalizations.of(Get.context!)!.nDays(countdown.inDays));
+        // returnText = "Due: ${countdown.inDays} days";
       }else{
-        returnText = "Overdue: +${countdown.inDays} days";
+        returnText = AppLocalizations.of(Get.context!)!.overdueXDays(AppLocalizations.of(Get.context!)!.nDays(countdown.inDays));
+        // returnText = "Overdue: +${countdown.inDays} days";
       }
 
     }
@@ -149,6 +157,9 @@ class ListTileHelper {
         break;
       case WatchOrder.mostworn:
         returnIcon = const Icon(FontAwesomeIcons.chartLine);
+        break;
+      default:
+        returnIcon = const Icon(FontAwesomeIcons.arrowDownWideShort);
         break;
     }
 
