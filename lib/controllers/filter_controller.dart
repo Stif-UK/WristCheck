@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -15,7 +16,7 @@ class FilterController extends GetxController{
 
   final shrinkText = false.obs;
   final selectedMonth = MonthList.all.obs;
-  final selectedYear = "All".obs;
+  final selectedYear = AppLocalizations.of(Get.context!)!.all.obs;
   final includeCollection = true.obs;
   final includeSold = false.obs;
   final includeRetired = false.obs;
@@ -31,7 +32,7 @@ class FilterController extends GetxController{
   final startDate = DateTime(DateTime.now().year-1, DateTime.now().month, DateTime.now().day).obs;
   final endDate = DateTime.now().obs;
 
-  List<String> yearList = ["All"];
+  List<String> yearList = [AppLocalizations.of(Get.context!)!.all];
 
   resetToDefaults(){
     includeCollection(true);
@@ -133,7 +134,7 @@ class FilterController extends GetxController{
 
   populateYearList(){
     List<Watches> watches = Boxes.getAllWatches();
-    List<String> calculatedYearList = ["All"];
+    List<String> calculatedYearList = [AppLocalizations.of(Get.context!)!.all];
     for(Watches watch in watches){
       for(DateTime date in watch.wearList){
         if(!calculatedYearList.contains(date.year.toString())) {

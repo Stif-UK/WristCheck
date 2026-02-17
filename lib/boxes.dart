@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
@@ -404,7 +405,7 @@ class Boxes {
       break;
       case WearChartOptions.manual:{
         int? monthInt = WristCheckFormatter.getMonthInt(controller.selectedMonth.value);
-        int? yearInt = controller.selectedYear.value == "All"? null : int.parse(controller.selectedYear.value);
+        int? yearInt = controller.selectedYear.value == AppLocalizations.of(Get.context!)!.all? null : int.parse(controller.selectedYear.value);
         returnValue = Boxes.getWatchesWornFilter(initialList, monthInt, yearInt);
       }
       break;
