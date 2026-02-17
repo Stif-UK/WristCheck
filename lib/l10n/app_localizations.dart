@@ -536,6 +536,54 @@ abstract class AppLocalizations {
   /// **'  End Date:'**
   String get endDate;
 
+  /// No description provided for @resetToDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to Defaults'**
+  String get resetToDefaults;
+
+  /// No description provided for @chartGrouping.
+  ///
+  /// In en, this message translates to:
+  /// **'Chart Grouping'**
+  String get chartGrouping;
+
+  /// No description provided for @includeCurrentCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Current Collection'**
+  String get includeCurrentCollection;
+
+  /// No description provided for @includeSoldWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Sold Watches'**
+  String get includeSoldWatches;
+
+  /// No description provided for @includeRetiredWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Retired Watches'**
+  String get includeRetiredWatches;
+
+  /// No description provided for @includeArchivedWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Archived Watches'**
+  String get includeArchivedWatches;
+
+  /// No description provided for @filterByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Category'**
+  String get filterByCategory;
+
+  /// No description provided for @filterByMovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Movement'**
+  String get filterByMovement;
+
   /// No description provided for @pageTitleCollectionStats.
   ///
   /// In en, this message translates to:

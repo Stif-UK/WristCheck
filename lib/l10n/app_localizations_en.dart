@@ -229,6 +229,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endDate => '  End Date:';
 
   @override
+  String get resetToDefaults => 'Reset to Defaults';
+
+  @override
+  String get chartGrouping => 'Chart Grouping';
+
+  @override
+  String get includeCurrentCollection => 'Include Current Collection';
+
+  @override
+  String get includeSoldWatches => 'Include Sold Watches';
+
+  @override
+  String get includeRetiredWatches => 'Include Retired Watches';
+
+  @override
+  String get includeArchivedWatches => 'Include Archived Watches';
+
+  @override
+  String get filterByCategory => 'Filter by Category';
+
+  @override
+  String get filterByMovement => 'Filter by Movement';
+
+  @override
   String get pageTitleCollectionStats => 'Collection Stats';
 
   @override

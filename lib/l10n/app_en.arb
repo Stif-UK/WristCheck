@@ -92,6 +92,14 @@
   "yearColon" : "Year:",
   "startDate" : "Start Date:",
   "endDate" : "  End Date:",
+  "resetToDefaults" : "Reset to Defaults",
+  "chartGrouping" : "Chart Grouping",
+  "includeCurrentCollection" : "Include Current Collection",
+  "includeSoldWatches" : "Include Sold Watches",
+  "includeRetiredWatches" : "Include Retired Watches",
+  "includeArchivedWatches" : "Include Archived Watches",
+  "filterByCategory" : "Filter by Category",
+  "filterByMovement" : "Filter by Movement",
 
 
   "@_COLLECTION_STATS" : {},

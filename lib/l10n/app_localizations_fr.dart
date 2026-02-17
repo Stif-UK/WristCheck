@@ -230,6 +230,30 @@ class AppLocalizationsFr extends AppLocalizations {
   String get endDate => 'Date de fin :';
 
   @override
+  String get resetToDefaults => 'Rétablir les paramètres par défaut';
+
+  @override
+  String get chartGrouping => 'Groupement des graphiques';
+
+  @override
+  String get includeCurrentCollection => 'Inclure la collection actuelle';
+
+  @override
+  String get includeSoldWatches => 'Inclure les montres vendues';
+
+  @override
+  String get includeRetiredWatches => 'Inclure les montres retirées';
+
+  @override
+  String get includeArchivedWatches => 'Inclure les montres archivées';
+
+  @override
+  String get filterByCategory => 'Filtrer par catégorie';
+
+  @override
+  String get filterByMovement => 'Filtrer par mouvement';
+
+  @override
   String get pageTitleCollectionStats => 'Stats de la collection';
 
   @override

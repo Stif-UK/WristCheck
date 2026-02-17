@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -24,7 +25,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
     return  ListView(
       children: [
         ListTile(
-          title: Text("Reset to Defaults"),
+          title: Text(AppLocalizations.of(context)!.resetToDefaults),
           trailing: Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: Icon(FontAwesomeIcons.filterCircleXmark),
@@ -33,7 +34,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Chart Grouping"),
+          title: Text(AppLocalizations.of(context)!.chartGrouping),
           value: widget.filterController.pickGrouping.value,
           onChanged: (newValue){
             widget.filterController.updatePickGrouping(newValue);
@@ -48,7 +49,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         Obx(() => widget.filterController.pickGrouping.value? _buildGroupingSelection(): const SizedBox(height: 0,)),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Include Current Collection"),
+          title: Text(AppLocalizations.of(context)!.includeCurrentCollection),
           value: widget.filterController.includeCollection.value,
           onChanged: (newValue){
             widget.filterController.updateIncludeCollection(newValue);
@@ -58,7 +59,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Include Sold Watches"),
+          title: Text(AppLocalizations.of(context)!.includeSoldWatches),
           value: widget.filterController.includeSold.value ,
           onChanged: (newValue){
             widget.filterController.updateIncludeSold(newValue);
@@ -67,7 +68,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Include Retired Watches"),
+          title: Text(AppLocalizations.of(context)!.includeRetiredWatches),
           value: widget.filterController.includeRetired.value ,
           onChanged: (newValue){
             widget.filterController.updateIncludeRetired(newValue);
@@ -76,7 +77,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Include Archived Watches"),
+          title: Text(AppLocalizations.of(context)!.includeArchivedWatches),
           value: widget.filterController.includeArchived.value ,
           onChanged: (newValue){
             widget.filterController.updateIncludeArchived(newValue);
@@ -85,7 +86,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
-          title: Text("Filter by Category"),
+          title: Text(AppLocalizations.of(context)!.filterByCategory),
           value: widget.filterController.filterByCategory.value,
           onChanged: (newValue){
             widget.filterController.updateFilterByCategory(newValue);
@@ -100,7 +101,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         Obx(() => widget.filterController.filterByCategory.value? const Divider(thickness: 2,): const SizedBox(height: 0,)),
 
         Obx(()=> SwitchListTile(
-          title: Text("Filter by Movement"),
+          title: Text(AppLocalizations.of(context)!.filterByMovement),
           value: widget.filterController.filterByMovement.value,
           onChanged: (newValue){
             widget.filterController.updateFilterByMovement(newValue);

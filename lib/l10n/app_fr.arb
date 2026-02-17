@@ -91,6 +91,14 @@
   "yearColon" : "Année :",
   "startDate" : "Date de début :",
   "endDate" : "Date de fin :",
+  "resetToDefaults" : "Rétablir les paramètres par défaut",
+  "chartGrouping" : "Groupement des graphiques",
+  "includeCurrentCollection" : "Inclure la collection actuelle",
+  "includeSoldWatches" : "Inclure les montres vendues",
+  "includeRetiredWatches" : "Inclure les montres retirées",
+  "includeArchivedWatches" : "Inclure les montres archivées",
+  "filterByCategory" : "Filtrer par catégorie",
+  "filterByMovement" : "Filtrer par mouvement",
 
 
   "@_COLLECTION_STATS" : {},
