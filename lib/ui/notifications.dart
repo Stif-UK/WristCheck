@@ -222,20 +222,20 @@ class _NotificationsState extends State<Notifications> {
 
   //_setNotification takes the enum input (plus an optional custom time) and passes this to the local notification service to set up the scheduled message
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
-    _selectedTime = customTime.toString();
+    _selectedTime = customTime!.format(context);//customTime.toString();
     await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
     notificationService.showScheduledNotification(id: 1, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationOneBody, time: customTime!);
-    String timeString = _selectedTime!.substring(10, _selectedTime!.length-1);
+    String timeString = _selectedTime!;//_selectedTime!.substring(10, _selectedTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationConfirmationBody(timeString));
     WristCheckSnackBars.dailyNotification(timeString);
   }
 
     //Duplication of _setNotification for a second reminder
     Future<void> _setSecondNotification(TimeOfDay? customTime) async {
-    _secondTime = customTime.toString();
+    _secondTime = customTime!.format(context);//customTime.toString();
     await WristCheckPreferences.setSecondNotificationTime(customTime.toString());
     notificationService.showScheduledNotification(id: 2, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoBody, time: customTime!);
-    String timeString = _secondTime!.substring(10, _secondTime!.length-1);
+    String timeString = _secondTime!;//.substring(10, _secondTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoConfirmationBody(timeString));
     WristCheckSnackBars.dailyNotification(timeString);
   }
