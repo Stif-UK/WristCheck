@@ -254,6 +254,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get filterByMovement => 'Filtrer par mouvement';
 
   @override
+  String get watch => 'Montre';
+
+  @override
+  String get movement => 'Mouvement';
+
+  @override
+  String get category => 'Catégorie';
+
+  @override
+  String get manufacturer => 'Fabricant';
+
+  @override
+  String get caseMaterial => 'Matériau du boîtier';
+
+  @override
+  String get dateComplication => 'Complication date';
+
+  @override
   String get pageTitleCollectionStats => 'Stats de la collection';
 
   @override

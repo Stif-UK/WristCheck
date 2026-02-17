@@ -764,27 +764,27 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
   static String getChartGroupingText(ChartGrouping value){
     switch(value) {
       case ChartGrouping.watch:
-        return "Watch";
+        return AppLocalizations.of(Get.context!)!.watch;
       case ChartGrouping.movement:
-        return "Movement";
+        return AppLocalizations.of(Get.context!)!.movement;
       case ChartGrouping.category:
-        return "Category";
+        return AppLocalizations.of(Get.context!)!.category;
       case ChartGrouping.manufacturer:
-        return "Manufacturer";
+        return AppLocalizations.of(Get.context!)!.manufacturer;
       case ChartGrouping.caseDiameter:
-        return "Case Diameter";
+        return AppLocalizations.of(Get.context!)!.caseDiameter;
       case ChartGrouping.lugWidth:
-        return "Lug Width";
+        return AppLocalizations.of(Get.context!)!.lugWidth;
       case ChartGrouping.lug2lug:
-        return "Lug to Lug";
+        return AppLocalizations.of(Get.context!)!.lugToLug;
       case ChartGrouping.caseThickness:
-        return "Case Thickness";
+        return AppLocalizations.of(Get.context!)!.caseThickness;
       case ChartGrouping.waterResistance:
-        return "Water Resistance";
+        return AppLocalizations.of(Get.context!)!.waterResistance;
       case ChartGrouping.caseMaterial:
-        return "Case Material";
+        return AppLocalizations.of(Get.context!)!.caseMaterial;
       case ChartGrouping.dateComplication:
-        return "Date Complication";
+        return AppLocalizations.of(Get.context!)!.dateComplication;
         default:
           return "";
     }

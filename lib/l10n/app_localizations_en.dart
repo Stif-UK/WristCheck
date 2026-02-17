@@ -253,6 +253,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterByMovement => 'Filter by Movement';
 
   @override
+  String get watch => 'Watch';
+
+  @override
+  String get movement => 'Movement';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get manufacturer => 'Manufacturer';
+
+  @override
+  String get caseMaterial => 'Case Material';
+
+  @override
+  String get dateComplication => 'Date Complication';
+
+  @override
   String get pageTitleCollectionStats => 'Collection Stats';
 
   @override

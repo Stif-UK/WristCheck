@@ -100,6 +100,13 @@
   "filterByCategory" : "Filtrer par catégorie",
   "filterByMovement" : "Filtrer par mouvement",
 
+  "@_LABELS" : {},
+  "watch" : "Montre",
+  "movement" : "Mouvement",
+  "category" : "Catégorie",
+  "manufacturer" : "Fabricant",
+  "caseMaterial" : "Matériau du boîtier",
+  "dateComplication" : "Complication date",
 
   "@_COLLECTION_STATS" : {},
   "pageTitleCollectionStats": "Stats de la collection",

@@ -101,6 +101,13 @@
   "filterByCategory" : "Filter by Category",
   "filterByMovement" : "Filter by Movement",
 
+  "@_LABELS" : {},
+  "watch" : "Watch",
+  "movement" : "Movement",
+  "category" : "Category",
+  "manufacturer" : "Manufacturer",
+  "caseMaterial" : "Case Material",
+  "dateComplication" : "Date Complication",
 
   "@_COLLECTION_STATS" : {},
   "pageTitleCollectionStats": "Collection Stats",

@@ -584,6 +584,42 @@ abstract class AppLocalizations {
   /// **'Filter by Movement'**
   String get filterByMovement;
 
+  /// No description provided for @watch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get watch;
+
+  /// No description provided for @movement.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement'**
+  String get movement;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @manufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer'**
+  String get manufacturer;
+
+  /// No description provided for @caseMaterial.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Material'**
+  String get caseMaterial;
+
+  /// No description provided for @dateComplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Complication'**
+  String get dateComplication;
+
   /// No description provided for @pageTitleCollectionStats.
   ///
   /// In en, this message translates to:
