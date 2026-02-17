@@ -197,7 +197,7 @@ class _NotificationsState extends State<Notifications> {
                     //If notifications are off, just show a blank space
                     const SizedBox(height: 0,),
                 _selectedTime == null? const SizedBox(height: 0,):
-                Text(AppLocalizations.of(context)!.yourReminderIsSetForTime(_selectedTime!.substring(10,_selectedTime!.length-1)),
+                Text(AppLocalizations.of(context)!.yourReminderIsSetForTime(_selectedTime!),//.substring(10,_selectedTime!.length-1)),
                 //Text("Your daily reminder is scheduled for ${_selectedTime!.substring(10,_selectedTime!.length-1)}",
                 style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold ),),
                 _selectedTime == null? const SizedBox(height: 0,): const Divider(thickness: 2,),
@@ -205,7 +205,7 @@ class _NotificationsState extends State<Notifications> {
                 Obx(() => _getSecondNotificationListTile(widget.wristCheckController.isAppPro.value)),
                 const Divider(thickness: 2,),
                 _secondNotificationEnabled ?
-                Text(AppLocalizations.of(context)!.yourSecondReminderIsSetFor(_secondTime!.substring(10, _secondTime!.length-1)),
+                Text(AppLocalizations.of(context)!.yourSecondReminderIsSetFor(_secondTime!),//.substring(10, _secondTime!.length-1)),
                 // Text("Your second reminder is set for ${_secondTime!.substring(10, _secondTime!.length-1)}",
                 style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold )) : const SizedBox(height: 0,),
                 _secondNotificationEnabled? const Divider(thickness: 2,) : const SizedBox(height: 0,),
@@ -223,21 +223,21 @@ class _NotificationsState extends State<Notifications> {
   //_setNotification takes the enum input (plus an optional custom time) and passes this to the local notification service to set up the scheduled message
   Future<void> _setNotification(NotificationTimeOptions selectedTime, TimeOfDay? customTime) async {
     _selectedTime = customTime!.format(context);//customTime.toString();
-    await WristCheckPreferences.setDailyNotificationTime(customTime.toString());
+    await WristCheckPreferences.setDailyNotificationTime(_selectedTime!);
     notificationService.showScheduledNotification(id: 1, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationOneBody, time: customTime!);
     String timeString = _selectedTime!;//_selectedTime!.substring(10, _selectedTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationConfirmationBody(timeString));
-    WristCheckSnackBars.dailyNotification(timeString);
+    //WristCheckSnackBars.dailyNotification(timeString);
   }
 
     //Duplication of _setNotification for a second reminder
     Future<void> _setSecondNotification(TimeOfDay? customTime) async {
     _secondTime = customTime!.format(context);//customTime.toString();
-    await WristCheckPreferences.setSecondNotificationTime(customTime.toString());
+    await WristCheckPreferences.setSecondNotificationTime(_selectedTime!);
     notificationService.showScheduledNotification(id: 2, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoBody, time: customTime!);
     String timeString = _secondTime!;//.substring(10, _secondTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoConfirmationBody(timeString));
-    WristCheckSnackBars.dailyNotification(timeString);
+    //WristCheckSnackBars.dailyNotification(timeString);
   }
 
   Widget _getSecondNotificationListTile(bool isAppPro){
