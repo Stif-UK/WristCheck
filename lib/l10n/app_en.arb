@@ -51,7 +51,7 @@
   "timeline" : "Timeline",
 
   "@_LIST_ITEMS" : {},
-  "all" : "all",
+  "all" : "All",
   "january" : "January",
   "february" : "February",
   "march" : "March",
@@ -80,6 +80,19 @@
   "last90days" : "Last 90 Days",
   "emptyWearListWatchCharts" : "You haven't tracked any wear dates for this watch yet.\n\nTrack data by clicking 'wear today' on the watch page, or add dates via the calendar view. \n\nOnce tracked charts will show here breaking down your records by month and weekday.",
   "wearChartFiltersSheetTitle" : "Wear Chart Filters",
+  "showAll" : "Show all",
+  "thisMonth" : "This Month",
+  "lastMonth" : "Last Month",
+  "last30days" : "Last 30 days",
+  "last365days" : "Last 365 days",
+  "sinceLastPurchase" : "Since Last Purchase",
+  "selectMonthYear" : "Select Month/Year",
+  "betweenSelectedDates" : "Between selected dates",
+  "monthColon" : "Month:",
+  "yearColon" : "Year:",
+  "startDate" : "Start Date:",
+  "endDate" : "  End Date:",
+
 
   "@_COLLECTION_STATS" : {},
   "pageTitleCollectionStats": "Collection Stats",

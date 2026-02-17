@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeline => 'Timeline';
 
   @override
-  String get all => 'all';
+  String get all => 'All';
 
   @override
   String get january => 'January';
@@ -191,6 +191,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wearChartFiltersSheetTitle => 'Wear Chart Filters';
+
+  @override
+  String get showAll => 'Show all';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get lastMonth => 'Last Month';
+
+  @override
+  String get last30days => 'Last 30 days';
+
+  @override
+  String get last365days => 'Last 365 days';
+
+  @override
+  String get sinceLastPurchase => 'Since Last Purchase';
+
+  @override
+  String get selectMonthYear => 'Select Month/Year';
+
+  @override
+  String get betweenSelectedDates => 'Between selected dates';
+
+  @override
+  String get monthColon => 'Month:';
+
+  @override
+  String get yearColon => 'Year:';
+
+  @override
+  String get startDate => 'Start Date:';
+
+  @override
+  String get endDate => '  End Date:';
 
   @override
   String get pageTitleCollectionStats => 'Collection Stats';

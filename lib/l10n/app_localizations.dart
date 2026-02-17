@@ -311,7 +311,7 @@ abstract class AppLocalizations {
   /// No description provided for @all.
   ///
   /// In en, this message translates to:
-  /// **'all'**
+  /// **'All'**
   String get all;
 
   /// No description provided for @january.
@@ -463,6 +463,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wear Chart Filters'**
   String get wearChartFiltersSheetTitle;
+
+  /// No description provided for @showAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get showAll;
+
+  /// No description provided for @thisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get thisMonth;
+
+  /// No description provided for @lastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Month'**
+  String get lastMonth;
+
+  /// No description provided for @last30days.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 days'**
+  String get last30days;
+
+  /// No description provided for @last365days.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 365 days'**
+  String get last365days;
+
+  /// No description provided for @sinceLastPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Since Last Purchase'**
+  String get sinceLastPurchase;
+
+  /// No description provided for @selectMonthYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Month/Year'**
+  String get selectMonthYear;
+
+  /// No description provided for @betweenSelectedDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Between selected dates'**
+  String get betweenSelectedDates;
+
+  /// No description provided for @monthColon.
+  ///
+  /// In en, this message translates to:
+  /// **'Month:'**
+  String get monthColon;
+
+  /// No description provided for @yearColon.
+  ///
+  /// In en, this message translates to:
+  /// **'Year:'**
+  String get yearColon;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date:'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'  End Date:'**
+  String get endDate;
 
   /// No description provided for @pageTitleCollectionStats.
   ///

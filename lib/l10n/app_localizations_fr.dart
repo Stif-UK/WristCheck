@@ -194,6 +194,42 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wearChartFiltersSheetTitle => 'Filtres du graphique de porter';
 
   @override
+  String get showAll => 'Tout afficher';
+
+  @override
+  String get thisMonth => 'Ce mois-ci';
+
+  @override
+  String get lastMonth => 'Le mois dernier';
+
+  @override
+  String get last30days => 'Les 30 derniers jours';
+
+  @override
+  String get last365days => 'Les 365 derniers jours';
+
+  @override
+  String get sinceLastPurchase => 'Depuis le dernier achat';
+
+  @override
+  String get selectMonthYear => 'Sélectionner Mois/Année';
+
+  @override
+  String get betweenSelectedDates => 'Entre les dates sélectionnées';
+
+  @override
+  String get monthColon => 'Mois :';
+
+  @override
+  String get yearColon => 'Année :';
+
+  @override
+  String get startDate => 'Date de début :';
+
+  @override
+  String get endDate => 'Date de fin :';
+
+  @override
   String get pageTitleCollectionStats => 'Stats de la collection';
 
   @override

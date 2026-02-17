@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/model/enums/month_list.dart';
@@ -29,20 +30,20 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
             child: Column(
               children: [
                 RadioListTile(
-                    title: const Text("Show all"),
+                    title: Text(AppLocalizations.of(context)!.showAll),
                     value: WearChartOptions.all,
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("This Month"),
+                          title: Text(AppLocalizations.of(context)!.thisMonth),
                           value: WearChartOptions.thisMonth,
                       ),
                     ),
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Last Month"),
+                          title: Text(AppLocalizations.of(context)!.lastMonth),
                           value: WearChartOptions.lastMonth,
                       ),
                     ),
@@ -52,13 +53,13 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("This Year"),
+                          title: Text(AppLocalizations.of(context)!.thisYear),
                           value: WearChartOptions.thisYear,
                       ),
                     ),
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Last Year"),
+                          title: Text(AppLocalizations.of(context)!.lastYear),
                           value: WearChartOptions.lastYear,
                       ),
                     ),
@@ -75,13 +76,13 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Last 30 days"),
+                          title: Text(AppLocalizations.of(context)!.last30days),
                           value: WearChartOptions.last30days,
                       ),
                     ),
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Last 90 days"),
+                          title: Text(AppLocalizations.of(context)!.last90days),
                           value: WearChartOptions.last90days,
                       ),
                     ),
@@ -91,7 +92,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Last 365 days"),
+                          title: Text(AppLocalizations.of(context)!.last365days),
                           value: WearChartOptions.last365days,
                       ),
                     ),
@@ -102,18 +103,18 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text("Since Last Purchase"),
+                          title: Text(AppLocalizations.of(context)!.sinceLastPurchase),
                           value: WearChartOptions.lastPurchase,
                       ),
                     ),
                   ],
                 ),
                 RadioListTile(
-                    title: const Text("Select Month/Year"),
+                    title: Text(AppLocalizations.of(context)!.selectMonthYear),
                     value: WearChartOptions.manual,
                 ),
                 RadioListTile(
-                  title: const Text("Between selected dates"),
+                  title: Text(AppLocalizations.of(context)!.betweenSelectedDates),
                   value: WearChartOptions.betweenDates,
                 ),
                 const Divider(thickness: 2,),
@@ -135,7 +136,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 25),
-          child: Text("Month:", style: Theme.of(context).textTheme.bodyLarge,),
+          child: Text(AppLocalizations.of(context)!.monthColon, style: Theme.of(context).textTheme.bodyLarge,),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15),
@@ -154,7 +155,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 25),
-            child: Text("Year:", style: Theme.of(context).textTheme.bodyLarge,),
+            child: Text(AppLocalizations.of(context)!.yearColon, style: Theme.of(context).textTheme.bodyLarge,),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15),
@@ -181,7 +182,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 25),
-              child: Text("Start Date:", style: Theme.of(context).textTheme.bodyLarge,),
+              child: Text(AppLocalizations.of(context)!.startDate, style: Theme.of(context).textTheme.bodyLarge,),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -199,7 +200,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 25),
-              child: Text("  End Date:", style: Theme.of(context).textTheme.bodyLarge,),
+              child: Text(AppLocalizations.of(context)!.endDate, style: Theme.of(context).textTheme.bodyLarge,),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
