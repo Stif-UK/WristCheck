@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
@@ -15,49 +16,49 @@ class WearChartsHelper {
     String returnString = "";
     switch(option) {
       case WearChartOptions.all:
-        returnString = "All Data";
+        returnString = AppLocalizations.of(Get.context!)!.allData;
         break;
       case WearChartOptions.thisYear:
-        returnString = "Worn This Year";
+        returnString = AppLocalizations.of(Get.context!)!.wornThisYear;
         break;
       case WearChartOptions.thisMonth:
-        returnString = "Worn This Month";
+        returnString = AppLocalizations.of(Get.context!)!.wornThisMonth;
         break;
       case WearChartOptions.lastMonth:
-        returnString = "Worn Last Month";
+        returnString = AppLocalizations.of(Get.context!)!.wornLastMonth;
         break;
       case WearChartOptions.lastYear:
-        returnString = "Worn Last Year";
+        returnString = AppLocalizations.of(Get.context!)!.wornLastYear;
         break;
       case WearChartOptions.last30days:
-        returnString = "Worn in last 30 days";
+        returnString = AppLocalizations.of(Get.context!)!.wornInLast30Days;
         break;
       case WearChartOptions.last90days:
-        returnString = "Worn in last 90 days";
+        returnString = AppLocalizations.of(Get.context!)!.wornInLast90Days;
         break;
       case WearChartOptions.manual:
         var controller = Get.put(FilterController());
         var monthValue = WristCheckFormatter.getMonthText(controller.selectedMonth.value);
         var yearValue = controller.selectedYear.value;
-        if(monthValue != "All" && yearValue != "All"){
+        if(monthValue != AppLocalizations.of(Get.context!)!.all && yearValue != AppLocalizations.of(Get.context!)!.all){
           returnString = "$monthValue $yearValue";
-        } else if(monthValue == "All" && yearValue == "All"){
-          returnString = "All Data";
-        }else if(monthValue == "All"){
-          returnString = "Year: $yearValue";
+        } else if(monthValue == AppLocalizations.of(Get.context!)!.all && yearValue == AppLocalizations.of(Get.context!)!.all){
+          returnString = AppLocalizations.of(Get.context!)!.allData;
+        }else if(monthValue == AppLocalizations.of(Get.context!)!.all){
+          returnString = AppLocalizations.of(Get.context!)!.yearSelected(yearValue);
         } else {
-          returnString = "Month: $monthValue";
+          returnString = AppLocalizations.of(Get.context!)!.monthSelected(monthValue);
         }
         break;
       case WearChartOptions.lastPurchase:
-        returnString = "Since Last Purchase";
+        returnString = AppLocalizations.of(Get.context!)!.sinceLastPurchase;
         break;
       case WearChartOptions.last365days:
-        returnString = "Worn in last 365 days";
+        returnString = AppLocalizations.of(Get.context!)!.wornInLast365Days;
         break;
       case WearChartOptions.betweenDates:
         var controller = Get.put(FilterController());
-        returnString = "Worn between ${WristCheckFormatter.getFormattedDate(controller.startDate.value)} & ${WristCheckFormatter.getFormattedDate(controller.endDate.value)}";
+        returnString = AppLocalizations.of(Get.context!)!.wornBetweenDates(WristCheckFormatter.getFormattedDate(controller.startDate.value), WristCheckFormatter.getFormattedDate(controller.endDate.value));
         break;
     }
 
@@ -127,13 +128,13 @@ class WearChartsHelper {
 
     switch(watch.status){
       case "Sold":
-        returnString = "(Sold)";
+        returnString = AppLocalizations.of(Get.context!)!.soldSuffix;
         break;
       case "Retired":
-        returnString = "(Retired)";
+        returnString = AppLocalizations.of(Get.context!)!.retiredSuffix;
         break;
       case "Archived":
-        returnString = "(Archived)";
+        returnString = AppLocalizations.of(Get.context!)!.archivedSuffix;
         break;
       default:
         returnString = "";

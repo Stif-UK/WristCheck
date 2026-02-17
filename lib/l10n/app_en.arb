@@ -100,6 +100,17 @@
   "includeArchivedWatches" : "Include Archived Watches",
   "filterByCategory" : "Filter by Category",
   "filterByMovement" : "Filter by Movement",
+  "allData" : "All Data",
+  "wornThisYear" : "Worn This Year",
+  "wornThisMonth" : "Worn This Month",
+  "wornLastMonth" : "Worn Last Month",
+  "wornLastYear" : "Worn Last Year",
+  "wornInLast30Days" : "Worn in last 30 days",
+  "wornInLast90Days" : "Worn in last 90 days",
+  "wornInLast365Days" : "Worn in last 365 days",
+  "wornBetweenDates" : "Worn between {shortDate} & {shortDate2}",
+  "yearSelected" : "Year: {yearValue}",
+  "monthSelected" : "Month: {monthValue}",
 
   "@_LABELS" : {},
   "watch" : "Watch",
@@ -168,6 +179,7 @@
   "tellMeMore" : "Tell me more",
   "soldSuffix" : "(Sold)",
   "retiredSuffix": "(Retired)",
+  "archivedSuffix" : "(Archived)",
   "watchColon" : "Watch:",
   "deleting" : "Deleting",
   "errorHeader" : "Error",
@@ -369,6 +381,24 @@
       }
     }
   },
+  "@yearValue": {
+    "description": "A String representing a specific year",
+    "placeholders": {
+      "yearValue": {
+        "type": "String",
+        "example": "2025"
+      }
+    }
+  },
+  "@monthValue": {
+    "description": "A String representing a specific month",
+    "placeholders": {
+      "monthValue": {
+        "type": "String",
+        "example": "April"
+      }
+    }
+  },
   "@price": {
     "description": "A string representing a currency value",
     "placeholders": {
@@ -382,6 +412,15 @@
     "description": "A date string",
     "placeholders": {
       "shortDate": {
+        "type": "String",
+        "example": "Feb 8, 2026"
+      }
+    }
+  },
+  "@shortDate2": {
+    "description": "A second date string",
+    "placeholders": {
+      "shortDate2": {
         "type": "String",
         "example": "Feb 8, 2026"
       }

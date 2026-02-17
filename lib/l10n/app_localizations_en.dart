@@ -253,6 +253,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterByMovement => 'Filter by Movement';
 
   @override
+  String get allData => 'All Data';
+
+  @override
+  String get wornThisYear => 'Worn This Year';
+
+  @override
+  String get wornThisMonth => 'Worn This Month';
+
+  @override
+  String get wornLastMonth => 'Worn Last Month';
+
+  @override
+  String get wornLastYear => 'Worn Last Year';
+
+  @override
+  String get wornInLast30Days => 'Worn in last 30 days';
+
+  @override
+  String get wornInLast90Days => 'Worn in last 90 days';
+
+  @override
+  String get wornInLast365Days => 'Worn in last 365 days';
+
+  @override
+  String wornBetweenDates(Object shortDate, Object shortDate2) {
+    return 'Worn between $shortDate & $shortDate2';
+  }
+
+  @override
+  String yearSelected(Object yearValue) {
+    return 'Year: $yearValue';
+  }
+
+  @override
+  String monthSelected(Object monthValue) {
+    return 'Month: $monthValue';
+  }
+
+  @override
   String get watch => 'Watch';
 
   @override
@@ -426,6 +465,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retiredSuffix => '(Retired)';
+
+  @override
+  String get archivedSuffix => '(Archived)';
 
   @override
   String get watchColon => 'Watch:';

@@ -584,6 +584,72 @@ abstract class AppLocalizations {
   /// **'Filter by Movement'**
   String get filterByMovement;
 
+  /// No description provided for @allData.
+  ///
+  /// In en, this message translates to:
+  /// **'All Data'**
+  String get allData;
+
+  /// No description provided for @wornThisYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn This Year'**
+  String get wornThisYear;
+
+  /// No description provided for @wornThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn This Month'**
+  String get wornThisMonth;
+
+  /// No description provided for @wornLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn Last Month'**
+  String get wornLastMonth;
+
+  /// No description provided for @wornLastYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn Last Year'**
+  String get wornLastYear;
+
+  /// No description provided for @wornInLast30Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn in last 30 days'**
+  String get wornInLast30Days;
+
+  /// No description provided for @wornInLast90Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn in last 90 days'**
+  String get wornInLast90Days;
+
+  /// No description provided for @wornInLast365Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn in last 365 days'**
+  String get wornInLast365Days;
+
+  /// No description provided for @wornBetweenDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn between {shortDate} & {shortDate2}'**
+  String wornBetweenDates(Object shortDate, Object shortDate2);
+
+  /// No description provided for @yearSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Year: {yearValue}'**
+  String yearSelected(Object yearValue);
+
+  /// No description provided for @monthSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Month: {monthValue}'**
+  String monthSelected(Object monthValue);
+
   /// No description provided for @watch.
   ///
   /// In en, this message translates to:
@@ -925,6 +991,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'(Retired)'**
   String get retiredSuffix;
+
+  /// No description provided for @archivedSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'(Archived)'**
+  String get archivedSuffix;
 
   /// No description provided for @watchColon.
   ///

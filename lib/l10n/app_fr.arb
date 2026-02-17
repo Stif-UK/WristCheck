@@ -99,6 +99,17 @@
   "includeArchivedWatches" : "Inclure les montres archivées",
   "filterByCategory" : "Filtrer par catégorie",
   "filterByMovement" : "Filtrer par mouvement",
+  "allData" : "Toutes les données",
+  "wornThisYear" : "Portées cette année",
+  "wornThisMonth" : "Portées ce mois-ci",
+  "wornLastMonth" : "Portées le mois dernier",
+  "wornLastYear" : "Portées l'année dernière",
+  "wornInLast30Days" : "Portées les 30 derniers jours",
+  "wornInLast90Days" : "Portées les 90 derniers jours",
+  "wornInLast365Days" : "Portées les 365 derniers jours",
+  "wornBetweenDates" : "Portées entre le {shortDate} et le {shortDate2}",
+  "yearSelected" : "Année : {yearValue}",
+  "monthSelected" : "Mois : {monthValue}",
 
   "@_LABELS" : {},
   "watch" : "Montre",
@@ -164,6 +175,7 @@
   "tellMeMore" : "En savoir plus",
   "soldSuffix" : "(Vendu)",
   "retiredSuffix": "(Retirée)",
+  "archivedSuffix" : "(Archivée)",
   "watchColon" : "Montre : ",
   "deleting" : "Suppression en cours",
   "errorHeader" : "Erreur",
@@ -361,6 +373,24 @@
       }
     }
   },
+  "@yearValue": {
+    "description": "Une chaîne représentant une année spécifique",
+    "placeholders": {
+      "yearValue": {
+        "type": "String",
+        "example": "2025"
+      }
+    }
+  },
+  "@monthValue": {
+    "description": "Une chaîne représentant un mois spécifique",
+    "placeholders": {
+      "monthValue": {
+        "type": "String",
+        "example": "Avril"
+      }
+    }
+  },
   "@price": {
     "description": "Une chaîne de caractères représentant une valeur monétaire",
     "placeholders": {
@@ -374,6 +404,15 @@
     "description": "Une chaîne de caractères représentant une date",
     "placeholders": {
       "shortDate": {
+        "type": "String",
+        "example": "8 févr. 2026"
+      }
+    }
+  },
+  "@shortDate2": {
+    "description": "Une seconde chaîne de caractères représentant une date",
+    "placeholders": {
+      "shortDate2": {
         "type": "String",
         "example": "8 févr. 2026"
       }
