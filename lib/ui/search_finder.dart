@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -76,9 +77,9 @@ class _SearchFinderState extends State<SearchFinder> {
                   .toList();
 
               return results.isEmpty
-                  ? const Center(
+                  ? Center(
                 child: Text(
-                  'No results found !',
+                  AppLocalizations.of(context)!.noResultsFound,
                 ),
               )
                   : ListView.builder(

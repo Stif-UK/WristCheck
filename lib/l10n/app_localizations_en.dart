@@ -806,6 +806,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enableSecondDailyWearReminder => 'Enable Second Daily Reminder';
 
   @override
+  String get search => 'Search';
+
+  @override
+  String get noResultsFound => 'No Results Found';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

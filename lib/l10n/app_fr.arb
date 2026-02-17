@@ -289,6 +289,10 @@
   "notificationTwoConfirmationBody" : "Votre seconde notification est programmée pour {hourTimeStamp} chaque jour !",
   "enableSecondDailyWearReminder" : "Activer un second rappel quotidien",
 
+  "@_SEARCH" : {},
+  "search" : "Rechercher",
+  "noResultsFound" : "Aucun résultat trouvé",
+
   "@_VARIABLES": {},
   "@watchName": {
     "description": "Un titre composé du fabricant et du modèle d'une montre",

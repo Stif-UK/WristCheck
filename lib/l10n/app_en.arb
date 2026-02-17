@@ -295,6 +295,9 @@
   "notificationTwoConfirmationBody" : "Your second notification is set for {hourTimeStamp} every day!",
   "enableSecondDailyWearReminder" : "Enable Second Daily Reminder",
 
+  "@_SEARCH" : {},
+  "search" : "Search",
+  "noResultsFound" :  "No Results Found",
 
 
   "@_VARIABLES": {},

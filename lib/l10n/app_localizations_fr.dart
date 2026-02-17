@@ -814,6 +814,12 @@ class AppLocalizationsFr extends AppLocalizations {
       'Activer un second rappel quotidien';
 
   @override
+  String get search => 'Rechercher';
+
+  @override
+  String get noResultsFound => 'Aucun résultat trouvé';
+
+  @override
   String nWears(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

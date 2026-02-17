@@ -1550,6 +1550,18 @@ abstract class AppLocalizations {
   /// **'Enable Second Daily Reminder'**
   String get enableSecondDailyWearReminder;
 
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Results Found'**
+  String get noResultsFound;
+
   /// Returns the number of times a watch has been worn
   ///
   /// In en, this message translates to:
