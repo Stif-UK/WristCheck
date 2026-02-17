@@ -458,6 +458,12 @@ abstract class AppLocalizations {
   /// **'You haven\'t tracked any wear dates for this watch yet.\n\nTrack data by clicking \'wear today\' on the watch page, or add dates via the calendar view. \n\nOnce tracked charts will show here breaking down your records by month and weekday.'**
   String get emptyWearListWatchCharts;
 
+  /// No description provided for @wearChartFiltersSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Chart Filters'**
+  String get wearChartFiltersSheetTitle;
+
   /// No description provided for @pageTitleCollectionStats.
   ///
   /// In en, this message translates to:
@@ -847,6 +853,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Overdue: {nDays}'**
   String overdueXDays(Object nDays);
+
+  /// No description provided for @basic.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic'**
+  String get basic;
+
+  /// No description provided for @advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get advanced;
 
   /// No description provided for @backupRestore.
   ///
@@ -1327,6 +1345,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.'**
   String get emptyPreOrderCopy;
+
+  /// No description provided for @listViewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get listViewTitle;
+
+  /// No description provided for @gridViewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Grid'**
+  String get gridViewTitle;
+
+  /// No description provided for @displayOrderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Order:'**
+  String get displayOrderTitle;
+
+  /// No description provided for @inOrderOfEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'In order of entry'**
+  String get inOrderOfEntry;
+
+  /// No description provided for @inReverseOrderOfEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'In reverse order of entry'**
+  String get inReverseOrderOfEntry;
+
+  /// No description provided for @azByManufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'A-Z by manufacturer'**
+  String get azByManufacturer;
+
+  /// No description provided for @zaByManufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Z-A by manufacturer'**
+  String get zaByManufacturer;
+
+  /// No description provided for @orderByMostWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Order by most worn'**
+  String get orderByMostWorn;
+
+  /// No description provided for @orderByLastWornDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order by last worn date'**
+  String get orderByLastWornDate;
 
   /// No description provided for @watchNamePurchased.
   ///

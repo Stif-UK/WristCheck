@@ -79,6 +79,7 @@
   "last12Months" : "Last 12 Months",
   "last90days" : "Last 90 Days",
   "emptyWearListWatchCharts" : "You haven't tracked any wear dates for this watch yet.\n\nTrack data by clicking 'wear today' on the watch page, or add dates via the calendar view. \n\nOnce tracked charts will show here breaking down your records by month and weekday.",
+  "wearChartFiltersSheetTitle" : "Wear Chart Filters",
 
   "@_COLLECTION_STATS" : {},
   "pageTitleCollectionStats": "Collection Stats",
@@ -153,6 +154,8 @@
   "countDownNA" :  "Countdown: N/A",
   "dueInXDays" : "Due: {nDays}",
   "overdueXDays" : "Overdue: {nDays}",
+  "basic" : "Basic",
+  "advanced" : "Advanced",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",
@@ -245,6 +248,16 @@
   "emptyWishlistCopy" : "You aren't tracking any watches in your wishlist.\n\nTo add a watch to your wishlist, create a new watch record and set it's status to 'Wishlist'.\n",
   "emptyFavouritesCopy" : "You don't have any watches marked as 'favourite' yet. \n\nTo mark a watch as a favourite adjust the toggle on the watch detail screen.\n",
   "emptyPreOrderCopy" : "You're not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of 'pre-ordered'.",
+  "listViewTitle" : "List",
+  "gridViewTitle" : "Grid",
+  "displayOrderTitle" : "Display Order:",
+  "inOrderOfEntry" : "In order of entry",
+  "inReverseOrderOfEntry" : "In reverse order of entry",
+  "azByManufacturer" : "A-Z by manufacturer",
+  "zaByManufacturer" : "Z-A by manufacturer",
+  "orderByMostWorn" : "Order by most worn",
+  "orderByLastWornDate" : "Order by last worn date",
+
 
   "@_TIMELINE" : {},
   "watchNamePurchased" : "{watchName} purchased",

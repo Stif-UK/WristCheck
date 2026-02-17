@@ -190,6 +190,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'You haven\'t tracked any wear dates for this watch yet.\n\nTrack data by clicking \'wear today\' on the watch page, or add dates via the calendar view. \n\nOnce tracked charts will show here breaking down your records by month and weekday.';
 
   @override
+  String get wearChartFiltersSheetTitle => 'Wear Chart Filters';
+
+  @override
   String get pageTitleCollectionStats => 'Collection Stats';
 
   @override
@@ -397,6 +400,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String overdueXDays(Object nDays) {
     return 'Overdue: $nDays';
   }
+
+  @override
+  String get basic => 'Basic';
+
+  @override
+  String get advanced => 'Advanced';
 
   @override
   String get backupRestore => 'Backup / Restore Database';
@@ -664,6 +673,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.';
+
+  @override
+  String get listViewTitle => 'List';
+
+  @override
+  String get gridViewTitle => 'Grid';
+
+  @override
+  String get displayOrderTitle => 'Display Order:';
+
+  @override
+  String get inOrderOfEntry => 'In order of entry';
+
+  @override
+  String get inReverseOrderOfEntry => 'In reverse order of entry';
+
+  @override
+  String get azByManufacturer => 'A-Z by manufacturer';
+
+  @override
+  String get zaByManufacturer => 'Z-A by manufacturer';
+
+  @override
+  String get orderByMostWorn => 'Order by most worn';
+
+  @override
+  String get orderByLastWornDate => 'Order by last worn date';
 
   @override
   String watchNamePurchased(Object watchName) {

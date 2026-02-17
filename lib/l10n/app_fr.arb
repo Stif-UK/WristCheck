@@ -78,6 +78,7 @@
   "last12Months" : "12 derniers mois",
   "last90days" : "90 derniers jours",
   "emptyWearListWatchCharts" : "Vous n'avez pas encore enregistré de dates de portée pour cette montre.\n\nEnregistrez des données en cliquant sur « Portée aujourd'hui » sur la fiche de la montre, ou ajoutez des dates via la vue calendrier.\n\nUne fois enregistrés, des graphiques s'afficheront ici pour détailler vos statistiques par mois et par jour de la semaine.",
+  "wearChartFiltersSheetTitle" : "Filtres du graphique de porter",
 
   "@_COLLECTION_STATS" : {},
   "pageTitleCollectionStats": "Stats de la collection",
@@ -149,6 +150,8 @@
   "countDownNA" : "Compte à rebours : N/A",
   "dueInXDays" : "Échéance : {nDays}",
   "overdueXDays" : "En retard : {nDays}",
+  "basic" : "Basique",
+  "advanced" : "Avancé",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -241,6 +244,15 @@
   "emptyWishlistCopy" : "Votre liste de souhaits est vide.\n\nPour ajouter une montre à votre liste de souhaits, créez une nouvelle fiche et réglez son statut sur « Liste de souhaits ».\n",
   "emptyFavouritesCopy" : "Vous n'avez pas encore de montres marquées comme « favorite ».\n\nPour marquer une montre comme favorite, activez le bouton bascule sur l'écran de détails de la montre.\n",
   "emptyPreOrderCopy" : "Vous n'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».",
+  "listViewTitle" : "Liste",
+  "gridViewTitle" : "Grille",
+  "displayOrderTitle" : "Ordre d'affichage :",
+  "inOrderOfEntry" : "Par ordre d'ajout",
+  "inReverseOrderOfEntry" : "Par ordre d'ajout inverse",
+  "azByManufacturer" : "A-Z par fabricant",
+  "zaByManufacturer" : "Z-A par fabricant",
+  "orderByMostWorn" : "Trier par les plus portées",
+  "orderByLastWornDate" : "Trier par date de dernier porter",
 
   "@_TIMELINE" : {},
   "watchNamePurchased" : "{watchName} achetée",

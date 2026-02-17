@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/settings/chart_options.dart';
 import 'package:wristcheck/ui/widgets/wear_filters/advanced_filters_widget.dart';
 import 'package:wristcheck/ui/widgets/wear_filters/basic_filters_widget.dart';
@@ -22,11 +23,11 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
   final List<Tab> myTabs = <Tab>[
     Tab(
       icon: Icon(FontAwesomeIcons.chartSimple),
-      text: "Basic" ,
+      text: AppLocalizations.of(Get.context!)!.basic,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
         icon: Icon(FontAwesomeIcons.magnifyingGlassChart),
-        text: "Advanced",
+        text: AppLocalizations.of(Get.context!)!.advanced,
         iconMargin: EdgeInsets.only(bottom: 5),),
     // Tab(
     //   icon: Icon(FontAwesomeIcons.productHunt),
@@ -71,7 +72,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Text("Wear Chart Filters",
+                child: Text(AppLocalizations.of(Get.context!)!.wearChartFiltersSheetTitle,
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,),
               ),
@@ -105,7 +106,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                     controller: _tabController,
                     children: myTabs.map((Tab tab){
                       return Center(
-                        child: tab.text == "Basic"? BasicFiltersWidget(): AdvancedFiltersWidget(),
+                        child: tab.text == AppLocalizations.of(Get.context!)!.basic? BasicFiltersWidget(): AdvancedFiltersWidget(),
                       );
                     }).toList(),
                   ),

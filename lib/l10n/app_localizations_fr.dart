@@ -191,6 +191,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Vous n\'avez pas encore enregistré de dates de portée pour cette montre.\n\nEnregistrez des données en cliquant sur « Portée aujourd\'hui » sur la fiche de la montre, ou ajoutez des dates via la vue calendrier.\n\nUne fois enregistrés, des graphiques s\'afficheront ici pour détailler vos statistiques par mois et par jour de la semaine.';
 
   @override
+  String get wearChartFiltersSheetTitle => 'Filtres du graphique de porter';
+
+  @override
   String get pageTitleCollectionStats => 'Stats de la collection';
 
   @override
@@ -399,6 +402,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String overdueXDays(Object nDays) {
     return 'En retard : $nDays';
   }
+
+  @override
+  String get basic => 'Basique';
+
+  @override
+  String get advanced => 'Avancé';
 
   @override
   String get backupRestore => 'Sauvegarde / Restauration';
@@ -670,6 +679,33 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Vous n\'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d\'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».';
+
+  @override
+  String get listViewTitle => 'Liste';
+
+  @override
+  String get gridViewTitle => 'Grille';
+
+  @override
+  String get displayOrderTitle => 'Ordre d\'affichage :';
+
+  @override
+  String get inOrderOfEntry => 'Par ordre d\'ajout';
+
+  @override
+  String get inReverseOrderOfEntry => 'Par ordre d\'ajout inverse';
+
+  @override
+  String get azByManufacturer => 'A-Z par fabricant';
+
+  @override
+  String get zaByManufacturer => 'Z-A par fabricant';
+
+  @override
+  String get orderByMostWorn => 'Trier par les plus portées';
+
+  @override
+  String get orderByLastWornDate => 'Trier par date de dernier porter';
 
   @override
   String watchNamePurchased(Object watchName) {
