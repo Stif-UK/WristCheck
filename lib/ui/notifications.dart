@@ -227,7 +227,6 @@ class _NotificationsState extends State<Notifications> {
     notificationService.showScheduledNotification(id: 1, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationOneBody, time: customTime!);
     String timeString = _selectedTime!;//_selectedTime!.substring(10, _selectedTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationConfirmationBody(timeString));
-    //WristCheckSnackBars.dailyNotification(timeString);
   }
 
     //Duplication of _setNotification for a second reminder
@@ -237,7 +236,6 @@ class _NotificationsState extends State<Notifications> {
     notificationService.showScheduledNotification(id: 2, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoBody, time: customTime!);
     String timeString = _secondTime!;//.substring(10, _secondTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoConfirmationBody(timeString));
-    //WristCheckSnackBars.dailyNotification(timeString);
   }
 
   Widget _getSecondNotificationListTile(bool isAppPro){
