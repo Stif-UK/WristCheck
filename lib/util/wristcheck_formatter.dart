@@ -164,6 +164,7 @@ class WristCheckFormatter{
   static MovementEnum getMovementEnum(String? movement){
     MovementEnum returnValue = MovementEnum.blank;
 
+    //TODO: When translating, retain the English values and create separate switch entries for values in the translation file to prevent existing data being lost
     switch (movement) {
       case "Not Entered":
         returnValue = MovementEnum.blank;
