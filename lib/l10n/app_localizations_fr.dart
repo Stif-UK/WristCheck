@@ -987,6 +987,12 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get takeWithCamera => 'Prendre une photo';
+
+  @override
+  String get selectFromGallery => 'Choisir depuis la galerie';
+
+  @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';
 
   @override

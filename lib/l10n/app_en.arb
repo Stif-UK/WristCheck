@@ -352,6 +352,8 @@
   "updateImage" : "Update Image",
   "deleteImage" : "Delete Image",
   "imageBottomSheetTitle" : "{watchName}\nImage {count}",
+  "takeWithCamera" : "Take with Camera",
+  "selectFromGallery" : "Select from Gallery",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Enable Daily Wear Reminder",

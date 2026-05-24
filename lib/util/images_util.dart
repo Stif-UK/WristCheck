@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
@@ -96,13 +97,13 @@ class ImagesUtil {
               const Divider(thickness: 2,),
               ListTile(
                   leading: const Icon(FontAwesomeIcons.cameraRetro),
-                  title: Text("Take with Camera", style: Theme.of(context).textTheme.headlineSmall,),
+                  title: Text(AppLocalizations.of(Get.context!)!.takeWithCamera, style: Theme.of(context).textTheme.headlineSmall,),
                   onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
               ),
               const Divider(thickness: 2,),
               ListTile(
                   leading: const Icon(FontAwesomeIcons.images),
-                  title: Text("Select from Gallery", style: Theme.of(context).textTheme.headlineSmall,),
+                  title: Text(AppLocalizations.of(Get.context!)!.selectFromGallery, style: Theme.of(context).textTheme.headlineSmall,),
                   onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
               ),
               const Divider(thickness: 2,),

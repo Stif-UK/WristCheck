@@ -979,6 +979,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get takeWithCamera => 'Take with Camera';
+
+  @override
+  String get selectFromGallery => 'Select from Gallery';
+
+  @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
 
   @override

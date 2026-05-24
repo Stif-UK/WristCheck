@@ -1868,6 +1868,18 @@ abstract class AppLocalizations {
   /// **'{watchName}\nImage {count}'**
   String imageBottomSheetTitle(Object count, Object watchName);
 
+  /// No description provided for @takeWithCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Take with Camera'**
+  String get takeWithCamera;
+
+  /// No description provided for @selectFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Gallery'**
+  String get selectFromGallery;
+
   /// No description provided for @enableDailyWearReminder.
   ///
   /// In en, this message translates to:
