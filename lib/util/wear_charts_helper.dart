@@ -71,11 +71,11 @@ class WearChartsHelper {
     String returnText = "";
     //If filter
     if(filterController.basicWearFilter.value == WearChartOptions.lastPurchase && filterController.lastPurchaseTracked.value){
-      returnText = "$returnText Last Purchase: ${WristCheckFormatter.getFormattedDate(filterController.lastPurchaseDate.value)}, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderLastPurchase(returnText, WristCheckFormatter.getFormattedDate(filterController.lastPurchaseDate.value));
     }
     //Text for grouping
     if(showGrouping){
-      returnText = "$returnText Group by ${WristCheckFormatter.getChartGroupingText(grouping)}, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderGrouping(WristCheckFormatter.getChartGroupingText(grouping), returnText);
     }
     //Text for category filter
     if(filterCategories){
@@ -86,7 +86,7 @@ class WearChartsHelper {
       if(catString.length != 0){
         catString = catString.substring(1, catString.length-1);
       }
-      returnText = "$returnText Categories($catString), ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderCategories(catString, returnText);
     }
     //Text for movement filter
     if(filterMovements){
@@ -97,7 +97,7 @@ class WearChartsHelper {
       if(mvmtString.length != 0){
         mvmtString = mvmtString.substring(1, mvmtString.length-1);
       }
-      returnText = "$returnText Movements($mvmtString), ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderMovements(mvmtString, returnText);
     }
     //Text for hide collection
     if(!showCollection){
