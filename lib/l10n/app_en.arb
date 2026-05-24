@@ -3,6 +3,14 @@
   "@watchBox": {
     "description": "Watch box label"
   },
+  "favouriteWatches" : "Favourite Watches",
+  "wishlist" : "Wishlist",
+  "preOrders" : "Pre-Orders",
+  "retiredWatches" : "Retired Watches",
+  "randomWatch" : "Random Watch",
+
+
+
 
   "@_HOME_TABS": {},
   "collection" : "Collection",

@@ -86,25 +86,25 @@ class WristCheckFormatter{
 
     switch (view) {
       case CollectionView.all:
-        returnText = "Watch Box";
+        returnText = AppLocalizations.of(Get.context!)!.watchBox;
         break;
       case CollectionView.sold:
-        returnText = "Sold Watches";
+        returnText = AppLocalizations.of(Get.context!)!.soldWatches;
         break;
       case CollectionView.wishlist:
-        returnText = "Wishlist";
+        returnText = AppLocalizations.of(Get.context!)!.wishlist;
         break;
       case CollectionView.favourites:
-        returnText = "Favourite Watches";
+        returnText = AppLocalizations.of(Get.context!)!.favouriteWatches;
         break;
       case CollectionView.random:
-        returnText = "Random Watch";
+        returnText = AppLocalizations.of(Get.context!)!.randomWatch;
         break;
       case CollectionView.preorder:
-        returnText = "Pre-Orders";
+        returnText = AppLocalizations.of(Get.context!)!.preOrders;
         break;
       case CollectionView.retired:
-        returnText = "Retired Watches";
+        returnText = AppLocalizations.of(Get.context!)!.retiredWatches;
         break;
     }
 

@@ -12,6 +12,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get watchBox => 'Watch Box';
 
   @override
+  String get favouriteWatches => 'Favourite Watches';
+
+  @override
+  String get wishlist => 'Wishlist';
+
+  @override
+  String get preOrders => 'Pre-Orders';
+
+  @override
+  String get retiredWatches => 'Retired Watches';
+
+  @override
+  String get randomWatch => 'Random Watch';
+
+  @override
   String get collection => 'Collection';
 
   @override

@@ -3,6 +3,11 @@
   "@ovenTemp": {
     "description": "étiquette de boîte de montre"
   },
+  "favouriteWatches" : "Montres favorites",
+  "wishlist" : "Liste d’envies",
+  "preOrders" : "Précommandes",
+  "retiredWatches" : "Montres retirées",
+  "randomWatch" : "Montre au hasard",
 
   "@_HOME_TABS": {},
   "collection" : "Collection",

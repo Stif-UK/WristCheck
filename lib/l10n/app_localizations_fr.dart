@@ -12,6 +12,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get watchBox => 'Boîte à montres';
 
   @override
+  String get favouriteWatches => 'Montres favorites';
+
+  @override
+  String get wishlist => 'Liste d’envies';
+
+  @override
+  String get preOrders => 'Précommandes';
+
+  @override
+  String get retiredWatches => 'Montres retirées';
+
+  @override
+  String get randomWatch => 'Montre au hasard';
+
+  @override
   String get collection => 'Collection';
 
   @override

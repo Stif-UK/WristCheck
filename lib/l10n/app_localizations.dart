@@ -104,6 +104,36 @@ abstract class AppLocalizations {
   /// **'Watch Box'**
   String get watchBox;
 
+  /// No description provided for @favouriteWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourite Watches'**
+  String get favouriteWatches;
+
+  /// No description provided for @wishlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Wishlist'**
+  String get wishlist;
+
+  /// No description provided for @preOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Orders'**
+  String get preOrders;
+
+  /// No description provided for @retiredWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Retired Watches'**
+  String get retiredWatches;
+
+  /// No description provided for @randomWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Random Watch'**
+  String get randomWatch;
+
   /// No description provided for @collection.
   ///
   /// In en, this message translates to:
