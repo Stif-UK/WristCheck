@@ -119,6 +119,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} inc. Sold, ",
   "advancedFilterHeaderIncRetired" : "{returnText} inc. Retired, ",
   "advancedFilterHeaderIncArchived" : "{returnText} inc. Archived, ",
+  "chartsEmptyBackgroundText" : "No data available for the chosen filter",
 
 
   "@_LABELS" : {},

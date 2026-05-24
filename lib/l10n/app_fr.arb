@@ -118,6 +118,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} avec vendus, ",
   "advancedFilterHeaderIncRetired" : "{returnText} avec retirés, ",
   "advancedFilterHeaderIncArchived" : "{returnText} avec archivés, ",
+  "chartsEmptyBackgroundText" : "Aucune donnée disponible pour le filtre sélectionné",
 
   "@_LABELS" : {},
   "watch" : "Montre",

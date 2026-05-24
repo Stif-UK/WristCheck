@@ -332,6 +332,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get chartsEmptyBackgroundText =>
+      'No data available for the chosen filter';
+
+  @override
   String get watch => 'Watch';
 
   @override

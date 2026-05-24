@@ -333,6 +333,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get chartsEmptyBackgroundText =>
+      'Aucune donnée disponible pour le filtre sélectionné';
+
+  @override
   String get watch => 'Montre';
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -26,7 +27,7 @@ class WearPieChart extends StatelessWidget {
     return dataSize == 0? Center(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Text("No data available for the chosen filter",
+        child: Text(AppLocalizations.of(Get.context!)!.chartsEmptyBackgroundText,
           style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,),
       ),

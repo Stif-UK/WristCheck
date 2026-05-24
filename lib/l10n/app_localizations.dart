@@ -698,6 +698,12 @@ abstract class AppLocalizations {
   /// **'{returnText} inc. Archived, '**
   String advancedFilterHeaderIncArchived(Object returnText);
 
+  /// No description provided for @chartsEmptyBackgroundText.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available for the chosen filter'**
+  String get chartsEmptyBackgroundText;
+
   /// No description provided for @watch.
   ///
   /// In en, this message translates to:
