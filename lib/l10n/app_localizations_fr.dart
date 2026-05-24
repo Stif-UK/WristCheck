@@ -999,6 +999,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cropImage => 'Recadrer l\'image';
 
   @override
+  String get longPressToEditOrDelete => 'Appui long pour modifier ou supprimer';
+
+  @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';
 
   @override

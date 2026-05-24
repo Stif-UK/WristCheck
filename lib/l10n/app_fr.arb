@@ -345,6 +345,7 @@
   "takeWithCamera" : "Prendre une photo",
   "selectFromGallery" : "Choisir depuis la galerie",
   "cropImage" : "Recadrer l'image",
+  "longPressToEditOrDelete" : "Appui long pour modifier ou supprimer",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Activer le rappel quotidien",

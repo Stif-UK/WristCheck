@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/image_update_bottomsheet.dart';
@@ -75,7 +76,7 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
             ),
           ),
           Center(
-            child: Text("Long press to edit or delete"),
+            child: Text(AppLocalizations.of(Get.context!)!.longPressToEditOrDelete),
           ),
         ],
       ),

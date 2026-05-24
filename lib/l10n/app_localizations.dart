@@ -1892,6 +1892,12 @@ abstract class AppLocalizations {
   /// **'Crop Image'**
   String get cropImage;
 
+  /// No description provided for @longPressToEditOrDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to edit or delete'**
+  String get longPressToEditOrDelete;
+
   /// No description provided for @enableDailyWearReminder.
   ///
   /// In en, this message translates to:

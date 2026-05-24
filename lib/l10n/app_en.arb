@@ -356,6 +356,7 @@
   "takeWithCamera" : "Take with Camera",
   "selectFromGallery" : "Select from Gallery",
   "cropImage" : "Crop Image",
+  "longPressToEditOrDelete" : "Long press to edit or delete",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Enable Daily Wear Reminder",

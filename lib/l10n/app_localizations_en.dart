@@ -991,6 +991,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cropImage => 'Crop Image';
 
   @override
+  String get longPressToEditOrDelete => 'Long press to edit or delete';
+
+  @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
 
   @override
