@@ -119,6 +119,8 @@
   "advancedFilterHeaderIncRetired" : "{returnText} avec retirés, ",
   "advancedFilterHeaderIncArchived" : "{returnText} avec archivés, ",
   "chartsEmptyBackgroundText" : "Aucune donnée disponible pour le filtre sélectionné",
+  "generatedWithWristTrackPro" : "Ce graphique a été généré avec WristTrack Pro",
+  "generatedWithWristTrack" : "Ce graphique a été généré avec WristTrack",
 
   "@_LABELS" : {},
   "watch" : "Montre",

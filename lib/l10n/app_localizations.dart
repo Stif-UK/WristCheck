@@ -704,6 +704,18 @@ abstract class AppLocalizations {
   /// **'No data available for the chosen filter'**
   String get chartsEmptyBackgroundText;
 
+  /// No description provided for @generatedWithWristTrackPro.
+  ///
+  /// In en, this message translates to:
+  /// **'This chart generated with WristTrack Pro'**
+  String get generatedWithWristTrackPro;
+
+  /// No description provided for @generatedWithWristTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'This chart generated with WristTrack'**
+  String get generatedWithWristTrack;
+
   /// No description provided for @watch.
   ///
   /// In en, this message translates to:

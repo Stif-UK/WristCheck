@@ -336,6 +336,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'No data available for the chosen filter';
 
   @override
+  String get generatedWithWristTrackPro =>
+      'This chart generated with WristTrack Pro';
+
+  @override
+  String get generatedWithWristTrack => 'This chart generated with WristTrack';
+
+  @override
   String get watch => 'Watch';
 
   @override

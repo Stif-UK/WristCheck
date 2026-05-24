@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -102,7 +103,7 @@ class _WearStatsState extends State<WearStatsV2> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const SizedBox(height: 10),
-                        widget.wristCheckController.isAppPro.value? const Text("This chart generated with WristTrack Pro") : const Text ("This chart generated with WristTrack"),
+                        widget.wristCheckController.isAppPro.value? Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrackPro) : Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrack),
                         const SizedBox(height: 20,)
                       ],
                     )

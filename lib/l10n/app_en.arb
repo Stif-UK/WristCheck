@@ -120,6 +120,8 @@
   "advancedFilterHeaderIncRetired" : "{returnText} inc. Retired, ",
   "advancedFilterHeaderIncArchived" : "{returnText} inc. Archived, ",
   "chartsEmptyBackgroundText" : "No data available for the chosen filter",
+  "generatedWithWristTrackPro" : "This chart generated with WristTrack Pro",
+  "generatedWithWristTrack" : "This chart generated with WristTrack",
 
 
   "@_LABELS" : {},

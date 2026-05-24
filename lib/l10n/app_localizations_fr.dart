@@ -337,6 +337,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Aucune donnée disponible pour le filtre sélectionné';
 
   @override
+  String get generatedWithWristTrackPro =>
+      'Ce graphique a été généré avec WristTrack Pro';
+
+  @override
+  String get generatedWithWristTrack =>
+      'Ce graphique a été généré avec WristTrack';
+
+  @override
   String get watch => 'Montre';
 
   @override
