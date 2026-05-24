@@ -188,6 +188,7 @@
   "yes" : "Oui",
   "noThanks" : "Non merci",
   "cancel" : "Annuler",
+  "done" : "Terminé",
   "tellMeMore" : "En savoir plus",
   "soldSuffix" : "(Vendu)",
   "retiredSuffix": "(Retirée)",
@@ -343,6 +344,7 @@
   "imageBottomSheetTitle" : "{watchName}\nImage {count}",
   "takeWithCamera" : "Prendre une photo",
   "selectFromGallery" : "Choisir depuis la galerie",
+  "cropImage" : "Recadrer l'image",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Activer le rappel quotidien",

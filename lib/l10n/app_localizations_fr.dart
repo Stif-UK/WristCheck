@@ -527,6 +527,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cancel => 'Annuler';
 
   @override
+  String get done => 'Terminé';
+
+  @override
   String get tellMeMore => 'En savoir plus';
 
   @override
@@ -991,6 +994,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get selectFromGallery => 'Choisir depuis la galerie';
+
+  @override
+  String get cropImage => 'Recadrer l\'image';
 
   @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';

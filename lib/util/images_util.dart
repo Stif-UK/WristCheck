@@ -122,13 +122,15 @@ class ImagesUtil {
   static Future<CroppedFile?> cropImage(File imageFile) async{
     //create UI settings for the crop
     AndroidUiSettings androidUIsettingsForCrop() => AndroidUiSettings(
-      toolbarTitle: "Crop watch image",
+      toolbarTitle: AppLocalizations.of(Get.context!)!.cropImage,
       aspectRatioPresets: [CropAspectRatioPreset.square],
     );
 
     IOSUiSettings iOSUIsettingsForCrop() => IOSUiSettings(
-        title: "Crop Image",
-      aspectRatioPresets: [CropAspectRatioPreset.square]
+        title: AppLocalizations.of(Get.context!)!.cropImage,
+      aspectRatioPresets: [CropAspectRatioPreset.square],
+      cancelButtonTitle: AppLocalizations.of(Get.context!)!.cancel,
+      doneButtonTitle: AppLocalizations.of(Get.context!)!.done
 
     );
 

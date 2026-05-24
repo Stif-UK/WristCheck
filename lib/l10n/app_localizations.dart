@@ -1070,6 +1070,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
   /// No description provided for @tellMeMore.
   ///
   /// In en, this message translates to:
@@ -1879,6 +1885,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select from Gallery'**
   String get selectFromGallery;
+
+  /// No description provided for @cropImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Crop Image'**
+  String get cropImage;
 
   /// No description provided for @enableDailyWearReminder.
   ///
