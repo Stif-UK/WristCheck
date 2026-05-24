@@ -114,7 +114,6 @@ class WearChartsHelper {
     //Text for including archived watches
     if(showArchived){
       returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncArchived(returnText);
-      //returnText = "$returnText inc. Archived, ";
     }
     returnText = returnText.trim();
     if(returnText.length > 2){
