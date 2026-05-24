@@ -110,6 +110,14 @@
   "wornBetweenDates" : "Portées entre le {shortDate} et le {shortDate2}",
   "yearSelected" : "Année : {yearValue}",
   "monthSelected" : "Mois : {monthValue}",
+  "advancedFilterHeaderLastPurchase" : "{returnText} Dernier achat : {shortDate}, ",
+  "advancedFilterHeaderGrouping" : "{returnText} Grouper par {filterText}, ",
+  "advancedFilterHeaderCategories" : "{returnText} Catégories ({filterText}), ",
+  "advancedFilterHeaderMovements" : "{returnText} Mouvements ({filterText}), ",
+  "advancedFilterHeaderHideCollection" : "{returnText} masquer la collection, ",
+  "advancedFilterHeaderIncSold" : "{returnText} avec vendus, ",
+  "advancedFilterHeaderIncRetired" : "{returnText} avec retirés, ",
+  "advancedFilterHeaderIncArchived" : "{returnText} avec archivés, ",
 
   "@_LABELS" : {},
   "watch" : "Montre",
@@ -352,6 +360,24 @@
       "watchName": {
         "type": "String",
         "example": "Longines Spirit"
+      }
+    }
+  },
+  "@returnText": {
+    "description": "Une chaîne de caractères pouvant représenter un texte sélectionné dynamiquement",
+    "placeholders": {
+      "returnText": {
+        "type": "String",
+        "example": "Filtre : Cette année, incluant les montres vendues"
+      }
+    }
+  },
+  "@filterText": {
+    "description": "Une chaîne de caractères pouvant représenter un texte inséré dynamiquement",
+    "placeholders": {
+      "filterText": {
+        "type": "String",
+        "example": "Groupement des graphiques : Mouvements"
       }
     }
   },

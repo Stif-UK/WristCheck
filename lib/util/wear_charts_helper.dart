@@ -101,19 +101,20 @@ class WearChartsHelper {
     }
     //Text for hide collection
     if(!showCollection){
-      returnText = "$returnText hide Collection, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderHideCollection(returnText);
     }
     //Text for including sold watches
     if(showSold){
-      returnText = "$returnText inc. Sold, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncSold(returnText);
     }
     //Text for including retired watches
     if(showRetired){
-      returnText = "$returnText inc. Retired, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncRetired(returnText);
     }
     //Text for including archived watches
     if(showArchived){
-      returnText = "$returnText inc. Archived, ";
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncArchived(returnText);
+      //returnText = "$returnText inc. Archived, ";
     }
     returnText = returnText.trim();
     if(returnText.length > 2){

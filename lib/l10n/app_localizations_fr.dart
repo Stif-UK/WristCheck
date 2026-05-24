@@ -293,6 +293,46 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String advancedFilterHeaderLastPurchase(Object returnText, Object shortDate) {
+    return '$returnText Dernier achat : $shortDate, ';
+  }
+
+  @override
+  String advancedFilterHeaderGrouping(Object filterText, Object returnText) {
+    return '$returnText Grouper par $filterText, ';
+  }
+
+  @override
+  String advancedFilterHeaderCategories(Object filterText, Object returnText) {
+    return '$returnText Catégories ($filterText), ';
+  }
+
+  @override
+  String advancedFilterHeaderMovements(Object filterText, Object returnText) {
+    return '$returnText Mouvements ($filterText), ';
+  }
+
+  @override
+  String advancedFilterHeaderHideCollection(Object returnText) {
+    return '$returnText masquer la collection, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncSold(Object returnText) {
+    return '$returnText avec vendus, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncRetired(Object returnText) {
+    return '$returnText avec retirés, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncArchived(Object returnText) {
+    return '$returnText avec archivés, ';
+  }
+
+  @override
   String get watch => 'Montre';
 
   @override

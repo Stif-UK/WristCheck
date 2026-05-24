@@ -650,6 +650,54 @@ abstract class AppLocalizations {
   /// **'Month: {monthValue}'**
   String monthSelected(Object monthValue);
 
+  /// No description provided for @advancedFilterHeaderLastPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} Last Purchase: {shortDate}, '**
+  String advancedFilterHeaderLastPurchase(Object returnText, Object shortDate);
+
+  /// No description provided for @advancedFilterHeaderGrouping.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} Group by {filterText}, '**
+  String advancedFilterHeaderGrouping(Object filterText, Object returnText);
+
+  /// No description provided for @advancedFilterHeaderCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} Categories({filterText}), '**
+  String advancedFilterHeaderCategories(Object filterText, Object returnText);
+
+  /// No description provided for @advancedFilterHeaderMovements.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} Movements({filterText}), '**
+  String advancedFilterHeaderMovements(Object filterText, Object returnText);
+
+  /// No description provided for @advancedFilterHeaderHideCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} hide Collection, '**
+  String advancedFilterHeaderHideCollection(Object returnText);
+
+  /// No description provided for @advancedFilterHeaderIncSold.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} inc. Sold, '**
+  String advancedFilterHeaderIncSold(Object returnText);
+
+  /// No description provided for @advancedFilterHeaderIncRetired.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} inc. Retired, '**
+  String advancedFilterHeaderIncRetired(Object returnText);
+
+  /// No description provided for @advancedFilterHeaderIncArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} inc. Archived, '**
+  String advancedFilterHeaderIncArchived(Object returnText);
+
   /// No description provided for @watch.
   ///
   /// In en, this message translates to:

@@ -111,6 +111,15 @@
   "wornBetweenDates" : "Worn between {shortDate} & {shortDate2}",
   "yearSelected" : "Year: {yearValue}",
   "monthSelected" : "Month: {monthValue}",
+  "advancedFilterHeaderLastPurchase" : "{returnText} Last Purchase: {shortDate}, ",
+  "advancedFilterHeaderGrouping" : "{returnText} Group by {filterText}, ",
+  "advancedFilterHeaderCategories" : "{returnText} Categories({filterText}), ",
+  "advancedFilterHeaderMovements" : "{returnText} Movements({filterText}), ",
+  "advancedFilterHeaderHideCollection" : "{returnText} hide Collection, ",
+  "advancedFilterHeaderIncSold" : "{returnText} inc. Sold, ",
+  "advancedFilterHeaderIncRetired" : "{returnText} inc. Retired, ",
+  "advancedFilterHeaderIncArchived" : "{returnText} inc. Archived, ",
+
 
   "@_LABELS" : {},
   "watch" : "Watch",
@@ -360,6 +369,24 @@
       "watchName": {
         "type": "String",
         "example": "Longines Spirit"
+      }
+    }
+  },
+  "@returnText": {
+    "description": "A text string that can represent dynamically selected text",
+    "placeholders": {
+      "returnText": {
+        "type": "String",
+        "example": "Filter: This year, inc sold"
+      }
+    }
+  },
+  "@filterText": {
+    "description": "A text string that can represent dynamically inserted text",
+    "placeholders": {
+      "filterText": {
+        "type": "String",
+        "example": "Chart Grouping: Movements"
       }
     }
   },

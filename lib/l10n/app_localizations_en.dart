@@ -292,6 +292,46 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String advancedFilterHeaderLastPurchase(Object returnText, Object shortDate) {
+    return '$returnText Last Purchase: $shortDate, ';
+  }
+
+  @override
+  String advancedFilterHeaderGrouping(Object filterText, Object returnText) {
+    return '$returnText Group by $filterText, ';
+  }
+
+  @override
+  String advancedFilterHeaderCategories(Object filterText, Object returnText) {
+    return '$returnText Categories($filterText), ';
+  }
+
+  @override
+  String advancedFilterHeaderMovements(Object filterText, Object returnText) {
+    return '$returnText Movements($filterText), ';
+  }
+
+  @override
+  String advancedFilterHeaderHideCollection(Object returnText) {
+    return '$returnText hide Collection, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncSold(Object returnText) {
+    return '$returnText inc. Sold, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncRetired(Object returnText) {
+    return '$returnText inc. Retired, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncArchived(Object returnText) {
+    return '$returnText inc. Archived, ';
+  }
+
+  @override
   String get watch => 'Watch';
 
   @override
