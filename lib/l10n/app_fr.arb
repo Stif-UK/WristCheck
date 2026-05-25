@@ -62,6 +62,7 @@
   "editTitle" : "Modifier : {watchName}",
   "addWatch" : "Ajouter une montre",
   "addOptionalDetails" : "Plus de détails ?",
+  "addedToWatchbox" : "Ajouté à la boîte à montres",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

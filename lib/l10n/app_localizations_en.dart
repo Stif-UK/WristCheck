@@ -151,6 +151,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addOptionalDetails => 'Add optional details?';
 
   @override
+  String get addedToWatchbox => 'added to watchbox';
+
+  @override
   String get infoTabLabel => 'Info';
 
   @override

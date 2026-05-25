@@ -374,6 +374,12 @@ abstract class AppLocalizations {
   /// **'Add optional details?'**
   String get addOptionalDetails;
 
+  /// No description provided for @addedToWatchbox.
+  ///
+  /// In en, this message translates to:
+  /// **'added to watchbox'**
+  String get addedToWatchbox;
+
   /// No description provided for @infoTabLabel.
   ///
   /// In en, this message translates to:

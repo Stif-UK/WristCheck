@@ -692,7 +692,7 @@ class _WatchViewState extends State<WatchView> {
 
               Get.snackbar(
                   snackTitle,
-                  "added to watchbox",
+                  AppLocalizations.of(Get.context!)!.addedToWatchbox,
                   snackPosition: SnackPosition.BOTTOM,
                   icon: const Icon(Icons.watch));
             }
