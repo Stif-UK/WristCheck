@@ -148,6 +148,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addWatch => 'Add Watch';
 
   @override
+  String get addOptionalDetails => 'Add optional details?';
+
+  @override
   String get infoTabLabel => 'Info';
 
   @override

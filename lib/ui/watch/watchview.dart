@@ -594,11 +594,11 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.incrementTabIndex();
         }
       },
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Add optional details?"),
+            Text(AppLocalizations.of(Get.context!)!.addOptionalDetails),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.navigate_next),
@@ -697,7 +697,7 @@ class _WatchViewState extends State<WatchView> {
                   icon: const Icon(Icons.watch));
             }
           },
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -705,7 +705,7 @@ class _WatchViewState extends State<WatchView> {
                   padding: EdgeInsets.all(8.0),
                   child: Icon(Icons.save),
                 ),
-                Text("Add Watch"),
+                Text(AppLocalizations.of(Get.context!)!.addWatch),
               ],
             )
         ),

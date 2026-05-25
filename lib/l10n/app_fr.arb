@@ -61,6 +61,7 @@
   "wearToday" : "Porter aujourd'hui",
   "editTitle" : "Modifier : {watchName}",
   "addWatch" : "Ajouter une montre",
+  "addOptionalDetails" : "Plus de détails ?",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

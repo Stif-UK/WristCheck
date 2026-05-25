@@ -368,6 +368,12 @@ abstract class AppLocalizations {
   /// **'Add Watch'**
   String get addWatch;
 
+  /// No description provided for @addOptionalDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Add optional details?'**
+  String get addOptionalDetails;
+
   /// No description provided for @infoTabLabel.
   ///
   /// In en, this message translates to:

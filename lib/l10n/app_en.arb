@@ -64,6 +64,7 @@
   "wearToday" :  "Wear this watch today",
   "editTitle" : "Edit: {watchName}",
   "addWatch" : "Add Watch",
+  "addOptionalDetails" : "Add optional details?",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",
