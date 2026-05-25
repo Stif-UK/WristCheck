@@ -387,8 +387,8 @@ class _WatchViewState extends State<WatchView> {
       },
       child: Scaffold(
                 appBar: AppBar(
-                    title: ViewWatchHelper.getTitle(
-                        widget.watchViewController.watchViewState.value, _manufacturer, _model),
+                    title: Obx(()=> ViewWatchHelper.getTitle(
+                        widget.watchViewController.watchViewState.value, widget.currentWatch)),
 
 
                     actions: [

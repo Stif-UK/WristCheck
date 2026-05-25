@@ -59,6 +59,8 @@
   "lastWorn" : "Portée le : {shortDate}",
   "wornToday" : "Portée aujourd'hui",
   "wearToday" : "Porter aujourd'hui",
+  "editTitle" : "Modifier : {watchName}",
+  "addWatch" : "Ajouter une montre",
 
   "@_LIST_ITEMS" : {},
   "all" : "tout",
@@ -214,6 +216,7 @@
   "overdueXDays" : "En retard : {nDays}",
   "basic" : "Basique",
   "advanced" : "Avancé",
+  "na" : "N/A",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",

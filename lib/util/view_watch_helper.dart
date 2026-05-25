@@ -22,16 +22,15 @@ class ViewWatchHelper{
     return WatchViewEnum.view;
   }
 
-  static Widget getTitle(WatchViewEnum watchviewState, String manufacturer, String model){
-    //TODO: Update to create title from watch make + model
-    String title = "$manufacturer $model";
+  static Widget getTitle(WatchViewEnum watchviewState, Watches? currentWatch){
+    String title = currentWatch == null? "" : "${currentWatch.toString()}";
     String returnText = title;
     switch(watchviewState){
       case WatchViewEnum.edit:
-        returnText = "Edit: $title";
+        returnText = AppLocalizations.of(Get.context!)!.editTitle(currentWatch!);
         break;
       case WatchViewEnum.add:
-        returnText = "Add Watch";
+        returnText = AppLocalizations.of(Get.context!)!.addWatch;
         break;
       case WatchViewEnum.view:
         returnText = title;

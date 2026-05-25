@@ -140,6 +140,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wearToday => 'Wear this watch today';
 
   @override
+  String editTitle(Object watchName) {
+    return 'Edit: $watchName';
+  }
+
+  @override
+  String get addWatch => 'Add Watch';
+
+  @override
   String get all => 'All';
 
   @override
@@ -606,6 +614,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get advanced => 'Advanced';
+
+  @override
+  String get na => 'N/A';
 
   @override
   String get backupRestore => 'Backup / Restore Database';

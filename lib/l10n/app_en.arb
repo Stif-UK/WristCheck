@@ -62,6 +62,8 @@
   "lastWorn" : "Last worn: {shortDate}",
   "wornToday" : "Worn Today",
   "wearToday" :  "Wear this watch today",
+  "editTitle" : "Edit: {watchName}",
+  "addWatch" : "Add Watch",
 
   "@_LIST_ITEMS" : {},
   "all" : "All",
@@ -222,6 +224,7 @@
   "overdueXDays" : "Overdue: {nDays}",
   "basic" : "Basic",
   "advanced" : "Advanced",
+  "na" : "N/A",
 
   "@_APPDATA": {},
   "backupRestore" : "Backup / Restore Database",

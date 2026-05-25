@@ -356,6 +356,18 @@ abstract class AppLocalizations {
   /// **'Wear this watch today'**
   String get wearToday;
 
+  /// No description provided for @editTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit: {watchName}'**
+  String editTitle(Object watchName);
+
+  /// No description provided for @addWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Watch'**
+  String get addWatch;
+
   /// No description provided for @all.
   ///
   /// In en, this message translates to:
@@ -1213,6 +1225,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Advanced'**
   String get advanced;
+
+  /// No description provided for @na.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get na;
 
   /// No description provided for @backupRestore.
   ///
