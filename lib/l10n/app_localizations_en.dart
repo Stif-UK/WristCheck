@@ -134,6 +134,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get wornToday => 'Worn Today';
+
+  @override
+  String get wearToday => 'Wear this watch today';
+
+  @override
   String get all => 'All';
 
   @override

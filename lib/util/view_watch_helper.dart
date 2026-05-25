@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:intl/intl.dart';
@@ -120,10 +121,10 @@ class ViewWatchHelper{
   }
 
   static String getWearButtonText(Watches watch){
-    String returnString = "Wear this watch today";
+    String returnString = AppLocalizations.of(Get.context!)!.wearToday;
     if(watch.wearList.isNotEmpty) {
       if (ViewWatchHelper.isDateToday(watch.wearList.last)) {
-        returnString = "Worn Today";
+        returnString = AppLocalizations.of(Get.context!)!.wornToday;
       }
     }
 

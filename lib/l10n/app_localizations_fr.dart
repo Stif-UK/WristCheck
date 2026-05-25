@@ -135,6 +135,12 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get wornToday => 'Portée aujourd\'hui';
+
+  @override
+  String get wearToday => 'Porter aujourd\'hui';
+
+  @override
   String get all => 'tout';
 
   @override

@@ -60,6 +60,8 @@
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Last worn: {shortDate}",
+  "wornToday" : "Worn Today",
+  "wearToday" :  "Wear this watch today",
 
   "@_LIST_ITEMS" : {},
   "all" : "All",

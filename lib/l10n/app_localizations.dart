@@ -344,6 +344,18 @@ abstract class AppLocalizations {
   /// **'Last worn: {shortDate}'**
   String lastWorn(Object shortDate);
 
+  /// No description provided for @wornToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Worn Today'**
+  String get wornToday;
+
+  /// No description provided for @wearToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear this watch today'**
+  String get wearToday;
+
   /// No description provided for @all.
   ///
   /// In en, this message translates to:
