@@ -65,6 +65,13 @@
   "editTitle" : "Edit: {watchName}",
   "addWatch" : "Add Watch",
 
+  "@_WATCH_TABS" : {},
+  "infoTabLabel" : "Info",
+  "scheduleTabLabel" : "Dates",
+  "valueTabLabel" : "Value",
+  "proDataTabLabel" : "Pro Data",
+  "notesTabLabel" : "Notes",
+
   "@_LIST_ITEMS" : {},
   "all" : "All",
   "january" : "January",

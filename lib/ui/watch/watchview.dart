@@ -436,50 +436,30 @@ class _WatchViewState extends State<WatchView> {
                         widget.watchViewController.updateTabIndex(index);
                       }
                     },
-                    items: widget.wristCheckController.isAppPro.value?
+                    items:
                         //If the app is pro then the list is longer and contains the extra tab
-                    //TODO: This is poor code! Dynamically populate the list
-                    const [
+                     [
                       BottomNavigationBarItem(
                         icon: Icon(Icons.watch),
-                        label: "Info",
+                        label: AppLocalizations.of(Get.context!)!.infoTabLabel,
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.calendar),
-                        label: "Schedule",
+                        label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.dollarSign),
-                        label: "Value",
+                        label: AppLocalizations.of(Get.context!)!.valueTabLabel,
                       ),
-                      BottomNavigationBarItem(
+                      if(widget.wristCheckController.isAppPro.value)(BottomNavigationBarItem(
                           icon: Icon(FontAwesomeIcons.glasses),
-                        label: "Pro Data"
-                      ),
+                        label: AppLocalizations.of(Get.context!)!.proDataTabLabel
+                      )),
                       BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.book),
-                        label: "Notes",
+                        label: AppLocalizations.of(Get.context!)!.notesTabLabel,
                       )
                     ]
-                        : const [
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.watch),
-                        label: "Info",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.calendar),
-                        label: "Schedule",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.dollarSign),
-                        label: "Value",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.book),
-                        label: "Notes",
-                      )
-                    ],
-
                   ),
                 ),
                 body: Column(

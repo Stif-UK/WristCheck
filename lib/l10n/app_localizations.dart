@@ -368,6 +368,36 @@ abstract class AppLocalizations {
   /// **'Add Watch'**
   String get addWatch;
 
+  /// No description provided for @infoTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get infoTabLabel;
+
+  /// No description provided for @scheduleTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Dates'**
+  String get scheduleTabLabel;
+
+  /// No description provided for @valueTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get valueTabLabel;
+
+  /// No description provided for @proDataTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Data'**
+  String get proDataTabLabel;
+
+  /// No description provided for @notesTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notesTabLabel;
+
   /// No description provided for @all.
   ///
   /// In en, this message translates to:

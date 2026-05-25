@@ -148,6 +148,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addWatch => 'Add Watch';
 
   @override
+  String get infoTabLabel => 'Info';
+
+  @override
+  String get scheduleTabLabel => 'Dates';
+
+  @override
+  String get valueTabLabel => 'Value';
+
+  @override
+  String get proDataTabLabel => 'Pro Data';
+
+  @override
+  String get notesTabLabel => 'Notes';
+
+  @override
   String get all => 'All';
 
   @override

@@ -62,6 +62,13 @@
   "editTitle" : "Modifier : {watchName}",
   "addWatch" : "Ajouter une montre",
 
+  "@_WATCH_TABS" : {},
+  "infoTabLabel" : "Infos",
+  "scheduleTabLabel" : "Dates",
+  "valueTabLabel" : "Valeur",
+  "proDataTabLabel" : "Infos Pro",
+  "notesTabLabel" : "Notes",
+
   "@_LIST_ITEMS" : {},
   "all" : "tout",
   "january" : "janvier",
