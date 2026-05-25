@@ -994,6 +994,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get longPressToEditOrDelete => 'Long press to edit or delete';
 
   @override
+  String watchGallery(Object watchName) {
+    return '$watchName Photos';
+  }
+
+  @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
 
   @override

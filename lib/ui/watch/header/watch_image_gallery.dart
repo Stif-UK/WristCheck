@@ -43,7 +43,7 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.watch.toString()} Gallery"),
+        title: Text(AppLocalizations.of(Get.context!)!.watchGallery(widget.watch.toString())),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

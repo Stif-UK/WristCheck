@@ -346,6 +346,8 @@
   "selectFromGallery" : "Choisir depuis la galerie",
   "cropImage" : "Recadrer l'image",
   "longPressToEditOrDelete" : "Appui long pour modifier ou supprimer",
+  "watchGallery" :  "Photos de {watchName}",
+
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Activer le rappel quotidien",

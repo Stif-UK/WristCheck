@@ -1898,6 +1898,12 @@ abstract class AppLocalizations {
   /// **'Long press to edit or delete'**
   String get longPressToEditOrDelete;
 
+  /// No description provided for @watchGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} Photos'**
+  String watchGallery(Object watchName);
+
   /// No description provided for @enableDailyWearReminder.
   ///
   /// In en, this message translates to:

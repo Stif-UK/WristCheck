@@ -357,6 +357,7 @@
   "selectFromGallery" : "Select from Gallery",
   "cropImage" : "Crop Image",
   "longPressToEditOrDelete" : "Long press to edit or delete",
+  "watchGallery" : "{watchName} Photos",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Enable Daily Wear Reminder",
