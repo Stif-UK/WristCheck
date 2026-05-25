@@ -2407,6 +2407,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save Updates'**
   String get saveUpdates;
+
+  /// No description provided for @updatesSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates Saved'**
+  String get updatesSaved;
+
+  /// No description provided for @editWatchUnsavedChangesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved changes'**
+  String get editWatchUnsavedChangesTitle;
+
+  /// No description provided for @editWatchUnsavedChangesCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to exit?\nUnsaved changes will be lost.'**
+  String get editWatchUnsavedChangesCopy;
+
+  /// No description provided for @editWatchUnsavedChangesExitOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit without saving'**
+  String get editWatchUnsavedChangesExitOption;
+
+  /// No description provided for @editWatchUnsavedChangesContinueEditingOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue editing'**
+  String get editWatchUnsavedChangesContinueEditingOption;
 }
 
 class _AppLocalizationsDelegate

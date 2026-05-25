@@ -1364,4 +1364,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get saveUpdates => 'Enregistrer les modifications';
+
+  @override
+  String get updatesSaved => 'Enregistré !';
+
+  @override
+  String get editWatchUnsavedChangesTitle => 'Modifications non enregistrées';
+
+  @override
+  String get editWatchUnsavedChangesCopy =>
+      'Voulez-vous vraiment quitter ?\nLes modifications non enregistrées seront perdues.';
+
+  @override
+  String get editWatchUnsavedChangesExitOption => 'Quitter sans enregistrer';
+
+  @override
+  String get editWatchUnsavedChangesContinueEditingOption =>
+      'Continuer les modifications';
 }

@@ -1349,4 +1349,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveUpdates => 'Save Updates';
+
+  @override
+  String get updatesSaved => 'Updates Saved';
+
+  @override
+  String get editWatchUnsavedChangesTitle => 'You have unsaved changes';
+
+  @override
+  String get editWatchUnsavedChangesCopy =>
+      'Are you sure you want to exit?\nUnsaved changes will be lost.';
+
+  @override
+  String get editWatchUnsavedChangesExitOption => 'Exit without saving';
+
+  @override
+  String get editWatchUnsavedChangesContinueEditingOption => 'Continue editing';
 }

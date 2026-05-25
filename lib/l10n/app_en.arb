@@ -598,5 +598,10 @@
   "generalErrorDialogTitle" : "Something went wrong!",
   "generalErrorDialogText" : "An unexpected error occured with message: {error}",
   "proDialogText" : "This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.",
-  "saveUpdates" : "Save Updates"
+  "saveUpdates" : "Save Updates",
+  "updatesSaved" : "Updates Saved",
+  "editWatchUnsavedChangesTitle" : "You have unsaved changes",
+  "editWatchUnsavedChangesCopy" : "Are you sure you want to exit?\nUnsaved changes will be lost.",
+  "editWatchUnsavedChangesExitOption" : "Exit without saving",
+  "editWatchUnsavedChangesContinueEditingOption" : "Continue editing"
 }

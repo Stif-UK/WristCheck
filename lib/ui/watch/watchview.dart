@@ -273,7 +273,7 @@ class _WatchViewState extends State<WatchView> {
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
           }
           Get.snackbar("$_manufacturer $_model",
-              "Updates Saved",
+              AppLocalizations.of(Get.context!)!.updatesSaved,
             snackPosition: SnackPosition.BOTTOM
           );
 
@@ -377,10 +377,10 @@ class _WatchViewState extends State<WatchView> {
             Get.back();
           } else {
             Get.defaultDialog(
-                title: "You have unsaved changes",
-                content: const Text("Are you sure you want to exit?\nUnsaved changes will be lost."),
-                textConfirm: "Exit without saving",
-                textCancel: "Continue editing",
+                title: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesTitle,
+                content: Text(AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesCopy),
+                textConfirm: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesExitOption,
+                textCancel: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesContinueEditingOption,
                 onConfirm: ()=> Get.back(closeOverlays: true),
                 onCancel: (){}
             );
