@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -113,7 +114,7 @@ class _WearRowState extends State<WearRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Last worn: ${ViewWatchHelper.getLastWearDate(widget.currentWatch!)}",
+        Text(AppLocalizations.of(Get.context!)!.lastWorn(ViewWatchHelper.getLastWearDate(widget.currentWatch!)),
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),),
@@ -126,7 +127,8 @@ class _WearRowState extends State<WearRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(WristCheckFormatter.getWearCountText(wearCount))
+        Text(AppLocalizations.of(Get.context!)!.nWears(wearCount)),
+        //Text(WristCheckFormatter.getWearCountText(wearCount))
       ],
     );
   }

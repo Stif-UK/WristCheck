@@ -55,6 +55,9 @@
   "gallery" : "Galerie",
   "timeline" : "Chronologie",
 
+  "@_WATCH_DETAILS": {},
+  "lastWorn" : "Portée le : {shortDate}",
+
   "@_LIST_ITEMS" : {},
   "all" : "tout",
   "january" : "janvier",

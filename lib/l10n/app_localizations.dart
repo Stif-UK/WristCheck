@@ -338,6 +338,12 @@ abstract class AppLocalizations {
   /// **'Timeline'**
   String get timeline;
 
+  /// No description provided for @lastWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Last worn: {shortDate}'**
+  String lastWorn(Object shortDate);
+
   /// No description provided for @all.
   ///
   /// In en, this message translates to:

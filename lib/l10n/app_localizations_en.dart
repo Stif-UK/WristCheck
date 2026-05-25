@@ -129,6 +129,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeline => 'Timeline';
 
   @override
+  String lastWorn(Object shortDate) {
+    return 'Last worn: $shortDate';
+  }
+
+  @override
   String get all => 'All';
 
   @override

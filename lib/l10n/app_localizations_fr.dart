@@ -130,6 +130,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get timeline => 'Chronologie';
 
   @override
+  String lastWorn(Object shortDate) {
+    return 'Portée le : $shortDate';
+  }
+
+  @override
   String get all => 'tout';
 
   @override

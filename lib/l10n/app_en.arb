@@ -58,6 +58,9 @@
   "gallery" : "Gallery",
   "timeline" : "Timeline",
 
+  "@_WATCH_DETAILS": {},
+  "lastWorn" : "Last worn: {shortDate}",
+
   "@_LIST_ITEMS" : {},
   "all" : "All",
   "january" : "January",
