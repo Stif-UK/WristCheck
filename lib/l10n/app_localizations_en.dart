@@ -1346,4 +1346,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get proDialogText =>
       'This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.';
+
+  @override
+  String get saveUpdates => 'Save Updates';
 }

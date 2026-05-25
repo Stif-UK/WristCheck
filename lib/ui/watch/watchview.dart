@@ -8,6 +8,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
@@ -292,7 +293,7 @@ class _WatchViewState extends State<WatchView> {
                   await analytics.logEvent(name: "main_save_btn_press");
                   saveAndUpdate();
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -300,7 +301,7 @@ class _WatchViewState extends State<WatchView> {
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.save),
                     ),
-                    Text("Save Updates"),
+                    Text(AppLocalizations.of(Get.context!)!.saveUpdates),
                   ],
                 )
             )

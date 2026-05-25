@@ -597,5 +597,6 @@
   "extractSuccessfullyCreatedDialogText" : "Extract Successfully Created",
   "generalErrorDialogTitle" : "Something went wrong!",
   "generalErrorDialogText" : "An unexpected error occured with message: {error}",
-  "proDialogText" : "This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below."
+  "proDialogText" : "This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.",
+  "saveUpdates" : "Save Updates"
 }

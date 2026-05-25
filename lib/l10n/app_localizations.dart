@@ -2401,6 +2401,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This is a WristTrack Pro feature.\n\nTo learn more and upgrade, click below.'**
   String get proDialogText;
+
+  /// No description provided for @saveUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Updates'**
+  String get saveUpdates;
 }
 
 class _AppLocalizationsDelegate

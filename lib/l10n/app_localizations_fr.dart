@@ -1361,4 +1361,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get proDialogText =>
       'Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous.';
+
+  @override
+  String get saveUpdates => 'Enregistrer les modifications';
 }

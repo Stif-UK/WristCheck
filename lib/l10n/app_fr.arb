@@ -586,5 +586,6 @@
   "extractSuccessfullyCreatedDialogText" : "Extraction créée avec succès",
   "generalErrorDialogTitle" : "Une erreur est survenue !",
   "generalErrorDialogText" : "Une erreur inattendue s'est produite avec le message : {error}",
-  "proDialogText" : "Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous."
+  "proDialogText" : "Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous.",
+  "saveUpdates" : "Enregistrer les modifications"
 }
