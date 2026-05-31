@@ -77,7 +77,6 @@ class _GalleryV2State extends State<GalleryV2> {
       ),
       body:  Obx(()=> Column(
         children: [
-          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           _getCollectionPickerRow(),
           Expanded(
             child: FutureBuilder<List<Watches>>(
@@ -168,6 +167,7 @@ class _GalleryV2State extends State<GalleryV2> {
                   },
             ),
           ),
+          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           const SizedBox(height: 75,)
         ],
       ),
