@@ -74,7 +74,7 @@ class _MoreMenuState extends State<MoreMenu> {
                     style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,),
                     trailing: Icon(FontAwesomeIcons.images),
-                    onTap: ()=> Get.to(Gallery()),
+                    onTap: ()=> Get.to(GalleryV2()),
                   ),
                 ),
                 const Divider(thickness: 2,),

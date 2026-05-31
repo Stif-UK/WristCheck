@@ -57,6 +57,10 @@
   "@_MORE_MENU": {},
   "gallery" : "Gallery",
   "timeline" : "Timeline",
+  "galleryError" : "An error occurred: {error}",
+  "goButton" : "Go",
+
+
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Last worn: {shortDate}",
@@ -375,6 +379,10 @@
   "cropImage" : "Crop Image",
   "longPressToEditOrDelete" : "Long press to edit or delete",
   "watchGallery" : "{watchName} Photos",
+
+  "@_WATCH_GALLERY" : {},
+  "galleryTitle" : "Watch Gallery",
+
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Enable Daily Wear Reminder",

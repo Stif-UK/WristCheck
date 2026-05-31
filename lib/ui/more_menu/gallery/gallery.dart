@@ -15,24 +15,22 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/more_menu/gallery/image_overlay.dart';
+import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class Gallery extends StatefulWidget {
-  Gallery({super.key});
+class GalleryV2 extends StatefulWidget {
+  GalleryV2({super.key});
   final galleryController = Get.put(GalleryController());
   final wristCheckController = Get.put(WristCheckController());
 
-
   @override
-  State<Gallery> createState() => _GalleryState();
+  State<GalleryV2> createState() => _GalleryV2State();
 }
 
-
-
-class _GalleryState extends State<Gallery> {
+class _GalleryV2State extends State<GalleryV2> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   StreamController<Widget> overlayController = StreamController<Widget>.broadcast();
   BannerAd? banner;
@@ -59,12 +57,8 @@ class _GalleryState extends State<Gallery> {
       adState.initialization.then((status) {
         setState(() {
           banner = BannerAd(
-            //Check config to confirm if this is a prod or test app build
               adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.galleryAdUnitID,
-              //If the device screen is large enough display a larger ad on this screen
-              size: MediaQuery.of(context).size.height > 500.0
-                  ? AdSize.mediumRectangle
-                  : AdSize.largeBanner,
+              size: AdSize.banner,
               request: const AdRequest(),
               listener: adState.adListener)
             ..load();
@@ -79,12 +73,15 @@ class _GalleryState extends State<Gallery> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Watch Gallery"),
+        title: const Text("Watch Gallery"),
       ),
       body:  Obx(()=> Column(
         children: [
+          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+          _getCollectionPickerRow(),
           Expanded(
-            child: FutureBuilder(
+            child: FutureBuilder<List<Watches>>(
+                  future: ImagesUtil.getWatchesWithImages(widget.galleryController.gallerySelection.value),
                   builder: (ctx, snapshot){
                     if(snapshot.connectionState == ConnectionState.done){
                       if(snapshot.hasError){
@@ -93,80 +90,84 @@ class _GalleryState extends State<Gallery> {
                           style: Theme.of(context).textTheme.headlineSmall,),
                         );
                       } else if (snapshot.hasData){
-                        final data = snapshot.data as List<Watches>;
+                        final data = snapshot.data!;
                         widget.galleryController.updateDataAvailable(data.isNotEmpty);
-                        return SingleChildScrollView(
-                          child: Center(
-                            child: Obx(()=> Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  _getCollectionPickerRow(),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                      child: Text("Go",
-                                      style: TextStyle(fontSize: 20.0),),
-                                      onPressed: ()=> data.isNotEmpty? SwipeImageGallery(
-                                        context: context,
-                                        itemBuilder: (context, index){
-                                          return FutureBuilder(
-                                              builder: (ctx, snapshot) {
-                                                if (snapshot.connectionState ==
-                                                    ConnectionState.done) {
-                                                  if (snapshot.hasError) {
-                                                    return Center(
-                                                      child: Text(
-                                                        "${snapshot.error} occurred",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .headlineSmall,),
-                                                    );
-                                                  } else if (snapshot.hasData) {
-                                                    final imageData = snapshot.data as File;
-                                                    return Image.file(imageData);
-                                                  }
-                                                }
-                                                return Center(
-                                                  child: CircularProgressIndicator(),
-                                                );
+                        
+                        if(data.isEmpty){
+                          return _getDataNotAvailableRow();
+                        }
 
-                                              },
-                                                future: ImagesUtil.getImage(data[index], data[index].primaryImageIndex ?? 0));
-                                          },
-                                          itemCount: data.length,
-                                        // children: data,
-                                        onSwipe: (index) {
-                                          overlayController.add(ImageOverlay(
-                                            title: '${index + 1}/${data.length}',
-                                            subtitle: "${data[index].toString()}",
-                                            subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index]),
-                                          ));
-                                        },
-                                        overlayController: overlayController,
-                                        initialOverlay: ImageOverlay(
-                                          title: '1/${data.length}',
-                                          subtitle: "${data[0].manufacturer} ${data[0].model}",
-                                          subtitle2: WristCheckFormatter.getGallerySubheaderText(data[0]),
-                                      )).show() : null ,
-                                    ),
-                                  ),
-                                  widget.galleryController.dataAvailable.value? SizedBox(height: 0,): _getDataNotAvailableRow()
-                                ],
-                              ),
-                            ),
+                        return GridView.builder(
+                          padding: const EdgeInsets.all(8.0),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
                           ),
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                SwipeImageGallery(
+                                  context: context,
+                                  itemBuilder: (context, galleryIndex) {
+                                    return FutureBuilder<File?>(
+                                      future: ImagesUtil.getImage(data[galleryIndex], data[galleryIndex].primaryImageIndex ?? 0),
+                                      builder: (ctx, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.done) {
+                                          if (snapshot.hasData && snapshot.data != null) {
+                                            return Image.file(snapshot.data!);
+                                          }
+                                        }
+                                        return const Center(child: CircularProgressIndicator());
+                                      }
+                                    );
+                                  },
+                                  itemCount: data.length,
+                                  initialIndex: index,
+                                  onSwipe: (swipeIndex) {
+                                    overlayController.add(ImageOverlay(
+                                      title: '${swipeIndex + 1}/${data.length}',
+                                      subtitle: data[swipeIndex].toString(),
+                                      subtitle2: WristCheckFormatter.getGallerySubheaderText(data[swipeIndex]),
+                                    ));
+                                  },
+                                  overlayController: overlayController,
+                                  initialOverlay: ImageOverlay(
+                                    title: '${index + 1}/${data.length}',
+                                    subtitle: data[index].toString(),
+                                    subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index]),
+                                  ),
+                                ).show();
+                              },
+                              child: FutureBuilder<File?>(
+                                future: ImagesUtil.getImage(data[index], data[index].primaryImageIndex ?? 0),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    if (snapshot.hasData && snapshot.data != null) {
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        child: Image.file(
+                                          snapshot.data!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    }
+                                  }
+                                  return const Center(child: CircularProgressIndicator());
+                                },
+                              ),
+                            );
+                          },
                         );
-                      };
+                      }
                     }
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   },
-                  future: ImagesUtil.getWatchesWithImages(widget.galleryController.gallerySelection.value), ),
+            ),
           ),
-          widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
           const SizedBox(height: 75,)
         ],
       ),
@@ -204,11 +205,11 @@ Widget _getCollectionPickerRow(){
 Widget _getDataNotAvailableRow(){
   return Center(
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
+        const Padding(
+          padding: EdgeInsets.all(20.0),
           child: Icon(FontAwesomeIcons.eyeSlash),
         ),
         Text("No Images were found for this filter",
@@ -218,14 +219,3 @@ Widget _getDataNotAvailableRow(){
     ),
   );
 }
-
-Widget _buildAdSpace(BannerAd? banner, BuildContext context){
-  return banner == null
-      ? SizedBox(height: MediaQuery.of(context).size.height > 500.0? 250: 100,)
-      : StatefulBuilder(
-      builder: (context, setState) => Container(
-        height: MediaQuery.of(context).size.height > 500.0? 250: 100,
-        child: AdWidget(ad: banner!),
-      ));
-}
-

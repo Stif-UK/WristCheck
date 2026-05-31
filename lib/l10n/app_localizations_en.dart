@@ -129,6 +129,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeline => 'Timeline';
 
   @override
+  String galleryError(Object error) {
+    return 'An error occurred: $error';
+  }
+
+  @override
+  String get goButton => 'Go';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Last worn: $shortDate';
   }
@@ -1040,6 +1048,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String watchGallery(Object watchName) {
     return '$watchName Photos';
   }
+
+  @override
+  String get galleryTitle => 'Watch Gallery';
 
   @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';

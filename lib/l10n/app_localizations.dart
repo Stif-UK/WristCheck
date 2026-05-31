@@ -338,6 +338,18 @@ abstract class AppLocalizations {
   /// **'Timeline'**
   String get timeline;
 
+  /// No description provided for @galleryError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {error}'**
+  String galleryError(Object error);
+
+  /// No description provided for @goButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Go'**
+  String get goButton;
+
   /// No description provided for @lastWorn.
   ///
   /// In en, this message translates to:
@@ -1981,6 +1993,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{watchName} Photos'**
   String watchGallery(Object watchName);
+
+  /// No description provided for @galleryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Gallery'**
+  String get galleryTitle;
 
   /// No description provided for @enableDailyWearReminder.
   ///
