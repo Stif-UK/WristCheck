@@ -13,7 +13,6 @@ import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
-import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/more_menu/gallery/image_overlay.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -179,25 +178,33 @@ class _GalleryV2State extends State<GalleryV2> {
 Widget _getCollectionPickerRow(){
   final galController = Get.put(GalleryController());
 
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+  return Column(
     children: [
-      Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Text("Show me my ", style: Theme.of(Get.context!).textTheme.bodyLarge,),
+      const SizedBox(height: 20,),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Obx(()=> Row(
+            children: GallerySelectionEnum.values.map((selection) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ChoiceChip(
+                    label: Text(WristCheckFormatter.getGallerySelectionName(selection)),
+                    selected: galController.gallerySelection.value == selection,
+                    onSelected: (bool selected) {
+                      if(selected) {
+                        galController.updateGallerySelection(selection);
+                      }
+                    },
+                    selectedColor: Colors.red,
+                ),
+              );
+            }).toList(),
+          )),
+        ),
       ),
-      Obx(()=> DropdownButton<GallerySelectionEnum>(
-        dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-          value: galController.gallerySelection.value,
-          items: GallerySelectionEnum.values.map((selection) {
-            return DropdownMenuItem<GallerySelectionEnum>(
-                value: selection,
-                child: Text(WristCheckFormatter.getGallerySelectionName(selection)));
-          }).toList(),
-          onChanged: (selection) => galController.updateGallerySelection(selection!)
-
-      ),
-      ),
+      const SizedBox(height: 15,)
     ],
   );
 }
