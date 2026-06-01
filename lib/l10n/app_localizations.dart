@@ -2024,6 +2024,120 @@ abstract class AppLocalizations {
   /// **'Everything'**
   String get galleryEverythingTab;
 
+  /// No description provided for @currencyOptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Options'**
+  String get currencyOptionsTitle;
+
+  /// No description provided for @currencyOptionsGuideText.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n,Note: All watch values should be saved in the same currency to enable accurate calculations.'**
+  String get currencyOptionsGuideText;
+
+  /// No description provided for @currencyPleaseSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your preferred currency layout:'**
+  String get currencyPleaseSelect;
+
+  /// No description provided for @currencyExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Example output'**
+  String get currencyExample;
+
+  /// No description provided for @currencyAdditionRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Something missing? Please contact the developer to make a request!'**
+  String get currencyAdditionRequest;
+
+  /// No description provided for @currencySterling.
+  ///
+  /// In en, this message translates to:
+  /// **'British Pound'**
+  String get currencySterling;
+
+  /// No description provided for @currencyEuroIreland.
+  ///
+  /// In en, this message translates to:
+  /// **'Euro (Ireland)'**
+  String get currencyEuroIreland;
+
+  /// No description provided for @currencyIndianRupee.
+  ///
+  /// In en, this message translates to:
+  /// **'Indian Rupee'**
+  String get currencyIndianRupee;
+
+  /// No description provided for @currencyUSDollar.
+  ///
+  /// In en, this message translates to:
+  /// **'US Dollar'**
+  String get currencyUSDollar;
+
+  /// No description provided for @currencyYen.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Yen'**
+  String get currencyYen;
+
+  /// No description provided for @currencyEuroTrailing.
+  ///
+  /// In en, this message translates to:
+  /// **'Euro (trailing icon)'**
+  String get currencyEuroTrailing;
+
+  /// No description provided for @currencyEuroLeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Euro (leading icon)'**
+  String get currencyEuroLeading;
+
+  /// No description provided for @currencySwissFranc.
+  ///
+  /// In en, this message translates to:
+  /// **'Swiss Franc'**
+  String get currencySwissFranc;
+
+  /// No description provided for @currencyHungarianForint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hungarian Forint'**
+  String get currencyHungarianForint;
+
+  /// No description provided for @currencyPolishZloty.
+  ///
+  /// In en, this message translates to:
+  /// **'Polish Zloty'**
+  String get currencyPolishZloty;
+
+  /// No description provided for @currencyThaiBaht.
+  ///
+  /// In en, this message translates to:
+  /// **'Thai Baht'**
+  String get currencyThaiBaht;
+
+  /// No description provided for @currencyNorwegianKrone.
+  ///
+  /// In en, this message translates to:
+  /// **'Norwegian Krone'**
+  String get currencyNorwegianKrone;
+
+  /// No description provided for @currencyCzechKoruna.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech Koruna'**
+  String get currencyCzechKoruna;
+
+  /// No description provided for @currencyMalaysianRinggit.
+  ///
+  /// In en, this message translates to:
+  /// **'Malaysian Ringgit'**
+  String get currencyMalaysianRinggit;
+
   /// No description provided for @enableDailyWearReminder.
   ///
   /// In en, this message translates to:

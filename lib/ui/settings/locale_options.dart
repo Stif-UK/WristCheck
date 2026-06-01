@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -64,7 +65,7 @@ class _LocationOptionsState extends State<LocationOptions> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Currency Options"),
+        title: Text(AppLocalizations.of(Get.context!)!.currencyOptionsTitle),
         //TODO: Implement some help text
       ),
       body: Center(
@@ -78,13 +79,12 @@ class _LocationOptionsState extends State<LocationOptions> {
                   const SizedBox(height: 10,),
                   Padding(
                     padding: pagePadding,
-                    child: Text("WristTrack can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n"
-                        "Note: All watch values should be saved in the same currency to enable accurate calculations.", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
+                    child: Text(AppLocalizations.of(Get.context!)!.currencyOptionsGuideText, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
                   ),
                   const Divider(thickness: 2,),
                   Padding(
                     padding: pagePadding,
-                    child: Text("Please select your preferred currency layout:", style: Theme.of(context).textTheme.bodyLarge,),
+                    child: Text(AppLocalizations.of(Get.context!)!.currencyPleaseSelect, style: Theme.of(context).textTheme.bodyLarge,),
                   ),
                   Obx(
                       ()=> Padding(
@@ -107,7 +107,7 @@ class _LocationOptionsState extends State<LocationOptions> {
                   ),
                   Padding(
                     padding: pagePadding,
-                    child: Text("Example output", style: Theme.of(context).textTheme.bodyLarge,),
+                    child: Text(AppLocalizations.of(Get.context!)!.currencyExample, style: Theme.of(context).textTheme.bodyLarge,),
                   ),
                   // Padding(
                   //   padding: const EdgeInsets.all(10.0),
@@ -120,7 +120,7 @@ class _LocationOptionsState extends State<LocationOptions> {
                   const Divider(thickness: 2,),
                   Padding(
                     padding: const EdgeInsets.all(20),
-                    child: Text("Something missing? Please contact the developer to make a request!",
+                    child: Text(AppLocalizations.of(Get.context!)!.currencyAdditionRequest,
                       style: Theme.of(context).textTheme.bodyLarge ,
                     textAlign: TextAlign.center,),
                   )

@@ -1073,6 +1073,66 @@ class AppLocalizationsFr extends AppLocalizations {
   String get galleryEverythingTab => 'Tout';
 
   @override
+  String get currencyOptionsTitle => 'Options de devise';
+
+  @override
+  String get currencyOptionsGuideText =>
+      'WristTrack peut suivre la valeur de vos montres et collections, et l\'affichera par endroits dans le format de devise de votre choix.\n\nNote : Toutes les valeurs doivent être enregistrées dans la même devise pour permettre des calculs précis.';
+
+  @override
+  String get currencyPleaseSelect =>
+      'Veuillez sélectionner le format de devise de votre choix :';
+
+  @override
+  String get currencyExample => 'Exemple de format';
+
+  @override
+  String get currencyAdditionRequest =>
+      'Il manque quelque chose ? Contactez le développeur pour faire une demande !';
+
+  @override
+  String get currencySterling => 'Livre sterling';
+
+  @override
+  String get currencyEuroIreland => 'Euro (Irlande)';
+
+  @override
+  String get currencyIndianRupee => 'Roupie indienne';
+
+  @override
+  String get currencyUSDollar => 'Dollar américain';
+
+  @override
+  String get currencyYen => 'Yen japonais';
+
+  @override
+  String get currencyEuroTrailing => 'Euro (symbole à la fin)';
+
+  @override
+  String get currencyEuroLeading => 'Euro (symbole au début)';
+
+  @override
+  String get currencySwissFranc => 'Franc suisse';
+
+  @override
+  String get currencyHungarianForint => 'Forint hongrois';
+
+  @override
+  String get currencyPolishZloty => 'Zloty polonais';
+
+  @override
+  String get currencyThaiBaht => 'Baht thaïlandais';
+
+  @override
+  String get currencyNorwegianKrone => 'Couronne norvégienne';
+
+  @override
+  String get currencyCzechKoruna => 'Couronne tchèque';
+
+  @override
+  String get currencyMalaysianRinggit => 'Ringgit malaisien';
+
+  @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';
 
   @override

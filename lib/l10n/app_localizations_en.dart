@@ -1065,6 +1065,66 @@ class AppLocalizationsEn extends AppLocalizations {
   String get galleryEverythingTab => 'Everything';
 
   @override
+  String get currencyOptionsTitle => 'Currency Options';
+
+  @override
+  String get currencyOptionsGuideText =>
+      'WristTrack can track values of watches and collections, and in places will display these in a currency format of your choosing.\n\n,Note: All watch values should be saved in the same currency to enable accurate calculations.';
+
+  @override
+  String get currencyPleaseSelect =>
+      'Please select your preferred currency layout:';
+
+  @override
+  String get currencyExample => 'Example output';
+
+  @override
+  String get currencyAdditionRequest =>
+      'Something missing? Please contact the developer to make a request!';
+
+  @override
+  String get currencySterling => 'British Pound';
+
+  @override
+  String get currencyEuroIreland => 'Euro (Ireland)';
+
+  @override
+  String get currencyIndianRupee => 'Indian Rupee';
+
+  @override
+  String get currencyUSDollar => 'US Dollar';
+
+  @override
+  String get currencyYen => 'Japanese Yen';
+
+  @override
+  String get currencyEuroTrailing => 'Euro (trailing icon)';
+
+  @override
+  String get currencyEuroLeading => 'Euro (leading icon)';
+
+  @override
+  String get currencySwissFranc => 'Swiss Franc';
+
+  @override
+  String get currencyHungarianForint => 'Hungarian Forint';
+
+  @override
+  String get currencyPolishZloty => 'Polish Zloty';
+
+  @override
+  String get currencyThaiBaht => 'Thai Baht';
+
+  @override
+  String get currencyNorwegianKrone => 'Norwegian Krone';
+
+  @override
+  String get currencyCzechKoruna => 'Czech Koruna';
+
+  @override
+  String get currencyMalaysianRinggit => 'Malaysian Ringgit';
+
+  @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
 
   @override

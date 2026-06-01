@@ -561,46 +561,46 @@ class WristCheckFormatter{
 
     switch(location) {
       case LocationEnum.uk:
-        returnString = "British Pound";
+        returnString = AppLocalizations.of(Get.context!)!.currencySterling;
         break;
       case LocationEnum.irl:
-        returnString = "Euro (Ireland)";
+        returnString = AppLocalizations.of(Get.context!)!.currencyEuroIreland;
         break;
       case LocationEnum.ind:
-        returnString = "Indian Rupee";
+        returnString = AppLocalizations.of(Get.context!)!.currencyIndianRupee;
         break;
       case LocationEnum.us:
-        returnString = "US Dollar";
+        returnString = AppLocalizations.of(Get.context!)!.currencyUSDollar;
         break;
       case LocationEnum.jap:
-        returnString = "Japanese Yen";
+        returnString = AppLocalizations.of(Get.context!)!.currencyYen;
         break;
       case LocationEnum.ger:
-        returnString = "Euro (trailing icon)";
+        returnString = AppLocalizations.of(Get.context!)!.currencyEuroTrailing;
         break;
       case LocationEnum.dut:
-        returnString = "Euro (leading icon)";
+        returnString = AppLocalizations.of(Get.context!)!.currencyEuroLeading;
         break;
       case LocationEnum.swiss:
-        returnString = "Swiss Franc";
+        returnString = AppLocalizations.of(Get.context!)!.currencySwissFranc;
         break;
       case LocationEnum.hun:
-        returnString = "Hungarian Forint";
+        returnString = AppLocalizations.of(Get.context!)!.currencyHungarianForint;
         break;
       case LocationEnum.pol:
-        returnString = "Polish Zloty";
+        returnString = AppLocalizations.of(Get.context!)!.currencyPolishZloty;
         break;
       case LocationEnum.thai:
-        returnString = "Thai Baht";
+        returnString = AppLocalizations.of(Get.context!)!.currencyThaiBaht;
         break;
       case LocationEnum.nor:
-        returnString = "Norwegian Krone";
+        returnString = AppLocalizations.of(Get.context!)!.currencyNorwegianKrone;
         break;
       case LocationEnum.czh:
-        returnString = "Czech Koruna";
+        returnString = AppLocalizations.of(Get.context!)!.currencyCzechKoruna;
         break;
       case LocationEnum.my:
-        returnString = "Malaysian Ringgit";
+        returnString = AppLocalizations.of(Get.context!)!.currencyMalaysianRinggit;
         break;
     }
 
