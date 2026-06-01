@@ -52,7 +52,7 @@
   "moonPhase" : "Phase lunaire actuelle",
 
   "@_MORE_MENU": {},
-  "gallery" : "Galerie",
+  "gallery" : "Photos",
   "timeline" : "Chronologie",
 
   "@_WATCH_DETAILS": {},
@@ -293,7 +293,7 @@
   "record" : "Enregistrement",
   "records" : "Enregistrements",
   "baseLine" : "Référence",
-  "Result" : "Résultat",
+  "result" : "Résultat",
   "systemTimeInUse" : "... heure système utilisée",
   "accuracyHelpTextIntro" : "Suivez la précision de vos montres en créant des points de contrôle. WristTrack compare ensuite l'évolution de l'heure de votre montre à celle de l'horloge atomique pour calculer si elle avance ou s'arrête (retarde).\n\n",
   "accuracyHelpTextBaselines" : "**Références**\n\nLorsque vous définissez un point de contrôle comme référence, toutes les mesures suivantes y seront comparées. Vous devriez définir une nouvelle référence chaque fois que vous réglez l'heure de votre montre manuellement depuis la dernière mesure de référence.\n\nSi vous n'avez aucun enregistrement sauvegardé, le premier résultat sera toujours marqué comme étant la référence.\n\n",
@@ -365,6 +365,10 @@
   "longPressToEditOrDelete" : "Appui long pour modifier ou supprimer",
   "watchGallery" :  "Photos de {watchName}",
 
+  "@_WATCH_GALLERY" : {},
+  "galleryTitle" : "Photos",
+  "galleryEmptyFilterReturn" : "Aucune image trouvée pour ce filtre",
+  "galleryError" : "Une erreur est survenue : {error}",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Activer le rappel quotidien",

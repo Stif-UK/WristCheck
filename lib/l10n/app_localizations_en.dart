@@ -129,14 +129,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeline => 'Timeline';
 
   @override
-  String galleryError(Object error) {
-    return 'An error occurred: $error';
-  }
-
-  @override
-  String get goButton => 'Go';
-
-  @override
   String lastWorn(Object shortDate) {
     return 'Last worn: $shortDate';
   }
@@ -1051,6 +1043,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get galleryTitle => 'Watch Gallery';
+
+  @override
+  String get galleryEmptyFilterReturn => 'No Images were found for this filter';
+
+  @override
+  String galleryError(Object error) {
+    return 'An error occurred: $error';
+  }
 
   @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';

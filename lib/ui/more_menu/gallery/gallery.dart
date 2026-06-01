@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/gallery_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -72,7 +73,7 @@ class _GalleryV2State extends State<GalleryV2> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Watch Gallery"),
+        title: Text(AppLocalizations.of(Get.context!)!.galleryTitle),
       ),
       body:  Obx(()=> Column(
         children: [
@@ -219,7 +220,7 @@ Widget _getDataNotAvailableRow(){
           padding: EdgeInsets.all(20.0),
           child: Icon(FontAwesomeIcons.eyeSlash),
         ),
-        Text("No Images were found for this filter",
+        Text(AppLocalizations.of(Get.context!)!.galleryEmptyFilterReturn,
           style: Theme.of(Get.context!).textTheme.headlineSmall ,
         textAlign: TextAlign.center,)
       ],

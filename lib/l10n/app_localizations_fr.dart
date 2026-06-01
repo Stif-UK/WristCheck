@@ -124,18 +124,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get moonPhase => 'Phase lunaire actuelle';
 
   @override
-  String get gallery => 'Galerie';
+  String get gallery => 'Photos';
 
   @override
   String get timeline => 'Chronologie';
-
-  @override
-  String galleryError(Object error) {
-    return 'An error occurred: $error';
-  }
-
-  @override
-  String get goButton => 'Go';
 
   @override
   String lastWorn(Object shortDate) {
@@ -841,7 +833,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get baseLine => 'Référence';
 
   @override
-  String get result => 'Result';
+  String get result => 'Résultat';
 
   @override
   String get systemTimeInUse => '... heure système utilisée';
@@ -1058,7 +1050,15 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get galleryTitle => 'Watch Gallery';
+  String get galleryTitle => 'Photos';
+
+  @override
+  String get galleryEmptyFilterReturn => 'Aucune image trouvée pour ce filtre';
+
+  @override
+  String galleryError(Object error) {
+    return 'Une erreur est survenue : $error';
+  }
 
   @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';

@@ -338,18 +338,6 @@ abstract class AppLocalizations {
   /// **'Timeline'**
   String get timeline;
 
-  /// No description provided for @galleryError.
-  ///
-  /// In en, this message translates to:
-  /// **'An error occurred: {error}'**
-  String galleryError(Object error);
-
-  /// No description provided for @goButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Go'**
-  String get goButton;
-
   /// No description provided for @lastWorn.
   ///
   /// In en, this message translates to:
@@ -1999,6 +1987,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch Gallery'**
   String get galleryTitle;
+
+  /// No description provided for @galleryEmptyFilterReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'No Images were found for this filter'**
+  String get galleryEmptyFilterReturn;
+
+  /// No description provided for @galleryError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {error}'**
+  String galleryError(Object error);
 
   /// No description provided for @enableDailyWearReminder.
   ///
