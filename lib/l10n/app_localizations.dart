@@ -2000,6 +2000,30 @@ abstract class AppLocalizations {
   /// **'An error occurred: {error}'**
   String galleryError(Object error);
 
+  /// No description provided for @galleryCollectionTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Watches'**
+  String get galleryCollectionTab;
+
+  /// No description provided for @galleryArchivedTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Watches'**
+  String get galleryArchivedTab;
+
+  /// No description provided for @galleryWishlistedWatchesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Wishlisted Watches'**
+  String get galleryWishlistedWatchesTab;
+
+  /// No description provided for @galleryEverythingTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything'**
+  String get galleryEverythingTab;
+
   /// No description provided for @enableDailyWearReminder.
   ///
   /// In en, this message translates to:

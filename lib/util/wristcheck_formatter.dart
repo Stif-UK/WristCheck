@@ -796,28 +796,28 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     switch(selection) {
       case GallerySelectionEnum.watchbox:
-        returnString = "collection watches";
+        returnString = AppLocalizations.of(Get.context!)!.galleryCollectionTab;
         break;
       case GallerySelectionEnum.favourite:
-        returnString = "favourite watches";
+        returnString = AppLocalizations.of(Get.context!)!.favouriteWatches;
         break;
       case GallerySelectionEnum.sold:
-        returnString = "sold watches";
+        returnString = AppLocalizations.of(Get.context!)!.soldWatches;
         break;
       case GallerySelectionEnum.archived:
-        returnString = "archived watches";
+        returnString = AppLocalizations.of(Get.context!)!.galleryArchivedTab;
         break;
       case GallerySelectionEnum.retired:
-        returnString = "retired watches";
+        returnString = AppLocalizations.of(Get.context!)!.retiredWatches;
         break;
       case GallerySelectionEnum.preordered:
-        returnString = "pre-ordered watches";
+        returnString = AppLocalizations.of(Get.context!)!.preorderStatusPopupDialogTitle;
         break;
       case GallerySelectionEnum.wishlist:
-        returnString = "wishlisted watches";
+        returnString = AppLocalizations.of(Get.context!)!.galleryWishlistedWatchesTab;
         break;
       case GallerySelectionEnum.all:
-        returnString = "Everything";
+        returnString = AppLocalizations.of(Get.context!)!.galleryEverythingTab;
         break;
     }
 

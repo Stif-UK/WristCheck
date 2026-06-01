@@ -1053,6 +1053,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get galleryCollectionTab => 'Collection Watches';
+
+  @override
+  String get galleryArchivedTab => 'Archived Watches';
+
+  @override
+  String get galleryWishlistedWatchesTab => 'Wishlisted Watches';
+
+  @override
+  String get galleryEverythingTab => 'Everything';
+
+  @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';
 
   @override

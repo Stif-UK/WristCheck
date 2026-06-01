@@ -382,6 +382,10 @@
   "galleryTitle" : "Watch Gallery",
   "galleryEmptyFilterReturn" : "No Images were found for this filter",
   "galleryError" : "An error occurred: {error}",
+  "galleryCollectionTab" : "Collection Watches",
+  "galleryArchivedTab" : "Archived Watches",
+  "galleryWishlistedWatchesTab" : "Wishlisted Watches",
+  "galleryEverythingTab" : "Everything",
 
 
   "@_NOTIFICATIONS" : {},

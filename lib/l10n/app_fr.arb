@@ -369,6 +369,10 @@
   "galleryTitle" : "Photos",
   "galleryEmptyFilterReturn" : "Aucune image trouvée pour ce filtre",
   "galleryError" : "Une erreur est survenue : {error}",
+  "galleryCollectionTab" : "Collection",
+  "galleryArchivedTab" : "Archives",
+  "galleryWishlistedWatchesTab" : "Liste d'envies",
+  "galleryEverythingTab" : "Tout",
 
   "@_NOTIFICATIONS" : {},
   "enableDailyWearReminder" : "Activer le rappel quotidien",

@@ -1061,6 +1061,18 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get galleryCollectionTab => 'Collection';
+
+  @override
+  String get galleryArchivedTab => 'Archives';
+
+  @override
+  String get galleryWishlistedWatchesTab => 'Liste d\'envies';
+
+  @override
+  String get galleryEverythingTab => 'Tout';
+
+  @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';
 
   @override
