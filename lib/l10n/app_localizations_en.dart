@@ -643,6 +643,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get na => 'N/A';
 
   @override
+  String schedule(Object nYears) {
+    return 'Every $nYears';
+  }
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override
@@ -1229,6 +1234,23 @@ class AppLocalizationsEn extends AppLocalizations {
       other: '$countString days',
       one: '1 day',
       zero: '0 days',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nYears(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString years',
+      one: '1 year',
+      zero: '0 years',
     );
     return '$_temp0';
   }

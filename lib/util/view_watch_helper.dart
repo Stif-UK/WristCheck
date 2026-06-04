@@ -45,10 +45,6 @@ class ViewWatchHelper{
 
   }
 
-  static String getScheduleText(int schedule, Watches currentWatch){
-    return schedule == 0? "N/A" : "Every ${currentWatch.serviceInterval} years";
-  }
-
   static String getPurchaseDateToDisplay(Watches currentWatch, DateTime? purchaseDate, bool canEditPurchaseDate){
     if(canEditPurchaseDate){
       return purchaseDate != null ?  DateFormat

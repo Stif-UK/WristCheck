@@ -227,6 +227,7 @@
   "basic" : "Basique",
   "advanced" : "Avancé",
   "na" : "N/A",
+  "schedule" : "Tous les {nYears}",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
@@ -556,6 +557,16 @@
   "nDays": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
   "@nDays": {
     "description": "Renvoie le pluriel approprié pour les jours",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "nYears": "{count, plural, =0{0 an} =1{1 an} other{{count} ans}}",
+  "@nYears": {
+    "description": "Returns the suitable plural of years",
     "placeholders": {
       "count": {
         "type": "num",

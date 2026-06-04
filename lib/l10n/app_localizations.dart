@@ -1280,6 +1280,12 @@ abstract class AppLocalizations {
   /// **'N/A'**
   String get na;
 
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Every {nYears}'**
+  String schedule(Object nYears);
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:
@@ -2251,6 +2257,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{0 days} =1{1 day} other{{count} days}}'**
   String nDays(num count);
+
+  /// Returns the suitable plural of years
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 years} =1{1 year} other{{count} years}}'**
+  String nYears(num count);
 
   /// No description provided for @deleteWarning.
   ///
