@@ -63,6 +63,7 @@
   "addWatch" : "Ajouter une montre",
   "addOptionalDetails" : "Plus de détails ?",
   "addedToWatchbox" : "Ajouté à la boîte à montres",
+  "favouriteLabel" : "Coup de cœur",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

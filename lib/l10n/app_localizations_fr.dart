@@ -155,6 +155,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addedToWatchbox => 'Ajouté à la boîte à montres';
 
   @override
+  String get favouriteLabel => 'Coup de cœur';
+
+  @override
   String get infoTabLabel => 'Infos';
 
   @override

@@ -68,6 +68,7 @@
   "addWatch" : "Add Watch",
   "addOptionalDetails" : "Add optional details?",
   "addedToWatchbox" : "added to watchbox",
+  "favouriteLabel" : "Favourite",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",

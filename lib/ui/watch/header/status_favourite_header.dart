@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -75,7 +76,7 @@ class WatchStatusHeader extends StatelessWidget {
     return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const Text("Favourite:"),
+          Text(AppLocalizations.of(Get.context!)!.favouriteLabel),
 
           Obx(()=> Switch(
               value: watchViewController.favourite.value,

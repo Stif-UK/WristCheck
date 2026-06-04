@@ -380,6 +380,12 @@ abstract class AppLocalizations {
   /// **'added to watchbox'**
   String get addedToWatchbox;
 
+  /// No description provided for @favouriteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourite'**
+  String get favouriteLabel;
+
   /// No description provided for @infoTabLabel.
   ///
   /// In en, this message translates to:

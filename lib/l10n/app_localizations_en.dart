@@ -154,6 +154,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addedToWatchbox => 'added to watchbox';
 
   @override
+  String get favouriteLabel => 'Favourite';
+
+  @override
   String get infoTabLabel => 'Info';
 
   @override
