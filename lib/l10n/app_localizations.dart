@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// No description provided for @caseDiameterRowTitle.
   ///
   /// In en, this message translates to:
-  /// **'Case Diameter(mm):'**
+  /// **'Case Diameter (mm):'**
   String get caseDiameterRowTitle;
 
   /// No description provided for @caseDiameterRowHintText.
@@ -401,7 +401,7 @@ abstract class AppLocalizations {
   /// No description provided for @caseThicknessRowTitle.
   ///
   /// In en, this message translates to:
-  /// **'Case Thickness(mm):'**
+  /// **'Case Thickness (mm):'**
   String get caseThicknessRowTitle;
 
   /// No description provided for @caseThicknessRowHintText.
@@ -421,6 +421,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last Serviced Date'**
   String get lastServicedDateRowHintText;
+
+  /// No description provided for @lug2lugRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug to Lug (mm):'**
+  String get lug2lugRowTitle;
+
+  /// No description provided for @lug2lugRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug to Lug'**
+  String get lug2lugRowHintText;
 
   /// No description provided for @mustBeNumber2decimals.
   ///

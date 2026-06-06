@@ -72,6 +72,8 @@
   "caseThicknessRowHintText" : "Épaisseur du boîtier",
   "lastServicedDateRowTitle" : "Date de dernière révision :",
   "lastServicedDateRowHintText" : "Date de dernière révision",
+  "lug2lugRowTitle" : "Corne à corne (mm) :",
+  "lug2lugRowHintText" : "Corne à corne",
 
 
   "@_VALIDATION_ERRORS": {},

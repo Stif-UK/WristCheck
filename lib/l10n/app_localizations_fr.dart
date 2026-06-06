@@ -176,6 +176,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get lastServicedDateRowHintText => 'Date de dernière révision';
 
   @override
+  String get lug2lugRowTitle => 'Corne à corne (mm) :';
+
+  @override
+  String get lug2lugRowHintText => 'Corne à corne';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

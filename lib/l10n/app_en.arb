@@ -71,12 +71,14 @@
   "favouriteLabel" : "Favourite",
 
   "@_WATCH_ROWS":{},
-  "caseDiameterRowTitle" : "Case Diameter(mm):",
+  "caseDiameterRowTitle" : "Case Diameter (mm):",
   "caseDiameterRowHintText" : "Case Diameter",
-  "caseThicknessRowTitle" : "Case Thickness(mm):",
+  "caseThicknessRowTitle" : "Case Thickness (mm):",
   "caseThicknessRowHintText" : "Case Thickness",
   "lastServicedDateRowTitle" : "Last Serviced Date:",
   "lastServicedDateRowHintText" : "Last Serviced Date",
+  "lug2lugRowTitle" : "Lug to Lug (mm):",
+  "lug2lugRowHintText" : "Lug to Lug",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",

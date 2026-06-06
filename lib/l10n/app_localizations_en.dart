@@ -157,13 +157,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favouriteLabel => 'Favourite';
 
   @override
-  String get caseDiameterRowTitle => 'Case Diameter(mm):';
+  String get caseDiameterRowTitle => 'Case Diameter (mm):';
 
   @override
   String get caseDiameterRowHintText => 'Case Diameter';
 
   @override
-  String get caseThicknessRowTitle => 'Case Thickness(mm):';
+  String get caseThicknessRowTitle => 'Case Thickness (mm):';
 
   @override
   String get caseThicknessRowHintText => 'Case Thickness';
@@ -173,6 +173,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lastServicedDateRowHintText => 'Last Serviced Date';
+
+  @override
+  String get lug2lugRowTitle => 'Lug to Lug (mm):';
+
+  @override
+  String get lug2lugRowHintText => 'Lug to Lug';
 
   @override
   String get mustBeNumber2decimals =>

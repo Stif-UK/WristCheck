@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
 import '../../widgets/watch_formfield.dart';
@@ -15,14 +17,14 @@ class LugToLugRow extends StatelessWidget {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       icon: const Icon(FontAwesomeIcons.ruler),
       enabled: enabled,
-      fieldTitle: "Lug to Lug(mm):",
-      hintText: "Lug to Lug",
+      fieldTitle: AppLocalizations.of(context)!.lug2lugRowTitle,
+      hintText: AppLocalizations.of(context)!.lug2lugRowHintText,
       maxLines: 1,
       controller: lug2lugController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if(!val!.isDouble) {
-          return 'Must be numbers only with up to two decimal points';
+          return AppLocalizations.of(Get.context!)!.mustBeNumber2decimals;
         }
       },
     );
