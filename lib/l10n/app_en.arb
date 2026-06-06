@@ -75,7 +75,8 @@
   "caseDiameterRowHintText" : "Case Diameter",
   "caseThicknessRowTitle" : "Case Thickness(mm):",
   "caseThicknessRowHintText" : "Case Thickness",
-
+  "lastServicedDateRowTitle" : "Last Serviced Date:",
+  "lastServicedDateRowHintText" : "Last Serviced Date",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",

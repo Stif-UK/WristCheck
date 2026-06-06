@@ -70,6 +70,8 @@
   "caseDiameterRowHintText" : "Diamètre du boîtier",
   "caseThicknessRowTitle" : "Épaisseur du boîtier (mm) :",
   "caseThicknessRowHintText" : "Épaisseur du boîtier",
+  "lastServicedDateRowTitle" : "Date de dernière révision :",
+  "lastServicedDateRowHintText" : "Date de dernière révision",
 
 
   "@_VALIDATION_ERRORS": {},

@@ -170,6 +170,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get caseThicknessRowHintText => 'Épaisseur du boîtier';
 
   @override
+  String get lastServicedDateRowTitle => 'Date de dernière révision :';
+
+  @override
+  String get lastServicedDateRowHintText => 'Date de dernière révision';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

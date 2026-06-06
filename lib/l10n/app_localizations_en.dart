@@ -169,6 +169,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get caseThicknessRowHintText => 'Case Thickness';
 
   @override
+  String get lastServicedDateRowTitle => 'Last Serviced Date:';
+
+  @override
+  String get lastServicedDateRowHintText => 'Last Serviced Date';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 

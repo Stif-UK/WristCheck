@@ -410,6 +410,18 @@ abstract class AppLocalizations {
   /// **'Case Thickness'**
   String get caseThicknessRowHintText;
 
+  /// No description provided for @lastServicedDateRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Serviced Date:'**
+  String get lastServicedDateRowTitle;
+
+  /// No description provided for @lastServicedDateRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Serviced Date'**
+  String get lastServicedDateRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
