@@ -590,6 +590,18 @@ abstract class AppLocalizations {
   /// **'Warranty Expiry Date'**
   String get warrantyEndRowHintText;
 
+  /// No description provided for @waterResistanceRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Resistance {units}:'**
+  String waterResistanceRowTitle(Object units);
+
+  /// No description provided for @waterResistanceRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Resistance'**
+  String get waterResistanceRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -637,6 +649,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Serial Number contains invalid characters'**
   String get serialNumberErrorText;
+
+  /// No description provided for @mustBeAValidWholeNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be a whole number'**
+  String get mustBeAValidWholeNumber;
 
   /// No description provided for @infoTabLabel.
   ///

@@ -260,6 +260,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get warrantyEndRowHintText => 'Fin de la garantie';
 
   @override
+  String waterResistanceRowTitle(Object units) {
+    return 'Étanchéité ($units) :';
+  }
+
+  @override
+  String get waterResistanceRowHintText => 'Étanchéité';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
@@ -288,6 +296,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get serialNumberErrorText =>
       'Le numéro de série contient des caractères non valides';
+
+  @override
+  String get mustBeAValidWholeNumber => 'Saisissez un nombre entier valide';
 
   @override
   String get infoTabLabel => 'Infos';

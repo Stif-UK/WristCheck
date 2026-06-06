@@ -259,6 +259,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get warrantyEndRowHintText => 'Warranty Expiry Date';
 
   @override
+  String waterResistanceRowTitle(Object units) {
+    return 'Water Resistance $units:';
+  }
+
+  @override
+  String get waterResistanceRowHintText => 'Water Resistance';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
@@ -288,6 +296,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get serialNumberErrorText =>
       'Serial Number contains invalid characters';
+
+  @override
+  String get mustBeAValidWholeNumber => 'Must be a whole number';
 
   @override
   String get infoTabLabel => 'Info';

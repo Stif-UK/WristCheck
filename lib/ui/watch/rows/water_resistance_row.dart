@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
@@ -15,14 +17,14 @@ class WaterResistanceRow extends StatelessWidget {
       keyboardType: TextInputType.number,
       icon: const Icon(FontAwesomeIcons.water),
       enabled: enabled,
-      fieldTitle: "Water Resistance ($units):",
-      hintText: "Water Resistance",
+      fieldTitle: AppLocalizations.of(Get.context!)!.waterResistanceRowTitle(units),
+      hintText: AppLocalizations.of(Get.context!)!.waterResistanceRowHintText,
       maxLines: 1,
       controller: waterResistanceController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if(!val!.isUnboundPositiveInteger) {
-          return 'Must be a whole number';
+          return AppLocalizations.of(Get.context!)!.mustBeAValidWholeNumber;
         }
       },
     );

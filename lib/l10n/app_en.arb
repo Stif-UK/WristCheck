@@ -105,6 +105,8 @@
   "soldToRowHintText" : "Sold To",
   "warrantyEndRowTitle" : "Warranty Expiry Date:",
   "warrantyEndRowHintText" : "Warranty Expiry Date",
+  "waterResistanceRowTitle" : "Water Resistance {units}:",
+  "waterResistanceRowHintText" : "Water Resistance",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
@@ -115,6 +117,7 @@
   "invalidCharactersDetected" : "Invalid characters detected.",
   "referenceNumberErrorText" : "Reference Number is missing or invalid characters included",
   "serialNumberErrorText" : "Serial Number contains invalid characters",
+  "mustBeAValidWholeNumber" : "Must be a whole number",
 
 
 
@@ -549,6 +552,15 @@
       "price": {
         "type": "String",
         "example": "$500"
+      }
+    }
+  },
+  "@units" : {
+    "description": "A string representing the units in use",
+    "placeholders": {
+      "units" : {
+        "type" : "String",
+        "example": "meters"
       }
     }
   },
