@@ -446,6 +446,18 @@ abstract class AppLocalizations {
   /// **'Lug Width'**
   String get lugWidthHintText;
 
+  /// No description provided for @manufacturerRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer:'**
+  String get manufacturerRowTitle;
+
+  /// No description provided for @manufacturerRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer'**
+  String get manufacturerRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -457,6 +469,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Must be a whole number less than 99'**
   String get mustBeWholeNumberLessThan99;
+
+  /// No description provided for @manufacturerInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer missing or invalid characters included'**
+  String get manufacturerInvalidError;
 
   /// No description provided for @infoTabLabel.
   ///

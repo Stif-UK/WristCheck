@@ -76,11 +76,14 @@
   "lug2lugRowHintText" : "Corne à corne",
   "lugWidthRowTitle" : "Entrecorne (mm) :",
   "lugWidthHintText" : "Entrecorne",
+  "manufacturerRowTitle" : "Marque :",
+  "manufacturerRowHintText" : "Marque",
 
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Saisissez uniquement des chiffres (max. 2 décimales)",
   "mustBeWholeNumberLessThan99" : "Saisissez un nombre entier inférieur à 99",
+  "manufacturerInvalidError" : "Marque manquante ou caractères non valides",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

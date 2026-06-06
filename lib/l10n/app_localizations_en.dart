@@ -187,12 +187,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lugWidthHintText => 'Lug Width';
 
   @override
+  String get manufacturerRowTitle => 'Manufacturer:';
+
+  @override
+  String get manufacturerRowHintText => 'Manufacturer';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
   @override
   String get mustBeWholeNumberLessThan99 =>
       'Must be a whole number less than 99';
+
+  @override
+  String get manufacturerInvalidError =>
+      'Manufacturer missing or invalid characters included';
 
   @override
   String get infoTabLabel => 'Info';

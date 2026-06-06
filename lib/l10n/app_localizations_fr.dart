@@ -188,12 +188,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get lugWidthHintText => 'Entrecorne';
 
   @override
+  String get manufacturerRowTitle => 'Marque :';
+
+  @override
+  String get manufacturerRowHintText => 'Marque';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
   @override
   String get mustBeWholeNumberLessThan99 =>
       'Saisissez un nombre entier inférieur à 99';
+
+  @override
+  String get manufacturerInvalidError =>
+      'Marque manquante ou caractères non valides';
 
   @override
   String get infoTabLabel => 'Infos';
