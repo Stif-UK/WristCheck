@@ -74,10 +74,13 @@
   "lastServicedDateRowHintText" : "Date de dernière révision",
   "lug2lugRowTitle" : "Corne à corne (mm) :",
   "lug2lugRowHintText" : "Corne à corne",
+  "lugWidthRowTitle" : "Entrecorne (mm) :",
+  "lugWidthHintText" : "Entrecorne",
 
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Saisissez uniquement des chiffres (max. 2 décimales)",
+  "mustBeWholeNumberLessThan99" : "Saisissez un nombre entier inférieur à 99",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

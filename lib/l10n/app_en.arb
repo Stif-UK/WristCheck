@@ -79,9 +79,12 @@
   "lastServicedDateRowHintText" : "Last Serviced Date",
   "lug2lugRowTitle" : "Lug to Lug (mm):",
   "lug2lugRowHintText" : "Lug to Lug",
+  "lugWidthRowTitle" : "Lug Width (mm):",
+  "lugWidthHintText" : "Lug Width",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
+  "mustBeWholeNumberLessThan99" : "Must be a whole number less than 99",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
 import '../../widgets/watch_formfield.dart';
@@ -15,14 +17,14 @@ class LugWidthRow extends StatelessWidget {
       keyboardType: TextInputType.number,
       icon: const Icon(FontAwesomeIcons.rulerHorizontal),
       enabled: enabled,
-      fieldTitle: "Lug Width(mm):",
-      hintText: "Lug Width",
+      fieldTitle: AppLocalizations.of(context)!.lugWidthRowTitle,
+      hintText: AppLocalizations.of(context)!.lugWidthHintText,
       maxLines: 1,
       controller: lugWidthController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if(!val!.isServiceNumber) {
-          return 'Must be a whole number less than 99';
+          return AppLocalizations.of(Get.context!)!.mustBeWholeNumberLessThan99;
         }
       },
     );

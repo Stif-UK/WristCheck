@@ -434,11 +434,29 @@ abstract class AppLocalizations {
   /// **'Lug to Lug'**
   String get lug2lugRowHintText;
 
+  /// No description provided for @lugWidthRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug Width (mm):'**
+  String get lugWidthRowTitle;
+
+  /// No description provided for @lugWidthHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Lug Width'**
+  String get lugWidthHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
   /// **'Must be numbers only with up to two decimal points'**
   String get mustBeNumber2decimals;
+
+  /// No description provided for @mustBeWholeNumberLessThan99.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be a whole number less than 99'**
+  String get mustBeWholeNumberLessThan99;
 
   /// No description provided for @infoTabLabel.
   ///

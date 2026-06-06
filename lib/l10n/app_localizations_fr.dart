@@ -182,8 +182,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get lug2lugRowHintText => 'Corne à corne';
 
   @override
+  String get lugWidthRowTitle => 'Entrecorne (mm) :';
+
+  @override
+  String get lugWidthHintText => 'Entrecorne';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
+
+  @override
+  String get mustBeWholeNumberLessThan99 =>
+      'Saisissez un nombre entier inférieur à 99';
 
   @override
   String get infoTabLabel => 'Infos';

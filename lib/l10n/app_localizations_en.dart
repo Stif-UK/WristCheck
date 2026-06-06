@@ -181,8 +181,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lug2lugRowHintText => 'Lug to Lug';
 
   @override
+  String get lugWidthRowTitle => 'Lug Width (mm):';
+
+  @override
+  String get lugWidthHintText => 'Lug Width';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
+
+  @override
+  String get mustBeWholeNumberLessThan99 =>
+      'Must be a whole number less than 99';
 
   @override
   String get infoTabLabel => 'Info';
