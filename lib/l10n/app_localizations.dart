@@ -470,6 +470,18 @@ abstract class AppLocalizations {
   /// **'Model'**
   String get modelRowHintText;
 
+  /// No description provided for @purchaseDateRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Date:'**
+  String get purchaseDateRowTitle;
+
+  /// No description provided for @purchaseDateRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Date'**
+  String get purchaseDateRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

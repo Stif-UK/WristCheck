@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 
 class PurchaseDateRow extends StatelessWidget {
@@ -12,8 +14,8 @@ class PurchaseDateRow extends StatelessWidget {
       return WatchFormField(
         icon: const Icon(FontAwesomeIcons.calendar),
         enabled: enabled,
-        fieldTitle: "Purchase Date:",
-        hintText: "Purchase Date",
+        fieldTitle: AppLocalizations.of(Get.context!)!.purchaseDateRowTitle,
+        hintText: AppLocalizations.of(Get.context!)!.purchaseDateRowHintText,
         maxLines: 1,
         datePicker: true,
         controller: purchaseDateFieldController,

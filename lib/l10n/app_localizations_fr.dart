@@ -200,6 +200,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get modelRowHintText => 'Modèle';
 
   @override
+  String get purchaseDateRowTitle => 'Date d\'achat :';
+
+  @override
+  String get purchaseDateRowHintText => 'Date d\'achat';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

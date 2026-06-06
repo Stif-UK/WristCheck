@@ -199,6 +199,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelRowHintText => 'Model';
 
   @override
+  String get purchaseDateRowTitle => 'Purchase Date:';
+
+  @override
+  String get purchaseDateRowHintText => 'Purchase Date';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 

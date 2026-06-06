@@ -80,6 +80,8 @@
   "manufacturerRowHintText" : "Marque",
   "modelRowTitle" : "Modèle :",
   "modelRowHintText" : "Modèle",
+  "purchaseDateRowTitle" : "Date d'achat :",
+  "purchaseDateRowHintText" : "Date d'achat",
 
 
   "@_VALIDATION_ERRORS": {},
