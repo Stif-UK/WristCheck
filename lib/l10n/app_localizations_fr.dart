@@ -248,6 +248,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get soldPriceRowHintText => 'Prix de vente';
 
   @override
+  String get soldToRowTitle => 'Vendu à :';
+
+  @override
+  String get soldToRowHintText => 'Vendu à';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

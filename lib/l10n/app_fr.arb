@@ -96,6 +96,8 @@
   "soldDateRowHintText" : "Date de vente",
   "soldPriceRowTitle" : "Prix de vente :",
   "soldPriceRowHintText" : "Prix de vente",
+  "soldToRowTitle" : "Vendu à :",
+  "soldToRowHintText" : "Vendu à",
 
 
   "@_VALIDATION_ERRORS": {},

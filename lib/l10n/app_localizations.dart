@@ -566,6 +566,18 @@ abstract class AppLocalizations {
   /// **'Sold Price'**
   String get soldPriceRowHintText;
 
+  /// No description provided for @soldToRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold To:'**
+  String get soldToRowTitle;
+
+  /// No description provided for @soldToRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold To'**
+  String get soldToRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

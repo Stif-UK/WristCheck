@@ -101,6 +101,8 @@
   "soldDateRowHintText" : "Sold Date",
   "soldPriceRowTitle" : "Sold Price:",
   "soldPriceRowHintText" : "Sold Price",
+  "soldToRowTitle" : "Sold To:",
+  "soldToRowHintText" : "Sold To",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",

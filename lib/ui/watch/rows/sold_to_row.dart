@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
@@ -13,14 +15,14 @@ class SoldToRow extends StatelessWidget {
       return WatchFormField(
         icon: const Icon(FontAwesomeIcons.handHoldingHand),
         enabled: enabled,
-        fieldTitle: "Sold To:",
-        hintText: "Sold to",
+        fieldTitle: AppLocalizations.of(Get.context!)!.soldToRowTitle,
+        hintText: AppLocalizations.of(Get.context!)!.soldToRowHintText,
         maxLines: 1,
         controller: soldToFieldController,
         textCapitalization: TextCapitalization.sentences,
         validator: (String? val) {
           if (!val!.isAlphaNumericWithSymbolsOrEmpty) {
-            return 'Invalid characters detected.';
+            return AppLocalizations.of(Get.context!)!.invalidCharactersDetected;
           }
         },
       );
