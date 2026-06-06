@@ -458,6 +458,18 @@ abstract class AppLocalizations {
   /// **'Manufacturer'**
   String get manufacturerRowHintText;
 
+  /// No description provided for @modelRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Model:'**
+  String get modelRowTitle;
+
+  /// No description provided for @modelRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get modelRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -475,6 +487,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manufacturer missing or invalid characters included'**
   String get manufacturerInvalidError;
+
+  /// No description provided for @modelInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Model missing or invalid characters included'**
+  String get modelInvalidError;
 
   /// No description provided for @infoTabLabel.
   ///

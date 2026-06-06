@@ -193,6 +193,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manufacturerRowHintText => 'Manufacturer';
 
   @override
+  String get modelRowTitle => 'Model:';
+
+  @override
+  String get modelRowHintText => 'Model';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
@@ -203,6 +209,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get manufacturerInvalidError =>
       'Manufacturer missing or invalid characters included';
+
+  @override
+  String get modelInvalidError =>
+      'Model missing or invalid characters included';
 
   @override
   String get infoTabLabel => 'Info';

@@ -83,11 +83,14 @@
   "lugWidthHintText" : "Lug Width",
   "manufacturerRowTitle" : "Manufacturer:",
   "manufacturerRowHintText" : "Manufacturer",
+  "modelRowTitle" : "Model:",
+  "modelRowHintText" : "Model",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
   "mustBeWholeNumberLessThan99" : "Must be a whole number less than 99",
   "manufacturerInvalidError" : "Manufacturer missing or invalid characters included",
+  "modelInvalidError" : "Model missing or invalid characters included",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",

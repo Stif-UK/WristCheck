@@ -194,6 +194,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get manufacturerRowHintText => 'Marque';
 
   @override
+  String get modelRowTitle => 'Modèle :';
+
+  @override
+  String get modelRowHintText => 'Modèle';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
@@ -204,6 +210,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get manufacturerInvalidError =>
       'Marque manquante ou caractères non valides';
+
+  @override
+  String get modelInvalidError => 'Modèle manquant ou caractères non valides';
 
   @override
   String get infoTabLabel => 'Infos';

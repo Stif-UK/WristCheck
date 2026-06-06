@@ -78,12 +78,15 @@
   "lugWidthHintText" : "Entrecorne",
   "manufacturerRowTitle" : "Marque :",
   "manufacturerRowHintText" : "Marque",
+  "modelRowTitle" : "Modèle :",
+  "modelRowHintText" : "Modèle",
 
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Saisissez uniquement des chiffres (max. 2 décimales)",
   "mustBeWholeNumberLessThan99" : "Saisissez un nombre entier inférieur à 99",
   "manufacturerInvalidError" : "Marque manquante ou caractères non valides",
+  "modelInvalidError" : "Modèle manquant ou caractères non valides",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",
