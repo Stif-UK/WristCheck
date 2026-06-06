@@ -200,10 +200,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get modelRowHintText => 'Modèle';
 
   @override
-  String get purchaseDateRowTitle => 'Purchase Date:';
+  String get purchaseDateRowTitle => 'Date d\'achat :';
 
   @override
-  String get purchaseDateRowHintText => 'Purchase Date';
+  String get purchaseDateRowHintText => 'Date d\'achat';
 
   @override
   String get purchasePriceRowTitle => 'Prix d\'achat :';
