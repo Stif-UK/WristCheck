@@ -65,6 +65,16 @@
   "addedToWatchbox" : "Ajouté à la boîte à montres",
   "favouriteLabel" : "Coup de cœur",
 
+  "@_WATCH_ROWS":{},
+  "caseDiameterRowTitle" : "Diamètre du boîtier (mm) :",
+  "caseDiameterRowHintText" : "Diamètre du boîtier",
+  "caseThicknessRowTitle" : "Épaisseur du boîtier (mm) :",
+  "caseThicknessRowHintText" : "Épaisseur du boîtier",
+
+
+  "@_VALIDATION_ERRORS": {},
+  "mustBeNumber2decimals" : "Saisissez uniquement des chiffres (max. 2 décimales)",
+
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",
   "scheduleTabLabel" : "Dates",

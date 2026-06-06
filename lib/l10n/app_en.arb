@@ -70,6 +70,16 @@
   "addedToWatchbox" : "added to watchbox",
   "favouriteLabel" : "Favourite",
 
+  "@_WATCH_ROWS":{},
+  "caseDiameterRowTitle" : "Case Diameter(mm):",
+  "caseDiameterRowHintText" : "Case Diameter",
+  "caseThicknessRowTitle" : "Case Thickness(mm):",
+  "caseThicknessRowHintText" : "Case Thickness",
+
+
+  "@_VALIDATION_ERRORS": {},
+  "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
+
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",
   "scheduleTabLabel" : "Dates",

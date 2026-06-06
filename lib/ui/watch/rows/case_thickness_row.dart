@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
 import '../../widgets/watch_formfield.dart';
@@ -15,14 +17,14 @@ class CaseThicknessRow extends StatelessWidget {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       icon: const Icon(FontAwesomeIcons.rulerVertical),
       enabled: enabled,
-      fieldTitle: "Case Thickness(mm):",
-      hintText: "Case Thickness",
+      fieldTitle: AppLocalizations.of(Get.context!)!.caseThicknessRowTitle,
+      hintText: AppLocalizations.of(Get.context!)!.caseThicknessRowHintText,
       maxLines: 1,
       controller: caseThicknessController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if(!val!.isDouble) {
-          return 'Must be numbers only with up to two decimal points';
+          return AppLocalizations.of(Get.context!)!.mustBeNumber2decimals;
         }
       },
     );

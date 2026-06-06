@@ -386,6 +386,36 @@ abstract class AppLocalizations {
   /// **'Favourite'**
   String get favouriteLabel;
 
+  /// No description provided for @caseDiameterRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Diameter(mm):'**
+  String get caseDiameterRowTitle;
+
+  /// No description provided for @caseDiameterRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Diameter'**
+  String get caseDiameterRowHintText;
+
+  /// No description provided for @caseThicknessRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Thickness(mm):'**
+  String get caseThicknessRowTitle;
+
+  /// No description provided for @caseThicknessRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Thickness'**
+  String get caseThicknessRowHintText;
+
+  /// No description provided for @mustBeNumber2decimals.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be numbers only with up to two decimal points'**
+  String get mustBeNumber2decimals;
+
   /// No description provided for @infoTabLabel.
   ///
   /// In en, this message translates to:

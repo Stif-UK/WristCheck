@@ -158,6 +158,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get favouriteLabel => 'Coup de cœur';
 
   @override
+  String get caseDiameterRowTitle => 'Diamètre du boîtier (mm) :';
+
+  @override
+  String get caseDiameterRowHintText => 'Diamètre du boîtier';
+
+  @override
+  String get caseThicknessRowTitle => 'Épaisseur du boîtier (mm) :';
+
+  @override
+  String get caseThicknessRowHintText => 'Épaisseur du boîtier';
+
+  @override
+  String get mustBeNumber2decimals =>
+      'Saisissez uniquement des chiffres (max. 2 décimales)';
+
+  @override
   String get infoTabLabel => 'Infos';
 
   @override

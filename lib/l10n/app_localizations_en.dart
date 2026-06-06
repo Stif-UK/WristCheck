@@ -157,6 +157,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favouriteLabel => 'Favourite';
 
   @override
+  String get caseDiameterRowTitle => 'Case Diameter(mm):';
+
+  @override
+  String get caseDiameterRowHintText => 'Case Diameter';
+
+  @override
+  String get caseThicknessRowTitle => 'Case Thickness(mm):';
+
+  @override
+  String get caseThicknessRowHintText => 'Case Thickness';
+
+  @override
+  String get mustBeNumber2decimals =>
+      'Must be numbers only with up to two decimal points';
+
+  @override
   String get infoTabLabel => 'Info';
 
   @override
