@@ -274,6 +274,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categoryRowTitle => 'Catégorie :';
 
   @override
+  String get watchDetailsSectionTitle => 'Détails de la montre';
+
+  @override
+  String get caseMaterialRowTitle => 'Matériau du boîtier :';
+
+  @override
+  String get winderSettingsSectionTitle => 'Réglages du remontoir';
+
+  @override
+  String get tpdRowTitle => 'Tours par jour (TPD) :';
+
+  @override
+  String get winderDirectionRowTitle => 'Sens de rotation :';
+
+  @override
+  String get dateComplicationRowTitle => 'Complication date :';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

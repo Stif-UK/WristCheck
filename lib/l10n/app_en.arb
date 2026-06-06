@@ -109,6 +109,14 @@
   "waterResistanceRowHintText" : "Water Resistance",
   "movementRowTitle" : "Movement:",
   "categoryRowTitle" : "Category:",
+  "watchDetailsSectionTitle" : "Watch Details",
+  "caseMaterialRowTitle" : "Case Material:",
+  "winderSettingsSectionTitle" : "Winder Settings",
+  "tpdRowTitle" : "TPD:",
+  "winderDirectionRowTitle" : "Winder Direction:",
+  "dateComplicationRowTitle" : "Date Complication:",
+
+
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",

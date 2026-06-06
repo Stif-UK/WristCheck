@@ -104,6 +104,12 @@
   "waterResistanceRowHintText" : "Étanchéité",
   "movementRowTitle" : "Mouvement :",
   "categoryRowTitle" : "Catégorie :",
+  "watchDetailsSectionTitle" : "Détails de la montre",
+  "caseMaterialRowTitle" : "Matériau du boîtier :",
+  "winderSettingsSectionTitle" : "Réglages du remontoir",
+  "tpdRowTitle" : "Tours par jour (TPD) :",
+  "winderDirectionRowTitle" : "Sens de rotation :",
+  "dateComplicationRowTitle" : "Complication date :",
 
 
   "@_VALIDATION_ERRORS": {},

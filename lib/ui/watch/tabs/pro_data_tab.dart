@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
@@ -58,7 +59,7 @@ class ProDataTab extends StatelessWidget {
 
   Widget _buildCaseDetailsSection(){
     return ExpansionTile(
-        title: Text("Watch Details",
+        title: Text(AppLocalizations.of(Get.context!)!.watchDetailsSectionTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
@@ -77,7 +78,7 @@ class ProDataTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Case Material:",
+        Text(AppLocalizations.of(Get.context!)!.caseMaterialRowTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.bodyLarge,),
         Padding(
@@ -105,7 +106,7 @@ class ProDataTab extends StatelessWidget {
 
   Widget _buildWinderSettingsRow(){
     return ExpansionTile(
-        title: Text("Winder Settings",
+        title: Text(AppLocalizations.of(Get.context!)!.winderSettingsSectionTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
@@ -113,14 +114,14 @@ class ProDataTab extends StatelessWidget {
           keyboardType: TextInputType.number,
           icon: const Icon(FontAwesomeIcons.gaugeHigh),
           enabled: watchViewController.inEditState.value,
-          fieldTitle: "TPD:",
-          hintText: "TPD",
+          fieldTitle: AppLocalizations.of(Get.context!)!.tpdRowTitle,
+          hintText: AppLocalizations.of(Get.context!)!.tpdRowTitle,
           maxLines: 1,
           controller: winderTPDController,
           textCapitalization: TextCapitalization.none,
           validator: (String? val) {
             if(!val!.isUnboundPositiveInteger) {
-              return 'Must be a whole number';
+              return AppLocalizations.of(Get.context!)!.mustBeAValidWholeNumber;
             }
           },
         ),
@@ -134,7 +135,7 @@ class ProDataTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Winder Direction:",
+        Text(AppLocalizations.of(Get.context!)!.winderDirectionRowTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.bodyLarge,),
         Padding(
@@ -165,7 +166,7 @@ class ProDataTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Date Complication:",
+        Text(AppLocalizations.of(Get.context!)!.dateComplicationRowTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.bodyLarge,),
         Padding(

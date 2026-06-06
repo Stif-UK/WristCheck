@@ -614,6 +614,42 @@ abstract class AppLocalizations {
   /// **'Category:'**
   String get categoryRowTitle;
 
+  /// No description provided for @watchDetailsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Details'**
+  String get watchDetailsSectionTitle;
+
+  /// No description provided for @caseMaterialRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Case Material:'**
+  String get caseMaterialRowTitle;
+
+  /// No description provided for @winderSettingsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Winder Settings'**
+  String get winderSettingsSectionTitle;
+
+  /// No description provided for @tpdRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TPD:'**
+  String get tpdRowTitle;
+
+  /// No description provided for @winderDirectionRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Winder Direction:'**
+  String get winderDirectionRowTitle;
+
+  /// No description provided for @dateComplicationRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Complication:'**
+  String get dateComplicationRowTitle;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

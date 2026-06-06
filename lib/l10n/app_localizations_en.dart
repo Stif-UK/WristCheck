@@ -273,6 +273,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryRowTitle => 'Category:';
 
   @override
+  String get watchDetailsSectionTitle => 'Watch Details';
+
+  @override
+  String get caseMaterialRowTitle => 'Case Material:';
+
+  @override
+  String get winderSettingsSectionTitle => 'Winder Settings';
+
+  @override
+  String get tpdRowTitle => 'TPD:';
+
+  @override
+  String get winderDirectionRowTitle => 'Winder Direction:';
+
+  @override
+  String get dateComplicationRowTitle => 'Date Complication:';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
