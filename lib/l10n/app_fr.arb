@@ -94,6 +94,8 @@
   "serialNumberRowHintText" : "Numéro de série",
   "soldDateRowTitle" : "Date de vente :",
   "soldDateRowHintText" : "Date de vente",
+  "soldPriceRowTitle" : "Prix de vente :",
+  "soldPriceRowHintText" : "Prix de vente",
 
 
   "@_VALIDATION_ERRORS": {},

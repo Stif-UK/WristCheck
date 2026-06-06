@@ -99,6 +99,8 @@
   "serialNumberRowHintText" : "Serial Number",
   "soldDateRowTitle" : "Sold Date:",
   "soldDateRowHintText" : "Sold Date",
+  "soldPriceRowTitle" : "Sold Price:",
+  "soldPriceRowHintText" : "Sold Price",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
