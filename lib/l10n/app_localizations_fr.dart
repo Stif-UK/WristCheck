@@ -212,6 +212,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get purchasePriceRowHintText => 'Prix d\'achat';
 
   @override
+  String get purchasedFromRowTitle => 'Lieu d\'achat :';
+
+  @override
+  String get purchasedFromHintText => 'Lieu d\'achat';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
@@ -229,6 +235,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get digitsNoDecimalsError =>
       'Saisissez uniquement des chiffres entiers, sans décimale, on s\'occupe du reste !';
+
+  @override
+  String get invalidCharactersDetected => 'Caractères non valides détectés.';
 
   @override
   String get infoTabLabel => 'Infos';

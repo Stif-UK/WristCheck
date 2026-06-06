@@ -89,6 +89,8 @@
   "purchaseDateRowHintText" : "Purchase Date",
   "purchasePriceRowTitle" : "Purchase Price:",
   "purchasePriceRowHintText" : "Purchase Price",
+  "purchasedFromRowTitle" : "Purchased From:",
+  "purchasedFromHintText" : "Purchased From",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
@@ -96,6 +98,7 @@
   "manufacturerInvalidError" : "Manufacturer missing or invalid characters included",
   "modelInvalidError" : "Model missing or invalid characters included",
   "digitsNoDecimalsError" : "Enter digits only, no decimals, we'll take care of the rest!",
+  "invalidCharactersDetected" : "Invalid characters detected.",
 
 
   "@_WATCH_TABS" : {},

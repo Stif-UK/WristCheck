@@ -494,6 +494,18 @@ abstract class AppLocalizations {
   /// **'Purchase Price'**
   String get purchasePriceRowHintText;
 
+  /// No description provided for @purchasedFromRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased From:'**
+  String get purchasedFromRowTitle;
+
+  /// No description provided for @purchasedFromHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased From'**
+  String get purchasedFromHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -523,6 +535,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter digits only, no decimals, we\'ll take care of the rest!'**
   String get digitsNoDecimalsError;
+
+  /// No description provided for @invalidCharactersDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid characters detected.'**
+  String get invalidCharactersDetected;
 
   /// No description provided for @infoTabLabel.
   ///

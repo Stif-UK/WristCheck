@@ -84,6 +84,8 @@
   "purchaseDateRowHintText" : "Date d'achat",
   "purchasePriceRowTitle" : "Prix d'achat :",
   "purchasePriceRowHintText" : "Prix d'achat",
+  "purchasedFromRowTitle" : "Lieu d'achat :",
+  "purchasedFromHintText" : "Lieu d'achat",
 
 
   "@_VALIDATION_ERRORS": {},
@@ -92,6 +94,7 @@
   "manufacturerInvalidError" : "Marque manquante ou caractères non valides",
   "modelInvalidError" : "Modèle manquant ou caractères non valides",
   "digitsNoDecimalsError" : "Saisissez uniquement des chiffres entiers, sans décimale, on s'occupe du reste !",
+  "invalidCharactersDetected" : "Caractères non valides détectés.",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",
