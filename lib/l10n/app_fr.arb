@@ -87,8 +87,11 @@
   "purchasedFromRowTitle" : "Lieu d'achat :",
   "purchasedFromHintText" : "Lieu d'achat",
   "referenceNumberRowTitle" : "Référence :",
-  "referenceNumberOptionalTitle" : "Référence (facultatif)",
+  "referenceNumberOptionalTitle" : "Référence (facultatif) :",
   "referenceNumberRowHelpText" : "Référence",
+  "serialNumberRowTitle" : "Numéro de série :",
+  "serialNumberOptionalTitle" : "Numéro de série (facultatif) :",
+  "serialNumberRowHintText" : "Numéro de série",
 
 
   "@_VALIDATION_ERRORS": {},
@@ -99,6 +102,7 @@
   "digitsNoDecimalsError" : "Saisissez uniquement des chiffres entiers, sans décimale, on s'occupe du reste !",
   "invalidCharactersDetected" : "Caractères non valides détectés.",
   "referenceNumberErrorText" : "Référence manquante ou caractères non valides",
+  "serialNumberErrorText" : "Le numéro de série contient des caractères non valides",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

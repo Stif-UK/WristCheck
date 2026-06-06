@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -16,14 +18,14 @@ class SerialNumberRow extends StatelessWidget {
       return WatchFormField(
         icon: const Icon(FontAwesomeIcons.barcode),
         enabled: enabled,
-        fieldTitle: viewState == WatchViewEnum.add? "Serial Number (Optional)": "Serial Number:",
-        hintText: "Serial Number",
+        fieldTitle: viewState == WatchViewEnum.add? AppLocalizations.of(Get.context!)!.serialNumberOptionalTitle: AppLocalizations.of(Get.context!)!.serialNumberRowTitle,
+        hintText: AppLocalizations.of(Get.context!)!.serialNumberRowHintText,
         maxLines: 1,
         controller: serialNumberFieldController,
         textCapitalization: TextCapitalization.none,
         validator: (String? val) {
           if(!val!.isAlphaNumericWithSymbolsOrEmpty) {
-            return 'Serial Number contains invalid characters';
+            return AppLocalizations.of(Get.context!)!.serialNumberErrorText;
           }
         },
       );

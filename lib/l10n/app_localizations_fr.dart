@@ -221,10 +221,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get referenceNumberRowTitle => 'Référence :';
 
   @override
-  String get referenceNumberOptionalTitle => 'Référence (facultatif)';
+  String get referenceNumberOptionalTitle => 'Référence (facultatif) :';
 
   @override
   String get referenceNumberRowHelpText => 'Référence';
+
+  @override
+  String get serialNumberRowTitle => 'Numéro de série :';
+
+  @override
+  String get serialNumberOptionalTitle => 'Numéro de série (facultatif) :';
+
+  @override
+  String get serialNumberRowHintText => 'Numéro de série';
 
   @override
   String get mustBeNumber2decimals =>
@@ -251,6 +260,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get referenceNumberErrorText =>
       'Référence manquante ou caractères non valides';
+
+  @override
+  String get serialNumberErrorText =>
+      'Le numéro de série contient des caractères non valides';
 
   @override
   String get infoTabLabel => 'Infos';

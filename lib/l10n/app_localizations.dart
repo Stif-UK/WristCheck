@@ -515,7 +515,7 @@ abstract class AppLocalizations {
   /// No description provided for @referenceNumberOptionalTitle.
   ///
   /// In en, this message translates to:
-  /// **'Reference Number (Optional)'**
+  /// **'Reference Number (Optional):'**
   String get referenceNumberOptionalTitle;
 
   /// No description provided for @referenceNumberRowHelpText.
@@ -523,6 +523,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reference Number'**
   String get referenceNumberRowHelpText;
+
+  /// No description provided for @serialNumberRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number:'**
+  String get serialNumberRowTitle;
+
+  /// No description provided for @serialNumberOptionalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number (Optional):'**
+  String get serialNumberOptionalTitle;
+
+  /// No description provided for @serialNumberRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get serialNumberRowHintText;
 
   /// No description provided for @mustBeNumber2decimals.
   ///
@@ -565,6 +583,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reference Number is missing or invalid characters included'**
   String get referenceNumberErrorText;
+
+  /// No description provided for @serialNumberErrorText.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number contains invalid characters'**
+  String get serialNumberErrorText;
 
   /// No description provided for @infoTabLabel.
   ///

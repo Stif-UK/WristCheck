@@ -220,10 +220,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get referenceNumberRowTitle => 'Reference Number:';
 
   @override
-  String get referenceNumberOptionalTitle => 'Reference Number (Optional)';
+  String get referenceNumberOptionalTitle => 'Reference Number (Optional):';
 
   @override
   String get referenceNumberRowHelpText => 'Reference Number';
+
+  @override
+  String get serialNumberRowTitle => 'Serial Number:';
+
+  @override
+  String get serialNumberOptionalTitle => 'Serial Number (Optional):';
+
+  @override
+  String get serialNumberRowHintText => 'Serial Number';
 
   @override
   String get mustBeNumber2decimals =>
@@ -251,6 +260,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get referenceNumberErrorText =>
       'Reference Number is missing or invalid characters included';
+
+  @override
+  String get serialNumberErrorText =>
+      'Serial Number contains invalid characters';
 
   @override
   String get infoTabLabel => 'Info';
