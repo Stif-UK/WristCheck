@@ -200,10 +200,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get modelRowHintText => 'Modèle';
 
   @override
-  String get purchaseDateRowTitle => 'Date d\'achat :';
+  String get purchaseDateRowTitle => 'Purchase Date:';
 
   @override
-  String get purchaseDateRowHintText => 'Date d\'achat';
+  String get purchaseDateRowHintText => 'Purchase Date';
+
+  @override
+  String get purchasePriceRowTitle => 'Prix d\'achat :';
+
+  @override
+  String get purchasePriceRowHintText => 'Prix d\'achat';
 
   @override
   String get mustBeNumber2decimals =>
@@ -219,6 +225,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get modelInvalidError => 'Modèle manquant ou caractères non valides';
+
+  @override
+  String get digitsNoDecimalsError =>
+      'Saisissez uniquement des chiffres entiers, sans décimale, on s\'occupe du reste !';
 
   @override
   String get infoTabLabel => 'Infos';

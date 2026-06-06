@@ -205,6 +205,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchaseDateRowHintText => 'Purchase Date';
 
   @override
+  String get purchasePriceRowTitle => 'Purchase Price:';
+
+  @override
+  String get purchasePriceRowHintText => 'Purchase Price';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
@@ -219,6 +225,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get modelInvalidError =>
       'Model missing or invalid characters included';
+
+  @override
+  String get digitsNoDecimalsError =>
+      'Enter digits only, no decimals, we\'ll take care of the rest!';
 
   @override
   String get infoTabLabel => 'Info';

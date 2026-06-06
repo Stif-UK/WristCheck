@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
@@ -22,15 +24,15 @@ class PurchasePriceRow extends StatelessWidget {
           ? WatchFormField(
             icon: const Icon(FontAwesomeIcons.moneyBill1),
             enabled: enabled,
-            fieldTitle: "Purchase Price:",
-            hintText: "Purchased Price",
+            fieldTitle: AppLocalizations.of(Get.context!)!.purchasePriceRowTitle,
+            hintText: AppLocalizations.of(Get.context!)!.purchasePriceRowHintText,
             maxLines: 1,
             controller: purchasePriceFieldController,
             keyboardType: TextInputType.number,
             textCapitalization: TextCapitalization.none,
             validator: (String? val) {
               if (!val!.isWcCurrency) {
-                return "Enter digits only, no decimals, we'll take care of the rest!";
+                return AppLocalizations.of(Get.context!)!.digitsNoDecimalsError;
               }
             },
           )
@@ -39,7 +41,7 @@ class PurchasePriceRow extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Purchase Price:",
+          Text(AppLocalizations.of(Get.context!)!.purchasePriceRowTitle,
             textAlign: TextAlign.start,
             style: bodyLarge,),
           Row(

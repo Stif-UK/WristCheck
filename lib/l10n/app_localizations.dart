@@ -482,6 +482,18 @@ abstract class AppLocalizations {
   /// **'Purchase Date'**
   String get purchaseDateRowHintText;
 
+  /// No description provided for @purchasePriceRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Price:'**
+  String get purchasePriceRowTitle;
+
+  /// No description provided for @purchasePriceRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Price'**
+  String get purchasePriceRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -505,6 +517,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Model missing or invalid characters included'**
   String get modelInvalidError;
+
+  /// No description provided for @digitsNoDecimalsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter digits only, no decimals, we\'ll take care of the rest!'**
+  String get digitsNoDecimalsError;
 
   /// No description provided for @infoTabLabel.
   ///
