@@ -542,6 +542,18 @@ abstract class AppLocalizations {
   /// **'Serial Number'**
   String get serialNumberRowHintText;
 
+  /// No description provided for @soldDateRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold Date:'**
+  String get soldDateRowTitle;
+
+  /// No description provided for @soldDateRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold Date'**
+  String get soldDateRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

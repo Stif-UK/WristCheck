@@ -236,6 +236,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get serialNumberRowHintText => 'Numéro de série';
 
   @override
+  String get soldDateRowTitle => 'Date de vente :';
+
+  @override
+  String get soldDateRowHintText => 'Date de vente';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

@@ -92,6 +92,8 @@
   "serialNumberRowTitle" : "Numéro de série :",
   "serialNumberOptionalTitle" : "Numéro de série (facultatif) :",
   "serialNumberRowHintText" : "Numéro de série",
+  "soldDateRowTitle" : "Date de vente :",
+  "soldDateRowHintText" : "Date de vente",
 
 
   "@_VALIDATION_ERRORS": {},
