@@ -217,6 +217,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchasedFromHintText => 'Purchased From';
 
   @override
+  String get referenceNumberRowTitle => 'Reference Number:';
+
+  @override
+  String get referenceNumberOptionalTitle => 'Reference Number (Optional)';
+
+  @override
+  String get referenceNumberRowHelpText => 'Reference Number';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
@@ -238,6 +247,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidCharactersDetected => 'Invalid characters detected.';
+
+  @override
+  String get referenceNumberErrorText =>
+      'Reference Number is missing or invalid characters included';
 
   @override
   String get infoTabLabel => 'Info';

@@ -91,6 +91,9 @@
   "purchasePriceRowHintText" : "Purchase Price",
   "purchasedFromRowTitle" : "Purchased From:",
   "purchasedFromHintText" : "Purchased From",
+  "referenceNumberRowTitle" : "Reference Number:",
+  "referenceNumberOptionalTitle" : "Reference Number (Optional)",
+  "referenceNumberRowHelpText" : "Reference Number",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
@@ -99,6 +102,7 @@
   "modelInvalidError" : "Model missing or invalid characters included",
   "digitsNoDecimalsError" : "Enter digits only, no decimals, we'll take care of the rest!",
   "invalidCharactersDetected" : "Invalid characters detected.",
+  "referenceNumberErrorText" : "Reference Number is missing or invalid characters included",
 
 
   "@_WATCH_TABS" : {},

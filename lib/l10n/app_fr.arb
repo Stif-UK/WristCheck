@@ -86,6 +86,9 @@
   "purchasePriceRowHintText" : "Prix d'achat",
   "purchasedFromRowTitle" : "Lieu d'achat :",
   "purchasedFromHintText" : "Lieu d'achat",
+  "referenceNumberRowTitle" : "Référence :",
+  "referenceNumberOptionalTitle" : "Référence (facultatif)",
+  "referenceNumberRowHelpText" : "Référence",
 
 
   "@_VALIDATION_ERRORS": {},
@@ -95,6 +98,7 @@
   "modelInvalidError" : "Modèle manquant ou caractères non valides",
   "digitsNoDecimalsError" : "Saisissez uniquement des chiffres entiers, sans décimale, on s'occupe du reste !",
   "invalidCharactersDetected" : "Caractères non valides détectés.",
+  "referenceNumberErrorText" : "Référence manquante ou caractères non valides",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

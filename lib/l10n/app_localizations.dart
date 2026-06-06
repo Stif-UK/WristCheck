@@ -506,6 +506,24 @@ abstract class AppLocalizations {
   /// **'Purchased From'**
   String get purchasedFromHintText;
 
+  /// No description provided for @referenceNumberRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference Number:'**
+  String get referenceNumberRowTitle;
+
+  /// No description provided for @referenceNumberOptionalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference Number (Optional)'**
+  String get referenceNumberOptionalTitle;
+
+  /// No description provided for @referenceNumberRowHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference Number'**
+  String get referenceNumberRowHelpText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -541,6 +559,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid characters detected.'**
   String get invalidCharactersDetected;
+
+  /// No description provided for @referenceNumberErrorText.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference Number is missing or invalid characters included'**
+  String get referenceNumberErrorText;
 
   /// No description provided for @infoTabLabel.
   ///

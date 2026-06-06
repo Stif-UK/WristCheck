@@ -218,6 +218,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get purchasedFromHintText => 'Lieu d\'achat';
 
   @override
+  String get referenceNumberRowTitle => 'Référence :';
+
+  @override
+  String get referenceNumberOptionalTitle => 'Référence (facultatif)';
+
+  @override
+  String get referenceNumberRowHelpText => 'Référence';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
@@ -238,6 +247,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get invalidCharactersDetected => 'Caractères non valides détectés.';
+
+  @override
+  String get referenceNumberErrorText =>
+      'Référence manquante ou caractères non valides';
 
   @override
   String get infoTabLabel => 'Infos';
