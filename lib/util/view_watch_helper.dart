@@ -48,30 +48,30 @@ class ViewWatchHelper{
   static String getPurchaseDateToDisplay(Watches currentWatch, DateTime? purchaseDate, bool canEditPurchaseDate){
     if(canEditPurchaseDate){
       return purchaseDate != null ?  DateFormat
-          .yMMMd().format(purchaseDate) : "Not Recorded";
+          .yMMMd().format(purchaseDate) : AppLocalizations.of(Get.context!)!.notRecorded;
     }else {
       return currentWatch.purchaseDate != null ? DateFormat
-          .yMMMd().format(currentWatch.purchaseDate!) : "Not Recorded";
+          .yMMMd().format(currentWatch.purchaseDate!) : AppLocalizations.of(Get.context!)!.notRecorded;
     }
   }
 
   static String getServiceDateToDisplay(Watches currentWatch, DateTime? lastServiceDate, bool canEditServiceDate){
     if(canEditServiceDate){
       return lastServiceDate != null ?  DateFormat
-          .yMMMd().format(lastServiceDate) : "N/A";
+          .yMMMd().format(lastServiceDate) : AppLocalizations.of(Get.context!)!.na;
     }else {
       return currentWatch.lastServicedDate != null ? DateFormat
-          .yMMMd().format(currentWatch.lastServicedDate!) : "N/A";
+          .yMMMd().format(currentWatch.lastServicedDate!) : AppLocalizations.of(Get.context!)!.na;
     }
   }
 
   static String getLastWearDate(Watches currentWatch){
     if(currentWatch.wearList == null || currentWatch.wearList.isEmpty){
-      return "N/A";
+      return AppLocalizations.of(Get.context!)!.na;
     }else {
       var wearList = currentWatch.wearList;
       wearList.sort();
-      return ViewWatchHelper.isDateToday(wearList.last)? "Today" : WristCheckFormatter.getFormattedDate(wearList.last);
+      return ViewWatchHelper.isDateToday(wearList.last)? AppLocalizations.of(Get.context!)!.today : WristCheckFormatter.getFormattedDate(wearList.last);
     }
   }
   
@@ -84,8 +84,9 @@ class ViewWatchHelper{
 
   static DateTime? getDateFromFieldString(String dateField){
     final langController = Get.put(LanguageController());
+    final l10n = AppLocalizations.of(Get.context!)!;
 
-    if(dateField == "Not Recorded" || dateField == "N/A"){
+    if(dateField == l10n.notRecorded || dateField == l10n.na){
       return null;
     } else {
       try {
