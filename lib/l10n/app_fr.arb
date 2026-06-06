@@ -102,6 +102,8 @@
   "warrantyEndRowHintText" : "Fin de la garantie",
   "waterResistanceRowTitle" : "Étanchéité ({units}) :",
   "waterResistanceRowHintText" : "Étanchéité",
+  "movementRowTitle" : "Mouvement :",
+  "categoryRowTitle" : "Catégorie :",
 
 
   "@_VALIDATION_ERRORS": {},

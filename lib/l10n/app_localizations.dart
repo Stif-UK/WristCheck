@@ -602,6 +602,18 @@ abstract class AppLocalizations {
   /// **'Water Resistance'**
   String get waterResistanceRowHintText;
 
+  /// No description provided for @movementRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement:'**
+  String get movementRowTitle;
+
+  /// No description provided for @categoryRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Category:'**
+  String get categoryRowTitle;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

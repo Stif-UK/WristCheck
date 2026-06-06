@@ -268,6 +268,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get waterResistanceRowHintText => 'Étanchéité';
 
   @override
+  String get movementRowTitle => 'Mouvement :';
+
+  @override
+  String get categoryRowTitle => 'Catégorie :';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

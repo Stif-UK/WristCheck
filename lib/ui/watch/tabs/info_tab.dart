@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
@@ -57,7 +58,7 @@ class InfoTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Movement:",
+        Text(AppLocalizations.of(Get.context!)!.movementRowTitle,
           textAlign: TextAlign.start,
           style: bodyLarge,),
         Padding(
@@ -87,7 +88,7 @@ class InfoTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Category:",
+        Text(AppLocalizations.of(Get.context!)!.categoryRowTitle,
           textAlign: TextAlign.start,
           style: bodyLarge,),
         Padding(

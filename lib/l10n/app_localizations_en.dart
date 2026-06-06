@@ -267,6 +267,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waterResistanceRowHintText => 'Water Resistance';
 
   @override
+  String get movementRowTitle => 'Movement:';
+
+  @override
+  String get categoryRowTitle => 'Category:';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 

@@ -107,6 +107,8 @@
   "warrantyEndRowHintText" : "Warranty Expiry Date",
   "waterResistanceRowTitle" : "Water Resistance {units}:",
   "waterResistanceRowHintText" : "Water Resistance",
+  "movementRowTitle" : "Movement:",
+  "categoryRowTitle" : "Category:",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
