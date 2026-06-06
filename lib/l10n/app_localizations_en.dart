@@ -253,6 +253,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get soldToRowHintText => 'Sold To';
 
   @override
+  String get warrantyEndRowTitle => 'Warranty Expiry Date:';
+
+  @override
+  String get warrantyEndRowHintText => 'Warranty Expiry Date';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 

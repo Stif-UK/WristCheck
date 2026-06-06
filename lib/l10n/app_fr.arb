@@ -98,6 +98,8 @@
   "soldPriceRowHintText" : "Prix de vente",
   "soldToRowTitle" : "Vendu à :",
   "soldToRowHintText" : "Vendu à",
+  "warrantyEndRowTitle" : "Fin de la garantie :",
+  "warrantyEndRowHintText" : "Fin de la garantie",
 
 
   "@_VALIDATION_ERRORS": {},

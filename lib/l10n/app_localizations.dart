@@ -578,6 +578,18 @@ abstract class AppLocalizations {
   /// **'Sold To'**
   String get soldToRowHintText;
 
+  /// No description provided for @warrantyEndRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Expiry Date:'**
+  String get warrantyEndRowTitle;
+
+  /// No description provided for @warrantyEndRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Expiry Date'**
+  String get warrantyEndRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

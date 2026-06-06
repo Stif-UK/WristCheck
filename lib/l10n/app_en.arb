@@ -103,6 +103,8 @@
   "soldPriceRowHintText" : "Sold Price",
   "soldToRowTitle" : "Sold To:",
   "soldToRowHintText" : "Sold To",
+  "warrantyEndRowTitle" : "Warranty Expiry Date:",
+  "warrantyEndRowHintText" : "Warranty Expiry Date",
 
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",

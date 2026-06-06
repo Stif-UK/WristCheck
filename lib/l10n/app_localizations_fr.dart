@@ -254,6 +254,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get soldToRowHintText => 'Vendu à';
 
   @override
+  String get warrantyEndRowTitle => 'Fin de la garantie :';
+
+  @override
+  String get warrantyEndRowHintText => 'Fin de la garantie';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
