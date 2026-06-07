@@ -2048,6 +2048,12 @@ abstract class AppLocalizations {
   /// **'_*You can re-open this information box at any time by pressing the question mark in the top right of the page*_\n\n '**
   String get accuracyHelpTextOutro;
 
+  /// No description provided for @secondsPerUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'seconds/{rateUnit}'**
+  String secondsPerUnit(Object rateUnit);
+
   /// No description provided for @servicingTab.
   ///
   /// In en, this message translates to:

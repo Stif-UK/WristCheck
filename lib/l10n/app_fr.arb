@@ -368,6 +368,7 @@
   "accuracyHelpTextDeletingARecord" : "**Supprimer un enregistrement**\n\nSi vous enregistrez une mesure par erreur, elle peut être supprimée en la faisant glisser de droite à gauche dans la liste des « Enregistrements ».\n\n",
   "accuracyHelpTextWhenToCapture" : "**Quand enregistrer des mesures**\n\nPlus le délai entre la mesure de référence et le point de contrôle est long, plus les résultats seront précis (car les légers retards lors de l'appui sur les boutons deviennent moins significatifs). À titre indicatif, il est utile de laisser s'écouler 12 à 24 heures entre les mesures.\n\n",
   "accuracyHelpTextOutro": "_*Vous pouvez rouvrir cette fenêtre d'information à tout moment en appuyant sur le point d'interrogation en haut à droite de la page.*_\n\n ",
+  "secondsPerUnit" : "secondes/{rateUnit}",
 
   "@_SERVICE" : {},
   "servicingTab" : "Entretien",
@@ -497,6 +498,15 @@
       "returnText": {
         "type": "String",
         "example": "Filtre : Cette année, incluant les montres vendues"
+      }
+    }
+  },
+  "@rateUnit": {
+    "description": "Une chaîne de caractères représentant la période de suivi, par exemple : jour, mois, année",
+    "placeholders": {
+      "rateUnit": {
+        "type": "String",
+        "example": "jour"
       }
     }
   },

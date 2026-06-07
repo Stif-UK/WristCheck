@@ -381,6 +381,7 @@
   "accuracyHelpTextDeletingARecord" : "**Deleting a Record**\n\nIf you capture a record in error, it can be deleted by swiping it away from right to left in the 'Records' list.\n\n",
   "accuracyHelpTextWhenToCapture" : "**When to capture records**\n\nThe longer you track the watch from the baseline measurement, the more accurate the results are likely to be (as the small delays when pressing buttons become less prominent). As a guide, it's useful to leave 12-24 hours between measurements.\n\n",
   "accuracyHelpTextOutro": "_*You can re-open this information box at any time by pressing the question mark in the top right of the page*_\n\n ",
+  "secondsPerUnit" : "seconds/{rateUnit}",
 
   "@_SERVICE" : {},
   "servicingTab" : "Servicing",
@@ -515,6 +516,15 @@
       "returnText": {
         "type": "String",
         "example": "Filter: This year, inc sold"
+      }
+    }
+  },
+  "@rateUnit": {
+    "description": "A text string that represents the period of tracking, e.g. day, month, year",
+    "placeholders": {
+      "rateUnit": {
+        "type": "String",
+        "example": "day"
       }
     }
   },

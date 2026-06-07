@@ -10,6 +10,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/Accuracy.dart';
 import 'package:wristcheck/util/accuracty_helper.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class AccuracyRow extends StatelessWidget {
   AccuracyRow({super.key,
@@ -65,7 +66,7 @@ class AccuracyRow extends StatelessWidget {
     }
 
 
-    String units = "seconds/${suffix.name}";
+    String units = AppLocalizations.of(Get.context!)!.secondsPerUnit(WristCheckFormatter.getAccuracyPeriodText(suffix));
     return "$prefix$rate $units";
   }
 }

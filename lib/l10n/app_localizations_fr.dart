@@ -1059,6 +1059,11 @@ class AppLocalizationsFr extends AppLocalizations {
       '_*Vous pouvez rouvrir cette fenêtre d\'information à tout moment en appuyant sur le point d\'interrogation en haut à droite de la page.*_\n\n ';
 
   @override
+  String secondsPerUnit(Object rateUnit) {
+    return 'secondes/$rateUnit';
+  }
+
+  @override
   String get servicingTab => 'Entretien';
 
   @override

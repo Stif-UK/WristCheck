@@ -1053,6 +1053,11 @@ class AppLocalizationsEn extends AppLocalizations {
       '_*You can re-open this information box at any time by pressing the question mark in the top right of the page*_\n\n ';
 
   @override
+  String secondsPerUnit(Object rateUnit) {
+    return 'seconds/$rateUnit';
+  }
+
+  @override
   String get servicingTab => 'Servicing';
 
   @override
