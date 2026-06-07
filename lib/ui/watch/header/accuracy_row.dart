@@ -40,13 +40,13 @@ class AccuracyRow extends StatelessWidget {
   //TODO: These two methods need to be tidied up into a single method to return the result text
   String _getAccuracyResult() {
     Measurement? latest;
-    String returnText = "No records tracked";
+    String returnText = AppLocalizations.of(Get.context!)!.noRecordsTracked;
     //Get latest accuracy record for the watch
     // if(currentWatch!=null) {
     //   latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
     // };
     if(accuracyController.lastMeasurement.value != null){
-      returnText = accuracyController.lastMeasurement.value?.baseLine == null ? "Measurement in progress..." : _getRateText(accuracyController.lastMeasurement.value!, RateUnit.day);
+      returnText = accuracyController.lastMeasurement.value?.baseLine == null ? AppLocalizations.of(Get.context!)!.measurementInProgress : _getRateText(accuracyController.lastMeasurement.value!, RateUnit.day);
     };
 
     return returnText;
@@ -55,9 +55,9 @@ class AccuracyRow extends StatelessWidget {
   String _getRateText(Measurement latest, RateUnit suffix) {
 
     if(latest.baseLine){
-      return "Measurement in progress...";
+      return AppLocalizations.of(Get.context!)!.measurementInProgress;
     }
-    String rate = "No rate found";
+    String rate = AppLocalizations.of(Get.context!)!.noRateFound;
     String prefix = "";
     if(latest.rawAccuracy != null){
       rate = AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix).toStringAsFixed(1);

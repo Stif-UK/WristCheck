@@ -1988,6 +1988,24 @@ abstract class AppLocalizations {
   /// **'Result'**
   String get result;
 
+  /// No description provided for @noRecordsTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'No records tracked'**
+  String get noRecordsTracked;
+
+  /// No description provided for @measurementInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement in progress...'**
+  String get measurementInProgress;
+
+  /// No description provided for @noRateFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No rate found'**
+  String get noRateFound;
+
   /// No description provided for @systemTimeInUse.
   ///
   /// In en, this message translates to:

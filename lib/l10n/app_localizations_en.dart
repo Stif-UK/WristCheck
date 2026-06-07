@@ -1017,6 +1017,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get result => 'Result';
 
   @override
+  String get noRecordsTracked => 'No records tracked';
+
+  @override
+  String get measurementInProgress => 'Measurement in progress...';
+
+  @override
+  String get noRateFound => 'No rate found';
+
+  @override
   String get systemTimeInUse => '... system time in use';
 
   @override

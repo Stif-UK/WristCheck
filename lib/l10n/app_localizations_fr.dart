@@ -1023,6 +1023,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get result => 'Résultat';
 
   @override
+  String get noRecordsTracked => 'Aucun suivi';
+
+  @override
+  String get measurementInProgress => 'Mesure en cours...';
+
+  @override
+  String get noRateFound => 'Aucun taux trouvé';
+
+  @override
   String get systemTimeInUse => '... heure système utilisée';
 
   @override
