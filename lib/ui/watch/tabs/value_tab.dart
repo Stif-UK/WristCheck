@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -66,7 +67,7 @@ class ValueTab extends StatelessWidget {
         ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Cost per Wear:",
+        Text(AppLocalizations.of(Get.context!)!.costPerWearRowTitle,
           textAlign: TextAlign.start,
           style: bodyLarge,),
         Row(
@@ -79,7 +80,7 @@ class ValueTab extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                costPerWear == 0 ? "N/A" : NumberFormat.simpleCurrency(
+                costPerWear == 0 ? AppLocalizations.of(Get.context!)!.na : NumberFormat.simpleCurrency(
                     locale: locale, decimalDigits: null).format(costPerWear),
                 style: headlineSmall,),
             ),

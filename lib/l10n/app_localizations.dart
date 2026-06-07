@@ -662,6 +662,12 @@ abstract class AppLocalizations {
   /// **'Notes'**
   String get notesRowHintText;
 
+  /// No description provided for @costPerWearRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost per Wear:'**
+  String get costPerWearRowTitle;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

@@ -112,6 +112,7 @@
   "dateComplicationRowTitle" : "Complication date :",
   "notesRowTitle" : "Notes :",
   "notesRowHintText" : "Notes",
+  "costPerWearRowTitle" : "Coût par portée :",
 
 
   "@_VALIDATION_ERRORS": {},
