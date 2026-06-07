@@ -301,6 +301,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get costPerWearRowTitle => 'Coût par portée :';
 
   @override
+  String get accuracyRowTitle => 'Précision :';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 

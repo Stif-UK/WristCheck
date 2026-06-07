@@ -668,6 +668,12 @@ abstract class AppLocalizations {
   /// **'Cost per Wear:'**
   String get costPerWearRowTitle;
 
+  /// No description provided for @accuracyRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy:'**
+  String get accuracyRowTitle;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

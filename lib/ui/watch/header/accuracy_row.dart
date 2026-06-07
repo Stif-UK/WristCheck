@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/accuracy_controller.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
@@ -26,7 +27,7 @@ class AccuracyRow extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10.0, 8.0, 0, 8.0),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text("Accuracy:", style: Theme.of(context).textTheme.bodyLarge,)),
+          Expanded(flex: 2, child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, style: Theme.of(context).textTheme.bodyLarge,)),
           Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),
