@@ -650,6 +650,18 @@ abstract class AppLocalizations {
   /// **'Date Complication:'**
   String get dateComplicationRowTitle;
 
+  /// No description provided for @notesRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes:'**
+  String get notesRowTitle;
+
+  /// No description provided for @notesRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notesRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:

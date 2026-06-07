@@ -110,6 +110,8 @@
   "tpdRowTitle" : "Tours par jour (TPD) :",
   "winderDirectionRowTitle" : "Sens de rotation :",
   "dateComplicationRowTitle" : "Complication date :",
+  "notesRowTitle" : "Notes :",
+  "notesRowHintText" : "Notes",
 
 
   "@_VALIDATION_ERRORS": {},

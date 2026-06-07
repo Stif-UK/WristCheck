@@ -115,6 +115,8 @@
   "tpdRowTitle" : "TPD:",
   "winderDirectionRowTitle" : "Winder Direction:",
   "dateComplicationRowTitle" : "Date Complication:",
+  "notesRowTitle" : "Notes:",
+  "notesRowHintText" : "Notes",
 
 
 

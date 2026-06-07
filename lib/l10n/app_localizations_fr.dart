@@ -292,6 +292,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dateComplicationRowTitle => 'Complication date :';
 
   @override
+  String get notesRowTitle => 'Notes :';
+
+  @override
+  String get notesRowHintText => 'Notes';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
