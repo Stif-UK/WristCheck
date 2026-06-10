@@ -932,16 +932,16 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     switch(status) {
       case UploadStatusEnum.pass:
-        returnString = "Pass";
+        returnString = AppLocalizations.of(Get.context!)!.pass;
         break;
       case UploadStatusEnum.fail:
-        returnString = "Fail";
+        returnString = AppLocalizations.of(Get.context!)!.fail;
         break;
       case UploadStatusEnum.partialpass:
-        returnString = "Partial Pass";
+        returnString = AppLocalizations.of(Get.context!)!.partialPass;
         break;
       case UploadStatusEnum.duplicate:
-        returnString = "Duplicate Found";
+        returnString = AppLocalizations.of(Get.context!)!.duplicateFound;
         break;
     }
     return returnString;

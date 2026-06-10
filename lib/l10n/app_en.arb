@@ -393,6 +393,12 @@
   "emptyWarrantyText" : "No Warranty Data to show\n\nTo populate a warranty expiry schedule, add warranty end date values to your watches.\n",
   "serviceScheduleHelpText" : "Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n",
 
+  "@_UPLOADS" : {},
+  "pass" : "Pass",
+  "fail" : "Fail",
+  "partialPass" : "Partial Pass",
+  "duplicateFound" : "Duplicate Found",
+
   "@_WATCHBOX" : {},
   "emptyWatchboxCopy" : "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right",
   "emptySoldCopy" : "You don't have any sold watches in your collection.\n\nYou can mark a watch as sold by editing it's status.\n",

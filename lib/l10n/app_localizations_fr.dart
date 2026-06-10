@@ -1095,6 +1095,18 @@ class AppLocalizationsFr extends AppLocalizations {
       'Calendrier d\'entretien et de garantie\n\nCette page vous permet de consulter un calendrier des dates de révision prévues (calculées selon les dates et fréquences enregistrées dans votre collection) ainsi que les dates de fin de garantie, basées sur les champs saisis manuellement pour chaque montre.\n';
 
   @override
+  String get pass => 'Succès';
+
+  @override
+  String get fail => 'Échec';
+
+  @override
+  String get partialPass => 'Succès partiel';
+
+  @override
+  String get duplicateFound => 'Doublon détecté';
+
+  @override
   String get emptyWatchboxCopy =>
       'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l\'icône d\'engrenage en haut à droite.';
 

@@ -1089,6 +1089,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n';
 
   @override
+  String get pass => 'Pass';
+
+  @override
+  String get fail => 'Fail';
+
+  @override
+  String get partialPass => 'Partial Pass';
+
+  @override
+  String get duplicateFound => 'Duplicate Found';
+
+  @override
   String get emptyWatchboxCopy =>
       'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right';
 

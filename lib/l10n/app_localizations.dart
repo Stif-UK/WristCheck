@@ -2102,6 +2102,30 @@ abstract class AppLocalizations {
   /// **'Service and Warranty schedule\n\n This page allows you to view a schedule of tracked service dates (calculated based on dates and frequencies tracked in your watch collection), and warranty end dates, based on the manually input warranty end date field for watches.\n'**
   String get serviceScheduleHelpText;
 
+  /// No description provided for @pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Pass'**
+  String get pass;
+
+  /// No description provided for @fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Fail'**
+  String get fail;
+
+  /// No description provided for @partialPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial Pass'**
+  String get partialPass;
+
+  /// No description provided for @duplicateFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Found'**
+  String get duplicateFound;
+
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:
