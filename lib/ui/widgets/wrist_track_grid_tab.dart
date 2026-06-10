@@ -19,33 +19,17 @@ class WristTrackGridTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double boxSides = 95;
+    const double boxSides = 175;
 
-    return InkWell(
+    return GestureDetector(
       onTap: () => Get.to(() => WatchView(currentWatch: currentWatch,)),
       child: Container(
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            border: Border.all(color: Theme.of(context).disabledColor),
-            borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Header - watch make & model
-            Text(
-              currentWatch.manufacturer,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text(
-              currentWatch.model,
-              style: Theme.of(context).textTheme.bodyMedium,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            //Add image to listtile
+            // Primary image
             FutureBuilder(
                 future: ImagesUtil.getImage(currentWatch, currentWatch.primaryImageIndex ?? 0),
                 builder: (context, snapshot) {
@@ -55,17 +39,14 @@ class WristTrackGridTab extends StatelessWidget {
                     } else if (snapshot.hasData) {
                       final data = snapshot.data as File;
                       return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        alignment: Alignment.centerLeft,
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(
-                            minHeight: boxSides,
                             maxHeight: boxSides,
-                            minWidth: boxSides,
-                            maxWidth: boxSides,
                           ),
-                          child: Image.file(data),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.file(data, fit: BoxFit.cover)),
                         ),
                       );
                     }
@@ -73,13 +54,34 @@ class WristTrackGridTab extends StatelessWidget {
                   return _getEmptyIcon(context, boxSides);
                 } //builder
                 ),
-            //Footer - Details of watch counts
-            Expanded(
-                child: Text(
-              ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue),
-              textAlign: TextAlign.center,
-              style: ListTileHelper.getSubtitleTheme(currentWatch),
-            ))
+            const SizedBox(height: 8),
+            // Manufacturer
+            Text(
+              currentWatch.manufacturer,
+              style: Theme.of(context).textTheme.bodyLarge,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            // Model
+            Text(
+              currentWatch.model,
+              style: Theme.of(context).textTheme.bodyMedium,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            // Last worn and wear count lines (order swapped)
+            ...ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue)
+                .split('\n')
+                .where((line) => line.isNotEmpty)
+                .toList()
+                .reversed
+                .map((line) => Text(
+                      line,
+                      style: ListTileHelper.getSubtitleTheme(currentWatch) ?? 
+                             Theme.of(context).textTheme.bodySmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )),
           ],
         ),
       ),
