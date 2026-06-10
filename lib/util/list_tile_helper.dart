@@ -82,6 +82,9 @@ class ListTileHelper {
       case CollectionView.random:
         returnText = _getStandardReturnText(watch);
         break;
+      case CollectionView.retired:
+        returnText = _getStandardReturnText(watch);
+        break;
     }
     return returnText;
   }
