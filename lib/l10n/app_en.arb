@@ -398,6 +398,10 @@
   "fail" : "Fail",
   "partialPass" : "Partial Pass",
   "duplicateFound" : "Duplicate Found",
+  "successSubtitle" : "All Watch fields successfully validated",
+  "failureSubtitle" : "This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.",
+  "partialPassSubtitle" : "Some fields are failing validation and will be ignored if not corrected",
+  "duplicateFoundSubtitle" : "A record already exists in the app with this make and model. Please ensure this is unique",
 
   "@_WATCHBOX" : {},
   "emptyWatchboxCopy" : "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right",

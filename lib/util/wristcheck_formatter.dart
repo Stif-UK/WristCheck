@@ -953,16 +953,16 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     switch(status) {
       case UploadStatusEnum.pass:
-        returnString = "All Watch fields successfully validate";
+        returnString = AppLocalizations.of(Get.context!)!.successSubtitle;
         break;
       case UploadStatusEnum.fail:
-        returnString = "This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.";
+        returnString = AppLocalizations.of(Get.context!)!.failureSubtitle;
         break;
       case UploadStatusEnum.partialpass:
-        returnString = "Some fields are failing validation and will be ignored if not corrected";
+        returnString = AppLocalizations.of(Get.context!)!.partialPassSubtitle;
         break;
       case UploadStatusEnum.duplicate:
-        returnString = "A record already exists in the app with this make and model. Please ensure this is unique";
+        returnString = AppLocalizations.of(Get.context!)!.duplicateFoundSubtitle;
         break;
       default:
         returnString = "";

@@ -1101,6 +1101,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get duplicateFound => 'Duplicate Found';
 
   @override
+  String get successSubtitle => 'All Watch fields successfully validated';
+
+  @override
+  String get failureSubtitle =>
+      'This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.';
+
+  @override
+  String get partialPassSubtitle =>
+      'Some fields are failing validation and will be ignored if not corrected';
+
+  @override
+  String get duplicateFoundSubtitle =>
+      'A record already exists in the app with this make and model. Please ensure this is unique';
+
+  @override
   String get emptyWatchboxCopy =>
       'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right';
 

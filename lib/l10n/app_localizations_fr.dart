@@ -1107,6 +1107,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get duplicateFound => 'Doublon détecté';
 
   @override
+  String get successSubtitle =>
+      'Tous les champs de la montre ont été validés avec succès';
+
+  @override
+  String get failureSubtitle =>
+      'Impossible de télécharger cet enregistrement. La marque ou le modèle de la montre ne peuvent pas être déterminés.';
+
+  @override
+  String get partialPassSubtitle =>
+      'Certains champs n\'ont pas passé la validation et seront ignorés s\'ils ne sont pas corrigés';
+
+  @override
+  String get duplicateFoundSubtitle =>
+      'Un enregistrement avec cette marque et ce modèle existe déjà dans l\'application. Veuillez vous assurer qu\'il est unique.';
+
+  @override
   String get emptyWatchboxCopy =>
       'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l\'icône d\'engrenage en haut à droite.';
 

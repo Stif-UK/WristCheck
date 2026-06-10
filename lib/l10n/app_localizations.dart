@@ -2126,6 +2126,30 @@ abstract class AppLocalizations {
   /// **'Duplicate Found'**
   String get duplicateFound;
 
+  /// No description provided for @successSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All Watch fields successfully validated'**
+  String get successSubtitle;
+
+  /// No description provided for @failureSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.'**
+  String get failureSubtitle;
+
+  /// No description provided for @partialPassSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Some fields are failing validation and will be ignored if not corrected'**
+  String get partialPassSubtitle;
+
+  /// No description provided for @duplicateFoundSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A record already exists in the app with this make and model. Please ensure this is unique'**
+  String get duplicateFoundSubtitle;
+
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:
