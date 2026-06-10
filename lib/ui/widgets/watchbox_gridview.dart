@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,9 +7,7 @@ import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/watch/watchview.dart';
-import 'package:wristcheck/util/images_util.dart';
-import 'package:wristcheck/util/list_tile_helper.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_grid_tab.dart';
 
 class WatchboxGridView extends StatefulWidget {
   WatchboxGridView({
@@ -38,8 +35,6 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
     List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
     List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
-    const double boxSides = 95;
-
 
     return ValueListenableBuilder<Box<Watches>>(
         valueListenable: watchBox.listenable(),
@@ -61,62 +56,9 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
-                  return InkWell(
-                    onTap: () => Get.to(() => WatchView(currentWatch: currentWatch,)),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                            border: Border.all(color: Theme
-                                .of(context)
-                                .disabledColor),
-                        borderRadius: BorderRadius.circular(20)
-                        ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          //Header - watch make & model
-                          Text(currentWatch.manufacturer, style: Theme.of(context).textTheme.bodyLarge,maxLines: 1, overflow: TextOverflow.ellipsis,),
-                          Text(currentWatch.model, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
-                          //Add image to listtile
-                          FutureBuilder(
-                              future: ImagesUtil.getImage(currentWatch, currentWatch.primaryImageIndex ?? 0),
-                              builder: (context, snapshot) {
-                                //start
-                                if (snapshot.connectionState == ConnectionState.done) {
-                                  // If we got an error
-                                  if (snapshot.hasError) {
-                                    return const CircularProgressIndicator();
-                                    // if we got our data
-                                  } else if (snapshot.hasData) {
-                                    // Extracting data from snapshot object
-                                    final data = snapshot.data as File;
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: ConstrainedBox(
-                                        constraints: const BoxConstraints(
-                                          minHeight: boxSides,
-                                          maxHeight: boxSides,
-                                          minWidth: boxSides,
-                                          maxWidth: boxSides,
-                                        ),
-                                        child: Image.file(data),
-                                      ),
-                                    );
-
-                                  }
-                                }
-                                return _getEmptyIcon(context, boxSides);
-                              } //builder
-                          ),
-                          //Footer - Details of watch counts
-                          Expanded(child: Text(ListTileHelper.getWatchboxListSubtitle(currentWatch, widget.collectionValue), textAlign: TextAlign.center,
-                          style: ListTileHelper.getSubtitleTheme(currentWatch),))
-                        ],
-                      ),
-                    ),
+                  return WristTrackGridTab(
+                    currentWatch: currentWatch,
+                    collectionValue: widget.collectionValue,
                   );
                 })
           );
@@ -125,18 +67,5 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
 
     );
   }
-
-  Widget _getEmptyIcon(context, double boxSides) {
-    return Container(
-        width: boxSides,
-        height: boxSides,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Theme
-                .of(context)
-                .disabledColor)
-        ),
-        child: const Icon(Icons.watch));
-
-  }
 }
+
