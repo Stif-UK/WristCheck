@@ -791,70 +791,12 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
   }
 
-  static DateComplicationEnum? getDateComplicationEnum(String date){
-    DateComplicationEnum? returnValue;
-
-    switch(date){
-      case "Date":
-        returnValue = DateComplicationEnum.date;
-        break;
-      case "No Date":
-        returnValue = DateComplicationEnum.nodate;
-        break;
-      case "Day-Date":
-        returnValue = DateComplicationEnum.daydate;
-        break;
-      case "Pointer Date":
-        returnValue = DateComplicationEnum.pointerdate;
-        break;
-      case "Sub-Dial Date":
-        returnValue = DateComplicationEnum.subdialdate;
-        break;
-      case "Perpetual Date":
-        returnValue = DateComplicationEnum.perpetualdate;
-        break;
-      case "Digital Date":
-        returnValue = DateComplicationEnum.digitaldate;
-        break;
-      case "":
-        returnValue = DateComplicationEnum.blank;
-        break;
-      default:
-        returnValue = DateComplicationEnum.blank;
-    }
-    return returnValue;
+  static DateComplicationEnum getDateComplicationEnum(String? date){
+    return DateComplicationEnumLocalization.fromDbString(date);
   }
 
   static String getDateComplicationName(DateComplicationEnum date){
-    String returnString = "";
-
-    switch(date) {
-      case DateComplicationEnum.date:
-        returnString = "Date";
-        break;
-      case DateComplicationEnum.nodate:
-        returnString = "No Date";
-        break;
-      case DateComplicationEnum.daydate:
-        returnString = "Day-Date";
-        break;
-      case DateComplicationEnum.pointerdate:
-        returnString = "Pointer Date";
-        break;
-      case DateComplicationEnum.subdialdate:
-        returnString = "Sub-Dial Date";
-        break;
-      case DateComplicationEnum.perpetualdate:
-        returnString = "Perpetual Date";
-        break;
-      case DateComplicationEnum.digitaldate:
-        returnString = "Digital Date";
-        break;
-      case DateComplicationEnum.blank:
-        returnString = "Not Entered";
-        break;
-    }
-    return returnString;
+    return date.toDbString();
   }
 
   static String getGallerySubheaderText(Watches watch){

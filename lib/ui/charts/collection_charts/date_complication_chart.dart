@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class DateComplicationChart extends StatefulWidget {
   const DateComplicationChart({Key? key}) : super(key: key);
@@ -53,7 +55,7 @@ class _DateComplicationChartState extends State<DateComplicationChart> {
           dataSource: getChartData,
           xValueMapper: (DateComplicationData dcd, _) => dcd.dateComplication,
           yValueMapper: (DateComplicationData dcd, _) => dcd.count,
-          dataLabelMapper: (dcd, _)=> "${dcd.dateComplication}: ${dcd.count}",
+          dataLabelMapper: (dcd, _)=> "${WristCheckFormatter.getDateComplicationEnum(dcd.dateComplication).toLocalizedString(context)}: ${dcd.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],

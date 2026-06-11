@@ -181,7 +181,7 @@ class ProDataTab extends StatelessWidget {
               items: DateComplicationEnum.values.map((dateType) {
                 return DropdownMenuItem<DateComplicationEnum>(
                     value: dateType,
-                    child: Text(WristCheckFormatter.getDateComplicationName(dateType)));
+                    child: Text(dateType.toLocalizedString(Get.context!)));
               }).toList(),
               onChanged: watchViewController.inEditState.value? (dateType){
                 watchViewController.updateDateComplication(WristCheckFormatter.getDateComplicationName(dateType!));
