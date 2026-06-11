@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
@@ -136,9 +137,9 @@ class _WearChartState extends State<WearChart> {
         returnSeries =  <BarSeries<DateComplicationClass, String>>[
           BarSeries(
             dataSource: ChartHelper.calculateDateComplicationList(widget.data),
-            xValueMapper: (DateComplicationClass series, _) => series.count == 0? null: WristCheckFormatter.getDateComplicationName(series.dateComplication),
+            xValueMapper: (DateComplicationClass series, _) => series.count == 0? null: series.dateComplication.toLocalizedString(context),
             yValueMapper: (DateComplicationClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (watch, _) => watch.count == 0? "":"${WristCheckFormatter.getDateComplicationName(watch.dateComplication)}: ${watch.count}",
+            dataLabelMapper: (watch, _) => watch.count == 0? "":"${watch.dateComplication.toLocalizedString(context)}: ${watch.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
             // animationDuration: 0 Set to zero to stop it animating!
           )
