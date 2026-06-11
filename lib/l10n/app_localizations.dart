@@ -2150,6 +2150,24 @@ abstract class AppLocalizations {
   /// **'A record already exists in the app with this make and model. Please ensure this is unique'**
   String get duplicateFoundSubtitle;
 
+  /// No description provided for @clockwise.
+  ///
+  /// In en, this message translates to:
+  /// **'Clockwise'**
+  String get clockwise;
+
+  /// No description provided for @counterClockwise.
+  ///
+  /// In en, this message translates to:
+  /// **'Counter-Clockwise'**
+  String get counterClockwise;
+
+  /// No description provided for @both.
+  ///
+  /// In en, this message translates to:
+  /// **'Both'**
+  String get both;
+
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:

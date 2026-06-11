@@ -1123,6 +1123,15 @@ class AppLocalizationsFr extends AppLocalizations {
       'Un enregistrement avec cette marque et ce modèle existe déjà dans l\'application. Veuillez vous assurer qu\'il est unique.';
 
   @override
+  String get clockwise => 'Sens horaire';
+
+  @override
+  String get counterClockwise => 'Sens antihoraire';
+
+  @override
+  String get both => 'Bidirectionnel';
+
+  @override
   String get emptyWatchboxCopy =>
       'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l\'icône d\'engrenage en haut à droite.';
 

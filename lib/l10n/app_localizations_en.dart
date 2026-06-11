@@ -1116,6 +1116,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'A record already exists in the app with this make and model. Please ensure this is unique';
 
   @override
+  String get clockwise => 'Clockwise';
+
+  @override
+  String get counterClockwise => 'Counter-Clockwise';
+
+  @override
+  String get both => 'Both';
+
+  @override
   String get emptyWatchboxCopy =>
       'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right';
 
