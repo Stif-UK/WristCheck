@@ -201,6 +201,7 @@ class _WatchViewState extends State<WatchView> {
     widget.watchViewController.updateWinderDirection("");
     widget.watchViewController.updateDateComplication("");
 
+    //TODO: This method should be split - whilst form validation can happen here, the update to the watch itself should be externalised to WatchMethods
     void saveAndUpdate(){
       //Validate the form
       if (_formKey.currentState!.validate()) {
