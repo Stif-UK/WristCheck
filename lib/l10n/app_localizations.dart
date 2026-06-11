@@ -2168,6 +2168,48 @@ abstract class AppLocalizations {
   /// **'Both'**
   String get both;
 
+  /// No description provided for @dateComplicationsDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateComplicationsDate;
+
+  /// No description provided for @dateComplicationsNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No Date'**
+  String get dateComplicationsNoDate;
+
+  /// No description provided for @dateComplicationsDayDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Day-Date'**
+  String get dateComplicationsDayDate;
+
+  /// No description provided for @dateComplicationsPointerDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pointer Date'**
+  String get dateComplicationsPointerDate;
+
+  /// No description provided for @dateComplicationsSubDialDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-Dial Date'**
+  String get dateComplicationsSubDialDate;
+
+  /// No description provided for @dateComplicationsPerpetualDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Perpetual Date'**
+  String get dateComplicationsPerpetualDate;
+
+  /// No description provided for @dateComplicationsDigitalDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Date'**
+  String get dateComplicationsDigitalDate;
+
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:

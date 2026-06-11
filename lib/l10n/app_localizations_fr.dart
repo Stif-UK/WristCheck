@@ -1132,6 +1132,27 @@ class AppLocalizationsFr extends AppLocalizations {
   String get both => 'Bidirectionnel';
 
   @override
+  String get dateComplicationsDate => 'Date';
+
+  @override
+  String get dateComplicationsNoDate => 'Sans date';
+
+  @override
+  String get dateComplicationsDayDate => 'Jour-Date';
+
+  @override
+  String get dateComplicationsPointerDate => 'Date à aiguille';
+
+  @override
+  String get dateComplicationsSubDialDate => 'Date sur sous-cadran';
+
+  @override
+  String get dateComplicationsPerpetualDate => 'Quantième perpétuel';
+
+  @override
+  String get dateComplicationsDigitalDate => 'Date digitale';
+
+  @override
   String get emptyWatchboxCopy =>
       'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l\'icône d\'engrenage en haut à droite.';
 

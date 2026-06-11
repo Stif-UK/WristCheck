@@ -403,10 +403,19 @@
   "partialPassSubtitle" : "Some fields are failing validation and will be ignored if not corrected",
   "duplicateFoundSubtitle" : "A record already exists in the app with this make and model. Please ensure this is unique",
 
-  "@_ENUM_CONVERSION" : {},
+  "@_WINDER_DIRECTIONS" : {},
   "clockwise" : "Clockwise",
   "counterClockwise" : "Counter-Clockwise",
   "both" : "Both",
+
+  "@_DATECOMPLICATIONS" : {},
+  "dateComplicationsDate" : "Date",
+  "dateComplicationsNoDate" : "No Date",
+  "dateComplicationsDayDate" : "Day-Date",
+  "dateComplicationsPointerDate" : "Pointer Date",
+  "dateComplicationsSubDialDate": "Sub-Dial Date",
+  "dateComplicationsPerpetualDate" : "Perpetual Date",
+  "dateComplicationsDigitalDate" : "Digital Date",
 
   "@_WATCHBOX" : {},
   "emptyWatchboxCopy" : "Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right",

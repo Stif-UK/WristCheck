@@ -1125,6 +1125,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get both => 'Both';
 
   @override
+  String get dateComplicationsDate => 'Date';
+
+  @override
+  String get dateComplicationsNoDate => 'No Date';
+
+  @override
+  String get dateComplicationsDayDate => 'Day-Date';
+
+  @override
+  String get dateComplicationsPointerDate => 'Pointer Date';
+
+  @override
+  String get dateComplicationsSubDialDate => 'Sub-Dial Date';
+
+  @override
+  String get dateComplicationsPerpetualDate => 'Perpetual Date';
+
+  @override
+  String get dateComplicationsDigitalDate => 'Digital Date';
+
+  @override
   String get emptyWatchboxCopy =>
       'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right';
 

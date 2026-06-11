@@ -390,10 +390,19 @@
   "partialPassSubtitle" : "Certains champs n'ont pas passé la validation et seront ignorés s'ils ne sont pas corrigés",
   "duplicateFoundSubtitle" : "Un enregistrement avec cette marque et ce modèle existe déjà dans l'application. Veuillez vous assurer qu'il est unique.",
 
-  "@_ENUM_CONVERSION" : {},
+  "@_WINDER_DIRECTIONS" : {},
   "clockwise" : "Sens horaire",
   "counterClockwise" : "Sens antihoraire",
   "both" : "Bidirectionnel",
+
+  "@_DATECOMPLICATIONS" : {},
+  "dateComplicationsDate" : "Date",
+  "dateComplicationsNoDate" : "Sans date",
+  "dateComplicationsDayDate" : "Jour-Date",
+  "dateComplicationsPointerDate" : "Date à aiguille",
+  "dateComplicationsSubDialDate": "Date sur sous-cadran",
+  "dateComplicationsPerpetualDate" : "Quantième perpétuel",
+  "dateComplicationsDigitalDate" : "Date digitale",
 
   "@_WATCHBOX" : {},
   "emptyWatchboxCopy" : "Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l'icône d'engrenage en haut à droite.",
