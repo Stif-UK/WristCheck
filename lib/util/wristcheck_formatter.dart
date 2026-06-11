@@ -391,45 +391,11 @@ class WristCheckFormatter{
   }
 
   static String getWinderDirectionText(WinderDirectionEnum direction){
-    String returnString = "";
-
-    switch(direction) {
-      case WinderDirectionEnum.clockwise:
-        returnString = "Clockwise";
-        break;
-      case WinderDirectionEnum.counterclockwise:
-        returnString = "Counter-Clockwise";
-        break;
-      case WinderDirectionEnum.both:
-        returnString = "Both";
-        break;
-      case WinderDirectionEnum.blank:
-        returnString = "";
-        break;
-    }
-    return returnString;
+    return direction.toDbString();
   }
 
-  static WinderDirectionEnum getWinderDirectionEnum(String direction){
-    WinderDirectionEnum returnValue = WinderDirectionEnum.blank;
-
-    switch(direction) {
-      case "Clockwise":
-        returnValue = WinderDirectionEnum.clockwise;
-        break;
-      case "Counter-Clockwise":
-        returnValue = WinderDirectionEnum.counterclockwise;
-        break;
-      case "Both":
-        returnValue = WinderDirectionEnum.both;
-        break;
-      case "":
-        returnValue = WinderDirectionEnum.blank;
-        break;
-      default:
-        returnValue = WinderDirectionEnum.blank;
-    }
-    return returnValue;
+  static WinderDirectionEnum getWinderDirectionEnum(String? direction){
+    return WinderDirectionEnumLocalization.fromDbString(direction);
   }
 
   static Icon getWinderDirectionIcon(WinderDirectionEnum direction){

@@ -150,7 +150,7 @@ class ProDataTab extends StatelessWidget {
                 items: WinderDirectionEnum.values.map((direction) {
                   return DropdownMenuItem<WinderDirectionEnum>(
                       value: direction,
-                      child: Text(WristCheckFormatter.getWinderDirectionText(direction)));
+                      child: Text(direction.toLocalizedString(Get.context!)));
                 }).toList(),
                 onChanged: watchViewController.inEditState.value? (direction){
                   watchViewController.updateWinderDirection(WristCheckFormatter.getWinderDirectionText(direction!));
