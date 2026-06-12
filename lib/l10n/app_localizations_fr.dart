@@ -1554,6 +1554,53 @@ class AppLocalizationsFr extends AppLocalizations {
       '**Graphiques de portée**\n\nLes graphiques de montre sont une fonctionnalité **WristTrack Pro**.\n\nIls vous permettent de visualiser des graphiques détaillant les mois et les jours où cette montre a été portée.\n\nVous voulez en savoir plus sur **WristTrack Pro** ? Cliquez sur le bouton ci-dessous...';
 
   @override
+  String get addWearSnackbarTitle => 'Portée enregistrée';
+
+  @override
+  String addWearSnackbarText(Object shortDate, Object watchName) {
+    return '$watchName a été portée le $shortDate';
+  }
+
+  @override
+  String get dateDeletedSnackbarTitle => 'Date supprimée';
+
+  @override
+  String dateDeletedSnackbarText(Object shortDate, Object watchName) {
+    return 'La date du $shortDate a été retirée de l\'historique de : $watchName';
+  }
+
+  @override
+  String get collectionDeletedSnackbarTitle => 'Collection vidée';
+
+  @override
+  String get collectionDeletedSnackbarText =>
+      'Votre collection de montres est maintenant vide';
+
+  @override
+  String get deleteWatchPermanentlySnackbarTitle => 'Montre supprimée';
+
+  @override
+  String deleteWatchPermanentlySnackbarText(Object watchName) {
+    return '$watchName a été supprimée définitivement';
+  }
+
+  @override
+  String get restoreWatchSnackbarTitle => 'Montre restaurée';
+
+  @override
+  String restoreWatchSnackbarText(Object returnText, Object watchName) {
+    return '$watchName a été restaurée avec le statut : $returnText';
+  }
+
+  @override
+  String get reminderSetSnackbarTitle => 'Rappel configuré';
+
+  @override
+  String reminderSetSnackbarText(Object returnText) {
+    return 'Vous recevrez un rappel chaque jour à $returnText';
+  }
+
+  @override
   String get serviceIntervalTitle => 'Intervalle d\'entretien';
 
   @override

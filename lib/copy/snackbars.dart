@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -8,17 +9,17 @@ class WristCheckSnackBars{
 
   static addWearSnackbar(Watches watch, DateTime date){
     Get.snackbar(
-      "Wear Recorded",
-      "${watch.manufacturer} ${watch.model} was worn on ${WristCheckFormatter.getFormattedDate(date)}",
-      icon: const Icon(Icons.watch),
+      AppLocalizations.of(Get.context!)!.addWearSnackbarTitle,
+        AppLocalizations.of(Get.context!)!.addWearSnackbarText(WristCheckFormatter.getFormattedDate(date), watch),
+        icon: const Icon(Icons.watch),
       snackPosition: SnackPosition.TOP,
     );
   }
 
   static removeWearSnackbar(Watches watch, DateTime date){
     Get.snackbar(
-      "Date Deleted",
-      "${WristCheckFormatter.getFormattedDate(date)} was removed from the record for ${watch.manufacturer} ${watch.model}",
+      AppLocalizations.of(Get.context!)!.dateDeletedSnackbarTitle,
+        AppLocalizations.of(Get.context!)!.dateDeletedSnackbarText(WristCheckFormatter.getFormattedDate(date), watch),
       icon: const Icon(Icons.watch),
       snackPosition: SnackPosition.TOP,
     );
@@ -26,8 +27,8 @@ class WristCheckSnackBars{
 
   static collectionDeletedSnackbar(){
     Get.snackbar(
-      "Watches Cleared",
-      "Your watch collection is now empty",
+      AppLocalizations.of(Get.context!)!.collectionDeletedSnackbarTitle,
+      AppLocalizations.of(Get.context!)!.collectionDeletedSnackbarText,
       icon: const Icon(Icons.delete),
       snackPosition: SnackPosition.TOP,
     );
@@ -35,8 +36,8 @@ class WristCheckSnackBars{
 
   static deleteWatch(String info){
     Get.snackbar(
-      "Watch Deleted",
-      "$info has been permanently deleted",
+      AppLocalizations.of(Get.context!)!.deleteWatchPermanentlySnackbarTitle,
+      AppLocalizations.of(Get.context!)!.deleteWatchPermanentlySnackbarText(info),
       icon: const Icon(Icons.archive_rounded),
       snackPosition: SnackPosition.TOP,
     );
@@ -44,8 +45,8 @@ class WristCheckSnackBars{
 
   static restoreWatch(String watch, String status){
     Get.snackbar(
-      "Watch Restored",
-      "$watch has been restored with status $status",
+      AppLocalizations.of(Get.context!)!.restoreWatchSnackbarTitle,
+      AppLocalizations.of(Get.context!)!.restoreWatchSnackbarText(watch, status),
       icon: const Icon(Icons.restore_from_trash),
       snackPosition: SnackPosition.TOP,
     );
@@ -53,8 +54,8 @@ class WristCheckSnackBars{
 
   static dailyNotification(String selectedTime){
     Get.snackbar(
-    "Reminder Set",
-        "You'll get a reminder every day at $selectedTime",
+      AppLocalizations.of(Get.context!)!.reminderSetSnackbarTitle,
+      AppLocalizations.of(Get.context!)!.reminderSetSnackbarText(selectedTime),
     icon: const Icon(Icons.add_alert_outlined),
     snackPosition: SnackPosition.TOP,
     shouldIconPulse: true);

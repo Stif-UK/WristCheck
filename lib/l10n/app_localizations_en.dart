@@ -1545,6 +1545,53 @@ class AppLocalizationsEn extends AppLocalizations {
       '**Watch Wear Charts**\n\nWatch charts are a **WristTrack Pro** feature.\n\nThey allow you to view charts breaking down which months and days this watch has been worn.\n\nWant to know more about **WristTrack Pro**? Click the button below...';
 
   @override
+  String get addWearSnackbarTitle => 'Wear Recorded';
+
+  @override
+  String addWearSnackbarText(Object shortDate, Object watchName) {
+    return '$watchName was worn on $shortDate';
+  }
+
+  @override
+  String get dateDeletedSnackbarTitle => 'Date Deleted';
+
+  @override
+  String dateDeletedSnackbarText(Object shortDate, Object watchName) {
+    return '$shortDate was removed from the record for $watchName';
+  }
+
+  @override
+  String get collectionDeletedSnackbarTitle => 'Watches Cleared';
+
+  @override
+  String get collectionDeletedSnackbarText =>
+      'Your watch collection is now empty';
+
+  @override
+  String get deleteWatchPermanentlySnackbarTitle => 'Watch Deleted';
+
+  @override
+  String deleteWatchPermanentlySnackbarText(Object watchName) {
+    return '$watchName has been permanently deleted';
+  }
+
+  @override
+  String get restoreWatchSnackbarTitle => 'Watch Restored';
+
+  @override
+  String restoreWatchSnackbarText(Object returnText, Object watchName) {
+    return '$watchName has been restored with status $returnText';
+  }
+
+  @override
+  String get reminderSetSnackbarTitle => 'Reminder Set';
+
+  @override
+  String reminderSetSnackbarText(Object returnText) {
+    return 'You\'ll get a reminder every day at $returnText';
+  }
+
+  @override
   String get serviceIntervalTitle => 'Service Interval';
 
   @override

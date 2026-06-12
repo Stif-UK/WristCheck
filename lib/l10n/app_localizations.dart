@@ -2804,6 +2804,78 @@ abstract class AppLocalizations {
   /// **'**Watch Wear Charts**\n\nWatch charts are a **WristTrack Pro** feature.\n\nThey allow you to view charts breaking down which months and days this watch has been worn.\n\nWant to know more about **WristTrack Pro**? Click the button below...'**
   String get watchChartsUpgradeCopy;
 
+  /// No description provided for @addWearSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Recorded'**
+  String get addWearSnackbarTitle;
+
+  /// No description provided for @addWearSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} was worn on {shortDate}'**
+  String addWearSnackbarText(Object shortDate, Object watchName);
+
+  /// No description provided for @dateDeletedSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Deleted'**
+  String get dateDeletedSnackbarTitle;
+
+  /// No description provided for @dateDeletedSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'{shortDate} was removed from the record for {watchName}'**
+  String dateDeletedSnackbarText(Object shortDate, Object watchName);
+
+  /// No description provided for @collectionDeletedSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watches Cleared'**
+  String get collectionDeletedSnackbarTitle;
+
+  /// No description provided for @collectionDeletedSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your watch collection is now empty'**
+  String get collectionDeletedSnackbarText;
+
+  /// No description provided for @deleteWatchPermanentlySnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Deleted'**
+  String get deleteWatchPermanentlySnackbarTitle;
+
+  /// No description provided for @deleteWatchPermanentlySnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} has been permanently deleted'**
+  String deleteWatchPermanentlySnackbarText(Object watchName);
+
+  /// No description provided for @restoreWatchSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Restored'**
+  String get restoreWatchSnackbarTitle;
+
+  /// No description provided for @restoreWatchSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchName} has been restored with status {returnText}'**
+  String restoreWatchSnackbarText(Object returnText, Object watchName);
+
+  /// No description provided for @reminderSetSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Set'**
+  String get reminderSetSnackbarTitle;
+
+  /// No description provided for @reminderSetSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll get a reminder every day at {returnText}'**
+  String reminderSetSnackbarText(Object returnText);
+
   /// No description provided for @serviceIntervalTitle.
   ///
   /// In en, this message translates to:
