@@ -11,7 +11,7 @@ class WristCheckSnackBars{
       "Wear Recorded",
       "${watch.manufacturer} ${watch.model} was worn on ${WristCheckFormatter.getFormattedDate(date)}",
       icon: const Icon(Icons.watch),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 
