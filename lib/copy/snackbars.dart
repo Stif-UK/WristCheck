@@ -20,7 +20,7 @@ class WristCheckSnackBars{
       "Date Deleted",
       "${WristCheckFormatter.getFormattedDate(date)} was removed from the record for ${watch.manufacturer} ${watch.model}",
       icon: const Icon(Icons.watch),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 
@@ -29,7 +29,7 @@ class WristCheckSnackBars{
       "Watches Cleared",
       "Your watch collection is now empty",
       icon: const Icon(Icons.delete),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 
@@ -38,7 +38,7 @@ class WristCheckSnackBars{
       "Watch Deleted",
       "$info has been permanently deleted",
       icon: const Icon(Icons.archive_rounded),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 
@@ -47,7 +47,7 @@ class WristCheckSnackBars{
       "Watch Restored",
       "$watch has been restored with status $status",
       icon: const Icon(Icons.restore_from_trash),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 
