@@ -93,7 +93,7 @@ class ProDataTab extends StatelessWidget {
               items: CaseMaterialEnum.values.map((material) {
                 return DropdownMenuItem<CaseMaterialEnum>(
                     value: material,
-                    child: Text(WristCheckFormatter.getCaseMaterialText(material)));
+                    child: Text(material.toLocalizedString(Get.context!)));
               }).toList(),
               onChanged: watchViewController.inEditState.value? (material){
                 watchViewController.updateCaseMaterial(WristCheckFormatter.getCaseMaterialText(material!));

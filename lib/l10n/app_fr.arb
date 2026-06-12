@@ -496,7 +496,7 @@
   "currencyCzechKoruna" : "Couronne tchèque",
   "currencyMalaysianRinggit" : "Ringgit malaisien",
 
-  "_@CASE_MATERIAL" : {},
+  "@_CASE_MATERIAL" : {},
   "caseMaterialNotEntered" : "Non renseigné",
   "caseMaterialSteel" : "Acier",
   "caseMaterialTitanium" : "Titane",

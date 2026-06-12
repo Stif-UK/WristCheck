@@ -20,22 +20,21 @@ class _DateComplicationChartState extends State<DateComplicationChart> {
   Widget build(BuildContext context) {
 
     //Calculate the chart data - generate a map of date complications and counts
-    Map<String,int> chartData = <String,int>{};
+    Map<DateComplicationEnum,int> chartData = <DateComplicationEnum,int>{};
     for(var watch in data){
       if(watch.dateComplication != null){
+        DateComplicationEnum complication = WristCheckFormatter.getDateComplicationEnum(watch.dateComplication);
         chartData.update(
-          watch.dateComplication!,
+          complication,
               (value) => ++value,
           ifAbsent: () => 1,
         );
       }
     }
-    //remove 'not selected' and empty string if it exists
-    if (chartData.containsKey("Not Entered")) {
-      chartData.remove("Not Entered");
-    }
-    if (chartData.containsKey("")) {
-      chartData.remove("");
+    
+    //remove blank entries
+    if (chartData.containsKey(DateComplicationEnum.blank)){
+      chartData.remove(DateComplicationEnum.blank);
     }
 
     //sort map
@@ -53,9 +52,9 @@ class _DateComplicationChartState extends State<DateComplicationChart> {
       series: <CartesianSeries>[
         BarSeries<DateComplicationData, String>(
           dataSource: getChartData,
-          xValueMapper: (DateComplicationData dcd, _) => dcd.dateComplication,
+          xValueMapper: (DateComplicationData dcd, _) => dcd.dateComplication.toLocalizedString(context),
           yValueMapper: (DateComplicationData dcd, _) => dcd.count,
-          dataLabelMapper: (dcd, _)=> "${WristCheckFormatter.getDateComplicationEnum(dcd.dateComplication).toLocalizedString(context)}: ${dcd.count}",
+          dataLabelMapper: (dcd, _)=> "${dcd.dateComplication.toLocalizedString(context)}: ${dcd.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],
@@ -66,7 +65,7 @@ class _DateComplicationChartState extends State<DateComplicationChart> {
 
 class DateComplicationData{
   DateComplicationData(this.dateComplication, this.count);
-  final String dateComplication;
+  final DateComplicationEnum dateComplication;
   final int count;
 }
 

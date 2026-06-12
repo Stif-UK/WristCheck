@@ -3,6 +3,9 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
+
 class CaseMaterialChart extends StatefulWidget {
   const CaseMaterialChart({Key? key}) : super(key: key);
 
@@ -18,23 +21,21 @@ class _CaseMaterialChartState extends State<CaseMaterialChart> {
   Widget build(BuildContext context) {
 
     //Calculate the chart data - generate a map of case materials and counts
-    Map<String,int> chartData = <String,int>{};
+    Map<CaseMaterialEnum,int> chartData = <CaseMaterialEnum,int>{};
     for(var watch in data){
       if(watch.caseMaterial != null){
+        CaseMaterialEnum material = WristCheckFormatter.getCaseMaterialEnum(watch.caseMaterial);
         chartData.update(
-          watch.caseMaterial!,
+          material,
               (value) => ++value,
           ifAbsent: () => 1,
         );
       }
     }
-    //remove 'not entered' if it exists
-    if (chartData.containsKey("Not Entered")) {
-      chartData.remove("Not Entered");
-    }
+    
     //remove blank entries
-    if (chartData.containsKey("")){
-      chartData.remove("");
+    if (chartData.containsKey(CaseMaterialEnum.blank)){
+      chartData.remove(CaseMaterialEnum.blank);
     }
 
     //sort map
@@ -52,9 +53,9 @@ class _CaseMaterialChartState extends State<CaseMaterialChart> {
       series: <CartesianSeries>[
         BarSeries<CaseMaterialData, String>(
           dataSource: getChartData,
-          xValueMapper: (CaseMaterialData mvmt, _) => mvmt.caseMaterial,
+          xValueMapper: (CaseMaterialData mvmt, _) => mvmt.caseMaterial.toLocalizedString(context),
           yValueMapper: (CaseMaterialData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${moov.caseMaterial}: ${moov.count}",
+          dataLabelMapper: (moov, _)=> "${moov.caseMaterial.toLocalizedString(context)}: ${moov.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],
@@ -65,7 +66,7 @@ class _CaseMaterialChartState extends State<CaseMaterialChart> {
 
 class CaseMaterialData{
   CaseMaterialData(this.caseMaterial, this.count);
-  final String caseMaterial;
+  final CaseMaterialEnum caseMaterial;
   final int count;
 }
 

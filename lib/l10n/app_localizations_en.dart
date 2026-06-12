@@ -1405,6 +1405,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currencyMalaysianRinggit => 'Malaysian Ringgit';
 
   @override
+  String get caseMaterialNotEntered => 'Not Entered';
+
+  @override
+  String get caseMaterialSteel => 'Steel';
+
+  @override
+  String get caseMaterialTitanium => 'Titanium';
+
+  @override
+  String get caseMaterialGold => 'Gold';
+
+  @override
+  String get caseMaterialTwoTone => 'Two-Tone';
+
+  @override
+  String get caseMaterialPlatinum => 'Platinum';
+
+  @override
+  String get caseMaterialBronze => 'Bronze';
+
+  @override
+  String get caseMaterialCeramic => 'Ceramic';
+
+  @override
+  String get caseMaterialCarbon => 'Carbon';
+
+  @override
+  String get caseMaterialResin => 'Resin';
+
+  @override
+  String get caseMaterialPlastic => 'Plastic';
+
+  @override
+  String get caseMaterialOther => 'Other';
+
+  @override
+  String get caseMaterialPVDDLC => 'PVD/DLC Steel';
+
+  @override
+  String get caseMaterialTungsten => 'Tungsten';
+
+  @override
   String get archiveScreenTitle => 'Archived Watches';
 
   @override

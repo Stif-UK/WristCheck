@@ -2666,6 +2666,90 @@ abstract class AppLocalizations {
   /// **'Malaysian Ringgit'**
   String get currencyMalaysianRinggit;
 
+  /// No description provided for @caseMaterialNotEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Entered'**
+  String get caseMaterialNotEntered;
+
+  /// No description provided for @caseMaterialSteel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steel'**
+  String get caseMaterialSteel;
+
+  /// No description provided for @caseMaterialTitanium.
+  ///
+  /// In en, this message translates to:
+  /// **'Titanium'**
+  String get caseMaterialTitanium;
+
+  /// No description provided for @caseMaterialGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get caseMaterialGold;
+
+  /// No description provided for @caseMaterialTwoTone.
+  ///
+  /// In en, this message translates to:
+  /// **'Two-Tone'**
+  String get caseMaterialTwoTone;
+
+  /// No description provided for @caseMaterialPlatinum.
+  ///
+  /// In en, this message translates to:
+  /// **'Platinum'**
+  String get caseMaterialPlatinum;
+
+  /// No description provided for @caseMaterialBronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get caseMaterialBronze;
+
+  /// No description provided for @caseMaterialCeramic.
+  ///
+  /// In en, this message translates to:
+  /// **'Ceramic'**
+  String get caseMaterialCeramic;
+
+  /// No description provided for @caseMaterialCarbon.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbon'**
+  String get caseMaterialCarbon;
+
+  /// No description provided for @caseMaterialResin.
+  ///
+  /// In en, this message translates to:
+  /// **'Resin'**
+  String get caseMaterialResin;
+
+  /// No description provided for @caseMaterialPlastic.
+  ///
+  /// In en, this message translates to:
+  /// **'Plastic'**
+  String get caseMaterialPlastic;
+
+  /// No description provided for @caseMaterialOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get caseMaterialOther;
+
+  /// No description provided for @caseMaterialPVDDLC.
+  ///
+  /// In en, this message translates to:
+  /// **'PVD/DLC Steel'**
+  String get caseMaterialPVDDLC;
+
+  /// No description provided for @caseMaterialTungsten.
+  ///
+  /// In en, this message translates to:
+  /// **'Tungsten'**
+  String get caseMaterialTungsten;
+
   /// No description provided for @archiveScreenTitle.
   ///
   /// In en, this message translates to:
