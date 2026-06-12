@@ -15,7 +15,7 @@ class ReviewTrackingSummary extends StatelessWidget {
       title: "Wears Tracked",
       subtitle1:"In ${reviewController.reviewYear.value} you tracked what was on your wrist",
       subtitleBig1: "${reviewController.wearsInPeriod.value} times",
-      subtitle2: "(that's ${(reviewController.wearsInPeriod.value/365).toStringAsFixed(2)} times per day since the first entry on ${WristCheckFormatter.getFormattedDate(reviewController.firstWearInYear.value)}!)",
+      subtitle2: "(that's ${(reviewController.wearsInPeriod.value/reviewController.daysSinceFirstRecordInYear.value).toStringAsFixed(2)} times per day since the first entry on ${WristCheckFormatter.getFormattedDate(reviewController.firstWearInYear.value)}!)",
     );
   }
 }
