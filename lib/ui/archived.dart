@@ -20,6 +20,8 @@ import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/images_util.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class Archived extends StatefulWidget {
   const Archived({Key? key}) : super(key: key);
 
@@ -33,7 +35,6 @@ class _ArchivedState extends State<Archived> {
   var watchBox = Boxes.getWatches();
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired"];
 
   @override
   void initState() {
@@ -98,7 +99,7 @@ class _ArchivedState extends State<Archived> {
                         final item = archiveList[index].toString();
                         var watch = archiveList.elementAt(index);
                         String? _title = "${watch.manufacturer} ${watch.model}";
-                        String? _status = "${watch.status}";
+                        String? _status = WatchStatusEnumExtension.fromDbString(watch.status).toLocalizedString(context);
 
 
                         return Dismissible(
@@ -149,7 +150,6 @@ class _ArchivedState extends State<Archived> {
                                   });
                               return result;
                             } else if (direction == DismissDirection.startToEnd) {
-                              String selectedStatus = _statusList[0];
                               final bool result = await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -172,10 +172,11 @@ class _ArchivedState extends State<Archived> {
                                               Obx(()=> DropdownButton(
                                                     dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                                                     value: archiveController.status.value,
-                                                    items: _statusList
+                                                    items: WatchStatusEnum.values
+                                                        .where((s) => s != WatchStatusEnum.archived)
                                                         .map((status) => DropdownMenuItem(
-                                                        value: status,
-                                                        child: Text(status))
+                                                        value: status.toDbString(),
+                                                        child: Text(status.toLocalizedString(context)))
 
                                                     ).toList(),
                                                     onChanged: (status) {
@@ -202,7 +203,6 @@ class _ArchivedState extends State<Archived> {
                                           onPressed: () async {
                                             await analytics.logEvent(name: "watch_restored");
                                             setState(() {
-                                              print("Watch restore selected with status $selectedStatus");
                                               //remove from list to remove from page
                                               archiveList.removeAt(index);
                                               //Set watch status

@@ -7,10 +7,12 @@ import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class WatchViewController extends GetxController{
   final inEditState = false.obs;
   final currentView = WatchViewFieldsEnum.info.obs;
-  final selectedStatus = "In Collection".obs;
+  final selectedStatus = WatchStatusEnum.inCollection.toDbString().obs;
   final tabIndex = 0.obs;
   final watchViewState = WatchViewEnum.view.obs;
   final purchasePrice = 0.obs;

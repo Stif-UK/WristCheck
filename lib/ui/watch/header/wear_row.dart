@@ -11,6 +11,8 @@ import 'package:wristcheck/ui/wear_dates_widget.dart';
 import 'package:wristcheck/util/view_watch_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class WearRow extends StatefulWidget {
   WearRow({super.key,
     required this.currentWatch,
@@ -32,7 +34,7 @@ class _WearRowState extends State<WearRow> {
 
     //Set to true only for watches in the collection
     if (widget.watchViewController.watchViewState.value == WatchViewEnum.view) {
-      widget.watchViewController.canRecordWear(widget.currentWatch!.status == "In Collection");
+      widget.watchViewController.canRecordWear(widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString());
     }
 
     return _buildWearRow();
@@ -45,7 +47,7 @@ class _WearRowState extends State<WearRow> {
       children: [
         Expanded(
           flex: 2,
-          child: widget.currentWatch?.status == "In Collection" || widget.currentWatch?.status == "Sold" ? Column(
+          child: widget.currentWatch?.status == WatchStatusEnum.inCollection.toDbString() || widget.currentWatch?.status == WatchStatusEnum.sold.toDbString() ? Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
@@ -70,7 +72,7 @@ class _WearRowState extends State<WearRow> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.currentWatch!.status == "In Collection"? _addWearButton() : const SizedBox(height: 10),
+              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString()? _addWearButton() : const SizedBox(height: 10),
               const SizedBox(height: 10),
               //Show last worn date
               _displayLastWearDate(),
@@ -81,7 +83,7 @@ class _WearRowState extends State<WearRow> {
         ),
         Expanded(
             flex: 2,
-            child: widget.currentWatch?.status != "Wishlist" && widget.currentWatch?.status != "Pre-Order" ? Column(
+            child: widget.currentWatch?.status != WatchStatusEnum.wishlist.toDbString() && widget.currentWatch?.status != WatchStatusEnum.preOrder.toDbString() ? Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(

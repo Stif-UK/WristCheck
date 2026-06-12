@@ -1,3 +1,4 @@
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
@@ -12,14 +13,11 @@ class WatchDataValidationFacade{
     if(status is !String){
       status = status.toString();
     }
-    //TODO: Ensure status list is held in only one place within the app - implement enum based solution
-    var statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
-    return statusList.contains(status);
+    return WatchStatusEnum.values.any((s) => s.toDbString() == status);
   }
 
   static bool validateManufacturer(var manufacturer){
     if(manufacturer is !String){
-      print("Manufacturer is not a string");
       return false;
     }
     return manufacturer.isAlphaNumericIncCyrillicAndNotEmpty;

@@ -128,14 +128,14 @@ class _GalleryV2State extends State<GalleryV2> {
                                     overlayController.add(ImageOverlay(
                                       title: '${swipeIndex + 1}/${data.length}',
                                       subtitle: data[swipeIndex].toString(),
-                                      subtitle2: WristCheckFormatter.getGallerySubheaderText(data[swipeIndex]),
+                                      subtitle2: WristCheckFormatter.getGallerySubheaderText(data[swipeIndex], context),
                                     ));
                                   },
                                   overlayController: overlayController,
                                   initialOverlay: ImageOverlay(
                                     title: '${index + 1}/${data.length}',
                                     subtitle: data[index].toString(),
-                                    subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index]),
+                                    subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index], context),
                                   ),
                                 ).show();
                               },

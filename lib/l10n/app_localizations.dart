@@ -134,6 +134,42 @@ abstract class AppLocalizations {
   /// **'Random Watch'**
   String get randomWatch;
 
+  /// No description provided for @statusInCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'In Collection'**
+  String get statusInCollection;
+
+  /// No description provided for @statusSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold'**
+  String get statusSold;
+
+  /// No description provided for @statusWishlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Wishlist'**
+  String get statusWishlist;
+
+  /// No description provided for @statusPreOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Order'**
+  String get statusPreOrder;
+
+  /// No description provided for @statusRetired.
+  ///
+  /// In en, this message translates to:
+  /// **'Retired'**
+  String get statusRetired;
+
+  /// No description provided for @statusArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get statusArchived;
+
   /// No description provided for @collection.
   ///
   /// In en, this message translates to:

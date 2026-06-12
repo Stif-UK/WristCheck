@@ -27,6 +27,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get randomWatch => 'Montre au hasard';
 
   @override
+  String get statusInCollection => 'En collection';
+
+  @override
+  String get statusSold => 'Vendue';
+
+  @override
+  String get statusWishlist => 'Liste d\'envies';
+
+  @override
+  String get statusPreOrder => 'Précommande';
+
+  @override
+  String get statusRetired => 'Retirée';
+
+  @override
+  String get statusArchived => 'Archivée';
+
+  @override
   String get collection => 'Collection';
 
   @override

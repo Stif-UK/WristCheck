@@ -6,6 +6,8 @@ import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/decoration/decoration_helper.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class TimeLineHelper{
   static List<TimeLineEvent>getTimeLineData(bool orderAscending, bool showPurchases, bool showSold, bool showServiced, bool showNextService, bool showWarranty, bool showPreOrders){
     final l = AppLocalizations.of(Get.context!);
@@ -22,18 +24,18 @@ class TimeLineHelper{
         returnList.add(TimeLineEvent(TimeLineEventType.sold, watch.soldDate!, l!.watchNameSold(watch.toString())));
         years.add(watch.soldDate!.year);
       }
-      if(showPreOrders && watch.status == "Pre-Order" && watch.deliveryDate != null){
+      if(showPreOrders && watch.status == WatchStatusEnum.preOrder.toDbString() && watch.deliveryDate != null){
         returnList.add(TimeLineEvent(TimeLineEventType.preorder, watch.deliveryDate!, l!.watchNamePreOrderDue(watch.toString())));
       }
-      if(showServiced && watch.lastServicedDate != null && watch.status == "In Collection"){
+      if(showServiced && watch.lastServicedDate != null && watch.status == WatchStatusEnum.inCollection.toDbString()){
         returnList.add(TimeLineEvent(TimeLineEventType.lastService, watch.lastServicedDate!, l!.watchNameLastServiced(watch.toString())));
         years.add(watch.lastServicedDate!.year);
       }
-      if(showNextService && watch.nextServiceDue != null && watch.status == "In Collection"){
+      if(showNextService && watch.nextServiceDue != null && watch.status == WatchStatusEnum.inCollection.toDbString()){
         returnList.add(TimeLineEvent(TimeLineEventType.nextService, watch.nextServiceDue!, l!.watchNameNextService(watch.toString())));
         years.add(watch.nextServiceDue!.year);
       }
-      if(showWarranty && watch.warrantyEndDate != null && watch.status == "In Collection"){
+      if(showWarranty && watch.warrantyEndDate != null && watch.status == WatchStatusEnum.inCollection.toDbString()){
         returnList.add(TimeLineEvent(TimeLineEventType.warranty, watch.warrantyEndDate!, l!.watchNameWarrantyExpires(watch.toString())));
         years.add(watch.warrantyEndDate!.year);
       }

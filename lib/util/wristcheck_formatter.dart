@@ -20,6 +20,8 @@ import 'package:wristcheck/model/enums/watch_month_chart_filter_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:get/get.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class WristCheckFormatter{
 
   static String getFormattedDate(DateTime date){
@@ -799,33 +801,31 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
     return date.toDbString();
   }
 
-  static String getGallerySubheaderText(Watches watch){
-    String returnString = "${watch.status}";
-    
+  static String getGallerySubheaderText(Watches watch, BuildContext context){
+    final statusEnum = WatchStatusEnumExtension.fromDbString(watch.status);
+    String returnString = statusEnum.toLocalizedString(context);
+
     //["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
-    
-    switch(watch.status){
-      case "In Collection":
-        var favourite = watch.favourite? " (Favourite)" : "";
-        returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
-        break;
-      case "Sold":
-        if(watch.soldDate != null) {
-          var soldDateText = "Sold Date:";
-          var soldDate = watch.soldDate == ""
-              ? "$soldDateText (not captured)"
-              : "$soldDateText ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}";
-          returnString = "$returnString - $soldDate";
-        }
-        break;
-      case "Pre-Order":
-        if(watch.deliveryDate != null){
-          var dueDateText = "Due Date:";
-          var soldDate = watch.deliveryDate == ""
-              ? "$dueDateText (not captured)"
-              : "$dueDateText ${WristCheckFormatter.getFormattedDate(watch.deliveryDate!)}";
-          returnString = "$returnString - $soldDate";
-        }
+
+    if (watch.status == WatchStatusEnum.inCollection.toDbString()) {
+      var favourite = watch.favourite ? " (Favourite)" : "";
+      returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
+    } else if (watch.status == WatchStatusEnum.sold.toDbString()) {
+      if (watch.soldDate != null) {
+        var soldDateText = "Sold Date:";
+        var soldDate = watch.soldDate == ""
+            ? "$soldDateText (not captured)"
+            : "$soldDateText ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}";
+        returnString = "$returnString - $soldDate";
+      }
+    } else if (watch.status == WatchStatusEnum.preOrder.toDbString()) {
+      if (watch.deliveryDate != null) {
+        var dueDateText = "Due Date:";
+        var soldDate = watch.deliveryDate == ""
+            ? "$dueDateText (not captured)"
+            : "$dueDateText ${WristCheckFormatter.getFormattedDate(watch.deliveryDate!)}";
+        returnString = "$returnString - $soldDate";
+      }
     }
 
     return returnString;

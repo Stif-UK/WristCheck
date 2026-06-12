@@ -141,14 +141,14 @@ class _GalleryState extends State<Gallery> {
                                           overlayController.add(ImageOverlay(
                                             title: '${index + 1}/${data.length}',
                                             subtitle: "${data[index].toString()}",
-                                            subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index]),
+                                            subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index], context),
                                           ));
                                         },
                                         overlayController: overlayController,
                                         initialOverlay: ImageOverlay(
                                           title: '1/${data.length}',
                                           subtitle: "${data[0].manufacturer} ${data[0].model}",
-                                          subtitle2: WristCheckFormatter.getGallerySubheaderText(data[0]),
+                                          subtitle2: WristCheckFormatter.getGallerySubheaderText(data[0], context),
                                       )).show() : null ,
                                     ),
                                   ),

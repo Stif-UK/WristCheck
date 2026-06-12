@@ -12,6 +12,8 @@ import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class ServiceTab extends StatelessWidget {
   ServiceTab({super.key,
     required this.deliveryDateFieldController,
@@ -41,9 +43,9 @@ class ServiceTab extends StatelessWidget {
     return Obx(()=> Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          watchViewController.selectedStatus.value =="Pre-Order"? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
+          watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString()? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
           PurchaseDateRow(enabled: watchViewController.inEditState.value, purchaseDateFieldController: purchaseDateFieldController),
-          watchViewController.selectedStatus.value =="Sold"? Obx(()=> SoldDateRow(enabled: watchViewController.inEditState.value, soldDateFieldController: soldDateFieldController)): const SizedBox(height: 0,),
+          watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString()? Obx(()=> SoldDateRow(enabled: watchViewController.inEditState.value, soldDateFieldController: soldDateFieldController)): const SizedBox(height: 0,),
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
           _serviceIntervalRow(),
           WarrantyEndRow(enabled: watchViewController.inEditState.value, warrantyEndDateFieldController: warrantyEndDateFieldController),

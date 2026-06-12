@@ -8,6 +8,8 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
+
 class WatchStatusHeader extends StatelessWidget {
   WatchStatusHeader({super.key,
   required this.currentWatch,
@@ -16,15 +18,12 @@ class WatchStatusHeader extends StatelessWidget {
   final watchViewController = Get.put(WatchViewController());
   final Watches? currentWatch;
 
-  //TODO: This is the only place to select status (validate accuracy of this?) starting point for refactor to enum (SHORT LIST ALSO ADDED TO ARCHIVE VIEW!)
-  final List<String> _statusList = ["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-            child: _buildStatusDropdownRow()
+            child: _buildStatusDropdownRow(context)
         ),
         watchViewController.watchViewState.value == WatchViewEnum.add
             ? const SizedBox(height: 0,)
@@ -34,28 +33,28 @@ class WatchStatusHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusDropdownRow(){
+  Widget _buildStatusDropdownRow(BuildContext context){
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
       child: Obx(()=> Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            (watchViewController.inEditState.value == false) && (watchViewController.watchViewState.value == WatchViewEnum.view)? Text(currentWatch!.status.toString(), style: Theme.of(Get.context!).textTheme.bodyLarge,):
+            (watchViewController.inEditState.value == false) && (watchViewController.watchViewState.value == WatchViewEnum.view)? Text(WatchStatusEnumExtension.fromDbString(currentWatch!.status).toLocalizedString(context), style: Theme.of(context).textTheme.bodyLarge,):
             Obx(()=> DropdownButton(
                 dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                 value: watchViewController.selectedStatus.value,
-                items: _statusList
+                items: WatchStatusEnum.values
                     .map((status) => DropdownMenuItem(
-                    value: status,
-                    child: Text(status, style: Theme.of(Get.context!).textTheme.bodyLarge,))
+                    value: status.toDbString(),
+                    child: Text(status.toLocalizedString(context), style: Theme.of(context).textTheme.bodyLarge,))
 
                 ).toList(),
                 onChanged: (status) {
                   watchViewController.updateSelectedStatus(status.toString());
-                  if(watchViewController.selectedStatus.value == "Sold" && WristCheckPreferences.getShowSoldDialog()){
+                  if(watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString() && WristCheckPreferences.getShowSoldDialog()){
                     WristCheckDialogs.getSoldStatusPopup();
                   }
-                  if(watchViewController.selectedStatus.value == "Pre-Order" && WristCheckPreferences.getShowPreOrderDialog()){
+                  if(watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString() && WristCheckPreferences.getShowPreOrderDialog()){
                     WristCheckDialogs.getPreOrderStatusPopUp();
                   }
                 }
