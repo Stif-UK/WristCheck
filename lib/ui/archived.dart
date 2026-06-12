@@ -68,7 +68,7 @@ class _ArchivedState extends State<Archived> {
     analytics.logScreenView(screenName: "archive");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Archived Watches"),
+        title: Text(AppLocalizations.of(Get.context!)!.archiveScreenTitle),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -90,7 +90,7 @@ class _ArchivedState extends State<Archived> {
 
                     return archiveList.isEmpty?Container(
                       alignment: Alignment.center,
-                      child: Text("Your Archive is currently empty",
+                      child: Text(AppLocalizations.of(Get.context!)!.archiveEmptyMessage,
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,),
                     ):
@@ -100,7 +100,7 @@ class _ArchivedState extends State<Archived> {
                       itemBuilder: (BuildContext context, int index){
                         final item = archiveList[index].toString();
                         var watch = archiveList.elementAt(index);
-                        String? _title = "${watch.manufacturer} ${watch.model}";
+                        String? _title = watch.toString();
                         String? _status = WatchStatusEnumExtension.fromDbString(watch.status).toLocalizedString(context);
 
 
@@ -121,9 +121,9 @@ class _ArchivedState extends State<Archived> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text("Confirm Delete"),
+                                      title: Text(AppLocalizations.of(Get.context!)!.archiveDeleteDialogConfirmTitle),
                                       content: Text(
-                                          "Are you sure you want to delete ${watch.toString()}? This cannot be undone."),
+                                          AppLocalizations.of(Get.context!)!.archiveDeleteDialogConfirmText(watch.toString())),
                                       actions: <Widget>[
                                         TextButton(
                                           child: Text(
@@ -134,7 +134,7 @@ class _ArchivedState extends State<Archived> {
                                         ),
                                         ElevatedButton(
                                           child: Text(
-                                            "Delete"),
+                                              AppLocalizations.of(Get.context!)!.delete),
                                           onPressed: () async {
                                             await analytics.logEvent(name: "watch_deleted");
                                             setState(() {
@@ -156,38 +156,30 @@ class _ArchivedState extends State<Archived> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text("Restore Watch"),
+                                      title: Text(AppLocalizations.of(Get.context!)!.archiveRestoreDialogTitle),
                                       content: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                              "Do you want to restore ${watch.toString()}?"),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Text("Restore to status:"),
-                                              ),
-                                              //TODO: Need to ensure space to prevent overflow error
-                                              Obx(()=> DropdownButton(
-                                                    dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                                                    value: archiveController.status.value,
-                                                    items: WatchStatusEnum.values
-                                                        .where((s) => s != WatchStatusEnum.archived)
-                                                        .map((status) => DropdownMenuItem(
-                                                        value: status.toDbString(),
-                                                        child: Text(status.toLocalizedString(context)))
+                                              AppLocalizations.of(Get.context!)!.archiveRestoreDialogText(watch)),
+                                          const SizedBox(height: 10,),
+                                          Text(AppLocalizations.of(Get.context!)!.archiveRestoreDialogStatusPicker),
+                                          //TODO: Need to ensure space to prevent overflow error
+                                          Obx(()=> DropdownButton(
+                                                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                                                value: archiveController.status.value,
+                                                items: WatchStatusEnum.values
+                                                    .where((s) => s != WatchStatusEnum.archived)
+                                                    .map((status) => DropdownMenuItem(
+                                                    value: status.toDbString(),
+                                                    child: Text(status.toLocalizedString(context)))
 
-                                                    ).toList(),
-                                                    onChanged: (status) {
-                                                      archiveController.updateStatus(status);
-                                                    }
-                                                ),
-                                              ),
-                                            ],
+                                                ).toList(),
+                                                onChanged: (status) {
+                                                  archiveController.updateStatus(status);
+                                                }
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -201,7 +193,7 @@ class _ArchivedState extends State<Archived> {
                                         ),
                                         ElevatedButton(
                                           child: Text(
-                                            "Restore",
+                                            AppLocalizations.of(Get.context!)!.archiveRestoreButtonLabel,
                                           ),
                                           onPressed: () async {
                                             await analytics.logEvent(name: "watch_restored");
@@ -233,7 +225,7 @@ class _ArchivedState extends State<Archived> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: const Icon(FontAwesomeIcons.arrowUp, color: Colors.white,),
                               ),
-                              const Text("Restore...", textAlign: TextAlign.start,),
+                              Text(AppLocalizations.of(Get.context!)!.archiveBackgroundRestoreLabel, textAlign: TextAlign.start,),
                             ],
                           ),),
 
@@ -242,7 +234,7 @@ class _ArchivedState extends State<Archived> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Text("Deleting...", textAlign: TextAlign.end,),
+                                Text(AppLocalizations.of(Get.context!)!.archiveBackgroundDeleteLabel, textAlign: TextAlign.end,),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: const Icon(FontAwesomeIcons.trash, color: Colors.white,),
