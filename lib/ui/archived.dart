@@ -8,6 +8,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/archive_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -89,7 +90,8 @@ class _ArchivedState extends State<Archived> {
 
                     return archiveList.isEmpty?Container(
                       alignment: Alignment.center,
-                      child: const Text("Your Archive is currently empty",
+                      child: Text("Your Archive is currently empty",
+                        style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,),
                     ):
 
@@ -125,7 +127,7 @@ class _ArchivedState extends State<Archived> {
                                       actions: <Widget>[
                                         TextButton(
                                           child: Text(
-                                            "Cancel",                                           ),
+                                            AppLocalizations.of(Get.context!)!.cancel,                                           ),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -169,6 +171,7 @@ class _ArchivedState extends State<Archived> {
                                                 padding: const EdgeInsets.all(8.0),
                                                 child: Text("Restore to status:"),
                                               ),
+                                              //TODO: Need to ensure space to prevent overflow error
                                               Obx(()=> DropdownButton(
                                                     dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                                                     value: archiveController.status.value,
@@ -191,7 +194,7 @@ class _ArchivedState extends State<Archived> {
                                       actions: <Widget>[
                                         TextButton(
                                           child: Text(
-                                            "Cancel",),
+                                            AppLocalizations.of(Get.context!)!.cancel,),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },

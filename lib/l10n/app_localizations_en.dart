@@ -765,6 +765,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
+  String get delete => 'Delete';
+
+  @override
   String get done => 'Done';
 
   @override
@@ -1400,6 +1403,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currencyMalaysianRinggit => 'Malaysian Ringgit';
+
+  @override
+  String get archiveScreenTitle => 'Archived Watches';
+
+  @override
+  String get archiveEmptyMessage => 'Your Archive is currently empty';
+
+  @override
+  String get archiveDeleteDialogConfirmTitle => 'Confirm Delete';
+
+  @override
+  String archiveDeleteDialogConfirmText(Object watchName) {
+    return 'Are you sure you want to delete $watchName? This cannot be undone.';
+  }
+
+  @override
+  String get archiveRestoreDialogTitle => 'Restore Watch';
+
+  @override
+  String archiveRestoreDialogText(Object watchName) {
+    return 'Do you want to restore $watchName?';
+  }
+
+  @override
+  String get archiveRestoreDialogStatusPicker => 'Restore to status:';
+
+  @override
+  String get archiveRestoreButtonLabel => 'Restore';
+
+  @override
+  String get archiveBackgroundRestoreLabel => 'Restore...';
+
+  @override
+  String get archiveBackgroundDeleteLabel => 'Deleting...';
 
   @override
   String get enableDailyWearReminder => 'Enable Daily Wear Reminder';

@@ -1526,6 +1526,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
   /// No description provided for @done.
   ///
   /// In en, this message translates to:
@@ -2659,6 +2665,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Malaysian Ringgit'**
   String get currencyMalaysianRinggit;
+
+  /// No description provided for @archiveScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Watches'**
+  String get archiveScreenTitle;
+
+  /// No description provided for @archiveEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Archive is currently empty'**
+  String get archiveEmptyMessage;
+
+  /// No description provided for @archiveDeleteDialogConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete'**
+  String get archiveDeleteDialogConfirmTitle;
+
+  /// No description provided for @archiveDeleteDialogConfirmText.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {watchName}? This cannot be undone.'**
+  String archiveDeleteDialogConfirmText(Object watchName);
+
+  /// No description provided for @archiveRestoreDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Watch'**
+  String get archiveRestoreDialogTitle;
+
+  /// No description provided for @archiveRestoreDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to restore {watchName}?'**
+  String archiveRestoreDialogText(Object watchName);
+
+  /// No description provided for @archiveRestoreDialogStatusPicker.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore to status:'**
+  String get archiveRestoreDialogStatusPicker;
+
+  /// No description provided for @archiveRestoreButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get archiveRestoreButtonLabel;
+
+  /// No description provided for @archiveBackgroundRestoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore...'**
+  String get archiveBackgroundRestoreLabel;
+
+  /// No description provided for @archiveBackgroundDeleteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting...'**
+  String get archiveBackgroundDeleteLabel;
 
   /// No description provided for @enableDailyWearReminder.
   ///

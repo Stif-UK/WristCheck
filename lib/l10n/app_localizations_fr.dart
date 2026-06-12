@@ -767,6 +767,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cancel => 'Annuler';
 
   @override
+  String get delete => 'Supprimer';
+
+  @override
   String get done => 'Terminé';
 
   @override
@@ -1408,6 +1411,40 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get currencyMalaysianRinggit => 'Ringgit malaisien';
+
+  @override
+  String get archiveScreenTitle => 'Montres archivées';
+
+  @override
+  String get archiveEmptyMessage => 'Votre archive est actuellement vide';
+
+  @override
+  String get archiveDeleteDialogConfirmTitle => 'Confirmer la suppression';
+
+  @override
+  String archiveDeleteDialogConfirmText(Object watchName) {
+    return 'Êtes-vous sûr de vouloir supprimer $watchName ? Cette action est irréversible.';
+  }
+
+  @override
+  String get archiveRestoreDialogTitle => 'Restaurer la montre';
+
+  @override
+  String archiveRestoreDialogText(Object watchName) {
+    return 'Voulez-vous restaurer $watchName ?';
+  }
+
+  @override
+  String get archiveRestoreDialogStatusPicker => 'Restaurer vers le statut :';
+
+  @override
+  String get archiveRestoreButtonLabel => 'Restaurer';
+
+  @override
+  String get archiveBackgroundRestoreLabel => 'Restauration...';
+
+  @override
+  String get archiveBackgroundDeleteLabel => 'Suppression...';
 
   @override
   String get enableDailyWearReminder => 'Activer le rappel quotidien';
