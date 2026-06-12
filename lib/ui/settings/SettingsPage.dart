@@ -67,9 +67,8 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 WristCheckConfig.enableLanguagePicker? Obx(()=> ListTile(
                   title: Text(AppLocalizations.of(context)!.languageLink),
-                  leading: Icon(FontAwesomeIcons.earthEurope),
+                  leading: Icon(FontAwesomeIcons.earthAmericas),
                   trailing: DropdownButton(
-                      //icon: FlagHelper.getFlag(widget.languageController.locale.value),
                       value: langController.language.value.languageCode,
                       items: LanguageEnum.values.map((lang) {
                         return DropdownMenuItem<String>(
@@ -97,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Divider(thickness: 2,),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.currencyLink),
-                  leading: const Icon(FontAwesomeIcons.earthAmericas),
+                  leading: const Icon(FontAwesomeIcons.dollarSign),
                   onTap: ()=> Get.to(()=> LocationOptions())
                 ),
                 const Divider(thickness: 2,),
