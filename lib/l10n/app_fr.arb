@@ -9,6 +9,14 @@
   "retiredWatches" : "Montres retirées",
   "randomWatch" : "Montre au hasard",
 
+  "@_STATUS_LIST": {},
+  "statusInCollection" : "En collection",
+  "statusSold" : "Vendue",
+  "statusWishlist" : "Liste d'envies",
+  "statusPreOrder" : "Précommande",
+  "statusRetired" : "Retirée",
+  "statusArchived" : "Archivée",
+
   "@_HOME_TABS": {},
   "collection" : "Collection",
   "stats" : "Stats",

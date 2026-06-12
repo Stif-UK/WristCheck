@@ -9,6 +9,13 @@
   "retiredWatches" : "Retired Watches",
   "randomWatch" : "Random Watch",
 
+  "@_STATUS_LIST": {},
+  "statusInCollection" : "In Collection",
+  "statusSold" : "Sold",
+  "statusWishlist" : "Wishlist",
+  "statusPreOrder" : "Pre-Order",
+  "statusRetired" : "Retired",
+  "statusArchived" : "Archived",
 
 
 
