@@ -92,7 +92,7 @@ class WearChartsHelper {
     if(filterMovements){
       String mvmtString = "";
       for(MovementEnum movement in selectedMovements){
-        mvmtString = "$mvmtString ${WristCheckFormatter.getMovementText(movement)},";
+        mvmtString = "$mvmtString ${movement.toLocalizedString(Get.context!)},";
       }
       if(mvmtString.length != 0){
         mvmtString = mvmtString.substring(1, mvmtString.length-1);

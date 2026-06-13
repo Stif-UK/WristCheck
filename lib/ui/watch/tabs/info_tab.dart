@@ -73,7 +73,7 @@ class InfoTab extends StatelessWidget {
               items: MovementEnum.values.map((movement) {
                 return DropdownMenuItem<MovementEnum>(
                     value: movement,
-                    child: Text(WristCheckFormatter.getMovementText(movement)));
+                    child: Text(movement.toLocalizedString(context)));
               }).toList(),
               onChanged: watchViewController.inEditState.value? (movement){
                 watchViewController.updateMovement(WristCheckFormatter.getMovementText(movement!));

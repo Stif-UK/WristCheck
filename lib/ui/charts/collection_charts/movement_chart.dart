@@ -3,6 +3,9 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'package:wristcheck/model/enums/movement_enum.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
+
 class MovementChart extends StatefulWidget {
   const MovementChart({Key? key}) : super(key: key);
 
@@ -18,19 +21,21 @@ class _MovementChartState extends State<MovementChart> {
   Widget build(BuildContext context) {
 
     //Calculate the chart data - generate a map of movements and counts
-    Map<String,int> chartData = <String,int>{};
+    Map<MovementEnum,int> chartData = <MovementEnum,int>{};
     for(var watch in data){
       if(watch.movement != null){
+        MovementEnum movement = WristCheckFormatter.getMovementEnum(watch.movement);
         chartData.update(
-          watch.movement!,
+          movement,
               (value) => ++value,
           ifAbsent: () => 1,
         );
         }
       }
-    //remove 'not entered' if it exists
-    if (chartData.containsKey("Not Entered")) {
-      chartData.remove("Not Entered");
+    
+    //remove blank entries
+    if (chartData.containsKey(MovementEnum.blank)){
+      chartData.remove(MovementEnum.blank);
     }
 
     //sort map
@@ -48,9 +53,9 @@ class _MovementChartState extends State<MovementChart> {
       series: <CartesianSeries>[
         BarSeries<MovementData, String>(
           dataSource: getChartData,
-          xValueMapper: (MovementData mvmt, _) => mvmt.movement,
+          xValueMapper: (MovementData mvmt, _) => mvmt.movement.toLocalizedString(context),
           yValueMapper: (MovementData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${moov.movement}: ${moov.count}",
+          dataLabelMapper: (moov, _)=> "${moov.movement.toLocalizedString(context)}: ${moov.count}",
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
       ],
@@ -61,7 +66,7 @@ class _MovementChartState extends State<MovementChart> {
 
 class MovementData{
   MovementData(this.movement, this.count);
-  final String movement;
+  final MovementEnum movement;
   final int count;
 }
 

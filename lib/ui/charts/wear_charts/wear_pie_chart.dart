@@ -5,6 +5,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -68,13 +69,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (MovementClass series, _) =>
-            (WristCheckFormatter.getMovementText(series.movement)),
+            (series.movement.toLocalizedString(Get.context!)),
             yValueMapper: (MovementClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (mvmt, _) =>
-            mvmt.count == 0 ? "" : "${WristCheckFormatter.getMovementText(mvmt.movement)}: ${mvmt.count}",
+            mvmt.count == 0 ? "" : "${mvmt.movement.toLocalizedString(Get.context!)}: ${mvmt.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
 

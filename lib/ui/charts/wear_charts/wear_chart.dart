@@ -4,6 +4,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -73,9 +74,9 @@ class _WearChartState extends State<WearChart> {
         returnSeries =  <BarSeries<MovementClass, String>>[
           BarSeries(
             dataSource: movementList,
-            xValueMapper: (MovementClass series, _) =>  series.count == 0? null: (series.movement.name),
+            xValueMapper: (MovementClass series, _) =>  series.count == 0? null: (series.movement.toLocalizedString(context)),
             yValueMapper: (MovementClass series, _) => series.count == 0? null: series.count,
-            dataLabelMapper: (mvmt, _) => "${WristCheckFormatter.getMovementText(mvmt.movement)}: ${mvmt.count}",
+            dataLabelMapper: (mvmt, _) => "${mvmt.movement.toLocalizedString(context)}: ${mvmt.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
             // animationDuration: 0 Set to zero to stop it animating!
           )

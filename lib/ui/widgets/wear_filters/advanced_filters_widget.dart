@@ -202,7 +202,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
                 selectedColor: Colors.red,
                 selected: state.selected(MovementEnum.values[i]),
                 onSelected: state.onSelected(MovementEnum.values[i]),
-                label: Text(WristCheckFormatter.getMovementText(MovementEnum.values[i])),
+                label: Text(MovementEnum.values[i].toLocalizedString(context)),
               );
             },
             listBuilder: ChoiceList.createWrapped()
