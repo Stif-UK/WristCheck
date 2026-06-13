@@ -65,7 +65,7 @@ class _ViewOptionsState extends State<ViewOptions> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("View Options"),
+        title: Text(AppLocalizations.of(Get.context!)!.viewOptionsPageTitle),
       ),
       body: Column(
         children: [
@@ -76,10 +76,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                 children: [
                   ExpansionTile(
                       leading: const Icon(Icons.watch),
-                      title: Text("Collection Display", style: Theme.of(context).textTheme.headlineSmall,),
+                      title: Text(AppLocalizations.of(Get.context!)!.collectionDisplaySectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                       children: [
                         Obx(()=> RadioListTile(
-                              title: const Text("Show collection as list"),
+                              title: Text(AppLocalizations.of(Get.context!)!.collectionDisplayShowAsList),
                               secondary: const Icon(FontAwesomeIcons.list),
                               value: WatchBoxView.list,
                               groupValue: widget.wristCheckController.watchBoxView.value,
@@ -87,7 +87,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           ),
                         ),
                         Obx(()=> RadioListTile(
-                            title: const Text("Show collection as grid"),
+                            title: Text(AppLocalizations.of(Get.context!)!.collectionDisplayShowAsGrid),
                             secondary: const Icon(FontAwesomeIcons.grip),
                             value: WatchBoxView.grid,
                               groupValue: widget.wristCheckController.watchBoxView.value,
@@ -100,10 +100,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                   const Divider(thickness: 2,),
                   Obx(()=> ExpansionTile(
                       leading: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
-                      title: Text("Collection ordering", style: Theme.of(context).textTheme.headlineSmall,),
+                      title: Text(AppLocalizations.of(Get.context!)!.collectionOrderSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                     children: [
                       RadioListTile(
-                          title: const Text("In order of entry"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionInOrderOfEntry),
                           value: WatchOrder.watchbox,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -113,7 +113,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("In reverse order of entry"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionInReverseOrderOfEntry),
                           value: WatchOrder.reverse,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -123,7 +123,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("A-Z by manufacturer"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionOrderAZ),
                           value: WatchOrder.alpha_asc,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -133,7 +133,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Z-A by manufacturer"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionOrderZA),
                           value: WatchOrder.alpha_desc,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -143,7 +143,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Order by most worn"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionOrderMostWorn),
                           value: WatchOrder.mostworn,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -153,7 +153,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Order by last worn date"),
+                          title: Text(AppLocalizations.of(Get.context!)!.collectionOrderLastWornDate),
                           value: WatchOrder.lastworn,
                           groupValue: currentOrder,
                           onChanged: (value) async {
@@ -168,10 +168,10 @@ class _ViewOptionsState extends State<ViewOptions> {
                   const Divider(thickness: 2,),
                   ExpansionTile(
                     leading: const Icon(FontAwesomeIcons.houseChimney),
-                    title: Text("Start Page", style: Theme.of(context).textTheme.headlineSmall,),
+                    title: Text(AppLocalizations.of(Get.context!)!.startPageSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                     children: [
                       RadioListTile(
-                          title: const Text("Watch Collection"),
+                          title: Text(AppLocalizations.of(Get.context!)!.startPageWatchCollection),
                           value: 0,
                           groupValue: homePage,
                           onChanged:<int>(value) {
@@ -184,7 +184,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Calendar View"),
+                          title: Text(AppLocalizations.of(Get.context!)!.startPageCalendarView),
                           value: 2,
                           groupValue: homePage,
                           onChanged:<int>(value) {
@@ -197,7 +197,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Time Setting"),
+                          title: Text(AppLocalizations.of(Get.context!)!.startPageTimeSetting),
                           value: 3,
                           groupValue: homePage,
                           onChanged:<int>(value) {
@@ -214,7 +214,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   ),
                   const Divider(thickness: 2,),
                   ExpansionTile(
-                    title: Text("Calendar Options", style: Theme.of(context).textTheme.headlineSmall),
+                    title: Text(AppLocalizations.of(Get.context!)!.calendarOptionsSectionTitle, style: Theme.of(context).textTheme.headlineSmall),
                   leading: const Icon(FontAwesomeIcons.calendarWeek),
                   children: [
                     Row(
@@ -222,7 +222,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text("First day of the week: ", style: Theme.of(context).textTheme.bodyLarge,),
+                          child: Text(AppLocalizations.of(Get.context!)!.firstDayOfTheWeekText, style: Theme.of(context).textTheme.bodyLarge,),
                         ),
                         Obx(()=> DropdownButton(
                             value: widget.wristCheckController.firstDayOfWeek.value,
@@ -238,11 +238,11 @@ class _ViewOptionsState extends State<ViewOptions> {
                   ],),
                   const Divider(thickness: 2,),
                   Obx(()=> ExpansionTile(
-                      title: Text("Light / Dark Theme", style: Theme.of(context).textTheme.headlineSmall,),
+                      title: Text(AppLocalizations.of(Get.context!)!.themeSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                     leading: Icon(FontAwesomeIcons.lightbulb),
                     children: [
                       RadioListTile(
-                          title: const Text("Match System"),
+                          title: Text(AppLocalizations.of(Get.context!)!.matchSystem),
                           value: ThemeMode.system,
                           groupValue: widget.wristCheckController.lightThemeChoice.value,
                           onChanged:<LightThemeEnum>(value){
@@ -250,14 +250,14 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("Light Theme"),
+                          title: Text(AppLocalizations.of(Get.context!)!.lightTheme),
                           value: ThemeMode.light,
                           groupValue: widget.wristCheckController.lightThemeChoice.value,
                           onChanged:<LightThemeEnum>(value){
                           widget.wristCheckController.updateLightThemeChoice(value);
                       }),
                       RadioListTile(
-                          title: const Text("Dark Theme"),
+                          title: Text(AppLocalizations.of(Get.context!)!.darkTheme),
                           value: ThemeMode.dark,
                           groupValue: widget.wristCheckController.lightThemeChoice.value,
                           onChanged:<LightThemeEnum>(value){
@@ -268,7 +268,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   ),
                   const Divider(thickness: 2,),
                   Obx(()=> ExpansionTile(
-                    title: Text("WR Units", style: Theme.of(context).textTheme.headlineSmall,),
+                    title: Text(AppLocalizations.of(Get.context!)!.wrUnitsSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                     leading: Icon(FontAwesomeIcons.water),
                     children: [
                       RadioListTile(
