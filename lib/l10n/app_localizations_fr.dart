@@ -1377,6 +1377,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get galleryEverythingTab => 'Tout';
 
   @override
+  String get notRecordedBrackets => '(Non enregistré)';
+
+  @override
+  String gallerySubHeader(Object nWears, Object watchStatus) {
+    return '$watchStatus - $nWears';
+  }
+
+  @override
   String get currencyOptionsTitle => 'Options de devise';
 
   @override

@@ -2600,6 +2600,18 @@ abstract class AppLocalizations {
   /// **'Everything'**
   String get galleryEverythingTab;
 
+  /// No description provided for @notRecordedBrackets.
+  ///
+  /// In en, this message translates to:
+  /// **'(Not recorded)'**
+  String get notRecordedBrackets;
+
+  /// No description provided for @gallerySubHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchStatus} - {nWears}'**
+  String gallerySubHeader(Object nWears, Object watchStatus);
+
   /// No description provided for @currencyOptionsTitle.
   ///
   /// In en, this message translates to:

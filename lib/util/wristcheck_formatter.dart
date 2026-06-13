@@ -549,7 +549,7 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
   static String getGallerySubheaderText(Watches watch, BuildContext context){
     final statusEnum = WatchStatusEnumExtension.fromDbString(watch.status);
     String returnString = statusEnum.toLocalizedString(context);
-    
+
     if (watch.status == WatchStatusEnum.inCollection.toDbString()) {
       var favourite = watch.favourite ? " (Favourite)" : "";
       returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
