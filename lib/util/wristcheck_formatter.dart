@@ -567,10 +567,7 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     return returnString;
   }
-
-  static String getWearCountText(int wearCount){
-    return wearCount == 1? "Worn 1 time" : "Worn: $wearCount times";
-  }
+  
 
   static String getUploadStatusText(UploadStatusEnum status){
     String returnString = "";
