@@ -548,27 +548,21 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
   static String getGallerySubheaderText(Watches watch, BuildContext context){
     final statusEnum = WatchStatusEnumExtension.fromDbString(watch.status);
-    String returnString = statusEnum.toLocalizedString(context);
+    String returnString = "";
+    String watchStatus = statusEnum.toLocalizedString(context);
 
     if (watch.status == WatchStatusEnum.inCollection.toDbString()) {
-      var favourite = watch.favourite ? " (Favourite)" : "";
-      returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
+      returnString = AppLocalizations.of(Get.context!)!.gallerySubHeaderInCollection(AppLocalizations.of(Get.context!)!.nWears(watch.wearList.length), watchStatus);
     } else if (watch.status == WatchStatusEnum.sold.toDbString()) {
-      if (watch.soldDate != null) {
-        var soldDateText = "Sold Date:";
-        var soldDate = watch.soldDate == ""
-            ? "$soldDateText (not captured)"
-            : "$soldDateText ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}";
-        returnString = "$returnString - $soldDate";
-      }
+        var soldDateString = watch.soldDate == null || watch.soldDate == ""? AppLocalizations.of(Get.context!)!.notRecordedBrackets :
+            WristCheckFormatter.getFormattedDate(watch.soldDate!);
+        returnString = AppLocalizations.of(Get.context!)!.gallerySubHeaderSold(soldDateString, watchStatus);
+
     } else if (watch.status == WatchStatusEnum.preOrder.toDbString()) {
-      if (watch.deliveryDate != null) {
-        var dueDateText = "Due Date:";
-        var soldDate = watch.deliveryDate == ""
-            ? "$dueDateText (not captured)"
-            : "$dueDateText ${WristCheckFormatter.getFormattedDate(watch.deliveryDate!)}";
-        returnString = "$returnString - $soldDate";
-      }
+        var dueDateText = watch.deliveryDate == null || watch.deliveryDate == "" ? AppLocalizations.of(Get.context!)!.notRecordedBrackets :
+            WristCheckFormatter.getFormattedDate(watch.deliveryDate!);
+        returnString = AppLocalizations.of(Get.context!)!.gallerySubHeaderPreOrder(dueDateText, watchStatus);
+
     }
 
     return returnString;

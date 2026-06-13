@@ -2606,11 +2606,23 @@ abstract class AppLocalizations {
   /// **'(Not recorded)'**
   String get notRecordedBrackets;
 
-  /// No description provided for @gallerySubHeader.
+  /// No description provided for @gallerySubHeaderInCollection.
   ///
   /// In en, this message translates to:
-  /// **'{watchStatus} - {nWears}'**
-  String gallerySubHeader(Object nWears, Object watchStatus);
+  /// **'{watchStatus} - {returnText}'**
+  String gallerySubHeaderInCollection(Object returnText, Object watchStatus);
+
+  /// No description provided for @gallerySubHeaderSold.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchStatus}\nSold on: {shortDate}'**
+  String gallerySubHeaderSold(Object shortDate, Object watchStatus);
+
+  /// No description provided for @gallerySubHeaderPreOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'{watchStatus}\nDue date: {shortDate}'**
+  String gallerySubHeaderPreOrder(Object shortDate, Object watchStatus);
 
   /// No description provided for @currencyOptionsTitle.
   ///

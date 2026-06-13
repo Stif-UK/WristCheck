@@ -1372,8 +1372,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notRecordedBrackets => '(Not recorded)';
 
   @override
-  String gallerySubHeader(Object nWears, Object watchStatus) {
-    return '$watchStatus - $nWears';
+  String gallerySubHeaderInCollection(Object returnText, Object watchStatus) {
+    return '$watchStatus - $returnText';
+  }
+
+  @override
+  String gallerySubHeaderSold(Object shortDate, Object watchStatus) {
+    return '$watchStatus\nSold on: $shortDate';
+  }
+
+  @override
+  String gallerySubHeaderPreOrder(Object shortDate, Object watchStatus) {
+    return '$watchStatus\nDue date: $shortDate';
   }
 
   @override

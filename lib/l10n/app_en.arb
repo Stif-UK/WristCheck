@@ -483,7 +483,9 @@
   "galleryWishlistedWatchesTab" : "Wishlisted Watches",
   "galleryEverythingTab" : "Everything",
   "notRecordedBrackets" : "(Not recorded)",
-  "gallerySubHeader" : "{watchStatus} - {nWears}",
+  "gallerySubHeaderInCollection" : "{watchStatus} - {returnText}",
+  "gallerySubHeaderSold" : "{watchStatus}\nSold on: {shortDate}",
+  "gallerySubHeaderPreOrder" : "{watchStatus}\nDue date: {shortDate}",
 
   "@_CURRENCY_OPTIONS" : {},
   "currencyOptionsTitle" : "Currency Options",
@@ -593,7 +595,7 @@
   "@watchStatus": {
     "description": "Variable to pass in the status of the watch in the collection",
     "placeholders": {
-      "watchName": {
+      "watchStatus": {
         "type": "String",
         "example": "In Collection"
       }
