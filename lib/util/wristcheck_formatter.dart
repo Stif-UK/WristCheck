@@ -225,76 +225,11 @@ class WristCheckFormatter{
   }
 
   static String getCategoryText(CategoryEnum category){
-    String returnText = "";
-
-    switch (category) {
-
-      case CategoryEnum.blank:
-        returnText = "Not Selected";
-        break;
-      case CategoryEnum.dive:
-        returnText = "Diver";
-        break;
-      case CategoryEnum.sports:
-        returnText = "Sports";
-        break;
-      case CategoryEnum.flight:
-        returnText = "Flight";
-        break;
-      case CategoryEnum.field:
-        returnText = "Field";
-        break;
-      case CategoryEnum.dress:
-        returnText = "Dress";
-        break;
-      case CategoryEnum.tool:
-        returnText = "Tool";
-        break;
-      case CategoryEnum.chronograph:
-        returnText = "Chronograph";
-        break;
-      case CategoryEnum.travel:
-        returnText = "Travel";
-        break;
-    }
-    return returnText;
+    return category.toDbString();
   }
 
   static CategoryEnum getCategoryEnum(String? category){
-    CategoryEnum returnValue = CategoryEnum.blank;
-
-    switch (category) {
-      case "Not Selected":
-        returnValue = CategoryEnum.blank;
-        break;
-      case "Diver":
-        returnValue = CategoryEnum.dive;
-        break;
-      case "Sports":
-        returnValue = CategoryEnum.sports;
-        break;
-      case "Flight":
-        returnValue = CategoryEnum.flight;
-        break;
-      case "Field":
-        returnValue = CategoryEnum.field;
-        break;
-      case "Dress":
-        returnValue = CategoryEnum.dress;
-        break;
-      case "Tool":
-        returnValue = CategoryEnum.tool;
-        break;
-      case "Chronograph":
-        returnValue = CategoryEnum.chronograph;
-        break;
-      case "Travel":
-        returnValue = CategoryEnum.travel;
-        break;
-      default:
-        returnValue = CategoryEnum.blank;
-    }
-    return returnValue;
+    return CategoryEnumLocalization.fromDbString(category);
   }
 
   static String getWinderDirectionText(WinderDirectionEnum direction){

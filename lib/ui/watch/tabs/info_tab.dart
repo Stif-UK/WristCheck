@@ -103,7 +103,7 @@ class InfoTab extends StatelessWidget {
                 items: CategoryEnum.values.map((category) {
                   return DropdownMenuItem<CategoryEnum>(
                       value: category,
-                      child: Text(WristCheckFormatter.getCategoryText(category)));
+                      child: Text(category.toLocalizedString(context)));
                 }).toList(),
                 onChanged: watchViewController.inEditState.value? (category){
                   watchViewController.updateCategory(WristCheckFormatter.getCategoryText(category!));

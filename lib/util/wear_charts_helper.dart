@@ -81,7 +81,7 @@ class WearChartsHelper {
     if(filterCategories){
       String catString = "";
       for(CategoryEnum category in selectedCategories){
-        catString = "$catString ${WristCheckFormatter.getCategoryText(category)},";
+        catString = "$catString ${category.toLocalizedString(Get.context!)},";
       }
       if(catString.length != 0){
         catString = catString.substring(1, catString.length-1);

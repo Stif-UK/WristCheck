@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
@@ -82,13 +85,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (CategoryClass series, _) =>
-            (WristCheckFormatter.getCategoryText(series.category)),
+            (series.category.toLocalizedString(Get.context!)),
             yValueMapper: (CategoryClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${WristCheckFormatter.getCategoryText(cat.category)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.category.toLocalizedString(Get.context!)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -143,13 +146,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (MaterialClass series, _) =>
-            (WristCheckFormatter.getCaseMaterialText(series.material)),
+            (series.material.toLocalizedString(Get.context!)),
             yValueMapper: (MaterialClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${WristCheckFormatter.getCaseMaterialText(cat.material)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.material.toLocalizedString(Get.context!)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -159,13 +162,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (DateComplicationClass series, _) =>
-            (WristCheckFormatter.getDateComplicationName(series.dateComplication)),
+            (series.dateComplication.toLocalizedString(Get.context!)),
             yValueMapper: (DateComplicationClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${WristCheckFormatter.getDateComplicationName(cat.dateComplication)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.dateComplication.toLocalizedString(Get.context!)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
