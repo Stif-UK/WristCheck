@@ -59,7 +59,8 @@ class ProDataTab extends StatelessWidget {
 
   Widget _buildCaseDetailsSection(){
     return ExpansionTile(
-        title: Text(AppLocalizations.of(Get.context!)!.watchDetailsSectionTitle,
+      initiallyExpanded: true,
+      title: Text(AppLocalizations.of(Get.context!)!.watchDetailsSectionTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
       children: [
@@ -106,6 +107,7 @@ class ProDataTab extends StatelessWidget {
 
   Widget _buildWinderSettingsRow(){
     return ExpansionTile(
+      initiallyExpanded: true,
         title: Text(AppLocalizations.of(Get.context!)!.winderSettingsSectionTitle,
           textAlign: TextAlign.start,
           style: Theme.of(Get.context!).textTheme.headlineSmall,),
