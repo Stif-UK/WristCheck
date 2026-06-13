@@ -10,6 +10,7 @@ import 'package:wristcheck/ui/archived.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/settings/chart_options.dart';
 import 'package:wristcheck/ui/developer/developer_stats.dart';
+import 'package:wristcheck/ui/settings/language_selection.dart';
 import 'package:wristcheck/ui/settings/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/onboarding.dart';
@@ -65,28 +66,29 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: ListView(
               children: [
-                WristCheckConfig.enableLanguagePicker? Obx(()=> ListTile(
+                WristCheckConfig.enableLanguagePicker? ListTile(
                   title: Text(AppLocalizations.of(context)!.languageLink),
                   leading: Icon(FontAwesomeIcons.earthAmericas),
-                  trailing: DropdownButton(
-                      value: langController.language.value.languageCode,
-                      items: LanguageEnum.values.map((lang) {
-                        return DropdownMenuItem<String>(
-                          value: lang.name,
-                          child: Text(lang.name), // .name gives the enum case name
-                        );
-                      }).toList(),
-                      onChanged: (newValue){
-                        Locale loc = Locale(newValue.toString());
-                        print(loc);
-                        langController.updateLocalePref(loc);
-                      }
-
-
-
-                  ),
-                ),
-                ) : const SizedBox(height: 0,),
+                  onTap: () => Get.to(() => LanguageSelection()),
+                  // trailing: DropdownButton(
+                  //     value: langController.language.value.languageCode,
+                  //     items: LanguageEnum.values.map((lang) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: lang.name,
+                  //         child: Text(lang.name), // .name gives the enum case name
+                  //       );
+                  //     }).toList(),
+                  //     onChanged: (newValue){
+                  //       Locale loc = Locale(newValue.toString());
+                  //       print(loc);
+                  //       langController.updateLocalePref(loc);
+                  //     }
+                  //
+                  //
+                  //
+                  // ),
+                )
+                 : const SizedBox(height: 0,),
                 WristCheckConfig.enableLanguagePicker? const Divider(thickness: 2,) : const SizedBox(height: 0,),
                 ListTile(
                     title: Text(AppLocalizations.of(context)!.reminderLink),
