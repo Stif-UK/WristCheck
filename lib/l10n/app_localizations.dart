@@ -2798,6 +2798,60 @@ abstract class AppLocalizations {
   /// **'Tungsten'**
   String get caseMaterialTungsten;
 
+  /// No description provided for @notSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Selected'**
+  String get notSelected;
+
+  /// No description provided for @categoryDiver.
+  ///
+  /// In en, this message translates to:
+  /// **'Diver'**
+  String get categoryDiver;
+
+  /// No description provided for @categorySports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports'**
+  String get categorySports;
+
+  /// No description provided for @categoryFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Flight'**
+  String get categoryFlight;
+
+  /// No description provided for @categoryField.
+  ///
+  /// In en, this message translates to:
+  /// **'Field'**
+  String get categoryField;
+
+  /// No description provided for @categoryDress.
+  ///
+  /// In en, this message translates to:
+  /// **'Dress'**
+  String get categoryDress;
+
+  /// No description provided for @categoryTool.
+  ///
+  /// In en, this message translates to:
+  /// **'Tool'**
+  String get categoryTool;
+
+  /// No description provided for @categoryChronograph.
+  ///
+  /// In en, this message translates to:
+  /// **'Chronograph'**
+  String get categoryChronograph;
+
+  /// No description provided for @categoryTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get categoryTravel;
+
   /// No description provided for @archiveScreenTitle.
   ///
   /// In en, this message translates to:

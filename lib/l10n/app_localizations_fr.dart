@@ -1479,6 +1479,33 @@ class AppLocalizationsFr extends AppLocalizations {
   String get caseMaterialTungsten => 'Tungstène';
 
   @override
+  String get notSelected => 'Non sélectionné';
+
+  @override
+  String get categoryDiver => 'Plongée';
+
+  @override
+  String get categorySports => 'Sport';
+
+  @override
+  String get categoryFlight => 'Aviation';
+
+  @override
+  String get categoryField => 'Militaire';
+
+  @override
+  String get categoryDress => 'Habillée';
+
+  @override
+  String get categoryTool => 'Tool watch';
+
+  @override
+  String get categoryChronograph => 'Chronographe';
+
+  @override
+  String get categoryTravel => 'Voyage';
+
+  @override
   String get archiveScreenTitle => 'Montres archivées';
 
   @override

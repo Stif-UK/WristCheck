@@ -520,6 +520,17 @@
   "caseMaterialPVDDLC" : "Acier PVD/DLC",
   "caseMaterialTungsten" : "Tungstène",
 
+  "@_CATEGORY" : {},
+  "notSelected" : "Non sélectionné",
+  "categoryDiver" : "Plongée",
+  "categorySports" : "Sport",
+  "categoryFlight" : "Aviation",
+  "categoryField" : "Militaire",
+  "categoryDress" : "Habillée",
+  "categoryTool" : "Tool watch",
+  "categoryChronograph" : "Chronographe",
+  "categoryTravel" : "Voyage",
+
   "@_ARCHIVE" : {},
   "archiveScreenTitle" :  "Montres archivées",
   "archiveEmptyMessage" : "Votre archive est actuellement vide",

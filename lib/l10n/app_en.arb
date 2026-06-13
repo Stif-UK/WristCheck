@@ -520,6 +520,17 @@
   "caseMaterialPVDDLC" : "PVD/DLC Steel",
   "caseMaterialTungsten" : "Tungsten",
 
+  "@_CATEGORY" : {},
+  "notSelected" : "Not Selected",
+  "categoryDiver" : "Diver",
+  "categorySports" : "Sports",
+  "categoryFlight" : "Flight",
+  "categoryField" : "Field",
+  "categoryDress" : "Dress",
+  "categoryTool" : "Tool",
+  "categoryChronograph" : "Chronograph",
+  "categoryTravel" : "Travel",
+
   "@_ARCHIVE" : {},
   "archiveScreenTitle" :  "Archived Watches",
   "archiveEmptyMessage" : "Your Archive is currently empty",

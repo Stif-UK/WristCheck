@@ -1471,6 +1471,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get caseMaterialTungsten => 'Tungsten';
 
   @override
+  String get notSelected => 'Not Selected';
+
+  @override
+  String get categoryDiver => 'Diver';
+
+  @override
+  String get categorySports => 'Sports';
+
+  @override
+  String get categoryFlight => 'Flight';
+
+  @override
+  String get categoryField => 'Field';
+
+  @override
+  String get categoryDress => 'Dress';
+
+  @override
+  String get categoryTool => 'Tool';
+
+  @override
+  String get categoryChronograph => 'Chronograph';
+
+  @override
+  String get categoryTravel => 'Travel';
+
+  @override
   String get archiveScreenTitle => 'Archived Watches';
 
   @override
