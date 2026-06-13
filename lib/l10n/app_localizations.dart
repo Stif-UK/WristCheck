@@ -1424,6 +1424,84 @@ abstract class AppLocalizations {
   /// **'This chart generated with WristTrack'**
   String get generatedWithWristTrack;
 
+  /// No description provided for @pieChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Pie Chart'**
+  String get pieChart;
+
+  /// No description provided for @barChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Bar Chart'**
+  String get barChart;
+
+  /// No description provided for @chartOptionsPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chart Options'**
+  String get chartOptionsPageTitle;
+
+  /// No description provided for @wearChartsDefaultFilterSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Stats default filter'**
+  String get wearChartsDefaultFilterSectionTitle;
+
+  /// No description provided for @wearChartsFilterGuidanceText.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default.'**
+  String get wearChartsFilterGuidanceText;
+
+  /// No description provided for @showAllRecordedWears.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all recorded wears'**
+  String get showAllRecordedWears;
+
+  /// No description provided for @wearStatsResultsOrderSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Stats results order'**
+  String get wearStatsResultsOrderSectionTitle;
+
+  /// No description provided for @wearStatsResultsOrderGuidanceText.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the default order that results show in the graph - by default watches are listed in the same order selected for the collection view, however can also be displayed in ascending or descending order.'**
+  String get wearStatsResultsOrderGuidanceText;
+
+  /// No description provided for @showResultsInCollectionOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in Collection Order'**
+  String get showResultsInCollectionOrder;
+
+  /// No description provided for @showResultsAscendingByWearCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Ascending order by wear count'**
+  String get showResultsAscendingByWearCount;
+
+  /// No description provided for @showResultsDescendingByWearCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Descending order by wear count'**
+  String get showResultsDescendingByWearCount;
+
+  /// No description provided for @defaultChartTypeSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Default chart type'**
+  String get defaultChartTypeSectionTitle;
+
+  /// No description provided for @defaultChartTypeGuidanceText.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used.'**
+  String get defaultChartTypeGuidanceText;
+
   /// No description provided for @watch.
   ///
   /// In en, this message translates to:

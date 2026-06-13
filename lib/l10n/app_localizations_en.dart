@@ -710,6 +710,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generatedWithWristTrack => 'This chart generated with WristTrack';
 
   @override
+  String get pieChart => 'Pie Chart';
+
+  @override
+  String get barChart => 'Bar Chart';
+
+  @override
+  String get chartOptionsPageTitle => 'Chart Options';
+
+  @override
+  String get wearChartsDefaultFilterSectionTitle => 'Wear Stats default filter';
+
+  @override
+  String get wearChartsFilterGuidanceText =>
+      'Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default.';
+
+  @override
+  String get showAllRecordedWears => 'Show all recorded wears';
+
+  @override
+  String get wearStatsResultsOrderSectionTitle => 'Wear Stats results order';
+
+  @override
+  String get wearStatsResultsOrderGuidanceText =>
+      'Set the default order that results show in the graph - by default watches are listed in the same order selected for the collection view, however can also be displayed in ascending or descending order.';
+
+  @override
+  String get showResultsInCollectionOrder => 'Show in Collection Order';
+
+  @override
+  String get showResultsAscendingByWearCount => 'Ascending order by wear count';
+
+  @override
+  String get showResultsDescendingByWearCount =>
+      'Descending order by wear count';
+
+  @override
+  String get defaultChartTypeSectionTitle => 'Default chart type';
+
+  @override
+  String get defaultChartTypeGuidanceText =>
+      'Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used.';
+
+  @override
   String get watch => 'Watch';
 
   @override

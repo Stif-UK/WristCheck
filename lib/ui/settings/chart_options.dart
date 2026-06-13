@@ -1,8 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
@@ -61,7 +63,7 @@ class _ChartOptionsState extends State<ChartOptions> {
     analytics.logScreenView(screenName: "chart_options");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Chart Options"),
+        title: Text(AppLocalizations.of(Get.context!)!.chartOptionsPageTitle),
       ),
       body: Column(
         children: [
@@ -70,15 +72,15 @@ class _ChartOptionsState extends State<ChartOptions> {
               child: Column(
                 children: [
                   ExpansionTile(
-                    title: const Text("Wear Stats default filter"),
+                    title: Text(AppLocalizations.of(Get.context!)!.wearChartsDefaultFilterSectionTitle),
                     leading: const Icon(Icons.filter_alt_outlined),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: const Text("Set the default filter for the Wear Stats page. \nThe graph can still be updated to show different filters as required, but will always initially load with the chosen default."),
+                        child: Text(AppLocalizations.of(Get.context!)!.wearChartsFilterGuidanceText),
                       ),
                       ListTile(
-                        title: const Text("Show all recorded wears"),
+                        title: Text(AppLocalizations.of(Get.context!)!.showAllRecordedWears),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.all,
                           groupValue: _chartOption ,
@@ -92,7 +94,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn this year"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornThisYear),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.thisYear,
                           groupValue: _chartOption ,
@@ -106,7 +108,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn this month"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornThisMonth),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.thisMonth,
                           groupValue: _chartOption ,
@@ -120,7 +122,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn last month"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornLastMonth),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.lastMonth,
                           groupValue: _chartOption ,
@@ -134,7 +136,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn in last 30 days"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornInLast30Days),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.last30days,
                           groupValue: _chartOption ,
@@ -148,7 +150,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn in last 90 days"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornInLast90Days),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.last90days,
                           groupValue: _chartOption ,
@@ -162,7 +164,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Worn in last 365 days"),
+                        title: Text(AppLocalizations.of(Get.context!)!.wornInLast365Days),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.last365days,
                           groupValue: _chartOption ,
@@ -176,7 +178,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Since Last Purchase"),
+                        title: Text(AppLocalizations.of(Get.context!)!.sinceLastPurchase),
                         leading: Radio<WearChartOptions>(
                           value: WearChartOptions.lastPurchase,
                           groupValue: _chartOption ,
@@ -255,7 +257,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         child: const Text("Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used."),
                       ),
                       ListTile(
-                        title: const Text("Bar Chart"),
+                        title: Text(AppLocalizations.of(Get.context!)!.barChart),
                         leading: Radio<DefaultChartType>(
                           value: DefaultChartType.bar,
                           groupValue: _chartType ,
@@ -269,7 +271,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Pie Chart"),
+                        title: Text(AppLocalizations.of(Get.context!)!.pieChart),
                         leading: Radio<DefaultChartType>(
                           value: DefaultChartType.pie,
                           groupValue: _chartType ,

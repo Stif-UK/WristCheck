@@ -713,6 +713,52 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ce graphique a été généré avec WristTrack';
 
   @override
+  String get pieChart => 'Diagramme circulaire';
+
+  @override
+  String get barChart => 'Histogramme';
+
+  @override
+  String get chartOptionsPageTitle => 'Options des graphiques';
+
+  @override
+  String get wearChartsDefaultFilterSectionTitle =>
+      'Filtre par défaut des stats de port';
+
+  @override
+  String get wearChartsFilterGuidanceText =>
+      'Définissez le filtre par défaut pour la page des statistiques de portée. \nLe graphique pourra toujours être modifié pour afficher d\'autres filtres si nécessaire, mais se chargera systématiquement avec ce choix par défaut.';
+
+  @override
+  String get showAllRecordedWears => 'Afficher toutes les portées enregistrées';
+
+  @override
+  String get wearStatsResultsOrderSectionTitle => 'Ordre des stats de port';
+
+  @override
+  String get wearStatsResultsOrderGuidanceText =>
+      'Définissez l\'ordre d\'affichage par défaut des résultats sur le graphique. Par défaut, les montres suivent l\'ordre sélectionné pour la vue collection, mais elles peuvent également être classées par ordre croissant ou décroissant.';
+
+  @override
+  String get showResultsInCollectionOrder =>
+      'Afficher selon l\'ordre de la collection';
+
+  @override
+  String get showResultsAscendingByWearCount =>
+      'Ordre croissant par nombre de portées';
+
+  @override
+  String get showResultsDescendingByWearCount =>
+      'Ordre décroissant par nombre de portées';
+
+  @override
+  String get defaultChartTypeSectionTitle => 'Type de graphique par défaut';
+
+  @override
+  String get defaultChartTypeGuidanceText =>
+      'Sélectionnez le type de graphique par défaut.\nIl pourra également être modifié directement sur la vue du graphique, qui mémorisera alors le dernier type utilisé.';
+
+  @override
   String get watch => 'Montre';
 
   @override
