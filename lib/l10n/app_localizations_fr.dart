@@ -87,6 +87,74 @@ class AppLocalizationsFr extends AppLocalizations {
   String get email => 'Commentaires par e-mail';
 
   @override
+  String get viewOptionsPageTitle => 'Options d\'affichage';
+
+  @override
+  String get collectionDisplaySectionTitle => 'Affichage de la collection';
+
+  @override
+  String get collectionDisplayShowAsList =>
+      'Afficher la collection sous forme de liste';
+
+  @override
+  String get collectionDisplayShowAsGrid =>
+      'Afficher la collection sous forme de grille';
+
+  @override
+  String get collectionOrderSectionTitle => 'Ordre de tri de la collection';
+
+  @override
+  String get collectionInOrderOfEntry => 'Par ordre d\'ajout';
+
+  @override
+  String get collectionInReverseOrderOfEntry => 'Par ordre d\'ajout inversé';
+
+  @override
+  String get collectionOrderAZ => 'A-Z par marque';
+
+  @override
+  String get collectionOrderZA => 'Z-A par marque';
+
+  @override
+  String get collectionOrderMostWorn => 'Trier par les plus portées';
+
+  @override
+  String get collectionOrderLastWornDate => 'Trier par date du dernier porté';
+
+  @override
+  String get startPageSectionTitle => 'Page de démarrage';
+
+  @override
+  String get startPageWatchCollection => 'Collection de montres';
+
+  @override
+  String get startPageCalendarView => 'Vue calendrier';
+
+  @override
+  String get startPageTimeSetting => 'Réglage de l\'heure';
+
+  @override
+  String get calendarOptionsSectionTitle => 'Options du calendrier';
+
+  @override
+  String get firstDayOfTheWeekText => 'Premier jour de la semaine : ';
+
+  @override
+  String get themeSectionTitle => 'Thème Clair / Sombre';
+
+  @override
+  String get matchSystem => 'Identique au système';
+
+  @override
+  String get lightTheme => 'Thème clair';
+
+  @override
+  String get darkTheme => 'Thème sombre';
+
+  @override
+  String get wrUnitsSectionTitle => 'Unités d\'étanchéité';
+
+  @override
   String get languageLink => 'Langue';
 
   @override

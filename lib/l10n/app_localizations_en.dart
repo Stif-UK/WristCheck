@@ -87,6 +87,72 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email Feedback';
 
   @override
+  String get viewOptionsPageTitle => 'View Options';
+
+  @override
+  String get collectionDisplaySectionTitle => 'Collection Display';
+
+  @override
+  String get collectionDisplayShowAsList => 'Show collection as list';
+
+  @override
+  String get collectionDisplayShowAsGrid => 'Show collection as grid';
+
+  @override
+  String get collectionOrderSectionTitle => 'Collection ordering';
+
+  @override
+  String get collectionInOrderOfEntry => 'In order of entry';
+
+  @override
+  String get collectionInReverseOrderOfEntry => 'In reverse order of entry';
+
+  @override
+  String get collectionOrderAZ => 'A-Z by manufacturer';
+
+  @override
+  String get collectionOrderZA => 'Z-A by manufacturer';
+
+  @override
+  String get collectionOrderMostWorn => 'Order by most worn';
+
+  @override
+  String get collectionOrderLastWornDate => 'Order by last worn date';
+
+  @override
+  String get startPageSectionTitle => 'Start Page';
+
+  @override
+  String get startPageWatchCollection => 'Watch Collection';
+
+  @override
+  String get startPageCalendarView => 'Calendar View';
+
+  @override
+  String get startPageTimeSetting => 'Time Setting';
+
+  @override
+  String get calendarOptionsSectionTitle => 'Calendar Options';
+
+  @override
+  String get firstDayOfTheWeekText => 'First day of the week: ';
+
+  @override
+  String get themeSectionTitle => 'Light / Dark Theme';
+
+  @override
+  String get matchSystem => 'Match System';
+
+  @override
+  String get lightTheme => 'Light Theme';
+
+  @override
+  String get darkTheme => 'Dark Theme';
+
+  @override
+  String get wrUnitsSectionTitle => 'WR Units';
+
+  @override
   String get languageLink => 'Language';
 
   @override

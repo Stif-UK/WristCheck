@@ -254,6 +254,138 @@ abstract class AppLocalizations {
   /// **'Email Feedback'**
   String get email;
 
+  /// No description provided for @viewOptionsPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View Options'**
+  String get viewOptionsPageTitle;
+
+  /// No description provided for @collectionDisplaySectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Display'**
+  String get collectionDisplaySectionTitle;
+
+  /// No description provided for @collectionDisplayShowAsList.
+  ///
+  /// In en, this message translates to:
+  /// **'Show collection as list'**
+  String get collectionDisplayShowAsList;
+
+  /// No description provided for @collectionDisplayShowAsGrid.
+  ///
+  /// In en, this message translates to:
+  /// **'Show collection as grid'**
+  String get collectionDisplayShowAsGrid;
+
+  /// No description provided for @collectionOrderSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection ordering'**
+  String get collectionOrderSectionTitle;
+
+  /// No description provided for @collectionInOrderOfEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'In order of entry'**
+  String get collectionInOrderOfEntry;
+
+  /// No description provided for @collectionInReverseOrderOfEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'In reverse order of entry'**
+  String get collectionInReverseOrderOfEntry;
+
+  /// No description provided for @collectionOrderAZ.
+  ///
+  /// In en, this message translates to:
+  /// **'A-Z by manufacturer'**
+  String get collectionOrderAZ;
+
+  /// No description provided for @collectionOrderZA.
+  ///
+  /// In en, this message translates to:
+  /// **'Z-A by manufacturer'**
+  String get collectionOrderZA;
+
+  /// No description provided for @collectionOrderMostWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Order by most worn'**
+  String get collectionOrderMostWorn;
+
+  /// No description provided for @collectionOrderLastWornDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order by last worn date'**
+  String get collectionOrderLastWornDate;
+
+  /// No description provided for @startPageSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Page'**
+  String get startPageSectionTitle;
+
+  /// No description provided for @startPageWatchCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Collection'**
+  String get startPageWatchCollection;
+
+  /// No description provided for @startPageCalendarView.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar View'**
+  String get startPageCalendarView;
+
+  /// No description provided for @startPageTimeSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Setting'**
+  String get startPageTimeSetting;
+
+  /// No description provided for @calendarOptionsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar Options'**
+  String get calendarOptionsSectionTitle;
+
+  /// No description provided for @firstDayOfTheWeekText.
+  ///
+  /// In en, this message translates to:
+  /// **'First day of the week: '**
+  String get firstDayOfTheWeekText;
+
+  /// No description provided for @themeSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Light / Dark Theme'**
+  String get themeSectionTitle;
+
+  /// No description provided for @matchSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Match System'**
+  String get matchSystem;
+
+  /// No description provided for @lightTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Theme'**
+  String get lightTheme;
+
+  /// No description provided for @darkTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Theme'**
+  String get darkTheme;
+
+  /// No description provided for @wrUnitsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WR Units'**
+  String get wrUnitsSectionTitle;
+
   /// No description provided for @languageLink.
   ///
   /// In en, this message translates to:

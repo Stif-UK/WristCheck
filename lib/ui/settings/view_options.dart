@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -64,7 +65,7 @@ class _ViewOptionsState extends State<ViewOptions> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("View Options"),
+        title: Text("View Options"),
       ),
       body: Column(
         children: [
@@ -302,13 +303,13 @@ class _ViewOptionsState extends State<ViewOptions> {
 
   List<DropdownMenuItem<int>> get dayDropdownItems{
     List<DropdownMenuItem<int>> menuItems = [
-      DropdownMenuItem(child: Text("Monday"),value: 1),
-      DropdownMenuItem(child: Text("Tuesday"),value: 2),
-      DropdownMenuItem(child: Text("Wednesday"),value: 3),
-      DropdownMenuItem(child: Text("Thursday"),value: 4),
-      DropdownMenuItem(child: Text("Friday"),value: 5),
-      DropdownMenuItem(child: Text("Saturday"),value: 6),
-      DropdownMenuItem(child: Text("Sunday"),value: 7),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.monday),value: 1),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.tuesday),value: 2),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.wednesday),value: 3),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.thursday),value: 4),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.friday),value: 5),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.saturday),value: 6),
+      DropdownMenuItem(child: Text(AppLocalizations.of(Get.context!)!.sunday),value: 7),
     ];
     return menuItems;
   }
