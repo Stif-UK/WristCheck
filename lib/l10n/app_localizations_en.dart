@@ -873,6 +873,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get meters => 'meters';
+
+  @override
+  String get feet => 'feet';
+
+  @override
   String get backupRestore => 'Backup / Restore Database';
 
   @override

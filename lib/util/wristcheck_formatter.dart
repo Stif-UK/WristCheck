@@ -567,7 +567,7 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
 
     return returnString;
   }
-  
+
 
   static String getUploadStatusText(UploadStatusEnum status){
     String returnString = "";

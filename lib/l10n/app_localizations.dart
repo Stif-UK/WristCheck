@@ -1718,6 +1718,18 @@ abstract class AppLocalizations {
   /// **'Every {nYears}'**
   String schedule(Object nYears);
 
+  /// No description provided for @meters.
+  ///
+  /// In en, this message translates to:
+  /// **'meters'**
+  String get meters;
+
+  /// No description provided for @feet.
+  ///
+  /// In en, this message translates to:
+  /// **'feet'**
+  String get feet;
+
   /// No description provided for @backupRestore.
   ///
   /// In en, this message translates to:

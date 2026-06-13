@@ -875,6 +875,12 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get meters => 'mètres';
+
+  @override
+  String get feet => 'pieds';
+
+  @override
   String get backupRestore => 'Sauvegarde / Restauration';
 
   @override

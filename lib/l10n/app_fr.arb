@@ -307,6 +307,8 @@
   "advanced" : "Avancé",
   "na" : "N/A",
   "schedule" : "Tous les {nYears}",
+  "meters" : "mètres",
+  "feet" : "pieds",
 
   "@_APPDATA": {},
   "backupRestore" : "Sauvegarde / Restauration",
