@@ -122,6 +122,13 @@
   "notesRowHintText" : "Notes",
   "costPerWearRowTitle" : "Coût par portée :",
   "accuracyRowTitle" : "Précision :",
+  "preOrderDueDateRowTitle" : "Date de livraison :",
+  "preOrderDueDateRowHintText" : "Date de livraison",
+  "timeInCollectionRowTitle" : "Temps en collection",
+  "serviceIntervalRowTitle" : "Intervalle d'entretien :",
+  "serviceIntervalRowHintText" : "Intervalle d'entretien (ans)",
+  "nextServiceDueRowTitle" : "Prochain entretien :",
+  "nextServiceDueRowHintText" : "Prochain entretien :",
 
 
   "@_VALIDATION_ERRORS": {},
@@ -134,6 +141,7 @@
   "referenceNumberErrorText" : "Référence manquante ou caractères non valides",
   "serialNumberErrorText" : "Le numéro de série contient des caractères non valides",
   "mustBeAValidWholeNumber" : "Saisissez un nombre entier valide",
+  "mustBe0-99orBlank" : "Valeur de 0 à 99 ou vide",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

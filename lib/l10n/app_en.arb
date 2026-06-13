@@ -126,6 +126,13 @@
   "notesRowHintText" : "Notes",
   "costPerWearRowTitle" : "Cost per Wear:",
   "accuracyRowTitle" : "Accuracy:",
+  "preOrderDueDateRowTitle" : "Due Date:",
+  "preOrderDueDateRowHintText" : "Due Date",
+  "timeInCollectionRowTitle" : "Time in Collection",
+  "serviceIntervalRowTitle" : "Service Interval:",
+  "serviceIntervalRowHintText" : "Service Interval (years)",
+  "nextServiceDueRowTitle" : "Next Service Due:",
+  "nextServiceDueRowHintText" : "Next Service Due:",
 
 
 
@@ -139,6 +146,7 @@
   "referenceNumberErrorText" : "Reference Number is missing or invalid characters included",
   "serialNumberErrorText" : "Serial Number contains invalid characters",
   "mustBeAValidWholeNumber" : "Must be a whole number",
+  "mustBe0-99orBlank" : "Must be 0-99 or blank",
 
 
 
