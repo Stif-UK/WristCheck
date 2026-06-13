@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -60,8 +61,8 @@ class ServiceTab extends StatelessWidget {
     return WatchFormField(
       icon: const Icon(FontAwesomeIcons.calendar),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: "Due Date:",
-      hintText: "Due Date",
+      fieldTitle: AppLocalizations.of(Get.context!)!.preOrderDueDateRowTitle,
+      hintText: AppLocalizations.of(Get.context!)!.preOrderDueDateRowHintText,
       maxLines: 1,
       datePicker: true,
       controller: deliveryDateFieldController,
@@ -82,8 +83,8 @@ class ServiceTab extends StatelessWidget {
           child: WatchFormField(
             icon: const Icon(FontAwesomeIcons.hourglass),
             enabled: false,
-            fieldTitle: "Time in Collection",
-            hintText: "Time in Collection",
+            fieldTitle: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
+            hintText: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
             textCapitalization: TextCapitalization.none,
             controller: timeInCollectionFieldController, ),
         ),
@@ -100,14 +101,14 @@ class ServiceTab extends StatelessWidget {
       keyboardType: TextInputType.number,
       icon: const Icon(FontAwesomeIcons.arrowsSpin),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: "Service Interval:",
-      hintText: "Service Interval (years)",
+      fieldTitle: AppLocalizations.of(Get.context!)!.serviceIntervalRowTitle,
+      hintText: AppLocalizations.of(Get.context!)!.serviceIntervalRowHintText,
       maxLines: 1,
       controller: serviceIntervalFieldController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if(!val!.isServiceNumber) {
-          return 'Must be 0-99 or blank';
+          return AppLocalizations.of(Get.context!)!.mustBe099orBlank;
         }
       },
     );
@@ -119,8 +120,8 @@ class ServiceTab extends StatelessWidget {
       icon: const Icon(FontAwesomeIcons.calendarDays),
       //Always read only
       enabled: false,
-      fieldTitle: "Next Service Due:",
-      hintText: "Next Service Due",
+      fieldTitle: AppLocalizations.of(Get.context!)!.nextServiceDueRowTitle,
+      hintText: AppLocalizations.of(Get.context!)!.nextServiceDueRowHintText,
       maxLines: 1,
       controller: nextServiceDueFieldController,
       textCapitalization: TextCapitalization.none,
