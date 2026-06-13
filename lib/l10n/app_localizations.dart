@@ -2852,6 +2852,90 @@ abstract class AppLocalizations {
   /// **'Travel'**
   String get categoryTravel;
 
+  /// No description provided for @notEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Entered'**
+  String get notEntered;
+
+  /// No description provided for @movementMechanicalManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Mechanical - Manual'**
+  String get movementMechanicalManual;
+
+  /// No description provided for @movementMechanicalAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Mechanical - Automatic'**
+  String get movementMechanicalAutomatic;
+
+  /// No description provided for @movementAnalogueQuartz.
+  ///
+  /// In en, this message translates to:
+  /// **'Analogue Quartz'**
+  String get movementAnalogueQuartz;
+
+  /// No description provided for @movementDigitalQuartz.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Quartz'**
+  String get movementDigitalQuartz;
+
+  /// No description provided for @movementAnaDigiQuartz.
+  ///
+  /// In en, this message translates to:
+  /// **'Ana-Digi Quartz'**
+  String get movementAnaDigiQuartz;
+
+  /// No description provided for @movementKinetic.
+  ///
+  /// In en, this message translates to:
+  /// **'Kinetic'**
+  String get movementKinetic;
+
+  /// No description provided for @movementMechaQuartz.
+  ///
+  /// In en, this message translates to:
+  /// **'Mecha-Quartz'**
+  String get movementMechaQuartz;
+
+  /// No description provided for @movementSmartWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Smartwatch'**
+  String get movementSmartWatch;
+
+  /// No description provided for @movementTourbillon.
+  ///
+  /// In en, this message translates to:
+  /// **'Tourbillon'**
+  String get movementTourbillon;
+
+  /// No description provided for @movementSolarQuartz.
+  ///
+  /// In en, this message translates to:
+  /// **'Solar Quartz'**
+  String get movementSolarQuartz;
+
+  /// No description provided for @movementTuningFork.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuning Fork'**
+  String get movementTuningFork;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @movementSpringDrive.
+  ///
+  /// In en, this message translates to:
+  /// **'Spring Drive'**
+  String get movementSpringDrive;
+
   /// No description provided for @archiveScreenTitle.
   ///
   /// In en, this message translates to:

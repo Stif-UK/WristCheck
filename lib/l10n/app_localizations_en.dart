@@ -1498,6 +1498,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryTravel => 'Travel';
 
   @override
+  String get notEntered => 'Not Entered';
+
+  @override
+  String get movementMechanicalManual => 'Mechanical - Manual';
+
+  @override
+  String get movementMechanicalAutomatic => 'Mechanical - Automatic';
+
+  @override
+  String get movementAnalogueQuartz => 'Analogue Quartz';
+
+  @override
+  String get movementDigitalQuartz => 'Digital Quartz';
+
+  @override
+  String get movementAnaDigiQuartz => 'Ana-Digi Quartz';
+
+  @override
+  String get movementKinetic => 'Kinetic';
+
+  @override
+  String get movementMechaQuartz => 'Mecha-Quartz';
+
+  @override
+  String get movementSmartWatch => 'Smartwatch';
+
+  @override
+  String get movementTourbillon => 'Tourbillon';
+
+  @override
+  String get movementSolarQuartz => 'Solar Quartz';
+
+  @override
+  String get movementTuningFork => 'Tuning Fork';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get movementSpringDrive => 'Spring Drive';
+
+  @override
   String get archiveScreenTitle => 'Archived Watches';
 
   @override

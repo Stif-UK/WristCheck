@@ -1506,6 +1506,48 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categoryTravel => 'Voyage';
 
   @override
+  String get notEntered => 'Non renseigné';
+
+  @override
+  String get movementMechanicalManual => 'Mécanique - Remontage manuel';
+
+  @override
+  String get movementMechanicalAutomatic => 'Mécanique - Automatique';
+
+  @override
+  String get movementAnalogueQuartz => 'Quartz analogique';
+
+  @override
+  String get movementDigitalQuartz => 'Quartz digital';
+
+  @override
+  String get movementAnaDigiQuartz => 'Quartz ana-digi';
+
+  @override
+  String get movementKinetic => 'Kinetic';
+
+  @override
+  String get movementMechaQuartz => 'Méca-quartz';
+
+  @override
+  String get movementSmartWatch => 'Montre connectée';
+
+  @override
+  String get movementTourbillon => 'Tourbillon';
+
+  @override
+  String get movementSolarQuartz => 'Quartz solaire';
+
+  @override
+  String get movementTuningFork => 'Diapason';
+
+  @override
+  String get other => 'Autre';
+
+  @override
+  String get movementSpringDrive => 'Spring Drive';
+
+  @override
   String get archiveScreenTitle => 'Montres archivées';
 
   @override
