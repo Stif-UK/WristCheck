@@ -195,15 +195,15 @@ class _ChartOptionsState extends State<ChartOptions> {
                   ),
                   const Divider(thickness: 2,),
                   ExpansionTile(
-                    title: const Text("Wear Stats results order"),
+                    title: Text(AppLocalizations.of(Get.context!)!.wearStatsResultsOrderSectionTitle),
                     leading: const Icon(Icons.bar_chart_rounded),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: const Text("Set the default order that results show in the graph - by default watches are listed in the same order selected for the collection view, however can also be displayed in ascending or descending order."),
+                        child: Text(AppLocalizations.of(Get.context!)!.wearStatsResultsOrderGuidanceText),
                       ),
                       ListTile(
-                        title: const Text("Show in Collection Order"),
+                        title: Text(AppLocalizations.of(Get.context!)!.showResultsInCollectionOrder),
                         leading: Radio<ChartOrdering>(
                           value: ChartOrdering.watchbox,
                           groupValue: _chartOrder ,
@@ -217,7 +217,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Ascending order by wear count"),
+                        title: Text(AppLocalizations.of(Get.context!)!.showResultsAscendingByWearCount),
                         leading: Radio<ChartOrdering>(
                           value: ChartOrdering.ascending,
                           groupValue: _chartOrder ,
@@ -231,7 +231,7 @@ class _ChartOptionsState extends State<ChartOptions> {
                         ),
                       ),
                       ListTile(
-                        title: const Text("Descending order by wear count"),
+                        title: Text(AppLocalizations.of(Get.context!)!.showResultsDescendingByWearCount),
                         leading: Radio<ChartOrdering>(
                           value: ChartOrdering.descending,
                           groupValue: _chartOrder ,
@@ -249,12 +249,12 @@ class _ChartOptionsState extends State<ChartOptions> {
                   ),
                   const Divider(thickness: 2,),
                   ExpansionTile(
-                      title: const Text("Default chart type"),
+                      title: Text(AppLocalizations.of(Get.context!)!.defaultChartTypeSectionTitle),
                     leading: const Icon(Icons.pie_chart),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: const Text("Select the default chart type.\nThis can also be changed on the chart view itself and will remember the last chart type used."),
+                        child: Text(AppLocalizations.of(Get.context!)!.defaultChartTypeGuidanceText),
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(Get.context!)!.barChart),
