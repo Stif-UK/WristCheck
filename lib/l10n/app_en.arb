@@ -17,8 +17,6 @@
   "statusRetired" : "Retired",
   "statusArchived" : "Archived",
 
-
-
   "@_HOME_TABS": {},
   "collection" : "Collection",
   "stats" : "Stats",
@@ -65,8 +63,6 @@
   "gallery" : "Gallery",
   "timeline" : "Timeline",
 
-
-
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Last worn: {shortDate}",
   "wornToday" : "Worn Today",
@@ -77,7 +73,7 @@
   "addedToWatchbox" : "added to watchbox",
   "favouriteLabel" : "Favourite",
 
-  "@_WATCH_ROWS":{},
+  "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Case Diameter (mm):",
   "caseDiameterRowHintText" : "Case Diameter",
   "caseThicknessRowTitle" : "Case Thickness (mm):",
@@ -134,8 +130,6 @@
   "nextServiceDueRowTitle" : "Next Service Due:",
   "nextServiceDueRowHintText" : "Next Service Due:",
 
-
-
   "@_VALIDATION_ERRORS": {},
   "mustBeNumber2decimals" : "Must be numbers only with up to two decimal points",
   "mustBeWholeNumberLessThan99" : "Must be a whole number less than 99",
@@ -146,9 +140,7 @@
   "referenceNumberErrorText" : "Reference Number is missing or invalid characters included",
   "serialNumberErrorText" : "Serial Number contains invalid characters",
   "mustBeAValidWholeNumber" : "Must be a whole number",
-  "mustBe0-99orBlank" : "Must be 0-99 or blank",
-
-
+  "mustBe099orBlank" : "Must be 0-99 or blank",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",
@@ -174,7 +166,6 @@
   "day" : "Day",
   "month" : "Month",
   "year" : "Year",
-
 
   "@_CHARTS_AND_FILTERS" : {},
   "filter" : "Filter:",
@@ -230,7 +221,6 @@
   "generatedWithWristTrackPro" : "This chart generated with WristTrack Pro",
   "generatedWithWristTrack" : "This chart generated with WristTrack",
 
-
   "@_LABELS" : {},
   "watch" : "Watch",
   "movement" : "Movement",
@@ -284,9 +274,6 @@
   "noOptionsFound" : "No Options Found, try again later",
   "supportWristTrack" : "Support WristTrack",
   "payWhatYouLike" : "Pay what you like! Choose any option upgrade to WristTrack Pro",
-
-
-
 
   "@_COMMON" : {},
   "noDataRecorded" : "No Data Recorded",
@@ -464,8 +451,6 @@
   "privacySettingsUpdated" : "Your Privacy choices have been updated",
   "privacyError" : "An error occurred whilst attempting to update privacy settings - please try again",
 
-
-
   "@_ONBOARDING" : {},
   "anAppForEnthusiasts" : "An app for watch enthusiasts. \nSwipe to learn what WristTrack can do...",
   "yourDigitalWatchbox" : "Your Digital Watchbox",
@@ -565,7 +550,6 @@
   "@_SEARCH" : {},
   "search" : "Search",
   "noResultsFound" :  "No Results Found",
-
 
   "@_VARIABLES": {},
   "@watchName": {

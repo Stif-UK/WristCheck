@@ -321,6 +321,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accuracyRowTitle => 'Accuracy:';
 
   @override
+  String get preOrderDueDateRowTitle => 'Due Date:';
+
+  @override
+  String get preOrderDueDateRowHintText => 'Due Date';
+
+  @override
+  String get timeInCollectionRowTitle => 'Time in Collection';
+
+  @override
+  String get serviceIntervalRowTitle => 'Service Interval:';
+
+  @override
+  String get serviceIntervalRowHintText => 'Service Interval (years)';
+
+  @override
+  String get nextServiceDueRowTitle => 'Next Service Due:';
+
+  @override
+  String get nextServiceDueRowHintText => 'Next Service Due:';
+
+  @override
   String get mustBeNumber2decimals =>
       'Must be numbers only with up to two decimal points';
 
@@ -353,6 +374,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mustBeAValidWholeNumber => 'Must be a whole number';
+
+  @override
+  String get mustBe099orBlank => 'Must be 0-99 or blank';
 
   @override
   String get infoTabLabel => 'Info';

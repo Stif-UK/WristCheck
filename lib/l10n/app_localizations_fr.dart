@@ -322,6 +322,27 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accuracyRowTitle => 'Précision :';
 
   @override
+  String get preOrderDueDateRowTitle => 'Date de livraison :';
+
+  @override
+  String get preOrderDueDateRowHintText => 'Date de livraison';
+
+  @override
+  String get timeInCollectionRowTitle => 'Temps en collection';
+
+  @override
+  String get serviceIntervalRowTitle => 'Intervalle d\'entretien :';
+
+  @override
+  String get serviceIntervalRowHintText => 'Intervalle d\'entretien (ans)';
+
+  @override
+  String get nextServiceDueRowTitle => 'Prochain entretien :';
+
+  @override
+  String get nextServiceDueRowHintText => 'Prochain entretien :';
+
+  @override
   String get mustBeNumber2decimals =>
       'Saisissez uniquement des chiffres (max. 2 décimales)';
 
@@ -353,6 +374,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get mustBeAValidWholeNumber => 'Saisissez un nombre entier valide';
+
+  @override
+  String get mustBe099orBlank => 'Valeur de 0 à 99 ou vide';
 
   @override
   String get infoTabLabel => 'Infos';

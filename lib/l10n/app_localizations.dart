@@ -710,6 +710,48 @@ abstract class AppLocalizations {
   /// **'Accuracy:'**
   String get accuracyRowTitle;
 
+  /// No description provided for @preOrderDueDateRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date:'**
+  String get preOrderDueDateRowTitle;
+
+  /// No description provided for @preOrderDueDateRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get preOrderDueDateRowHintText;
+
+  /// No description provided for @timeInCollectionRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time in Collection'**
+  String get timeInCollectionRowTitle;
+
+  /// No description provided for @serviceIntervalRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Interval:'**
+  String get serviceIntervalRowTitle;
+
+  /// No description provided for @serviceIntervalRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Interval (years)'**
+  String get serviceIntervalRowHintText;
+
+  /// No description provided for @nextServiceDueRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Service Due:'**
+  String get nextServiceDueRowTitle;
+
+  /// No description provided for @nextServiceDueRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Service Due:'**
+  String get nextServiceDueRowHintText;
+
   /// No description provided for @mustBeNumber2decimals.
   ///
   /// In en, this message translates to:
@@ -763,6 +805,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Must be a whole number'**
   String get mustBeAValidWholeNumber;
+
+  /// No description provided for @mustBe099orBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be 0-99 or blank'**
+  String get mustBe099orBlank;
 
   /// No description provided for @infoTabLabel.
   ///

@@ -141,7 +141,7 @@
   "referenceNumberErrorText" : "Référence manquante ou caractères non valides",
   "serialNumberErrorText" : "Le numéro de série contient des caractères non valides",
   "mustBeAValidWholeNumber" : "Saisissez un nombre entier valide",
-  "mustBe0-99orBlank" : "Valeur de 0 à 99 ou vide",
+  "mustBe099orBlank" : "Valeur de 0 à 99 ou vide",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",
