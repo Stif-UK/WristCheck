@@ -442,6 +442,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get year => 'Year';
 
   @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
   String get filter => 'Filter:';
 
   @override

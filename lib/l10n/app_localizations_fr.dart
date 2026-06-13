@@ -442,6 +442,27 @@ class AppLocalizationsFr extends AppLocalizations {
   String get year => 'Année';
 
   @override
+  String get monday => 'lundi';
+
+  @override
+  String get tuesday => 'mardi';
+
+  @override
+  String get wednesday => 'mercredi';
+
+  @override
+  String get thursday => 'jeudi';
+
+  @override
+  String get friday => 'vendredi';
+
+  @override
+  String get saturday => 'samedi';
+
+  @override
+  String get sunday => 'dimanche';
+
+  @override
   String get filter => 'Filtrer :';
 
   @override

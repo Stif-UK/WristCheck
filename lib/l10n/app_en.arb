@@ -35,6 +35,10 @@
   "follow" : "Follow WristTrack",
   "email" : "Email Feedback",
 
+  "@_OPTIONS": {},
+
+
+
   "@_SETTINGS_LINKS": {},
   "languageLink" : "Language",
   "reminderLink" : "Daily Reminder",
@@ -166,6 +170,13 @@
   "day" : "Day",
   "month" : "Month",
   "year" : "Year",
+  "monday" : "Monday",
+  "tuesday" : "Tuesday",
+  "wednesday" : "Wednesday",
+  "thursday" : "Thursday",
+  "friday" : "Friday",
+  "saturday" : "Saturday",
+  "sunday" : "Sunday",
 
   "@_CHARTS_AND_FILTERS" : {},
   "filter" : "Filter:",
