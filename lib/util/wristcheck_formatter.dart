@@ -549,9 +549,7 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
   static String getGallerySubheaderText(Watches watch, BuildContext context){
     final statusEnum = WatchStatusEnumExtension.fromDbString(watch.status);
     String returnString = statusEnum.toLocalizedString(context);
-
-    //["In Collection", "Sold", "Wishlist", "Pre-Order", "Retired", "Archived"];
-
+    
     if (watch.status == WatchStatusEnum.inCollection.toDbString()) {
       var favourite = watch.favourite ? " (Favourite)" : "";
       returnString = "$returnString$favourite - ${WristCheckFormatter.getWearCountText(watch.wearList.length)}";
@@ -625,18 +623,18 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
   }
 
   static String getAccuracyPeriodText(RateUnit unit){
-    String returnText = "Day";
     final l = AppLocalizations.of(Get.context!);
+    String returnText = l!.day;
 
     switch(unit) {
       case RateUnit.day:
-        returnText = l!.day;
+        returnText = l.day;
         break;
       case RateUnit.month:
-        returnText = l!.month;
+        returnText = l.month;
         break;
       case RateUnit.year:
-        returnText = l!.year;
+        returnText = l.year;
         break;
     }
 
