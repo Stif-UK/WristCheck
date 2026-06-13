@@ -271,7 +271,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                     leading: Icon(FontAwesomeIcons.water),
                     children: [
                       RadioListTile(
-                          title: const Text("metres"),
+                          title: Text(WRUnitsEnum.metres.toLocalizedString(context)),
                           value: WRUnitsEnum.metres,
                           groupValue: widget.wristCheckController.waterResistanceUnit.value,
                           onChanged:<WRUnitsEnum>(value){
@@ -279,7 +279,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                           }
                       ),
                       RadioListTile(
-                          title: const Text("feet"),
+                          title: Text(WRUnitsEnum.feet.toLocalizedString(context)),
                           value: WRUnitsEnum.feet,
                           groupValue: widget.wristCheckController.waterResistanceUnit.value,
                           onChanged:<WRUnitsEnum>(value){

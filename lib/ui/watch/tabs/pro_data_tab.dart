@@ -6,6 +6,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
@@ -68,7 +69,7 @@ class ProDataTab extends StatelessWidget {
         LugWidthRow(enabled: watchViewController.inEditState.value, lugWidthController: lugWidthController),
         LugToLugRow(enabled: watchViewController.inEditState.value, lug2lugController: lug2lugController),
         CaseThicknessRow(enabled: watchViewController.inEditState.value, caseThicknessController: caseThicknessController),
-        WaterResistanceRow(enabled: watchViewController.inEditState.value, waterResistanceController: waterResistanceController, units: wristCheckController.waterResistanceUnit.value.name),
+        WaterResistanceRow(enabled: watchViewController.inEditState.value, waterResistanceController: waterResistanceController, units: wristCheckController.waterResistanceUnit.value.toLocalizedString(Get.context!)),
         _buildCaseMaterialField(),
         _buildDateComplicationField()
       ],
