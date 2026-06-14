@@ -29,14 +29,14 @@ class AboutApp extends StatelessWidget{
           children: [
             ListTile(
               leading: Icon(FontAwesomeIcons.earthAmericas),
-              title: Text("Visit www.wristtrack.app"),
+              title: Text(AppLocalizations.of(context)!.visitWristTrackWeb),
               trailing: Icon(FontAwesomeIcons.arrowUpRightFromSquare),
               onTap: () async {
                 _launchURL();
               },
             ),
             const Divider(thickness: 2,),
-            ExpansionTile(title: const Text("About WristTrack"),
+            ExpansionTile(title: Text(AppLocalizations.of(context)!.aboutWristTrack),
             leading: Icon(FontAwesomeIcons.clock),
             onExpansionChanged: (bool) async {
               await analytics.logEvent(name: "about_wc_expanded",
@@ -48,7 +48,7 @@ class AboutApp extends StatelessWidget{
               AboutAppCopy.getAboutWristCheckCopy(),
             ],),
             const Divider(thickness: 2,),
-            ExpansionTile(title: const Text("About the Developer"),
+            ExpansionTile(title: Text(AppLocalizations.of(context)!.aboutTheDeveloper),
               leading: Icon(FontAwesomeIcons.code),
               onExpansionChanged: (bool) async {
                 await analytics.logEvent(name: "about_stifdev_expanded",
@@ -60,7 +60,7 @@ class AboutApp extends StatelessWidget{
               AboutAppCopy.getAboutDeveloperCopy(),
             ],),
             const Divider(thickness: 2,),
-            ExpansionTile(title: const Text("Acknowledgements"),
+            ExpansionTile(title: Text(AppLocalizations.of(context)!.acknowledgements),
               leading: Icon(FontAwesomeIcons.award),
               onExpansionChanged: (bool) async {
                 await analytics.logEvent(name: "ack_expanded",
@@ -73,7 +73,7 @@ class AboutApp extends StatelessWidget{
 
             ],),
             const Divider(thickness: 2,),
-            ExpansionTile(title: const Text("Version History"),
+            ExpansionTile(title: Text(AppLocalizations.of(context)!.versionHistory),
               leading: Icon(FontAwesomeIcons.clockRotateLeft),
               onExpansionChanged: (bool) async {
                 await analytics.logEvent(name: "version_history_expanded",
