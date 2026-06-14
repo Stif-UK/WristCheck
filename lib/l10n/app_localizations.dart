@@ -254,6 +254,36 @@ abstract class AppLocalizations {
   /// **'Email Feedback'**
   String get email;
 
+  /// No description provided for @visitWristTrackWeb.
+  ///
+  /// In en, this message translates to:
+  /// **'Visit www.wristtrack.app'**
+  String get visitWristTrackWeb;
+
+  /// No description provided for @aboutWristTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'About WristTrack'**
+  String get aboutWristTrack;
+
+  /// No description provided for @aboutTheDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'About the Developer'**
+  String get aboutTheDeveloper;
+
+  /// No description provided for @acknowledgements.
+  ///
+  /// In en, this message translates to:
+  /// **'Acknowledgements'**
+  String get acknowledgements;
+
+  /// No description provided for @versionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Version History'**
+  String get versionHistory;
+
   /// No description provided for @viewOptionsPageTitle.
   ///
   /// In en, this message translates to:

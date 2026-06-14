@@ -35,6 +35,13 @@
   "follow" : "Suivre WristTrack",
   "email" : "Commentaires par e-mail",
 
+  "@_ABOUT" : {},
+  "visitWristTrackWeb" : "Visiter www.wristtrack.app",
+  "aboutWristTrack" : "À propos de WristTrack",
+  "aboutTheDeveloper" : "À propos du développeur",
+  "acknowledgements" : "Remerciements",
+  "versionHistory" : "Historique des versions",
+
   "@_OPTIONS": {},
   "viewOptionsPageTitle" : "Options d'affichage",
   "collectionDisplaySectionTitle" : "Affichage de la collection",

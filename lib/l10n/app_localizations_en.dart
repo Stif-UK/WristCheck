@@ -87,6 +87,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email Feedback';
 
   @override
+  String get visitWristTrackWeb => 'Visit www.wristtrack.app';
+
+  @override
+  String get aboutWristTrack => 'About WristTrack';
+
+  @override
+  String get aboutTheDeveloper => 'About the Developer';
+
+  @override
+  String get acknowledgements => 'Acknowledgements';
+
+  @override
+  String get versionHistory => 'Version History';
+
+  @override
   String get viewOptionsPageTitle => 'View Options';
 
   @override

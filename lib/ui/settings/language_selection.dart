@@ -33,7 +33,7 @@ class LanguageSelection extends StatelessWidget {
                   languageController.updateLocalePref(lang.locale);
                 },
               );
-              
+
             });
 
       }),

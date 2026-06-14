@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/copy/aboutapp_copy.dart';
 import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class AboutApp extends StatelessWidget{
 
@@ -17,7 +18,7 @@ class AboutApp extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About"),
+        title: Text(AppLocalizations.of(context)!.about),
         leading:  IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
       ),
 
