@@ -6,7 +6,7 @@
   "favouriteWatches" : "Любимые часы",
   "wishlist" : "Список желаний",
   "preOrders" : "Предзаказы",
-  "retiredWatches" : "Выведенные из коллекции",
+  "retiredWatches": "Бывшие",
   "randomWatch" : "Случайные часы",
 
   "@_STATUS_LIST": {},
@@ -14,7 +14,7 @@
   "statusSold" : "Проданы",
   "statusWishlist" : "В списке желаний",
   "statusPreOrder" : "Предзаказ",
-  "statusRetired" : "Выведены из коллекции",
+  "statusRetired" : "Бывшие",
   "statusArchived" : "В архиве",
 
   "@_HOME_TABS": {},

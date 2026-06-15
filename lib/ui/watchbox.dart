@@ -88,20 +88,22 @@ class _WatchBoxState extends State<Watchbox> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        DropdownButton<CollectionView>(
-                          icon: Icon(FontAwesomeIcons.angleDown),
-                          dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                          items: items.map(buildMenuItem).toList(),
-                          value: collectionValue,
-                          onChanged: (value) async {
-                            analytics.logEvent(name: "change_watchbox_view",
-                                parameters: {
-                                  "view" : collectionValue.toString()
-                                });
-                            setState(() {
-                              collectionValue = value;
-                            });
-                          },),
+                        FittedBox(
+                          child: DropdownButton<CollectionView>(
+                            icon: Icon(FontAwesomeIcons.angleDown),
+                            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                            items: items.map(buildMenuItem).toList(),
+                            value: collectionValue,
+                            onChanged: (value) async {
+                              analytics.logEvent(name: "change_watchbox_view",
+                                  parameters: {
+                                    "view" : collectionValue.toString()
+                                  });
+                              setState(() {
+                                collectionValue = value;
+                              });
+                            },),
+                        ),
                       ],
                     ),
                   ),

@@ -21,7 +21,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get preOrders => 'Предзаказы';
 
   @override
-  String get retiredWatches => 'Выведенные из коллекции';
+  String get retiredWatches => 'Бывшие';
 
   @override
   String get randomWatch => 'Случайные часы';
@@ -39,7 +39,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get statusPreOrder => 'Предзаказ';
 
   @override
-  String get statusRetired => 'Выведены из коллекции';
+  String get statusRetired => 'Бывшие';
 
   @override
   String get statusArchived => 'В архиве';
