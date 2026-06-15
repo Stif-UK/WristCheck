@@ -84,7 +84,7 @@
   "wristRecap" : "Обзор на запястье",
 
   "@_TIME_SETTING": {},
-  "lastSync" : "Последняя синхронизация:",
+  "lastSync": "Посл. синхр.:",
   "deviation" : "Погрешность системного времени:",
   "inProgress" : "Синхронизация... Отображается системное время...",
   "beepCountdown" : "Звуковой отсчет",
@@ -98,7 +98,7 @@
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Последний раз: {shortDate}",
   "wornToday" : "Надеты сегодня",
-  "wearToday" :  "Надеть эти часы сегодня",
+  "wearToday": "Надеть сегодня",
   "editTitle" : "Изменить: {watchName}",
   "addWatch" : "Добавить часы",
   "addOptionalDetails" : "Добавить доп. сведения?",

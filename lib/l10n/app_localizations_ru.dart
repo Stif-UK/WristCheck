@@ -204,7 +204,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wristRecap => 'Обзор на запястье';
 
   @override
-  String get lastSync => 'Последняя синхронизация:';
+  String get lastSync => 'Посл. синхр.:';
 
   @override
   String get deviation => 'Погрешность системного времени:';
@@ -236,7 +236,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wornToday => 'Надеты сегодня';
 
   @override
-  String get wearToday => 'Надеть эти часы сегодня';
+  String get wearToday => 'Надеть сегодня';
 
   @override
   String editTitle(Object watchName) {

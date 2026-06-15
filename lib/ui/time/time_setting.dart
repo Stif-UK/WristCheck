@@ -90,7 +90,9 @@ class _TimeSettingState extends State<TimeSetting> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Text(AppLocalizations.of(context)!.lastSync, style: Theme.of(context).textTheme.bodySmall,),
+                        child: FittedBox(child: Text(AppLocalizations.of(context)!.lastSync,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          overflow: TextOverflow.ellipsis,)),
                       ),
                       widget.timeController.timeSynced.value ?
                       Text(widget.timeController.lastSyncTime.value,
