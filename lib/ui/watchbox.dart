@@ -25,7 +25,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class Watchbox extends StatefulWidget {
   Watchbox({Key? key}) : super(key: key);
   final wristCheckController = Get.put(WristCheckController());
-  
+
   @override
   State<Watchbox> createState() => _WatchBoxState();
 }

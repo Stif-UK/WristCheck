@@ -70,10 +70,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                     child: ElevatedButton(
                       child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child: Text(AppLocalizations.of(context)!.wearStatsButton, textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 25, overflow: TextOverflow.fade,
-                        ),),
+                        child: FittedBox(
+                          child: Text(AppLocalizations.of(context)!.wearStatsButton, textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 25, overflow: TextOverflow.fade,
+                          ),),
+                        ),
                       ),
                       onPressed: (){ Get.to(() => WearStatsV2());},
                       style: ButtonStyle(
@@ -100,10 +102,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                     child: ElevatedButton(
                         child: Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text(AppLocalizations.of(context)!.collectionStatsButton, textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 25, overflow: TextOverflow.fade,
-                            ),),
+                          child: FittedBox(
+                            child: Text(AppLocalizations.of(context)!.collectionStatsButton, textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 25, overflow: TextOverflow.fade,
+                              ),),
+                          ),
                         ),
                         onPressed: (){
                           Get.to(()=>const CollectionStats());
@@ -130,10 +134,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                     child: ElevatedButton(
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text("Wrist Recap",
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),),
+                          child: FittedBox(
+                            child: Text("Wrist Recap",
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),),
+                          ),
                         ),
                         onPressed: (){
                           Get.to(()=>const PeriodReviewHome());
