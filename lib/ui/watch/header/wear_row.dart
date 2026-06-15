@@ -75,7 +75,7 @@ class _WearRowState extends State<WearRow> {
               widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString()? _addWearButton() : const SizedBox(height: 10),
               const SizedBox(height: 10),
               //Show last worn date
-              _displayLastWearDate(),
+              FittedBox(child: _displayLastWearDate()),
               _displayWearCount(),
               const SizedBox(height: 20),
             ],
@@ -116,10 +116,13 @@ class _WearRowState extends State<WearRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(AppLocalizations.of(Get.context!)!.lastWorn(ViewWatchHelper.getLastWearDate(widget.currentWatch!)),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),),
+        FittedBox(
+          child: Text(AppLocalizations.of(Get.context!)!.lastWorn(ViewWatchHelper.getLastWearDate(widget.currentWatch!)),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          overflow: TextOverflow.ellipsis,),
+        ),
       ],
     );
   }
