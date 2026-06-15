@@ -1431,6 +1431,36 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get timelineSettings => 'Paramètres de la frise chronologique';
+
+  @override
+  String get orderAscending => 'Tri : croissant.';
+
+  @override
+  String get orderDescending => 'Tri : décroissant.';
+
+  @override
+  String get showWatchesPurchased => 'Afficher les montres achetées.';
+
+  @override
+  String get showWatchesSold => 'Afficher les montres vendues.';
+
+  @override
+  String get showPreOrderDueDates => 'Afficher les dates des précommandes.';
+
+  @override
+  String get showLastServicedDates =>
+      'Afficher les dates du dernier entretien.';
+
+  @override
+  String get showNextServiceDates =>
+      'Afficher les dates du prochain entretien.';
+
+  @override
+  String get showWarrantyEndDates =>
+      'Afficher las dates d\'expiration de la garantie.';
+
+  @override
   String get privacyPolicy => 'Politique de confidentialité';
 
   @override

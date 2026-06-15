@@ -1433,6 +1433,33 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get timelineSettings => 'Настройки хроники';
+
+  @override
+  String get orderAscending => 'Сортировка: по возрастанию.';
+
+  @override
+  String get orderDescending => 'Сортировка: по убыванию.';
+
+  @override
+  String get showWatchesPurchased => 'Показывать купленные часы.';
+
+  @override
+  String get showWatchesSold => 'Показывать проданные часы.';
+
+  @override
+  String get showPreOrderDueDates => 'Показывать даты предзаказов.';
+
+  @override
+  String get showLastServicedDates => 'Показывать даты последнего сервиса.';
+
+  @override
+  String get showNextServiceDates => 'Показывать даты планового сервиса.';
+
+  @override
+  String get showWarrantyEndDates => 'Показывать сроки окончания гарантии.';
+
+  @override
   String get privacyPolicy => 'Политика конфиденциальности';
 
   @override

@@ -1419,6 +1419,33 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get timelineSettings => 'Timeline Settings';
+
+  @override
+  String get orderAscending => 'Order: Ascending.';
+
+  @override
+  String get orderDescending => 'Order: Descending.';
+
+  @override
+  String get showWatchesPurchased => 'Show watches purchased.';
+
+  @override
+  String get showWatchesSold => 'Show watches sold.';
+
+  @override
+  String get showPreOrderDueDates => 'Show pre-order due dates.';
+
+  @override
+  String get showLastServicedDates => 'Show last serviced dates.';
+
+  @override
+  String get showNextServiceDates => 'Show next service dates.';
+
+  @override
+  String get showWarrantyEndDates => 'Show warranty end dates.';
+
+  @override
   String get privacyPolicy => 'Privacy Policy';
 
   @override

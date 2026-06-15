@@ -1431,6 +1431,34 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get timelineSettings => 'Timeline-Einstellungen';
+
+  @override
+  String get orderAscending => 'Sortierung: Aufsteigend.';
+
+  @override
+  String get orderDescending => 'Sortierung: Absteigend.';
+
+  @override
+  String get showWatchesPurchased => 'Gekaufte Uhren anzeigen.';
+
+  @override
+  String get showWatchesSold => 'Verkaufte Uhren anzeigen.';
+
+  @override
+  String get showPreOrderDueDates =>
+      'Liefertermine für Vorbestellungen anzeigen.';
+
+  @override
+  String get showLastServicedDates => 'Letzte Servicetermine anzeigen.';
+
+  @override
+  String get showNextServiceDates => 'Anstehende Servicetermine anzeigen.';
+
+  @override
+  String get showWarrantyEndDates => 'Garantie-Ablaufdaten anzeigen.';
+
+  @override
   String get privacyPolicy => 'Datenschutzerklärung';
 
   @override

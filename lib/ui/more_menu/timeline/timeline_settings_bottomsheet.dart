@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/timeline_controller.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/timeline_type_enum.dart';
 import 'package:wristcheck/util/timeline_helper.dart';
 
@@ -43,21 +44,23 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           //Header#
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Timeline Settings", style: Theme.of(context).textTheme.headlineSmall,),
+            child: Text(AppLocalizations.of(context)!.timelineSettings, style: Theme.of(context).textTheme.headlineSmall,),
           ),
           Obx(()=> SwitchListTile(
             value: widget.timelineController.timelineOrderAscending.value,
             onChanged: (newValue) {
               widget.timelineController.timelineOrderAscending(newValue);
             },
-            title: widget.timelineController.timelineOrderAscending.value ? Text("Order: Ascending."):Text("Order: Descending."),
+            title: widget.timelineController.timelineOrderAscending.value ?
+            Text(AppLocalizations.of(context)!.orderAscending):
+            Text(AppLocalizations.of(context)!.orderDescending),
             secondary: widget.timelineController.timelineOrderAscending.value ? Icon(FontAwesomeIcons.upLong) : Icon(FontAwesomeIcons.downLong),
           ),
           ),
           Obx(()=> SwitchListTile(
               value: widget.timelineController.showPurchases.value,
               onChanged: (newValue) => widget.timelineController.updateShowPurchases(newValue),
-              title: Text("Show watches purchased."),
+              title: Text(AppLocalizations.of(context)!.showWatchesPurchased),
               activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.purchase, DateTime.now(), "")),
               secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.purchase)),
           ),
@@ -65,7 +68,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           Obx(()=> SwitchListTile(
             value: widget.timelineController.showSales.value,
             onChanged: (newValue) => widget.timelineController.updateShowSales(newValue),
-            title: Text("Show watches sold."),
+            title: Text(AppLocalizations.of(context)!.showWatchesSold),
             activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.sold, DateTime.now(), "")),
             secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.sold)),
           ),
@@ -73,7 +76,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           Obx(()=> SwitchListTile(
             value: widget.timelineController.showPreOrders.value,
             onChanged: (newValue) => widget.timelineController.updateShowPreOrders(newValue),
-            title: Text("Show pre-order due dates."),
+            title: Text(AppLocalizations.of(context)!.showPreOrderDueDates),
             activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.preorder, DateTime.now(), "")),
             secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.preorder)),
           ),
@@ -81,7 +84,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           Obx(()=> SwitchListTile(
             value: widget.timelineController.showLastServiced.value,
             onChanged: (newValue) => widget.timelineController.updateShowLastServiced(newValue),
-            title: Text("Show last serviced dates."),
+            title: Text(AppLocalizations.of(context)!.showLastServicedDates),
             activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.lastService, DateTime.now(), "")),
             secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.lastService)),
           ),
@@ -89,7 +92,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           Obx(()=> SwitchListTile(
             value: widget.timelineController.showNextServiceDue.value,
             onChanged: (newValue) => widget.timelineController.updateShowNextServiceDue(newValue),
-            title: Text("Show next service dates."),
+            title: Text(AppLocalizations.of(context)!.showNextServiceDates),
             activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.nextService, DateTime.now(), "")),
             secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.nextService)),
           ),
@@ -97,7 +100,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
           Obx(()=> SwitchListTile(
             value: widget.timelineController.showWarrantyEnd.value,
             onChanged: (newValue) => widget.timelineController.updateShowWarrantyEnd(newValue),
-            title: Text("Show warranty end dates."),
+            title: Text(AppLocalizations.of(context)!.showWarrantyEndDates),
             activeColor: TimeLineHelper.getTimeLineIndicatorColour(TimeLineEvent(TimeLineEventType.warranty, DateTime.now(), "")),
             secondary: Icon(TimeLineHelper.getTimeLineIcon(TimeLineEventType.warranty)),
           ),

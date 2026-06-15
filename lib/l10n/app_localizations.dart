@@ -2718,6 +2718,60 @@ abstract class AppLocalizations {
   /// **'{watchName} warranty expires'**
   String watchNameWarrantyExpires(Object watchName);
 
+  /// No description provided for @timelineSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline Settings'**
+  String get timelineSettings;
+
+  /// No description provided for @orderAscending.
+  ///
+  /// In en, this message translates to:
+  /// **'Order: Ascending.'**
+  String get orderAscending;
+
+  /// No description provided for @orderDescending.
+  ///
+  /// In en, this message translates to:
+  /// **'Order: Descending.'**
+  String get orderDescending;
+
+  /// No description provided for @showWatchesPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Show watches purchased.'**
+  String get showWatchesPurchased;
+
+  /// No description provided for @showWatchesSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Show watches sold.'**
+  String get showWatchesSold;
+
+  /// No description provided for @showPreOrderDueDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Show pre-order due dates.'**
+  String get showPreOrderDueDates;
+
+  /// No description provided for @showLastServicedDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Show last serviced dates.'**
+  String get showLastServicedDates;
+
+  /// No description provided for @showNextServiceDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Show next service dates.'**
+  String get showNextServiceDates;
+
+  /// No description provided for @showWarrantyEndDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Show warranty end dates.'**
+  String get showWarrantyEndDates;
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:
