@@ -28,7 +28,7 @@ class AccuracyRow extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10.0, 8.0, 0, 8.0),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, style: Theme.of(context).textTheme.bodyLarge,)),
+          Expanded(flex: 2, child: FittedBox(child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, style: Theme.of(context).textTheme.bodyLarge,))),
           Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),
@@ -43,9 +43,6 @@ class AccuracyRow extends StatelessWidget {
     Measurement? latest;
     String returnText = AppLocalizations.of(Get.context!)!.noRecordsTracked;
     //Get latest accuracy record for the watch
-    // if(currentWatch!=null) {
-    //   latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
-    // };
     if(accuracyController.lastMeasurement.value != null){
       returnText = accuracyController.lastMeasurement.value?.baseLine == null ? AppLocalizations.of(Get.context!)!.measurementInProgress : _getRateText(accuracyController.lastMeasurement.value!, RateUnit.day);
     };
