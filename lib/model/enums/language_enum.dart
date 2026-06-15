@@ -4,7 +4,8 @@ enum LanguageEnum {
   en,
   fr,
   de,
-  ru
+  ru,
+  cs,
 }
 
 extension LanguageEnumExtension on LanguageEnum {
@@ -20,6 +21,9 @@ extension LanguageEnumExtension on LanguageEnum {
       case LanguageEnum.ru:
         return 'Русский';
         break;
+      case LanguageEnum.cs:
+        return 'Čeština';
+        break;
     }
   }
 
@@ -34,6 +38,9 @@ extension LanguageEnumExtension on LanguageEnum {
         break;
       case LanguageEnum.ru:
         return const Locale('ru');
+        break;
+      case LanguageEnum.cs:
+        return const Locale('cs');
         break;
     }
   }

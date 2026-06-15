@@ -121,7 +121,8 @@ Future main() async{
                 Locale('en'),// English
                 Locale('fr'),// French
                 Locale('de'),// German
-                Locale('ru')// Russian
+                Locale('ru'),// Russian
+                Locale('cs') // Czech
               ],
 
                         home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
