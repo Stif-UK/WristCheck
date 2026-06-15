@@ -25,15 +25,10 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class Watchbox extends StatefulWidget {
   Watchbox({Key? key}) : super(key: key);
   final wristCheckController = Get.put(WristCheckController());
-
-
-
-
+  
   @override
   State<Watchbox> createState() => _WatchBoxState();
 }
-
-
 
 class _WatchBoxState extends State<Watchbox> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -90,13 +85,6 @@ class _WatchBoxState extends State<Watchbox> {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.fromLTRB(0,10.0,10.0,10.0),
-                    // decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //         color: Theme.of(context).disabledColor,
-                    //         width: 2
-                    //     ),
-                    //     shape: BoxShape.rectangle,
-                    //     borderRadius: const BorderRadius.all(Radius.circular(10))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -130,55 +118,10 @@ class _WatchBoxState extends State<Watchbox> {
                              );
                               }
                             ),
-          //       Obx(
-          //         ()=> Container(
-          //
-          //           decoration: BoxDecoration(
-          //               border: Border.all(
-          //                 color: Theme.of(context).disabledColor,
-          //                 width: 2
-          //               ),
-          //               shape: BoxShape.rectangle,
-          //               borderRadius: const BorderRadius.all(Radius.circular(10))),
-          //           child: IconButton(
-          //             icon: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
-          //             onPressed: (){
-          //               showModalBottomSheet(
-          //                 isScrollControlled: true,
-          //                   context: context,
-          //                   builder: (context){
-          //                     return WatchOrderBottomSheet();
-          //                   }
-          //               );
-          //             },
-          //           ),
-          //         ),
-          //       ),
-          //
-          //       Container(
-          //         decoration: BoxDecoration(
-          //             border: Border.all(
-          //                 color: Theme.of(context).disabledColor,
-          //                 width: 2
-          //             ),
-          //             shape: BoxShape.rectangle,
-          //             borderRadius: const BorderRadius.all(Radius.circular(10))),
-          //         child: IconButton(
-          //           icon: const Icon(Icons.search),
-          //           onPressed: () async {
-          //             analytics.logEvent(name: "search_called");
-          //             showSearch(
-          //               context: context,
-          //               delegate: SearchWidget(),
-          //             );
-          //           },
-          //         ),
-          //       )
               ],
             ),
           ),
           //Implement the watchbox view
-          //Obx(()=> WatchboxListView(collectionValue: collectionValue!, watchOrder: widget.wristCheckController.watchboxOrder.value!))
           ValueListenableBuilder(
             valueListenable: watchBox.listenable(),
             builder: (context, box, _) {

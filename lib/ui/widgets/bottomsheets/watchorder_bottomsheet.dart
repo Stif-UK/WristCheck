@@ -1,10 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
+import 'package:wristcheck/ui/search_widget.dart';
 
 
 class WatchOrderBottomSheet extends StatefulWidget {
@@ -42,33 +44,50 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //Header#
-          Obx(
-                ()=> Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.list),
-                ),
-                Text(AppLocalizations.of(context)!.listViewTitle),
-                Switch(
-                  value: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
-                  onChanged: (value) async {
-                    analytics.logEvent(name: "view_set",
-                        parameters: {
-                      "is_grid": value.toString()
-                        });
-                    widget.wristCheckController.updateWatchBoxView();
-                  },
-                ),
-                Text(AppLocalizations.of(context)!.gridViewTitle),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.grid_view),
-                )
-              ],
-            ),
+          Row(
+            children: [
+              Obx(
+                    ()=> Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 8.0),
+                        child: Icon(Icons.list),
+                      ),
+                      Text(AppLocalizations.of(context)!.listViewTitle),
+                      Switch(
+                        value: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
+                        onChanged: (value) async {
+                          analytics.logEvent(name: "view_set",
+                              parameters: {
+                            "is_grid": value.toString()
+                              });
+                          widget.wristCheckController.updateWatchBoxView();
+                        },
+                      ),
+                      Text(AppLocalizations.of(context)!.gridViewTitle),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.grid_view),
+                      )
+                                        ],
+                                      ),
+                    ),
+              ),
+              IconButton(
+                  icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                  onPressed: () async {
+            analytics.logEvent(name: "search_called");
+            showSearch(
+              context: context,
+              delegate: SearchWidget(),
+            );
+          },
+        )
+            ],
           ),
+          const Divider(thickness: 2,),
 
           Row(
             children: [
