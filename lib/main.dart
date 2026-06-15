@@ -118,9 +118,10 @@ Future main() async{
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: [
-                Locale('en'), // English
-                Locale('fr'),//French
-                Locale('de') // German
+                Locale('en'),// English
+                Locale('fr'),// French
+                Locale('de'),// German
+                Locale('ru')// Russian
               ],
 
                         home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),

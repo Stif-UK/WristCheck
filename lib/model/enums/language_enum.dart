@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 enum LanguageEnum {
   en,
   fr,
-  de
+  de,
+  ru
 }
 
 extension LanguageEnumExtension on LanguageEnum {
@@ -16,6 +17,9 @@ extension LanguageEnumExtension on LanguageEnum {
       case LanguageEnum.de:
         return 'Deutsch';
         break;
+      case LanguageEnum.ru:
+        return 'Русский';
+        break;
     }
   }
 
@@ -27,6 +31,9 @@ extension LanguageEnumExtension on LanguageEnum {
         return const Locale('fr');
       case LanguageEnum.de:
         return const Locale('de');
+        break;
+      case LanguageEnum.ru:
+        return const Locale('ru');
         break;
     }
   }

@@ -985,7 +985,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String wearCount(Object count) {
+  String wearCount(num count) {
     return 'Portée $count fois';
   }
 
