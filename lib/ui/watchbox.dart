@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -83,84 +84,96 @@ class _WatchBoxState extends State<Watchbox> {
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
           //Create drop down and search button
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
             child: Row(
               children: [
-                Obx(
-                  ()=> Container(
-
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).disabledColor,
-                          width: 2
-                        ),
-                        shape: BoxShape.rectangle,
-                        borderRadius: const BorderRadius.all(Radius.circular(10))),
-                    child: IconButton(
-                      icon: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
-                      onPressed: (){
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                            context: context,
-                            builder: (context){
-                              return WatchOrderBottomSheet();
-                            }
-                        );
-                      },
-                    ),
-                  ),
-                ),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context).disabledColor,
-                            width: 2
-                        ),
-                        shape: BoxShape.rectangle,
-                        borderRadius: const BorderRadius.all(Radius.circular(10))),
+                    margin: const EdgeInsets.fromLTRB(0,10.0,10.0,10.0),
+                    // decoration: BoxDecoration(
+                    //     border: Border.all(
+                    //         color: Theme.of(context).disabledColor,
+                    //         width: 2
+                    //     ),
+                    //     shape: BoxShape.rectangle,
+                    //     borderRadius: const BorderRadius.all(Radius.circular(10))),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton<CollectionView>(
-                            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                            items: items.map(buildMenuItem).toList(),
-                            value: collectionValue,
-                            onChanged: (value) async {
-                              analytics.logEvent(name: "change_watchbox_view",
-                              parameters: {
-                                "view" : collectionValue.toString()
-                              });
-                              setState(() {
-                                collectionValue = value;
-                              });
-                            },),
-                        ),
+                        DropdownButton<CollectionView>(
+                          icon: Icon(FontAwesomeIcons.angleDown),
+                          dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                          items: items.map(buildMenuItem).toList(),
+                          value: collectionValue,
+                          onChanged: (value) async {
+                            analytics.logEvent(name: "change_watchbox_view",
+                                parameters: {
+                                  "view" : collectionValue.toString()
+                                });
+                            setState(() {
+                              collectionValue = value;
+                            });
+                          },),
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Theme.of(context).disabledColor,
-                          width: 2
-                      ),
-                      shape: BoxShape.rectangle,
-                      borderRadius: const BorderRadius.all(Radius.circular(10))),
-                  child: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () async {
-                      analytics.logEvent(name: "search_called");
-                      showSearch(
-                        context: context,
-                        delegate: SearchWidget(),
-                      );
-                    },
-                  ),
-                )
+          IconButton(
+              icon: Icon(FontAwesomeIcons.ellipsisVertical),
+              onPressed: (){
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                                context: context,
+                                builder: (context){
+                      return WatchOrderBottomSheet();
+                      }
+                             );
+                              }
+                            ),
+          //       Obx(
+          //         ()=> Container(
+          //
+          //           decoration: BoxDecoration(
+          //               border: Border.all(
+          //                 color: Theme.of(context).disabledColor,
+          //                 width: 2
+          //               ),
+          //               shape: BoxShape.rectangle,
+          //               borderRadius: const BorderRadius.all(Radius.circular(10))),
+          //           child: IconButton(
+          //             icon: ListTileHelper.getWatchOrderIcon(widget.wristCheckController.watchboxOrder.value),
+          //             onPressed: (){
+          //               showModalBottomSheet(
+          //                 isScrollControlled: true,
+          //                   context: context,
+          //                   builder: (context){
+          //                     return WatchOrderBottomSheet();
+          //                   }
+          //               );
+          //             },
+          //           ),
+          //         ),
+          //       ),
+          //
+          //       Container(
+          //         decoration: BoxDecoration(
+          //             border: Border.all(
+          //                 color: Theme.of(context).disabledColor,
+          //                 width: 2
+          //             ),
+          //             shape: BoxShape.rectangle,
+          //             borderRadius: const BorderRadius.all(Radius.circular(10))),
+          //         child: IconButton(
+          //           icon: const Icon(Icons.search),
+          //           onPressed: () async {
+          //             analytics.logEvent(name: "search_called");
+          //             showSearch(
+          //               context: context,
+          //               delegate: SearchWidget(),
+          //             );
+          //           },
+          //         ),
+          //       )
               ],
             ),
           ),
