@@ -59,7 +59,7 @@ class _RestoreState extends State<Restore> {
     final l = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l!.restoreDatabase),
+        title: FittedBox(child: Text(l!.restoreDatabase)),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),

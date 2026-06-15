@@ -60,7 +60,7 @@ class _BackupRestoreState extends State<BackupRestore> {
     analytics.logScreenView(screenName: "backup_restore_landing");
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.backupRestoreHeader),
+        title: FittedBox(child: Text(AppLocalizations.of(context)!.backupRestoreHeader)),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -83,10 +83,12 @@ class _BackupRestoreState extends State<BackupRestore> {
                   child: ElevatedButton(
                       child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child: Text(AppLocalizations.of(context)!.backup,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),),
+                        child: FittedBox(
+                          child: Text(AppLocalizations.of(context)!.backup,
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),),
+                        ),
                       ),
                       onPressed: (){
                         Get.to(() => ShareBackup());
@@ -114,10 +116,12 @@ class _BackupRestoreState extends State<BackupRestore> {
                     child: ElevatedButton(
                         child: Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text(AppLocalizations.of(context)!.restore,
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),),
+                          child: FittedBox(
+                            child: Text(AppLocalizations.of(context)!.restore,
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),),
+                          ),
                         ),
                         onPressed: (){
                           Get.to(() => const Restore());
