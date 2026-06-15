@@ -114,7 +114,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
           child: widget.wristCheckController.homePageIndex.value == 0 ? FloatingActionButton(
             child: const Icon(Icons.add_rounded),
             backgroundColor: Colors.red,
-            //onPressed: (){Get.to(() => const AddWatch());},
             onPressed: () async {
               await analytics.logEvent(name: "add_watch_fab_pressed");
               Get.to(() => WatchView());},
