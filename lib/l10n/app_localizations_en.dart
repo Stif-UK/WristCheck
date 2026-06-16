@@ -877,6 +877,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get costPerWear => 'Cost Per Wear';
 
   @override
+  String timeInCollectionDays(num count) {
+    return '$count days';
+  }
+
+  @override
+  String timeInCollectionYears(num count) {
+    return '$count+ years';
+  }
+
+  @override
+  String get timeInCollectionThreePlusMonths => '3+ months';
+
+  @override
+  String get timeInCollectionSixPlusMonths => '6+ months';
+
+  @override
+  String get timeInCollectionNinePlusMonths => '9+ months';
+
+  @override
   String get showPaymentOptions => 'Show Payment Options';
 
   @override

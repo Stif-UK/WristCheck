@@ -313,6 +313,11 @@
   "waterResistance" : "Étanchéité",
   "caseMaterials" : "Matériaux du boîtier",
   "costPerWear" : "Coût par portée",
+  "timeInCollectionDays" : "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
+  "timeInCollectionYears" : "{count}+ ans",
+  "timeInCollectionThreePlusMonths" : "3+ mois",
+  "timeInCollectionSixPlusMonths" : "6+ mois",
+  "timeInCollectionNinePlusMonths" : "9+ mois",
 
   "@_PURCHASE" : {},
   "showPaymentOptions" : "Afficher les options de paiement",

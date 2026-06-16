@@ -313,6 +313,11 @@
   "waterResistance" : "Vodotěsnost",
   "caseMaterials" : "Materiály pouzdra",
   "costPerWear" : "Cena za jedno nošení",
+  "timeInCollectionDays" : "{count, plural, =0{0 dní} =1{1 den} few{{count} dny} other{{count} dní}}",
+  "timeInCollectionYears" : "{count}+ {count, plural, =1{rok} few{roky} other{let}}",
+  "timeInCollectionThreePlusMonths" : "3+ měsíce",
+  "timeInCollectionSixPlusMonths" : "6+ měsíců",
+  "timeInCollectionNinePlusMonths" : "9+ měsíců",
 
   "@_PURCHASE" : {},
   "showPaymentOptions" : "Zobrazit možnosti platby",

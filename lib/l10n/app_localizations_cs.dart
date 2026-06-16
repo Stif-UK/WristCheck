@@ -876,6 +876,40 @@ class AppLocalizationsCs extends AppLocalizations {
   String get costPerWear => 'Cena za jedno nošení';
 
   @override
+  String timeInCollectionDays(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dní',
+      few: '$count dny',
+      one: '1 den',
+      zero: '0 dní',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String timeInCollectionYears(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'let',
+      few: 'roky',
+      one: 'rok',
+    );
+    return '$count+ $_temp0';
+  }
+
+  @override
+  String get timeInCollectionThreePlusMonths => '3+ měsíce';
+
+  @override
+  String get timeInCollectionSixPlusMonths => '6+ měsíců';
+
+  @override
+  String get timeInCollectionNinePlusMonths => '9+ měsíců';
+
+  @override
   String get showPaymentOptions => 'Zobrazit možnosti platby';
 
   @override

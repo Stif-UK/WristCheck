@@ -1,6 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:jiffy/jiffy.dart';
@@ -338,20 +340,20 @@ class WatchMethods {
   }
 
   static String calculateTimeInCollection(Watches currentWatch, bool showDays){
-    String timeInCollection = "N/A";
+    String timeInCollection = AppLocalizations.of(Get.context!)!.na;
     Duration time = const Duration(days:0);
     if(currentWatch.purchaseDate != null){
 
       time = currentWatch.soldDate != null? currentWatch.soldDate!.difference(currentWatch.purchaseDate!): DateTime.now().difference(currentWatch.purchaseDate!);
       int timeInt = time.inDays;
-      timeInCollection = "$timeInt days";
+      timeInCollection = AppLocalizations.of(Get.context!)!.timeInCollectionDays(timeInt);
       if (!showDays) {
-        if(timeInt > 90){timeInCollection = "3+ months";}
-        if(timeInt > 180){timeInCollection = "6+ months";}
-        if(timeInt > 270){timeInCollection = "9+ months";}
+        if(timeInt > 90){timeInCollection = AppLocalizations.of(Get.context!)!.timeInCollectionThreePlusMonths;}
+        if(timeInt > 180){timeInCollection = AppLocalizations.of(Get.context!)!.timeInCollectionSixPlusMonths;}
+        if(timeInt > 270){timeInCollection = AppLocalizations.of(Get.context!)!.timeInCollectionNinePlusMonths;}
         if(timeInt > 365){
           var years = Jiffy.now().diff(Jiffy.parseFromDateTime(currentWatch.purchaseDate!), unit: Unit.year);
-          timeInCollection = "$years+ years";
+          timeInCollection = AppLocalizations.of(Get.context!)!.timeInCollectionYears(years);
         }
       }
 

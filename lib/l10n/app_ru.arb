@@ -313,6 +313,11 @@
   "waterResistance" : "Водонепроницаемость",
   "caseMaterials" : "Материалы корпуса",
   "costPerWear" : "Цена одного ношения",
+  "timeInCollectionDays" : "{count, plural, =0{0 дней} =1{{count} день} few{{count} дня} many{{count} дней} other{{count} дней}}",
+  "timeInCollectionYears" : "{count}+ {count, plural, one{год} few{года} many{лет} other{лет}}",
+  "timeInCollectionThreePlusMonths" : "3+ месяца",
+  "timeInCollectionSixPlusMonths" : "6+ месяцев",
+  "timeInCollectionNinePlusMonths" : "9+ месяцев",
 
   "@_PURCHASE" : {},
   "showPaymentOptions" : "Показать варианты оплаты",

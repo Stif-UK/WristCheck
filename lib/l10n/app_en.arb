@@ -313,6 +313,11 @@
   "waterResistance" : "Water Resistance",
   "caseMaterials" : "Case Materials",
   "costPerWear" : "Cost Per Wear",
+  "timeInCollectionDays" : "{count} days",
+  "timeInCollectionYears" : "{count}+ years",
+  "timeInCollectionThreePlusMonths" : "3+ months",
+  "timeInCollectionSixPlusMonths" : "6+ months",
+  "timeInCollectionNinePlusMonths" : "9+ months",
 
   "@_PURCHASE" : {},
   "showPaymentOptions" : "Show Payment Options",

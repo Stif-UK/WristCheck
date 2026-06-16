@@ -313,6 +313,11 @@
   "waterResistance" : "Wasserdichtigkeit",
   "caseMaterials" : "Gehäusematerialien",
   "costPerWear" : "Kosten pro Tragen",
+  "timeInCollectionDays" : "{count, plural, =0{0 Tage} =1{1 Tag} other{{count} Tage}}",
+  "timeInCollectionYears" : "{count}+ Jahre",
+  "timeInCollectionThreePlusMonths" : "3+ Monate",
+  "timeInCollectionSixPlusMonths" : "6+ Monate",
+  "timeInCollectionNinePlusMonths" : "9+ Monate",
 
   "@_PURCHASE" : {},
   "showPaymentOptions" : "Zahlungsoptionen anzeigen",

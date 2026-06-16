@@ -878,6 +878,42 @@ class AppLocalizationsRu extends AppLocalizations {
   String get costPerWear => 'Цена одного ношения';
 
   @override
+  String timeInCollectionDays(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дней',
+      many: '$count дней',
+      few: '$count дня',
+      one: '$count день',
+      zero: '0 дней',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String timeInCollectionYears(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'лет',
+      many: 'лет',
+      few: 'года',
+      one: 'год',
+    );
+    return '$count+ $_temp0';
+  }
+
+  @override
+  String get timeInCollectionThreePlusMonths => '3+ месяца';
+
+  @override
+  String get timeInCollectionSixPlusMonths => '6+ месяцев';
+
+  @override
+  String get timeInCollectionNinePlusMonths => '9+ месяцев';
+
+  @override
   String get showPaymentOptions => 'Показать варианты оплаты';
 
   @override

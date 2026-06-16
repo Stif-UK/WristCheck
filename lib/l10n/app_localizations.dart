@@ -1754,6 +1754,36 @@ abstract class AppLocalizations {
   /// **'Cost Per Wear'**
   String get costPerWear;
 
+  /// No description provided for @timeInCollectionDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String timeInCollectionDays(num count);
+
+  /// No description provided for @timeInCollectionYears.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}+ years'**
+  String timeInCollectionYears(num count);
+
+  /// No description provided for @timeInCollectionThreePlusMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'3+ months'**
+  String get timeInCollectionThreePlusMonths;
+
+  /// No description provided for @timeInCollectionSixPlusMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'6+ months'**
+  String get timeInCollectionSixPlusMonths;
+
+  /// No description provided for @timeInCollectionNinePlusMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'9+ months'**
+  String get timeInCollectionNinePlusMonths;
+
   /// No description provided for @showPaymentOptions.
   ///
   /// In en, this message translates to:

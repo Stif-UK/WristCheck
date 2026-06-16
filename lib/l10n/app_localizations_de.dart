@@ -883,6 +883,32 @@ class AppLocalizationsDe extends AppLocalizations {
   String get costPerWear => 'Kosten pro Tragen';
 
   @override
+  String timeInCollectionDays(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Tage',
+      one: '1 Tag',
+      zero: '0 Tage',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String timeInCollectionYears(num count) {
+    return '$count+ Jahre';
+  }
+
+  @override
+  String get timeInCollectionThreePlusMonths => '3+ Monate';
+
+  @override
+  String get timeInCollectionSixPlusMonths => '6+ Monate';
+
+  @override
+  String get timeInCollectionNinePlusMonths => '9+ Monate';
+
+  @override
   String get showPaymentOptions => 'Zahlungsoptionen anzeigen';
 
   @override
