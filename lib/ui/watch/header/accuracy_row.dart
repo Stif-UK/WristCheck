@@ -27,8 +27,11 @@ class AccuracyRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 8.0, 0, 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(flex: 2, child: FittedBox(child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, style: Theme.of(context).textTheme.bodyLarge,))),
+          Expanded(flex: 2, child: FittedBox(
+            fit: BoxFit.scaleDown,
+              child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, textAlign: TextAlign.start, style: Theme.of(context).textTheme.bodyLarge,))),
           Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
           ElevatedButton(
               child: Icon(FontAwesomeIcons.plus),

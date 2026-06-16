@@ -98,7 +98,7 @@
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Naposledy nošeny: {shortDate}",
   "wornToday" : "Dnes na ruce",
-  "wearToday" :  "Mít tyto hodinky dnes na ruce",
+  "wearToday" : "Zapsat na dnešek",
   "editTitle" : "Upravit: {watchName}",
   "addWatch" : "Přidat hodinky",
   "addOptionalDetails" : "Přidat volitelné podrobnosti?",

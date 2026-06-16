@@ -237,7 +237,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get wornToday => 'Dnes na ruce';
 
   @override
-  String get wearToday => 'Mít tyto hodinky dnes na ruce';
+  String get wearToday => 'Zapsat na dnešek';
 
   @override
   String editTitle(Object watchName) {
