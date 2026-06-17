@@ -1656,6 +1656,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currencyDanishKrone => 'Danish Krone';
 
   @override
+  String get currencySwedishKrona => 'Swedish Krona';
+
+  @override
+  String get currencyCanadianDollar => 'Canadian Dollar';
+
+  @override
   String get caseMaterialNotEntered => 'Not Entered';
 
   @override

@@ -224,6 +224,12 @@ class WristCheckFormatter{
       case LocationEnum.den:
         returnText = "da_DK";
         break;
+      case LocationEnum.swe:
+        returnText = "sv_SE";
+        break;
+      case LocationEnum.can:
+        returnText = "en_CA";
+        break;
     }
     return returnText;
   }
@@ -285,6 +291,12 @@ class WristCheckFormatter{
         break;
       case "da_DK":
         returnNum = LocationEnum.den;
+        break;
+      case "sv_SE":
+        returnNum = LocationEnum.swe;
+        break;
+      case "en_CA":
+        returnNum = LocationEnum.can;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -350,6 +362,12 @@ class WristCheckFormatter{
         break;
       case LocationEnum.den:
         returnString = AppLocalizations.of(Get.context!)!.currencyDanishKrone;
+        break;
+      case LocationEnum.swe:
+        returnString = AppLocalizations.of(Get.context!)!.currencySwedishKrona;
+        break;
+      case LocationEnum.can:
+        returnString = AppLocalizations.of(Get.context!)!.currencyCanadianDollar;
         break;
     }
 
