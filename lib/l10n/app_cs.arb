@@ -576,6 +576,10 @@
   "currencyNorwegianKrone" : "Norská koruna",
   "currencyCzechKoruna" : "Česká koruna",
   "currencyMalaysianRinggit" : "Malajsijský ringgit",
+  "currencyPhilippinePeso": "Filipínské peso",
+  "currencyKoreanWon": "Jihokorejský won",
+
+
 
   "@_CASE_MATERIAL" : {},
   "caseMaterialNotEntered" : "Nezadáno",

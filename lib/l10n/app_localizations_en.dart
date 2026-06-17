@@ -1644,6 +1644,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currencyMalaysianRinggit => 'Malaysian Ringgit';
 
   @override
+  String get currencyPhilippinePeso => 'Philippine Peso';
+
+  @override
+  String get currencyKoreanWon => 'Korean Won';
+
+  @override
   String get caseMaterialNotEntered => 'Not Entered';
 
   @override

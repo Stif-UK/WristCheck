@@ -575,6 +575,10 @@
   "currencyNorwegianKrone" : "Couronne norvégienne",
   "currencyCzechKoruna" : "Couronne tchèque",
   "currencyMalaysianRinggit" : "Ringgit malaisien",
+  "currencyPhilippinePeso": "Peso philippin",
+  "currencyKoreanWon": "Won sud-coréen",
+
+
 
   "@_CASE_MATERIAL" : {},
   "caseMaterialNotEntered" : "Non renseigné",

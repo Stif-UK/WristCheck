@@ -3122,6 +3122,18 @@ abstract class AppLocalizations {
   /// **'Malaysian Ringgit'**
   String get currencyMalaysianRinggit;
 
+  /// No description provided for @currencyPhilippinePeso.
+  ///
+  /// In en, this message translates to:
+  /// **'Philippine Peso'**
+  String get currencyPhilippinePeso;
+
+  /// No description provided for @currencyKoreanWon.
+  ///
+  /// In en, this message translates to:
+  /// **'Korean Won'**
+  String get currencyKoreanWon;
+
   /// No description provided for @caseMaterialNotEntered.
   ///
   /// In en, this message translates to:

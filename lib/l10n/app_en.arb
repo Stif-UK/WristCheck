@@ -575,7 +575,10 @@
   "currencyThaiBaht" : "Thai Baht",
   "currencyNorwegianKrone" : "Norwegian Krone",
   "currencyCzechKoruna" : "Czech Koruna",
-  "currencyMalaysianRinggit" : "Malaysian Ringgit",
+  "currencyMalaysianRinggit": "Malaysian Ringgit",
+  "currencyPhilippinePeso": "Philippine Peso",
+  "currencyKoreanWon": "Korean Won",
+
 
   "@_CASE_MATERIAL" : {},
   "caseMaterialNotEntered" : "Not Entered",

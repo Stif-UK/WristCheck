@@ -1678,6 +1678,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get currencyMalaysianRinggit => 'Малайзийский ринггит';
 
   @override
+  String get currencyPhilippinePeso => 'Филиппинское песо';
+
+  @override
+  String get currencyKoreanWon => 'Южнокорейская вона';
+
+  @override
   String get caseMaterialNotEntered => 'Не указан';
 
   @override

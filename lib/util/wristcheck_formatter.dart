@@ -212,6 +212,12 @@ class WristCheckFormatter{
       case LocationEnum.my:
         returnText = "ms-MY";
         break;
+      case LocationEnum.phi:
+        returnText = "en_PH";
+        break;
+      case LocationEnum.kor:
+        returnText = "ko_KR";
+        break;
     }
     return returnText;
   }
@@ -261,6 +267,12 @@ class WristCheckFormatter{
         break;
       case "ms-MY":
         returnNum = LocationEnum.my;
+        break;
+      case "en_PH":
+        returnNum = LocationEnum.phi;
+        break;
+      case "ko_KR":
+        returnNum = LocationEnum.kor;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -314,6 +326,12 @@ class WristCheckFormatter{
         break;
       case LocationEnum.my:
         returnString = AppLocalizations.of(Get.context!)!.currencyMalaysianRinggit;
+        break;
+      case LocationEnum.phi:
+        returnString = AppLocalizations.of(Get.context!)!.currencyPhilippinePeso;
+        break;
+      case LocationEnum.kor:
+        returnString = AppLocalizations.of(Get.context!)!.currencyKoreanWon;
         break;
     }
 
