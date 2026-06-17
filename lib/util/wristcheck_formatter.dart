@@ -221,6 +221,9 @@ class WristCheckFormatter{
       case LocationEnum.bra:
         returnText = "pt_BR";
         break;
+      case LocationEnum.den:
+        returnText = "da_DK";
+        break;
     }
     return returnText;
   }
@@ -279,6 +282,9 @@ class WristCheckFormatter{
         break;
       case "pt_BR":
         returnNum = LocationEnum.bra;
+        break;
+      case "da_DK":
+        returnNum = LocationEnum.den;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -341,6 +347,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.bra:
         returnString = AppLocalizations.of(Get.context!)!.currencyBrazilianReal;
+        break;
+      case LocationEnum.den:
+        returnString = AppLocalizations.of(Get.context!)!.currencyDanishKrone;
         break;
     }
 

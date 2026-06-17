@@ -1676,6 +1676,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get currencyBrazilianReal => 'Brasilianischer Real';
 
   @override
+  String get currencyDanishKrone => 'Dänische Krone';
+
+  @override
   String get caseMaterialNotEntered => 'Nicht angegeben';
 
   @override

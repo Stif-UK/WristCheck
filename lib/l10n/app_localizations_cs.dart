@@ -1680,6 +1680,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get currencyBrazilianReal => 'Brazilský real';
 
   @override
+  String get currencyDanishKrone => 'Dánská koruna';
+
+  @override
   String get caseMaterialNotEntered => 'Nezadáno';
 
   @override

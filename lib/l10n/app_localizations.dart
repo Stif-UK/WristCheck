@@ -3140,6 +3140,12 @@ abstract class AppLocalizations {
   /// **'Brazilian Real'**
   String get currencyBrazilianReal;
 
+  /// No description provided for @currencyDanishKrone.
+  ///
+  /// In en, this message translates to:
+  /// **'Danish Krone'**
+  String get currencyDanishKrone;
+
   /// No description provided for @caseMaterialNotEntered.
   ///
   /// In en, this message translates to:
