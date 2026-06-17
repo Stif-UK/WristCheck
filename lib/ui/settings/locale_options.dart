@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -87,23 +88,44 @@ class _LocationOptionsState extends State<LocationOptions> {
                     child: Text(AppLocalizations.of(Get.context!)!.currencyPleaseSelect, style: Theme.of(context).textTheme.bodyLarge,),
                   ),
                   Obx(
-                      ()=> Padding(
-                        padding: pagePadding,
-                        child: DropdownButton<LocationEnum>(
-                          dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                          value: wristCheckController.locale.value,
-                          items: LocationEnum.values.map((loca) {
-                            return DropdownMenuItem<LocationEnum>(
-                                value: loca,
-                                child: Text(WristCheckFormatter.getLocaleDisplayText(loca),
-                                  style: Theme.of(context).textTheme.bodyLarge,));
-                          }).toList(),
-                          onChanged: (lcn) {
-                            // location = lcn!;
-                            wristCheckController.updateLocale(lcn!);
+                    () => Padding(
+                      padding: pagePadding,
+                      child: DropdownSearch<LocationEnum>(
+                        compareFn: (item1, item2) => item1 == item2,
+                        popupProps: PopupProps.menu(
+                          showSearchBox: true,
+                          menuProps: MenuProps(
+                            backgroundColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                          ),
+                          itemBuilder: (context, loca, isSelected, isFavorite) {
+                            return Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                WristCheckFormatter.getLocaleDisplayText(loca),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            );
+                          },
+                        ),
+                        items: (filter, infiniteScrollProps) => LocationEnum.values,
+                        itemAsString: (loca) => WristCheckFormatter.getLocaleDisplayText(loca),
+                        selectedItem: wristCheckController.locale.value,
+                        onChanged: (lcn) {
+                          if (lcn != null) {
+                            wristCheckController.updateLocale(lcn);
                           }
-                    ),
+                        },
+                        decoratorProps: DropDownDecoratorProps(
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          baseStyle: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
+                    ),
                   ),
                   Padding(
                     padding: pagePadding,
