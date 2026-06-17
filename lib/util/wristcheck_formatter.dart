@@ -218,6 +218,9 @@ class WristCheckFormatter{
       case LocationEnum.kor:
         returnText = "ko_KR";
         break;
+      case LocationEnum.bra:
+        returnText = "pt_BR";
+        break;
     }
     return returnText;
   }
@@ -273,6 +276,9 @@ class WristCheckFormatter{
         break;
       case "ko_KR":
         returnNum = LocationEnum.kor;
+        break;
+      case "pt_BR":
+        returnNum = LocationEnum.bra;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -332,6 +338,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.kor:
         returnString = AppLocalizations.of(Get.context!)!.currencyKoreanWon;
+        break;
+      case LocationEnum.bra:
+        returnString = AppLocalizations.of(Get.context!)!.currencyBrazilianReal;
         break;
     }
 

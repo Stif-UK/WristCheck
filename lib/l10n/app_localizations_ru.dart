@@ -1684,6 +1684,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get currencyKoreanWon => 'Южнокорейская вона';
 
   @override
+  String get currencyBrazilianReal => 'Бразильский реал';
+
+  @override
   String get caseMaterialNotEntered => 'Не указан';
 
   @override
