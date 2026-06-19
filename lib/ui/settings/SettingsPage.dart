@@ -1,11 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
-import 'package:wristcheck/model/enums/language_enum.dart';
 import 'package:wristcheck/ui/archived.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wristcheck/ui/settings/chart_options.dart';
@@ -70,23 +71,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: Text(AppLocalizations.of(context)!.languageLink),
                   leading: Icon(FontAwesomeIcons.earthAmericas),
                   onTap: () => Get.to(() => LanguageSelection()),
-                  // trailing: DropdownButton(
-                  //     value: langController.language.value.languageCode,
-                  //     items: LanguageEnum.values.map((lang) {
-                  //       return DropdownMenuItem<String>(
-                  //         value: lang.name,
-                  //         child: Text(lang.name), // .name gives the enum case name
-                  //       );
-                  //     }).toList(),
-                  //     onChanged: (newValue){
-                  //       Locale loc = Locale(newValue.toString());
-                  //       print(loc);
-                  //       langController.updateLocalePref(loc);
-                  //     }
-                  //
-                  //
-                  //
-                  // ),
                 )
                  : const SizedBox(height: 0,),
                 WristCheckConfig.enableLanguagePicker? const Divider(thickness: 2,) : const SizedBox(height: 0,),
@@ -126,6 +110,54 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: ()=> Get.to(()=> const WristCheckOnboarding())
                 ),
                 const Divider(thickness: 2,),
+                FutureBuilder(
+                  builder: (context, snapshot){
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // If we got an error
+                      if (snapshot.hasError) {
+                        return ListTile(
+                          title: Text('${snapshot.error} occurred'),
+                        );
+
+                        // if we got our data
+                      } else if (snapshot.hasData) {
+                        // Extracting data from snapshot object
+                        final data = snapshot.data as String;
+                        return ListTile(
+                          leading: Icon(FontAwesomeIcons.user),
+                          title: const Text("App User ID"),
+                          subtitle: Text(
+                            '$data',
+
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.copy),
+                            onPressed: (){
+                              //Copy the appUserID to the clipboard
+                              Clipboard.setData(ClipboardData(text:'$data'));
+                              Get.snackbar(
+                                  "Copied",
+                                  "appUserID saved to clipboard",
+                                  icon: const Icon(Icons.copy),
+                                  snackPosition: SnackPosition.BOTTOM
+                              );
+
+                            },
+                          ),
+                        );
+                      }
+                    }
+                    return const ListTile(
+                      leading: Icon(FontAwesomeIcons.user),
+                      title: Text("App User ID"),
+                      trailing: CircularProgressIndicator(),
+                    );
+
+                  },
+                  future: PurchaseApi.getAppUserID(),
+
+                ),
+                const Divider(thickness: 2,)
               ],
             ),
           ),
