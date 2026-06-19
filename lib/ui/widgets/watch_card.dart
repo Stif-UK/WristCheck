@@ -81,13 +81,13 @@ class WatchCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 5),
-                    Text(
+                    Obx(() => Text(
                       ListTileHelper.getWatchboxListSubtitle(watch, collectionView),
                       style: ListTileHelper.getSubtitleTheme(watch) ?? 
                           Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 color: Theme.of(context).textTheme.bodySmall?.color,
                               ),
-                    ),
+                    )),
                   ],
                 ),
               ),

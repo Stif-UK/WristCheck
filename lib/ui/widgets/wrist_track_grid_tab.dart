@@ -70,18 +70,22 @@ class WristTrackGridTab extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             // Last worn and wear count lines (order swapped)
-            ...ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue)
-                .split('\n')
-                .where((line) => line.isNotEmpty)
-                .toList()
-                .reversed
-                .map((line) => Text(
-                      line,
-                      style: ListTileHelper.getSubtitleTheme(currentWatch) ?? 
-                             Theme.of(context).textTheme.bodySmall,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )),
+            Obx(() => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue)
+                  .split('\n')
+                  .where((line) => line.isNotEmpty)
+                  .toList()
+                  .reversed
+                  .map((line) => Text(
+                        line,
+                        style: ListTileHelper.getSubtitleTheme(currentWatch) ?? 
+                               Theme.of(context).textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ))
+                  .toList(),
+            )),
           ],
         ),
       ),

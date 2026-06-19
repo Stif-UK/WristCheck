@@ -93,6 +93,7 @@ class ListTileHelper {
   }
 
   static String _getStandardReturnText(Watches watch){
+    final wristCheckController = Get.put(WristCheckController());
     String returnText = "";
     if (watch.wearList.isNotEmpty) {
       int _wearCount = watch.wearList.length;
@@ -101,9 +102,14 @@ class ListTileHelper {
           ? AppLocalizations.of(Get.context!)!.today
           : WristCheckFormatter.getFormattedDate(watch.wearList.last);
 
-      //returnText =  "Last worn: $_lastWorn  \nWorn $_wearCount times";
-      returnText = "${AppLocalizations.of(Get.context!)!.lastWornDate(_lastWorn)}\n"
-          "${AppLocalizations.of(Get.context!)!.wearCount(_wearCount)}";
+      List<String> lines = [];
+      if (wristCheckController.showLastWornDate.value) {
+        lines.add(AppLocalizations.of(Get.context!)!.lastWornDate(_lastWorn));
+      }
+      if (wristCheckController.showWearCount.value) {
+        lines.add(AppLocalizations.of(Get.context!)!.wearCount(_wearCount));
+      }
+      returnText = lines.join("\n");
     } else {
       returnText = AppLocalizations.of(Get.context!)!.notWornYet;
     }
