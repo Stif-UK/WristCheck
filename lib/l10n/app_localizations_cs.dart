@@ -24,7 +24,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get retiredWatches => 'Vyřazené hodinky';
 
   @override
-  String get onLoanWatches => 'On Loan Watches';
+  String get onLoanWatches => 'Zapůjčené hodinky';
 
   @override
   String get randomWatch => 'Náhodné hodinky';
@@ -48,7 +48,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get statusArchived => 'Archivováno';
 
   @override
-  String get statusOnLoan => 'On Loan';
+  String get statusOnLoan => 'Zapůjčeno';
 
   @override
   String get collection => 'Sbírka';
@@ -633,7 +633,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get includeArchivedWatches => 'Zahrnout archivované hodinky';
 
   @override
-  String get includeOnLoanWatches => 'Include On Loan Watches';
+  String get includeOnLoanWatches => 'Zahrnout zapůjčené hodinky';
 
   @override
   String get filterByCategory => 'Filtrovat podle kategorie';
@@ -722,7 +722,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String advancedFilterHeaderIncOnLoan(Object returnText) {
-    return '$returnText inc. On Loan, ';
+    return '$returnText vč. zapůjčených, ';
   }
 
   @override
@@ -1001,7 +1001,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get archivedSuffix => '(Archivováno)';
 
   @override
-  String get onLoanSuffix => '(On Loan)';
+  String get onLoanSuffix => '(Zapůjčeno)';
 
   @override
   String get watchColon => 'Hodinky:';
@@ -1424,7 +1424,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get emptyOnLoanCopy =>
-      'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.';
+      'Momentálně nemáte žádné hodinky označené jako \'Zapůjčeno\'.\n\nHodinky můžete označit jako zapůjčené úpravou jejich stavu.';
 
   @override
   String get listViewTitle => 'Seznam';

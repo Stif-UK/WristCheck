@@ -7,6 +7,7 @@
   "wishlist" : "Seznam přání",
   "preOrders" : "Předobjednávky",
   "retiredWatches" : "Vyřazené hodinky",
+  "onLoanWatches" : "Zapůjčené hodinky",
   "randomWatch" : "Náhodné hodinky",
 
   "@_STATUS_LIST": {},
@@ -16,6 +17,8 @@
   "statusPreOrder" : "Předobjednávka",
   "statusRetired" : "Vyřazené",
   "statusArchived" : "Archivováno",
+  "statusOnLoan" : "Zapůjčeno",
+
 
   "@_HOME_TABS": {},
   "collection" : "Sbírka",
@@ -235,6 +238,7 @@
   "includeSoldWatches" : "Zahrnout prodané hodinky",
   "includeRetiredWatches" : "Zahrnout vyřazené hodinky",
   "includeArchivedWatches" : "Zahrnout archivované hodinky",
+  "includeOnLoanWatches" : "Zahrnout zapůjčené hodinky",
   "filterByCategory" : "Filtrovat podle kategorie",
   "filterByMovement" : "Filtrovat podle strojku",
   "allData" : "Všechna data",
@@ -256,6 +260,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} vč. prodaných, ",
   "advancedFilterHeaderIncRetired" : "{returnText} vč. vyřazených, ",
   "advancedFilterHeaderIncArchived" : "{returnText} vč. archivovaných, ",
+  "advancedFilterHeaderIncOnLoan" : "{returnText} vč. zapůjčených, ",
   "chartsEmptyBackgroundText" : "Pro vybraný filtr nejsou k dispozici žádná data",
   "generatedWithWristTrackPro" : "Tento graf byl generován v WristTrack Pro",
   "generatedWithWristTrack" : "Tento graf byl generován v WristTrack",
@@ -346,6 +351,7 @@
   "soldSuffix" : "(Prodáno)",
   "retiredSuffix": "(Vyřazeno)",
   "archivedSuffix" : "(Archivováno)",
+  "onLoanSuffix" : "(Zapůjčeno)",
   "watchColon" : "Hodinky:",
   "deleting" : "Mazání",
   "errorHeader" : "Chyba",
@@ -486,6 +492,7 @@
   "emptyWishlistCopy" : "Ve svém seznamu přání nesledujete žádné hodinky.\n\nChcete-li přidat hodinky do seznamu přání, vytvořte nový záznam hodinek a nastavte jejich stav na 'Seznam přání'.\n",
   "emptyFavouritesCopy" : "Zatím nemáte žádné hodinky označené jako 'oblíbené'. \n\nChcete-li označit hodinky jako oblíbené, upravte přepínač na obrazovce podrobností o hodinkách.\n",
   "emptyPreOrderCopy" : "Nesledujete žádné předobjednávky hodinek. \n\nChcete-li sledovat odpočet pro předobjednané hodinky, vytvořte nový záznam hodinek se stavem 'Předobjednáno'.",
+  "emptyOnLoanCopy" : "Momentálně nemáte žádné hodinky označené jako 'Zapůjčeno'.\n\nHodinky můžete označit jako zapůjčené úpravou jejich stavu.",
   "listViewTitle" : "Seznam",
   "gridViewTitle" : "Mřížka",
   "displayOrderTitle" : "Pořadí zobrazení:",

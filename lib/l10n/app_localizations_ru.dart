@@ -24,7 +24,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get retiredWatches => 'Бывшие';
 
   @override
-  String get onLoanWatches => 'On Loan Watches';
+  String get onLoanWatches => 'Выданные часы';
 
   @override
   String get randomWatch => 'Случайные часы';
@@ -48,7 +48,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get statusArchived => 'В архиве';
 
   @override
-  String get statusOnLoan => 'On Loan';
+  String get statusOnLoan => 'Выданы';
 
   @override
   String get collection => 'Коллекция';
@@ -635,7 +635,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get includeArchivedWatches => 'Включая архивные часы';
 
   @override
-  String get includeOnLoanWatches => 'Include On Loan Watches';
+  String get includeOnLoanWatches => 'Включая выданные часы';
 
   @override
   String get filterByCategory => 'Фильтр по категориям';
@@ -724,7 +724,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String advancedFilterHeaderIncOnLoan(Object returnText) {
-    return '$returnText inc. On Loan, ';
+    return '$returnText вкл. Выданные, ';
   }
 
   @override
@@ -1004,7 +1004,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get archivedSuffix => '(В архиве)';
 
   @override
-  String get onLoanSuffix => '(On Loan)';
+  String get onLoanSuffix => '(Выданы)';
 
   @override
   String get watchColon => 'Часы:';
@@ -1430,7 +1430,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get emptyOnLoanCopy =>
-      'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.';
+      'У вас пока нет часов со статусом «Выданы».\n\nВы можете изменить статус часов в меню редактирования.';
 
   @override
   String get listViewTitle => 'Список';

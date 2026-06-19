@@ -7,6 +7,7 @@
   "wishlist" : "Список желаний",
   "preOrders" : "Предзаказы",
   "retiredWatches": "Бывшие",
+  "onLoanWatches" : "Выданные часы",
   "randomWatch" : "Случайные часы",
 
   "@_STATUS_LIST": {},
@@ -16,6 +17,8 @@
   "statusPreOrder" : "Предзаказ",
   "statusRetired" : "Бывшие",
   "statusArchived" : "В архиве",
+  "statusOnLoan" : "Выданы",
+
 
   "@_HOME_TABS": {},
   "collection" : "Коллекция",
@@ -235,6 +238,7 @@
   "includeSoldWatches" : "Включая проданные часы",
   "includeRetiredWatches" : "Включая выведенные часы",
   "includeArchivedWatches" : "Включая архивные часы",
+  "includeOnLoanWatches" : "Включая выданные часы",
   "filterByCategory" : "Фильтр по категориям",
   "filterByMovement" : "Фильтр по механизмам",
   "allData" : "Все данные",
@@ -256,6 +260,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} вкл. Проданные, ",
   "advancedFilterHeaderIncRetired" : "{returnText} вкл. Выведенные, ",
   "advancedFilterHeaderIncArchived" : "{returnText} вкл. Архивные, ",
+  "advancedFilterHeaderIncOnLoan" : "{returnText} вкл. Выданные, ",
   "chartsEmptyBackgroundText" : "Нет данных для выбранного фильтра",
   "generatedWithWristTrackPro" : "График создан в WristTrack Pro",
   "generatedWithWristTrack" : "График создан в WristTrack",
@@ -346,6 +351,7 @@
   "soldSuffix" : "(Проданы)",
   "retiredSuffix": "(Выведены)",
   "archivedSuffix" : "(В архиве)",
+  "onLoanSuffix" : "(Выданы)",
   "watchColon" : "Часы:",
   "deleting" : "Удаление",
   "errorHeader" : "Ошибка",
@@ -486,6 +492,7 @@
   "emptyWishlistCopy" : "Ваш список желаний пуст.\n\nЧтобы добавить часы в список желаний, создайте новую запись и выберите статус «В списке желаний». \n",
   "emptyFavouritesCopy" : "Вы еще не добавили ни одни часы в избранное.\n\nСделать это можно с помощью переключателя на экране подробной информации о часах.\n",
   "emptyPreOrderCopy" : "Вы не отслеживаете предзаказы.\n\nЧтобы включить обратный отсчет для ожидаемых часов, создайте запись со статусом «Предзаказ».",
+  "emptyOnLoanCopy" : "У вас пока нет часов со статусом «Выданы».\n\nВы можете изменить статус часов в меню редактирования.",
   "listViewTitle" : "Список",
   "gridViewTitle" : "Сетка",
   "displayOrderTitle" : "Порядок отображения:",
