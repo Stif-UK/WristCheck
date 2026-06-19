@@ -86,6 +86,15 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
         ),
         const Divider(thickness: 2,),
         Obx(()=> SwitchListTile(
+          title: Text(AppLocalizations.of(context)!.includeOnLoanWatches),
+          value: widget.filterController.includeOnLoan.value ,
+          onChanged: (newValue){
+            widget.filterController.updateIncludeOnLoan(newValue);
+          },
+        ),
+        ),
+        const Divider(thickness: 2,),
+        Obx(()=> SwitchListTile(
           title: Text(AppLocalizations.of(context)!.filterByCategory),
           value: widget.filterController.filterByCategory.value,
           onChanged: (newValue){

@@ -69,6 +69,9 @@ class Boxes {
       case CollectionView.retired:
         returnlist = getRetiredWatches();
         break;
+      case CollectionView.onLoan:
+        returnlist = getOnLoanWatches();
+        break;
     }
 
     return returnlist;
@@ -118,6 +121,10 @@ class Boxes {
 
   static List<Watches> getArchivedWatches() {
     return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.archived.toDbString()).toList();
+  }
+
+  static List<Watches> getOnLoanWatches() {
+    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
   }
 
   static List<Watches> getPreOrderWatches() {
@@ -329,7 +336,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
+  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool incOnLoan, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
 
     final controller = Get.put(FilterController());
     var now = DateTime.now();
@@ -347,6 +354,9 @@ class Boxes {
     }
     if(incArchived){
       initialList.addAll(Boxes.getArchivedWatches());
+    }
+    if(incOnLoan){
+      initialList.addAll(Boxes.getOnLoanWatches());
     }
     if(filterByCategory && categoryFilterList.isNotEmpty){
       initialList = Boxes.runCategoryFilter(initialList, categoryFilterList);

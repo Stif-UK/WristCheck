@@ -24,6 +24,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get retiredWatches => 'Vyřazené hodinky';
 
   @override
+  String get onLoanWatches => 'On Loan Watches';
+
+  @override
   String get randomWatch => 'Náhodné hodinky';
 
   @override
@@ -43,6 +46,9 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get statusArchived => 'Archivováno';
+
+  @override
+  String get statusOnLoan => 'On Loan';
 
   @override
   String get collection => 'Sbírka';
@@ -627,6 +633,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get includeArchivedWatches => 'Zahrnout archivované hodinky';
 
   @override
+  String get includeOnLoanWatches => 'Include On Loan Watches';
+
+  @override
   String get filterByCategory => 'Filtrovat podle kategorie';
 
   @override
@@ -709,6 +718,11 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String advancedFilterHeaderIncArchived(Object returnText) {
     return '$returnText vč. archivovaných, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncOnLoan(Object returnText) {
+    return '$returnText inc. On Loan, ';
   }
 
   @override
@@ -985,6 +999,9 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get archivedSuffix => '(Archivováno)';
+
+  @override
+  String get onLoanSuffix => '(On Loan)';
 
   @override
   String get watchColon => 'Hodinky:';
@@ -1404,6 +1421,10 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Nesledujete žádné předobjednávky hodinek. \n\nChcete-li sledovat odpočet pro předobjednané hodinky, vytvořte nový záznam hodinek se stavem \'Předobjednáno\'.';
+
+  @override
+  String get emptyOnLoanCopy =>
+      'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.';
 
   @override
   String get listViewTitle => 'Seznam';

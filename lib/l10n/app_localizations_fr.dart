@@ -24,6 +24,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get retiredWatches => 'Montres retirées';
 
   @override
+  String get onLoanWatches => 'Montres en prêt';
+
+  @override
   String get randomWatch => 'Montre au hasard';
 
   @override
@@ -43,6 +46,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get statusArchived => 'Archivée';
+
+  @override
+  String get statusOnLoan => 'En prêt';
 
   @override
   String get collection => 'Collection';
@@ -631,6 +637,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get includeArchivedWatches => 'Inclure les montres archivées';
 
   @override
+  String get includeOnLoanWatches => 'Inclure les montres en prêt';
+
+  @override
   String get filterByCategory => 'Filtrer par catégorie';
 
   @override
@@ -713,6 +722,11 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String advancedFilterHeaderIncArchived(Object returnText) {
     return '$returnText avec archivés, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncOnLoan(Object returnText) {
+    return '$returnText avec en prêt, ';
   }
 
   @override
@@ -983,6 +997,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get archivedSuffix => '(Archivée)';
+
+  @override
+  String get onLoanSuffix => '(En prêt)';
 
   @override
   String get watchColon => 'Montre : ';
@@ -1398,6 +1415,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Vous n\'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d\'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».';
+
+  @override
+  String get emptyOnLoanCopy =>
+      'Vous n\'avez aucune montre marquée comme « En prêt » actuellement.\n\nVous pouvez marquer une montre comme prêtée en modifiant son statut.';
 
   @override
   String get listViewTitle => 'Liste';

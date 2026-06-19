@@ -24,6 +24,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get retiredWatches => 'Ausgemusterte Uhren';
 
   @override
+  String get onLoanWatches => 'Ausgeliehene Uhren';
+
+  @override
   String get randomWatch => 'Zufällige Uhr';
 
   @override
@@ -43,6 +46,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get statusArchived => 'Archiviert';
+
+  @override
+  String get statusOnLoan => 'Ausgeliehen';
 
   @override
   String get collection => 'Sammlung';
@@ -629,6 +635,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get includeArchivedWatches => 'Archivierte Uhren einschließen';
 
   @override
+  String get includeOnLoanWatches => 'Ausgeliehene Uhren einschließen';
+
+  @override
   String get filterByCategory => 'Nach Kategorie filtern';
 
   @override
@@ -711,6 +720,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String advancedFilterHeaderIncArchived(Object returnText) {
     return '$returnText inkl. Archiviert, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncOnLoan(Object returnText) {
+    return '$returnText inkl. Ausgeliehen, ';
   }
 
   @override
@@ -984,6 +998,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get archivedSuffix => '(Archiviert)';
+
+  @override
+  String get onLoanSuffix => '(Ausgeliehen)';
 
   @override
   String get watchColon => 'Uhr:';
@@ -1398,6 +1415,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Du hast keine vorbestellten Uhren eingetragen.\n\nUm einen Countdown für eine vorbestellte Uhr zu aktivieren, erstelle einen neuen Uhreneintrag mit dem Status \'Vorbestellt\'.';
+
+  @override
+  String get emptyOnLoanCopy =>
+      'Du hast aktuell keine Uhren als \'Ausgeliehen\' markiert.\n\nDu kannst eine Uhr als ausgeliehen markieren, indem du ihren Status bearbeitest.';
 
   @override
   String get listViewTitle => 'Liste';

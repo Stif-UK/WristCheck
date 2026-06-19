@@ -32,9 +32,9 @@ class _WearRowState extends State<WearRow> {
     //Default canRecordWear value
     widget.watchViewController.updateCanRecordWear(false);
 
-    //Set to true only for watches in the collection
+    //Set to true only for watches in the collection or on loan
     if (widget.watchViewController.watchViewState.value == WatchViewEnum.view) {
-      widget.watchViewController.canRecordWear(widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString());
+      widget.watchViewController.canRecordWear(widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString() || widget.currentWatch!.status ==WatchStatusEnum.onLoan.toDbString());
     }
 
     return _buildWearRow();
@@ -72,7 +72,7 @@ class _WearRowState extends State<WearRow> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString()? _addWearButton() : const SizedBox(height: 10),
+              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString() || widget.currentWatch!.status == WatchStatusEnum.onLoan.toDbString() ? _addWearButton() : const SizedBox(height: 10),
               const SizedBox(height: 10),
               //Show last worn date
               FittedBox(child: _displayLastWearDate()),

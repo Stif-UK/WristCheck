@@ -10,6 +10,7 @@ import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
+import 'package:wristcheck/util/wear_charts_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WearPieChart extends StatelessWidget {
@@ -58,8 +59,8 @@ class WearPieChart extends StatelessWidget {
                 : series.filteredWearList!.length,
             dataLabelMapper: (watch, _) =>
             watch.filteredWearList == null ? "${watch.manufacturer} ${watch
-                .model}: ${watch.wearList.length}" : "${watch.manufacturer} ${watch
-                .model}: ${watch.filteredWearList!.length}",
+                .model} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.wearList.length}" : "${watch.manufacturer} ${watch
+                .model} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.filteredWearList!.length}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;

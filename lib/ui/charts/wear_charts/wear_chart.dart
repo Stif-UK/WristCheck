@@ -63,7 +63,7 @@ class _WearChartState extends State<WearChart> {
             dataSource: widget.data,
             xValueMapper: (Watches series, _) => series.filteredWearList!.isEmpty? null: (series.manufacturer+series.model),
             yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
-            dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.manufacturer} ${watch.model}: ${watch.wearList.length}":"${watch.manufacturer} ${watch.model} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.filteredWearList!.length}",
+            dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.toString()} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.wearList.length}":"${watch.toString()} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.filteredWearList!.length}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
             // animationDuration: 0 Set to zero to stop it animating!
           )

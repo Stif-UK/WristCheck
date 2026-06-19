@@ -7,7 +7,8 @@ enum WatchStatusEnum {
   wishlist,
   preOrder,
   retired,
-  archived
+  archived,
+  onLoan
 }
 
 extension WatchStatusEnumExtension on WatchStatusEnum {
@@ -27,6 +28,8 @@ extension WatchStatusEnumExtension on WatchStatusEnum {
         return localizations.statusRetired;
       case WatchStatusEnum.archived:
         return localizations.statusArchived;
+      case WatchStatusEnum.onLoan:
+        return localizations.statusOnLoan;
     }
   }
 
@@ -44,6 +47,8 @@ extension WatchStatusEnumExtension on WatchStatusEnum {
         return "Retired";
       case WatchStatusEnum.archived:
         return "Archived";
+      case WatchStatusEnum.onLoan:
+        return "On Loan";
     }
   }
 
@@ -61,6 +66,8 @@ extension WatchStatusEnumExtension on WatchStatusEnum {
         return WatchStatusEnum.retired;
       case "Archived":
         return WatchStatusEnum.archived;
+      case "On Loan":
+        return WatchStatusEnum.onLoan;
       default:
         return WatchStatusEnum.inCollection;
     }

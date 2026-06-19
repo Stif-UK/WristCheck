@@ -7,6 +7,7 @@
   "wishlist" : "Liste d’envies",
   "preOrders" : "Précommandes",
   "retiredWatches" : "Montres retirées",
+  "onLoanWatches" : "Montres en prêt",
   "randomWatch" : "Montre au hasard",
 
   "@_STATUS_LIST": {},
@@ -16,6 +17,8 @@
   "statusPreOrder" : "Précommande",
   "statusRetired" : "Retirée",
   "statusArchived" : "Archivée",
+  "statusOnLoan" : "En prêt",
+
 
   "@_HOME_TABS": {},
   "collection" : "Collection",
@@ -235,6 +238,7 @@
   "includeSoldWatches" : "Inclure les montres vendues",
   "includeRetiredWatches" : "Inclure les montres retirées",
   "includeArchivedWatches" : "Inclure les montres archivées",
+  "includeOnLoanWatches" : "Inclure les montres en prêt",
   "filterByCategory" : "Filtrer par catégorie",
   "filterByMovement" : "Filtrer par mouvement",
   "allData" : "Toutes les données",
@@ -256,6 +260,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} avec vendus, ",
   "advancedFilterHeaderIncRetired" : "{returnText} avec retirés, ",
   "advancedFilterHeaderIncArchived" : "{returnText} avec archivés, ",
+  "advancedFilterHeaderIncOnLoan" : "{returnText} avec en prêt, ",
   "chartsEmptyBackgroundText" : "Aucune donnée disponible pour le filtre sélectionné",
   "generatedWithWristTrackPro" : "Ce graphique a été généré avec WristTrack Pro",
   "generatedWithWristTrack" : "Ce graphique a été généré avec WristTrack",
@@ -346,6 +351,7 @@
   "soldSuffix" : "(Vendu)",
   "retiredSuffix": "(Retirée)",
   "archivedSuffix" : "(Archivée)",
+  "onLoanSuffix" : "(En prêt)",
   "watchColon" : "Montre : ",
   "deleting" : "Suppression en cours",
   "errorHeader" : "Erreur",
@@ -486,6 +492,7 @@
   "emptyWishlistCopy" : "Votre liste de souhaits est vide.\n\nPour ajouter une montre à votre liste de souhaits, créez une nouvelle fiche et réglez son statut sur « Liste de souhaits ».\n",
   "emptyFavouritesCopy" : "Vous n'avez pas encore de montres marquées comme « favorite ».\n\nPour marquer une montre comme favorite, activez le bouton bascule sur l'écran de détails de la montre.\n",
   "emptyPreOrderCopy" : "Vous n'avez aucune précommande en cours.\n\nPour suivre le compte à rebours d'une montre précommandée, créez une nouvelle fiche avec le statut « précommandée ».",
+  "emptyOnLoanCopy" : "Vous n'avez aucune montre marquée comme « En prêt » actuellement.\n\nVous pouvez marquer une montre comme prêtée en modifiant son statut.",
   "listViewTitle" : "Liste",
   "gridViewTitle" : "Grille",
   "displayOrderTitle" : "Ordre d'affichage :",

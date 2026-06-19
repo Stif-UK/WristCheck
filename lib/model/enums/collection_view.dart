@@ -1,1 +1,1 @@
-enum CollectionView {all, favourites, wishlist, sold, preorder, retired, random}
+enum CollectionView {all, favourites, wishlist, sold, preorder, retired, random, onLoan}

@@ -24,6 +24,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get retiredWatches => 'Бывшие';
 
   @override
+  String get onLoanWatches => 'On Loan Watches';
+
+  @override
   String get randomWatch => 'Случайные часы';
 
   @override
@@ -43,6 +46,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get statusArchived => 'В архиве';
+
+  @override
+  String get statusOnLoan => 'On Loan';
 
   @override
   String get collection => 'Коллекция';
@@ -629,6 +635,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get includeArchivedWatches => 'Включая архивные часы';
 
   @override
+  String get includeOnLoanWatches => 'Include On Loan Watches';
+
+  @override
   String get filterByCategory => 'Фильтр по категориям';
 
   @override
@@ -711,6 +720,11 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String advancedFilterHeaderIncArchived(Object returnText) {
     return '$returnText вкл. Архивные, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncOnLoan(Object returnText) {
+    return '$returnText inc. On Loan, ';
   }
 
   @override
@@ -988,6 +1002,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get archivedSuffix => '(В архиве)';
+
+  @override
+  String get onLoanSuffix => '(On Loan)';
 
   @override
   String get watchColon => 'Часы:';
@@ -1410,6 +1427,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'Вы не отслеживаете предзаказы.\n\nЧтобы включить обратный отсчет для ожидаемых часов, создайте запись со статусом «Предзаказ».';
+
+  @override
+  String get emptyOnLoanCopy =>
+      'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.';
 
   @override
   String get listViewTitle => 'Список';

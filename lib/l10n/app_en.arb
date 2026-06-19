@@ -7,6 +7,7 @@
   "wishlist" : "Wishlist",
   "preOrders" : "Pre-Orders",
   "retiredWatches" : "Retired Watches",
+  "onLoanWatches" : "On Loan Watches",
   "randomWatch" : "Random Watch",
 
   "@_STATUS_LIST": {},
@@ -16,6 +17,8 @@
   "statusPreOrder" : "Pre-Order",
   "statusRetired" : "Retired",
   "statusArchived" : "Archived",
+  "statusOnLoan" : "On Loan",
+
 
   "@_HOME_TABS": {},
   "collection" : "Collection",
@@ -235,6 +238,7 @@
   "includeSoldWatches" : "Include Sold Watches",
   "includeRetiredWatches" : "Include Retired Watches",
   "includeArchivedWatches" : "Include Archived Watches",
+  "includeOnLoanWatches" : "Include On Loan Watches",
   "filterByCategory" : "Filter by Category",
   "filterByMovement" : "Filter by Movement",
   "allData" : "All Data",
@@ -256,6 +260,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} inc. Sold, ",
   "advancedFilterHeaderIncRetired" : "{returnText} inc. Retired, ",
   "advancedFilterHeaderIncArchived" : "{returnText} inc. Archived, ",
+  "advancedFilterHeaderIncOnLoan" : "{returnText} inc. On Loan, ",
   "chartsEmptyBackgroundText" : "No data available for the chosen filter",
   "generatedWithWristTrackPro" : "This chart generated with WristTrack Pro",
   "generatedWithWristTrack" : "This chart generated with WristTrack",
@@ -346,6 +351,7 @@
   "soldSuffix" : "(Sold)",
   "retiredSuffix": "(Retired)",
   "archivedSuffix" : "(Archived)",
+  "onLoanSuffix" : "(On Loan)",
   "watchColon" : "Watch:",
   "deleting" : "Deleting",
   "errorHeader" : "Error",
@@ -486,6 +492,7 @@
   "emptyWishlistCopy" : "You aren't tracking any watches in your wishlist.\n\nTo add a watch to your wishlist, create a new watch record and set it's status to 'Wishlist'.\n",
   "emptyFavouritesCopy" : "You don't have any watches marked as 'favourite' yet. \n\nTo mark a watch as a favourite adjust the toggle on the watch detail screen.\n",
   "emptyPreOrderCopy" : "You're not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of 'pre-ordered'.",
+  "emptyOnLoanCopy" : "You don't have any watches marked as 'On Loan' currently.\n\nYou can mark a watch as on loan by editing its status.",
   "listViewTitle" : "List",
   "gridViewTitle" : "Grid",
   "displayOrderTitle" : "Display Order:",

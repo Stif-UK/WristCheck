@@ -7,6 +7,7 @@
   "wishlist" : "Wunschliste",
   "preOrders" : "Vorbestellungen",
   "retiredWatches" : "Ausgemusterte Uhren",
+  "onLoanWatches" : "Ausgeliehene Uhren",
   "randomWatch" : "Zufällige Uhr",
 
   "@_STATUS_LIST": {},
@@ -16,6 +17,8 @@
   "statusPreOrder" : "Vorbestellt",
   "statusRetired" : "Ausgemustert",
   "statusArchived" : "Archiviert",
+  "statusOnLoan" : "Ausgeliehen",
+
 
   "@_HOME_TABS": {},
   "collection" : "Sammlung",
@@ -235,6 +238,7 @@
   "includeSoldWatches" : "Verkaufte Uhren einschließen",
   "includeRetiredWatches" : "Ausgemusterte Uhren einschließen",
   "includeArchivedWatches" : "Archivierte Uhren einschließen",
+  "includeOnLoanWatches" : "Ausgeliehene Uhren einschließen",
   "filterByCategory" : "Nach Kategorie filtern",
   "filterByMovement" : "Nach Uhrwerk filtern",
   "allData" : "Alle Daten",
@@ -256,6 +260,7 @@
   "advancedFilterHeaderIncSold" : "{returnText} inkl. Verkauft, ",
   "advancedFilterHeaderIncRetired" : "{returnText} inkl. Ausgemustert, ",
   "advancedFilterHeaderIncArchived" : "{returnText} inkl. Archiviert, ",
+  "advancedFilterHeaderIncOnLoan" : "{returnText} inkl. Ausgeliehen, ",
   "chartsEmptyBackgroundText" : "Keine Daten für den gewählten Filter verfügbar",
   "generatedWithWristTrackPro" : "Dieses Diagramm wurde mit WristTrack Pro erstellt",
   "generatedWithWristTrack" : "Dieses Diagramm wurde mit WristTrack erstellt",
@@ -346,6 +351,7 @@
   "soldSuffix" : "(Verkauft)",
   "retiredSuffix": "(Ausgemustert)",
   "archivedSuffix" : "(Archiviert)",
+  "onLoanSuffix" : "(Ausgeliehen)",
   "watchColon" : "Uhr:",
   "deleting" : "Wird gelöscht",
   "errorHeader" : "Fehler",
@@ -486,6 +492,7 @@
   "emptyWishlistCopy" : "Du hast keine Uhren auf deiner Wunschliste.\n\nUm eine Uhr zur Wunschliste hinzuzufügen, erstelle einen neuen Uhreneintrag und setze den Status auf 'Wunschliste'.\n",
   "emptyFavouritesCopy" : "Du hast noch keine Uhren als 'Favorit' markiert.\n\nUm eine Uhr als Favorit zu markieren, aktiviere den Schalter auf der Detailseite der Uhr.\n",
   "emptyPreOrderCopy" : "Du hast keine vorbestellten Uhren eingetragen.\n\nUm einen Countdown für eine vorbestellte Uhr zu aktivieren, erstelle einen neuen Uhreneintrag mit dem Status 'Vorbestellt'.",
+  "emptyOnLoanCopy" : "Du hast aktuell keine Uhren als 'Ausgeliehen' markiert.\n\nDu kannst eine Uhr als ausgeliehen markieren, indem du ihren Status bearbeitest.",
   "listViewTitle" : "Liste",
   "gridViewTitle" : "Raster",
   "displayOrderTitle" : "Anzeigereihenfolge:",

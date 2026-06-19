@@ -24,6 +24,9 @@ class DynamicCopyHelper{
       case CollectionView.preorder:
         returnText = l!.emptyPreOrderCopy;
         break;
+      case CollectionView.onLoan:
+        returnText = l!.emptyOnLoanCopy;
+        break;
       default:
         returnText = l!.emptyWatchboxCopy;
         break;

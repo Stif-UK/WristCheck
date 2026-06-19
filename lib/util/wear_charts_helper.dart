@@ -65,7 +65,7 @@ class WearChartsHelper {
     return returnString;
   }
 
-  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showRetired, bool showArchived, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
+  static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showRetired, bool showArchived, bool showOnLoan, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
 
     final filterController = Get.put(FilterController());
     String returnText = "";
@@ -115,6 +115,10 @@ class WearChartsHelper {
     if(showArchived){
       returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncArchived(returnText);
     }
+    //Text for including on loan watches
+    if(showOnLoan){
+      returnText = AppLocalizations.of(Get.context!)!.advancedFilterHeaderIncOnLoan(returnText);
+    }
     returnText = returnText.trim();
     if(returnText.length > 2){
       returnText = returnText.substring(0, returnText.length-1);
@@ -136,9 +140,11 @@ class WearChartsHelper {
       case "Archived":
         returnString = AppLocalizations.of(Get.context!)!.archivedSuffix;
         break;
+      case "On Loan":
+        returnString = AppLocalizations.of(Get.context!)!.onLoanSuffix;
+        break;
       default:
         returnString = "";
-        break;
     }
 
     return returnString;

@@ -24,6 +24,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retiredWatches => 'Retired Watches';
 
   @override
+  String get onLoanWatches => 'On Loan Watches';
+
+  @override
   String get randomWatch => 'Random Watch';
 
   @override
@@ -43,6 +46,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusArchived => 'Archived';
+
+  @override
+  String get statusOnLoan => 'On Loan';
 
   @override
   String get collection => 'Collection';
@@ -629,6 +635,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get includeArchivedWatches => 'Include Archived Watches';
 
   @override
+  String get includeOnLoanWatches => 'Include On Loan Watches';
+
+  @override
   String get filterByCategory => 'Filter by Category';
 
   @override
@@ -711,6 +720,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String advancedFilterHeaderIncArchived(Object returnText) {
     return '$returnText inc. Archived, ';
+  }
+
+  @override
+  String advancedFilterHeaderIncOnLoan(Object returnText) {
+    return '$returnText inc. On Loan, ';
   }
 
   @override
@@ -969,6 +983,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get archivedSuffix => '(Archived)';
+
+  @override
+  String get onLoanSuffix => '(On Loan)';
 
   @override
   String get watchColon => 'Watch:';
@@ -1379,6 +1396,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get emptyPreOrderCopy =>
       'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.';
+
+  @override
+  String get emptyOnLoanCopy =>
+      'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.';
 
   @override
   String get listViewTitle => 'List';

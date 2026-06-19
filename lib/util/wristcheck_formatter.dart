@@ -108,6 +108,9 @@ class WristCheckFormatter{
       case CollectionView.retired:
         returnText = AppLocalizations.of(Get.context!)!.retiredWatches;
         break;
+      case CollectionView.onLoan:
+        returnText = AppLocalizations.of(Get.context!)!.onLoanWatches;
+        break;
     }
 
     return returnText;

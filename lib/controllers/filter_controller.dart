@@ -21,6 +21,7 @@ class FilterController extends GetxController{
   final includeSold = false.obs;
   final includeRetired = false.obs;
   final includeArchived = false.obs;
+  final includeOnLoan = false.obs;
   final filterByCategory = false.obs;
   final filterByMovement = false.obs;
   final pickGrouping = false.obs;
@@ -39,6 +40,7 @@ class FilterController extends GetxController{
     includeRetired(false);
     includeSold(false);
     includeArchived(false);
+    includeOnLoan(false);
     filterByCategory(false);
     selectedCategories([]);
     chartGrouping(ChartGrouping.watch);
@@ -105,6 +107,10 @@ class FilterController extends GetxController{
 
   updateIncludeArchived(bool showArchived){
     includeArchived(showArchived);
+  }
+
+  updateIncludeOnLoan(bool showOnLoan){
+    includeOnLoan(showOnLoan);
   }
 
   updateFilterByCategory(bool byCategory){

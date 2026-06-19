@@ -85,6 +85,9 @@ class ListTileHelper {
       case CollectionView.retired:
         returnText = _getStandardReturnText(watch);
         break;
+      case CollectionView.onLoan:
+        returnText = _getStandardReturnText(watch);
+        break;
     }
     return returnText;
   }

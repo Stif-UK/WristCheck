@@ -134,6 +134,12 @@ abstract class AppLocalizations {
   /// **'Retired Watches'**
   String get retiredWatches;
 
+  /// No description provided for @onLoanWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'On Loan Watches'**
+  String get onLoanWatches;
+
   /// No description provided for @randomWatch.
   ///
   /// In en, this message translates to:
@@ -175,6 +181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Archived'**
   String get statusArchived;
+
+  /// No description provided for @statusOnLoan.
+  ///
+  /// In en, this message translates to:
+  /// **'On Loan'**
+  String get statusOnLoan;
 
   /// No description provided for @collection.
   ///
@@ -1316,6 +1328,12 @@ abstract class AppLocalizations {
   /// **'Include Archived Watches'**
   String get includeArchivedWatches;
 
+  /// No description provided for @includeOnLoanWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Include On Loan Watches'**
+  String get includeOnLoanWatches;
+
   /// No description provided for @filterByCategory.
   ///
   /// In en, this message translates to:
@@ -1441,6 +1459,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{returnText} inc. Archived, '**
   String advancedFilterHeaderIncArchived(Object returnText);
+
+  /// No description provided for @advancedFilterHeaderIncOnLoan.
+  ///
+  /// In en, this message translates to:
+  /// **'{returnText} inc. On Loan, '**
+  String advancedFilterHeaderIncOnLoan(Object returnText);
 
   /// No description provided for @chartsEmptyBackgroundText.
   ///
@@ -1927,6 +1951,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'(Archived)'**
   String get archivedSuffix;
+
+  /// No description provided for @onLoanSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'(On Loan)'**
+  String get onLoanSuffix;
 
   /// No description provided for @watchColon.
   ///
@@ -2659,6 +2689,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'re not tracking any watch pre-orders. \n\nTo track a countdown for a pre-ordered watch, create a new watch record with a status of \'pre-ordered\'.'**
   String get emptyPreOrderCopy;
+
+  /// No description provided for @emptyOnLoanCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any watches marked as \'On Loan\' currently.\n\nYou can mark a watch as on loan by editing its status.'**
+  String get emptyOnLoanCopy;
 
   /// No description provided for @listViewTitle.
   ///
