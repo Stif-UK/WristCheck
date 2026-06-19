@@ -7,7 +7,7 @@ import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/ui/widgets/watch_listtile.dart';
+import 'package:wristcheck/ui/widgets/watch_card.dart';
 
 class WatchboxListView extends StatefulWidget {
   WatchboxListView({
@@ -50,10 +50,10 @@ class _WatchboxListViewState extends State<WatchboxListView> {
               shrinkWrap: true,
               itemCount: filteredList.length,
               separatorBuilder: (context, index){
-                  return const Divider(thickness: 2,);
+                  return const SizedBox(height: 5,);
                   },
               itemBuilder: (BuildContext context, int index) {
-                return WatchListTile(filteredList.elementAt(index), widget.collectionValue);
+                return WatchCard(watch: filteredList.elementAt(index), collectionView: widget.collectionValue);
               },
                 )
     );
