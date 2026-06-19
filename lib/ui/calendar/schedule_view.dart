@@ -233,7 +233,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                         )
                     ),
 
-                    items: (filter, infiniteScrollProps) =>  Boxes.sortWatchBox(Boxes.getCollectionWatches(), widget.wristCheckController.watchboxOrder.value!),
+                    items: (filter, infiniteScrollProps) =>  Boxes.sortWatchBox(Boxes.getCollectionAndOnLoanWatches(), widget.wristCheckController.watchboxOrder.value!),
                     onChanged: (watch){
                       widget.wristCheckController.updateNullWatchMemo(false);
                       widget.wristCheckController.updateSelectedWatch(watch);
@@ -251,11 +251,9 @@ class _ScheduleViewState extends State<ScheduleView> {
           //Code to track wear
           if(widget.wristCheckController.selectedWatch.value == null){
             widget.wristCheckController.updateNullWatchMemo(true);
-            print("No watch selected");
             //Please select a watch
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
-            print("Attempting to track wear");
             Get.back();
             WatchMethods.attemptToRecordWear(
                 widget.wristCheckController
@@ -312,7 +310,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                         )
                     ),
                     //Only display watches with a date that matches
-                    items: (filter, infiniteScrollProps) => Boxes.getWatchesWornOnDate(Boxes.getCollectionAndSoldWatches(),
+                    items: (filter, infiniteScrollProps) => Boxes.getWatchesWornOnDate(Boxes.getValidToHaveWornWatches(),
                         widget.wristCheckController.selectedDate.value!.year,
                         widget.wristCheckController.selectedDate.value!.month,
                         widget.wristCheckController.selectedDate.value!.day),
@@ -333,13 +331,10 @@ class _ScheduleViewState extends State<ScheduleView> {
           //Code to delete wear
           if(widget.wristCheckController.selectedWatch.value == null){
             widget.wristCheckController.updateNullWatchMemo(true);
-            print("No watch selected");
             //Please select a watch
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
-            print("Attempting to delete wear");
             Get.back();
-            //TODO: Remove wear code
             WatchMethods.removeWearDate(widget.wristCheckController.selectedDate.value!, widget.wristCheckController.selectedWatch.value!);
 
           }
@@ -365,7 +360,7 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   //Check if data has wears
   bool areWearsEmpty(){
-    List<Watches> watchList = Boxes.getCollectionAndSoldWatches();
+    List<Watches> watchList = Boxes.getValidToHaveWornWatches();
     if(widget.wristCheckController.selectedDate.value == null){
       return true;
     }
@@ -426,6 +421,20 @@ class _ScheduleViewState extends State<ScheduleView> {
             endTime: wearDate,
             subject: "${watch.toString()} ${l!.retiredSuffix}",
             color: Colors.green
+        ));
+      }
+    }
+
+    List<Watches> onLoanSchedule = Boxes.getOnLoanWatches();
+    for(Watches watch in onLoanSchedule){
+
+      for(DateTime wearDate in watch.wearList){
+        appointments.add(Appointment(
+            isAllDay: true,
+            startTime: wearDate,
+            endTime: wearDate,
+            subject: "${watch.toString()} ${l!.onLoanSuffix}",
+            color: Colors.brown
         ));
       }
     }
