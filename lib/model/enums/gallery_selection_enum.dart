@@ -1,1 +1,1 @@
-enum GallerySelectionEnum {watchbox, favourite, sold, archived, retired, preordered, wishlist, all}
+enum GallerySelectionEnum {watchbox, favourite, sold, archived, retired, preordered, wishlist, onLoan, all}

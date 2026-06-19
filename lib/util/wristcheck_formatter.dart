@@ -586,6 +586,9 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case GallerySelectionEnum.wishlist:
         returnString = AppLocalizations.of(Get.context!)!.galleryWishlistedWatchesTab;
         break;
+      case GallerySelectionEnum.onLoan:
+        returnString = AppLocalizations.of(Get.context!)!.onLoanWatches;
+        break;
       case GallerySelectionEnum.all:
         returnString = AppLocalizations.of(Get.context!)!.galleryEverythingTab;
         break;

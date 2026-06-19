@@ -378,6 +378,9 @@ class ImagesUtil {
       case GallerySelectionEnum.wishlist:
         watchList = Boxes.getWishlistWatches();
         break;
+      case GallerySelectionEnum.onLoan:
+        watchList = Boxes.getOnLoanWatches();
+        break;
       case GallerySelectionEnum.all:
         watchList = Boxes.getAllNonArchivedWatches();
         break;
