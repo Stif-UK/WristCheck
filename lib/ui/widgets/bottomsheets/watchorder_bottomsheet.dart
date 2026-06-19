@@ -162,12 +162,12 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
           ),
           const Divider(thickness: 2,),
           Obx(()=> SwitchListTile(
-              title: Text("Show last worn dates"),
+              title: Text(AppLocalizations.of(context)!.showLastWornDateOption),
                 value: widget.wristCheckController.showLastWornDate.value,
                 onChanged: (bool)=> widget.wristCheckController.updateShowLastWornDate(bool)),
           ),
           Obx(()=> SwitchListTile(
-              title: Text("Show wear counts"),
+              title: Text(AppLocalizations.of(context)!.showWearCountOption),
               value: widget.wristCheckController.showWearCount.value,
               onChanged: (bool)=> widget.wristCheckController.updateShowWearCount(bool)),
           )

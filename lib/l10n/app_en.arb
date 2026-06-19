@@ -502,6 +502,8 @@
   "zaByManufacturer" : "Z-A by manufacturer",
   "orderByMostWorn" : "Order by most worn",
   "orderByLastWornDate" : "Order by last worn date",
+  "showLastWornDateOption" : "Show last worn dates",
+  "showWearCountOption" : "Show wear counts",
 
 
   "@_TIMELINE" : {},

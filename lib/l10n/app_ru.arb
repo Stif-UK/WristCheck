@@ -502,6 +502,8 @@
   "zaByManufacturer" : "Я-А по производителю",
   "orderByMostWorn" : "По частоте ношения (частые)",
   "orderByLastWornDate" : "По дате последнего ношения",
+  "showLastWornDateOption" : "Показывать даты последнего ношения",
+  "showWearCountOption" : "Показывать количество ношений",
 
 
   "@_TIMELINE" : {},

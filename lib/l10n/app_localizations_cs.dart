@@ -1454,6 +1454,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get orderByLastWornDate => 'Podle data posledního nošení';
 
   @override
+  String get showLastWornDateOption => 'Zobrazit data posledního nošení';
+
+  @override
+  String get showWearCountOption => 'Zobrazit počty nošení';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName zakoupeny';
   }

@@ -1460,6 +1460,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get orderByLastWornDate => 'По дате последнего ношения';
 
   @override
+  String get showLastWornDateOption => 'Показывать даты последнего ношения';
+
+  @override
+  String get showWearCountOption => 'Показывать количество ношений';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName: куплены';
   }

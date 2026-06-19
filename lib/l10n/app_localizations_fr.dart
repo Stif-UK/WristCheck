@@ -1448,6 +1448,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get orderByLastWornDate => 'Trier par date de dernier porter';
 
   @override
+  String get showLastWornDateOption => 'Afficher les dates du dernier porter';
+
+  @override
+  String get showWearCountOption => 'Afficher le nombre de portées';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName achetée';
   }

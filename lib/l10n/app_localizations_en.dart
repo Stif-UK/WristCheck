@@ -1429,6 +1429,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderByLastWornDate => 'Order by last worn date';
 
   @override
+  String get showLastWornDateOption => 'Show last worn dates';
+
+  @override
+  String get showWearCountOption => 'Show wear counts';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName purchased';
   }

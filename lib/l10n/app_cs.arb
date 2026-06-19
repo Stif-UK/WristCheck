@@ -502,6 +502,8 @@
   "zaByManufacturer" : "Z-A podle výrobce",
   "orderByMostWorn" : "Podle nejčastějšího nošení",
   "orderByLastWornDate" : "Podle data posledního nošení",
+  "showLastWornDateOption" : "Zobrazit data posledního nošení",
+  "showWearCountOption" : "Zobrazit počty nošení",
 
 
   "@_TIMELINE" : {},

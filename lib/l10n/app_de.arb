@@ -502,6 +502,8 @@
   "zaByManufacturer" : "Z-A nach Hersteller",
   "orderByMostWorn" : "Nach Tragehäufigkeit (am meisten)",
   "orderByLastWornDate" : "Nach letztem Tragedatum",
+  "showLastWornDateOption" : "Letzte Tragedaten anzeigen",
+  "showWearCountOption" : "Tragehäufigkeit anzeigen",
 
 
   "@_TIMELINE" : {},

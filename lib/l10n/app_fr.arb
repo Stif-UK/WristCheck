@@ -502,6 +502,8 @@
   "zaByManufacturer" : "Z-A par fabricant",
   "orderByMostWorn" : "Trier par les plus portées",
   "orderByLastWornDate" : "Trier par date de dernier porter",
+  "showLastWornDateOption" : "Afficher les dates du dernier porter",
+  "showWearCountOption" : "Afficher le nombre de portées",
 
   "@_TIMELINE" : {},
   "watchNamePurchased" : "{watchName} achetée",

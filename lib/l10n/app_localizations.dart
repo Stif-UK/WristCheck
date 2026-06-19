@@ -2750,6 +2750,18 @@ abstract class AppLocalizations {
   /// **'Order by last worn date'**
   String get orderByLastWornDate;
 
+  /// No description provided for @showLastWornDateOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Show last worn dates'**
+  String get showLastWornDateOption;
+
+  /// No description provided for @showWearCountOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Show wear counts'**
+  String get showWearCountOption;
+
   /// No description provided for @watchNamePurchased.
   ///
   /// In en, this message translates to:
