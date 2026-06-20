@@ -78,6 +78,7 @@
   "appPreferencesLink" : "Předvolby aplikace",
   "showArchiveLink" : "Zobrazit archivované hodinky",
   "showDemoLink" : "Zobrazit ukázku při prvním použití",
+  "appUserIDTitle": "ID uživatele aplikace",
   "appVersion" : "Verze aplikace: ",
   "unknownAppVersionText": "Nezjištěno",
 
@@ -878,6 +879,8 @@
   "restoreWatchSnackbarText" : "{watchName} byly obnoveny se stavem {returnText}",
   "reminderSetSnackbarTitle" : "Připomenutí nastaveno",
   "reminderSetSnackbarText" : "Připomenutí dostanete každý den v {returnText}",
+  "copiedSnackbarTitle": "Zkopírováno",
+  "appUserIDCopiedSnackbarText": "ID uživatele bylo uloženo do schránky",
 
   "@_DIALOGS" : {},
   "serviceIntervalTitle": "Servisní interval",

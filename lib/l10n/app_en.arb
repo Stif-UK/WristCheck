@@ -78,6 +78,7 @@
   "appPreferencesLink" : "App Preferences",
   "showArchiveLink" : "Show Archived Watches",
   "showDemoLink" : "Show First Use Demo",
+  "appUserIDTitle": "App User ID",
   "appVersion" : "App Version: ",
   "unknownAppVersionText": "Not determined",
 
@@ -877,6 +878,8 @@
   "restoreWatchSnackbarText" : "{watchName} has been restored with status {returnText}",
   "reminderSetSnackbarTitle" : "Reminder Set",
   "reminderSetSnackbarText" : "You'll get a reminder every day at {returnText}",
+  "copiedSnackbarTitle": "Copied",
+  "appUserIDCopiedSnackbarText": "appUserID saved to clipboard",
 
   "@_DIALOGS" : {},
   "serviceIntervalTitle": "Service Interval",

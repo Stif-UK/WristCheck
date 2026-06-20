@@ -77,6 +77,7 @@
   "appPreferencesLink" : "Préférences de l'application",
   "showArchiveLink" : "Afficher les montres archivées",
   "showDemoLink" : "Afficher la démo de première utilisation",
+  "appUserIDTitle": "ID utilisateur de l'application",
   "appVersion" : "Version de l'app : ",
   "unknownAppVersionText": "Indéterminé",
 
@@ -877,6 +878,8 @@
   "restoreWatchSnackbarText" : "{watchName} a été restaurée avec le statut : {returnText}",
   "reminderSetSnackbarTitle" : "Rappel configuré",
   "reminderSetSnackbarText" : "Vous recevrez un rappel chaque jour à {returnText}",
+  "copiedSnackbarTitle": "Copié",
+  "appUserIDCopiedSnackbarText": "ID utilisateur copié dans le presse-papiers",
 
   "@_DIALOGS" : {},
   "serviceIntervalTitle": "Intervalle d'entretien",

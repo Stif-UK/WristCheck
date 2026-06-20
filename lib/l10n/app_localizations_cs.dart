@@ -195,6 +195,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get showDemoLink => 'Zobrazit ukázku při prvním použití';
 
   @override
+  String get appUserIDTitle => 'ID uživatele aplikace';
+
+  @override
   String get appVersion => 'Verze aplikace: ';
 
   @override
@@ -2048,6 +2051,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String reminderSetSnackbarText(Object returnText) {
     return 'Připomenutí dostanete každý den v $returnText';
   }
+
+  @override
+  String get copiedSnackbarTitle => 'Zkopírováno';
+
+  @override
+  String get appUserIDCopiedSnackbarText =>
+      'ID uživatele bylo uloženo do schránky';
 
   @override
   String get serviceIntervalTitle => 'Servisní interval';

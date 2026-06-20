@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         final data = snapshot.data as String;
                         return ListTile(
                           leading: Icon(FontAwesomeIcons.user),
-                          title: const Text("App User ID"),
+                          title: Text(AppLocalizations.of(context)!.appUserIDTitle),
                           subtitle: Text(
                             '$data',
 
@@ -136,8 +136,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               //Copy the appUserID to the clipboard
                               Clipboard.setData(ClipboardData(text:'$data'));
                               Get.snackbar(
-                                  "Copied",
-                                  "appUserID saved to clipboard",
+                                  AppLocalizations.of(context)!.copiedSnackbarTitle,
+                                  AppLocalizations.of(context)!.appUserIDCopiedSnackbarText,
                                   icon: const Icon(Icons.copy),
                                   snackPosition: SnackPosition.BOTTOM
                               );
@@ -147,9 +147,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         );
                       }
                     }
-                    return const ListTile(
+                    return ListTile(
                       leading: Icon(FontAwesomeIcons.user),
-                      title: Text("App User ID"),
+                      title: Text(AppLocalizations.of(context)!.appUserIDTitle),
                       trailing: CircularProgressIndicator(),
                     );
 

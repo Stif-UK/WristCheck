@@ -78,6 +78,7 @@
   "appPreferencesLink" : "App-Einstellungen",
   "showArchiveLink" : "Archivierte Uhren anzeigen",
   "showDemoLink" : "Demo für Erstbenutzung anzeigen",
+  "appUserIDTitle": "App-Benutzer-ID",
   "appVersion" : "App-Version: ",
   "unknownAppVersionText": "Nicht ermittelt",
 
@@ -878,6 +879,8 @@
   "restoreWatchSnackbarText" : "{watchName} wurde mit dem Status {returnText} wiederhergestellt",
   "reminderSetSnackbarTitle" : "Erinnerung eingerichtet",
   "reminderSetSnackbarText" : "Du erhältst jeden Tag um {returnText} eine Erinnerung",
+  "copiedSnackbarTitle": "Kopiert",
+  "appUserIDCopiedSnackbarText": "App-Benutzer-ID in die Zwischenablage kopiert",
 
   "@_DIALOGS" : {},
   "serviceIntervalTitle": "Serviceintervall",

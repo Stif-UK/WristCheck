@@ -195,6 +195,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showDemoLink => 'Show First Use Demo';
 
   @override
+  String get appUserIDTitle => 'App User ID';
+
+  @override
   String get appVersion => 'App Version: ';
 
   @override
@@ -2022,6 +2025,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String reminderSetSnackbarText(Object returnText) {
     return 'You\'ll get a reminder every day at $returnText';
   }
+
+  @override
+  String get copiedSnackbarTitle => 'Copied';
+
+  @override
+  String get appUserIDCopiedSnackbarText => 'appUserID saved to clipboard';
 
   @override
   String get serviceIntervalTitle => 'Service Interval';

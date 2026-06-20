@@ -195,6 +195,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showDemoLink => 'Показать демо при первом запуске';
 
   @override
+  String get appUserIDTitle => 'ID пользователя приложения';
+
+  @override
   String get appVersion => 'Версия приложения: ';
 
   @override
@@ -2064,6 +2067,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String reminderSetSnackbarText(Object returnText) {
     return 'Вы будете получать напоминание каждый день в $returnText';
   }
+
+  @override
+  String get copiedSnackbarTitle => 'Скопировано';
+
+  @override
+  String get appUserIDCopiedSnackbarText =>
+      'ID пользователя скопирован в буфер обмена';
 
   @override
   String get serviceIntervalTitle => 'Интервал обслуживания';

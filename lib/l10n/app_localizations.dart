@@ -476,6 +476,12 @@ abstract class AppLocalizations {
   /// **'Show First Use Demo'**
   String get showDemoLink;
 
+  /// No description provided for @appUserIDTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App User ID'**
+  String get appUserIDTitle;
+
   /// No description provided for @appVersion.
   ///
   /// In en, this message translates to:
@@ -3703,6 +3709,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ll get a reminder every day at {returnText}'**
   String reminderSetSnackbarText(Object returnText);
+
+  /// No description provided for @copiedSnackbarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get copiedSnackbarTitle;
+
+  /// No description provided for @appUserIDCopiedSnackbarText.
+  ///
+  /// In en, this message translates to:
+  /// **'appUserID saved to clipboard'**
+  String get appUserIDCopiedSnackbarText;
 
   /// No description provided for @serviceIntervalTitle.
   ///

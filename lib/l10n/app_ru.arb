@@ -78,6 +78,7 @@
   "appPreferencesLink" : "Настройки приложения",
   "showArchiveLink" : "Показывать архивные часы",
   "showDemoLink" : "Показать демо при первом запуске",
+  "appUserIDTitle": "ID пользователя приложения",
   "appVersion" : "Версия приложения: ",
   "unknownAppVersionText": "Не определена",
 
@@ -878,6 +879,8 @@
   "restoreWatchSnackbarText" : "{watchName} восстановлены со статусом {returnText}",
   "reminderSetSnackbarTitle" : "Напоминание установлено",
   "reminderSetSnackbarText" : "Вы будете получать напоминание каждый день в {returnText}",
+  "copiedSnackbarTitle": "Скопировано",
+  "appUserIDCopiedSnackbarText": "ID пользователя скопирован в буфер обмена",
 
   "@_DIALOGS" : {},
   "serviceIntervalTitle": "Интервал обслуживания",
