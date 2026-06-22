@@ -5,14 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.16.1 \n"
+        "### Version 1.17.0 \n"
         "\n"
 
-            "* Updates to Accuracy UI.\n"
-            "* Latest accuracy measurement appears immediately on watch view\n"
-            "* Wear Charts can now be filtered between two given dates.\n"
-            "* Malaysian Ringgit added to currency options\n"
-            "* Spring Drive added to movement list\n"
+            "* App translated into multiple languages\n"
+            "* Multiple new currencies added, along with quick search to set\n"
+            "* UI improvements to watchbox list and grid views\n"
+            "* UI improvements to watch gallery view\n"
+            "* New 'On Loan' status for watches\n"
             "* Additional small enhancements and bug fixes";
 
   }
@@ -27,6 +27,17 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.17.0 \n"
+                      "\n"
+
+                      "* App translated into multiple languages\n"
+                      "* Multiple new currencies added, along with quick search to set\n"
+                      "* UI improvements to watchbox list and grid views\n"
+                      "* UI improvements to watch gallery view\n"
+                      "* New 'On Loan' status for watches\n"
+                      "* Additional small enhancements and bug fixes"
+                      ""
+                      "---\n\n"
                       "### Version 1.16.1 \n"
                       "\n"
 
