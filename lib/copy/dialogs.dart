@@ -29,16 +29,6 @@ class WristCheckDialogs {
     );
   }
 
-  //TODO: Refactor this out - page no longer in the app
-  // static getServicePageTooltipDialog(){
-  //   Get.defaultDialog(
-  //     title: "Service Schedule",
-  //     barrierDismissible: true,
-  //     middleText: "This tab shows the next service dates of watches in your collection, based on either their purchase date or last serviced date, along with the given service interval. \n \n"
-  //         "If a service is due within the next 3 months the leading icon is highlighted in red",
-  //   );
-  // }
-
   static getDuplicateWearDialog(Watches currentWatch, DateTime date)   {
     Get.defaultDialog(
       title: AppLocalizations.of(Get.context!)!.duplicateWearTitle,
@@ -62,18 +52,6 @@ class WristCheckDialogs {
       middleText: AppLocalizations.of(Get.context!)!.collectionStatsDialogText
     );
   }
-
-  //TODO: Refactor out - this help text is no longer used within the app
-  // static getViewWatchDialog(){
-  //   Get.defaultDialog(
-  //       title: "Watch Info",
-  //       barrierDismissible: true,
-  //       middleText: "This page allows viewing and editing of watch information. \n\n"
-  //           "Select 'Wear Today' to record that the watch has been worn today - the calendar icon allows editing of the wear history"
-  //           "\n\nSet a purchase date and service interval to create a service schedule for this watch."
-  //           "\n\nChange the status to move the watch between your Wish List, Collection and Sold lists, or chose Archive to remove the watch from the main views (Archived watches can still be found under app settings)"
-  //   );
-  // }
 
   static getArchivedHelpDialog(){
     Get.defaultDialog(
