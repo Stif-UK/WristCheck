@@ -69,6 +69,10 @@ class WristCheckPreferences {
   //WR Units
   static const _keyWRUnitsPreference = 'WRUnits';
 
+  //Visibility preferences
+  static const _keyShowLastWornDate = 'showLastWornDate';
+  static const _keyShowWearCountVisibility = 'showWearCountVisibility';
+
 
 
 
@@ -596,5 +600,17 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyShowCPWvalue, cpwValue);
 
   static bool getCostPerWearValuePref() => _preferences.getBool(_keyShowCPWvalue) ?? true;
+
+  //Getter and Setter for show last worn date visibility preference
+  static Future setShowLastWornDatePref(bool showLastWorn) async =>
+      await _preferences.setBool(_keyShowLastWornDate, showLastWorn);
+
+  static bool getShowLastWornDatePref() => _preferences.getBool(_keyShowLastWornDate) ?? true;
+
+  //Getter and Setter for show wear count visibility preference
+  static Future setShowWearCountPref(bool showWearCount) async =>
+      await _preferences.setBool(_keyShowWearCountVisibility, showWearCount);
+
+  static bool getShowWearCountPref() => _preferences.getBool(_keyShowWearCountVisibility) ?? true;
 
 }
