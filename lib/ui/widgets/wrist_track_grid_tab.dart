@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
@@ -70,22 +71,28 @@ class WristTrackGridTab extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             // Last worn and wear count lines (order swapped)
-            Obx(() => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue)
-                  .split('\n')
-                  .where((line) => line.isNotEmpty)
-                  .toList()
-                  .reversed
-                  .map((line) => Text(
-                        line,
-                        style: ListTileHelper.getSubtitleTheme(currentWatch) ?? 
-                               Theme.of(context).textTheme.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ))
-                  .toList(),
-            )),
+            Obx(() {
+              final wristCheckController = Get.put(WristCheckController());
+              wristCheckController.showLastWornDate.value;
+              wristCheckController.showWearCount.value;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: ListTileHelper.getWatchboxListSubtitle(currentWatch, collectionValue)
+                    .split('\n')
+                    .where((line) => line.isNotEmpty)
+                    .toList()
+                    .reversed
+                    .map((line) => Text(
+                          line,
+                          style: ListTileHelper.getSubtitleTheme(currentWatch) ?? 
+                                 Theme.of(context).textTheme.bodySmall,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ))
+                    .toList(),
+              );
+            }),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
@@ -81,13 +82,18 @@ class WatchCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 5),
-                    Obx(() => Text(
-                      ListTileHelper.getWatchboxListSubtitle(watch, collectionView),
-                      style: ListTileHelper.getSubtitleTheme(watch) ?? 
-                          Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Theme.of(context).textTheme.bodySmall?.color,
-                              ),
-                    )),
+                    Obx(() {
+                      final wristCheckController = Get.put(WristCheckController());
+                      wristCheckController.showLastWornDate.value;
+                      wristCheckController.showWearCount.value;
+                      return Text(
+                        ListTileHelper.getWatchboxListSubtitle(watch, collectionView),
+                        style: ListTileHelper.getSubtitleTheme(watch) ?? 
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context).textTheme.bodySmall?.color,
+                                ),
+                      );
+                    }),
                   ],
                 ),
               ),
