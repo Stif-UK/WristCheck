@@ -27,7 +27,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.17.0 \n"
+                      "### Version 1.17.1 \n"
                       "\n"
 
                       "* App translated into multiple languages\n"
