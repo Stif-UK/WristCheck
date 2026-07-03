@@ -140,7 +140,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(l!.removeWear, style: TextStyle(
-                          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                          fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                         ), textAlign: TextAlign.center,),
                       ),
                       onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
@@ -155,7 +155,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     child: ElevatedButton(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(l.trackWear, style: TextStyle(), textAlign: TextAlign.center,),
+                            child: Text(l.trackWear, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
                           ),
                         onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
                             widget.wristCheckController.updateSelectedWatch(null);

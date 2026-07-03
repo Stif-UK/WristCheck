@@ -206,10 +206,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknownAppVersionText => 'Indéterminé';
 
   @override
-  String get wearStatsButton => 'Statistiques d\'usure';
+  String get wearStatsButton => 'Statistiques d\'utilisation';
 
   @override
-  String get collectionStatsButton => 'Statistiques de collecte';
+  String get collectionStatsButton => 'Statistiques de collection';
 
   @override
   String get wristRecap => 'Wrist Recap';
@@ -408,7 +408,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notesRowHintText => 'Notes';
 
   @override
-  String get costPerWearRowTitle => 'Coût par portée :';
+  String get costPerWearRowTitle => 'Coût par porté :';
 
   @override
   String get accuracyRowTitle => 'Précision :';
@@ -897,7 +897,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get caseMaterials => 'Matériaux du boîtier';
 
   @override
-  String get costPerWear => 'Coût par portée';
+  String get costPerWear => 'Coût par porté';
 
   @override
   String timeInCollectionDays(num count) {
@@ -1026,11 +1026,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get today => 'Aujourd\'hui';
 
   @override
-  String get notWornYet => 'Pas encore portée';
+  String get notWornYet => 'Pas encore porté';
 
   @override
   String lastWornDate(Object shortDate) {
-    return 'Dernière portée : $shortDate';
+    return 'Dernière porté : $shortDate';
   }
 
   @override
@@ -1141,10 +1141,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get track => 'Suivre';
 
   @override
-  String get trackWear => 'Enregistrer une portée';
+  String get trackWear => 'Enregistrer un porté';
 
   @override
-  String get removeWear => 'Supprimer la portée';
+  String get removeWear => 'Supprimer un porté';
 
   @override
   String get removeDate => 'Supprimer la date';
@@ -1451,13 +1451,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get orderByMostWorn => 'Trier par les plus portées';
 
   @override
-  String get orderByLastWornDate => 'Trier par date de dernier porter';
+  String get orderByLastWornDate => 'Trier par date de dernier porté';
 
   @override
-  String get showLastWornDateOption => 'Afficher les dates du dernier porter';
+  String get showLastWornDateOption => 'Afficher les dates du dernier porté';
 
   @override
-  String get showWearCountOption => 'Afficher le nombre de portées';
+  String get showWearCountOption => 'Afficher le nombre de portés';
 
   @override
   String watchNamePurchased(Object watchName) {
