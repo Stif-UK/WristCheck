@@ -120,6 +120,7 @@ Future main() async{
               supportedLocales: [
                 Locale('en'),// English
                 Locale('fr'),// French
+                Locale('es'),//Spanish
                 Locale('de'),// German
                 Locale('ru'),// Russian
                 Locale('cs') // Czech
