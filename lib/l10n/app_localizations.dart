@@ -1966,6 +1966,12 @@ abstract class AppLocalizations {
   /// **'(On Loan)'**
   String get onLoanSuffix;
 
+  /// No description provided for @goProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Pro!'**
+  String get goProTitle;
+
   /// No description provided for @watchColon.
   ///
   /// In en, this message translates to:

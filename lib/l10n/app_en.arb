@@ -353,6 +353,7 @@
   "retiredSuffix": "(Retired)",
   "archivedSuffix" : "(Archived)",
   "onLoanSuffix" : "(On Loan)",
+  "goProTitle" : "Go Pro!",
   "watchColon" : "Watch:",
   "deleting" : "Deleting",
   "errorHeader" : "Error",

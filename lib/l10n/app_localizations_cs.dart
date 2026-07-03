@@ -1007,6 +1007,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get onLoanSuffix => '(Zapůjčeno)';
 
   @override
+  String get goProTitle => 'Staňte se Pro!';
+
+  @override
   String get watchColon => 'Hodinky:';
 
   @override

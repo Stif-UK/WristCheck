@@ -1000,6 +1000,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onLoanSuffix => '(Prestado)';
 
   @override
+  String get goProTitle => '¡Pásate a Pro!';
+
+  @override
   String get watchColon => 'Reloj:';
 
   @override

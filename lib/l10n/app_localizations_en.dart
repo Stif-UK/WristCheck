@@ -991,6 +991,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onLoanSuffix => '(On Loan)';
 
   @override
+  String get goProTitle => 'Go Pro!';
+
+  @override
   String get watchColon => 'Watch:';
 
   @override

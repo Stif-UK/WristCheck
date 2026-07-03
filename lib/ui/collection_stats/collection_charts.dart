@@ -192,7 +192,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
 
   Widget getCostPerWearHeader(bool isPro){
 
-    return !isPro? Text("Go Pro!", style: Theme.of(context).textTheme.headlineSmall,):
+    return !isPro? Text(AppLocalizations.of(context)!.goProTitle, style: Theme.of(context).textTheme.headlineSmall,):
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

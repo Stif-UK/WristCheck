@@ -353,6 +353,7 @@
   "retiredSuffix": "(Выведены)",
   "archivedSuffix" : "(В архиве)",
   "onLoanSuffix" : "(Выданы)",
+  "goProTitle" : "Станьте Pro!",
   "watchColon" : "Часы:",
   "deleting" : "Удаление",
   "errorHeader" : "Ошибка",

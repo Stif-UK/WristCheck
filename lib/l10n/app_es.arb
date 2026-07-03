@@ -353,6 +353,7 @@
   "retiredSuffix": "(Retirado)",
   "archivedSuffix" : "(Archivado)",
   "onLoanSuffix" : "(Prestado)",
+  "goProTitle" : "¡Pásate a Pro!",
   "watchColon" : "Reloj:",
   "deleting" : "Eliminando",
   "errorHeader" : "Error",

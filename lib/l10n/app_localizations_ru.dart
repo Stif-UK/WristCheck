@@ -1010,6 +1010,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onLoanSuffix => '(Выданы)';
 
   @override
+  String get goProTitle => 'Станьте Pro!';
+
+  @override
   String get watchColon => 'Часы:';
 
   @override
