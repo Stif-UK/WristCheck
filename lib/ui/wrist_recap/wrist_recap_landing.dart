@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_monthly.dart';
 
 import '../period_review/period_review_home.dart';
 
@@ -19,7 +20,11 @@ class WristRecapLanding extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 child: Text("Monthly Wrist Recap"),
-              onPressed: (){},),
+              onPressed: (){
+                  DateTime now = DateTime.now();
+                  DateTime lastMonth = DateTime(now.year, now.month-1);
+                  Get.to(()=> WristRecapMonthly(month: lastMonth.month, year: lastMonth.year));
+              },),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
