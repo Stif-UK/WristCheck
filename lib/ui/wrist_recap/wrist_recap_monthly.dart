@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -25,11 +26,20 @@ class WristRecapMonthly extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: (Text("Wrist Recap")),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(icon: Icon(FontAwesomeIcons.gear),
+            onPressed: (){},),
+          )
+        ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Obx(() => Padding(
             padding: const EdgeInsets.all(8.0),
+            //TODO: Update to include full month name
             child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}", 
               style: Theme.of(context).textTheme.headlineMedium,),
           )),
@@ -38,17 +48,28 @@ class WristRecapMonthly extends StatelessWidget {
           
           Obx(() => recapController.watchesWorn.isEmpty 
             ? const SizedBox(height: 0,)
-            : SizedBox(
-                height: 250,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: recapController.watchesWorn.length,
-                  itemBuilder: (context, index) {
-                    final wornWatch = recapController.watchesWorn[index];
-                    return _buildWatchWornCard(wornWatch, context);
-                  },
+            : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Watches worn:", style: Theme.of(context).textTheme.bodyLarge,),
                 ),
-              )
+                SizedBox(
+                    height: 250,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: recapController.watchesWorn.length,
+                      itemBuilder: (context, index) {
+                        final wornWatch = recapController.watchesWorn[index];
+                        return _buildWatchWornCard(wornWatch, context);
+                      },
+                    ),
+                  ),
+                const Divider(thickness: 2,)
+              ],
+            )
           ),
         ],
       ),
@@ -129,8 +150,4 @@ class WristRecapMonthly extends StatelessWidget {
       child: Icon(Icons.watch, size: 50, color: Theme.of(context).disabledColor),
     );
   }
-  //getData - need to get:
-  //1. A list of all watches worn in the month (all statuses)
-  //2. A list of any watches bought or sold within the month
-
 }
