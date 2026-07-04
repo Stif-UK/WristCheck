@@ -20,10 +20,8 @@ class WristRecapMonthly extends StatelessWidget {
     //Initialise the controller
     recapController.updateMonth(month);
     recapController.updateYear(year);
-    //Generate list of worn watches
-    recapController.generateWornWatchesDate(recapController.month.value, recapController.year.value);
-    //Trigger controller to check if last month
-    recapController.checkIsLastMonth();
+    //Run refresh in controller
+    recapController.refresh();
 
     return Scaffold(
       appBar: AppBar(

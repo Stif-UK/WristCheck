@@ -73,8 +73,7 @@ class WristRecapMonthlyController extends GetxController{
     month(newDate.month);
     year(newDate.year);
     //Retrigger the data generation and check if this is 'last month'
-    generateWornWatchesDate(month.value, year.value);
-    checkIsLastMonth();
+    refresh();
   }
 
   decrementMonth() {
@@ -82,6 +81,10 @@ class WristRecapMonthlyController extends GetxController{
     month(newDate.month);
     year(newDate.year);
     //Retrigger the data generation and check if this is 'last month'
+    refresh();
+  }
+
+  refresh(){
     generateWornWatchesDate(month.value, year.value);
     checkIsLastMonth();
   }
