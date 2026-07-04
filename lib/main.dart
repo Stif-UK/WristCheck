@@ -24,6 +24,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
 
 
@@ -116,6 +117,7 @@ Future main() async{
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
+                SfGlobalLocalizations.delegate
               ],
               supportedLocales: [
                 Locale('en'),// English

@@ -1323,6 +1323,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "28.2.12"
+  syncfusion_localizations:
+    dependency: "direct main"
+    description:
+      name: syncfusion_localizations
+      sha256: "11776e475d7466bb15b718a6cf43ec73c52e7c5f1b6f79d15269c20deacfc9d0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.7"
   synchronized:
     dependency: transitive
     description:

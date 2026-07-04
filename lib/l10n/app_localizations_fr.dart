@@ -1030,7 +1030,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String lastWornDate(Object shortDate) {
-    return 'Dernière porté : $shortDate';
+    return 'Dernièr porté : $shortDate';
   }
 
   @override
