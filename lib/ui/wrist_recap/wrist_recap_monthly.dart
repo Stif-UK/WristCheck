@@ -22,6 +22,8 @@ class WristRecapMonthly extends StatelessWidget {
     recapController.updateYear(year);
     //Generate list of worn watches
     recapController.generateWornWatchesDate(recapController.month.value, recapController.year.value);
+    //Trigger controller to check if last month
+    recapController.checkIsLastMonth();
 
     return Scaffold(
       appBar: AppBar(
@@ -37,16 +39,37 @@ class WristRecapMonthly extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Obx(() => Padding(
-            padding: const EdgeInsets.all(8.0),
-            //TODO: Update to include full month name
-            child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}", 
-              style: Theme.of(context).textTheme.headlineMedium,),
-          )),
+          Row(
+            children: [
+              IconButton(
+                  icon: Icon(FontAwesomeIcons.chevronLeft),
+              onPressed: () => recapController.decrementMonth(),),
+              Expanded(
+                child: Column(
+                  children: [
+                    Obx(() => Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+                      child: recapController.isLastMonth.value ? Text("Last Month",) : const SizedBox(height: 0,),
+                    )),
+                    Obx(() => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      //TODO: Update to include full month name
+                      child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
+                        style: Theme.of(context).textTheme.headlineMedium,),
+                    )),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.chevronRight),
+                onPressed: () => recapController.incrementMonth(),),
+            ],
+          ),
           
           const Divider(thickness: 2,),
           
-          Obx(() => recapController.watchesWorn.isEmpty 
+          Obx(() => recapController.watchesWorn.isEmpty
+          //TODO: Handle empty data gracefully
             ? const SizedBox(height: 0,)
             : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +90,7 @@ class WristRecapMonthly extends StatelessWidget {
                       },
                     ),
                   ),
-                const Divider(thickness: 2,)
+                const Divider(thickness: 2,),
               ],
             )
           ),
@@ -149,5 +172,25 @@ class WristRecapMonthly extends StatelessWidget {
       ),
       child: Icon(Icons.watch, size: 50, color: Theme.of(context).disabledColor),
     );
+  }
+
+  Widget _wristRecapGridViewTile(BuildContext context, String title, String value, String? subtitle) {
+    return Container(
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        color: Theme.of(context).disabledColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10)
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Text(title),
+            Text(value),
+            Text(subtitle ?? "")
+          ],
+        )
+        ),
+      );
   }
 }
