@@ -19,6 +19,7 @@ class WristCheckConfig{
   static bool enableCSVUploads = false; //CSV Uploading
   static bool enableMultiDateWatchCalendar = true; //Multi-date picker on watch calendar view
   static bool enableLanguagePicker = true; //Language selection in Settings
+  static bool enableMonthlyRecap = true; //Enable the monthly view for Wrist Recap
 
 
   /*
