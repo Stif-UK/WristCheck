@@ -10,6 +10,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
 import 'package:wristcheck/ui/period_review/period_review_home.dart';
 import 'package:wristcheck/ui/wear_stats_v2.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_landing.dart';
 
 import '../provider/adstate.dart';
 
@@ -142,7 +143,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                           ),
                         ),
                         onPressed: (){
-                          Get.to(()=>const PeriodReviewHome());
+                          WristCheckConfig.enableMonthlyRecap? Get.to(()=> const WristRecapLanding()):Get.to(()=>const PeriodReviewHome());
                         },
                         style: ButtonStyle(
                             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
