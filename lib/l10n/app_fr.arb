@@ -361,7 +361,7 @@
   "success" : "Succès !",
   "today" : "Aujourd'hui",
   "notWornYet" : "Pas encore porté",
-  "lastWornDate" : "Dernière porté : {shortDate}",
+  "lastWornDate" : "Dernièr porté : {shortDate}",
   "wearCount" : "Portée {count} fois",
   "notRecorded" : "Non enregistrée",
   "soldDetails" : "Vendue le {shortDate} \npour {price}",
