@@ -110,7 +110,7 @@ class WristRecapMonthly extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Watch Image
               showImage
@@ -143,7 +143,7 @@ class WristRecapMonthly extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 watch.toString(),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -151,8 +151,15 @@ class WristRecapMonthly extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 AppLocalizations.of(context)!.wearCount(wornWatch.count),
+                textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
+              const SizedBox(height: 5,),
+              Text(
+                "Wear Percentage: ${wornWatch.percentage}",
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.left,
+              )
             ],
           ),
         ),
