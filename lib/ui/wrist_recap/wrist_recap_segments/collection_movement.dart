@@ -32,8 +32,8 @@ class CollectionMovement extends StatelessWidget {
                       Text("${recapController.watchesSold.length} watches sold"),
                       if (recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty) ...[
                         const SizedBox(height: 10,),
-                        ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch)),
-                        ...recapController.watchesSold.map((watch) => CollectionMovementCard(watch: watch)),
+                        ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch, purchased: true,)),
+                        ...recapController.watchesSold.map((watch) => CollectionMovementCard(watch: watch, purchased: false,)),
                       ],
                     ],
                   )),

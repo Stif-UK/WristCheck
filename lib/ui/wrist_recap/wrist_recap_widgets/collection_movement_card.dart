@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_empty_icon.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class CollectionMovementCard extends StatelessWidget {
-  const CollectionMovementCard({super.key, required this.watch});
+  const CollectionMovementCard({super.key, required this.watch, required this.purchased});
 
   final Watches watch;
+  final bool purchased;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,12 @@ class CollectionMovementCard extends StatelessWidget {
                   watch.soldDate != null && watch.soldDate != "" ? Text("Sold on: ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,)
                 ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: purchased? Icon(FontAwesomeIcons.cashRegister) :Icon(FontAwesomeIcons.handHoldingDollar),
             )
+
           ],
         ),
       ),
