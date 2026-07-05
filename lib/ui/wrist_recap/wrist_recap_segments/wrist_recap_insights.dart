@@ -12,7 +12,7 @@ class WristRecapInsights extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 4,
-        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        margin: const EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -21,7 +21,7 @@ class WristRecapInsights extends StatelessWidget {
             children: [
               Text("Monthly Insights",style: Theme.of(context).textTheme.bodyLarge),
               Obx(() => GridView.count(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: _getInsights(),
