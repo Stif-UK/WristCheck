@@ -15,11 +15,11 @@ class WristRecapMonthlyController extends GetxController{
   //Step 1. Get all watches worn in the month
   //Step 2. Get all
   
-  updateMonth(int monthInt){
+  updateMonth(int monthInt) async {
     month(monthInt);
   }
   
-  updateYear(int yearInt){
+  updateYear(int yearInt) async {
     year(yearInt);
   }
 
@@ -67,7 +67,7 @@ class WristRecapMonthlyController extends GetxController{
     
   }
   
-  generateWatchesSold(){
+  generateWatchesSold() async {
     List<Watches> soldWatches = [];
     soldWatches = Boxes.getSoldWatches();
     soldWatches.removeWhere((watch) => watch.soldDate == null );
@@ -75,14 +75,15 @@ class WristRecapMonthlyController extends GetxController{
     watchesSold(soldWatches);
   }
 
-  generateWatchesPurchased(){
+  generateWatchesPurchased() async{
     List<Watches> purchasedWatches = [];
     purchasedWatches = Boxes.getAllNonArchivedWatches();
     purchasedWatches.removeWhere((watch) => watch.purchaseDate == null);
     purchasedWatches = purchasedWatches.where((watch) => watch.purchaseDate!.month == month.value && watch.purchaseDate!.year == year.value).toList();
+    watchesBought(purchasedWatches);
   }
 
-  checkIsLastMonth(){
+  checkIsLastMonth() async {
     DateTime now = DateTime.now();
     DateTime lastMonth = DateTime(now.year, now.month-1);
     isLastMonth(lastMonth.month == month.value && lastMonth.year == year.value);
@@ -104,11 +105,11 @@ class WristRecapMonthlyController extends GetxController{
     refresh();
   }
 
-  refresh(){
-    generateWornWatchesDate(month.value, year.value);
-    checkIsLastMonth();
-    generateWatchesSold();
-    generateWatchesPurchased();
+  refresh() async {
+    await generateWornWatchesDate(month.value, year.value);
+    await checkIsLastMonth();
+    await generateWatchesSold();
+    await generateWatchesPurchased();
   }
 
 }

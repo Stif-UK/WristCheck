@@ -32,7 +32,7 @@ class CollectionMovementCard extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError || !snapshot.hasData) {
-                          return const RecapEmptyIcon();
+                          return const RecapEmptyIcon(dimension: 60,);
                         }
                         final data = snapshot.data as File;
                         return ClipRRect(
@@ -52,7 +52,7 @@ class CollectionMovementCard extends StatelessWidget {
                       );
                     },
                   )
-                : const RecapEmptyIcon(),
+                : const RecapEmptyIcon(dimension: 60,),
             const SizedBox(width: 10),
             Expanded(
               child: Column(

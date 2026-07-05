@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RecapEmptyIcon extends StatelessWidget {
-  const RecapEmptyIcon({super.key});
+  const RecapEmptyIcon({super.key, required this.dimension});
+  final double dimension;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
+      width: dimension,
+      height: dimension,
       decoration: BoxDecoration(
         color: Theme.of(context).disabledColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),

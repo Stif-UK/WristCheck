@@ -36,7 +36,7 @@ class WornWatchCard extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError || !snapshot.hasData) {
-                            return const RecapEmptyIcon();
+                            return const RecapEmptyIcon(dimension: 100);
                           }
                           final data = snapshot.data as File;
                           return ClipRRect(
@@ -56,7 +56,7 @@ class WornWatchCard extends StatelessWidget {
                         );
                       },
                     )
-                  : const RecapEmptyIcon(),
+                  : const RecapEmptyIcon(dimension: 100),
               const SizedBox(height: 10),
               Text(
                 watch.toString(),
