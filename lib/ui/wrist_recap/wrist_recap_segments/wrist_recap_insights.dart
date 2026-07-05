@@ -21,7 +21,7 @@ class WristRecapInsights extends StatelessWidget {
             children: [
               Text("Monthly Insights",style: Theme.of(context).textTheme.bodyLarge),
               Obx(() => GridView.count(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: _getInsights(),
@@ -38,11 +38,14 @@ class WristRecapInsights extends StatelessWidget {
       //Get total watches worn
       insights.add(InsightCard(
           title: "Watches worn",
-          value: wearcount.toString()));
+          value: wearcount.toString(),
+      valueBig: true,));
       //Get wears tracked per day
       //TODO: handle months with less than a full track - get first wear entry in the month and if later than the 1st of the month reduce count
       int days = DateUtils.getDaysInMonth(recapController.year.value, recapController.month.value);
-      insights.add(InsightCard(title: "Wears per day", value: (wearcount/days).toStringAsFixed(1)));
+      insights.add(InsightCard(title: "Wears per day", value: (wearcount/days).toStringAsFixed(1), valueBig: true,));
+      //Top Brand
+      insights.add(InsightCard(title: "Top Brand", value: recapController.brandsWorn.first.manufacturer, valueBig: false,));
     }
     return insights;
   }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class InsightCard extends StatelessWidget {
-  const InsightCard({super.key, required this.title, required this.value, this.subtitle});
+  const InsightCard({super.key, required this.title, this.value, this.subtitle, required this.valueBig});
 
   final String title;
-  final String value;
+  final String? value;
+  final bool valueBig;
   final String? subtitle;
 
   @override
@@ -21,10 +22,11 @@ class InsightCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(title, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: Text(value, style: Theme.of(context).textTheme.headlineSmall,),
-          ),
+          if (value != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Text(value!, style: valueBig? Theme.of(context).textTheme.headlineSmall : Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center,),
+            ),
           if (subtitle != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),

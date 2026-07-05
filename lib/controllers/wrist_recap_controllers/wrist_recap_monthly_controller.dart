@@ -8,12 +8,11 @@ class WristRecapMonthlyController extends GetxController{
   final month = 1.obs;
   final year = 2025.obs;
   final watchesWorn = <WornWatchesClass>[].obs;
+  final brandsWorn = <ManufacturersWornClass>[].obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
   final isLastMonth = false.obs;
 
-  //Step 1. Get all watches worn in the month
-  //Step 2. Get all
   
   updateMonth(int monthInt) async {
     month(monthInt);
@@ -25,6 +24,10 @@ class WristRecapMonthlyController extends GetxController{
 
   updateWatchesWorn(List<WornWatchesClass> watchList){
     watchesWorn(watchList);
+  }
+
+  updateManufacturersWorn(List<ManufacturersWornClass> brandList){
+    brandsWorn(brandList);
   }
 
   updateWatchesBought(List<Watches> watchList){
@@ -65,6 +68,39 @@ class WristRecapMonthlyController extends GetxController{
     //Update the controller value
     watchesWorn(wearList);
     
+  }
+
+  generateBrandsWornData(int wearMonth, int wearYear){
+    Map<String, int> brandMap = {};
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+
+    for(Watches watch in watchList){
+      int count = watch.wearList
+          .where(
+              (date) => date.month == wearMonth && date.year == wearYear)
+          .length;
+
+      if (count > 0) {
+        brandMap[watch.manufacturer] = (brandMap[watch.manufacturer] ?? 0) + count;
+      }
+    }
+
+    List<ManufacturersWornClass> brandList = [];
+    int totalCount = 0;
+    brandMap.forEach((brand, count) {
+      brandList.add(ManufacturersWornClass(brand, count));
+      totalCount += count;
+    });
+
+    //Order the list - descending count
+    brandList.sort((a, b) => b.count.compareTo(a.count));
+
+    //Set percentage for each brand
+    for(ManufacturersWornClass brandData in brandList){
+      brandData.setPercentage("${((brandData.count / totalCount)*100).toStringAsFixed(1)} %");
+    }
+
+    brandsWorn(brandList);
   }
   
   generateWatchesSold() async {
@@ -107,6 +143,7 @@ class WristRecapMonthlyController extends GetxController{
 
   refresh() async {
     await generateWornWatchesDate(month.value, year.value);
+    await generateBrandsWornData(month.value, year.value);
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();
