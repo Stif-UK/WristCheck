@@ -15,15 +15,28 @@ class CollectionMovement extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Text("Collection Movement"),
-            Text("${recapController.watchesSold.length} watches sold"),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Collection Movement",
+                style: Theme.of(context).textTheme.bodyLarge,),
+                Obx(() => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${recapController.watchesBought.length} watches bought"),
+                    Text("${recapController.watchesSold.length} watches sold"),
 
+              ],
+            ),
+                  ),
+            ],
+                ),
           ],
         ),
-      ),
+    ),
     );
   }
 }

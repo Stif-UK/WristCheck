@@ -75,6 +75,13 @@ class WristRecapMonthlyController extends GetxController{
     watchesSold(soldWatches);
   }
 
+  generateWatchesPurchased(){
+    List<Watches> purchasedWatches = [];
+    purchasedWatches = Boxes.getAllNonArchivedWatches();
+    purchasedWatches.removeWhere((watch) => watch.purchaseDate == null);
+    purchasedWatches = purchasedWatches.where((watch) => watch.purchaseDate!.month == month.value && watch.purchaseDate!.year == year.value).toList();
+  }
+
   checkIsLastMonth(){
     DateTime now = DateTime.now();
     DateTime lastMonth = DateTime(now.year, now.month-1);
@@ -101,6 +108,7 @@ class WristRecapMonthlyController extends GetxController{
     generateWornWatchesDate(month.value, year.value);
     checkIsLastMonth();
     generateWatchesSold();
+    generateWatchesPurchased();
   }
 
 }
