@@ -11,18 +11,26 @@ class MonthlyWearChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Monthly wear chart"),
-    SfCartesianChart(
-    primaryXAxis: CategoryAxis(
-    isVisible: false,
-    ),
-    primaryYAxis: NumericAxis(),
-    series: _getBarSeries()
-    )
-      ],
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.all(8.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Monthly wear chart"),
+        SfCartesianChart(
+        primaryXAxis: CategoryAxis(
+        isVisible: false,
+        ),
+        primaryYAxis: NumericAxis(),
+        series: _getBarSeries()
+        )
+          ],
+        ),
+      ),
     );
   }
 }
