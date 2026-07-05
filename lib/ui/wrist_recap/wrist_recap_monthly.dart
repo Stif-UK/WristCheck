@@ -93,8 +93,8 @@ class WristRecapMonthly extends StatelessWidget {
                 ],
               )
             ),
-            //TODO: Wrap with Obx to ignore section if nothing bought or sold
-            CollectionMovement(),
+            Obx(()=> recapController.watchesBought.length > 0 || recapController.watchesSold.length > 0 ?
+            CollectionMovement() : const SizedBox(height: 0,)),
             const SizedBox(height: 50,)
 
           ],
