@@ -46,6 +46,7 @@ class _WatchBoxState extends State<Watchbox> {
     {
       final adState = Provider.of<AdState>(context);
       adState.initialization.then((status) {
+        if (!mounted) return;
         setState(() {
           banner = BannerAd(
               adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.watchboxBannerAdUnitID,

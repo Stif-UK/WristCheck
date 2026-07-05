@@ -20,6 +20,7 @@ class WristTrackGridTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wristCheckController = Get.find<WristCheckController>();
     const double boxSides = 175;
 
     return GestureDetector(
@@ -72,7 +73,7 @@ class WristTrackGridTab extends StatelessWidget {
             ),
             // Last worn and wear count lines (order swapped)
             Obx(() {
-              final wristCheckController = Get.put(WristCheckController());
+              // Access observables to ensure Obx works even if subtitle returns a static string
               wristCheckController.showLastWornDate.value;
               wristCheckController.showWearCount.value;
 

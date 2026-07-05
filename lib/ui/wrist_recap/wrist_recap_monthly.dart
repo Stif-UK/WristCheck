@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
-import 'package:wristcheck/ui/charts/wear_charts/wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/worn_watch_card.dart';
-import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapMonthly extends StatelessWidget {
@@ -49,13 +48,13 @@ class WristRecapMonthly extends StatelessWidget {
                     children: [
                       Obx(() => Padding(
                         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
-                        child: recapController.isLastMonth.value ? Text("Last Month", style: Theme.of(context).textTheme.headlineSmall,) : const SizedBox(height: 0,),
+                        child: recapController.isLastMonth.value ? Text("Last Month", style: Theme.of(context).textTheme.bodyLarge,) : const SizedBox(height: 0,),
                       )),
                       Obx(() => Padding(
                         padding: const EdgeInsets.all(8.0),
                         //TODO: Update to include full month name
                         child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
-                          style: Theme.of(context).textTheme.headlineMedium,),
+                          style: Theme.of(context).textTheme.headlineSmall,),
                       )),
                     ],
                   ),
@@ -90,13 +89,14 @@ class WristRecapMonthly extends StatelessWidget {
                         },
                       ),
                     ),
-                  const Divider(thickness: 2,),
                   MonthlyWearChart(),
-                  const Divider(thickness: 2,),
-                  const SizedBox(height: 50,)
                 ],
               )
             ),
+            //TODO: Wrap with Obx to ignore section if nothing bought or sold
+            CollectionMovement(),
+            const SizedBox(height: 50,)
+
           ],
         ),
       ),

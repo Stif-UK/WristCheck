@@ -20,6 +20,7 @@ class WatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wristCheckController = Get.find<WristCheckController>();
     bool showImage = watch.frontImagePath != null && watch.frontImagePath != "";
 
     return Card(
@@ -83,7 +84,6 @@ class WatchCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Obx(() {
-                      final wristCheckController = Get.put(WristCheckController());
                       wristCheckController.showLastWornDate.value;
                       wristCheckController.showWearCount.value;
                       return Text(
