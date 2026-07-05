@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
-import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
@@ -9,6 +8,8 @@ class WristRecapMonthlyController extends GetxController{
   final year = 2025.obs;
   final watchesWorn = <WornWatchesClass>[].obs;
   final brandsWorn = <ManufacturersWornClass>[].obs;
+  final categoriesWorn = <CategoriesWornClass>[].obs;
+  final categoriesComplete = true.obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
   final isLastMonth = false.obs;
@@ -28,6 +29,14 @@ class WristRecapMonthlyController extends GetxController{
 
   updateManufacturersWorn(List<ManufacturersWornClass> brandList){
     brandsWorn(brandList);
+  }
+  
+  updateCategoriesWorn(List<CategoriesWornClass> categoryList){
+    categoriesWorn(categoryList);
+  }
+  
+  updateCategoriesComplete(bool complete){
+    categoriesComplete(complete);
   }
 
   updateWatchesBought(List<Watches> watchList){
@@ -103,6 +112,45 @@ class WristRecapMonthlyController extends GetxController{
     brandsWorn(brandList);
   }
   
+  generateCategoriesWornData(int wearMonth, int wearYear){
+    Map<String, int> categoryMap = {};
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+    bool complete = true;
+
+    for(Watches watch in watchList){
+      int count = watch.wearList
+          .where(
+              (date) => date.month == wearMonth && date.year == wearYear)
+          .length;
+
+      if (count > 0) {
+        String category = watch.category ?? "";
+        if (category.isEmpty) {
+          complete = false;
+        }
+        categoryMap[category] = (categoryMap[category] ?? 0) + count;
+      }
+    }
+
+    List<CategoriesWornClass> categoryList = [];
+    int totalCount = 0;
+    categoryMap.forEach((category, count) {
+      categoryList.add(CategoriesWornClass(category, count));
+      totalCount += count;
+    });
+
+    //Order the list - descending count
+    if(categoryList.isNotEmpty) categoryList.sort((a, b) => b.count.compareTo(a.count));
+
+    //Set percentage for each category
+    for(CategoriesWornClass categoryData in categoryList){
+      categoryData.setPercentage("${((categoryData.count / totalCount)*100).toStringAsFixed(1)} %");
+    }
+
+    categoriesComplete(complete);
+    categoriesWorn(categoryList);
+  }
+  
   generateWatchesSold() async {
     List<Watches> soldWatches = [];
     soldWatches = Boxes.getSoldWatches();
@@ -144,6 +192,7 @@ class WristRecapMonthlyController extends GetxController{
   refresh() async {
     await generateWornWatchesDate(month.value, year.value);
     await generateBrandsWornData(month.value, year.value);
+    await generateCategoriesWornData(month.value, year.value);
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();

@@ -21,7 +21,7 @@ class WristRecapInsights extends StatelessWidget {
             children: [
               Text("Monthly Insights",style: Theme.of(context).textTheme.bodyLarge),
               Obx(() => GridView.count(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: _getInsights(),
@@ -46,6 +46,8 @@ class WristRecapInsights extends StatelessWidget {
       insights.add(InsightCard(title: "Wears per day", value: (wearcount/days).toStringAsFixed(1), valueBig: true,));
       //Top Brand
       insights.add(InsightCard(title: "Top Brand", value: recapController.brandsWorn.first.manufacturer, valueBig: false,));
+      if(recapController.categoriesWorn.length >0) insights.add(InsightCard(title: "Top Category", value: recapController.categoriesWorn.first.category,
+          valueBig: false));
     }
     return insights;
   }

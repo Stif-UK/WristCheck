@@ -28,3 +28,17 @@ class ManufacturersWornClass {
   }
 }
 
+class CategoriesWornClass {
+  CategoriesWornClass(
+      this.category,
+      this.count,
+      [this.percentage]);
+  final String category;
+  final int count;
+  String? percentage;
+
+  void setPercentage(String value) {
+    this.percentage = value;
+  }
+}
+
