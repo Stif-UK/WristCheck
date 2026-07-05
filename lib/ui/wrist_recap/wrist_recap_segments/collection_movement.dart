@@ -19,34 +19,27 @@ class CollectionMovement extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Collection Movement",
-                style: Theme.of(context).textTheme.bodyLarge,),
-                Obx(() => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${recapController.watchesBought.length} watches bought"),
-                    Text("${recapController.watchesSold.length} watches sold"),
-                    if (recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty) ...[
-                      const SizedBox(height: 10,),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch)),
-                            ...recapController.watchesSold.map((watch) => CollectionMovementCard(watch: watch)),
-                          ],
-                        ),
-                      ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Collection Movement",
+                  style: Theme.of(context).textTheme.bodyLarge,),
+                  Obx(() => Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text("${recapController.watchesBought.length} watches bought"),
+                      Text("${recapController.watchesSold.length} watches sold"),
+                      if (recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty) ...[
+                        const SizedBox(height: 10,),
+                        ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch)),
+                        ...recapController.watchesSold.map((watch) => CollectionMovementCard(watch: watch)),
+                      ],
                     ],
-
-              ],
+                  )),
+                ],
+              ),
             ),
-                  ),
-            ],
-                ),
           ],
         ),
     ),

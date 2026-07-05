@@ -17,12 +17,12 @@ class CollectionMovementCard extends StatelessWidget {
 
     return Card(
       elevation: 4,
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
             showImage
                 ? FutureBuilder(
@@ -52,15 +52,17 @@ class CollectionMovementCard extends StatelessWidget {
                   )
                 : const RecapEmptyIcon(),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(watch.toString(),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),),
-                watch.purchaseDate != null && watch.purchaseDate != "" ? Text("Purchased on: ${WristCheckFormatter.getFormattedDate(watch.purchaseDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,),
-                watch.soldDate != null && watch.soldDate != "" ? Text("Sold on: ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,)
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(watch.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),),
+                  watch.purchaseDate != null && watch.purchaseDate != "" ? Text("Purchased on: ${WristCheckFormatter.getFormattedDate(watch.purchaseDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,),
+                  watch.soldDate != null && watch.soldDate != "" ? Text("Sold on: ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,)
+                ],
+              ),
             )
           ],
         ),
