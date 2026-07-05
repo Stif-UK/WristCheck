@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
@@ -100,6 +101,10 @@ class WristRecapMonthly extends StatelessWidget {
             //Show insights if watches have been worn
             Obx(() => recapController.watchesWorn.length >0 ?
             WristRecapInsights()
+            : const SizedBox(height: 0,)
+            ),
+            Obx(() => recapController.categoriesWorn.isNotEmpty ?
+            MonthlyCategoryChart()
             : const SizedBox(height: 0,)
             ),
             //Space at bottom of page
