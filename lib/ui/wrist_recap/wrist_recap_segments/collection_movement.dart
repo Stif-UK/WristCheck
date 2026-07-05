@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/collection_movement_card.dart';
 
 class CollectionMovement extends StatelessWidget {
   CollectionMovement({super.key});
@@ -28,6 +29,18 @@ class CollectionMovement extends StatelessWidget {
                   children: [
                     Text("${recapController.watchesBought.length} watches bought"),
                     Text("${recapController.watchesSold.length} watches sold"),
+                    if (recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty) ...[
+                      const SizedBox(height: 10,),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch)),
+                            ...recapController.watchesSold.map((watch) => CollectionMovementCard(watch: watch)),
+                          ],
+                        ),
+                      ),
+                    ],
 
               ],
             ),

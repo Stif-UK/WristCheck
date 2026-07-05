@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_empty_icon.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -12,6 +13,7 @@ class WornWatchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final watch = wornWatch.watch;
+    //TODO: Update this to check the primary image selected for the watch
     bool showImage = watch.frontImagePath != null && watch.frontImagePath != "";
 
     return Container(
@@ -34,7 +36,7 @@ class WornWatchCard extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError || !snapshot.hasData) {
-                            return _getEmptyIcon(context);
+                            return const RecapEmptyIcon();
                           }
                           final data = snapshot.data as File;
                           return ClipRRect(
@@ -54,7 +56,7 @@ class WornWatchCard extends StatelessWidget {
                         );
                       },
                     )
-                  : _getEmptyIcon(context),
+                  : const RecapEmptyIcon(),
               const SizedBox(height: 10),
               Text(
                 watch.toString(),
@@ -79,18 +81,6 @@ class WornWatchCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _getEmptyIcon(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        color: Theme.of(context).disabledColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(Icons.watch, size: 50, color: Theme.of(context).disabledColor),
     );
   }
 }

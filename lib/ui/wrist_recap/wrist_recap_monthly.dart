@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/worn_watch_card.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapMonthly extends StatelessWidget {
