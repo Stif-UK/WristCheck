@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/ui/charts/wear_charts/wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/worn_watch_card.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -89,6 +91,9 @@ class WristRecapMonthly extends StatelessWidget {
                       ),
                     ),
                   const Divider(thickness: 2,),
+                  MonthlyWearChart(),
+                  const Divider(thickness: 2,),
+                  const SizedBox(height: 50,)
                 ],
               )
             ),
