@@ -14,17 +14,20 @@ class WristRecapInsights extends StatelessWidget {
         elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 4.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Monthly Insights",style: Theme.of(context).textTheme.bodyMedium),
-            Obx(() => GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: _getInsights(),
-            )),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Monthly Insights",style: Theme.of(context).textTheme.bodyLarge),
+              Obx(() => GridView.count(
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: _getInsights(),
+              )),
+            ],
+          ),
         ));
   }
 
@@ -39,7 +42,7 @@ class WristRecapInsights extends StatelessWidget {
       //Get wears tracked per day
       //TODO: handle months with less than a full track - get first wear entry in the month and if later than the 1st of the month reduce count
       int days = DateUtils.getDaysInMonth(recapController.year.value, recapController.month.value);
-      insights.add(InsightCard(title: "Wears per day", value: (wearcount/days).toString()));
+      insights.add(InsightCard(title: "Wears per day", value: (wearcount/days).toStringAsFixed(1)));
     }
     return insights;
   }

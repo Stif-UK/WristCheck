@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -93,33 +94,20 @@ class WristRecapMonthly extends StatelessWidget {
                 ],
               )
             ),
+            //Show bought/sold section if any movement in the collection
             Obx(()=> recapController.watchesBought.length > 0 || recapController.watchesSold.length > 0 ?
             CollectionMovement() : const SizedBox(height: 0,)),
-            const SizedBox(height: 50,)
+            //Show insights if watches have been worn
+            Obx(() => recapController.watchesWorn.length >0 ?
+            WristRecapInsights()
+            : const SizedBox(height: 0,)
+            ),
+            //Space at bottom of page
+            const SizedBox(height: 50,),
 
           ],
         ),
       ),
     );
-  }
-
-  Widget _wristRecapGridViewTile(BuildContext context, String title, String value, String? subtitle) {
-    return Container(
-      width: 300,
-      height: 300,
-      decoration: BoxDecoration(
-        color: Theme.of(context).disabledColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            Text(title),
-            Text(value),
-            Text(subtitle ?? "")
-          ],
-        )
-        ),
-      );
   }
 }
