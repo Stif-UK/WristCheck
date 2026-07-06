@@ -129,7 +129,7 @@ class WristRecapMonthly extends StatelessWidget {
                     Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
                     //Show brand chart if any brand worn more than once
                     Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
-                    Obx(() => recapController.categoriesWorn.isNotEmpty ? MonthlyCategoryChart() : const SizedBox(height: 0)),
+                    Obx(() => recapController.categoriesWorn.length > 1 ? MonthlyCategoryChart() : const SizedBox(height: 0)),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
                     //Space at bottom of page
                     const SizedBox(
