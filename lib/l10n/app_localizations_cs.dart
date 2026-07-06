@@ -2270,6 +2270,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get updatesSaved => 'Změny uloženy';
 
   @override
+  String get unknown => 'Neznámý';
+
+  @override
   String get editWatchUnsavedChangesTitle => 'Máte neuložené změny';
 
   @override

@@ -4066,6 +4066,12 @@ abstract class AppLocalizations {
   /// **'Updates Saved'**
   String get updatesSaved;
 
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
   /// No description provided for @editWatchUnsavedChangesTitle.
   ///
   /// In en, this message translates to:

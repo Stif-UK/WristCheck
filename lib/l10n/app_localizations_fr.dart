@@ -2274,6 +2274,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get updatesSaved => 'Enregistré !';
 
   @override
+  String get unknown => 'Inconnu';
+
+  @override
   String get editWatchUnsavedChangesTitle => 'Modifications non enregistrées';
 
   @override

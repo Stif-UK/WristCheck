@@ -2287,6 +2287,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updatesSaved => 'Изменения сохранены';
 
   @override
+  String get unknown => 'Неизвестно';
+
+  @override
   String get editWatchUnsavedChangesTitle => 'Есть несохраненные изменения';
 
   @override

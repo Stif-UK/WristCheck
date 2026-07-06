@@ -940,6 +940,7 @@
   "proDialogText" : "Toto je funkce WristTrack Pro.\n\nChcete-li se dozvědět více a provést upgrade, klikněte níže.",
   "saveUpdates" : "Uložit změny",
   "updatesSaved" : "Změny uloženy",
+  "unknown" : "Neznámý",
   "editWatchUnsavedChangesTitle" : "Máte neuložené změny",
   "editWatchUnsavedChangesCopy" : "Opravdu chcete odejít?\nNeuložené změny budou ztraceny.",
   "editWatchUnsavedChangesExitOption" : "Odejít bez uložení",

@@ -935,6 +935,7 @@
   "proDialogText" : "Esta es una función de WristTrack Pro.\n\nPara saber más y actualizar, haz clic abajo.",
   "saveUpdates" : "Guardar Actualizaciones",
   "updatesSaved" : "Actualizaciones Guardadas",
+  "unknown" : "Desconocido",
   "editWatchUnsavedChangesTitle" : "Tienes cambios sin guardar",
   "editWatchUnsavedChangesCopy" : "¿Estás seguro de que quieres salir?\nLos cambios sin guardar se perderán.",
   "editWatchUnsavedChangesExitOption" : "Salir sin guardar",

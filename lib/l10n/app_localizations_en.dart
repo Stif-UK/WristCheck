@@ -2243,6 +2243,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updatesSaved => 'Updates Saved';
 
   @override
+  String get unknown => 'Unknown';
+
+  @override
   String get editWatchUnsavedChangesTitle => 'You have unsaved changes';
 
   @override

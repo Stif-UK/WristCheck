@@ -940,6 +940,7 @@
   "proDialogText" : "Эта функция доступна в версии WristTrack Pro.\n\nНажмите ниже, чтобы узнать больше и перейти на Pro.",
   "saveUpdates" : "Сохранить изменения",
   "updatesSaved" : "Изменения сохранены",
+  "unknown" : "Неизвестно",
   "editWatchUnsavedChangesTitle" : "Есть несохраненные изменения",
   "editWatchUnsavedChangesCopy" : "Вы действительно хотите выйти? Все внесенные несохраненные правки будут потеряны.",
   "editWatchUnsavedChangesExitOption" : "Выйти без сохранения",

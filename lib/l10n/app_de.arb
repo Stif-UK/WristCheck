@@ -940,6 +940,7 @@
   "proDialogText" : "Dies ist eine WristTrack Pro Funktion.\n\nUm mehr zu erfahren und ein Upgrade durchzuführen, klicke unten.",
   "saveUpdates" : "Änderungen speichern",
   "updatesSaved" : "Änderungen gespeichert",
+  "unknown" : "Unbekannt",
   "editWatchUnsavedChangesTitle" : "Du hast ungespeicherte Änderungen",
   "editWatchUnsavedChangesCopy" : "Bist du sicher, dass du das Fenster schließen möchtest?\nUngespeicherte Änderungen gehen verloren.",
   "editWatchUnsavedChangesExitOption" : "Schließen ohne zu speichern",

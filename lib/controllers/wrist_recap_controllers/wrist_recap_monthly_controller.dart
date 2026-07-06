@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/helper_classes.dart';
@@ -169,9 +171,13 @@ class WristRecapMonthlyController extends GetxController{
           .length;
 
       if (count > 0) {
-        String category = watch.category ?? "";
-        if (category.isEmpty) {
+        String categoryDb = watch.category ?? "";
+        String category;
+        if (categoryDb.isEmpty) {
+          category = AppLocalizations.of(Get.context!)!.unknown;
           complete = false;
+        } else {
+          category = CategoryEnumLocalization.fromDbString(categoryDb).toLocalizedString(Get.context!);
         }
         categoryMap[category] = (categoryMap[category] ?? 0) + count;
       }

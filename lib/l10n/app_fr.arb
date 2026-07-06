@@ -939,6 +939,7 @@
   "proDialogText" : "Ceci est une fonctionnalité WristTrack Pro.\n\nPour en savoir plus et passer à la version supérieure, cliquez ci-dessous.",
   "saveUpdates" : "Enregistrer les modifications",
   "updatesSaved" : "Enregistré !",
+  "unknown" : "Inconnu",
   "editWatchUnsavedChangesTitle" : "Modifications non enregistrées",
   "editWatchUnsavedChangesCopy" : "Voulez-vous vraiment quitter ?\nLes modifications non enregistrées seront perdues.",
   "editWatchUnsavedChangesExitOption" : "Quitter sans enregistrer",
