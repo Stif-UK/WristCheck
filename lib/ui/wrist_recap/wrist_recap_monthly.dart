@@ -8,6 +8,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -66,7 +67,6 @@ class WristRecapMonthly extends StatelessWidget {
                       //     : const SizedBox(height: 0)),
                       Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
-                            //TODO: Update to include full month name
                             child: Text(
                               "${WristCheckFormatter.getMonthFullName(recapController.month.value)} ${recapController.year.value}",
                               style: Theme.of(context).textTheme.headlineSmall,
@@ -88,56 +88,66 @@ class WristRecapMonthly extends StatelessWidget {
             thickness: 2,
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Obx(() => recapController.watchesWorn.isEmpty
-                      //TODO: Handle empty data gracefully
-                      ? const SizedBox(height: 0)
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Watches worn:",
-                                style: Theme.of(context).textTheme.bodyLarge,
+            child: Obx(() => _dataExists(recapController.watchesWorn.isNotEmpty,
+                recapController.watchesBought.isNotEmpty,
+                recapController.watchesSold.isNotEmpty)
+                ? SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Obx(() => recapController.watchesWorn.isEmpty
+                        //TODO: Handle empty data gracefully
+                        ? const SizedBox(height: 0)
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Watches worn:",
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 250,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: recapController.watchesWorn.length,
-                                itemBuilder: (context, index) {
-                                  final wornWatch = recapController.watchesWorn[index];
-                                  return WornWatchCard(wornWatch: wornWatch);
-                                },
+                              SizedBox(
+                                height: 250,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: recapController.watchesWorn.length,
+                                  itemBuilder: (context, index) {
+                                    final wornWatch = recapController.watchesWorn[index];
+                                    return WornWatchCard(wornWatch: wornWatch);
+                                  },
+                                ),
                               ),
-                            ),
-                            MonthlyWearChart(),
-                          ],
-                        )),
-                  //Show bought/sold section if any movement in the collection
-                  Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
-                  //Show insights if watches have been worn
-                  Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
-                  //Show brand chart if any brand worn more than once
-                  Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
-                  Obx(() => recapController.categoriesWorn.isNotEmpty ? MonthlyCategoryChart() : const SizedBox(height: 0)),
-                  Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
-                  //Space at bottom of page
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
+                              MonthlyWearChart(),
+                            ],
+                          )),
+                    //Show bought/sold section if any movement in the collection
+                    Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
+                    //Show insights if watches have been worn
+                    Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
+                    //Show brand chart if any brand worn more than once
+                    Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
+                    Obx(() => recapController.categoriesWorn.isNotEmpty ? MonthlyCategoryChart() : const SizedBox(height: 0)),
+                    Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
+                    //Space at bottom of page
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+                //If the _dataExists check is falses show a 'no data' placeholder
+              ) : WristRecapEmptyData(),
             ),
           ),
         ],
       ),
     );
   }
+
+  bool _dataExists(bool watchesWorn, bool watchesBought, bool watchesSold){
+    return watchesWorn || watchesBought || watchesSold;
+  }
+
 }
