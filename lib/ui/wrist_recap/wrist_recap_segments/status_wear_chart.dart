@@ -21,7 +21,7 @@ class StatusWearChart extends StatelessWidget {
             Text("Wear by status", style: Theme.of(context).textTheme.bodyLarge),
             SfCartesianChart(
               primaryXAxis: CategoryAxis(
-                isVisible: true,
+                isVisible: false,
               ),
               primaryYAxis: NumericAxis(),
               series: _getBarSeries()
@@ -40,7 +40,7 @@ class StatusWearChart extends StatelessWidget {
         dataSource: recapController.statusWorn.reversed.toList(),
         xValueMapper: (StatusWornClass series, _) => series.status,
         yValueMapper: (StatusWornClass series, _) => series.count,
-        dataLabelMapper: (series, _) => "${series.count} (${series.percentage})",
+        dataLabelMapper: (series, _) => "${series.status} : ${series.count} (${series.percentage})",
         dataLabelSettings: const DataLabelSettings(isVisible: true),
       )
     ];

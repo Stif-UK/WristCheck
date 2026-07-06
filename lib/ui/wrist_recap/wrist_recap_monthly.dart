@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_brand_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
@@ -122,6 +123,8 @@ class WristRecapMonthly extends StatelessWidget {
                   Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
                   //Show insights if watches have been worn
                   Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
+                  //Show brand chart if any brand worn more than once
+                  Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
                   Obx(() => recapController.categoriesWorn.isNotEmpty ? MonthlyCategoryChart() : const SizedBox(height: 0)),
                   Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
                   //Space at bottom of page

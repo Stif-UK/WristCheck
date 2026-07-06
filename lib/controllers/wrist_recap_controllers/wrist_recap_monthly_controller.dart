@@ -9,6 +9,7 @@ class WristRecapMonthlyController extends GetxController{
   final year = 2025.obs;
   final watchesWorn = <WornWatchesClass>[].obs;
   final brandsWorn = <ManufacturersWornClass>[].obs;
+  final duplicateBrand = false.obs;
   final categoriesWorn = <CategoriesWornClass>[].obs;
   final statusWorn = <StatusWornClass>[].obs;
   final categoriesComplete = true.obs;
@@ -82,7 +83,9 @@ class WristRecapMonthlyController extends GetxController{
   }
 
   generateBrandsWornData(int wearMonth, int wearYear){
+    duplicateBrand(false);
     Map<String, int> brandMap = {};
+    Map<String, int> watchesPerBrandCount = {};
     List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
 
     for(Watches watch in watchList){
@@ -93,7 +96,12 @@ class WristRecapMonthlyController extends GetxController{
 
       if (count > 0) {
         brandMap[watch.manufacturer] = (brandMap[watch.manufacturer] ?? 0) + count;
+        watchesPerBrandCount[watch.manufacturer] = (watchesPerBrandCount[watch.manufacturer] ?? 0) + 1;
       }
+    }
+
+    if (watchesPerBrandCount.values.any((c) => c > 1)) {
+      duplicateBrand(true);
     }
 
     List<ManufacturersWornClass> brandList = [];
