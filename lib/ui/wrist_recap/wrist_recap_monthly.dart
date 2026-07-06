@@ -51,26 +51,27 @@ class WristRecapMonthly extends StatelessWidget {
                   elevation: 4,
                   margin: const EdgeInsets.all(8.0),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Obx(() => recapController.isLastMonth.value
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Last Month",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            )
-                          : const SizedBox(height: 0)),
+                      // Obx(() => recapController.isLastMonth.value
+                      //     ? Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           "Last Month",
+                      //           style: Theme.of(context).textTheme.bodyLarge,
+                      //         ),
+                      //       )
+                      //     : const SizedBox(height: 0)),
                       Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
                             //TODO: Update to include full month name
                             child: Text(
-                              "${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
+                              "${WristCheckFormatter.getMonthFullName(recapController.month.value)} ${recapController.year.value}",
                               style: Theme.of(context).textTheme.headlineSmall,
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           )),
                     ],

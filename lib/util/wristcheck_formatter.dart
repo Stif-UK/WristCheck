@@ -31,6 +31,13 @@ class WristCheckFormatter{
     return returnString;
   }
 
+  static String getFormattedLongDate(DateTime date){
+    final langController = Get.put(LanguageController());
+    final DateFormat formatter = DateFormat('MMMM', langController.language.value.toString());
+    String returnString = formatter.format(date);
+    return returnString;
+  }
+
   static String getFormattedDateWithDay(DateTime date){
     final langController = Get.put(LanguageController());
     final DateFormat formatter = DateFormat('E', langController.language.value.toString());
@@ -64,6 +71,12 @@ class WristCheckFormatter{
     final langController = Get.put(LanguageController());
     DateTime date = DateTime(0, monthNumber);
     return DateFormat.MMM(langController.language.value.toString()).format(date);
+  }
+
+  static String getMonthFullName(int monthNumber) {
+    final langController = Get.put(LanguageController());
+    DateTime date = DateTime(0, monthNumber);
+    return DateFormat.MMMM(langController.language.value.toString()).format(date);
   }
 
   /*
