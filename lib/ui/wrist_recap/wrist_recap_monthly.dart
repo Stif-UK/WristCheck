@@ -36,91 +36,103 @@ class WristRecapMonthly extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                IconButton(
-                    icon: Icon(FontAwesomeIcons.chevronLeft),
-                onPressed: () => recapController.decrementMonth(),),
-                Expanded(
-                  child: Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Obx(() => Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
-                          child: recapController.isLastMonth.value ? Text("Last Month", style: Theme.of(context).textTheme.bodyLarge,) : const SizedBox(height: 0,),
-                        )),
-                        Obx(() => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          //TODO: Update to include full month name
-                          child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
-                            style: Theme.of(context).textTheme.headlineSmall,),
-                        )),
-                      ],
-                    ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(FontAwesomeIcons.chevronLeft),
+                onPressed: () => recapController.decrementMonth(),
+              ),
+              Expanded(
+                child: Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.all(8.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() => recapController.isLastMonth.value
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Last Month",
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            )
+                          : const SizedBox(height: 0)),
+                      Obx(() => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            //TODO: Update to include full month name
+                            child: Text(
+                              "${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
+                    ],
                   ),
                 ),
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.chevronRight),
-                  onPressed: () => recapController.incrementMonth(),),
-              ],
-            ),
-            
-            const Divider(thickness: 2,),
-            
-            Obx(() => recapController.watchesWorn.isEmpty
-            //TODO: Handle empty data gracefully
-              ? const SizedBox(height: 0,)
-              : Column(
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.chevronRight),
+                onPressed: () => recapController.incrementMonth(),
+              ),
+            ],
+          ),
+          const Divider(
+            thickness: 2,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Watches worn:", style: Theme.of(context).textTheme.bodyLarge,),
+                  Obx(() => recapController.watchesWorn.isEmpty
+                      //TODO: Handle empty data gracefully
+                      ? const SizedBox(height: 0)
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Watches worn:",
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 250,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: recapController.watchesWorn.length,
+                                itemBuilder: (context, index) {
+                                  final wornWatch = recapController.watchesWorn[index];
+                                  return WornWatchCard(wornWatch: wornWatch);
+                                },
+                              ),
+                            ),
+                            MonthlyWearChart(),
+                          ],
+                        )),
+                  //Show bought/sold section if any movement in the collection
+                  Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
+                  //Show insights if watches have been worn
+                  Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
+                  Obx(() => recapController.categoriesWorn.isNotEmpty ? MonthlyCategoryChart() : const SizedBox(height: 0)),
+                  Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
+                  //Space at bottom of page
+                  const SizedBox(
+                    height: 50,
                   ),
-                  SizedBox(
-                      height: 250,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: recapController.watchesWorn.length,
-                        itemBuilder: (context, index) {
-                          final wornWatch = recapController.watchesWorn[index];
-                          return WornWatchCard(wornWatch: wornWatch);
-                        },
-                      ),
-                    ),
-                  MonthlyWearChart(),
                 ],
-              )
+              ),
             ),
-            //Show bought/sold section if any movement in the collection
-            Obx(()=> recapController.watchesBought.length > 0 || recapController.watchesSold.length > 0 ?
-            CollectionMovement() : const SizedBox(height: 0,)),
-            //Show insights if watches have been worn
-            Obx(() => recapController.watchesWorn.length >0 ?
-            WristRecapInsights()
-            : const SizedBox(height: 0,)
-            ),
-            Obx(() => recapController.categoriesWorn.isNotEmpty ?
-            MonthlyCategoryChart()
-            : const SizedBox(height: 0,)
-            ),
-            Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0,)
-
-            ),
-            //Space at bottom of page
-            const SizedBox(height: 50,),
-
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
