@@ -10,7 +10,6 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_carousel.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapMonthly extends StatelessWidget {
@@ -120,7 +119,7 @@ class WristRecapMonthly extends StatelessWidget {
                     ),
                   ],
                 ),
-                //If the _dataExists check is falses show a 'no data' placeholder
+                //If the _dataExists check is false show a 'no data' placeholder
               ) : WristRecapEmptyData(),
             ),
           ),
