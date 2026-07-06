@@ -5,6 +5,7 @@ import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_month
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -106,6 +107,9 @@ class WristRecapMonthly extends StatelessWidget {
             Obx(() => recapController.categoriesWorn.isNotEmpty ?
             MonthlyCategoryChart()
             : const SizedBox(height: 0,)
+            ),
+            Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0,)
+
             ),
             //Space at bottom of page
             const SizedBox(height: 50,),

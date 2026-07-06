@@ -42,3 +42,17 @@ class CategoriesWornClass {
   }
 }
 
+class StatusWornClass {
+  StatusWornClass(
+      this.status,
+      this.count,
+      [this.percentage]);
+  final String status;
+  final int count;
+  String? percentage;
+
+  void setPercentage(String value) {
+    this.percentage = value;
+  }
+}
+

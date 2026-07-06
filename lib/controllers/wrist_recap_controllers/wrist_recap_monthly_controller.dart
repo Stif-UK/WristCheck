@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
@@ -9,6 +10,7 @@ class WristRecapMonthlyController extends GetxController{
   final watchesWorn = <WornWatchesClass>[].obs;
   final brandsWorn = <ManufacturersWornClass>[].obs;
   final categoriesWorn = <CategoriesWornClass>[].obs;
+  final statusWorn = <StatusWornClass>[].obs;
   final categoriesComplete = true.obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
@@ -112,6 +114,41 @@ class WristRecapMonthlyController extends GetxController{
     brandsWorn(brandList);
   }
   
+  generateStatusWornData(int wearMonth, int wearYear){
+    Map<String, int> statusMap = {};
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+
+    for(Watches watch in watchList){
+      int count = watch.wearList
+          .where(
+              (date) => date.month == wearMonth && date.year == wearYear)
+          .length;
+
+      if (count > 0) {
+        String status = WatchStatusEnumExtension.fromDbString(watch.status).toLocalizedString(Get.context!);
+        statusMap[status] = (statusMap[status] ?? 0) + count;
+      }
+    }
+
+    List<StatusWornClass> statusList = [];
+    int totalCount = 0;
+    statusMap.forEach((status, count) {
+      statusList.add(StatusWornClass(status, count));
+      totalCount += count;
+    });
+
+    //Order the list - descending count
+    if(statusList.isNotEmpty) statusList.sort((a, b) => b.count.compareTo(a.count));
+
+    //Set percentage for each status
+    for(StatusWornClass statusData in statusList){
+      statusData.setPercentage("${((statusData.count / totalCount)*100).toStringAsFixed(1)} %");
+    }
+
+    statusWorn(statusList);
+  }
+  
+  
   generateCategoriesWornData(int wearMonth, int wearYear){
     Map<String, int> categoryMap = {};
     List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
@@ -193,6 +230,7 @@ class WristRecapMonthlyController extends GetxController{
     await generateWornWatchesDate(month.value, year.value);
     await generateBrandsWornData(month.value, year.value);
     await generateCategoriesWornData(month.value, year.value);
+    await generateStatusWornData(month.value, year.value);
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();
