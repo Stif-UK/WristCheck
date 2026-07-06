@@ -7,6 +7,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_brand_cha
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_carousel.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
@@ -96,30 +97,12 @@ class WristRecapMonthly extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Obx(() => recapController.watchesWorn.isEmpty
-                        //TODO: Handle empty data gracefully
                         ? const SizedBox(height: 0)
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Watches worn:",
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 250,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: recapController.watchesWorn.length,
-                                  itemBuilder: (context, index) {
-                                    final wornWatch = recapController.watchesWorn[index];
-                                    return WornWatchCard(wornWatch: wornWatch);
-                                  },
-                                ),
-                              ),
+                              WatchesWornCarousel(),
                               MonthlyWearChart(),
                             ],
                           )),
