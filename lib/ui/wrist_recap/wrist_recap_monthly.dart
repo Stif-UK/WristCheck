@@ -46,20 +46,25 @@ class WristRecapMonthly extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.chevronLeft),
                 onPressed: () => recapController.decrementMonth(),),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(() => Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
-                        child: recapController.isLastMonth.value ? Text("Last Month", style: Theme.of(context).textTheme.bodyLarge,) : const SizedBox(height: 0,),
-                      )),
-                      Obx(() => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        //TODO: Update to include full month name
-                        child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
-                          style: Theme.of(context).textTheme.headlineSmall,),
-                      )),
-                    ],
+                  child: Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Obx(() => Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+                          child: recapController.isLastMonth.value ? Text("Last Month", style: Theme.of(context).textTheme.bodyLarge,) : const SizedBox(height: 0,),
+                        )),
+                        Obx(() => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          //TODO: Update to include full month name
+                          child: Text("${WristCheckFormatter.getMonthName(recapController.month.value)} ${recapController.year.value}",
+                            style: Theme.of(context).textTheme.headlineSmall,),
+                        )),
+                      ],
+                    ),
                   ),
                 ),
                 IconButton(
