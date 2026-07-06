@@ -18,6 +18,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_monthly.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_notification.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
 
@@ -103,7 +105,13 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       ),
 
 
-      body: Obx(()=> _children[widget.wristCheckController.homePageIndex.value]),
+      body: Column(
+        children: [
+          //Hide wrist recap notification on clock screen initially
+          Obx(() => widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox(height: 0,)),
+          Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
+        ],
+      ),
       drawer: WatchHomeDrawer(),
       onDrawerChanged: (isOpen){
         widget.wristCheckController.updateIsDrawerOpen(isOpen);
