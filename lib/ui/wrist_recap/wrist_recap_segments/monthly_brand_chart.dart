@@ -18,7 +18,7 @@ class MonthlyBrandChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Monthly brand chart", style: Theme.of(context).textTheme.bodyLarge),
+            Text("Brand chart", style: Theme.of(context).textTheme.bodyLarge),
             SfCartesianChart(
               primaryXAxis: CategoryAxis(
                 isVisible: false,

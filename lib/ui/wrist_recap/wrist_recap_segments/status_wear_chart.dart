@@ -18,7 +18,7 @@ class StatusWearChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Wear by status", style: Theme.of(context).textTheme.bodyLarge),
+            Text("Status chart", style: Theme.of(context).textTheme.bodyLarge),
             SfCartesianChart(
               primaryXAxis: CategoryAxis(
                 isVisible: false,

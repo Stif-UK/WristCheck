@@ -19,7 +19,7 @@ class WristRecapInsights extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Monthly Insights",style: Theme.of(context).textTheme.bodyLarge),
+              Text("Insights",style: Theme.of(context).textTheme.bodyLarge),
               Obx(() => GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
