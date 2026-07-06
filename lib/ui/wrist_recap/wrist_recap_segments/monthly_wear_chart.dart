@@ -20,7 +20,7 @@ class MonthlyWearChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Monthly wear chart"),
+            Text("Wear chart"),
         SfCartesianChart(
         primaryXAxis: CategoryAxis(
         isVisible: false,
