@@ -69,6 +69,9 @@ class WristCheckPreferences {
   //WR Units
   static const _keyWRUnitsPreference = 'WRUnits';
 
+  //Recap
+  static const _keyLastRecapNotification = 'lastRecapNotification';
+
   //Visibility preferences
   static const _keyShowLastWornDate = 'showLastWornDate';
   static const _keyShowWearCountVisibility = 'showWearCountVisibility';
@@ -612,5 +615,15 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyShowWearCountVisibility, showWearCount);
 
   static bool getShowWearCountPref() => _preferences.getBool(_keyShowWearCountVisibility) ?? true;
+
+  //Getter and Setter for last recap notification date
+  static Future setLastRecapNotification(DateTime lastRecap) async{
+    await _preferences.setString(_keyLastRecapNotification, lastRecap.toString());
+  }
+
+  static DateTime getLastRecapNotification() {
+    String? returnString = _preferences.getString(_keyLastRecapNotification);
+    return returnString == null? DateTime(2000, 1, 1) : DateTime.parse(returnString);
+  }
 
 }

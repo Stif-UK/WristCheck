@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_monthly.dart';
 
 class WristRecapNotification extends StatelessWidget {
-  const WristRecapNotification({super.key});
+  WristRecapNotification({super.key});
+  final wristCheckController = Get.put(WristCheckController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,15 @@ class WristRecapNotification extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           //SizedBox to give card height
-          const SizedBox(height: 80,
+           SizedBox(height: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
-                  child: Icon(FontAwesomeIcons.xmark),
+                  child: IconButton(icon: Icon(FontAwesomeIcons.xmark),
+                  onPressed: () => wristCheckController.dismissRecapNotification(DateTime.now()),),
                 )
               ],
             ),
@@ -55,6 +58,7 @@ class WristRecapNotification extends StatelessWidget {
                 onPressed: () {
                   var now = DateTime.now();
                   var lastMonth = DateTime(now.year, now.month-1);
+                  wristCheckController.dismissRecapNotification(now);
                   Get.to(() => WristRecapMonthly(month: lastMonth.month, year: lastMonth.year));
                 }),
           )

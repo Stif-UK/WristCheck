@@ -32,6 +32,9 @@ class WristCheckController extends GetxController {
   final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
   //homepage
   final homePageIndex = WristCheckPreferences.getHomePageIndex().obs;
+  //WristRecap notification
+  final lastRecapNotificationDismissed = WristCheckPreferences.getLastRecapNotification().obs;
+  final showRecapNotification = false.obs;
 
   updateHomePageIndex(int index){
     homePageIndex(index);
@@ -64,6 +67,26 @@ class WristCheckController extends GetxController {
     watchboxOrder(boxOrder);
     update(); //Not sure if this line makes a difference...
   }
+
+  //Set last recap notification
+  dismissRecapNotification(DateTime lastRecap) async {
+    await WristCheckPreferences.setLastRecapNotification(lastRecap);
+    lastRecapNotificationDismissed(lastRecap);
+    showRecapNotification(false);
+  }
+
+  checkForRecapNotification(){
+    final DateTime now = DateTime.now();
+    //normalise each to the start of the month
+    final DateTime lastNotificationMonth = DateTime(lastRecapNotificationDismissed.value.year, lastRecapNotificationDismissed.value.month, 1);
+    final currentMonthStart = DateTime(now.year, now.month, 1);
+
+    // If the given month is before the current month, it's previous or older
+    if (lastNotificationMonth.isBefore(currentMonthStart)){
+      showRecapNotification(true);
+    }
+  }
+
 
   //Set the watch view
   updateWatchBoxView() async {

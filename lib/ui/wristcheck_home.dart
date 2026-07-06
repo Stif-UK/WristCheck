@@ -78,9 +78,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();
     }
-
-
-    //bool _darkModeToggle = false;
+    //Check if recap notification should show
+    widget.wristCheckController.checkForRecapNotification();
 
     return Scaffold(
 
@@ -108,7 +107,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       body: Column(
         children: [
           //Hide wrist recap notification on clock screen initially
-          Obx(() => widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox(height: 0,)),
+          Obx(() => widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox(height: 0,)),
           Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
         ],
       ),

@@ -274,6 +274,11 @@ class _DeveloperStatsState extends State<DeveloperStats> {
                 );
               },
             ): const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: const Text("Last WristRecap Notification"),
+              subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecapNotification())),
+              onLongPress: () => WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1)),
+            ) : const SizedBox(height: 0,),
             _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
             _currentIndex == 1? ListTile(
               title: const Text("Show Accuracy Database"),
