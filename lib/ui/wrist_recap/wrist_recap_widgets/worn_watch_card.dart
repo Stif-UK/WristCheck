@@ -30,34 +30,42 @@ class WornWatchCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Watch Image
-              showImage
-                  ? FutureBuilder(
-                      future: ImagesUtil.getImage(watch, watch.primaryImageIndex ?? 0),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasError || !snapshot.hasData) {
-                            return const RecapEmptyIcon(dimension: 100);
-                          }
-                          final data = snapshot.data as File;
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              data,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }
-                        return Container(
-                          width: 100,
-                          height: 100,
-                          child: const Center(child: CircularProgressIndicator()),
-                        );
-                      },
-                    )
-                  : const RecapEmptyIcon(dimension: 100),
-              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    showImage
+                        ? FutureBuilder(
+                            future: ImagesUtil.getImage(watch, watch.primaryImageIndex ?? 0),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.done) {
+                                if (snapshot.hasError || !snapshot.hasData) {
+                                  return const RecapEmptyIcon(dimension: 100);
+                                }
+                                final data = snapshot.data as File;
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    data,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }
+                              return Container(
+                                width: 100,
+                                height: 100,
+                                child: const Center(child: CircularProgressIndicator()),
+                              );
+                            },
+                          )
+                        : const RecapEmptyIcon(dimension: 100),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
               Text(
                 watch.toString(),
                 textAlign: TextAlign.left,
