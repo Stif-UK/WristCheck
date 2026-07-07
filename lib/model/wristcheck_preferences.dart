@@ -71,6 +71,8 @@ class WristCheckPreferences {
 
   //Recap
   static const _keyLastRecapNotification = 'lastRecapNotification';
+  static const _keyRewardedAdCount = 'rewardedAdCount';
+  static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
 
   //Visibility preferences
   static const _keyShowLastWornDate = 'showLastWornDate';
@@ -624,6 +626,21 @@ class WristCheckPreferences {
   static DateTime getLastRecapNotification() {
     String? returnString = _preferences.getString(_keyLastRecapNotification);
     return returnString == null? DateTime(2000, 1, 1) : DateTime.parse(returnString);
+  }
+
+  //Getter and Setter for rewarded ad count
+  static Future setRewardedAdCount(int count) async =>
+      await _preferences.setInt(_keyRewardedAdCount, count);
+
+  static int getRewardedAdCount() => _preferences.getInt(_keyRewardedAdCount) ?? 0;
+
+  //Getter and Setter for last recorded ad timestamp
+  static Future setLastRecordedAdTimestamp(DateTime timestamp) async =>
+      await _preferences.setString(_keyLastRecordedAdTimestamp, timestamp.toString());
+
+  static DateTime getLastRecordedAdTimestamp() {
+    String? returnString = _preferences.getString(_keyLastRecordedAdTimestamp);
+    return returnString == null ? DateTime(2000, 1, 1) : DateTime.parse(returnString);
   }
 
 }
