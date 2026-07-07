@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/location.dart';
@@ -76,6 +77,8 @@ class WristCheckController extends GetxController {
   }
 
   checkForRecapNotification(){
+    var showNotification = false;
+    //First check if a notification has been dismissed already this month
     final DateTime now = DateTime.now();
     //normalise each to the start of the month
     final DateTime lastNotificationMonth = DateTime(lastRecapNotificationDismissed.value.year, lastRecapNotificationDismissed.value.month, 1);
@@ -83,7 +86,22 @@ class WristCheckController extends GetxController {
 
     // If the given month is before the current month, it's previous or older
     if (lastNotificationMonth.isBefore(currentMonthStart)){
-      showRecapNotification(true);
+      //If no notification shown this month, then check if there were any wears in the previous month
+
+      final DateTime lastMonth = DateTime(now.year, now.month-1);
+      final watchList = Boxes.getAllNonArchivedWatches();
+
+      outerLoop:
+      for (var watch in watchList) {
+        for (var wearDate in watch.wearList) {
+          if (wearDate.month == lastMonth.month && wearDate.year == lastMonth.year) {
+            showNotification = true;
+            break outerLoop;
+          }
+        }
+      }
+
+      showRecapNotification(showNotification);
     }
   }
 
