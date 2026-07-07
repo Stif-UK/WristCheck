@@ -51,8 +51,10 @@ class _DeveloperStatsState extends State<DeveloperStats> {
 
       ),
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         child: ListView(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             _currentIndex == 1? ListTile(
               title: const Text("Open Count"),
@@ -277,7 +279,22 @@ class _DeveloperStatsState extends State<DeveloperStats> {
             _currentIndex == 1? ListTile(
               title: const Text("Last WristRecap Notification"),
               subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecapNotification())),
-              onLongPress: () => WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1)),
+              onLongPress: () {
+                WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1));
+                setState(() {});
+              },
+            ) : const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: const Text("Last Rewarded Ad Watched"),
+              subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecordedAdTimestamp())),
+              onLongPress: () {
+                WristCheckPreferences.setLastRecordedAdTimestamp(DateTime(2000, 1, 1));
+                setState(() {});
+              },
+            ) : const SizedBox(height: 0,),
+            _currentIndex == 1? ListTile(
+              title: const Text("Number of recorded ads watched"),
+              subtitle: Text(WristCheckPreferences.getRewardedAdCount().toString()),
             ) : const SizedBox(height: 0,),
             _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
             _currentIndex == 1? ListTile(
