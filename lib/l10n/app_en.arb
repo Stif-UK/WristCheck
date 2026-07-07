@@ -87,6 +87,25 @@
   "collectionStatsButton" : "Collection Stats",
   "wristRecap" : "Wrist Recap",
 
+  "@_WRIST_RECAP": {},
+  "watchesWornTitle" : "Watches worn:",
+  "brandChartTitle" : "Brand chart",
+  "categoryChartTitle" : "Category chart",
+  "wearChartTitle" : "Wear chart",
+  "statusChartTitle" : "Status chart",
+  "insightsTitle" : "Insights",
+  "watchesWornInsightTitle" : "Watches worn",
+  "wearsPerDayInsightTitle" : "Wears per day",
+  "topBrandInsightTitle" : "Top Brand",
+  "topCategoryInsightTitle" : "Top Category",
+  "collectionMovementTitle" : "Collection Movement",
+  "nWatchesBought" : "{count, plural, =0{No watches bought} =1{1 watch bought} other{{count} watches bought}}",
+  "nWatchesSold" : "{count, plural, =0{No watches sold} =1{1 watch sold} other{{count} watches sold}}",
+  "recapNoData" : "No data tracked for the selected period.",
+
+
+
+
   "@_TIME_SETTING": {},
   "lastSync" : "Last Synced:",
   "deviation" : "System time deviation:",

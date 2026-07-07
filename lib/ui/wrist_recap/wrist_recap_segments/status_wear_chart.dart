@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class StatusWearChart extends StatelessWidget {
@@ -18,7 +19,7 @@ class StatusWearChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Status chart", style: Theme.of(context).textTheme.bodyLarge),
+            Text(AppLocalizations.of(context)!.statusChartTitle, style: Theme.of(context).textTheme.bodyLarge),
             SfCartesianChart(
               primaryXAxis: CategoryAxis(
                 isVisible: false,

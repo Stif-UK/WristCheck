@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 
 class WatchesWornCarousel extends StatelessWidget {
@@ -16,7 +17,7 @@ class WatchesWornCarousel extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-        "Watches worn:",
+        AppLocalizations.of(context)!.watchesWornTitle,
         style: Theme.of(context).textTheme.bodyLarge,
             ),
       ),

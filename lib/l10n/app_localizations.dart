@@ -514,6 +514,90 @@ abstract class AppLocalizations {
   /// **'Wrist Recap'**
   String get wristRecap;
 
+  /// No description provided for @watchesWornTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watches worn:'**
+  String get watchesWornTitle;
+
+  /// No description provided for @brandChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand chart'**
+  String get brandChartTitle;
+
+  /// No description provided for @categoryChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Category chart'**
+  String get categoryChartTitle;
+
+  /// No description provided for @wearChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear chart'**
+  String get wearChartTitle;
+
+  /// No description provided for @statusChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Status chart'**
+  String get statusChartTitle;
+
+  /// No description provided for @insightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insightsTitle;
+
+  /// No description provided for @watchesWornInsightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watches worn'**
+  String get watchesWornInsightTitle;
+
+  /// No description provided for @wearsPerDayInsightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wears per day'**
+  String get wearsPerDayInsightTitle;
+
+  /// No description provided for @topBrandInsightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Brand'**
+  String get topBrandInsightTitle;
+
+  /// No description provided for @topCategoryInsightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Category'**
+  String get topCategoryInsightTitle;
+
+  /// No description provided for @collectionMovementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Movement'**
+  String get collectionMovementTitle;
+
+  /// No description provided for @nWatchesBought.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No watches bought} =1{1 watch bought} other{{count} watches bought}}'**
+  String nWatchesBought(num count);
+
+  /// No description provided for @nWatchesSold.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No watches sold} =1{1 watch sold} other{{count} watches sold}}'**
+  String nWatchesSold(num count);
+
+  /// No description provided for @recapNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data tracked for the selected period.'**
+  String get recapNoData;
+
   /// No description provided for @lastSync.
   ///
   /// In en, this message translates to:

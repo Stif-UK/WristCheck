@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 
@@ -20,7 +21,7 @@ class MonthlyWearChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Wear chart"),
+            Text(AppLocalizations.of(context)!.wearChartTitle),
         SfCartesianChart(
         primaryXAxis: CategoryAxis(
         isVisible: false,

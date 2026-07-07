@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class WristRecapEmptyData extends StatelessWidget {
   const WristRecapEmptyData({super.key});
@@ -21,7 +22,7 @@ class WristRecapEmptyData extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "No data tracked for the selected period.",
+              AppLocalizations.of(context)!.recapNoData,
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),

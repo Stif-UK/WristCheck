@@ -213,6 +213,66 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wristRecap => 'Обзор на запястье';
 
   @override
+  String get watchesWornTitle => 'Носимые часы:';
+
+  @override
+  String get brandChartTitle => 'Диаграмма брендов';
+
+  @override
+  String get categoryChartTitle => 'Диаграмма категорий';
+
+  @override
+  String get wearChartTitle => 'Диаграмма носки';
+
+  @override
+  String get statusChartTitle => 'Диаграмма статусов';
+
+  @override
+  String get insightsTitle => 'Статистика';
+
+  @override
+  String get watchesWornInsightTitle => 'Часов надето';
+
+  @override
+  String get wearsPerDayInsightTitle => 'Носок в день';
+
+  @override
+  String get topBrandInsightTitle => 'Топ бренд';
+
+  @override
+  String get topCategoryInsightTitle => 'Топ категория';
+
+  @override
+  String get collectionMovementTitle => 'Движение коллекции';
+
+  @override
+  String nWatchesBought(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Куплено $count часов',
+      one: 'Куплены 1 часы',
+      zero: 'Часы не покупались',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatchesSold(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Продано $count часов',
+      one: 'Проданы 1 часы',
+      zero: 'Часы не продавались',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recapNoData => 'Нет данных за выбранный период.';
+
+  @override
   String get lastSync => 'Посл. синхр.:';
 
   @override

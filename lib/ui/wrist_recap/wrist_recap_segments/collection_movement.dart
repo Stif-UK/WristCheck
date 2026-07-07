@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/collection_movement_card.dart';
 
 class CollectionMovement extends StatelessWidget {
@@ -23,13 +24,13 @@ class CollectionMovement extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Collection Movement",
+                  Text(AppLocalizations.of(context)!.collectionMovementTitle,
                   style: Theme.of(context).textTheme.bodyLarge,),
                   Obx(() => Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("${recapController.watchesBought.length} watches bought"),
-                      Text("${recapController.watchesSold.length} watches sold"),
+                      Text(AppLocalizations.of(context)!.nWatchesBought(recapController.watchesBought.length)),
+                      Text(AppLocalizations.of(context)!.nWatchesSold(recapController.watchesSold.length)),
                       if (recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty) ...[
                         const SizedBox(height: 10,),
                         ...recapController.watchesBought.map((watch) => CollectionMovementCard(watch: watch, purchased: true,)),

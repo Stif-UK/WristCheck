@@ -213,6 +213,67 @@ class AppLocalizationsCs extends AppLocalizations {
   String get wristRecap => 'Přehled na zápěstí';
 
   @override
+  String get watchesWornTitle => 'Nošené hodinky:';
+
+  @override
+  String get brandChartTitle => 'Graf značek';
+
+  @override
+  String get categoryChartTitle => 'Graf kategorií';
+
+  @override
+  String get wearChartTitle => 'Graf nošení';
+
+  @override
+  String get statusChartTitle => 'Graf stavů';
+
+  @override
+  String get insightsTitle => 'Přehledy';
+
+  @override
+  String get watchesWornInsightTitle => 'Nošené hodinky';
+
+  @override
+  String get wearsPerDayInsightTitle => 'Nošení za den';
+
+  @override
+  String get topBrandInsightTitle => 'Nejoblíbenější značka';
+
+  @override
+  String get topCategoryInsightTitle => 'Nejoblíbenější kategorie';
+
+  @override
+  String get collectionMovementTitle => 'Pohyb v kolekci';
+
+  @override
+  String nWatchesBought(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hodinek koupeno',
+      one: '1 hodinky koupeny',
+      zero: 'Žádné hodinky koupeny',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatchesSold(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hodinek prodáno',
+      one: '1 hodinky prodány',
+      zero: 'Žádné hodinky prodány',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recapNoData =>
+      'Pro vybrané období nebyly zaznamenány žádné údaje.';
+
+  @override
   String get lastSync => 'Poslední synchronizace:';
 
   @override

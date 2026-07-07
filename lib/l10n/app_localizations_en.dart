@@ -213,6 +213,66 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wristRecap => 'Wrist Recap';
 
   @override
+  String get watchesWornTitle => 'Watches worn:';
+
+  @override
+  String get brandChartTitle => 'Brand chart';
+
+  @override
+  String get categoryChartTitle => 'Category chart';
+
+  @override
+  String get wearChartTitle => 'Wear chart';
+
+  @override
+  String get statusChartTitle => 'Status chart';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get watchesWornInsightTitle => 'Watches worn';
+
+  @override
+  String get wearsPerDayInsightTitle => 'Wears per day';
+
+  @override
+  String get topBrandInsightTitle => 'Top Brand';
+
+  @override
+  String get topCategoryInsightTitle => 'Top Category';
+
+  @override
+  String get collectionMovementTitle => 'Collection Movement';
+
+  @override
+  String nWatchesBought(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count watches bought',
+      one: '1 watch bought',
+      zero: 'No watches bought',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatchesSold(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count watches sold',
+      one: '1 watch sold',
+      zero: 'No watches sold',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recapNoData => 'No data tracked for the selected period.';
+
+  @override
   String get lastSync => 'Last Synced:';
 
   @override

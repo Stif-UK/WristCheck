@@ -214,6 +214,67 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wristRecap => 'Handgelenk-Rückblick';
 
   @override
+  String get watchesWornTitle => 'Getragene Uhren:';
+
+  @override
+  String get brandChartTitle => 'Markendiagramm';
+
+  @override
+  String get categoryChartTitle => 'Kategoriediagramm';
+
+  @override
+  String get wearChartTitle => 'Tragediagramm';
+
+  @override
+  String get statusChartTitle => 'Statusdiagramm';
+
+  @override
+  String get insightsTitle => 'Einblicke';
+
+  @override
+  String get watchesWornInsightTitle => 'Getragene Uhren';
+
+  @override
+  String get wearsPerDayInsightTitle => 'Tragezeiten pro Tag';
+
+  @override
+  String get topBrandInsightTitle => 'Top-Marke';
+
+  @override
+  String get topCategoryInsightTitle => 'Top-Kategorie';
+
+  @override
+  String get collectionMovementTitle => 'Bestandsveränderung';
+
+  @override
+  String nWatchesBought(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Uhren gekauft',
+      one: '1 Uhr gekauft',
+      zero: 'Keine Uhren gekauft',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String nWatchesSold(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Uhren verkauft',
+      one: '1 Uhr verkauft',
+      zero: 'Keine Uhren verkauft',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recapNoData =>
+      'Keine Daten für den ausgewählten Zeitraum erfasst.';
+
+  @override
   String get lastSync => 'Zuletzt synchronisiert:';
 
   @override
