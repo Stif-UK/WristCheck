@@ -47,20 +47,25 @@ class WristRecapAdprompt extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Please consider clicking the play button to watch an optional short ad to support the app", softWrap: true,),
                     ),
-                    Obx(() => recapController.expandAdCard.value ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.", softWrap: true,),
-                    ) : const SizedBox.shrink(),
-                    ),
-                    Obx(() => recapController.expandAdCard.value ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more", softWrap: true,),
-                    ) : const SizedBox.shrink(),
-                    ),
-                    Obx(() => recapController.expandAdCard.value ? IconButton(
-                        icon:Image.asset('assets/customicons/pro_icon.png',scale:1.0,height:80.0,width:80.0,color: Theme.of(context).hintColor),
-                    onPressed: () => Get.to(RemoveAds()),) : const SizedBox.shrink()
-
+                    Obx(() => recapController.expandAdCard.value
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.", softWrap: true,),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more", softWrap: true,),
+                              ),
+                              IconButton(
+                                icon: Image.asset('assets/customicons/pro_icon.png', scale: 1.0, height: 80.0, width: 80.0, color: Theme.of(context).hintColor),
+                                onPressed: () => Get.to(RemoveAds()),
+                              ),
+                            ],
+                          )
+                        : const SizedBox.shrink(),
                     ),
 
                     Obx(() => TextButton(
