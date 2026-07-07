@@ -102,6 +102,11 @@
   "nWatchesBought" : "{count, plural, =0{Ningún reloj comprado} =1{1 reloj comprado} other{{count} relojes comprados}}",
   "nWatchesSold" : "{count, plural, =0{Ningún reloj vendido} =1{1 reloj vendido} other{{count} relojes vendidos}}",
   "recapNoData" : "No se registraron datos para el periodo seleccionado.",
+  "cmPurchasedOn" : "Comprado el {shortDate}",
+  "cmSoldOn" : "Vendido el {shortDate}",
+  "wornPercentage" : "Porcentaje de uso: {returnText}",
+  "recapNotificationTitle" : "¡Nuevo Wrist Recap disponible!",
+  "recapNotificationSubtitle" : "Haz clic para ver las estadísticas del mes pasado",
 
   "@_TIME_SETTING": {},
   "lastSync" : "Última Sincronización:",

@@ -102,6 +102,11 @@
   "nWatchesBought" : "{count, plural, =0{Часы не покупались} =1{Куплены 1 часы} other{Куплено {count} часов}}",
   "nWatchesSold" : "{count, plural, =0{Часы не продавались} =1{Проданы 1 часы} other{Продано {count} часов}}",
   "recapNoData" : "Нет данных за выбранный период.",
+  "cmPurchasedOn" : "Куплены {shortDate}",
+  "cmSoldOn" : "Проданы {shortDate}",
+  "wornPercentage" : "Доля ношения: {returnText}",
+  "recapNotificationTitle" : "Доступен новый Wrist Recap!",
+  "recapNotificationSubtitle" : "Нажмите, чтобы увидеть статистику за прошлый месяц",
 
   "@_TIME_SETTING": {},
   "lastSync": "Посл. синхр.:",

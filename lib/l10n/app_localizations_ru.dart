@@ -273,6 +273,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String get recapNoData => 'Нет данных за выбранный период.';
 
   @override
+  String cmPurchasedOn(Object shortDate) {
+    return 'Куплены $shortDate';
+  }
+
+  @override
+  String cmSoldOn(Object shortDate) {
+    return 'Проданы $shortDate';
+  }
+
+  @override
+  String wornPercentage(Object returnText) {
+    return 'Доля ношения: $returnText';
+  }
+
+  @override
+  String get recapNotificationTitle => 'Доступен новый Wrist Recap!';
+
+  @override
+  String get recapNotificationSubtitle =>
+      'Нажмите, чтобы увидеть статистику за прошлый месяц';
+
+  @override
   String get lastSync => 'Посл. синхр.:';
 
   @override

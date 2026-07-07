@@ -73,7 +73,7 @@ class WornWatchCard extends StatelessWidget {
               ),
               const SizedBox(height: 5,),
               Text(
-                "Wear Percentage: ${wornWatch.percentage}",
+                AppLocalizations.of(context)!.wornPercentage(wornWatch.percentage!),
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.left,
               )

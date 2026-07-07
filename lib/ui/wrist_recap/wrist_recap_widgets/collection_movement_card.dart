@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_empty_icon.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -61,8 +62,8 @@ class CollectionMovementCard extends StatelessWidget {
                 children: [
                   Text(watch.toString(),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),),
-                  watch.purchaseDate != null && watch.purchaseDate != "" ? Text("Purchased on: ${WristCheckFormatter.getFormattedDate(watch.purchaseDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,),
-                  watch.soldDate != null && watch.soldDate != "" ? Text("Sold on: ${WristCheckFormatter.getFormattedDate(watch.soldDate!)}", style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,)
+                  watch.purchaseDate != null && watch.purchaseDate != "" ? Text(AppLocalizations.of(context)!.cmPurchasedOn(WristCheckFormatter.getFormattedDate(watch.purchaseDate!)), style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,),
+                  watch.soldDate != null && watch.soldDate != "" ? Text(AppLocalizations.of(context)!.cmSoldOn(WristCheckFormatter.getFormattedDate(watch.soldDate!)), style: Theme.of(context).textTheme.bodySmall,) : const SizedBox(height: 0,)
                 ],
               ),
             ),

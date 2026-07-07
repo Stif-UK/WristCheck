@@ -274,6 +274,28 @@ class AppLocalizationsCs extends AppLocalizations {
       'Pro vybrané období nebyly zaznamenány žádné údaje.';
 
   @override
+  String cmPurchasedOn(Object shortDate) {
+    return 'Zakoupeno dne $shortDate';
+  }
+
+  @override
+  String cmSoldOn(Object shortDate) {
+    return 'Prodáno dne $shortDate';
+  }
+
+  @override
+  String wornPercentage(Object returnText) {
+    return 'Procento nošení: $returnText';
+  }
+
+  @override
+  String get recapNotificationTitle => 'K dispozici je nový Wrist Recap!';
+
+  @override
+  String get recapNotificationSubtitle =>
+      'Kliknutím zobrazíte statistiky za minulý měsíc';
+
+  @override
   String get lastSync => 'Poslední synchronizace:';
 
   @override

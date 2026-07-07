@@ -102,6 +102,11 @@
   "nWatchesBought" : "{count, plural, =0{Žádné hodinky koupeny} =1{1 hodinky koupeny} other{{count} hodinek koupeno}}",
   "nWatchesSold" : "{count, plural, =0{Žádné hodinky prodány} =1{1 hodinky prodány} other{{count} hodinek prodáno}}",
   "recapNoData" : "Pro vybrané období nebyly zaznamenány žádné údaje.",
+  "cmPurchasedOn" : "Zakoupeno dne {shortDate}",
+  "cmSoldOn" : "Prodáno dne {shortDate}",
+  "wornPercentage" : "Procento nošení: {returnText}",
+  "recapNotificationTitle" : "K dispozici je nový Wrist Recap!",
+  "recapNotificationSubtitle" : "Kliknutím zobrazíte statistiky za minulý měsíc",
 
   "@_TIME_SETTING": {},
   "lastSync" : "Poslední synchronizace:",

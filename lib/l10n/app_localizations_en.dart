@@ -273,6 +273,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recapNoData => 'No data tracked for the selected period.';
 
   @override
+  String cmPurchasedOn(Object shortDate) {
+    return 'Purchased on $shortDate';
+  }
+
+  @override
+  String cmSoldOn(Object shortDate) {
+    return 'Sold on $shortDate';
+  }
+
+  @override
+  String wornPercentage(Object returnText) {
+    return 'Wear Percentage: $returnText';
+  }
+
+  @override
+  String get recapNotificationTitle => 'New Wrist Recap available!';
+
+  @override
+  String get recapNotificationSubtitle => 'Click to see last months stats';
+
+  @override
   String get lastSync => 'Last Synced:';
 
   @override

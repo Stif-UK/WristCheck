@@ -598,6 +598,36 @@ abstract class AppLocalizations {
   /// **'No data tracked for the selected period.'**
   String get recapNoData;
 
+  /// No description provided for @cmPurchasedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased on {shortDate}'**
+  String cmPurchasedOn(Object shortDate);
+
+  /// No description provided for @cmSoldOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold on {shortDate}'**
+  String cmSoldOn(Object shortDate);
+
+  /// No description provided for @wornPercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Percentage: {returnText}'**
+  String wornPercentage(Object returnText);
+
+  /// No description provided for @recapNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Wrist Recap available!'**
+  String get recapNotificationTitle;
+
+  /// No description provided for @recapNotificationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to see last months stats'**
+  String get recapNotificationSubtitle;
+
   /// No description provided for @lastSync.
   ///
   /// In en, this message translates to:

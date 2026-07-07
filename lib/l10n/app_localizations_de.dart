@@ -275,6 +275,28 @@ class AppLocalizationsDe extends AppLocalizations {
       'Keine Daten für den ausgewählten Zeitraum erfasst.';
 
   @override
+  String cmPurchasedOn(Object shortDate) {
+    return 'Gekauft am $shortDate';
+  }
+
+  @override
+  String cmSoldOn(Object shortDate) {
+    return 'Verkauft am $shortDate';
+  }
+
+  @override
+  String wornPercentage(Object returnText) {
+    return 'Trageanteil: $returnText';
+  }
+
+  @override
+  String get recapNotificationTitle => 'Neuer Wrist Recap verfügbar!';
+
+  @override
+  String get recapNotificationSubtitle =>
+      'Hier klicken für die Statistiken des letzten Monats';
+
+  @override
   String get lastSync => 'Zuletzt synchronisiert:';
 
   @override

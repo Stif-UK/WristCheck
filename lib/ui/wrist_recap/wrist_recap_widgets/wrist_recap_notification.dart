@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_monthly.dart';
 
 class WristRecapNotification extends StatelessWidget {
@@ -24,7 +25,7 @@ class WristRecapNotification extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(4.0, 4.0, 0.0, 0.0),
                   child: IconButton(icon: Icon(FontAwesomeIcons.xmark),
                   onPressed: () => wristCheckController.dismissRecapNotification(DateTime.now()),),
                 )
@@ -32,7 +33,7 @@ class WristRecapNotification extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 8.0),
             child: Container(
               width: 40,
               height: 40,
@@ -45,23 +46,27 @@ class WristRecapNotification extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("New Wrist Recap available!", style: Theme.of(context).textTheme.bodyLarge,),
-              FittedBox(child: Text("Click to check your last months stats", style: Theme.of(context).textTheme.bodyMedium,))
-            ],
-          ),
           Expanded(
-            child: IconButton(
-                icon: Icon(FontAwesomeIcons.chevronRight),
-                onPressed: () {
-                  var now = DateTime.now();
-                  var lastMonth = DateTime(now.year, now.month-1);
-                  wristCheckController.dismissRecapNotification(now);
-                  Get.to(() => WristRecapMonthly(month: lastMonth.month, year: lastMonth.year));
-                }),
-          )
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(AppLocalizations.of(context)!.recapNotificationTitle, style: Theme.of(context).textTheme.bodyLarge,),
+                  const SizedBox(height: 5,),
+                  Text(AppLocalizations.of(context)!.recapNotificationSubtitle, style: Theme.of(context).textTheme.bodyMedium,)
+                ],
+              ),
+            ),
+          ),
+          IconButton(
+              icon: Icon(FontAwesomeIcons.chevronRight),
+              onPressed: () {
+                var now = DateTime.now();
+                var lastMonth = DateTime(now.year, now.month - 1);
+                wristCheckController.dismissRecapNotification(now);
+                Get.to(() => WristRecapMonthly(month: lastMonth.month, year: lastMonth.year));
+              }),
         ],
       ),
 
