@@ -4,6 +4,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class WristRecapMonthlyController extends GetxController{
@@ -19,6 +20,7 @@ class WristRecapMonthlyController extends GetxController{
   final watchesSold = <Watches>[].obs;
   final isLastMonth = false.obs;
   final expandAdCard = false.obs;
+  final showOptionalAdCard = true.obs;
 
   
   updateMonth(int monthInt) async {
@@ -245,6 +247,18 @@ class WristRecapMonthlyController extends GetxController{
     refresh();
   }
 
+  decideShowOptionalAdSpace(){
+    DateTime lastAdShownTimestamp = WristCheckPreferences.getLastRecordedAdTimestamp();
+    Duration difference = DateTime.now().difference(lastAdShownTimestamp);
+    if(difference.inHours < 48){
+      showOptionalAdCard(false);
+    }
+  }
+
+  updateShowOptionalAdCard(bool showCard){
+    showOptionalAdCard(showCard);
+  }
+
   refresh() async {
     await generateWornWatchesDate(month.value, year.value);
     await generateBrandsWornData(month.value, year.value);
@@ -253,6 +267,7 @@ class WristRecapMonthlyController extends GetxController{
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();
+    await decideShowOptionalAdSpace();
   }
 
 }

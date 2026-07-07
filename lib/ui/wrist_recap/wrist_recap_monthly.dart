@@ -13,6 +13,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_caro
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_adprompt.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_thanks.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapMonthly extends StatelessWidget {
@@ -120,7 +121,8 @@ class WristRecapMonthly extends StatelessWidget {
                     Obx(() => recapController.categoriesWorn.length > 1 ? MonthlyCategoryChart() : const SizedBox(height: 0)),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
                     //For non-pro users show a pro / ad prompt
-                    Obx(() => wristCheckController.isAppPro.value ? const SizedBox(height: 0,) : WristRecapAdprompt()),
+                    Obx(() => wristCheckController.isAppPro.value ? const SizedBox(height: 0,) :
+                     recapController.showOptionalAdCard.value? WristRecapAdprompt() : WristRecapThanks()),
                     //Space at bottom of page
                     const SizedBox(
                       height: 50,

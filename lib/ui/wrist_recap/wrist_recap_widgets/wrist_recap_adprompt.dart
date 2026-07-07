@@ -68,6 +68,7 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
       int currentCount = WristCheckPreferences.getRewardedAdCount();
       WristCheckPreferences.setRewardedAdCount(currentCount + 1);
       WristCheckPreferences.setLastRecordedAdTimestamp(DateTime.now());
+      recapController.updateShowOptionalAdCard(false);
     });
     _rewardedAd = null;
   }
