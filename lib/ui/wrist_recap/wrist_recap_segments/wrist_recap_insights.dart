@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
-import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/insight_card.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
@@ -20,13 +20,13 @@ class WristRecapInsights extends StatefulWidget {
 
 class _WristRecapInsightsState extends State<WristRecapInsights> {
   final recapController = Get.put(WristRecapMonthlyController());
+  final wristCheckController = Get.find<WristCheckController>();
   BannerAd? banner;
-  bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!purchaseStatus) {
+    if (!wristCheckController.isAppPro.value) {
       final adState = Provider.of<AdState>(context);
       adState.initialization.then((status) {
         if (!mounted) return;
@@ -68,7 +68,9 @@ class _WristRecapInsightsState extends State<WristRecapInsights> {
                 ],
               ),
             )),
-        if (!purchaseStatus) AdWidgetHelper.buildSmallAdSpace(banner, context),
+        Obx(() => wristCheckController.isAppPro.value
+            ? const SizedBox(height: 0)
+            : AdWidgetHelper.buildSmallAdSpace(banner, context)),
       ],
     );
   }
