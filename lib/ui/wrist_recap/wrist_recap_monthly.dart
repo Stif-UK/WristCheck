@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -18,9 +19,11 @@ class WristRecapMonthly extends StatelessWidget {
   final int month;
   final int year;
   final recapController = Get.put(WristRecapMonthlyController());
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
+    analytics.logScreenView(screenName: "wrist_recap_v2");
     //Initialise the controller
     recapController.updateMonth(month);
     recapController.updateYear(year);
