@@ -18,6 +18,7 @@ class WristRecapMonthlyController extends GetxController{
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
   final isLastMonth = false.obs;
+  final expandAdCard = false.obs;
 
   
   updateMonth(int monthInt) async {
@@ -50,6 +51,10 @@ class WristRecapMonthlyController extends GetxController{
 
   updateWatchesSold(List<Watches> watchList){
     watchesSold(watchList);
+  }
+
+  toggleAdCard(){
+    expandAdCard(!expandAdCard.value);
   }
 
   generateWornWatchesDate(int wearMonth, int wearYear){

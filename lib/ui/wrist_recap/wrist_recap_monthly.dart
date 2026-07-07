@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_brand_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
@@ -11,6 +12,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_carousel.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_adprompt.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapMonthly extends StatelessWidget {
@@ -19,6 +21,7 @@ class WristRecapMonthly extends StatelessWidget {
   final int month;
   final int year;
   final recapController = Get.put(WristRecapMonthlyController());
+  final wristCheckController = Get.put(WristCheckController());
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
@@ -116,6 +119,8 @@ class WristRecapMonthly extends StatelessWidget {
                     Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
                     Obx(() => recapController.categoriesWorn.length > 1 ? MonthlyCategoryChart() : const SizedBox(height: 0)),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
+                    //For non-pro users show a pro / ad prompt
+                    Obx(() => wristCheckController.isAppPro.value ? const SizedBox(height: 0,) : WristRecapAdprompt()),
                     //Space at bottom of page
                     const SizedBox(
                       height: 50,
