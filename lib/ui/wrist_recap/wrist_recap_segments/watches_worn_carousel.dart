@@ -11,11 +11,15 @@ class WatchesWornCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      Text(
-      "Watches worn:",
-      style: Theme.of(context).textTheme.bodyLarge,
-    ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+        "Watches worn:",
+        style: Theme.of(context).textTheme.bodyLarge,
+            ),
+      ),
     SizedBox(
     height: 250,
     child: ListView.builder(
