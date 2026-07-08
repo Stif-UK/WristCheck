@@ -71,12 +71,12 @@ class WristRecapController extends GetxController{
   generateWornWatchesDate(int wearMonth, int wearYear){
     List<WornWatchesClass> wearList = [];
     //Get all watches during period
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
     //For each watch create a WornWatches object with the watch and its wear count
     for(Watches watch in watchList){
         List<DateTime> wornDates = watch.wearList
             .where(
-                (date) => date.month == month.value && date.year == year.value)
+                (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
             .toList();
 
         int count = wornDates.length;
@@ -104,12 +104,12 @@ class WristRecapController extends GetxController{
     duplicateBrand(false);
     Map<String, int> brandMap = {};
     Map<String, int> watchesPerBrandCount = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
 
     for(Watches watch in watchList){
       int count = watch.wearList
           .where(
-              (date) => date.month == wearMonth && date.year == wearYear)
+              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
           .length;
 
       if (count > 0) {
@@ -142,12 +142,12 @@ class WristRecapController extends GetxController{
   
   generateStatusWornData(int wearMonth, int wearYear){
     Map<String, int> statusMap = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
 
     for(Watches watch in watchList){
       int count = watch.wearList
           .where(
-              (date) => date.month == wearMonth && date.year == wearYear)
+              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
           .length;
 
       if (count > 0) {
@@ -177,13 +177,13 @@ class WristRecapController extends GetxController{
   
   generateCategoriesWornData(int wearMonth, int wearYear){
     Map<String, int> categoryMap = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), wearMonth, wearYear);
+    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
     bool complete = true;
 
     for(Watches watch in watchList){
       int count = watch.wearList
           .where(
-              (date) => date.month == wearMonth && date.year == wearYear)
+              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
           .length;
 
       if (count > 0) {
@@ -222,7 +222,7 @@ class WristRecapController extends GetxController{
     List<Watches> soldWatches = [];
     soldWatches = Boxes.getSoldWatches();
     soldWatches.removeWhere((watch) => watch.soldDate == null );
-    soldWatches = soldWatches.where((watch) => watch.soldDate!.month == month.value && watch.soldDate!.year == year.value).toList();
+    soldWatches = soldWatches.where((watch) => (monthView.value ? watch.soldDate!.month == month.value : true) && watch.soldDate!.year == year.value).toList();
     watchesSold(soldWatches);
   }
 
@@ -230,7 +230,7 @@ class WristRecapController extends GetxController{
     List<Watches> purchasedWatches = [];
     purchasedWatches = Boxes.getAllNonArchivedWatches();
     purchasedWatches.removeWhere((watch) => watch.purchaseDate == null);
-    purchasedWatches = purchasedWatches.where((watch) => watch.purchaseDate!.month == month.value && watch.purchaseDate!.year == year.value).toList();
+    purchasedWatches = purchasedWatches.where((watch) => (monthView.value ? watch.purchaseDate!.month == month.value : true) && watch.purchaseDate!.year == year.value).toList();
     watchesBought(purchasedWatches);
   }
 
@@ -241,7 +241,12 @@ class WristRecapController extends GetxController{
   }
 
   incrementMonth() {
-    DateTime newDate = DateTime(year.value, month.value + 1);
+    DateTime newDate;
+    if (monthView.value) {
+      newDate = DateTime(year.value, month.value + 1);
+    } else {
+      newDate = DateTime(year.value + 1, month.value);
+    }
     month(newDate.month);
     year(newDate.year);
     //Retrigger the data generation and check if this is 'last month'
@@ -249,7 +254,12 @@ class WristRecapController extends GetxController{
   }
 
   decrementMonth() {
-    DateTime newDate = DateTime(year.value, month.value - 1);
+    DateTime newDate;
+    if (monthView.value) {
+      newDate = DateTime(year.value, month.value - 1);
+    } else {
+      newDate = DateTime(year.value - 1, month.value);
+    }
     month(newDate.month);
     year(newDate.year);
     //Retrigger the data generation and check if this is 'last month'

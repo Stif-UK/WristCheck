@@ -43,7 +43,7 @@ class WristRecapHome extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(icon: Icon(FontAwesomeIcons.gear),
-            onPressed: (){},),
+            onPressed: (){recapController.toggleMonthView();},),
           )
         ],
       ),
@@ -68,7 +68,9 @@ class WristRecapHome extends StatelessWidget {
                       Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "${WristCheckFormatter.getMonthFullName(recapController.month.value)} ${recapController.year.value}",
+                              recapController.monthView.value
+                                  ? "${WristCheckFormatter.getMonthFullName(recapController.month.value)} ${recapController.year.value}"
+                                  : "${recapController.year.value}",
                               style: Theme.of(context).textTheme.headlineSmall,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,

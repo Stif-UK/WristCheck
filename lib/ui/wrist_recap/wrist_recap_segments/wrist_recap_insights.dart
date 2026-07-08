@@ -87,8 +87,17 @@ class _WristRecapInsightsState extends State<WristRecapInsights> {
       ));
       //Get wears tracked per day
       //TODO: handle months with less than a full track - get first wear entry in the month and if later than the 1st of the month reduce count
-      int days = DateUtils.getDaysInMonth(
-          recapController.year.value, recapController.month.value);
+      int days;
+      if (recapController.monthView.value) {
+        days = DateUtils.getDaysInMonth(
+            recapController.year.value, recapController.month.value);
+      } else {
+        // Calculate days in the year
+        bool isLeapYear = (recapController.year.value % 4 == 0 &&
+                recapController.year.value % 100 != 0) ||
+            (recapController.year.value % 400 == 0);
+        days = isLeapYear ? 366 : 365;
+      }
       insights.add(InsightCard(
           title: AppLocalizations.of(context)!.wearsPerDayInsightTitle,
           value: (wearcount / days).toStringAsFixed(1),
