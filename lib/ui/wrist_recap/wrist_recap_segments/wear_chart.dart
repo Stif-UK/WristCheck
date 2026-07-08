@@ -13,14 +13,14 @@ import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 
-class MonthlyWearChart extends StatefulWidget {
-  MonthlyWearChart({super.key});
+class WearChart extends StatefulWidget {
+  WearChart({super.key});
 
   @override
-  State<MonthlyWearChart> createState() => _MonthlyWearChartState();
+  State<WearChart> createState() => _WearChartState();
 }
 
-class _MonthlyWearChartState extends State<MonthlyWearChart> {
+class _WearChartState extends State<WearChart> {
   final wristCheckController = Get.find<WristCheckController>();
   BannerAd? banner;
 

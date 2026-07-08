@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_brand_chart.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_category_chart.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_wear_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/brand_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/category_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_carousel.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insights.dart';
@@ -105,16 +105,15 @@ class WristRecapHome extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               WatchesWornCarousel(),
-                              MonthlyWearChart(),
+                              WearChart(),
                             ],
                           )),
                     //Show bought/sold section if any movement in the collection
                     Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
                     //Show insights if watches have been worn
                     Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
-                    //Show brand chart if any brand worn more than once
-                    Obx(() => recapController.duplicateBrand.value ? MonthlyBrandChart() : const SizedBox(height: 0,)),
-                    Obx(() => recapController.categoriesWorn.length > 1 ? MonthlyCategoryChart() : const SizedBox(height: 0)),
+                    Obx(() => recapController.duplicateBrand.value ? BrandChart() : const SizedBox(height: 0,)),
+                    Obx(() => recapController.categoriesWorn.length > 1 ? CategoryChart() : const SizedBox(height: 0)),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
                     //For non-pro users show a pro / ad prompt
                     Obx(() => wristCheckController.isAppPro.value ? const SizedBox(height: 0,) :

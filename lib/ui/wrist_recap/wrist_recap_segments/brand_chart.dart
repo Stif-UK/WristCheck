@@ -5,8 +5,8 @@ import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_contr
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
-class MonthlyCategoryChart extends StatelessWidget {
-  MonthlyCategoryChart({super.key});
+class BrandChart extends StatelessWidget {
+  const BrandChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MonthlyCategoryChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context)!.categoryChartTitle, style: Theme.of(context).textTheme.bodyLarge),
+            Text(AppLocalizations.of(context)!.brandChartTitle, style: Theme.of(context).textTheme.bodyLarge),
             SfCartesianChart(
               primaryXAxis: CategoryAxis(
                 isVisible: false,
@@ -32,18 +32,18 @@ class MonthlyCategoryChart extends StatelessWidget {
       ),
     );
   }
-}
 
-List<BarSeries<dynamic, dynamic>> _getBarSeries() {
-  final recapController = Get.put(WristRecapController());
+  List<BarSeries<dynamic, dynamic>> _getBarSeries() {
+    final recapController = Get.put(WristRecapController());
 
-  return <BarSeries<CategoriesWornClass, String>>[
-    BarSeries(
-      dataSource: recapController.categoriesWorn.reversed.toList(),
-      xValueMapper: (CategoriesWornClass series, _) => series.category,
-      yValueMapper: (CategoriesWornClass series, _) => series.count,
-      dataLabelMapper: (series, _) => "${series.category} : ${series.count} (${series.percentage})",
-      dataLabelSettings: const DataLabelSettings(isVisible: true),
-    )
-  ];
+    return <BarSeries<ManufacturersWornClass, String>>[
+      BarSeries(
+        dataSource: recapController.brandsWorn.reversed.toList(),
+        xValueMapper: (ManufacturersWornClass series, _) => series.manufacturer,
+        yValueMapper: (ManufacturersWornClass series, _) => series.count,
+        dataLabelMapper: (series, _) => "${series.manufacturer} : ${series.count} (${series.percentage})",
+        dataLabelSettings: const DataLabelSettings(isVisible: true),
+      )
+    ];
+  }
 }
