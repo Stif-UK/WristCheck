@@ -78,15 +78,18 @@ class _WristRecapInsightsState extends State<WristRecapInsights> {
   List<InsightCard> _getInsights(BuildContext context) {
     List<InsightCard> insights = [];
     if (recapController.watchesWorn.isNotEmpty) {
-      int wearcount = recapController.watchesWorn.length;
+      int watchesWorn = recapController.watchesWorn.length;
+      double wearCount = recapController.watchesWorn.fold(
+          0, (previousValue, watch) => previousValue + watch.count);
+
       //Get total watches worn
       insights.add(InsightCard(
         title: AppLocalizations.of(context)!.watchesWornInsightTitle,
-        value: wearcount.toString(),
+        value: watchesWorn.toString(),
         valueBig: true,
       ));
       //Get wears tracked per day
-      //TODO: handle months with less than a full track - get first wear entry in the month and if later than the 1st of the month reduce count
+      //TODO: handle months and years with less than a full track - get first wear entry in the month or year and if later than the 1st of the month reduce count
       int days;
       if (recapController.monthView.value) {
         days = DateUtils.getDaysInMonth(
@@ -98,9 +101,10 @@ class _WristRecapInsightsState extends State<WristRecapInsights> {
             (recapController.year.value % 400 == 0);
         days = isLeapYear ? 366 : 365;
       }
+      print("Days: $days, Wearcount: $wearCount");
       insights.add(InsightCard(
           title: AppLocalizations.of(context)!.wearsPerDayInsightTitle,
-          value: (wearcount / days).toStringAsFixed(1),
+          value: (wearCount / days).toStringAsFixed(1),
           valueBig: true));
       //Top Brand
       if (recapController.brandsWorn.isNotEmpty) {
