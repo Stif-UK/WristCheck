@@ -98,6 +98,7 @@
   "wearsPerDayInsightTitle" : "Portées par jour",
   "topBrandInsightTitle" : "Marque préférée",
   "topCategoryInsightTitle" : "Catégorie préférée",
+  "topWatchMonthlyTitle" : "Meilleure montre par mois",
   "collectionMovementTitle" : "Mouvement de la collection",
   "nWatchesBought" : "{count, plural, =0{Aucune montre achetée} =1{1 montre achetée} other{{count} montres achetées}}",
   "nWatchesSold" : "{count, plural, =0{Aucune montre vendue} =1{1 montre vendue} other{{count} montres vendues}}",

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_watch_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/brand_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/category_chart.dart';
@@ -106,6 +107,7 @@ class WristRecapHome extends StatelessWidget {
                             children: [
                               WatchesWornCarousel(),
                               WearChart(),
+                              TopWatchMonthly(),
                             ],
                           )),
                     //Show bought/sold section if any movement in the collection

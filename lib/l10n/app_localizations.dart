@@ -580,6 +580,12 @@ abstract class AppLocalizations {
   /// **'Top Category'**
   String get topCategoryInsightTitle;
 
+  /// No description provided for @topWatchMonthlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Watch per Month'**
+  String get topWatchMonthlyTitle;
+
   /// No description provided for @collectionMovementTitle.
   ///
   /// In en, this message translates to:

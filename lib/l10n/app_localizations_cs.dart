@@ -246,6 +246,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get topCategoryInsightTitle => 'Nejoblíbenější kategorie';
 
   @override
+  String get topWatchMonthlyTitle => 'Nejoblíbenější hodinky za měsíc';
+
+  @override
   String get collectionMovementTitle => 'Pohyb v kolekci';
 
   @override

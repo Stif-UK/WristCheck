@@ -56,3 +56,10 @@ class StatusWornClass {
   }
 }
 
+class TopWatchMonthlyClass {
+  TopWatchMonthlyClass(this.month, this.watch, this.count);
+  final int month;
+  final Watches? watch;
+  final int count;
+}
+

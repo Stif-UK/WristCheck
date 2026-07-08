@@ -19,6 +19,7 @@ class WristRecapController extends GetxController{
   final categoriesComplete = true.obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
+  final topWatchMonthly = <TopWatchMonthlyClass>[].obs;
   final isLastMonth = false.obs;
   final expandAdCard = false.obs;
   final showOptionalAdCard = true.obs;
@@ -218,7 +219,35 @@ class WristRecapController extends GetxController{
     categoriesComplete(complete);
     categoriesWorn(categoryList);
   }
-  
+
+  generateTopWatchMonthlyData() {
+    if (monthView.value) {
+      topWatchMonthly([]);
+      return;
+    }
+
+    List<TopWatchMonthlyClass> topWatchesList = [];
+    List<Watches> allWatches = Boxes.getAllNonArchivedWatches();
+
+    for (int m = 1; m <= 12; m++) {
+      Watches? topWatch;
+      int maxCount = 0;
+
+      for (Watches watch in allWatches) {
+        int count = watch.wearList
+            .where((date) => date.month == m && date.year == year.value)
+            .length;
+
+        if (count > maxCount) {
+          maxCount = count;
+          topWatch = watch;
+        }
+      }
+      topWatchesList.add(TopWatchMonthlyClass(m, topWatch, maxCount));
+    }
+    topWatchMonthly(topWatchesList);
+  }
+
   generateWatchesSold() async {
     List<Watches> soldWatches = [];
     soldWatches = Boxes.getSoldWatches();
@@ -284,6 +313,7 @@ class WristRecapController extends GetxController{
     await generateBrandsWornData(month.value, year.value);
     await generateCategoriesWornData(month.value, year.value);
     await generateStatusWornData(month.value, year.value);
+    await generateTopWatchMonthlyData();
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();
