@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_monthly.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 
 class WristRecapNotification extends StatelessWidget {
   WristRecapNotification({super.key});
@@ -65,7 +65,7 @@ class WristRecapNotification extends StatelessWidget {
                 var now = DateTime.now();
                 var lastMonth = DateTime(now.year, now.month - 1);
                 wristCheckController.dismissRecapNotification(now);
-                Get.to(() => WristRecapMonthly(month: lastMonth.month, year: lastMonth.year));
+                Get.to(() => WristRecapHome(month: lastMonth.month, year: lastMonth.year));
               }),
         ],
       ),

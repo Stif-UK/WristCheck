@@ -16,8 +16,8 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_adprom
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_thanks.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class WristRecapMonthly extends StatelessWidget {
-  WristRecapMonthly({super.key, required this.month, required this.year});
+class WristRecapHome extends StatelessWidget {
+  WristRecapHome({super.key, required this.month, required this.year});
 
   final int month;
   final int year;
