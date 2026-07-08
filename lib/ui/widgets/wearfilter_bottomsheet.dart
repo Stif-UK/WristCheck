@@ -11,7 +11,7 @@ import 'package:wristcheck/ui/widgets/wear_filters/basic_filters_widget.dart';
 
 class WearFilterBottomSheet extends StatefulWidget {
   WearFilterBottomSheet({Key? key}) : super(key: key);
-  final filterController = Get.put(FilterController());
+  final filterController = Get.find<FilterController>();
 
   @override
   State<WearFilterBottomSheet> createState() => _WearFilterBottomSheetState();

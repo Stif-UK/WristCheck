@@ -33,6 +33,9 @@ class FilterController extends GetxController{
   final startDate = DateTime(DateTime.now().year-1, DateTime.now().month, DateTime.now().day).obs;
   final endDate = DateTime.now().obs;
 
+  final searchByWatchName = true.obs;
+  final searchByNotes = false.obs;
+
   List<String> yearList = [AppLocalizations.of(Get.context!)!.all];
 
   resetToDefaults(){
@@ -136,6 +139,14 @@ class FilterController extends GetxController{
 
   updateEndDate(DateTime newEndDate){
     endDate(newEndDate);
+  }
+
+  updateSearchByWatchName(bool newValue){
+    searchByWatchName(newValue);
+  }
+
+  updateSearchByNotes(bool newValue){
+    searchByNotes(newValue);
   }
 
   populateYearList(){

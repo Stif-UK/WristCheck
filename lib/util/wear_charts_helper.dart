@@ -37,7 +37,7 @@ class WearChartsHelper {
         returnString = AppLocalizations.of(Get.context!)!.wornInLast90Days;
         break;
       case WearChartOptions.manual:
-        var controller = Get.put(FilterController());
+        var controller = Get.find<FilterController>();
         var monthValue = WristCheckFormatter.getMonthText(controller.selectedMonth.value);
         var yearValue = controller.selectedYear.value;
         if(monthValue != AppLocalizations.of(Get.context!)!.all && yearValue != AppLocalizations.of(Get.context!)!.all){
@@ -57,7 +57,7 @@ class WearChartsHelper {
         returnString = AppLocalizations.of(Get.context!)!.wornInLast365Days;
         break;
       case WearChartOptions.betweenDates:
-        var controller = Get.put(FilterController());
+        var controller = Get.find<FilterController>();
         returnString = AppLocalizations.of(Get.context!)!.wornBetweenDates(WristCheckFormatter.getFormattedDate(controller.startDate.value), WristCheckFormatter.getFormattedDate(controller.endDate.value));
         break;
     }
@@ -67,7 +67,7 @@ class WearChartsHelper {
 
   static String getAdvancedFilterHeaderText(bool showCollection, bool showSold, bool showRetired, bool showArchived, bool showOnLoan, bool showGrouping, ChartGrouping grouping, bool filterCategories, List<CategoryEnum> selectedCategories, bool filterMovements, List<MovementEnum> selectedMovements){
 
-    final filterController = Get.put(FilterController());
+    final filterController = Get.find<FilterController>();
     String returnText = "";
     //If filter
     if(filterController.basicWearFilter.value == WearChartOptions.lastPurchase && filterController.lastPurchaseTracked.value){

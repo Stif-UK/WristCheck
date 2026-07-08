@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -24,7 +25,8 @@ import 'package:wristcheck/util/startup_checks_util.dart';
 
 
 class WristCheckHome extends StatefulWidget{
-  final wristCheckController = Get.put(WristCheckController());
+  final wristCheckController = Get.find<WristCheckController>();
+  final filterController = Get.find<FilterController>();
 
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/measurement.dart';
@@ -91,6 +92,7 @@ Future main() async{
   //Get Controllers
   final wristCheckController = Get.put(WristCheckController());
   final langController = Get.put(LanguageController());
+  final filterController = Get.put(FilterController());
 
 
   initializeDateFormatting().then((_)=>

@@ -12,8 +12,8 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class AdvancedFiltersWidget extends StatefulWidget {
   AdvancedFiltersWidget({super.key});
-  final filterController = Get.put(FilterController());
-  final wristCheckController = Get.put(WristCheckController());
+  final filterController = Get.find<FilterController>();
+  final wristCheckController = Get.find<WristCheckController>();
 
   @override
   State<AdvancedFiltersWidget> createState() => _AdvancedFiltersWidgetState();

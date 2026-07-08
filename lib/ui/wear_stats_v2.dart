@@ -24,8 +24,8 @@ import 'package:wristcheck/util/wear_charts_helper.dart';
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
 class WearStatsV2 extends StatefulWidget {
   WearStatsV2({Key? key}) : super(key: key);
-  final wristCheckController = Get.put(WristCheckController());
-  final filterController = Get.put(FilterController());
+  final wristCheckController = Get.find<WristCheckController>();
+  final filterController = Get.find<FilterController>();
 
   @override
   State<WearStatsV2> createState() => _WearStatsState();

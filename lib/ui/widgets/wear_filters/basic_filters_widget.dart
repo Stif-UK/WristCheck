@@ -9,7 +9,7 @@ import 'package:wristcheck/model/enums/month_list.dart';
 
 class BasicFiltersWidget extends StatefulWidget {
   BasicFiltersWidget({super.key});
-  final filterController = Get.put(FilterController());
+  final filterController = Get.find<FilterController>();
 
 
   @override

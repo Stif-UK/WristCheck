@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/search/search_finder.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/search_filter_bottomsheet.dart';
 
 class SearchWidget extends SearchDelegate{
 
@@ -14,7 +15,15 @@ class SearchWidget extends SearchDelegate{
           query = '';
         },
       ),
-      IconButton(onPressed: (){}, icon: Icon(FontAwesomeIcons.filter))
+      IconButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => SearchFilterBottomSheet(),
+          );
+        },
+        icon: Icon(FontAwesomeIcons.filter),
+      )
     ];
   }
 

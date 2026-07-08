@@ -11,6 +11,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:get/get.dart';
@@ -67,80 +68,114 @@ class _SearchFinderState extends State<SearchFinder> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "search");
     DatabaseProvider databaseProvider = Provider.of<DatabaseProvider>(context);
+    final filterController = Get.find<FilterController>();
+
     return Column(
       children: [
         Expanded(
           child: ValueListenableBuilder(
             valueListenable: Boxes.getWatches().listenable(),
             builder: (context, Box<Watches> watchBox, _) {
-              ///* this is where we filter data
-              var results = widget.query.isEmpty
-                  ? watchBox.values.toList() // whole list
-                  : watchBox.values
-                  .where((c) => c.model.toLowerCase().contains(widget.query) || c.manufacturer.toLowerCase().contains(widget.query))
-                  .toList();
+              return Obx(() {
+                // Access observables here to ensure Obx always has a dependency to track
+                final searchByName = filterController.searchByWatchName.value;
+                final searchByNotes = filterController.searchByNotes.value;
 
-              return results.isEmpty
-                  ? Center(
-                child: Text(
-                  AppLocalizations.of(context)!.noResultsFound,
-                ),
-              )
-                  : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: results.length,
-                itemBuilder: (context, index) {
-                  // passing as a custom list
-                  final Watches watchesListItem = results[index];
+                ///* this is where we filter data
+                var results = widget.query.isEmpty
+                    ? watchBox.values.toList() // whole list
+                    : watchBox.values.where((c) {
+                        bool matches = false;
+                        if (searchByName) {
+                          if (c.model.toLowerCase().contains(widget.query.toLowerCase()) ||
+                              c.manufacturer.toLowerCase().contains(widget.query.toLowerCase())) {
+                            matches = true;
+                          }
+                        }
+                        if (searchByNotes && !matches) {
+                          if (c.notes != null && c.notes!.toLowerCase().contains(widget.query.toLowerCase())) {
+                            matches = true;
+                          }
+                        }
+                        return matches;
+                      }).toList();
 
-                  return Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(15),
-                      onTap: () {
-                        Get.to(() => WatchView(currentWatch: watchesListItem,));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            _getWatchImage(watchesListItem),
-                            const SizedBox(width: 16.0),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    "${watchesListItem.toString()}",
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.bold,
+                return results.isEmpty
+                    ? Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noResultsFound,
+                        ),
+                      )
+                    : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: results.length,
+                        itemBuilder: (context, index) {
+                          // passing as a custom list
+                          final Watches watchesListItem = results[index];
+
+                          return Card(
+                            elevation: 4,
+                            margin: const EdgeInsets.all(8.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                Get.to(() => WatchView(
+                                      currentWatch: watchesListItem,
+                                    ));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  children: [
+                                    _getWatchImage(watchesListItem),
+                                    const SizedBox(width: 16.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "${watchesListItem.toString()}",
+                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 4.0),
+                                          Text(
+                                            WatchStatusEnumExtension.fromDbString(watchesListItem.status).toLocalizedString(context),
+                                            style: Theme.of(context).textTheme.bodyMedium,
+                                          ),
+                                          if (searchByNotes && watchesListItem.notes != null && watchesListItem.notes!.isNotEmpty) ...[
+                                            const SizedBox(height: 8.0),
+                                            Text(
+                                              watchesListItem.notes!,
+                                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                                    fontStyle: FontStyle.italic,
+                                                    color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.7),
+                                                  ),
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ],
+                                      ),
                                     ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 4.0),
-                                  Text(
-                                    WatchStatusEnumExtension.fromDbString(watchesListItem.status).toLocalizedString(context),
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ],
-                      ),
-                    ),
-                  ),
-                );
-                },
-              );
+                          );
+                        },
+                      );
+              });
             },
           ),
         ),
-        purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildLargeAdSpace(banner, context),
-        const SizedBox(height: 50,)
+        purchaseStatus ? const SizedBox(height: 0) : AdWidgetHelper.buildLargeAdSpace(banner, context),
+        const SizedBox(height: 50)
       ],
     );
   }
