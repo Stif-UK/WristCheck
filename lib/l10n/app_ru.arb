@@ -111,6 +111,7 @@
   "wornPercentage" : "Доля ношения: {returnText}",
   "recapNotificationTitle" : "Доступен новый Wrist Recap!",
   "recapNotificationSubtitle" : "Нажмите, чтобы увидеть статистику за прошлый месяц",
+  "recapNotificationSubtitleAnnual" : "Нажмите, чтобы увидеть статистику за прошлый год",
 
   "@_TIME_SETTING": {},
   "lastSync": "Посл. синхр.:",

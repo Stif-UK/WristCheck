@@ -307,6 +307,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Нажмите, чтобы увидеть статистику за прошлый месяц';
 
   @override
+  String get recapNotificationSubtitleAnnual =>
+      'Нажмите, чтобы увидеть статистику за прошлый год';
+
+  @override
   String get lastSync => 'Посл. синхр.:';
 
   @override

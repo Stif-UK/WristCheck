@@ -111,6 +111,7 @@
   "wornPercentage" : "Porcentaje de uso: {returnText}",
   "recapNotificationTitle" : "¡Nuevo Wrist Recap disponible!",
   "recapNotificationSubtitle" : "Haz clic para ver las estadísticas del mes pasado",
+  "recapNotificationSubtitleAnnual" : "Haz clic para ver las estadísticas del año pasado",
 
   "@_TIME_SETTING": {},
   "lastSync" : "Última Sincronización:",

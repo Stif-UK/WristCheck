@@ -652,6 +652,12 @@ abstract class AppLocalizations {
   /// **'Click to see last months stats'**
   String get recapNotificationSubtitle;
 
+  /// No description provided for @recapNotificationSubtitleAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to see last years stats'**
+  String get recapNotificationSubtitleAnnual;
+
   /// No description provided for @lastSync.
   ///
   /// In en, this message translates to:

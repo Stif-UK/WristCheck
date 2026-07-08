@@ -111,6 +111,7 @@
   "wornPercentage" : "Procento nošení: {returnText}",
   "recapNotificationTitle" : "K dispozici je nový Wrist Recap!",
   "recapNotificationSubtitle" : "Kliknutím zobrazíte statistiky za minulý měsíc",
+  "recapNotificationSubtitleAnnual" : "Kliknutím zobrazíte statistiky za loňský rok",
 
   "@_TIME_SETTING": {},
   "lastSync" : "Poslední synchronizace:",

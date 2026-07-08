@@ -111,6 +111,7 @@
   "wornPercentage" : "Wear Percentage: {returnText}",
   "recapNotificationTitle" : "New Wrist Recap available!",
   "recapNotificationSubtitle" : "Click to see last months stats",
+  "recapNotificationSubtitleAnnual" : "Click to see last years stats",
 
 
 

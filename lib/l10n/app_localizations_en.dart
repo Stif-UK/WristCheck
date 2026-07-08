@@ -306,6 +306,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recapNotificationSubtitle => 'Click to see last months stats';
 
   @override
+  String get recapNotificationSubtitleAnnual => 'Click to see last years stats';
+
+  @override
   String get lastSync => 'Last Synced:';
 
   @override

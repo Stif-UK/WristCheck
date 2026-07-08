@@ -308,6 +308,10 @@ class AppLocalizationsCs extends AppLocalizations {
       'Kliknutím zobrazíte statistiky za minulý měsíc';
 
   @override
+  String get recapNotificationSubtitleAnnual =>
+      'Kliknutím zobrazíte statistiky za loňský rok';
+
+  @override
   String get lastSync => 'Poslední synchronizace:';
 
   @override

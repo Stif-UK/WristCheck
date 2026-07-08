@@ -54,7 +54,10 @@ class WristRecapNotification extends StatelessWidget {
                 children: [
                   Text(AppLocalizations.of(context)!.recapNotificationTitle, style: Theme.of(context).textTheme.bodyLarge,),
                   const SizedBox(height: 5,),
-                  Text(AppLocalizations.of(context)!.recapNotificationSubtitle, style: Theme.of(context).textTheme.bodyMedium,)
+                  Text(DateTime.now().month == 1 
+                      ? AppLocalizations.of(context)!.recapNotificationSubtitleAnnual 
+                      : AppLocalizations.of(context)!.recapNotificationSubtitle, 
+                    style: Theme.of(context).textTheme.bodyMedium,)
                 ],
               ),
             ),
@@ -65,7 +68,11 @@ class WristRecapNotification extends StatelessWidget {
                 var now = DateTime.now();
                 var lastMonth = DateTime(now.year, now.month - 1);
                 wristCheckController.dismissRecapNotification(now);
-                Get.to(() => WristRecapHome(month: lastMonth.month, year: lastMonth.year, monthView: true,));
+                Get.to(() => WristRecapHome(
+                  month: lastMonth.month, 
+                  year: lastMonth.year, 
+                  monthView: now.month != 1,
+                ));
               }),
         ],
       ),
