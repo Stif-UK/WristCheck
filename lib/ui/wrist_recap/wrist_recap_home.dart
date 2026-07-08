@@ -65,15 +65,6 @@ class WristRecapHome extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Obx(() => recapController.isLastMonth.value
-                      //     ? Padding(
-                      //         padding: const EdgeInsets.all(8.0),
-                      //         child: Text(
-                      //           "Last Month",
-                      //           style: Theme.of(context).textTheme.bodyLarge,
-                      //         ),
-                      //       )
-                      //     : const SizedBox(height: 0)),
                       Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
