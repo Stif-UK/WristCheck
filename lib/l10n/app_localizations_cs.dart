@@ -249,6 +249,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get topWatchMonthlyTitle => 'Nejoblíbenější hodinky za měsíc';
 
   @override
+  String get topBrandMonthlyTitle => 'Nejoblíbenější značka za měsíc';
+
+  @override
   String get collectionMovementTitle => 'Pohyb v kolekci';
 
   @override

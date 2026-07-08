@@ -63,3 +63,10 @@ class TopWatchMonthlyClass {
   final int count;
 }
 
+class TopBrandMonthlyClass {
+  TopBrandMonthlyClass(this.month, this.brand, this.count);
+  final int month;
+  final String? brand;
+  final int count;
+}
+

@@ -249,6 +249,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get topWatchMonthlyTitle => 'Лучшие часы месяца';
 
   @override
+  String get topBrandMonthlyTitle => 'Лучший бренд месяца';
+
+  @override
   String get collectionMovementTitle => 'Движение коллекции';
 
   @override

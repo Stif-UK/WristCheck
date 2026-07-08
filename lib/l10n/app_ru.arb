@@ -100,6 +100,7 @@
   "topBrandInsightTitle" : "Топ бренд",
   "topCategoryInsightTitle" : "Топ категория",
   "topWatchMonthlyTitle" : "Лучшие часы месяца",
+  "topBrandMonthlyTitle" : "Лучший бренд месяца",
   "collectionMovementTitle" : "Движение коллекции",
   "nWatchesBought" : "{count, plural, =0{Часы не покупались} =1{Куплены 1 часы} other{Куплено {count} часов}}",
   "nWatchesSold" : "{count, plural, =0{Часы не продавались} =1{Проданы 1 часы} other{Продано {count} часов}}",

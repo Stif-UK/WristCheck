@@ -586,6 +586,12 @@ abstract class AppLocalizations {
   /// **'Top Watch per Month'**
   String get topWatchMonthlyTitle;
 
+  /// No description provided for @topBrandMonthlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Brand per Month'**
+  String get topBrandMonthlyTitle;
+
   /// No description provided for @collectionMovementTitle.
   ///
   /// In en, this message translates to:

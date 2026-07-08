@@ -251,6 +251,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get topWatchMonthlyTitle => 'Meilleure montre par mois';
 
   @override
+  String get topBrandMonthlyTitle => 'Meilleure marque par mois';
+
+  @override
   String get collectionMovementTitle => 'Mouvement de la collection';
 
   @override

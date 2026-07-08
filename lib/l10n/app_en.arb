@@ -100,6 +100,7 @@
   "topBrandInsightTitle" : "Top Brand",
   "topCategoryInsightTitle" : "Top Category",
   "topWatchMonthlyTitle" : "Top Watch per Month",
+  "topBrandMonthlyTitle" : "Top Brand per Month",
   "collectionMovementTitle" : "Collection Movement",
   "nWatchesBought" : "{count, plural, =0{No watches bought} =1{1 watch bought} other{{count} watches bought}}",
   "nWatchesSold" : "{count, plural, =0{No watches sold} =1{1 watch sold} other{{count} watches sold}}",

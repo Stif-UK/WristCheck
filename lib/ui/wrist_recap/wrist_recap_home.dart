@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_brand_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_watch_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/brand_chart.dart';
@@ -115,6 +116,7 @@ class WristRecapHome extends StatelessWidget {
                     //Show insights if watches have been worn
                     Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
                     Obx(() => recapController.duplicateBrand.value ? BrandChart() : const SizedBox(height: 0,)),
+                    TopBrandMonthly(),
                     Obx(() => recapController.categoriesWorn.length > 1 ? CategoryChart() : const SizedBox(height: 0)),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
                     //For non-pro users show a pro / ad prompt

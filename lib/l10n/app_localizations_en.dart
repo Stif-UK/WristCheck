@@ -249,6 +249,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get topWatchMonthlyTitle => 'Top Watch per Month';
 
   @override
+  String get topBrandMonthlyTitle => 'Top Brand per Month';
+
+  @override
   String get collectionMovementTitle => 'Collection Movement';
 
   @override
