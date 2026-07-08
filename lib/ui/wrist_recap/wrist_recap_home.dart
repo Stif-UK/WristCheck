@@ -17,10 +17,11 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_thanks
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapHome extends StatelessWidget {
-  WristRecapHome({super.key, required this.month, required this.year});
+  WristRecapHome({super.key, required this.month, required this.year, required this.monthView});
 
   final int month;
   final int year;
+  final bool monthView;
   final recapController = Get.put(WristRecapController());
   final wristCheckController = Get.put(WristCheckController());
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -31,6 +32,7 @@ class WristRecapHome extends StatelessWidget {
     //Initialise the controller
     recapController.updateMonth(month);
     recapController.updateYear(year);
+    recapController.updateMonthView(monthView);
     //Run refresh in controller
     recapController.refresh();
 

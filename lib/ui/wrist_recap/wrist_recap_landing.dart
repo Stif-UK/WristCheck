@@ -23,7 +23,7 @@ class WristRecapLanding extends StatelessWidget {
               onPressed: (){
                   DateTime now = DateTime.now();
                   DateTime lastMonth = DateTime(now.year, now.month-1);
-                  Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year));
+                  Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year, monthView: true,));
               },),
             ),
             Padding(

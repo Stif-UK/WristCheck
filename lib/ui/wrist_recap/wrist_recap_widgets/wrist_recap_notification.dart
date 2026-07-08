@@ -65,7 +65,7 @@ class WristRecapNotification extends StatelessWidget {
                 var now = DateTime.now();
                 var lastMonth = DateTime(now.year, now.month - 1);
                 wristCheckController.dismissRecapNotification(now);
-                Get.to(() => WristRecapHome(month: lastMonth.month, year: lastMonth.year));
+                Get.to(() => WristRecapHome(month: lastMonth.month, year: lastMonth.year, monthView: true,));
               }),
         ],
       ),

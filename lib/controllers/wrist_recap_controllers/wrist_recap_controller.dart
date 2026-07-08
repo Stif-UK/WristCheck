@@ -10,6 +10,7 @@ import 'package:wristcheck/util/helper_classes.dart';
 class WristRecapController extends GetxController{
   final month = 1.obs;
   final year = 2025.obs;
+  final monthView = true.obs;
   final watchesWorn = <WornWatchesClass>[].obs;
   final brandsWorn = <ManufacturersWornClass>[].obs;
   final duplicateBrand = false.obs;
@@ -29,6 +30,14 @@ class WristRecapController extends GetxController{
   
   updateYear(int yearInt) async {
     year(yearInt);
+  }
+
+  updateMonthView(bool newValue){
+    monthView(newValue);
+  }
+
+  toggleMonthView(){
+    monthView(!monthView.value);
   }
 
   updateWatchesWorn(List<WornWatchesClass> watchList){
