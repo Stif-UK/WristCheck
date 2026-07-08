@@ -38,6 +38,7 @@ class WristRecapController extends GetxController{
 
   toggleMonthView(){
     monthView(!monthView.value);
+    refresh();
   }
 
   updateWatchesWorn(List<WornWatchesClass> watchList){
