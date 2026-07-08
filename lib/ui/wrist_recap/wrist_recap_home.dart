@@ -42,8 +42,9 @@ class WristRecapHome extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: IconButton(icon: Icon(FontAwesomeIcons.gear),
-            onPressed: (){recapController.toggleMonthView();},),
+            child: Obx(() => IconButton(icon: recapController.monthView.value? Icon(FontAwesomeIcons.toggleOn) : Icon(FontAwesomeIcons.toggleOff),
+              onPressed: (){recapController.toggleMonthView();},),
+            ),
           )
         ],
       ),
