@@ -21,6 +21,7 @@ class WristRecapController extends GetxController{
   final watchesSold = <Watches>[].obs;
   final topWatchMonthly = <TopWatchMonthlyClass>[].obs;
   final topBrandMonthly = <TopBrandMonthlyClass>[].obs;
+  final topCategoryMonthly = <TopCategoryMonthlyClass>[].obs;
   final isLastMonth = false.obs;
   final expandAdCard = false.obs;
   final showOptionalAdCard = true.obs;
@@ -284,6 +285,50 @@ class WristRecapController extends GetxController{
     topBrandMonthly(topBrandsList);
   }
 
+  generateTopCategoryMonthlyData() {
+    if (monthView.value) {
+      topCategoryMonthly([]);
+      return;
+    }
+
+    List<TopCategoryMonthlyClass> topCategoriesList = [];
+    List<Watches> allWatches = Boxes.getAllNonArchivedWatches();
+
+    for (int m = 1; m <= 12; m++) {
+      Map<String, int> categoryCountMap = {};
+      for (Watches watch in allWatches) {
+        int count = watch.wearList
+            .where((date) => date.month == m && date.year == year.value)
+            .length;
+
+        if (count > 0) {
+          String categoryDb = watch.category ?? "";
+          String category;
+          if (categoryDb.isEmpty) {
+            category = AppLocalizations.of(Get.context!)!.unknown;
+          } else {
+            category = CategoryEnumLocalization.fromDbString(categoryDb)
+                .toLocalizedString(Get.context!);
+          }
+          categoryCountMap[category] =
+              (categoryCountMap[category] ?? 0) + count;
+        }
+      }
+
+      String? topCategory;
+      int maxCount = 0;
+      categoryCountMap.forEach((category, count) {
+        if (count > maxCount) {
+          maxCount = count;
+          topCategory = category;
+        }
+      });
+
+      topCategoriesList.add(TopCategoryMonthlyClass(m, topCategory, maxCount));
+    }
+    topCategoryMonthly(topCategoriesList);
+  }
+
   generateWatchesSold() async {
     List<Watches> soldWatches = [];
     soldWatches = Boxes.getSoldWatches();
@@ -351,6 +396,7 @@ class WristRecapController extends GetxController{
     await generateStatusWornData(month.value, year.value);
     await generateTopWatchMonthlyData();
     await generateTopBrandMonthlyData();
+    await generateTopCategoryMonthlyData();
     await checkIsLastMonth();
     await generateWatchesSold();
     await generateWatchesPurchased();

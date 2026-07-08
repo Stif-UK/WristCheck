@@ -252,6 +252,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get topBrandMonthlyTitle => 'Nejoblíbenější značka za měsíc';
 
   @override
+  String get topCategoryMonthlyTitle => 'Nejoblíbenější kategorie za měsíc';
+
+  @override
   String get collectionMovementTitle => 'Pohyb v kolekci';
 
   @override

@@ -252,6 +252,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get topBrandMonthlyTitle => 'Top Brand per Month';
 
   @override
+  String get topCategoryMonthlyTitle => 'Top Category per Month';
+
+  @override
   String get collectionMovementTitle => 'Collection Movement';
 
   @override

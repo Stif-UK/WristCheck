@@ -70,3 +70,10 @@ class TopBrandMonthlyClass {
   final int count;
 }
 
+class TopCategoryMonthlyClass {
+  TopCategoryMonthlyClass(this.month, this.category, this.count);
+  final int month;
+  final String? category;
+  final int count;
+}
+

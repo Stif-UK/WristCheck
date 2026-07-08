@@ -253,6 +253,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get topBrandMonthlyTitle => 'Top-Marke pro Monat';
 
   @override
+  String get topCategoryMonthlyTitle => 'Top-Kategorie pro Monat';
+
+  @override
   String get collectionMovementTitle => 'Bestandsveränderung';
 
   @override

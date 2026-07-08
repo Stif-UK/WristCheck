@@ -252,6 +252,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get topBrandMonthlyTitle => 'Marca principal por mes';
 
   @override
+  String get topCategoryMonthlyTitle => 'Categoría principal por mes';
+
+  @override
   String get collectionMovementTitle => 'Movimiento de la colección';
 
   @override

@@ -101,6 +101,7 @@
   "topCategoryInsightTitle" : "Categoría principal",
   "topWatchMonthlyTitle" : "Reloj principal por mes",
   "topBrandMonthlyTitle" : "Marca principal por mes",
+  "topCategoryMonthlyTitle" : "Categoría principal por mes",
   "collectionMovementTitle" : "Movimiento de la colección",
   "nWatchesBought" : "{count, plural, =0{Ningún reloj comprado} =1{1 reloj comprado} other{{count} relojes comprados}}",
   "nWatchesSold" : "{count, plural, =0{Ningún reloj vendido} =1{1 reloj vendido} other{{count} relojes vendidos}}",
