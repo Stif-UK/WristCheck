@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/collection_movement_card.dart';
 
 class CollectionMovement extends StatelessWidget {
   CollectionMovement({super.key});
 
-  final recapController = Get.put(WristRecapMonthlyController());
+  final recapController = Get.put(WristRecapController());
 
   @override
   Widget build(BuildContext context) {

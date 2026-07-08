@@ -2,7 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/monthly_brand_chart.dart';
@@ -21,7 +21,7 @@ class WristRecapMonthly extends StatelessWidget {
 
   final int month;
   final int year;
-  final recapController = Get.put(WristRecapMonthlyController());
+  final recapController = Get.put(WristRecapController());
   final wristCheckController = Get.put(WristCheckController());
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 

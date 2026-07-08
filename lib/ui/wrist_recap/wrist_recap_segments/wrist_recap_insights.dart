@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
-import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -19,7 +19,7 @@ class WristRecapInsights extends StatefulWidget {
 }
 
 class _WristRecapInsightsState extends State<WristRecapInsights> {
-  final recapController = Get.put(WristRecapMonthlyController());
+  final recapController = Get.put(WristRecapController());
   final wristCheckController = Get.find<WristCheckController>();
   BannerAd? banner;
 

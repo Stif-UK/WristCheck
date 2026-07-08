@@ -7,7 +7,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
-class WristRecapMonthlyController extends GetxController{
+class WristRecapController extends GetxController{
   final month = 1.obs;
   final year = 2025.obs;
   final watchesWorn = <WornWatchesClass>[].obs;

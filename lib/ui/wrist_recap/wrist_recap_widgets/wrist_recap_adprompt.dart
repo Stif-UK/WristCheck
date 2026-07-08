@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
-import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_monthly_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -18,7 +18,7 @@ class WristRecapAdprompt extends StatefulWidget {
 }
 
 class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
-  final recapController = Get.put(WristRecapMonthlyController());
+  final recapController = Get.put(WristRecapController());
   RewardedAd? _rewardedAd;
 
   @override
