@@ -95,6 +95,7 @@
   "statusChartTitle" : "Graf stavů",
   "insightsTitle" : "Přehledy",
   "watchesWornInsightTitle" : "Nošené hodinky",
+  "totalWearsInsightTitle" : "Celkem nošení",
   "wearsPerDayInsightTitle" : "Nošení za den",
   "topBrandInsightTitle" : "Nejoblíbenější značka",
   "topCategoryInsightTitle" : "Nejoblíbenější kategorie",

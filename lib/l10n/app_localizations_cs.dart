@@ -234,6 +234,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get watchesWornInsightTitle => 'Nošené hodinky';
 
   @override
+  String get totalWearsInsightTitle => 'Celkem nošení';
+
+  @override
   String get wearsPerDayInsightTitle => 'Nošení za den';
 
   @override

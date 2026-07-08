@@ -234,6 +234,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get watchesWornInsightTitle => 'Relojes usados';
 
   @override
+  String get totalWearsInsightTitle => 'Total de usos';
+
+  @override
   String get wearsPerDayInsightTitle => 'Usos por día';
 
   @override

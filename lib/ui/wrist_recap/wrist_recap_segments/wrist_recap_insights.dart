@@ -101,7 +101,14 @@ class _WristRecapInsightsState extends State<WristRecapInsights> {
             (recapController.year.value % 400 == 0);
         days = isLeapYear ? 366 : 365;
       }
-      print("Days: $days, Wearcount: $wearCount");
+      //Total wear count
+      insights.add(InsightCard(
+        title: AppLocalizations.of(context)!.totalWearsInsightTitle,
+        value: wearCount.toInt().toString(),
+        valueBig: true,
+      ));
+
+      //Wears per day
       insights.add(InsightCard(
           title: AppLocalizations.of(context)!.wearsPerDayInsightTitle,
           value: (wearCount / days).toStringAsFixed(1),

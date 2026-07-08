@@ -95,6 +95,7 @@
   "statusChartTitle" : "Диаграмма статусов",
   "insightsTitle" : "Статистика",
   "watchesWornInsightTitle" : "Часов надето",
+  "totalWearsInsightTitle" : "Всего носок",
   "wearsPerDayInsightTitle" : "Носок в день",
   "topBrandInsightTitle" : "Топ бренд",
   "topCategoryInsightTitle" : "Топ категория",

@@ -234,6 +234,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get watchesWornInsightTitle => 'Часов надето';
 
   @override
+  String get totalWearsInsightTitle => 'Всего носок';
+
+  @override
   String get wearsPerDayInsightTitle => 'Носок в день';
 
   @override

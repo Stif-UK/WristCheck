@@ -556,6 +556,12 @@ abstract class AppLocalizations {
   /// **'Watches worn'**
   String get watchesWornInsightTitle;
 
+  /// No description provided for @totalWearsInsightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total wears tracked'**
+  String get totalWearsInsightTitle;
+
   /// No description provided for @wearsPerDayInsightTitle.
   ///
   /// In en, this message translates to:

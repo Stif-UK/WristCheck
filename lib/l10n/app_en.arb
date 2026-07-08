@@ -95,6 +95,7 @@
   "statusChartTitle" : "Status chart",
   "insightsTitle" : "Insights",
   "watchesWornInsightTitle" : "Watches worn",
+  "totalWearsInsightTitle" : "Total wears tracked",
   "wearsPerDayInsightTitle" : "Wears per day",
   "topBrandInsightTitle" : "Top Brand",
   "topCategoryInsightTitle" : "Top Category",

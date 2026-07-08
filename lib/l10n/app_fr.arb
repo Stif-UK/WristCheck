@@ -94,6 +94,7 @@
   "statusChartTitle" : "Graphique des statuts",
   "insightsTitle" : "Aperçus",
   "watchesWornInsightTitle" : "Montres portées",
+  "totalWearsInsightTitle" : "Total des portées",
   "wearsPerDayInsightTitle" : "Portées par jour",
   "topBrandInsightTitle" : "Marque préférée",
   "topCategoryInsightTitle" : "Catégorie préférée",

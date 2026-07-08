@@ -95,6 +95,7 @@
   "statusChartTitle" : "Statusdiagramm",
   "insightsTitle" : "Einblicke",
   "watchesWornInsightTitle" : "Getragene Uhren",
+  "totalWearsInsightTitle" : "Gesamte Tragezeiten",
   "wearsPerDayInsightTitle" : "Tragezeiten pro Tag",
   "topBrandInsightTitle" : "Top-Marke",
   "topCategoryInsightTitle" : "Top-Kategorie",

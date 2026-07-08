@@ -95,6 +95,7 @@
   "statusChartTitle" : "Gráfico de estado",
   "insightsTitle" : "Estadísticas",
   "watchesWornInsightTitle" : "Relojes usados",
+  "totalWearsInsightTitle" : "Total de usos",
   "wearsPerDayInsightTitle" : "Usos por día",
   "topBrandInsightTitle" : "Marca principal",
   "topCategoryInsightTitle" : "Categoría principal",
