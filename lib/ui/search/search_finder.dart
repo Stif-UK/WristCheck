@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,10 +11,13 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/provider/db_provider.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
+import 'package:wristcheck/util/images_util.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 
@@ -89,25 +93,47 @@ class _SearchFinderState extends State<SearchFinder> {
                   // passing as a custom list
                   final Watches watchesListItem = results[index];
 
-                  return ListTile(
-                    onTap: () {
-                      Get.to(() => WatchView(currentWatch: watchesListItem,));
-                    },
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${watchesListItem.manufacturer} ${watchesListItem.model}",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: 4.0),
-                        Text(
-                          watchesListItem.status!,
-                            style: Theme.of(context).textTheme.bodyMedium
-                        ),
-                      ],
+                  return Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () {
+                        Get.to(() => WatchView(currentWatch: watchesListItem,));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: [
+                            _getWatchImage(watchesListItem),
+                            const SizedBox(width: 16.0),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${watchesListItem.toString()}",
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4.0),
+                                  Text(
+                                    WatchStatusEnumExtension.fromDbString(watchesListItem.status).toLocalizedString(context),
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                      ),
                     ),
-                  );
+                  ),
+                );
                 },
               );
             },
@@ -116,6 +142,59 @@ class _SearchFinderState extends State<SearchFinder> {
         purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildLargeAdSpace(banner, context),
         const SizedBox(height: 50,)
       ],
+    );
+  }
+
+  Widget _getWatchImage(Watches watch) {
+    bool showImage = watch.frontImagePath != null && watch.frontImagePath != "";
+
+    return showImage
+        ? FutureBuilder(
+            future: ImagesUtil.getImage(watch, watch.primaryImageIndex ?? 0),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError || !snapshot.hasData) {
+                  return _getEmptyIcon(context);
+                }
+                final data = snapshot.data as File;
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.file(
+                    data,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              }
+              return Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).disabledColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            },
+          )
+        : _getEmptyIcon(context);
+  }
+
+  Widget _getEmptyIcon(BuildContext context) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        color: Theme.of(context).disabledColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Theme.of(context).disabledColor.withOpacity(0.2)),
+      ),
+      child: Icon(
+        Icons.watch,
+        size: 40,
+        color: Theme.of(context).disabledColor,
+      ),
     );
   }
 }
