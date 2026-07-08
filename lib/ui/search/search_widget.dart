@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wristcheck/ui/search_finder.dart';
+import 'package:wristcheck/ui/search/search_finder.dart';
 
 class SearchWidget extends SearchDelegate{
 

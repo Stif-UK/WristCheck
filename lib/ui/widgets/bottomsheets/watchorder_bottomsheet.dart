@@ -6,7 +6,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
-import 'package:wristcheck/ui/search_widget.dart';
+import 'package:wristcheck/ui/search/search_widget.dart';
 
 
 class WatchOrderBottomSheet extends StatefulWidget {
