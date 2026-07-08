@@ -102,7 +102,7 @@ class WristRecapHome extends StatelessWidget {
                         ? const SizedBox(height: 0)
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               WatchesWornCarousel(),
                               WearChart(),

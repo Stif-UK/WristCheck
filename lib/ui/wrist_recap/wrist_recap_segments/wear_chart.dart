@@ -48,6 +48,7 @@ class _WearChartState extends State<WearChart> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: [
         Card(
           elevation: 4,
@@ -57,15 +58,28 @@ class _WearChartState extends State<WearChart> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(AppLocalizations.of(context)!.wearChartTitle),
-                SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
-                      isVisible: false,
+                Obx(() {
+                  final recapController = Get.find<WristRecapController>();
+                  double baseHeight = MediaQuery.of(context).size.height * 0.35;
+                  // Calculate multiplier: 1.0 for 0-9, 2.0 for 10-19, 4.0 for 20-29, etc.
+                  int factor = recapController.watchesWorn.length ~/ 10;
+                  double heightMultiplier = factor > 0 ? (1 << factor).toDouble() : 1.0;
+
+                  return SizedBox(
+                    height: baseHeight * heightMultiplier,
+                    child: SfCartesianChart(
+                      primaryXAxis: CategoryAxis(
+                        isVisible: false,
+                      ),
+                      primaryYAxis: NumericAxis(),
+                      series: _getBarSeries(),
                     ),
-                    primaryYAxis: NumericAxis(),
-                    series: _getBarSeries())
+                  );
+                }),
               ],
             ),
           ),
