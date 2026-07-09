@@ -303,7 +303,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" --flutter-project \"$PROJECT_DIR/firebase_app_id_file.json\" \n";
+			shellScript = "find_and_run_upload_symbols() {\n  if [ -f \"$1\" ]; then\n    \"$1\" --flutter-project \"${PROJECT_DIR}/firebase_app_id_file.json\"\n    return 0\n  fi\n  return 1\n}\n\nfind_and_run_upload_symbols \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" || \nfind_and_run_upload_symbols \"${PODS_ROOT}/Crashlytics/upload-symbols\" || \nfind_and_run_upload_symbols \"${PROJECT_DIR}/Flutter/ephemeral/Packages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\" || \nfind_and_run_upload_symbols \"${PROJECT_DIR}/../build/ios/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\" || \necho \"warning: [firebase_crashlytics] upload-symbols not found.\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

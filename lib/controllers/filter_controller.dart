@@ -11,12 +11,14 @@ import 'package:wristcheck/model/enums/month_list.dart';
 
 class FilterController extends GetxController{
 
+  static const String allYearsSentinel = "All";
+
   final basicWearFilter = WristCheckPreferences.getWearChartOptions().obs;
   final lastFilterTabIndex = 0.obs;
 
   final shrinkText = false.obs;
   final selectedMonth = MonthList.all.obs;
-  final selectedYear = AppLocalizations.of(Get.context!)!.all.obs;
+  final selectedYear = allYearsSentinel.obs;
   final includeCollection = true.obs;
   final includeSold = false.obs;
   final includeRetired = false.obs;
@@ -36,7 +38,7 @@ class FilterController extends GetxController{
   final searchByWatchName = true.obs;
   final searchByNotes = false.obs;
 
-  List<String> yearList = [AppLocalizations.of(Get.context!)!.all];
+  List<String> yearList = [allYearsSentinel];
 
   resetToDefaults(){
     includeCollection(true);
@@ -151,7 +153,7 @@ class FilterController extends GetxController{
 
   populateYearList(){
     List<Watches> watches = Boxes.getAllWatches();
-    List<String> calculatedYearList = [AppLocalizations.of(Get.context!)!.all];
+    List<String> calculatedYearList = [allYearsSentinel];
     for(Watches watch in watches){
       for(DateTime date in watch.wearList){
         if(!calculatedYearList.contains(date.year.toString())) {

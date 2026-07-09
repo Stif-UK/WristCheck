@@ -3,12 +3,11 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/month_list.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
-
-import '../boxes.dart';
 
 class WearChartsHelper {
 
@@ -39,12 +38,12 @@ class WearChartsHelper {
       case WearChartOptions.manual:
         var controller = Get.find<FilterController>();
         var monthValue = WristCheckFormatter.getMonthText(controller.selectedMonth.value);
-        var yearValue = controller.selectedYear.value;
-        if(monthValue != AppLocalizations.of(Get.context!)!.all && yearValue != AppLocalizations.of(Get.context!)!.all){
+        var yearValue = controller.selectedYear.value == FilterController.allYearsSentinel ? AppLocalizations.of(Get.context!)!.all : controller.selectedYear.value;
+        if(controller.selectedMonth.value != MonthList.all && controller.selectedYear.value != FilterController.allYearsSentinel){
           returnString = "$monthValue $yearValue";
-        } else if(monthValue == AppLocalizations.of(Get.context!)!.all && yearValue == AppLocalizations.of(Get.context!)!.all){
+        } else if(controller.selectedMonth.value == MonthList.all && controller.selectedYear.value == FilterController.allYearsSentinel){
           returnString = AppLocalizations.of(Get.context!)!.allData;
-        }else if(monthValue == AppLocalizations.of(Get.context!)!.all){
+        }else if(controller.selectedMonth.value == MonthList.all){
           returnString = AppLocalizations.of(Get.context!)!.yearSelected(yearValue);
         } else {
           returnString = AppLocalizations.of(Get.context!)!.monthSelected(monthValue);

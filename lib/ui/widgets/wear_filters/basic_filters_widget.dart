@@ -163,7 +163,7 @@ class _BasicFiltersWidgetState extends State<BasicFiltersWidget> {
               value: widget.filterController.selectedYear.value,
               items: widget.filterController.yearList.map((year) => DropdownMenuItem(
               value: year,
-              child:Text(year) )).toList(),
+              child:Text(year == FilterController.allYearsSentinel ? AppLocalizations.of(context)!.all : year) )).toList(),
               onChanged: (year){
               widget.filterController.updateSelectedYear(year as String);
               },
