@@ -700,6 +700,7 @@
 
   "@_SEARCH" : {},
   "search" : "Search",
+  "searchOptionsTitle" : "Search Options",
   "noResultsFound" :  "No Results Found",
 
   "@_VARIABLES": {},

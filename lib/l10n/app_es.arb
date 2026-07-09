@@ -693,6 +693,7 @@
 
   "@_SEARCH" : {},
   "search" : "Buscar",
+  "searchOptionsTitle" : "Opciones de búsqueda",
   "noResultsFound" :  "No se Encontraron Resultados",
 
   "@_VARIABLES": {},

@@ -698,6 +698,7 @@
 
   "@_SEARCH" : {},
   "search" : "Hledat",
+  "searchOptionsTitle" : "Možnosti hledání",
   "noResultsFound" :  "Nebyly nalezeny žádné výsledky",
 
   "@_VARIABLES": {},

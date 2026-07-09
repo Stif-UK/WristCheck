@@ -2015,6 +2015,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get search => 'Suchen';
 
   @override
+  String get searchOptionsTitle => 'Suchoptionen';
+
+  @override
   String get noResultsFound => 'Keine Ergebnisse gefunden';
 
   @override

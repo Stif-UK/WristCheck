@@ -2017,6 +2017,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get search => 'Hledat';
 
   @override
+  String get searchOptionsTitle => 'Možnosti hledání';
+
+  @override
   String get noResultsFound => 'Nebyly nalezeny žádné výsledky';
 
   @override

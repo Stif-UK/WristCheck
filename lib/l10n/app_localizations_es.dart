@@ -2007,6 +2007,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get search => 'Buscar';
 
   @override
+  String get searchOptionsTitle => 'Opciones de búsqueda';
+
+  @override
   String get noResultsFound => 'No se Encontraron Resultados';
 
   @override

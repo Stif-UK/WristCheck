@@ -23,7 +23,7 @@ class SearchFilterBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.filter,
+            AppLocalizations.of(context)!.searchOptionsTitle,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const Divider(thickness: 2),

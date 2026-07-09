@@ -3730,6 +3730,12 @@ abstract class AppLocalizations {
   /// **'Search'**
   String get search;
 
+  /// No description provided for @searchOptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Options'**
+  String get searchOptionsTitle;
+
   /// No description provided for @noResultsFound.
   ///
   /// In en, this message translates to:

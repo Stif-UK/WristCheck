@@ -1988,6 +1988,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search';
 
   @override
+  String get searchOptionsTitle => 'Search Options';
+
+  @override
   String get noResultsFound => 'No Results Found';
 
   @override

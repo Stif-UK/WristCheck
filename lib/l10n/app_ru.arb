@@ -698,6 +698,7 @@
 
   "@_SEARCH" : {},
   "search" : "Поиск",
+  "searchOptionsTitle" : "Параметры поиска",
   "noResultsFound" :  "Ничего не найдено",
 
   "@_VARIABLES": {},

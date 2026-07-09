@@ -697,6 +697,7 @@
 
   "@_SEARCH" : {},
   "search" : "Rechercher",
+  "searchOptionsTitle" : "Options de recherche",
   "noResultsFound" : "Aucun résultat trouvé",
 
   "@_VARIABLES": {},
