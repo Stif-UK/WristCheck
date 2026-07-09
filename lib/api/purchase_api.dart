@@ -29,7 +29,7 @@ class PurchaseApi{
 
   static Future<bool> purchasePackage(Package package) async {
     try {
-      await Purchases.purchase(PurchaseParamsBuilder(package).build());
+      await Purchases.purchase(PurchaseParams.package(package));
       showSuccessDialog();
       return true;
     } catch (e) {

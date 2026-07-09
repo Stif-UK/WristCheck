@@ -358,24 +358,24 @@ class ChartHelper{
     return returnSize;
   }
 
-  static Icon getWatchMonthChartIcon(WatchMonthChartEnum type){
-    Icon returnIcon;
+  static Widget getWatchMonthChartIcon(WatchMonthChartEnum type){
+    Widget returnIcon;
 
     switch(type) {
       case WatchMonthChartEnum.bar:
-        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartBar);
         break;
       case WatchMonthChartEnum.pie:
-        returnIcon = FaIcon(FontAwesomeIcons.chartPie);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartPie);
         break;
       case WatchMonthChartEnum.grouped:
-        returnIcon = FaIcon(FontAwesomeIcons.magnifyingGlassChart);
+        returnIcon = const FaIcon(FontAwesomeIcons.magnifyingGlassChart);
         break;
       case WatchMonthChartEnum.line:
-        returnIcon = FaIcon(FontAwesomeIcons.chartLine);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartLine);
         break;
       default:
-        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartBar);
         break;
     }
 
@@ -397,24 +397,24 @@ class ChartHelper{
   }
 
   //TODO: Merge this and MonthChartIcon method to take either type
-  static Icon getWatchDayChartIcon(WatchDayChartEnum type){
-    Icon returnIcon;
+  static Widget getWatchDayChartIcon(WatchDayChartEnum type){
+    Widget returnIcon;
 
     switch(type) {
       case WatchDayChartEnum.bar:
-        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartBar);
         break;
       case WatchDayChartEnum.pie:
-        returnIcon = FaIcon(FontAwesomeIcons.chartPie);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartPie);
         break;
       case WatchDayChartEnum.grouped:
-        returnIcon = FaIcon(FontAwesomeIcons.magnifyingGlassChart);
+        returnIcon = const FaIcon(FontAwesomeIcons.magnifyingGlassChart);
         break;
       case WatchDayChartEnum.line:
-        returnIcon = FaIcon(FontAwesomeIcons.chartLine);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartLine);
         break;
       default:
-        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartBar);
         break;
     }
 
