@@ -66,7 +66,7 @@ class _WristCheckTimelineState extends State<WristCheckTimeline> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-                icon: Icon(FontAwesomeIcons.gear),
+                icon: FaIcon(FontAwesomeIcons.gear),
             onPressed: (){
                 showModalBottomSheet(
                     isScrollControlled: true,

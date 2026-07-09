@@ -41,7 +41,7 @@ class WatchChartsBody extends StatelessWidget {
                     .textTheme
                     .headlineSmall,
                 textAlign: TextAlign.start,),
-              leading: Icon(FontAwesomeIcons.calendarDays),
+              leading: FaIcon(FontAwesomeIcons.calendarDays),
               trailing: Obx(() =>
                   IconButton(
                     icon: ChartHelper.getWatchMonthChartIcon(
@@ -63,7 +63,7 @@ class WatchChartsBody extends StatelessWidget {
                     .textTheme
                     .headlineSmall,
                 textAlign: TextAlign.start,),
-              leading: Icon(FontAwesomeIcons.calendarDay),
+              leading: FaIcon(FontAwesomeIcons.calendarDay),
               trailing: Obx(() =>
                   IconButton(
                     icon: ChartHelper.getWatchDayChartIcon(
@@ -84,12 +84,12 @@ class WatchChartsBody extends StatelessWidget {
                         .textTheme
                         .headlineSmall,
                     textAlign: TextAlign.start,),
-                    leading: Icon(FontAwesomeIcons.calendarWeek),
+                    leading: FaIcon(FontAwesomeIcons.calendarWeek),
                     trailing: Obx(() =>
                     IconButton(
                     icon: wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
-                    Icon(FontAwesomeIcons.chartBar):
-                      Icon(FontAwesomeIcons.chartPie),
+                    FaIcon(FontAwesomeIcons.chartBar):
+                      FaIcon(FontAwesomeIcons.chartPie),
                     onPressed: () {
                     wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
                         wristCheckController.updateYearChartPreference(WatchYearChartEnum.pie) :
@@ -115,7 +115,7 @@ class WatchChartsBody extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(FontAwesomeIcons.folderOpen, size: 50.0,),
+          child: FaIcon(FontAwesomeIcons.folderOpen, size: 50.0,),
         ),
         WristCheckCopy.getEmptyWearListWatchChartsCopy(),
       ],

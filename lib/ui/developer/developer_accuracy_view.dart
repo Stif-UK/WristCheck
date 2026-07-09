@@ -24,7 +24,7 @@ class _DeveloperAccuracyViewState extends State<DeveloperAccuracyView> {
         children: [
           ListTile(title: const Text("Clear data"),
             trailing: IconButton(
-              icon: const Icon(FontAwesomeIcons.trash),
+              icon: const FaIcon(FontAwesomeIcons.trash),
               onPressed: (){
                 setState(() {
                   MeasurementMethods.clearMeasurementData();

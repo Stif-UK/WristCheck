@@ -115,7 +115,7 @@ class ProDataTab extends StatelessWidget {
       children: [
         WatchFormField(
           keyboardType: TextInputType.number,
-          icon: const Icon(FontAwesomeIcons.gaugeHigh),
+          icon: const FaIcon(FontAwesomeIcons.gaugeHigh),
           enabled: watchViewController.inEditState.value,
           fieldTitle: AppLocalizations.of(Get.context!)!.tpdRowTitle,
           hintText: AppLocalizations.of(Get.context!)!.tpdRowTitle,
@@ -180,7 +180,7 @@ class ProDataTab extends StatelessWidget {
               menuMaxHeight: 300,
               value: WristCheckFormatter.getDateComplicationEnum(watchViewController.dateComplication.value),
               iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.calendarDay), Get.context!),
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const FaIcon(FontAwesomeIcons.calendarDay), Get.context!),
               items: DateComplicationEnum.values.map((dateType) {
                 return DropdownMenuItem<DateComplicationEnum>(
                     value: dateType,

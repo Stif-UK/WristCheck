@@ -177,7 +177,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                       color: Theme.of(context).buttonTheme.colorScheme?.primary,
                       shape: BoxShape.circle,
                     ),
-                    child: IconButton(icon: Icon(FontAwesomeIcons.businessTime,
+                    child: IconButton(icon: FaIcon(FontAwesomeIcons.businessTime,
                     color: Colors.white,size: 20),
                       onPressed: () async {
                       widget.wristCheckController.updateCalendarOrService(false);

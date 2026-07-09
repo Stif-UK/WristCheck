@@ -28,7 +28,7 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
           title: Text(AppLocalizations.of(context)!.resetToDefaults),
           trailing: Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: Icon(FontAwesomeIcons.filterCircleXmark),
+            child: FaIcon(FontAwesomeIcons.filterCircleXmark),
           ),
           onTap: () => widget.filterController.resetToDefaults(),
         ),

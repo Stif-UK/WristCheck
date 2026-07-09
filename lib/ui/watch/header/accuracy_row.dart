@@ -37,7 +37,7 @@ class AccuracyRow extends StatelessWidget {
           ),
           Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
           ElevatedButton(
-              child: Icon(FontAwesomeIcons.plus),
+              child: FaIcon(FontAwesomeIcons.plus),
           onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)),)
         ],
       ),

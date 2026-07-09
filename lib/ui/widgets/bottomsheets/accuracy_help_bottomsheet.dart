@@ -25,7 +25,7 @@ class AccuracyHelpBottomsheet extends StatelessWidget {
                   children: [
                     Expanded(child: Text(AppLocalizations.of(context)!.watchAccuracy, style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,)),
-                    IconButton(icon: Icon(FontAwesomeIcons.x),
+                    IconButton(icon: FaIcon(FontAwesomeIcons.x),
                     onPressed: Get.back,)
                   ],
                 ),

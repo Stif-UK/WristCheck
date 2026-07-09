@@ -54,7 +54,7 @@ class _TimelineSettingsBottomSheetState extends State<TimelineSettingsBottomShee
             title: widget.timelineController.timelineOrderAscending.value ?
             Text(AppLocalizations.of(context)!.orderAscending):
             Text(AppLocalizations.of(context)!.orderDescending),
-            secondary: widget.timelineController.timelineOrderAscending.value ? Icon(FontAwesomeIcons.upLong) : Icon(FontAwesomeIcons.downLong),
+            secondary: widget.timelineController.timelineOrderAscending.value ? FaIcon(FontAwesomeIcons.upLong) : FaIcon(FontAwesomeIcons.downLong),
           ),
           ),
           Obx(()=> SwitchListTile(

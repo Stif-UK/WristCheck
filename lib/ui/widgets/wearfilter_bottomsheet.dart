@@ -22,11 +22,11 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
 
   final List<Tab> myTabs = <Tab>[
     Tab(
-      icon: Icon(FontAwesomeIcons.chartSimple),
+      icon: FaIcon(FontAwesomeIcons.chartSimple),
       text: AppLocalizations.of(Get.context!)!.basic,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
-        icon: Icon(FontAwesomeIcons.magnifyingGlassChart),
+        icon: FaIcon(FontAwesomeIcons.magnifyingGlassChart),
         text: AppLocalizations.of(Get.context!)!.advanced,
         iconMargin: EdgeInsets.only(bottom: 5),),
     // Tab(
@@ -77,7 +77,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
                 textAlign: TextAlign.center,),
               ),
               IconButton(
-                icon: Icon(FontAwesomeIcons.gear),
+                icon: FaIcon(FontAwesomeIcons.gear),
                   onPressed: (){
                   Get.to(() => ChartOptions());
                   }),

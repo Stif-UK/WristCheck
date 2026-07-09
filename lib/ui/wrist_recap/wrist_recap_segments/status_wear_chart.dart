@@ -33,7 +33,7 @@ class _StatusWearChartState extends State<StatusWearChart> {
                 Text(AppLocalizations.of(context)!.statusChartTitle,
                     style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
-                  icon: Icon(
+                  icon: FaIcon(
                     isDonut ? FontAwesomeIcons.chartSimple : FontAwesomeIcons.chartPie,
                     size: 16,
                   ),

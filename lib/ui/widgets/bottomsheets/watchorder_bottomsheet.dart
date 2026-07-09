@@ -86,7 +86,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
                 ),
               ),
               IconButton(
-                  icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                  icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
                   onPressed: () async {
             analytics.logEvent(name: "search_called");
             //Call Get.back first to close the bottomsheet

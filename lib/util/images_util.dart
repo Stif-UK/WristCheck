@@ -96,13 +96,13 @@ class ImagesUtil {
               const SizedBox(height: 10,),
               const Divider(thickness: 2,),
               ListTile(
-                  leading: const Icon(FontAwesomeIcons.cameraRetro),
+                  leading: const FaIcon(FontAwesomeIcons.cameraRetro),
                   title: Text(AppLocalizations.of(Get.context!)!.takeWithCamera, style: Theme.of(context).textTheme.headlineSmall,),
                   onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
               ),
               const Divider(thickness: 2,),
               ListTile(
-                  leading: const Icon(FontAwesomeIcons.images),
+                  leading: const FaIcon(FontAwesomeIcons.images),
                   title: Text(AppLocalizations.of(Get.context!)!.selectFromGallery, style: Theme.of(context).textTheme.headlineSmall,),
                   onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
               ),

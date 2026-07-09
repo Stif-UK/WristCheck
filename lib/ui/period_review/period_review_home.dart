@@ -58,7 +58,7 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 25,),
-          const Icon(FontAwesomeIcons.triangleExclamation, size: 40,),
+          const FaIcon(FontAwesomeIcons.triangleExclamation, size: 40,),
           Text("Not Enough Data", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
           const SizedBox(height: 20,),
           Padding(

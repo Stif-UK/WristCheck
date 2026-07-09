@@ -13,7 +13,7 @@ class WristRecapEmptyData extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
+            child: FaIcon(
               FontAwesomeIcons.squareXmark,
               size: 75,
               color: Theme.of(context).disabledColor,

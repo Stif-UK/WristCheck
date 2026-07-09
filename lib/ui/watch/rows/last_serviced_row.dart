@@ -12,7 +12,7 @@ class LastServicedRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.calendarCheck),
+        icon: const FaIcon(FontAwesomeIcons.calendarCheck),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.lastServicedDateRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.lastServicedDateRowHintText,

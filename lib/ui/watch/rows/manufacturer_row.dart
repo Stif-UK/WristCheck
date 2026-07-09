@@ -15,7 +15,7 @@ class ManufacturerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.building),
+        icon: const FaIcon(FontAwesomeIcons.building),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.manufacturerRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.manufacturerRowHintText,

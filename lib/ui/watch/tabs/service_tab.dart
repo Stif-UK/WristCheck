@@ -59,7 +59,7 @@ class ServiceTab extends StatelessWidget {
 
   Widget _deliveryDateRow(){
     return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendar),
+      icon: const FaIcon(FontAwesomeIcons.calendar),
       enabled: watchViewController.inEditState.value,
       fieldTitle: AppLocalizations.of(Get.context!)!.preOrderDueDateRowTitle,
       hintText: AppLocalizations.of(Get.context!)!.preOrderDueDateRowHintText,
@@ -81,7 +81,7 @@ class ServiceTab extends StatelessWidget {
       children: [
         Expanded(
           child: WatchFormField(
-            icon: const Icon(FontAwesomeIcons.hourglass),
+            icon: const FaIcon(FontAwesomeIcons.hourglass),
             enabled: false,
             fieldTitle: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
             hintText: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
@@ -89,7 +89,7 @@ class ServiceTab extends StatelessWidget {
             controller: timeInCollectionFieldController, ),
         ),
         IconButton(
-          icon: watchViewController.showDays.value? const Icon(FontAwesomeIcons.solidCalendarMinus): const Icon(FontAwesomeIcons.solidCalendarPlus),
+          icon: watchViewController.showDays.value? const FaIcon(FontAwesomeIcons.solidCalendarMinus): const FaIcon(FontAwesomeIcons.solidCalendarPlus),
           onPressed: ()=> watchViewController.updateShowdays(!watchViewController.showDays.value),
         )
       ],
@@ -99,7 +99,7 @@ class ServiceTab extends StatelessWidget {
   Widget _serviceIntervalRow(){
     return WatchFormField(
       keyboardType: TextInputType.number,
-      icon: const Icon(FontAwesomeIcons.arrowsSpin),
+      icon: const FaIcon(FontAwesomeIcons.arrowsSpin),
       enabled: watchViewController.inEditState.value,
       fieldTitle: AppLocalizations.of(Get.context!)!.serviceIntervalRowTitle,
       hintText: AppLocalizations.of(Get.context!)!.serviceIntervalRowHintText,
@@ -117,7 +117,7 @@ class ServiceTab extends StatelessWidget {
   Widget _nextServiceDueRow(){
     nextServiceDueFieldController.value = TextEditingValue(text: watchViewController.nextServiceDue.value);
     return WatchFormField(
-      icon: const Icon(FontAwesomeIcons.calendarDays),
+      icon: const FaIcon(FontAwesomeIcons.calendarDays),
       //Always read only
       enabled: false,
       fieldTitle: AppLocalizations.of(Get.context!)!.nextServiceDueRowTitle,

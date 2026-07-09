@@ -114,7 +114,7 @@ class _AccuracyState extends State<Accuracy> {
       appBar: AppBar(title: Text(l!.accuracyTracker),
       actions: [Padding(
         padding: const EdgeInsets.all(8.0),
-        child: IconButton(icon: Icon(FontAwesomeIcons.circleQuestion),
+        child: IconButton(icon: FaIcon(FontAwesomeIcons.circleQuestion),
         onPressed: ()=> showAccuracyHelpBottomSheet(),),
       )],),
       body: SingleChildScrollView(
@@ -179,7 +179,7 @@ class _AccuracyState extends State<Accuracy> {
               const Divider(thickness: 2,),
                   Text(l.addCheckPoint, style: Theme.of(context).textTheme.headlineSmall,),
                   IconButton(
-                    icon: Icon(FontAwesomeIcons.caretUp),
+                    icon: FaIcon(FontAwesomeIcons.caretUp),
                     onPressed: () => widget.accuracyController.addAMinute(),
                   ),
                   Obx(() =>
@@ -191,7 +191,7 @@ class _AccuracyState extends State<Accuracy> {
                             .textTheme
                             .headlineLarge,)),
                   IconButton(
-                    icon: Icon(FontAwesomeIcons.caretDown),
+                    icon: FaIcon(FontAwesomeIcons.caretDown),
                     onPressed: () => widget.accuracyController.subtractAMinute(),
                   ),
               const Divider(thickness: 2,),
@@ -252,7 +252,7 @@ class _AccuracyState extends State<Accuracy> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
-                          icon: Icon(FontAwesomeIcons.arrowsRotate,
+                          icon: FaIcon(FontAwesomeIcons.arrowsRotate,
                           ), onPressed: () {
                             widget.accuracyController.updateValueRecorded(false);
                         },
@@ -294,7 +294,7 @@ class _AccuracyState extends State<Accuracy> {
                             color: Colors.red,
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Icon(FontAwesomeIcons.trash, color: Colors.white),
+                            child: FaIcon(FontAwesomeIcons.trash, color: Colors.white),
                           ),
                           onDismissed: (direction) async {
                             var result = await MeasurementMethods.deleteRecord(widget.accuracyController.data[index].key);
@@ -302,7 +302,7 @@ class _AccuracyState extends State<Accuracy> {
                           },
                           child: Card(
                             child: ListTile(
-                              leading: widget.accuracyController.data[index].baseLine ? Icon(FontAwesomeIcons.thumbtack) : Icon(FontAwesomeIcons.thumbtackSlash) ,
+                              leading: widget.accuracyController.data[index].baseLine ? FaIcon(FontAwesomeIcons.thumbtack) : FaIcon(FontAwesomeIcons.thumbtackSlash) ,
                               title: Text(
                                   "${WristCheckFormatter.getFormattedDateAndTime(widget.accuracyController.data[index]
                                       .watchTime)}"),

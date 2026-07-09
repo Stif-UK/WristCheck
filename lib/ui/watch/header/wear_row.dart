@@ -58,7 +58,7 @@ class _WearRowState extends State<WearRow> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    icon: Icon(FontAwesomeIcons.chartBar,
+                    icon: FaIcon(FontAwesomeIcons.chartBar,
                         color: Colors.white),
                     onPressed: () => Get.to(() => WatchCharts(currentWatch: widget.currentWatch!,)),
                   ),
@@ -94,7 +94,7 @@ class _WearRowState extends State<WearRow> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      icon: Icon(FontAwesomeIcons.calendarDays,
+                      icon: FaIcon(FontAwesomeIcons.calendarDays,
                         color: Colors.white,),
                       onPressed: (){
                         Get.to(() => WearDatesWidget(currentWatch: widget.currentWatch!))!.then((_) => setState(

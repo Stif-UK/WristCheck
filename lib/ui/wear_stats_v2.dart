@@ -182,7 +182,7 @@ class _WearStatsState extends State<WearStatsV2> {
                 },
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: Icon(
+                  child: FaIcon(
                     FontAwesomeIcons.filter,
                     size: 22.0,
                     color: Theme.of(context).primaryColor,

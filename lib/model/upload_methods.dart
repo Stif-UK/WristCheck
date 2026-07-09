@@ -22,7 +22,7 @@ class UploadMethods {
   static Future<List<List<dynamic>>?> getCSVImport() async {
     List<List<dynamic>> import = [];
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.pickFiles(
       allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: ['csv'],
@@ -220,16 +220,16 @@ class UploadMethods {
   static Widget getStatusIcon(UploadStatusEnum? status) {
     switch (status) {
       case UploadStatusEnum.pass:
-        return Icon(
+        return FaIcon(
           FontAwesomeIcons.circleCheck, color: Colors.green, size: 30,);
       case UploadStatusEnum.fail:
-        return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 30,);
+        return FaIcon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 30,);
       case UploadStatusEnum.partialpass:
-        return Icon(
+        return FaIcon(
           FontAwesomeIcons.triangleExclamation, color: Colors.blueAccent,
           size: 30,);
       case UploadStatusEnum.duplicate:
-        return Icon(FontAwesomeIcons.clone, color: Colors.red,);
+        return FaIcon(FontAwesomeIcons.clone, color: Colors.red,);
       default:
         return CircularProgressIndicator();
     }

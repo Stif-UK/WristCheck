@@ -69,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 WristCheckConfig.enableLanguagePicker? ListTile(
                   title: Text(AppLocalizations.of(context)!.languageLink),
-                  leading: Icon(FontAwesomeIcons.earthAmericas),
+                  leading: FaIcon(FontAwesomeIcons.earthAmericas),
                   onTap: () => Get.to(() => LanguageSelection()),
                 )
                  : const SizedBox(height: 0,),
@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Divider(thickness: 2,),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.currencyLink),
-                  leading: const Icon(FontAwesomeIcons.dollarSign),
+                  leading: const FaIcon(FontAwesomeIcons.dollarSign),
                   onTap: ()=> Get.to(()=> LocationOptions())
                 ),
                 const Divider(thickness: 2,),
@@ -94,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Divider(thickness: 2,),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.appPreferencesLink),
-                  leading: const Icon(FontAwesomeIcons.display),
+                  leading: const FaIcon(FontAwesomeIcons.display),
                   onTap: () => Get.to(() => ViewOptions()),
                 ),
                 const Divider(thickness: 2,),
@@ -106,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Divider(thickness: 2,),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.showDemoLink),
-                  leading: const Icon(FontAwesomeIcons.mobileScreen),
+                  leading: const FaIcon(FontAwesomeIcons.mobileScreen),
                   onTap: ()=> Get.to(()=> const WristCheckOnboarding())
                 ),
                 const Divider(thickness: 2,),
@@ -124,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         // Extracting data from snapshot object
                         final data = snapshot.data as String;
                         return ListTile(
-                          leading: Icon(FontAwesomeIcons.user),
+                          leading: FaIcon(FontAwesomeIcons.user),
                           title: Text(AppLocalizations.of(context)!.appUserIDTitle),
                           subtitle: Text(
                             '$data',
@@ -148,7 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       }
                     }
                     return ListTile(
-                      leading: Icon(FontAwesomeIcons.user),
+                      leading: FaIcon(FontAwesomeIcons.user),
                       title: Text(AppLocalizations.of(context)!.appUserIDTitle),
                       trailing: CircularProgressIndicator(),
                     );

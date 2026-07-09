@@ -154,11 +154,11 @@ class _WristCheckHomeState extends State<WristCheckHome> {
               label: AppLocalizations.of(context)!.calendar,
             ),
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.clock),
+              icon: FaIcon(FontAwesomeIcons.clock),
               label: AppLocalizations.of(context)!.time
             ),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.chevronRight),
+                icon: FaIcon(FontAwesomeIcons.chevronRight),
                 label: AppLocalizations.of(context)!.more
             )
           ],

@@ -15,7 +15,7 @@ class WaterResistanceRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return WatchFormField(
       keyboardType: TextInputType.number,
-      icon: const Icon(FontAwesomeIcons.water),
+      icon: const FaIcon(FontAwesomeIcons.water),
       enabled: enabled,
       fieldTitle: AppLocalizations.of(Get.context!)!.waterResistanceRowTitle(units),
       hintText: AppLocalizations.of(Get.context!)!.waterResistanceRowHintText,

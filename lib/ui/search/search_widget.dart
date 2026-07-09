@@ -22,7 +22,7 @@ class SearchWidget extends SearchDelegate{
             builder: (context) => SearchFilterBottomSheet(),
           );
         },
-        icon: Icon(FontAwesomeIcons.sliders),
+        icon: FaIcon(FontAwesomeIcons.sliders),
       )
     ];
   }

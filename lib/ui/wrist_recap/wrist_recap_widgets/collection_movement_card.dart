@@ -69,7 +69,7 @@ class CollectionMovementCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: purchased? Icon(FontAwesomeIcons.cashRegister) :Icon(FontAwesomeIcons.handHoldingDollar),
+              child: purchased? FaIcon(FontAwesomeIcons.cashRegister) :FaIcon(FontAwesomeIcons.handHoldingDollar),
             )
 
           ],

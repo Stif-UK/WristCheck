@@ -80,7 +80,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                       children: [
                         Obx(()=> RadioListTile(
                               title: Text(AppLocalizations.of(Get.context!)!.collectionDisplayShowAsList),
-                              secondary: const Icon(FontAwesomeIcons.list),
+                              secondary: const FaIcon(FontAwesomeIcons.list),
                               value: WatchBoxView.list,
                               groupValue: widget.wristCheckController.watchBoxView.value,
                               onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
@@ -88,7 +88,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                         ),
                         Obx(()=> RadioListTile(
                             title: Text(AppLocalizations.of(Get.context!)!.collectionDisplayShowAsGrid),
-                            secondary: const Icon(FontAwesomeIcons.grip),
+                            secondary: const FaIcon(FontAwesomeIcons.grip),
                             value: WatchBoxView.grid,
                               groupValue: widget.wristCheckController.watchBoxView.value,
                               onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
@@ -96,7 +96,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                         ),
                         Obx(()=> RadioListTile(
                             title: Text(AppLocalizations.of(Get.context!)!.gallery),
-                            secondary: const Icon(FontAwesomeIcons.image),
+                            secondary: const FaIcon(FontAwesomeIcons.image),
                             value: WatchBoxView.gallery,
                               groupValue: widget.wristCheckController.watchBoxView.value,
                               onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
@@ -175,7 +175,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   ),
                   const Divider(thickness: 2,),
                   ExpansionTile(
-                    leading: const Icon(FontAwesomeIcons.houseChimney),
+                    leading: const FaIcon(FontAwesomeIcons.houseChimney),
                     title: Text(AppLocalizations.of(Get.context!)!.startPageSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
                     children: [
                       RadioListTile(
@@ -223,7 +223,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   const Divider(thickness: 2,),
                   ExpansionTile(
                     title: Text(AppLocalizations.of(Get.context!)!.calendarOptionsSectionTitle, style: Theme.of(context).textTheme.headlineSmall),
-                  leading: const Icon(FontAwesomeIcons.calendarWeek),
+                  leading: const FaIcon(FontAwesomeIcons.calendarWeek),
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +247,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   const Divider(thickness: 2,),
                   Obx(()=> ExpansionTile(
                       title: Text(AppLocalizations.of(Get.context!)!.themeSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
-                    leading: Icon(FontAwesomeIcons.lightbulb),
+                    leading: FaIcon(FontAwesomeIcons.lightbulb),
                     children: [
                       RadioListTile(
                           title: Text(AppLocalizations.of(Get.context!)!.matchSystem),
@@ -277,7 +277,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                   const Divider(thickness: 2,),
                   Obx(()=> ExpansionTile(
                     title: Text(AppLocalizations.of(Get.context!)!.wrUnitsSectionTitle, style: Theme.of(context).textTheme.headlineSmall,),
-                    leading: Icon(FontAwesomeIcons.water),
+                    leading: FaIcon(FontAwesomeIcons.water),
                     children: [
                       RadioListTile(
                           title: Text(WRUnitsEnum.metres.toLocalizedString(context)),

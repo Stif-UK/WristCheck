@@ -25,7 +25,7 @@ class SoldPriceRow extends StatelessWidget {
       //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
       return viewState != WatchViewEnum.view
           ? WatchFormField(
-        icon: const Icon(FontAwesomeIcons.handHoldingDollar),
+        icon: const FaIcon(FontAwesomeIcons.handHoldingDollar),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.soldPriceRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.soldPriceRowHintText,
@@ -52,7 +52,7 @@ class SoldPriceRow extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Icon(FontAwesomeIcons.handHoldingDollar),
+                child: FaIcon(FontAwesomeIcons.handHoldingDollar),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

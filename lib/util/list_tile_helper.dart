@@ -24,36 +24,36 @@ class ListTileHelper {
     return nextServicingDate.isBefore(Jiffy.now().add(months: 3).dateTime)?  dueSoon :  standard;
   }
 
-  static Icon getCategoryIcon(CategoryEnum category){
-    Icon returnIcon = const Icon(FontAwesomeIcons.sitemap);
+  static FaIcon getCategoryIcon(CategoryEnum category){
+    FaIcon returnIcon = const FaIcon(FontAwesomeIcons.sitemap);
 
     switch(category) {
       case CategoryEnum.blank:
-        returnIcon = const Icon(FontAwesomeIcons.sitemap);
+        returnIcon = const FaIcon(FontAwesomeIcons.sitemap);
         break;
       case CategoryEnum.dive:
-        returnIcon = const Icon(FontAwesomeIcons.waterLadder);
+        returnIcon = const FaIcon(FontAwesomeIcons.waterLadder);
         break;
       case CategoryEnum.sports:
-        returnIcon = const Icon(FontAwesomeIcons.personSnowboarding);
+        returnIcon = const FaIcon(FontAwesomeIcons.personSnowboarding);
         break;
       case CategoryEnum.flight:
-        returnIcon = const Icon(FontAwesomeIcons.plane);
+        returnIcon = const FaIcon(FontAwesomeIcons.plane);
         break;
       case CategoryEnum.field:
-        returnIcon = const Icon(FontAwesomeIcons.personHiking);
+        returnIcon = const FaIcon(FontAwesomeIcons.personHiking);
         break;
       case CategoryEnum.dress:
-        returnIcon = const Icon(FontAwesomeIcons.userTie);
+        returnIcon = const FaIcon(FontAwesomeIcons.userTie);
         break;
       case CategoryEnum.tool:
-        returnIcon = const Icon(FontAwesomeIcons.screwdriverWrench);
+        returnIcon = const FaIcon(FontAwesomeIcons.screwdriverWrench);
         break;
       case CategoryEnum.chronograph:
-        returnIcon = const Icon(FontAwesomeIcons.stopwatch);
+        returnIcon = const FaIcon(FontAwesomeIcons.stopwatch);
         break;
       case CategoryEnum.travel:
-        returnIcon = const Icon(FontAwesomeIcons.earthAmericas);
+        returnIcon = const FaIcon(FontAwesomeIcons.earthAmericas);
         break;
     }
 
@@ -148,30 +148,30 @@ class ListTileHelper {
   }
 
 
-  static Icon getWatchOrderIcon(WatchOrder? watchOrder){
-    Icon returnIcon = const Icon(FontAwesomeIcons.sort);
+  static FaIcon getWatchOrderIcon(WatchOrder? watchOrder){
+    FaIcon returnIcon = const FaIcon(FontAwesomeIcons.sort);
 
     switch(watchOrder){
       case WatchOrder.watchbox:
-        returnIcon = const Icon(FontAwesomeIcons.arrowDownWideShort);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowDownWideShort);
         break;
       case WatchOrder.reverse:
-        returnIcon = const Icon(FontAwesomeIcons.arrowUpWideShort);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowUpWideShort);
         break;
       case WatchOrder.alpha_asc:
-        returnIcon = const Icon(FontAwesomeIcons.arrowDownAZ);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowDownAZ);
         break;
       case WatchOrder.alpha_desc:
-        returnIcon = const Icon(FontAwesomeIcons.arrowUpAZ);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowUpAZ);
         break;
       case WatchOrder.lastworn:
-        returnIcon = const Icon(FontAwesomeIcons.arrowDown91);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowDown91);
         break;
       case WatchOrder.mostworn:
-        returnIcon = const Icon(FontAwesomeIcons.chartLine);
+        returnIcon = const FaIcon(FontAwesomeIcons.chartLine);
         break;
       default:
-        returnIcon = const Icon(FontAwesomeIcons.arrowDownWideShort);
+        returnIcon = const FaIcon(FontAwesomeIcons.arrowDownWideShort);
         break;
     }
 

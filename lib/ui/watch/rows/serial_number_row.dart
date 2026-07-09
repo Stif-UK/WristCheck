@@ -16,7 +16,7 @@ class SerialNumberRow extends StatelessWidget {
   Widget build(BuildContext context) {
 
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.barcode),
+        icon: const FaIcon(FontAwesomeIcons.barcode),
         enabled: enabled,
         fieldTitle: viewState == WatchViewEnum.add? AppLocalizations.of(Get.context!)!.serialNumberOptionalTitle: AppLocalizations.of(Get.context!)!.serialNumberRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.serialNumberRowHintText,

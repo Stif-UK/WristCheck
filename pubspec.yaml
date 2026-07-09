@@ -19,7 +19,7 @@ version: 1.17.1+45
 
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -50,19 +50,19 @@ dependencies:
   flutter_markdown: ^0.7.6+1
   package_info_plus: ^8.2.1
   shared_preferences: ^2.0.15
-  file_picker: ^8.3.2
+  file_picker: 11.0.2
   flutter_local_notifications: ^18.0.1
-  google_mobile_ads: ^6.0.0
+  google_mobile_ads: ^9.0.0
   screenshot: ^3.0.0
-  share_plus: ^10.1.4
+  share_plus: 12.0.2
   in_app_review: ^2.0.11
-  purchases_flutter: ^8.10.6
-  app_tracking_transparency: ^2.0.3
-  font_awesome_flutter: ^10.5.0
+  purchases_flutter: ^10.4.1
+  app_tracking_transparency: ^2.0.7
+  font_awesome_flutter: ^11.0.0
   json_theme: ^7.0.0+3
   smooth_page_indicator: ^1.1.0
   flutter_launcher_icons: ^0.14.3
-  flutter_native_splash: ^2.3.3
+  flutter_native_splash: ^2.4.8
   firebase_core: ^3.6.0
   firebase_crashlytics: ^4.1.3
   firebase_analytics: ^11.3.3

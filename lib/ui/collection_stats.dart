@@ -91,15 +91,15 @@ class _CollectionStatsState extends State<CollectionStats> {
         onTap: _onTabTapped,
         items: [
           BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.chartBar),
+            icon:  FaIcon(FontAwesomeIcons.chartBar),
             label: l.labelCharts,
           ),
           BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.clipboardList),
+            icon:  FaIcon(FontAwesomeIcons.clipboardList),
             label: l.labelInfo,
           ),
           BottomNavigationBarItem(
-            icon:  Icon(FontAwesomeIcons.moneyBillTrendUp),
+            icon:  FaIcon(FontAwesomeIcons.moneyBillTrendUp),
             label: l.labelValue,
           ),
         ],

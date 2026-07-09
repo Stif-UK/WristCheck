@@ -13,7 +13,7 @@ class PurchasedFromRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.cartShopping),
+        icon: const FaIcon(FontAwesomeIcons.cartShopping),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.purchasedFromRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.purchasedFromHintText,

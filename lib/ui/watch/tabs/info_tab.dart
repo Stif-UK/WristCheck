@@ -69,7 +69,7 @@ class InfoTab extends StatelessWidget {
               menuMaxHeight: 300,
               value: WristCheckFormatter.getMovementEnum(watchViewController.movement.value),
               iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(FontAwesomeIcons.gears,), context),
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const FaIcon(FontAwesomeIcons.gears,), context),
               items: MovementEnum.values.map((movement) {
                 return DropdownMenuItem<MovementEnum>(
                     value: movement,

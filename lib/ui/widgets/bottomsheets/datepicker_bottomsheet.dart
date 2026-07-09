@@ -100,7 +100,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                         physics: ClampingScrollPhysics(),
                                         itemCount: duplicates.length,
                                           itemBuilder: (context, index) => ListTile(
-                                            leading: Icon(FontAwesomeIcons.clone, color: Colors.red,),
+                                            leading: FaIcon(FontAwesomeIcons.clone, color: Colors.red,),
                                         subtitle: Text(AppLocalizations.of(context)!.dateAlreadyExists),
                                             title: Text(WristCheckFormatter.getFormattedDate(duplicates[index])),
                                                                     )),
@@ -109,7 +109,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                           physics: ClampingScrollPhysics(),
                                           itemCount: futures.length,
                                           itemBuilder: (context, index) => ListTile(
-                                            leading: Icon(FontAwesomeIcons.hourglass, color: Colors.red,),
+                                            leading: FaIcon(FontAwesomeIcons.hourglass, color: Colors.red,),
                                             subtitle: Text(AppLocalizations.of(context)!.dateIsInTheFuture),
                                             title: Text(WristCheckFormatter.getFormattedDate(futures[index])),
                                           ))

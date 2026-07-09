@@ -13,7 +13,7 @@ class SoldToRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.handHoldingHand),
+        icon: const FaIcon(FontAwesomeIcons.handHoldingHand),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.soldToRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.soldToRowHintText,

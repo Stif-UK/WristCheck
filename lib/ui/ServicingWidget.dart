@@ -41,15 +41,15 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
   //Set up tabbed view
   final List<Tab> myTabs = <Tab>[
     Tab(
-      icon: Icon(FontAwesomeIcons.calendarDays),
+      icon: FaIcon(FontAwesomeIcons.calendarDays),
       text: AppLocalizations.of(Get.context!)!.servicingTab ,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
-      icon: Icon(FontAwesomeIcons.screwdriverWrench),
+      icon: FaIcon(FontAwesomeIcons.screwdriverWrench),
       text: AppLocalizations.of(Get.context!)!.warrantyTab,
       iconMargin: EdgeInsets.only(bottom: 5),),
     Tab(
-      icon: Icon(FontAwesomeIcons.question),
+      icon: FaIcon(FontAwesomeIcons.question),
       text: AppLocalizations.of(Get.context!)!.helpTab,
       iconMargin: EdgeInsets.only(bottom: 5),)
   ];
@@ -237,7 +237,7 @@ _getWarrantyListTile(Watches watch){
   String? _title = "${watch.manufacturer} ${watch.model}";
 
   return  ListTile(
-    leading: Icon(FontAwesomeIcons.screwdriverWrench),
+    leading: FaIcon(FontAwesomeIcons.screwdriverWrench),
     title: Text(_title),
     subtitle: Text(AppLocalizations.of(Get.context!)!.warrantyExpiresOn(WristCheckFormatter.getFormattedDateWithDay(watch.warrantyEndDate!))),
     onTap: () => Get.to(()=>WatchView(currentWatch: watch,)),

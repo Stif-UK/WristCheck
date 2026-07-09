@@ -43,7 +43,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             const SizedBox(height: 20,),
             ListTile(
                 title: Text(AppLocalizations.of(context)!.primaryImage),
-                trailing: primaryIndex == index? Icon(FontAwesomeIcons.solidStar, color: Colors.blue,) : Icon(FontAwesomeIcons.star, color: Colors.blue,),
+                trailing: primaryIndex == index? FaIcon(FontAwesomeIcons.solidStar, color: Colors.blue,) : FaIcon(FontAwesomeIcons.star, color: Colors.blue,),
                 onTap: () async {
                   Navigator.pop(context);
                   WatchMethods.setPrimaryImage(watch, index);
@@ -52,7 +52,7 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             const Divider(thickness: 2,),
             ListTile(
               title: Text(AppLocalizations.of(context)!.updateImage),
-              trailing: Icon(FontAwesomeIcons.repeat, color: Colors.green,),
+              trailing: FaIcon(FontAwesomeIcons.repeat, color: Colors.green,),
               onTap: () async {
                 Navigator.pop(context);
                 await ImagesUtil.addImageViaController(index, context, watch);
@@ -61,14 +61,14 @@ class ImageUpdateBottomsheet extends StatelessWidget {
             const Divider(thickness: 2,),
             ListTile(
               title: Text(AppLocalizations.of(context)!.deleteImage),
-              trailing: Icon(FontAwesomeIcons.trash, color: Colors.red,),
+              trailing: FaIcon(FontAwesomeIcons.trash, color: Colors.red,),
               onTap: ()=> WristCheckDialogs.showImageDeleteDialog(context, watch, index),
             ),
             const Divider(thickness: 2,),
             ListTile(
               title: Text(AppLocalizations.of(context)!.cancel),
               onTap: ()=> Navigator.pop(context),
-              trailing: Icon(FontAwesomeIcons.ban),
+              trailing: FaIcon(FontAwesomeIcons.ban),
             )
       
           ],

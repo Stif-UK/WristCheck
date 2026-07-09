@@ -40,11 +40,11 @@ class _DeveloperStatsState extends State<DeveloperStats> {
 
         }, items: const [
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.cashRegister),
+          icon: FaIcon(FontAwesomeIcons.cashRegister),
           label: "Purchase",
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.info),
+          icon: FaIcon(FontAwesomeIcons.info),
           label: "Info",
         ),
       ],

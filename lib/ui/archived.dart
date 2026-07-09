@@ -223,7 +223,7 @@ class _ArchivedState extends State<Archived> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: const Icon(FontAwesomeIcons.arrowUp, color: Colors.white,),
+                                child: const FaIcon(FontAwesomeIcons.arrowUp, color: Colors.white,),
                               ),
                               Text(AppLocalizations.of(Get.context!)!.archiveBackgroundRestoreLabel, textAlign: TextAlign.start,),
                             ],
@@ -237,7 +237,7 @@ class _ArchivedState extends State<Archived> {
                                 Text(AppLocalizations.of(Get.context!)!.archiveBackgroundDeleteLabel, textAlign: TextAlign.end,),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: const Icon(FontAwesomeIcons.trash, color: Colors.white,),
+                                  child: const FaIcon(FontAwesomeIcons.trash, color: Colors.white,),
                                 )
                               ],
                             ),),

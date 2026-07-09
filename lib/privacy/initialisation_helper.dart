@@ -9,67 +9,77 @@ class InitialisationHelper {
   Future<FormError?> initialise() async {
     final completer = Completer<FormError?>();
 
-    final params = ConsentRequestParameters(
-      //Uncomment lines below to test for non-EEA users.
-      // consentDebugSettings: ConsentDebugSettings(
-      //   debugGeography: DebugGeography.debugGeographyNotEea
-      // ),
+    final params = ConsentRequestParameters();
+    ConsentInformation.instance.requestConsentInfoUpdate(
+      params,
+      () async {
+        if (await ConsentInformation.instance.isConsentFormAvailable()) {
+          await _loadConsentForm();
+        } else {
+          await _initialise();
+        }
+        completer.complete();
+      },
+      (error) {
+        completer.complete(error);
+      },
     );
-    ConsentInformation.instance.requestConsentInfoUpdate(params, () async {
-      //isConsentFormAvailable will return false where a user is outside GDPR locations
-      if(await ConsentInformation.instance.isConsentFormAvailable()){
-        await _loadConsentForm();
-      } else {
-        await _initialise();
-      }
-      completer.complete();
-    }, (error) {
-      completer.complete(error);
-    });
+    return completer.future;
   }
 
-  Future<FormError?> _loadConsentForm() async {
-    final completer = Completer<FormError?>();
+  Future<void> _loadConsentForm() async {
+    final completer = Completer<void>();
 
-    ConsentForm.loadConsentForm((consentForm) async {
-      final status = await ConsentInformation.instance.getConsentStatus();
-      //Show consent form if consent status is 'required'
-      if( status == ConsentStatus.required){
-        consentForm.show((formError) {
-          completer.complete(_loadConsentForm());
-        });
-      } else {
-        await _initialise();
-        completer.complete();
-      }
-    }, (formError) {
-      completer.complete(formError);
-    });
+    ConsentForm.loadConsentForm(
+      (consentForm) async {
+        final status = await ConsentInformation.instance.getConsentStatus();
+        if (status == ConsentStatus.required) {
+          consentForm.show((formError) {
+            if (formError != null) {
+              completer.completeError(formError);
+            } else {
+              _loadConsentForm().then((_) => completer.complete());
+            }
+          });
+        } else {
+          await _initialise();
+          completer.complete();
+        }
+      },
+      (formError) {
+        completer.completeError(formError);
+      },
+    );
 
     return completer.future;
-
   }
 
   Future<bool> changePrivacyPreferences() async {
     final completer = Completer<bool>();
 
-    ConsentInformation.instance.requestConsentInfoUpdate(ConsentRequestParameters(), () async {
-      if (await ConsentInformation.instance.isConsentFormAvailable()) {
-        ConsentForm.loadConsentForm((consentForm) {
-          consentForm.show((formError) async {
-            await _initialise();
-            completer.complete(true);
-          });
-        }, (formError) {
+    ConsentInformation.instance.requestConsentInfoUpdate(
+      ConsentRequestParameters(),
+      () async {
+        if (await ConsentInformation.instance.isConsentFormAvailable()) {
+          ConsentForm.loadConsentForm(
+            (consentForm) {
+              consentForm.show((formError) async {
+                await _initialise();
+                completer.complete(true);
+              });
+            },
+            (formError) {
+              completer.complete(false);
+            },
+          );
+        } else {
           completer.complete(false);
-        });
-      }
-      else {
+        }
+      },
+      (error) {
         completer.complete(false);
-      }
-    }, (error) {
-      completer.complete(false);
-    });
+      },
+    );
 
     return completer.future;
   }

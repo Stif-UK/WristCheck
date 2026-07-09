@@ -401,7 +401,7 @@ class _WatchViewState extends State<WatchView> {
                             padding: const EdgeInsets.all(8.0),
                             child: IconButton(
                                   icon: widget.watchViewController.inEditState.value?
-                                      const Icon(FontAwesomeIcons.floppyDisk) : const Icon(FontAwesomeIcons.penToSquare),
+                                      const FaIcon(FontAwesomeIcons.floppyDisk) : const FaIcon(FontAwesomeIcons.penToSquare),
                                 onPressed: () async {
                                     if(widget.watchViewController.inEditState.value){
                                       await analytics.logEvent(name: "save_edit_top_pressed");
@@ -421,7 +421,7 @@ class _WatchViewState extends State<WatchView> {
                           padding: const EdgeInsets.all(0.0),
                           child: widget.watchViewController.watchViewState.value == WatchViewEnum.edit?
                               IconButton(
-                                icon: Icon(FontAwesomeIcons.trash, color: Colors.red,),
+                                icon: FaIcon(FontAwesomeIcons.trash, color: Colors.red,),
                                   onPressed: ()=> WristCheckDialogs.showDeleteWatchDialog(context, widget.currentWatch!), )
                               :const SizedBox(height: 0,),
                         ),
@@ -445,19 +445,19 @@ class _WatchViewState extends State<WatchView> {
                         label: AppLocalizations.of(Get.context!)!.infoTabLabel,
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.calendar),
+                        icon: FaIcon(FontAwesomeIcons.calendar),
                         label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.dollarSign),
+                        icon: FaIcon(FontAwesomeIcons.dollarSign),
                         label: AppLocalizations.of(Get.context!)!.valueTabLabel,
                       ),
                       if(widget.wristCheckController.isAppPro.value)(BottomNavigationBarItem(
-                          icon: Icon(FontAwesomeIcons.glasses),
+                          icon: FaIcon(FontAwesomeIcons.glasses),
                         label: AppLocalizations.of(Get.context!)!.proDataTabLabel
                       )),
                       BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.book),
+                        icon: FaIcon(FontAwesomeIcons.book),
                         label: AppLocalizations.of(Get.context!)!.notesTabLabel,
                       )
                     ]

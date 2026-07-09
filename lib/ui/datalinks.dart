@@ -89,7 +89,7 @@ class _DataLinksState extends State<DataLinks> {
                     const Divider(thickness: 2,),
                     ListTile(
                         title:  Text(l.altExports),
-                        leading: const Icon(FontAwesomeIcons.fileExport),
+                        leading: const FaIcon(FontAwesomeIcons.fileExport),
                         onTap: (){
                           Get.to(()=> AlternativeExports());
                         }
@@ -98,7 +98,7 @@ class _DataLinksState extends State<DataLinks> {
                     //TODO: Uncomment to re-enable data upload journey
                     WristCheckConfig.enableCSVUploads ?ListTile(
                         title: Text(l.dataImport),
-                        leading: const Icon(FontAwesomeIcons.fileImport),
+                        leading: const FaIcon(FontAwesomeIcons.fileImport),
                         onTap: (){
                           Get.to(()=> UploadsLanding());
                         }

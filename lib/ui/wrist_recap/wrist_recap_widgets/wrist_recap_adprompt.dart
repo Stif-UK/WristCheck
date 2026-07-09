@@ -170,13 +170,13 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(FontAwesomeIcons.rectangleAd),
+                child: FaIcon(FontAwesomeIcons.rectangleAd),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                     onPressed: _showRewardedAd,
-                    icon: Icon(FontAwesomeIcons.play)),
+                    icon: FaIcon(FontAwesomeIcons.play)),
               ),
             ],
           ),

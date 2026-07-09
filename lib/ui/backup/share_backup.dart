@@ -89,7 +89,7 @@ class _ShareBackupState extends State<ShareBackup> {
                     style: Theme.of(context).textTheme.headlineSmall,textAlign: TextAlign.center,),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Icon(FontAwesomeIcons.download),
+                      child: FaIcon(FontAwesomeIcons.download),
                     )
                   ],
                 ),
@@ -117,7 +117,7 @@ class _ShareBackupState extends State<ShareBackup> {
                       style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center,),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Icon(FontAwesomeIcons.fileExport),
+                      child: FaIcon(FontAwesomeIcons.fileExport),
                     )
                   ],
                 ),

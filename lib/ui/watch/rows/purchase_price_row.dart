@@ -22,7 +22,7 @@ class PurchasePriceRow extends StatelessWidget {
       //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
       return viewState != WatchViewEnum.view
           ? WatchFormField(
-            icon: const Icon(FontAwesomeIcons.moneyBill1),
+            icon: const FaIcon(FontAwesomeIcons.moneyBill1),
             enabled: enabled,
             fieldTitle: AppLocalizations.of(Get.context!)!.purchasePriceRowTitle,
             hintText: AppLocalizations.of(Get.context!)!.purchasePriceRowHintText,
@@ -49,7 +49,7 @@ class PurchasePriceRow extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Icon(FontAwesomeIcons.moneyBill1),
+                child: FaIcon(FontAwesomeIcons.moneyBill1),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

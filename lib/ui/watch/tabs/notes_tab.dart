@@ -14,7 +14,7 @@ class NotesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(()=> WatchFormField(
-          icon: const Icon(FontAwesomeIcons.noteSticky),
+          icon: const FaIcon(FontAwesomeIcons.noteSticky),
           enabled: watchViewController.inEditState.value,
           fieldTitle: AppLocalizations.of(Get.context!)!.notesRowTitle,
           hintText: AppLocalizations.of(Get.context!)!.notesRowHintText,

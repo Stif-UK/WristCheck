@@ -15,7 +15,7 @@ class ReferenceNumberRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.hashtag),
+        icon: const FaIcon(FontAwesomeIcons.hashtag),
         enabled: enabled,
         fieldTitle: viewState == WatchViewEnum.add? AppLocalizations.of(Get.context!)!.referenceNumberOptionalTitle: AppLocalizations.of(Get.context!)!.referenceNumberRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.referenceNumberRowHelpText,

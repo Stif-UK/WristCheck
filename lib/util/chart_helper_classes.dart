@@ -363,19 +363,19 @@ class ChartHelper{
 
     switch(type) {
       case WatchMonthChartEnum.bar:
-        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
         break;
       case WatchMonthChartEnum.pie:
-        returnIcon = Icon(FontAwesomeIcons.chartPie);
+        returnIcon = FaIcon(FontAwesomeIcons.chartPie);
         break;
       case WatchMonthChartEnum.grouped:
-        returnIcon = Icon(FontAwesomeIcons.magnifyingGlassChart);
+        returnIcon = FaIcon(FontAwesomeIcons.magnifyingGlassChart);
         break;
       case WatchMonthChartEnum.line:
-        returnIcon = Icon(FontAwesomeIcons.chartLine);
+        returnIcon = FaIcon(FontAwesomeIcons.chartLine);
         break;
       default:
-        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
         break;
     }
 
@@ -402,19 +402,19 @@ class ChartHelper{
 
     switch(type) {
       case WatchDayChartEnum.bar:
-        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
         break;
       case WatchDayChartEnum.pie:
-        returnIcon = Icon(FontAwesomeIcons.chartPie);
+        returnIcon = FaIcon(FontAwesomeIcons.chartPie);
         break;
       case WatchDayChartEnum.grouped:
-        returnIcon = Icon(FontAwesomeIcons.magnifyingGlassChart);
+        returnIcon = FaIcon(FontAwesomeIcons.magnifyingGlassChart);
         break;
       case WatchDayChartEnum.line:
-        returnIcon = Icon(FontAwesomeIcons.chartLine);
+        returnIcon = FaIcon(FontAwesomeIcons.chartLine);
         break;
       default:
-        returnIcon = Icon(FontAwesomeIcons.chartBar);
+        returnIcon = FaIcon(FontAwesomeIcons.chartBar);
         break;
     }
 

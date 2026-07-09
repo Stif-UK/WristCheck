@@ -15,7 +15,7 @@ class LugWidthRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return WatchFormField(
       keyboardType: TextInputType.number,
-      icon: const Icon(FontAwesomeIcons.rulerHorizontal),
+      icon: const FaIcon(FontAwesomeIcons.rulerHorizontal),
       enabled: enabled,
       fieldTitle: AppLocalizations.of(context)!.lugWidthRowTitle,
       hintText: AppLocalizations.of(context)!.lugWidthHintText,

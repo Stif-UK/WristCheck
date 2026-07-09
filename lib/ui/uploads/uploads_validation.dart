@@ -68,9 +68,9 @@ class _UploadsValidationState extends State<UploadsValidation> {
 Widget _getHeaderStatusIcon(bool? status) {
   switch(status){
     case true:
-      return Icon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 45,);
+      return FaIcon(FontAwesomeIcons.circleCheck, color: Colors.green, size: 45,);
     case false:
-      return Icon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 45,);
+      return FaIcon(FontAwesomeIcons.circleXmark, color: Colors.red, size: 45,);
     default:
       return CircularProgressIndicator();
   }

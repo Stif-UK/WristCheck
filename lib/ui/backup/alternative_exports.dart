@@ -83,7 +83,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Icon(FontAwesomeIcons.fileCsv),
+                            child: FaIcon(FontAwesomeIcons.fileCsv),
                           )
                         ],
                       ),
@@ -102,7 +102,7 @@ class _AlternativeExportsState extends State<AlternativeExports> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(FontAwesomeIcons.fileExport),
+                        child: FaIcon(FontAwesomeIcons.fileExport),
                       )
                     ],
                   ),

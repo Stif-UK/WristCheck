@@ -89,7 +89,7 @@ class _RestoreState extends State<Restore> {
                         ),
                         Padding(
                           padding: _imagePadding(),
-                          child: const Icon(FontAwesomeIcons.fileCircleCheck),
+                          child: const FaIcon(FontAwesomeIcons.fileCircleCheck),
                         )
                       ],
                     ),
@@ -116,7 +116,7 @@ class _RestoreState extends State<Restore> {
                           ),
                           Padding(
                             padding: _imagePadding(),
-                            child: const Icon(FontAwesomeIcons.fileImport),
+                            child: const FaIcon(FontAwesomeIcons.fileImport),
                           )
                         ],
                       ),

@@ -75,7 +75,7 @@ class ValueTab extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.all(10.0),
-              child: Icon(FontAwesomeIcons.moneyCheckDollar),
+              child: FaIcon(FontAwesomeIcons.moneyCheckDollar),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),

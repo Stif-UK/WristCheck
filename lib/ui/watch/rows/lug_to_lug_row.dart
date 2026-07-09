@@ -15,7 +15,7 @@ class LugToLugRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return WatchFormField(
       keyboardType: TextInputType.numberWithOptions(decimal: true),
-      icon: const Icon(FontAwesomeIcons.ruler),
+      icon: const FaIcon(FontAwesomeIcons.ruler),
       enabled: enabled,
       fieldTitle: AppLocalizations.of(context)!.lug2lugRowTitle,
       hintText: AppLocalizations.of(context)!.lug2lugRowHintText,

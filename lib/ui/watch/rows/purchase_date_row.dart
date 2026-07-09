@@ -12,7 +12,7 @@ class PurchaseDateRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.calendar),
+        icon: const FaIcon(FontAwesomeIcons.calendar),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.purchaseDateRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.purchaseDateRowHintText,

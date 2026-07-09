@@ -90,7 +90,7 @@ class _WatchBoxState extends State<Watchbox> {
                       children: [
                         FittedBox(
                           child: DropdownButton<CollectionView>(
-                            icon: Icon(FontAwesomeIcons.angleDown),
+                            icon: FaIcon(FontAwesomeIcons.angleDown),
                             dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                             items: items.map(buildMenuItem).toList(),
                             value: collectionValue,
@@ -109,7 +109,7 @@ class _WatchBoxState extends State<Watchbox> {
                   ),
                 ),
           IconButton(
-              icon: Icon(FontAwesomeIcons.ellipsisVertical),
+              icon: FaIcon(FontAwesomeIcons.ellipsisVertical),
               onPressed: (){
                             showModalBottomSheet(
                               isScrollControlled: true,

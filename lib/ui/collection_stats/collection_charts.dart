@@ -119,8 +119,8 @@ class _CollectionChartsState extends State<CollectionCharts> {
                     ),
                     IconButton(
                       icon: widget.collectionStatsController.lug2lugChartType.value == Lug2lugChartEnum.line?
-                      Icon(FontAwesomeIcons.chartLine):
-                      Icon(FontAwesomeIcons.chartBar),
+                      FaIcon(FontAwesomeIcons.chartLine):
+                      FaIcon(FontAwesomeIcons.chartBar),
                       onPressed: (){
                         //On press swap between line and bar chart types
                         widget.collectionStatsController.lug2lugChartType.value == Lug2lugChartEnum.line ?
@@ -144,8 +144,8 @@ class _CollectionChartsState extends State<CollectionCharts> {
                     ),
                     IconButton(
                       icon: widget.collectionStatsController.caseThicknessChartType.value == CaseThicknessChartEnum.line?
-                      Icon(FontAwesomeIcons.chartLine):
-                      Icon(FontAwesomeIcons.chartBar),
+                      FaIcon(FontAwesomeIcons.chartLine):
+                      FaIcon(FontAwesomeIcons.chartBar),
                       onPressed: (){
                         //On press swap between line and bar chart types
                         widget.collectionStatsController.caseThicknessChartType.value == CaseThicknessChartEnum.line ?
@@ -199,7 +199,7 @@ class _CollectionChartsState extends State<CollectionCharts> {
             SizedBox(width: 24,),
             Expanded(child: Center(child: Text(AppLocalizations.of(context)!.costPerWear, style: Theme.of(context).textTheme.headlineSmall,))),
             IconButton(
-                icon: Icon(widget.collectionStatsController.showPrice.value? FontAwesomeIcons.dollarSign: Icons.money_off),
+                icon: Icon(widget.collectionStatsController.showPrice.value? Icons.attach_money: Icons.money_off),
             onPressed: (){
                   widget.collectionStatsController.updateShowPrice(!widget.collectionStatsController.showPrice.value);
             },)

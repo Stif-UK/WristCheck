@@ -32,12 +32,12 @@ class ValueData extends StatelessWidget {
           child: ListView(
             children: [
               ListTile(
-                leading: const Icon(FontAwesomeIcons.dollarSign),
+                leading: const FaIcon(FontAwesomeIcons.dollarSign),
                 title: Text(l!.collectionCost),
                 subtitle: Text(collectionCost == 0 ? l.noValue: NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(collectionCost),
                 style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
-                  icon: const Icon(FontAwesomeIcons.question),
+                  icon: const FaIcon(FontAwesomeIcons.question),
                   onPressed: (){
                     ValueDataHelpDialogs.getCurrentCollectionCostHelp();
                   },
@@ -45,12 +45,12 @@ class ValueData extends StatelessWidget {
               ),
               const Divider(thickness: 2,),
               ListTile(
-                leading: const Icon(FontAwesomeIcons.sackDollar),
+                leading: const FaIcon(FontAwesomeIcons.sackDollar),
                 title: Text(l.totalSpend),
                 subtitle: Text(totalSpend == 0 ? l.noValue: NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSpend),
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
-                  icon: const Icon(FontAwesomeIcons.question),
+                  icon: const FaIcon(FontAwesomeIcons.question),
                   onPressed: (){
                     ValueDataHelpDialogs.getTotalCollectionSpendHelp();
                   },
@@ -58,12 +58,12 @@ class ValueData extends StatelessWidget {
               ),
               const Divider(thickness: 2,),
               ListTile(
-                leading: const Icon(FontAwesomeIcons.handHoldingDollar),
+                leading: const FaIcon(FontAwesomeIcons.handHoldingDollar),
                 title: Text(l.totalSold),
                 subtitle: Text(totalSoldValue == 0 ? l.noValue : NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalSoldValue),
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
-                  icon: const Icon(FontAwesomeIcons.question),
+                  icon: const FaIcon(FontAwesomeIcons.question),
                   onPressed: (){
                     ValueDataHelpDialogs.getTotalSoldValueHelp();
                   },
@@ -71,12 +71,12 @@ class ValueData extends StatelessWidget {
               ),
               const Divider(thickness: 2,),
               ListTile(
-                leading: const Icon(FontAwesomeIcons.moneyBillTransfer),
+                leading: const FaIcon(FontAwesomeIcons.moneyBillTransfer),
                 title: Text(l.averageResale),
                 subtitle: Text(resaleRatio == 0? l.noDataTracked : "${l.resaleRatio} $resaleRatio%",
                   style: Theme.of(context).textTheme.bodyLarge,),
                 trailing: IconButton(
-                  icon: const Icon(FontAwesomeIcons.question),
+                  icon: const FaIcon(FontAwesomeIcons.question),
                   onPressed: (){
                     ValueDataHelpDialogs.getAverageResaleHelp();
                   },

@@ -22,14 +22,14 @@ class PurchaseApi{
       final offerings = await Purchases.getOfferings();
       final current = offerings.current;
       return current == null? [] : [current];
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       return [];
     }
   }
 
   static Future<bool> purchasePackage(Package package) async {
     try {
-      await Purchases.purchasePackage(package);
+      await Purchases.purchase(PurchaseParamsBuilder(package).build());
       showSuccessDialog();
       return true;
     } catch (e) {
@@ -75,7 +75,7 @@ class PurchaseApi{
       entitlementValid = customerInfo.entitlements.all["WristCheck Pro"]?.isActive ;
       print("Status: $entitlementValid");
       WristCheckPreferences.setLastEntitlementCheckDate(DateTime.now());
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       //WristCheckErrorHandling.handlePurchaseError(e);
     }
     //If the entitlement check shows the entitlement is not valid, remove pro status
@@ -90,11 +90,8 @@ class PurchaseApi{
     String returnString = "N/A";
     try {
       CustomerInfo customerInfo = await Purchases.getCustomerInfo();
-      if(customerInfo != null){
-        returnString = customerInfo.originalAppUserId;
-      }
-
-    } on PlatformException catch (e) {
+      returnString = customerInfo.originalAppUserId;
+    } on PlatformException catch (_) {
       //WristCheckErrorHandling.handlePurchaseError(e);
     }
     return returnString;

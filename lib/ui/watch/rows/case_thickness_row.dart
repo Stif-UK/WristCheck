@@ -15,7 +15,7 @@ class CaseThicknessRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return WatchFormField(
       keyboardType: TextInputType.numberWithOptions(decimal: true),
-      icon: const Icon(FontAwesomeIcons.rulerVertical),
+      icon: const FaIcon(FontAwesomeIcons.rulerVertical),
       enabled: enabled,
       fieldTitle: AppLocalizations.of(Get.context!)!.caseThicknessRowTitle,
       hintText: AppLocalizations.of(Get.context!)!.caseThicknessRowHintText,

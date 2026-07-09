@@ -164,7 +164,7 @@ class WristCheckDialogs {
           child: Column(
             //mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(FontAwesomeIcons.gripLines,
+              FaIcon(FontAwesomeIcons.gripLines,
                 size: Theme.of(Get.context!).textTheme.headlineMedium!.fontSize,
                 color: Theme.of(Get.context!).textTheme.headlineMedium!.color ,),
               Padding(

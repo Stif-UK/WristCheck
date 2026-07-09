@@ -93,7 +93,7 @@ final watchBox = Boxes.getWatches();
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: widget.wristCheckController.showDateList.value? Icon(FontAwesomeIcons.calendarDay) : Icon(FontAwesomeIcons.list),
+          child: widget.wristCheckController.showDateList.value? FaIcon(FontAwesomeIcons.calendarDay) : FaIcon(FontAwesomeIcons.list),
           onPressed: () => widget.wristCheckController.updateShowCalendar(!widget.wristCheckController.showDateList.value),
         ),
         body: widget.wristCheckController.showDateList.value?
@@ -104,7 +104,7 @@ final watchBox = Boxes.getWatches();
             purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
             Card(
               child: ListTile(
-                leading: Icon(FontAwesomeIcons.circleInfo),
+                leading: FaIcon(FontAwesomeIcons.circleInfo),
                 title: Text(l!.longPressToAddRemove),
                 trailing: SizedBox(width: 20, height: 20,),
                 tileColor: Theme.of(context).focusColor,
@@ -112,7 +112,7 @@ final watchBox = Boxes.getWatches();
             ),
             Card(
               child: ListTile(
-                leading: Icon(FontAwesomeIcons.calendar),
+                leading: FaIcon(FontAwesomeIcons.calendar),
                 title: Text(l.tapToAddMultipleDates),
                 onTap: (){
                   showModalBottomSheet(
@@ -298,7 +298,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
                 ),
               ),
               IconButton(
-                  icon: wristCheckController.dateAscenting.value? Icon(FontAwesomeIcons.arrowDown91): Icon(FontAwesomeIcons.arrowUp19),
+                  icon: wristCheckController.dateAscenting.value? FaIcon(FontAwesomeIcons.arrowDown91): FaIcon(FontAwesomeIcons.arrowUp19),
                 onPressed: () {
                   wristCheckController.updateDateAscending(!wristCheckController.dateAscenting.value);
                 },
@@ -320,7 +320,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
                   wristCheckController.updateDateListLength(watch.wearList.length);
                 },
                 child: ListTile(
-                  leading: Icon(FontAwesomeIcons.calendarDay),
+                  leading: FaIcon(FontAwesomeIcons.calendarDay),
                   title: Text("${WristCheckFormatter.getFormattedDate(watch.wearList[index])}"),
                 ),
                 background: Container(
@@ -331,7 +331,7 @@ Widget _buildListView(Watches watch, BuildContext context) {
                       Text(l!.deleting),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: const Icon(FontAwesomeIcons.trashCan),
+                        child: const FaIcon(FontAwesomeIcons.trashCan),
                       )
                     ],
                   ),),

@@ -24,7 +24,7 @@ class PeriodReviewEmpty extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(50.0),
-            child: Icon(FontAwesomeIcons.batteryQuarter, size: 40,),
+            child: FaIcon(FontAwesomeIcons.batteryQuarter, size: 40,),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),

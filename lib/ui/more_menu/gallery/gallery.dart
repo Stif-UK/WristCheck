@@ -218,7 +218,7 @@ Widget _getDataNotAvailableRow(){
       children: [
         const Padding(
           padding: EdgeInsets.all(20.0),
-          child: Icon(FontAwesomeIcons.eyeSlash),
+          child: FaIcon(FontAwesomeIcons.eyeSlash),
         ),
         Text(AppLocalizations.of(Get.context!)!.galleryEmptyFilterReturn,
           style: Theme.of(Get.context!).textTheme.headlineSmall ,

@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+    String? selectedDirectory = await FilePicker.getDirectoryPath();
     if (selectedDirectory == null) {
       return null;
     } else {
@@ -110,8 +110,8 @@ class BackupRestoreMethods {
   isn't utilised for the restore.
    */
   static Future<File?> pickBackupFile() async {
-    FilePicker.platform.clearTemporaryFiles();
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePicker.clearTemporaryFiles();
+    FilePickerResult? result = await FilePicker.pickFiles();
     File? file;
 
     if (result != null) {

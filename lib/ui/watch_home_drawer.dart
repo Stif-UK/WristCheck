@@ -95,7 +95,7 @@ class WatchHomeDrawer extends StatelessWidget {
 
           const Divider(thickness: 2,),
           ListTile(
-            trailing: const Icon(FontAwesomeIcons.instagram),
+            trailing: const FaIcon(FontAwesomeIcons.instagram),
             title: Text(AppLocalizations.of(context)!.follow),
             onTap: () async {
               analytics.logEvent(name: "social_link_clicked",
@@ -107,7 +107,7 @@ class WatchHomeDrawer extends StatelessWidget {
           ),
           const Divider(thickness: 2,),
           ListTile(
-            trailing: const Icon(FontAwesomeIcons.envelope),
+            trailing: const FaIcon(FontAwesomeIcons.envelope),
             title: Text(AppLocalizations.of(context)!.email),
             onTap: () async {
               analytics.logEvent(name: "email_link_clicked",

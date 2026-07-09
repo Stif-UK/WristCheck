@@ -12,7 +12,7 @@ class WarrantyEndRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return WatchFormField(
-        icon: const Icon(FontAwesomeIcons.screwdriverWrench),
+        icon: const FaIcon(FontAwesomeIcons.screwdriverWrench),
         enabled: enabled,
         fieldTitle: AppLocalizations.of(Get.context!)!.warrantyEndRowTitle,
         hintText: AppLocalizations.of(Get.context!)!.warrantyEndRowHintText,

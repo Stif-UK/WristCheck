@@ -14,7 +14,7 @@ class CaseDiameterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return WatchFormField(
       keyboardType: TextInputType.numberWithOptions(decimal: true),
-      icon: const Icon(FontAwesomeIcons.rulerCombined),
+      icon: const FaIcon(FontAwesomeIcons.rulerCombined),
       enabled: enabled,
       fieldTitle: AppLocalizations.of(Get.context!)!.caseDiameterRowTitle,
       hintText: AppLocalizations.of(Get.context!)!.caseDiameterRowHintText,

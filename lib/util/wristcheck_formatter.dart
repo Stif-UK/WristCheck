@@ -161,21 +161,21 @@ class WristCheckFormatter{
     return WinderDirectionEnumLocalization.fromDbString(direction);
   }
 
-  static Icon getWinderDirectionIcon(WinderDirectionEnum direction){
-    Icon returnIcon = Icon(Icons.watch);
+  static FaIcon getWinderDirectionIcon(WinderDirectionEnum direction){
+    FaIcon returnIcon = FaIcon(FontAwesomeIcons.notdef);
 
     switch(direction) {
       case WinderDirectionEnum.clockwise:
-        returnIcon = Icon(FontAwesomeIcons.rotateRight);
+        returnIcon = FaIcon(FontAwesomeIcons.rotateRight);
         break;
       case WinderDirectionEnum.counterclockwise:
-        returnIcon = Icon(FontAwesomeIcons.rotateLeft);
+        returnIcon = FaIcon(FontAwesomeIcons.rotateLeft);
         break;
       case WinderDirectionEnum.both:
-        returnIcon = Icon(FontAwesomeIcons.rotate);
+        returnIcon = FaIcon(FontAwesomeIcons.rotate);
         break;
       case WinderDirectionEnum.blank:
-        returnIcon = Icon(FontAwesomeIcons.rotate);
+        returnIcon = FaIcon(FontAwesomeIcons.rotate);
         break;
     }
 

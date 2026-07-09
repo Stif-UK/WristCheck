@@ -26,7 +26,7 @@ class WristRecapNotification extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 4.0, 0.0, 0.0),
-                  child: IconButton(icon: Icon(FontAwesomeIcons.xmark),
+                  child: IconButton(icon: FaIcon(FontAwesomeIcons.xmark),
                   onPressed: () => wristCheckController.dismissRecapNotification(DateTime.now()),),
                 )
               ],
@@ -63,7 +63,7 @@ class WristRecapNotification extends StatelessWidget {
             ),
           ),
           IconButton(
-              icon: Icon(FontAwesomeIcons.chevronRight),
+              icon: FaIcon(FontAwesomeIcons.chevronRight),
               onPressed: () {
                 var now = DateTime.now();
                 var lastMonth = DateTime(now.year, now.month - 1);
