@@ -107,13 +107,9 @@ class WristCheckController extends GetxController {
 
 
   //Set the watch view
-  updateWatchBoxView() async {
-    WatchBoxView newValue;
-    watchBoxView.value == WatchBoxView.list?
-    newValue = WatchBoxView.grid: newValue = WatchBoxView.list;
+  updateWatchBoxView(WatchBoxView newValue) async {
     await WristCheckPreferences.setWatchBoxView(newValue);
     watchBoxView(newValue);
-    update(); //Not sure if this line makes a difference...
   }
 
   //Update visibility of last worn date

@@ -83,7 +83,7 @@ class _ViewOptionsState extends State<ViewOptions> {
                               secondary: const Icon(FontAwesomeIcons.list),
                               value: WatchBoxView.list,
                               groupValue: widget.wristCheckController.watchBoxView.value,
-                              onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView()
+                              onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
                           ),
                         ),
                         Obx(()=> RadioListTile(
@@ -91,7 +91,15 @@ class _ViewOptionsState extends State<ViewOptions> {
                             secondary: const Icon(FontAwesomeIcons.grip),
                             value: WatchBoxView.grid,
                               groupValue: widget.wristCheckController.watchBoxView.value,
-                              onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView()
+                              onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
+                          ),
+                        ),
+                        Obx(()=> RadioListTile(
+                            title: Text(AppLocalizations.of(Get.context!)!.gallery),
+                            secondary: const Icon(FontAwesomeIcons.image),
+                            value: WatchBoxView.gallery,
+                              groupValue: widget.wristCheckController.watchBoxView.value,
+                              onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
                           ),
                         ),
               

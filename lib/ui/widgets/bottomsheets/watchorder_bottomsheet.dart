@@ -47,33 +47,43 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
           Row(
             children: [
               Obx(
-                    ()=> Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 8.0),
-                        child: Icon(Icons.list),
-                      ),
-                      Text(AppLocalizations.of(context)!.listViewTitle),
-                      Switch(
-                        value: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
-                        onChanged: (value) async {
-                          analytics.logEvent(name: "view_set",
-                              parameters: {
-                            "is_grid": value.toString()
-                              });
-                          widget.wristCheckController.updateWatchBoxView();
+                () => Expanded(
+                  child: Wrap(
+                    spacing: 8.0,
+                    children: [
+                      ChoiceChip(
+                        label: Text(AppLocalizations.of(context)!.listViewTitle),
+                        selected: widget.wristCheckController.watchBoxView.value == WatchBoxView.list,
+                        onSelected: (bool selected) {
+                          if (selected) {
+                            widget.wristCheckController.updateWatchBoxView(WatchBoxView.list);
+                            analytics.logEvent(name: "view_set", parameters: {"view": "list"});
+                          }
                         },
                       ),
-                      Text(AppLocalizations.of(context)!.gridViewTitle),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.grid_view),
-                      )
-                                        ],
-                                      ),
-                    ),
+                      ChoiceChip(
+                        label: Text(AppLocalizations.of(context)!.gridViewTitle),
+                        selected: widget.wristCheckController.watchBoxView.value == WatchBoxView.grid,
+                        onSelected: (bool selected) {
+                          if (selected) {
+                            widget.wristCheckController.updateWatchBoxView(WatchBoxView.grid);
+                            analytics.logEvent(name: "view_set", parameters: {"view": "grid"});
+                          }
+                        },
+                      ),
+                      ChoiceChip(
+                        label: Text(AppLocalizations.of(context)!.gallery),
+                        selected: widget.wristCheckController.watchBoxView.value == WatchBoxView.gallery,
+                        onSelected: (bool selected) {
+                          if (selected) {
+                            widget.wristCheckController.updateWatchBoxView(WatchBoxView.gallery);
+                            analytics.logEvent(name: "view_set", parameters: {"view": "gallery"});
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               IconButton(
                   icon: Icon(FontAwesomeIcons.magnifyingGlass),

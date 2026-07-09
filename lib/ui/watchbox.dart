@@ -15,6 +15,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/search/search_widget.dart';
+import 'package:wristcheck/ui/widgets/watchbox_galleryview.dart';
 import 'package:wristcheck/ui/widgets/watchbox_gridview.dart';
 import 'package:wristcheck/ui/widgets/watchbox_listview.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/watchorder_bottomsheet.dart';
@@ -128,16 +129,29 @@ class _WatchBoxState extends State<Watchbox> {
           ValueListenableBuilder(
             valueListenable: watchBox.listenable(),
             builder: (context, box, _) {
-              return Obx(() =>
-              widget.wristCheckController.watchBoxView.value ==
-                  WatchBoxView.list ?
-              WatchboxListView(collectionValue: collectionValue!,
-                  watchOrder: widget.wristCheckController.watchboxOrder.value!)
-                  : WatchboxGridView(collectionValue: collectionValue!,
-                  watchOrder: widget.wristCheckController.watchboxOrder.value!));
-
-            }
-    )
+              return Obx(() {
+                final view = widget.wristCheckController.watchBoxView.value;
+                final order = widget.wristCheckController.watchboxOrder.value!;
+                
+                if (view == WatchBoxView.list) {
+                  return WatchboxListView(
+                    collectionValue: collectionValue!,
+                    watchOrder: order,
+                  );
+                } else if (view == WatchBoxView.grid) {
+                  return WatchboxGridView(
+                    collectionValue: collectionValue!,
+                    watchOrder: order,
+                  );
+                } else {
+                  return WatchboxGalleryView(
+                    collectionValue: collectionValue!,
+                    watchOrder: order,
+                  );
+                }
+              });
+            },
+          )
 
         ]
 

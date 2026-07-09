@@ -1,1 +1,1 @@
-enum WatchBoxView {list, grid}
+enum WatchBoxView {list, grid, gallery}

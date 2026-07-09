@@ -482,6 +482,10 @@ class WristCheckPreferences {
         returnValue = WatchBoxView.grid;
       }
       break;
+      case "WatchBoxView.gallery":{
+        returnValue = WatchBoxView.gallery;
+      }
+      break;
       default:{
         returnValue = WatchBoxView.list;
       }
