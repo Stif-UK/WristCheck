@@ -37,7 +37,7 @@ class WhatsNewCopy{
                       "* Option to search watch notes added\n"
                       "* Critical bug preventing data backups on iOS resolved\n"
                       "* Core development library updated to latest SDK\n"
-                      "* Multiple internal libraries and build tooling updated"
+                      "* Multiple internal libraries and build tooling updated\n"
 
                       "### Version 1.17.1 \n"
                       "\n"
