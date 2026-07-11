@@ -5,14 +5,14 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.17.1 \n"
+        "### Version 1.18.0 \n"
         "\n"
 
-            "* App translated into multiple languages\n"
-            "* Multiple new currencies added, along with quick search to set\n"
-            "* UI improvements to watchbox list and grid views\n"
-            "* UI improvements to watch gallery view\n"
-            "* New 'On Loan' status for watches\n"
+            "* Wrist Recap Updated\n"
+            "* Monthly & Annual Wrist Recap reminders created\n"
+            "* Image only 'gallery' option for main watchbox\n"
+            "* Watchbox search updated to show more detail\n"
+            "* Option to search watch notes added\n"
             "* Additional small enhancements and bug fixes";
 
   }
@@ -27,6 +27,18 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.18.0 \n"
+                      "\n"
+
+                      "* Wrist Recap Updated\n"
+                      "* Monthly & Annual Wrist Recap reminders created\n"
+                      "* Image only 'gallery' option for main watchbox\n"
+                      "* Watchbox search updated to show more detail\n"
+                      "* Option to search watch notes added\n"
+                      "* Critical bug preventing data backups on iOS resolved\n"
+                      "* Core development library updated to latest SDK\n"
+                      "* Multiple internal libraries and build tooling updated"
+
                       "### Version 1.17.1 \n"
                       "\n"
 
