@@ -162,18 +162,20 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
 
-          GestureDetector(
-            onTap: (){
-              _clickCount = _clickCount+1;
-              if(_clickCount > 5){
-                Get.to(() => const DeveloperStats());
-              }
-            },
-            child: SizedBox(
-              height: 50,
-              child: Text("${AppLocalizations.of(context)!.appVersion}$_buildVersion"),
+          SafeArea(
+            child: GestureDetector(
+              onTap: (){
+                _clickCount = _clickCount+1;
+                if(_clickCount > 5){
+                  Get.to(() => const DeveloperStats());
+                }
+              },
+              child: SizedBox(
+                height: 50,
+                child: Text("${AppLocalizations.of(context)!.appVersion}$_buildVersion"),
+              ),
             ),
-          )
+          ), 
         ],
       ),
 
