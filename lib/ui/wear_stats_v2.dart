@@ -53,7 +53,7 @@ class _WearStatsState extends State<WearStatsV2> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Wear Stats"),
+          title: Text(AppLocalizations.of(context)!.wearStatsButton),
           actions: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0,0,4,0),
