@@ -55,6 +55,7 @@ class _WatchViewState extends State<WatchView> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    widget.watchViewController.updateOverrideBacknav(false);
     super.initState();
   }
 
@@ -174,9 +175,6 @@ class _WatchViewState extends State<WatchView> {
   Widget build(BuildContext context) {
     //Variable for the final tab index, to ensure next tab button shows on the correct screens when app is pro
     int finalTabIndex = widget.wristCheckController.isAppPro.value ? 4 : 3;
-
-    //initialise override back nav to false
-    widget.watchViewController.updateOverrideBacknav(false);
 
     //On build initialise watchViewController values
     //On first build default edit state - only default to true if this is a new watch record
@@ -368,21 +366,31 @@ class _WatchViewState extends State<WatchView> {
     }
 
     //Wrap page in PopScope to give control of back navigation, in the event changes have been made but not saved
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (_) async {
+    return Obx(() => PopScope(
+      canPop: widget.watchViewController.overrideBackNav.value,
+      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+          if (didPop) return;
+
           // Check if changes have been made to the data on the page
           final backNavigationAllowed = await isBackNavigationAllowed();
 
-          if (backNavigationAllowed || widget.watchViewController.overrideBackNav.value) {
-            Get.back();
+          if (backNavigationAllowed) {
+            widget.watchViewController.updateOverrideBacknav(true);
+            // Use a microtask to allow the Obx/PopScope to rebuild with canPop: true
+            // before the next pop attempt. This fixes the issue where back navigation
+            // would fail on the first attempt after a state change.
+            Future.microtask(() => Navigator.of(context).pop());
           } else {
             Get.defaultDialog(
                 title: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesTitle,
                 content: Text(AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesCopy),
                 textConfirm: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesExitOption,
                 textCancel: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesContinueEditingOption,
-                onConfirm: ()=> Get.back(closeOverlays: true),
+                onConfirm: (){
+                  widget.watchViewController.updateOverrideBacknav(true);
+                  Get.back(); // Close dialog
+                  Future.microtask(() => Navigator.of(context).pop()); // Close page
+                },
                 onCancel: (){}
             );
           }
@@ -561,7 +569,6 @@ class _WatchViewState extends State<WatchView> {
                                             ? _addWatchButton()
                                             : const SizedBox(height: 0,),
 
-                                        //implement a save button to show when in an edit state
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.edit
                                             ?  _saveWatchUpdateButton()
                                             : const SizedBox(height: 0,)
@@ -576,7 +583,7 @@ class _WatchViewState extends State<WatchView> {
                         ))
                   ],
                 ),
-              ));
+              )));
             }
 
   Widget _nextTabButton(){
@@ -790,8 +797,4 @@ class _WatchViewState extends State<WatchView> {
 
     return returnValue;
   }
-
-
-    }
-
-
+}

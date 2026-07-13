@@ -64,7 +64,7 @@ class _TimeSettingState extends State<TimeSetting> {
 
     updateTime();
     return PopScope(
-      onPopInvoked: (bool didPop) => widget.timeController.updateIsTimerActive(!didPop),
+      onPopInvokedWithResult: (bool didPop, dynamic result) => widget.timeController.updateIsTimerActive(!didPop),
       child: Obx(() => Column(
           children: [
             Column(
