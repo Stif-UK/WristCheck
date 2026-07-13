@@ -1594,6 +1594,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showWarrantyEndDates => 'Show warranty end dates.';
 
   @override
+  String get timelineEmptyData =>
+      'No data was found to display.\n\nAdd dates to the \'schedule\' tab for your watches to populate your timeline.';
+
+  @override
   String get privacyPolicy => 'Privacy Policy';
 
   @override

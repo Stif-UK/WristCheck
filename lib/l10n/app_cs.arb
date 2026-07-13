@@ -550,6 +550,7 @@
   "showLastServicedDates" : "Zobrazit data posledního servisu.",
   "showNextServiceDates" : "Zobrazit data příštího servisu.",
   "showWarrantyEndDates" : "Zobrazit data konce záruky.",
+  "timelineEmptyData" : "Nebyly nalezeny žádné údaje k zobrazení.\n\nPřidejte data na záložku 'Termíny' u svých hodinek, aby se naplnila vaše časová osa.",
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Zásady ochrany osobních údajů",

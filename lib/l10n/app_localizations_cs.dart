@@ -1622,6 +1622,10 @@ class AppLocalizationsCs extends AppLocalizations {
   String get showWarrantyEndDates => 'Zobrazit data konce záruky.';
 
   @override
+  String get timelineEmptyData =>
+      'Nebyly nalezeny žádné údaje k zobrazení.\n\nPřidejte data na záložku \'Termíny\' u svých hodinek, aby se naplnila vaše časová osa.';
+
+  @override
   String get privacyPolicy => 'Zásady ochrany osobních údajů';
 
   @override

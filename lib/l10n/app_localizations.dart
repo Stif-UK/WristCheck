@@ -3010,6 +3010,12 @@ abstract class AppLocalizations {
   /// **'Show warranty end dates.'**
   String get showWarrantyEndDates;
 
+  /// No description provided for @timelineEmptyData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data was found to display.\n\nAdd dates to the \'schedule\' tab for your watches to populate your timeline.'**
+  String get timelineEmptyData;
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:

@@ -1617,6 +1617,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showWarrantyEndDates => 'Garantie-Ablaufdaten anzeigen.';
 
   @override
+  String get timelineEmptyData =>
+      'Es wurden keine Daten zur Anzeige gefunden.\n\nFüge Termine im Reiter \'Termine\' deiner Uhren hinzu, um deine Timeline zu füllen.';
+
+  @override
   String get privacyPolicy => 'Datenschutzerklärung';
 
   @override

@@ -550,6 +550,7 @@
   "showLastServicedDates" : "Mostrar fechas de último mantenimiento.",
   "showNextServiceDates" : "Mostrar fechas de próximo mantenimiento.",
   "showWarrantyEndDates" : "Mostrar fechas de fin de garantía.",
+  "timelineEmptyData" : "No se encontraron datos para mostrar.\n\nAñade fechas a la pestaña 'Fechas' de tus relojes para completar tu línea de tiempo.",
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Política de Privacidad",

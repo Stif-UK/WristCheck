@@ -1627,6 +1627,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showWarrantyEndDates => 'Показывать сроки окончания гарантии.';
 
   @override
+  String get timelineEmptyData =>
+      'Данные для отображения не найдены.\n\nДобавьте даты во вкладку «Даты» в карточках ваших часов, чтобы заполнить хронику.';
+
+  @override
   String get privacyPolicy => 'Политика конфиденциальности';
 
   @override

@@ -224,7 +224,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categoryChartTitle => 'Graphique des catégories';
 
   @override
-  String get wearChartTitle => 'Graphique des portées';
+  String get wearChartTitle => 'Graphique des portés';
 
   @override
   String get statusChartTitle => 'Graphique des statuts';
@@ -1617,6 +1617,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get showWarrantyEndDates =>
       'Afficher las dates d\'expiration de la garantie.';
+
+  @override
+  String get timelineEmptyData =>
+      'Aucune donnée n\'a été trouvée pour l\'affichage.\n\nAjoutez des dates dans l\'onglet \'Dates\' de vos montres pour remplir votre chronologie.';
 
   @override
   String get privacyPolicy => 'Politique de confidentialité';

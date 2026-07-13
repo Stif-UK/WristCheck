@@ -550,6 +550,7 @@
   "showLastServicedDates" : "Letzte Servicetermine anzeigen.",
   "showNextServiceDates" : "Anstehende Servicetermine anzeigen.",
   "showWarrantyEndDates" : "Garantie-Ablaufdaten anzeigen.",
+  "timelineEmptyData" : "Es wurden keine Daten zur Anzeige gefunden.\n\nFüge Termine im Reiter 'Termine' deiner Uhren hinzu, um deine Timeline zu füllen.",
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Datenschutzerklärung",

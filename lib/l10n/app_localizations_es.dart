@@ -1610,6 +1610,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get showWarrantyEndDates => 'Mostrar fechas de fin de garantía.';
 
   @override
+  String get timelineEmptyData =>
+      'No se encontraron datos para mostrar.\n\nAñade fechas a la pestaña \'Fechas\' de tus relojes para completar tu línea de tiempo.';
+
+  @override
   String get privacyPolicy => 'Política de Privacidad';
 
   @override

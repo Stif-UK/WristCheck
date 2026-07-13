@@ -90,7 +90,7 @@
   "watchesWornTitle" : "Montres portées :",
   "brandChartTitle" : "Graphique des marques",
   "categoryChartTitle" : "Graphique des catégories",
-  "wearChartTitle" : "Graphique des portées",
+  "wearChartTitle" : "Graphique des portés",
   "statusChartTitle" : "Graphique des statuts",
   "insightsTitle" : "Aperçus",
   "watchesWornInsightTitle" : "Montres portées",
@@ -549,6 +549,7 @@
   "showLastServicedDates" : "Afficher les dates du dernier entretien.",
   "showNextServiceDates" : "Afficher les dates du prochain entretien.",
   "showWarrantyEndDates" : "Afficher las dates d'expiration de la garantie.",
+  "timelineEmptyData" : "Aucune donnée n'a été trouvée pour l'affichage.\n\nAjoutez des dates dans l'onglet 'Dates' de vos montres pour remplir votre chronologie.",
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Politique de confidentialité",
