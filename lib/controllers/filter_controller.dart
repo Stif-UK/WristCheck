@@ -41,6 +41,7 @@ class FilterController extends GetxController{
   final searchIncludeSold = false.obs;
   final searchIncludeRetired = false.obs;
   final searchIncludeOnLoan = true.obs;
+  final searchIncludeWishlist = false.obs;
 
   List<String> yearList = [allYearsSentinel];
 
@@ -169,6 +170,10 @@ class FilterController extends GetxController{
 
   updateSearchIncludeOnLoan(bool newValue){
     searchIncludeOnLoan(newValue);
+  }
+
+  updateSearchIncludeWishlist(bool newValue){
+    searchIncludeWishlist(newValue);
   }
 
   populateYearList(){

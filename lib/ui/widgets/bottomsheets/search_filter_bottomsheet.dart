@@ -58,6 +58,11 @@ class SearchFilterBottomSheet extends StatelessWidget {
             value: filterController.searchIncludeOnLoan.value,
             onChanged: (val) => filterController.updateSearchIncludeOnLoan(val),
           )),
+          Obx(() => SwitchListTile(
+            title: Text(AppLocalizations.of(context)!.wishlist),
+            value: filterController.searchIncludeWishlist.value,
+            onChanged: (val) => filterController.updateSearchIncludeWishlist(val),
+          )),
           const SizedBox(height: 20),
         ],
       ),

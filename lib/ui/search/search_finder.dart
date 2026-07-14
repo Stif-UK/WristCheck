@@ -84,12 +84,14 @@ class _SearchFinderState extends State<SearchFinder> {
                 final incSold = filterController.searchIncludeSold.value;
                 final incRetired = filterController.searchIncludeRetired.value;
                 final incOnLoan = filterController.searchIncludeOnLoan.value;
+                final incWishlist = filterController.searchIncludeWishlist.value;
 
                 final baseList = watchBox.values.where((w) {
                   if (!incArchived && w.status == WatchStatusEnum.archived.toDbString()) return false;
                   if (!incSold && w.status == WatchStatusEnum.sold.toDbString()) return false;
                   if (!incRetired && w.status == WatchStatusEnum.retired.toDbString()) return false;
                   if (!incOnLoan && w.status == WatchStatusEnum.onLoan.toDbString()) return false;
+                  if (!incWishlist && w.status == WatchStatusEnum.wishlist.toDbString()) return false;
                   return true;
                 }).toList();
 
