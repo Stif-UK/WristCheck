@@ -232,7 +232,7 @@ class _NotificationsState extends State<Notifications> {
     //Duplication of _setNotification for a second reminder
     Future<void> _setSecondNotification(TimeOfDay? customTime) async {
     _secondTime = customTime!.format(context);//customTime.toString();
-    await WristCheckPreferences.setSecondNotificationTime(_selectedTime!);
+    await WristCheckPreferences.setSecondNotificationTime(_secondTime!);
     notificationService.showScheduledNotification(id: 2, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoBody, time: customTime!);
     String timeString = _secondTime!;//.substring(10, _secondTime!.length-1);
     notificationService.showNotification(id: 0, title: AppLocalizations.of(context)!.notificationTitle, body: AppLocalizations.of(context)!.notificationTwoConfirmationBody(timeString));
