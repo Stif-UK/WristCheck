@@ -62,15 +62,7 @@ class CustomMoonWidget extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Colors.black,
         shape: BoxShape.circle,
-        image: detailedMoon
-            ? const DecorationImage(
-                image: AssetImage('assets/img/grayscale_moon.png'),
-                fit: BoxFit.cover,
-              )
-            : null,
-        border: Border.all(color: Colors.yellow.withOpacity(0.3), width: 1.0),
         boxShadow: [
           BoxShadow(
             color: Colors.yellow.withOpacity(0.4),
@@ -79,8 +71,43 @@ class CustomMoonWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: CustomPaint(
-        painter: _MoonPainter(phase),
+      child: ClipOval(
+        child: Stack(
+          children: [
+            // Base background
+            Container(color: Colors.black),
+            
+            // Moon Image (only if detailedMoon is true)
+            if (detailedMoon)
+              Center(
+                child: Transform.scale(
+                  scale: 1.5, // Slightly scale up to ensure it fills the circular area
+                  child: Image.asset(
+                    'assets/img/grayscale_moon.png',
+                    fit: BoxFit.cover,
+                    width: size,
+                    height: size,
+                  ),
+                ),
+              ),
+            
+            // Phase Painter
+            CustomPaint(
+              size: Size(size, size),
+              painter: _MoonPainter(phase, detailedMoon: detailedMoon),
+            ),
+            
+            // Overlay Border
+            IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.yellow.withOpacity(0.3), width: 1.0),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -88,69 +115,124 @@ class CustomMoonWidget extends StatelessWidget {
 
 class _MoonPainter extends CustomPainter {
   final double phase;
+  final bool detailedMoon;
 
-  _MoonPainter(this.phase);
+  _MoonPainter(this.phase, {required this.detailedMoon});
 
   @override
   void paint(Canvas canvas, Size size) {
     final double radius = size.width / 2;
     final Offset center = Offset(radius, radius);
-    final Paint yellowPaint = Paint()..color = Colors.yellow;
-    final Paint blackPaint = Paint()..color = Colors.black;
+    final Paint paint = Paint()..style = PaintingStyle.fill;
 
-    double illumination = cos(2 * pi * phase);
+    // illumination < 0 means Gibbous (more than half)
+    // illumination > 0 means Crescent (less than half)
+    final double illumination = cos(2 * pi * phase);
+    final bool isWaxing = phase <= 0.5;
 
-    if (phase <= 0.5) {
-      // Waxing (New -> First Quarter -> Full)
-      // Illuminated side is on the right.
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        -pi / 2,
-        pi,
-        true,
-        yellowPaint,
-      );
+    if (detailedMoon) {
+      // When detailed, we have the image in the background.
+      // We need to paint the SHADOW (black) on top.
+      paint.color = Colors.black;
 
-      if (illumination >= 0) {
-        // Crescent
-        canvas.drawOval(
-          Rect.fromCenter(center: center, width: radius * 2 * illumination, height: radius * 2),
-          blackPaint,
-        );
+      Path darkPath = Path();
+      if (isWaxing) {
+        // Waxing: Shadow is primarily on the LEFT
+        darkPath.addArc(Rect.fromCircle(center: center, radius: radius), pi / 2, pi);
+
+        if (illumination >= 0) {
+          // Crescent (0 to 0.25): Most of the right side is also dark
+          darkPath.addOval(Rect.fromCenter(
+            center: center,
+            width: radius * 2 * illumination,
+            height: radius * 2,
+          ));
+        } else {
+          // Gibbous (0.25 to 0.5): Part of the left side shadow is actually lit
+          Path ovalPath = Path()
+            ..addOval(Rect.fromCenter(
+              center: center,
+              width: radius * 2 * illumination.abs(),
+              height: radius * 2,
+            ));
+          darkPath = Path.combine(PathOperation.difference, darkPath, ovalPath);
+        }
       } else {
-        // Gibbous
-        canvas.drawOval(
-          Rect.fromCenter(center: center, width: radius * 2 * illumination.abs(), height: radius * 2),
-          yellowPaint,
-        );
+        // Waning: Shadow is primarily on the RIGHT
+        darkPath.addArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, pi);
+
+        if (illumination >= 0) {
+          // Crescent (0.75 to 1.0): Most of the left side is also dark
+          darkPath.addOval(Rect.fromCenter(
+            center: center,
+            width: radius * 2 * illumination,
+            height: radius * 2,
+          ));
+        } else {
+          // Gibbous (0.5 to 0.75): Part of the right side shadow is actually lit
+          Path ovalPath = Path()
+            ..addOval(Rect.fromCenter(
+              center: center,
+              width: radius * 2 * illumination.abs(),
+              height: radius * 2,
+            ));
+          darkPath = Path.combine(PathOperation.difference, darkPath, ovalPath);
+        }
       }
+      canvas.drawPath(darkPath, paint);
     } else {
-      // Waning (Full -> Last Quarter -> New)
-      // Illuminated side is on the left.
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        pi / 2,
-        pi,
-        true,
-        yellowPaint,
-      );
+      // Standard mode: Background is black, paint LIGHT (yellow) on top.
+      paint.color = Colors.yellow;
 
-      if (illumination >= 0) {
-        // Crescent
-        canvas.drawOval(
-          Rect.fromCenter(center: center, width: radius * 2 * illumination, height: radius * 2),
-          blackPaint,
-        );
+      Path lightPath = Path();
+      if (isWaxing) {
+        // Waxing: Light is on the RIGHT
+        lightPath.addArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, pi);
+
+        if (illumination >= 0) {
+          // Crescent: sliver of light on far right
+          Path ovalPath = Path()
+            ..addOval(Rect.fromCenter(
+              center: center,
+              width: radius * 2 * illumination,
+              height: radius * 2,
+            ));
+          lightPath = Path.combine(PathOperation.difference, lightPath, ovalPath);
+        } else {
+          // Gibbous: light on right plus extra on left
+          lightPath.addOval(Rect.fromCenter(
+            center: center,
+            width: radius * 2 * illumination.abs(),
+            height: radius * 2,
+          ));
+        }
       } else {
-        // Gibbous
-        canvas.drawOval(
-          Rect.fromCenter(center: center, width: radius * 2 * illumination.abs(), height: radius * 2),
-          yellowPaint,
-        );
+        // Waning: Light is on the LEFT
+        lightPath.addArc(Rect.fromCircle(center: center, radius: radius), pi / 2, pi);
+
+        if (illumination >= 0) {
+          // Crescent: sliver of light on far left
+          Path ovalPath = Path()
+            ..addOval(Rect.fromCenter(
+              center: center,
+              width: radius * 2 * illumination,
+              height: radius * 2,
+            ));
+          lightPath = Path.combine(PathOperation.difference, lightPath, ovalPath);
+        } else {
+          // Gibbous: light on left plus extra on right
+          lightPath.addOval(Rect.fromCenter(
+            center: center,
+            width: radius * 2 * illumination.abs(),
+            height: radius * 2,
+          ));
+        }
       }
+      canvas.drawPath(lightPath, paint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _MoonPainter oldDelegate) => oldDelegate.phase != phase;
+  bool shouldRepaint(covariant _MoonPainter oldDelegate) =>
+      oldDelegate.phase != phase || oldDelegate.detailedMoon != detailedMoon;
 }
