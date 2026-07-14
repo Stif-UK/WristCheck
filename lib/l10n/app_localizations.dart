@@ -1486,6 +1486,12 @@ abstract class AppLocalizations {
   /// **'Include On Loan Watches'**
   String get includeOnLoanWatches;
 
+  /// No description provided for @includeWishlistedWatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Wishlisted Watches'**
+  String get includeWishlistedWatches;
+
   /// No description provided for @filterByCategory.
   ///
   /// In en, this message translates to:

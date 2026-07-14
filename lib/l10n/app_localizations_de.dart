@@ -740,6 +740,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get includeOnLoanWatches => 'Ausgeliehene Uhren einschließen';
 
   @override
+  String get includeWishlistedWatches =>
+      'Uhren auf der Wunschliste einschließen';
+
+  @override
   String get filterByCategory => 'Nach Kategorie filtern';
 
   @override

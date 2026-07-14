@@ -266,6 +266,7 @@
   "includeRetiredWatches" : "Ausgemusterte Uhren einschließen",
   "includeArchivedWatches" : "Archivierte Uhren einschließen",
   "includeOnLoanWatches" : "Ausgeliehene Uhren einschließen",
+  "includeWishlistedWatches" : "Uhren auf der Wunschliste einschließen",
   "filterByCategory" : "Nach Kategorie filtern",
   "filterByMovement" : "Nach Uhrwerk filtern",
   "allData" : "Alle Daten",

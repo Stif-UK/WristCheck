@@ -269,6 +269,7 @@
   "includeRetiredWatches" : "Include Retired Watches",
   "includeArchivedWatches" : "Include Archived Watches",
   "includeOnLoanWatches" : "Include On Loan Watches",
+  "includeWishlistedWatches" : "Include Wishlisted Watches",
   "filterByCategory" : "Filter by Category",
   "filterByMovement" : "Filter by Movement",
   "allData" : "All Data",

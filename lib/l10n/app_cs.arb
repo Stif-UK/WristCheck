@@ -266,6 +266,7 @@
   "includeRetiredWatches" : "Zahrnout vyřazené hodinky",
   "includeArchivedWatches" : "Zahrnout archivované hodinky",
   "includeOnLoanWatches" : "Zahrnout zapůjčené hodinky",
+  "includeWishlistedWatches" : "Zahrnout hodinky ze seznamu přání",
   "filterByCategory" : "Filtrovat podle kategorie",
   "filterByMovement" : "Filtrovat podle strojku",
   "allData" : "Všechna data",

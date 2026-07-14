@@ -266,6 +266,7 @@
   "includeRetiredWatches" : "Inclure les montres retirées",
   "includeArchivedWatches" : "Inclure les montres archivées",
   "includeOnLoanWatches" : "Inclure les montres en prêt",
+  "includeWishlistedWatches" : "Inclure les montres de la liste d’envies",
   "filterByCategory" : "Filtrer par catégorie",
   "filterByMovement" : "Filtrer par mouvement",
   "allData" : "Toutes les données",

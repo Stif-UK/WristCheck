@@ -739,6 +739,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get includeOnLoanWatches => 'Включая выданные часы';
 
   @override
+  String get includeWishlistedWatches => 'Включая часы из списка желаний';
+
+  @override
   String get filterByCategory => 'Фильтр по категориям';
 
   @override

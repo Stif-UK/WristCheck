@@ -742,6 +742,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get includeOnLoanWatches => 'Incluir Relojes Prestados';
 
   @override
+  String get includeWishlistedWatches => 'Incluir Relojes en Lista de Deseos';
+
+  @override
   String get filterByCategory => 'Filtrar por Categoría';
 
   @override

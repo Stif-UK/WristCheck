@@ -737,6 +737,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get includeOnLoanWatches => 'Include On Loan Watches';
 
   @override
+  String get includeWishlistedWatches => 'Include Wishlisted Watches';
+
+  @override
   String get filterByCategory => 'Filter by Category';
 
   @override

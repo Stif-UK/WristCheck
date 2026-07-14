@@ -266,6 +266,7 @@
   "includeRetiredWatches" : "Включая выведенные часы",
   "includeArchivedWatches" : "Включая архивные часы",
   "includeOnLoanWatches" : "Включая выданные часы",
+  "includeWishlistedWatches" : "Включая часы из списка желаний",
   "filterByCategory" : "Фильтр по категориям",
   "filterByMovement" : "Фильтр по механизмам",
   "allData" : "Все данные",

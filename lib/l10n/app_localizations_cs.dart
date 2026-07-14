@@ -738,6 +738,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get includeOnLoanWatches => 'Zahrnout zapůjčené hodinky';
 
   @override
+  String get includeWishlistedWatches => 'Zahrnout hodinky ze seznamu přání';
+
+  @override
   String get filterByCategory => 'Filtrovat podle kategorie';
 
   @override
