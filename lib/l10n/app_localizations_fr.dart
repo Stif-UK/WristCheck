@@ -2022,6 +2022,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get searchOptionsTitle => 'Options de recherche';
 
   @override
+  String get searchByNotesLabel => 'Rechercher dans les notes';
+
+  @override
   String get noResultsFound => 'Aucun résultat trouvé';
 
   @override

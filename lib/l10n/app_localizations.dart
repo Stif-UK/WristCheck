@@ -3742,6 +3742,12 @@ abstract class AppLocalizations {
   /// **'Search Options'**
   String get searchOptionsTitle;
 
+  /// No description provided for @searchByNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search notes'**
+  String get searchByNotesLabel;
+
   /// No description provided for @noResultsFound.
   ///
   /// In en, this message translates to:

@@ -700,6 +700,7 @@
   "@_SEARCH" : {},
   "search" : "Поиск",
   "searchOptionsTitle" : "Параметры поиска",
+  "searchByNotesLabel" : "Поиск по заметкам",
   "noResultsFound" :  "Ничего не найдено",
 
   "@_VARIABLES": {},

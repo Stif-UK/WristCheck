@@ -702,6 +702,7 @@
   "@_SEARCH" : {},
   "search" : "Search",
   "searchOptionsTitle" : "Search Options",
+  "searchByNotesLabel" : "Search notes",
   "noResultsFound" :  "No Results Found",
 
   "@_VARIABLES": {},

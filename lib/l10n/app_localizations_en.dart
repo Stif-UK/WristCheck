@@ -1995,6 +1995,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchOptionsTitle => 'Search Options';
 
   @override
+  String get searchByNotesLabel => 'Search notes';
+
+  @override
   String get noResultsFound => 'No Results Found';
 
   @override

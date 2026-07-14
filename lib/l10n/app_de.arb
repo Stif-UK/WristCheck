@@ -700,6 +700,7 @@
   "@_SEARCH" : {},
   "search" : "Suchen",
   "searchOptionsTitle" : "Suchoptionen",
+  "searchByNotesLabel" : "Notizen durchsuchen",
   "noResultsFound" :  "Keine Ergebnisse gefunden",
 
   "@_VARIABLES": {},

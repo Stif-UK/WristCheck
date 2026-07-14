@@ -2031,6 +2031,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchOptionsTitle => 'Параметры поиска';
 
   @override
+  String get searchByNotesLabel => 'Поиск по заметкам';
+
+  @override
   String get noResultsFound => 'Ничего не найдено';
 
   @override

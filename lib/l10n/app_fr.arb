@@ -699,6 +699,7 @@
   "@_SEARCH" : {},
   "search" : "Rechercher",
   "searchOptionsTitle" : "Options de recherche",
+  "searchByNotesLabel" : "Rechercher dans les notes",
   "noResultsFound" : "Aucun résultat trouvé",
 
   "@_VARIABLES": {},

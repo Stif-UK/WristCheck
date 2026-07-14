@@ -2014,6 +2014,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get searchOptionsTitle => 'Opciones de búsqueda';
 
   @override
+  String get searchByNotesLabel => 'Buscar en notas';
+
+  @override
   String get noResultsFound => 'No se Encontraron Resultados';
 
   @override

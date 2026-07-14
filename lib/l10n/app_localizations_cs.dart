@@ -2024,6 +2024,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get searchOptionsTitle => 'Možnosti hledání';
 
   @override
+  String get searchByNotesLabel => 'Hledat v poznámkách';
+
+  @override
   String get noResultsFound => 'Nebyly nalezeny žádné výsledky';
 
   @override
