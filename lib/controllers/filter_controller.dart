@@ -37,6 +37,10 @@ class FilterController extends GetxController{
 
   final searchByWatchName = true.obs;
   final searchByNotes = false.obs;
+  final searchIncludeArchived = false.obs;
+  final searchIncludeSold = false.obs;
+  final searchIncludeRetired = false.obs;
+  final searchIncludeOnLoan = true.obs;
 
   List<String> yearList = [allYearsSentinel];
 
@@ -149,6 +153,22 @@ class FilterController extends GetxController{
 
   updateSearchByNotes(bool newValue){
     searchByNotes(newValue);
+  }
+
+  updateSearchIncludeArchived(bool newValue){
+    searchIncludeArchived(newValue);
+  }
+
+  updateSearchIncludeSold(bool newValue){
+    searchIncludeSold(newValue);
+  }
+
+  updateSearchIncludeRetired(bool newValue){
+    searchIncludeRetired(newValue);
+  }
+
+  updateSearchIncludeOnLoan(bool newValue){
+    searchIncludeOnLoan(newValue);
   }
 
   populateYearList(){

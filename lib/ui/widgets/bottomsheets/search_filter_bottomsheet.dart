@@ -38,6 +38,26 @@ class SearchFilterBottomSheet extends StatelessWidget {
                 value: filterController.searchByNotes.value,
                 onChanged: (val) => filterController.updateSearchByNotes(val),
               )),
+          Obx(() => SwitchListTile(
+            title: Text(AppLocalizations.of(context)!.includeArchivedWatches),
+            value: filterController.searchIncludeArchived.value,
+            onChanged: (val) => filterController.updateSearchIncludeArchived(val),
+          )),
+          Obx(() => SwitchListTile(
+            title: Text(AppLocalizations.of(context)!.includeSoldWatches),
+            value: filterController.searchIncludeSold.value,
+            onChanged: (val) => filterController.updateSearchIncludeSold(val),
+          )),
+          Obx(() => SwitchListTile(
+            title: Text(AppLocalizations.of(context)!.includeRetiredWatches),
+            value: filterController.searchIncludeRetired.value,
+            onChanged: (val) => filterController.updateSearchIncludeRetired(val),
+          )),
+          Obx(() => SwitchListTile(
+            title: Text(AppLocalizations.of(context)!.includeOnLoanWatches),
+            value: filterController.searchIncludeOnLoan.value,
+            onChanged: (val) => filterController.updateSearchIncludeOnLoan(val),
+          )),
           const SizedBox(height: 20),
         ],
       ),

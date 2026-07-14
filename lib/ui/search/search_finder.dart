@@ -80,11 +80,23 @@ class _SearchFinderState extends State<SearchFinder> {
                 // Access observables here to ensure Obx always has a dependency to track
                 final searchByName = filterController.searchByWatchName.value;
                 final searchByNotes = filterController.searchByNotes.value;
+                final incArchived = filterController.searchIncludeArchived.value;
+                final incSold = filterController.searchIncludeSold.value;
+                final incRetired = filterController.searchIncludeRetired.value;
+                final incOnLoan = filterController.searchIncludeOnLoan.value;
+
+                final baseList = watchBox.values.where((w) {
+                  if (!incArchived && w.status == WatchStatusEnum.archived.toDbString()) return false;
+                  if (!incSold && w.status == WatchStatusEnum.sold.toDbString()) return false;
+                  if (!incRetired && w.status == WatchStatusEnum.retired.toDbString()) return false;
+                  if (!incOnLoan && w.status == WatchStatusEnum.onLoan.toDbString()) return false;
+                  return true;
+                }).toList();
 
                 ///* this is where we filter data
                 var results = widget.query.isEmpty
-                    ? watchBox.values.toList() // whole list
-                    : watchBox.values.where((c) {
+                    ? baseList // whole list
+                    : baseList.where((c) {
                         bool matches = false;
                         if (searchByName) {
                           if (c.model.toLowerCase().contains(widget.query.toLowerCase()) ||
