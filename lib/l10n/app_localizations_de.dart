@@ -2029,6 +2029,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get searchByNotesLabel => 'Notizen durchsuchen';
 
   @override
+  String get searchByLugWidthLabel => 'Nach Stegbreite suchen';
+
+  @override
   String get noResultsFound => 'Keine Ergebnisse gefunden';
 
   @override

@@ -80,6 +80,7 @@ class _SearchFinderState extends State<SearchFinder> {
                 // Access observables here to ensure Obx always has a dependency to track
                 final searchByName = filterController.searchByWatchName.value;
                 final searchByNotes = filterController.searchByNotes.value;
+                final searchByLugWidth = filterController.searchByLugWidth.value;
                 final incArchived = filterController.searchIncludeArchived.value;
                 final incSold = filterController.searchIncludeSold.value;
                 final incRetired = filterController.searchIncludeRetired.value;
@@ -108,6 +109,11 @@ class _SearchFinderState extends State<SearchFinder> {
                         }
                         if (searchByNotes && !matches) {
                           if (c.notes != null && c.notes!.toLowerCase().contains(widget.query.toLowerCase())) {
+                            matches = true;
+                          }
+                        }
+                        if (searchByLugWidth && !matches) {
+                          if (c.lugWidth != null && c.lugWidth.toString().contains(widget.query)) {
                             matches = true;
                           }
                         }
@@ -172,6 +178,13 @@ class _SearchFinderState extends State<SearchFinder> {
                                                   ),
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                          if (searchByLugWidth && watchesListItem.lugWidth != null) ...[
+                                            const SizedBox(height: 4.0),
+                                            Text(
+                                              "${AppLocalizations.of(context)!.lugWidth}: ${watchesListItem.lugWidth}mm",
+                                              style: Theme.of(context).textTheme.bodySmall,
                                             ),
                                           ],
                                         ],

@@ -702,6 +702,7 @@
   "search" : "Suchen",
   "searchOptionsTitle" : "Suchoptionen",
   "searchByNotesLabel" : "Notizen durchsuchen",
+  "searchByLugWidthLabel" : "Nach Stegbreite suchen",
   "noResultsFound" :  "Keine Ergebnisse gefunden",
 
   "@_VARIABLES": {},

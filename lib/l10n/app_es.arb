@@ -697,6 +697,7 @@
   "search" : "Buscar",
   "searchOptionsTitle" : "Opciones de búsqueda",
   "searchByNotesLabel" : "Buscar en notas",
+  "searchByLugWidthLabel" : "Buscar por ancho de asas",
   "noResultsFound" :  "No se Encontraron Resultados",
 
   "@_VARIABLES": {},

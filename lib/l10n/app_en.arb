@@ -704,6 +704,7 @@
   "search" : "Search",
   "searchOptionsTitle" : "Search Options",
   "searchByNotesLabel" : "Search notes",
+  "searchByLugWidthLabel" : "Search by lug width",
   "noResultsFound" :  "No Results Found",
 
   "@_VARIABLES": {},

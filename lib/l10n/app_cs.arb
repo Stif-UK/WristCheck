@@ -702,6 +702,7 @@
   "search" : "Hledat",
   "searchOptionsTitle" : "Možnosti hledání",
   "searchByNotesLabel" : "Hledat v poznámkách",
+  "searchByLugWidthLabel" : "Hledat podle rozteče nožek",
   "noResultsFound" :  "Nebyly nalezeny žádné výsledky",
 
   "@_VARIABLES": {},

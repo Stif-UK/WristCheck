@@ -702,6 +702,7 @@
   "search" : "Поиск",
   "searchOptionsTitle" : "Параметры поиска",
   "searchByNotesLabel" : "Поиск по заметкам",
+  "searchByLugWidthLabel" : "Поиск по ширине ушек",
   "noResultsFound" :  "Ничего не найдено",
 
   "@_VARIABLES": {},

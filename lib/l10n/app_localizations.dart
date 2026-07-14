@@ -3754,6 +3754,12 @@ abstract class AppLocalizations {
   /// **'Search notes'**
   String get searchByNotesLabel;
 
+  /// No description provided for @searchByLugWidthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by lug width'**
+  String get searchByLugWidthLabel;
+
   /// No description provided for @noResultsFound.
   ///
   /// In en, this message translates to:

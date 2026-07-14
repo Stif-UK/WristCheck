@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 
 class SearchFilterBottomSheet extends StatelessWidget {
   SearchFilterBottomSheet({Key? key}) : super(key: key);
   final filterController = Get.find<FilterController>();
+  final wristCheckController = Get.find<WristCheckController>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,14 @@ class SearchFilterBottomSheet extends StatelessWidget {
                 value: filterController.searchByNotes.value,
                 onChanged: (val) => filterController.updateSearchByNotes(val),
               )),
+          Obx(() => wristCheckController.isAppPro.value
+              ? SwitchListTile(
+                  title: Text(AppLocalizations.of(context)!.searchByLugWidthLabel),
+                  value: filterController.searchByLugWidth.value,
+                  onChanged: (val) => filterController.updateSearchByLugWidth(val),
+                )
+              : const SizedBox(height: 0)),
+          const Divider(thickness: 2,),
           Obx(() => SwitchListTile(
             title: Text(AppLocalizations.of(context)!.includeArchivedWatches),
             value: filterController.searchIncludeArchived.value,

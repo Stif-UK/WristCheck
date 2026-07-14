@@ -2030,6 +2030,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get searchByNotesLabel => 'Hledat v poznámkách';
 
   @override
+  String get searchByLugWidthLabel => 'Hledat podle rozteče nožek';
+
+  @override
   String get noResultsFound => 'Nebyly nalezeny žádné výsledky';
 
   @override

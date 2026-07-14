@@ -2001,6 +2001,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchByNotesLabel => 'Search notes';
 
   @override
+  String get searchByLugWidthLabel => 'Search by lug width';
+
+  @override
   String get noResultsFound => 'No Results Found';
 
   @override

@@ -2029,6 +2029,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get searchByNotesLabel => 'Rechercher dans les notes';
 
   @override
+  String get searchByLugWidthLabel => 'Rechercher par entrecorne';
+
+  @override
   String get noResultsFound => 'Aucun résultat trouvé';
 
   @override

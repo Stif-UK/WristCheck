@@ -2020,6 +2020,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get searchByNotesLabel => 'Buscar en notas';
 
   @override
+  String get searchByLugWidthLabel => 'Buscar por ancho de asas';
+
+  @override
   String get noResultsFound => 'No se Encontraron Resultados';
 
   @override

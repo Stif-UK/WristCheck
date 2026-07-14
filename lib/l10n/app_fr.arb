@@ -701,6 +701,7 @@
   "search" : "Rechercher",
   "searchOptionsTitle" : "Options de recherche",
   "searchByNotesLabel" : "Rechercher dans les notes",
+  "searchByLugWidthLabel" : "Rechercher par entrecorne",
   "noResultsFound" : "Aucun résultat trouvé",
 
   "@_VARIABLES": {},

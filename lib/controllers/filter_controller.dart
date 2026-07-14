@@ -37,6 +37,7 @@ class FilterController extends GetxController{
 
   final searchByWatchName = true.obs;
   final searchByNotes = false.obs;
+  final searchByLugWidth = false.obs;
   final searchIncludeArchived = false.obs;
   final searchIncludeSold = false.obs;
   final searchIncludeRetired = false.obs;
@@ -154,6 +155,10 @@ class FilterController extends GetxController{
 
   updateSearchByNotes(bool newValue){
     searchByNotes(newValue);
+  }
+
+  updateSearchByLugWidth(bool newValue){
+    searchByLugWidth(newValue);
   }
 
   updateSearchIncludeArchived(bool newValue){
