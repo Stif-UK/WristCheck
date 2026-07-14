@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moon_phase_plus/moon_phase_plus.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/moonphase_methods.dart';
 
 
 class MoonPhaseWidget extends StatelessWidget {
@@ -17,13 +17,11 @@ class MoonPhaseWidget extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.moonPhase, style: Theme.of(context).textTheme.headlineSmall,),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 137.5,),
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: MoonWidget(date: DateTime.now(),
-              size: 150,
-              resolution: 150,),
+              child: MoonPhaseMethods.buildMoonWidget(DateTime.now(), 150),
             ),
           ],
         )
