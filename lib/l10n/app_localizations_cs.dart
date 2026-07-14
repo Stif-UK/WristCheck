@@ -328,6 +328,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get timeFormat => '24hodinový formát';
 
   @override
+  String get timeSettingsTitle => 'Nastavení času';
+
+  @override
   String get moonPhase => 'Aktuální fáze měsíce';
 
   @override

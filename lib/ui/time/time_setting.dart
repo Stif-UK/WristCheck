@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_kronos/flutter_kronos.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/time/moon_phase.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/time_settings_bottomsheet.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -110,28 +112,20 @@ class _TimeSettingState extends State<TimeSetting> {
                     Text("${AppLocalizations.of(context)!.deviation} ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
                     Text(AppLocalizations.of(context)!.inProgress, style: Theme.of(context).textTheme.bodySmall))),
                 const Divider(thickness: 2,),
-                Obx(() => SwitchListTile(
-                  title: Text(AppLocalizations.of(context)!.beepCountdown),
-                    value: widget.timeController.enableBeep.value,
-                    onChanged: (beep) {
-                      analytics.logEvent(name: "enablebeep",
-                          parameters: {
-                            "beep" : beep
-                          });
-                      widget.timeController.updateBeepSetting(beep);
-                    })),
-                const Divider(thickness: 2,),
-                Obx(() => SwitchListTile(
-                  title: Text(AppLocalizations.of(context)!.timeFormat),
-                    value: widget.timeController.militaryTime.value,
-                    onChanged: (mt) {
-                      analytics.logEvent(name: "enable24hrtime",
-                          parameters: {
-                            "24hr" : mt
-                          });
-                      widget.timeController.updateMilitaryTime(mt);
-                    })),
-                const Divider(thickness: 2,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.sliders),
+                      onPressed: () {
+                        Get.bottomSheet(
+                          TimeSettingsBottomSheet(),
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
             widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),

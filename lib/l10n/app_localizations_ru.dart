@@ -326,6 +326,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get timeFormat => '24-часовой формат';
 
   @override
+  String get timeSettingsTitle => 'Настройки времени';
+
+  @override
   String get moonPhase => 'Текущая фаза Луны';
 
   @override

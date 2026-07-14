@@ -330,6 +330,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get timeFormat => 'Format 24 heures';
 
   @override
+  String get timeSettingsTitle => 'Paramètres d\'heure';
+
+  @override
   String get moonPhase => 'Phase lunaire actuelle';
 
   @override

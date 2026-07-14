@@ -688,6 +688,12 @@ abstract class AppLocalizations {
   /// **'24 hour time'**
   String get timeFormat;
 
+  /// No description provided for @timeSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Settings'**
+  String get timeSettingsTitle;
+
   /// No description provided for @moonPhase.
   ///
   /// In en, this message translates to:

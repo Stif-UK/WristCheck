@@ -119,6 +119,7 @@
   "inProgress" : "Probíhá synchronizace – zobrazuje se systémový čas...",
   "beepCountdown" : "Zvukový odpočet",
   "timeFormat" : "24hodinový formát",
+  "timeSettingsTitle" : "Nastavení času",
   "moonPhase" : "Aktuální fáze měsíce",
   "newMoon" : "Novoluní",
   "waxingCrescent" : "Dorůstající srp",

@@ -118,6 +118,7 @@
   "inProgress" : "Synchronisation en cours – affichage de l'heure système...",
   "beepCountdown" : "Compte à rebours sonore",
   "timeFormat" : "Format 24 heures",
+  "timeSettingsTitle" : "Paramètres d'heure",
   "moonPhase" : "Phase lunaire actuelle",
   "newMoon" : "Nouvelle lune",
   "waxingCrescent" : "Premier croissant",

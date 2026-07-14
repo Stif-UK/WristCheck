@@ -324,6 +324,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeFormat => '24 hour time';
 
   @override
+  String get timeSettingsTitle => 'Time Settings';
+
+  @override
   String get moonPhase => 'Current Moon Phase';
 
   @override

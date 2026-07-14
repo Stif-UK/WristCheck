@@ -119,6 +119,7 @@
   "inProgress" : "Synchronisierung läuft – Systemzeit wird angezeigt...",
   "beepCountdown" : "Signalton-Countdown",
   "timeFormat" : "24-Stunden-Format",
+  "timeSettingsTitle" : "Zeiteinstellungen",
   "moonPhase" : "Aktuelle Mondphase",
   "newMoon" : "Neumond",
   "waxingCrescent" : "Zunehmender Sichelmond",
