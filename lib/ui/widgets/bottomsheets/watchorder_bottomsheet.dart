@@ -1,12 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
-import 'package:wristcheck/ui/search/search_widget.dart';
 
 
 class WatchOrderBottomSheet extends StatefulWidget {
@@ -85,18 +83,6 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
                   ),
                 ),
               ),
-              IconButton(
-                  icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-                  onPressed: () async {
-            analytics.logEvent(name: "search_called");
-            //Call Get.back first to close the bottomsheet
-            Get.back();
-            showSearch(
-              context: context,
-              delegate: SearchWidget(),
-            );
-          },
-        )
             ],
           ),
           const Divider(thickness: 2,),

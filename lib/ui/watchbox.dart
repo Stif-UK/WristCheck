@@ -14,6 +14,7 @@ import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
+import 'package:wristcheck/ui/search/search_widget.dart';
 import 'package:wristcheck/ui/widgets/watchbox_galleryview.dart';
 import 'package:wristcheck/ui/widgets/watchbox_gridview.dart';
 import 'package:wristcheck/ui/widgets/watchbox_listview.dart';
@@ -106,6 +107,19 @@ class _WatchBoxState extends State<Watchbox> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
+                    onPressed: () async {
+                      analytics.logEvent(name: "search_called");
+                      showSearch(
+                        context: context,
+                        delegate: SearchWidget(),
+                      );
+                    },
                   ),
                 ),
           IconButton(
