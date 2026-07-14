@@ -21,10 +21,14 @@ class MoonPhaseWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: MoonPhaseMethods.buildMoonWidget(DateTime.now(), 150),
+              child: MoonPhaseMethods.buildMoonWidget(DateTime.now(), 150, detailedMoon: true),
             ),
           ],
-        )
+        ),
+        Text(
+          MoonPhaseMethods.getMoonPhaseText(DateTime.now(), context),
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
       ],
     );
   }

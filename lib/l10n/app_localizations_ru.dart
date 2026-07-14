@@ -329,6 +329,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String get moonPhase => 'Текущая фаза Луны';
 
   @override
+  String get newMoon => 'Новолуние';
+
+  @override
+  String get waxingCrescent => 'Растущий серп';
+
+  @override
+  String get firstQuarter => 'Первая четверть';
+
+  @override
+  String get waxingGibbous => 'Растущая Луна';
+
+  @override
+  String get fullMoon => 'Полнолуние';
+
+  @override
+  String get waningGibbous => 'Убывающая Луна';
+
+  @override
+  String get lastQuarter => 'Последняя четверть';
+
+  @override
+  String get waningCrescent => 'Убывающий серп';
+
+  @override
   String get gallery => 'Галерея';
 
   @override

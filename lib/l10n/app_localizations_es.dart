@@ -331,6 +331,30 @@ class AppLocalizationsEs extends AppLocalizations {
   String get moonPhase => 'Fase Lunar Actual';
 
   @override
+  String get newMoon => 'Luna nueva';
+
+  @override
+  String get waxingCrescent => 'Luna creciente';
+
+  @override
+  String get firstQuarter => 'Cuarto creciente';
+
+  @override
+  String get waxingGibbous => 'Luna gibosa creciente';
+
+  @override
+  String get fullMoon => 'Luna llena';
+
+  @override
+  String get waningGibbous => 'Luna gibosa menguante';
+
+  @override
+  String get lastQuarter => 'Cuarto menguante';
+
+  @override
+  String get waningCrescent => 'Luna menguante';
+
+  @override
   String get gallery => 'Galería';
 
   @override

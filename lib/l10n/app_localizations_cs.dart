@@ -331,6 +331,30 @@ class AppLocalizationsCs extends AppLocalizations {
   String get moonPhase => 'Aktuální fáze měsíce';
 
   @override
+  String get newMoon => 'Novoluní';
+
+  @override
+  String get waxingCrescent => 'Dorůstající srp';
+
+  @override
+  String get firstQuarter => 'První čtvrť';
+
+  @override
+  String get waxingGibbous => 'Dorůstající měsíc';
+
+  @override
+  String get fullMoon => 'Úplněk';
+
+  @override
+  String get waningGibbous => 'Couvající měsíc';
+
+  @override
+  String get lastQuarter => 'Poslední čtvrť';
+
+  @override
+  String get waningCrescent => 'Ubývající srp';
+
+  @override
   String get gallery => 'Galerie';
 
   @override

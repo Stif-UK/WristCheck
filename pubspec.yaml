@@ -124,6 +124,7 @@ flutter:
     - assets/icon/drawerheader.png
     - assets/customicons/
     - assets/audio/
+    - assets/img/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

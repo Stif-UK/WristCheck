@@ -694,6 +694,54 @@ abstract class AppLocalizations {
   /// **'Current Moon Phase'**
   String get moonPhase;
 
+  /// No description provided for @newMoon.
+  ///
+  /// In en, this message translates to:
+  /// **'New Moon'**
+  String get newMoon;
+
+  /// No description provided for @waxingCrescent.
+  ///
+  /// In en, this message translates to:
+  /// **'Waxing Crescent'**
+  String get waxingCrescent;
+
+  /// No description provided for @firstQuarter.
+  ///
+  /// In en, this message translates to:
+  /// **'First Quarter'**
+  String get firstQuarter;
+
+  /// No description provided for @waxingGibbous.
+  ///
+  /// In en, this message translates to:
+  /// **'Waxing Gibbous'**
+  String get waxingGibbous;
+
+  /// No description provided for @fullMoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Moon'**
+  String get fullMoon;
+
+  /// No description provided for @waningGibbous.
+  ///
+  /// In en, this message translates to:
+  /// **'Waning Gibbous'**
+  String get waningGibbous;
+
+  /// No description provided for @lastQuarter.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Quarter'**
+  String get lastQuarter;
+
+  /// No description provided for @waningCrescent.
+  ///
+  /// In en, this message translates to:
+  /// **'Waning Crescent'**
+  String get waningCrescent;
+
   /// No description provided for @gallery.
   ///
   /// In en, this message translates to:
