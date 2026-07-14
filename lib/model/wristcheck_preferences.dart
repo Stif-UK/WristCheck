@@ -78,6 +78,9 @@ class WristCheckPreferences {
   static const _keyShowLastWornDate = 'showLastWornDate';
   static const _keyShowWearCountVisibility = 'showWearCountVisibility';
 
+  //Moon phase
+  static const _keyRealisticMoon = 'realisticMoon';
+
 
 
 
@@ -646,5 +649,11 @@ class WristCheckPreferences {
     String? returnString = _preferences.getString(_keyLastRecordedAdTimestamp);
     return returnString == null ? DateTime(2000, 1, 1) : DateTime.parse(returnString);
   }
+
+  //Getter and Setter for realistic moon preference
+  static Future setRealisticMoon(bool realistic) async =>
+      await _preferences.setBool(_keyRealisticMoon, realistic);
+
+  static bool getRealisticMoon() => _preferences.getBool(_keyRealisticMoon) ?? true;
 
 }

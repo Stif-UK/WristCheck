@@ -11,6 +11,7 @@ class TimeController extends GetxController{
   final currentDateTime = DateTime.now().obs;
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
+  final realisticMoon = WristCheckPreferences.getRealisticMoon().obs;
   final lastSyncTime = "".obs;
   final timeSynced = false.obs;
   final syncFailed = false.obs;
@@ -56,6 +57,11 @@ class TimeController extends GetxController{
   updateMilitaryTime(mt) async {
     await WristCheckPreferences.setMilitaryTime(mt);
     militaryTime(mt);
+  }
+
+  updateRealisticMoon(bool realistic) async {
+    await WristCheckPreferences.setRealisticMoon(realistic);
+    realisticMoon(realistic);
   }
 
 

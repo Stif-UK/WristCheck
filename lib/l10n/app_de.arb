@@ -120,6 +120,7 @@
   "beepCountdown" : "Signalton-Countdown",
   "timeFormat" : "24-Stunden-Format",
   "timeSettingsTitle" : "Zeiteinstellungen",
+  "realisticMoonLabel" : "Realistischer Mond",
   "moonPhase" : "Aktuelle Mondphase",
   "newMoon" : "Neumond",
   "waxingCrescent" : "Zunehmender Sichelmond",

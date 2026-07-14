@@ -120,6 +120,7 @@
   "beepCountdown" : "Звуковой отсчет",
   "timeFormat" : "24-часовой формат",
   "timeSettingsTitle" : "Настройки времени",
+  "realisticMoonLabel" : "Реалистичная Луна",
   "moonPhase" : "Текущая фаза Луны",
   "newMoon" : "Новолуние",
   "waxingCrescent" : "Растущий серп",

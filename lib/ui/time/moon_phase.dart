@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/moonphase_methods.dart';
 
 
 class MoonPhaseWidget extends StatelessWidget {
-  const MoonPhaseWidget({super.key});
+  MoonPhaseWidget({super.key});
+  final timeController = Get.find<TimeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,11 @@ class MoonPhaseWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: MoonPhaseMethods.buildMoonWidget(DateTime.now(), 150, detailedMoon: true),
+              child: Obx(() => MoonPhaseMethods.buildMoonWidget(
+                    DateTime.now(),
+                    150,
+                    detailedMoon: timeController.realisticMoon.value,
+                  )),
             ),
           ],
         ),

@@ -331,6 +331,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get timeSettingsTitle => 'Ajustes de hora';
 
   @override
+  String get realisticMoonLabel => 'Luna realista';
+
+  @override
   String get moonPhase => 'Fase Lunar Actual';
 
   @override

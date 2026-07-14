@@ -327,6 +327,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeSettingsTitle => 'Time Settings';
 
   @override
+  String get realisticMoonLabel => 'Realistic Moon';
+
+  @override
   String get moonPhase => 'Current Moon Phase';
 
   @override

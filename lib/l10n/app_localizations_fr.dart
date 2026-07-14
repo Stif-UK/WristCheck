@@ -333,6 +333,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get timeSettingsTitle => 'Paramètres d\'heure';
 
   @override
+  String get realisticMoonLabel => 'Lune réaliste';
+
+  @override
   String get moonPhase => 'Phase lunaire actuelle';
 
   @override

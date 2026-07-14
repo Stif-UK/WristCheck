@@ -120,6 +120,7 @@
   "beepCountdown" : "Cuenta Atrás con Pitido",
   "timeFormat" : "Formato de 24 horas",
   "timeSettingsTitle" : "Ajustes de hora",
+  "realisticMoonLabel" : "Luna realista",
   "moonPhase" : "Fase Lunar Actual",
   "newMoon" : "Luna nueva",
   "waxingCrescent" : "Luna creciente",

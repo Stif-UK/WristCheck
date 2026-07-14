@@ -2,11 +2,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 
 class TimeSettingsBottomSheet extends StatelessWidget {
   TimeSettingsBottomSheet({Key? key}) : super(key: key);
   final timeController = Get.find<TimeController>();
+  final wristCheckController = Get.find<WristCheckController>();
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
@@ -46,6 +48,21 @@ class TimeSettingsBottomSheet extends StatelessWidget {
                   timeController.updateMilitaryTime(mt);
                 },
               )),
+          Obx(() => wristCheckController.isAppPro.value
+              ? Column(
+                  children: [
+                    const Divider(thickness: 2),
+                    SwitchListTile(
+                      title: Text(AppLocalizations.of(context)!.realisticMoonLabel),
+                      value: timeController.realisticMoon.value,
+                      onChanged: (val) {
+                        analytics.logEvent(name: "enablerealisticmoon", parameters: {"realistic": val});
+                        timeController.updateRealisticMoon(val);
+                      },
+                    ),
+                  ],
+                )
+              : const SizedBox(height: 0)),
           const SizedBox(height: 20),
         ],
       ),

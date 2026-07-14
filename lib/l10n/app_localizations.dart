@@ -694,6 +694,12 @@ abstract class AppLocalizations {
   /// **'Time Settings'**
   String get timeSettingsTitle;
 
+  /// No description provided for @realisticMoonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Realistic Moon'**
+  String get realisticMoonLabel;
+
   /// No description provided for @moonPhase.
   ///
   /// In en, this message translates to:
