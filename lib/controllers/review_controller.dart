@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/review_state.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 
 class ReviewController extends GetxController{
   final minimumRecords = 30;
@@ -11,7 +12,7 @@ class ReviewController extends GetxController{
   final firstWearInYear = DateTime.now().obs;
   final daysSinceFirstRecordInYear = 0.obs;
   final wearsInPeriod = 0.obs;
-  final wearsInPeriodWatchList = <Watches>[].obs;
+  final wearsInPeriodWatchList = <WornWatchesClass>[].obs;
   final watchesBoughtInPeriod = <Watches>[].obs;
   final watchesSoldInPeriod = <Watches>[].obs;
 
@@ -57,7 +58,7 @@ class ReviewController extends GetxController{
     wearsInPeriod(count);
   }
 
-  updateWearsInPeriodWatchList(List<Watches> watchList){
+  updateWearsInPeriodWatchList(List<WornWatchesClass> watchList){
     wearsInPeriodWatchList(watchList);
   }
 

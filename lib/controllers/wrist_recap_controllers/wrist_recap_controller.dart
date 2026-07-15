@@ -73,21 +73,9 @@ class WristRecapController extends GetxController{
   }
 
   generateWornWatchesDate(int wearMonth, int wearYear){
-    List<WornWatchesClass> wearList = [];
-    //Get all watches during period
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
-    //For each watch create a WornWatches object with the watch and its wear count
-    for(Watches watch in watchList){
-        List<DateTime> wornDates = watch.wearList
-            .where(
-                (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
-            .toList();
+    //Get all watches worn during period
+    List<WornWatchesClass> wearList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
 
-        int count = wornDates.length;
-        WornWatchesClass watchData = WornWatchesClass(watch, count);
-        //Only track data for watches that have been worn
-        if (count > 0) wearList.add(watchData);
-    }
     //Order the list - descending count
     if(wearList.isNotEmpty) wearList.sort((a, b) => b.count.compareTo(a.count));
     //Get total count
@@ -108,18 +96,11 @@ class WristRecapController extends GetxController{
     duplicateBrand(false);
     Map<String, int> brandMap = {};
     Map<String, int> watchesPerBrandCount = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
 
-    for(Watches watch in watchList){
-      int count = watch.wearList
-          .where(
-              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
-          .length;
-
-      if (count > 0) {
-        brandMap[watch.manufacturer] = (brandMap[watch.manufacturer] ?? 0) + count;
-        watchesPerBrandCount[watch.manufacturer] = (watchesPerBrandCount[watch.manufacturer] ?? 0) + 1;
-      }
+    for(WornWatchesClass worn in wornList){
+        brandMap[worn.watch.manufacturer] = (brandMap[worn.watch.manufacturer] ?? 0) + worn.count;
+        watchesPerBrandCount[worn.watch.manufacturer] = (watchesPerBrandCount[worn.watch.manufacturer] ?? 0) + 1;
     }
 
     if (watchesPerBrandCount.values.any((c) => c > 1)) {
@@ -146,18 +127,11 @@ class WristRecapController extends GetxController{
   
   generateStatusWornData(int wearMonth, int wearYear){
     Map<String, int> statusMap = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
 
-    for(Watches watch in watchList){
-      int count = watch.wearList
-          .where(
-              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
-          .length;
-
-      if (count > 0) {
-        String status = WatchStatusEnumExtension.fromDbString(watch.status).toLocalizedString(Get.context!);
-        statusMap[status] = (statusMap[status] ?? 0) + count;
-      }
+    for(WornWatchesClass worn in wornList){
+        String status = WatchStatusEnumExtension.fromDbString(worn.watch.status).toLocalizedString(Get.context!);
+        statusMap[status] = (statusMap[status] ?? 0) + worn.count;
     }
 
     List<StatusWornClass> statusList = [];
@@ -181,17 +155,11 @@ class WristRecapController extends GetxController{
   
   generateCategoriesWornData(int wearMonth, int wearYear){
     Map<String, int> categoryMap = {};
-    List<Watches> watchList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
     bool complete = true;
 
-    for(Watches watch in watchList){
-      int count = watch.wearList
-          .where(
-              (date) => (monthView.value ? date.month == wearMonth : true) && date.year == wearYear)
-          .length;
-
-      if (count > 0) {
-        String categoryDb = watch.category ?? "";
+    for(WornWatchesClass worn in wornList){
+        String categoryDb = worn.watch.category ?? "";
         String category;
         if (categoryDb.isEmpty) {
           category = AppLocalizations.of(Get.context!)!.unknown;
@@ -199,8 +167,7 @@ class WristRecapController extends GetxController{
         } else {
           category = CategoryEnumLocalization.fromDbString(categoryDb).toLocalizedString(Get.context!);
         }
-        categoryMap[category] = (categoryMap[category] ?? 0) + count;
-      }
+        categoryMap[category] = (categoryMap[category] ?? 0) + worn.count;
     }
 
     List<CategoriesWornClass> categoryList = [];

@@ -38,9 +38,6 @@ class Watches extends HiveObject{
   @HiveField(10)
   late List<DateTime> wearList;
 
-  @HiveField(11)
-  late List<DateTime>? filteredWearList;
-
   @HiveField(12)
   late String? frontImagePath;
 

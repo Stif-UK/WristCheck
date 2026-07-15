@@ -4,19 +4,18 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
-import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
-import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
-import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
+import 'package:wristcheck/model/enums/movement_enum.dart';
 
 class WearPieChart extends StatelessWidget {
 
   //Create data for the chart - we need a list of watch objects and wear counts
-  final List<Watches> data;
+  final List<WornWatchesClass> data;
   final bool animate;
   final ChartGrouping grouping;
   final wristCheckController = Get.put(WristCheckController());
@@ -47,20 +46,14 @@ class WearPieChart extends StatelessWidget {
 
     switch(grouping) {
       case ChartGrouping.watch:
-        returnSeries = <PieSeries<Watches, String>>[PieSeries<Watches, String>(
+        returnSeries = <PieSeries<WornWatchesClass, String>>[PieSeries<WornWatchesClass, String>(
             dataSource: data,
             explode: true,
             explodeIndex: 0,
-            xValueMapper: (Watches series, _) =>
-            (series.manufacturer + series.model),
-            yValueMapper: (Watches series, _) =>
-            series.filteredWearList == null
-                ? series.wearList.length
-                : series.filteredWearList!.length,
-            dataLabelMapper: (watch, _) =>
-            watch.filteredWearList == null ? "${watch.manufacturer} ${watch
-                .model} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.wearList.length}" : "${watch.manufacturer} ${watch
-                .model} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.filteredWearList!.length}",
+            xValueMapper: (WornWatchesClass series, _) =>
+            (series.watch.manufacturer + series.watch.model),
+            yValueMapper: (WornWatchesClass series, _) => series.count,
+            dataLabelMapper: (worn, _) => "${worn.watch.manufacturer} ${worn.watch.model} ${WearChartsHelper.getLabelSuffix(worn.watch)}: ${worn.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;

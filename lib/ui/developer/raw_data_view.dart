@@ -92,7 +92,7 @@ class _RawDataViewState extends State<RawDataView> {
             DataCell(Text(watch.lastServicedDate.toString())),
             DataCell(Text(watch.serviceInterval.toString())),
             DataCell(Text(watch.nextServiceDue.toString())),
-            //Wearlist and filteredWearList are ignored - these are easily reviewed via the calendar views in the app
+            //Wearlist is ignored - these are easily reviewed via the calendar views in the app
             DataCell(Text(watch.frontImagePath.toString())),
             DataCell(Text(watch.referenceNumber.toString())),
             DataCell(Text(watch.backImagePath.toString())),

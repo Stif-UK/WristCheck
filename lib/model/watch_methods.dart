@@ -64,7 +64,6 @@ class WatchMethods {
     ..nextServiceDue = calculateNextService(pd, ls, si)
     ..notes = n
     ..wearList = <DateTime>[]
-    ..filteredWearList = <DateTime>[]
     ..frontImagePath = ""
     ..backImagePath = ""
     ..referenceNumber = rn

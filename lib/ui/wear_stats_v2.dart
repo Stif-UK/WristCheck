@@ -18,6 +18,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/ui/widgets/wearfilter_bottomsheet.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
@@ -229,7 +230,7 @@ class _WearStatsState extends State<WearStatsV2> {
     );
   }
 
-  List<Watches> _getLoadData(){
+  List<WornWatchesClass> _getLoadData(){
     return Boxes.getWearChartLoadData(widget.filterController.basicWearFilter.value,
         widget.filterController.includeCollection.value,
         widget.filterController.includeSold.value,

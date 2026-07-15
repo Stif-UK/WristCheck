@@ -2,6 +2,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/review_controller.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 
 class PeriodReviewHelper{
 
@@ -14,17 +15,14 @@ class PeriodReviewHelper{
     DateTime earliestWearInYear = DateTime(year, 12, 31);
 
     //Get List of watches worn in the given year
-    List<Watches> wornInPeriodWatchList = Boxes.getWatchesWornBetweenTwoDates(watchBox, startDate, endDate);
+    List<WornWatchesClass> wornInPeriodWatchList = Boxes.getWatchesWornBetweenTwoDates(watchBox, startDate, endDate);
 
     //Set the filtered wear list of each watch - we can use this in further calculations
-    for(Watches watch in wornInPeriodWatchList){
-      //Fill the filtered list
-      watch.filteredWearList = List.from(watch.wearList);
-      //Remove anything not from the given year
-      watch.filteredWearList!.removeWhere((date) => date.year != year);
+    for(WornWatchesClass worn in wornInPeriodWatchList){
+      List<DateTime> yearWears = worn.watch.wearList.where((date) => date.year == year).toList();
       //Set earliest recorded wear date
-      if(watch.filteredWearList!.first.isBefore(earliestWearInYear)){
-        earliestWearInYear = watch.filteredWearList!.first;
+      if(yearWears.isNotEmpty && yearWears.first.isBefore(earliestWearInYear)){
+        earliestWearInYear = yearWears.first;
       }
     }
 
@@ -32,12 +30,12 @@ class PeriodReviewHelper{
 
 
     //Sort the list based on most to least worn in the year
-    wornInPeriodWatchList.sort((a, b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
+    wornInPeriodWatchList.sort((a, b) => b.count.compareTo(a.count));
 
     //Calculate total wears in the year and pass to controller
     int count = 0;
-    for(Watches watch in wornInPeriodWatchList){
-      count = count + watch.filteredWearList!.length;
+    for(WornWatchesClass worn in wornInPeriodWatchList){
+      count = count + worn.count;
     }
     reviewController.updateWearsInPeriod(count);
 

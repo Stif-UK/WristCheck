@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
-import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
@@ -12,6 +11,7 @@ import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
@@ -170,140 +170,89 @@ class Boxes {
     return returnList;
   }
   
-  static List<Watches> getWatchesWornFilter(List<Watches> initialList, int? month, int? year){
-    //start by making the return list the whole box
-      var returnList = initialList;
-      //Zero the filter list for all watches
-      for(var watch in returnList){
-        watch.filteredWearList = [];
-      }
-    //if a year is provided, then reduce returnList to only those watches that have the year in their wearlist
-    if(year != null){
-      returnList = returnList.where((watch) => watch.wearList.any((element) => element.year == year)).toList();
-    }
-    //next if a month is provided, then further reduce list to only those months
-      if(month != null){
-        returnList = returnList.where((watch) => watch.wearList.any((element) => element.month == month)).toList();
+  static List<WornWatchesClass> getWatchesWornFilter(List<Watches> initialList, int? month, int? year){
+    List<WornWatchesClass> returnList = [];
 
+    for (var watch in initialList) {
+      List<DateTime> filteredList = List.from(watch.wearList);
+      if (year != null) {
+        filteredList.removeWhere((date) => date.year != year);
+      }
+      if (month != null) {
+        filteredList.removeWhere((date) => date.month != month);
       }
 
-      //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable
-     //To begin we make sure that the filteredWearList is instantiated with the full list of dates
-      for (var watch in returnList) {
-        watch.filteredWearList = List.from(watch.wearList);
+      if (filteredList.isNotEmpty) {
+        returnList.add(WornWatchesClass(watch, filteredList.length));
       }
-      //We then trim the years
-    if(year != null){
-      for (var watch in returnList) {
-        //instantiate an empty list in the watches filteredWearList variable
-        watch.filteredWearList!.removeWhere((date) => date.year != year);
-      }
-    }
-    //and next trim the months
-      if(month != null){
-        for (var watch in returnList) {
-          //instantiate an empty list in the watches filteredWearList variable
-          watch.filteredWearList!.removeWhere((date) => date.month != month);
-        }
-      }
-
-      //finally before returning, sort the list if required
-      returnList = Boxes.sortWearChart(returnList);
-    return returnList;
-
-  }
-
-  static List<Watches> getRollingWatchesWornFilter(List<Watches> initialList, int days){
-    //start by making the return list the whole box
-    var returnList = initialList;//Hive.box<Watches>("WatchBox").values.toList();
-    DateTime now = DateTime.now();
-    //Zero the filter list for all watches
-    for(var watch in returnList){
-      watch.filteredWearList = [];
-    }
-
-    //Start by reducing the returnlist to those watches which match the criteria
-    returnList = returnList.where((watch) => watch.wearList.any((element) => now.difference(element).inDays < days)).toList();
-
-    //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable - this drives the chart display
-    //To begin we make sure that the filteredWearList is instantiated with the full list of dates
-    for (var watch in returnList) {
-      watch.filteredWearList = List.from(watch.wearList);
-    }
-    //We then trim the dates
-      for (var watch in returnList) {
-        //instantiate an empty list in the watches filteredWearList variable
-        watch.filteredWearList!.removeWhere((date) => now.difference(date).inDays >= days);
-      }
-
-    //finally before returning, sort the list if required
-    returnList = Boxes.sortWearChart(returnList);
-    return returnList;
-
-  }
-
-  static List<Watches> getWatchesWornBetweenTwoDates(List<Watches> initialList, DateTime startDate, DateTime endDate){
-    //start by making the return list the whole box
-    var returnList = initialList;//Hive.box<Watches>("WatchBox").values.toList();
-    DateTime now = DateTime.now();
-    //Zero the filter list for all watches
-    for(var watch in returnList){
-      watch.filteredWearList = [];
-    }
-
-    //Start by reducing the returnlist to those watches which match the criteria - first greater than the startdate...
-    returnList = returnList.where((watch) => watch.wearList.any((element) => element.isAfter(startDate))).toList();
-    //then less than the end date
-    returnList = returnList.where((watch) => watch.wearList.any((element) => element.isBefore(endDate))).toList();
-
-    //We now have a filtered list, so within that list we now need to filter the watches filteredWearList variable - this drives the chart display
-    //To begin we make sure that the filteredWearList is instantiated with the full list of dates
-    for (var watch in returnList) {
-      watch.filteredWearList = List.from(watch.wearList);
-    }
-    //We then trim the dates
-    for (var watch in returnList) {
-      //instantiate an empty list in the watches filteredWearList variable
-      watch.filteredWearList!.removeWhere((date) => date.isBefore(startDate));
-      watch.filteredWearList!.removeWhere((date) => date.isAfter(endDate));
     }
 
     //finally before returning, sort the list if required
     returnList = Boxes.sortWearChart(returnList);
     return returnList;
-
   }
 
-  static List<Watches> sortWearChart(List<Watches> toSort){
-    List<Watches> returnList = toSort;
+  static List<WornWatchesClass> getRollingWatchesWornFilter(List<Watches> initialList, int days){
+    List<WornWatchesClass> returnList = [];
+    DateTime now = DateTime.now();
+
+    for (var watch in initialList) {
+      List<DateTime> filteredList = List.from(watch.wearList);
+      filteredList.removeWhere((date) => now.difference(date).inDays >= days);
+
+      if (filteredList.isNotEmpty) {
+        returnList.add(WornWatchesClass(watch, filteredList.length));
+      }
+    }
+
+    //finally before returning, sort the list if required
+    returnList = Boxes.sortWearChart(returnList);
+    return returnList;
+  }
+
+  static List<WornWatchesClass> getWatchesWornBetweenTwoDates(List<Watches> initialList, DateTime startDate, DateTime endDate){
+    List<WornWatchesClass> returnList = [];
+
+    for (var watch in initialList) {
+      List<DateTime> filteredList = List.from(watch.wearList);
+      filteredList.removeWhere((date) => date.isBefore(startDate));
+      filteredList.removeWhere((date) => date.isAfter(endDate));
+
+      if (filteredList.isNotEmpty) {
+        returnList.add(WornWatchesClass(watch, filteredList.length));
+      }
+    }
+
+    //finally before returning, sort the list if required
+    returnList = Boxes.sortWearChart(returnList);
+    return returnList;
+  }
+
+  static List<WornWatchesClass> sortWearChart(List<WornWatchesClass> toSort){
+    List<WornWatchesClass> returnList = toSort;
 
     ChartOrdering chartOrder = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
 
     switch(chartOrder){
       case ChartOrdering.watchbox:
         WatchOrder? watchOrder = WristCheckPreferences.getWatchOrder();
-        return watchOrder == null? returnList : sortWatchBox(returnList, watchOrder).reversed.toList();
+        if (watchOrder == null) return returnList;
+        List<Watches> watchesToSort = returnList.map((e) => e.watch).toList();
+        List<Watches> sortedWatches = sortWatchBox(watchesToSort, watchOrder).reversed.toList();
+        
+        List<WornWatchesClass> sortedReturnList = [];
+        for (var watch in sortedWatches) {
+          sortedReturnList.add(returnList.firstWhere((element) => element.watch == watch));
+        }
+        return sortedReturnList;
 
       case ChartOrdering.descending:
-        returnList.sort((a,b) => a.filteredWearList!.length.compareTo(b.filteredWearList!.length));
+        returnList.sort((a,b) => a.count.compareTo(b.count));
         return returnList;
       case ChartOrdering.ascending:
-        returnList.sort((a,b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
-        return returnList;
-      default:
+        returnList.sort((a,b) => b.count.compareTo(a.count));
         return returnList;
     }
-
-    // //Ignore and return if requested in watchbox order
-    // if(chartOrder != ChartOrdering.watchbox){
-    //   //return in either ascending or descending order
-    //   if(chartOrder == ChartOrdering.descending){
-    //     returnList.sort((a,b) => a.filteredWearList!.length.compareTo(b.filteredWearList!.length));
-    //   } else if(chartOrder == ChartOrdering.ascending){
-    //     returnList.sort((a,b) => b.filteredWearList!.length.compareTo(a.filteredWearList!.length));
-    //   }
-    // }
-    // return returnList;
   }
 
   static List<Watches> sortWatchBox(List<Watches> unsortedList, WatchOrder order){
@@ -348,7 +297,7 @@ class Boxes {
     return returnList;
   }
 
-  static List<Watches> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool incOnLoan, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
+  static List<WornWatchesClass> getWearChartLoadData(WearChartOptions option, bool incCollection, bool incSold, bool incRetired, bool incArchived, bool incOnLoan, bool filterByCategory, List<CategoryEnum> categoryFilterList, bool filterByMovement, List<MovementEnum> movementFilterList) {
 
     final controller = Get.put(FilterController());
     var now = DateTime.now();
@@ -376,7 +325,7 @@ class Boxes {
     if(filterByMovement && movementFilterList.isNotEmpty){
       initialList = Boxes.runMovementFilter(initialList, movementFilterList);
     }
-    List<Watches> returnValue = initialList;
+    List<WornWatchesClass> returnValue = [];
 
 
     switch (option){
@@ -423,7 +372,7 @@ class Boxes {
           DateTime tomorrow = now.add(Duration(days: 1));
           returnValue = Boxes.getWatchesWornBetweenTwoDates(initialList, lastPurchaseDate, tomorrow);
         } else {
-          returnValue = <Watches>[];
+          returnValue = <WornWatchesClass>[];
         }
       }
       break;
@@ -442,9 +391,6 @@ class Boxes {
       }
     }
 
-    //Remove any unworn or null values
-    returnValue.removeWhere((watch) => watch.filteredWearList == null);
-    returnValue.removeWhere((watch) => watch.filteredWearList!.isEmpty);
     return returnValue;
   }
 

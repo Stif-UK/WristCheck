@@ -10,6 +10,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/model/enums/chart_grouping.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -17,7 +18,7 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 class WearChart extends StatefulWidget {
 
   //Create data for the chart - we need a list of watch objects and wear counts
-  final List<Watches> data;
+  final List<WornWatchesClass> data;
   final bool animate;
   final ChartGrouping grouping;
   final wristCheckController = Get.put(WristCheckController());
@@ -58,12 +59,12 @@ class _WearChartState extends State<WearChart> {
     
     switch(grouping) {
       case ChartGrouping.watch:
-        returnSeries =  <BarSeries<Watches, String>>[
+        returnSeries =  <BarSeries<WornWatchesClass, String>>[
           BarSeries(
             dataSource: widget.data,
-            xValueMapper: (Watches series, _) => series.filteredWearList!.isEmpty? null: (series.manufacturer+series.model),
-            yValueMapper: (Watches series, _) => series.filteredWearList == null? series.wearList.length :series.filteredWearList!.length,
-            dataLabelMapper: (watch, _) => watch.filteredWearList == null? "${watch.toString()} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.wearList.length}":"${watch.toString()} ${WearChartsHelper.getLabelSuffix(watch)}: ${watch.filteredWearList!.length}",
+            xValueMapper: (WornWatchesClass series, _) => series.count == 0? null: (series.watch.manufacturer + series.watch.model),
+            yValueMapper: (WornWatchesClass series, _) => series.count,
+            dataLabelMapper: (worn, _) => "${worn.watch.toString()} ${WearChartsHelper.getLabelSuffix(worn.watch)}: ${worn.count}",
             dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
             // animationDuration: 0 Set to zero to stop it animating!
           )

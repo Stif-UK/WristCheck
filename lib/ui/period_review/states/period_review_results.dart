@@ -116,30 +116,30 @@ List<Widget> _generatePages() {
         colour: Theme.of(Get.context!).canvasColor,
         title: "The Top Three!",
         subtitle1: "In at number three,\nyour third most worn watch this year was your...",
-        watch: reviewController.wearsInPeriodWatchList[2],
-        subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].manufacturer} ${reviewController.wearsInPeriodWatchList[2].model}",
-        subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].filteredWearList!.length} times",
-        subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].filteredWearList!.length).toStringAsFixed(2)} days since you started tracking this year!)"
+        watch: reviewController.wearsInPeriodWatchList[2].watch,
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[2].watch.manufacturer} ${reviewController.wearsInPeriodWatchList[2].watch.model}",
+        subtitle3: "You wore it ${reviewController.wearsInPeriodWatchList[2].count} times",
+        subtitle4: "(that's once every ${(reviewController.daysSinceFirstRecordInYear.value / reviewController.wearsInPeriodWatchList[2].count).toStringAsFixed(2)} days since you started tracking this year!)"
     ) : ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "The Top Three!", subtitle1: "You haven't tracked three watches for ${reviewController.reviewYear}!", subtitle2: "So there's nothing to show here, sorry!"),
     //Result 3 - Top 3 - position 2
     reviewController.wearsInPeriodWatchList.length > 2? ReviewPage(
         colour: Theme.of(Get.context!).canvasColor,
         title: "The Runner Up!",
         subtitle1: "In second place,\nyour second most worn watch in ${reviewController.reviewYear} was...",
-        watch: reviewController.wearsInPeriodWatchList[1],
-        subtitle2: reviewController.wearsInPeriodWatchList[1].frontImagePath == null || reviewController.wearsInPeriodWatchList[1].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
-        subtitleBig2: "${reviewController.wearsInPeriodWatchList[1].manufacturer} ${reviewController.wearsInPeriodWatchList[1].model}",
-        subtitle3: "You tracked it on your wrist ${reviewController.wearsInPeriodWatchList[1].filteredWearList!.length} times"
+        watch: reviewController.wearsInPeriodWatchList[1].watch,
+        subtitle2: reviewController.wearsInPeriodWatchList[1].watch.frontImagePath == null || reviewController.wearsInPeriodWatchList[1].watch.frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[1].watch.manufacturer} ${reviewController.wearsInPeriodWatchList[1].watch.model}",
+        subtitle3: "You tracked it on your wrist ${reviewController.wearsInPeriodWatchList[1].count} times"
     ): ReviewPage(colour: Theme.of(Get.context!).canvasColor, title: "Second Place...", subtitle1: "You haven't tracked two watches for ${reviewController.reviewYear}!"),
     //Result 4 - Top 3 - position 1
     ReviewPage(
         colour: Theme.of(Get.context!).canvasColor,
         title: "The Top Dog!",
         subtitle1: "Your most worn watch of ${reviewController.reviewYear} is the...",
-        watch: reviewController.wearsInPeriodWatchList[0],
-        subtitle2: reviewController.wearsInPeriodWatchList[0].frontImagePath == null || reviewController.wearsInPeriodWatchList[0].frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
-        subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].manufacturer} ${reviewController.wearsInPeriodWatchList[0].model}",
-        subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].filteredWearList!.length} wears tracked!"
+        watch: reviewController.wearsInPeriodWatchList[0].watch,
+        subtitle2: reviewController.wearsInPeriodWatchList[0].watch.frontImagePath == null || reviewController.wearsInPeriodWatchList[0].watch.frontImagePath == ""? "(you haven't saved a picture of this one!)" : null,
+        subtitleBig2: "${reviewController.wearsInPeriodWatchList[0].watch.manufacturer} ${reviewController.wearsInPeriodWatchList[0].watch.model}",
+        subtitleBig3: "With ${reviewController.wearsInPeriodWatchList[0].count} wears tracked!"
     ),
   ];
 }

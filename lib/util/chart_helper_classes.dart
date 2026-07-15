@@ -13,6 +13,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 
 class ChartClass{
   ChartClass(this.count);
@@ -61,25 +62,21 @@ class DimensionsClass extends ChartClass{
 
 class ChartHelper{
 
-  static List<CategoryClass> calculateCategoryList(List<Watches> data){
+  static List<CategoryClass> calculateCategoryList(List<WornWatchesClass> data){
     List<CategoryClass> returnSeries = [];
     for(CategoryEnum category in CategoryEnum.values){
       int count = 0;
       if(category != CategoryEnum.blank){
-        List<Watches> categoryList = data.where((watch) => watch.category == WristCheckFormatter.getCategoryText(category)).toList();
-        for(Watches watch in categoryList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
+        List<WornWatchesClass> categoryList = data.where((worn) => worn.watch.category == WristCheckFormatter.getCategoryText(category)).toList();
+        for(WornWatchesClass worn in categoryList){
+          count += worn.count;
         }
         returnSeries.add(CategoryClass(category, count));
       }else{
         //TODO: Why did I add this else clause here?
-        List<Watches> categoryList = data.where((watch) => watch.category == null).toList();
-        for(Watches watch in categoryList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
+        List<WornWatchesClass> categoryList = data.where((worn) => worn.watch.category == null).toList();
+        for(WornWatchesClass worn in categoryList){
+          count += worn.count;
         }
         returnSeries.add(CategoryClass(CategoryEnum.blank, count));
       }
@@ -92,24 +89,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<MovementClass> calculateMovementList(List<Watches> data){
+  static List<MovementClass> calculateMovementList(List<WornWatchesClass> data){
     List<MovementClass> returnSeries = [];
     for(MovementEnum movement in MovementEnum.values){
       int count = 0;
       if(movement != MovementEnum.blank){
-        List<Watches> movementList = data.where((watch) => watch.movement == WristCheckFormatter.getMovementText(movement)).toList();
-        for(Watches watch in movementList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
+        List<WornWatchesClass> movementList = data.where((worn) => worn.watch.movement == WristCheckFormatter.getMovementText(movement)).toList();
+        for(WornWatchesClass worn in movementList){
+          count += worn.count;
         }
         returnSeries.add(MovementClass(movement, count));
       }else{
-        List<Watches> movementList = data.where((watch) => watch.movement == null || watch.movement == "").toList();
-        for(Watches watch in movementList){
-          if (watch.filteredWearList != null) {
-            count += watch.filteredWearList!.length;
-          }
+        List<WornWatchesClass> movementList = data.where((worn) => worn.watch.movement == null || worn.watch.movement == "").toList();
+        for(WornWatchesClass worn in movementList){
+          count += worn.count;
         }
         returnSeries.add(MovementClass(MovementEnum.blank, count));
       }
@@ -123,20 +116,18 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<ManufacturerClass> calculateManufacturerList(List<Watches> data){
+  static List<ManufacturerClass> calculateManufacturerList(List<WornWatchesClass> data){
     List<ManufacturerClass> returnSeries = [];
     //Get set of manufacturers (to ensure all unique)
     Set<String> manufacturers = {};
-    for(Watches watch in data){
-      manufacturers.add(watch.manufacturer);
+    for(WornWatchesClass worn in data){
+      manufacturers.add(worn.watch.manufacturer);
     }
     for(String manufacturer in manufacturers) {
       int count = 0;
-      List<Watches> manList = data.where((watch) => watch.manufacturer == manufacturer).toList();
-      for(Watches watch in manList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> manList = data.where((worn) => worn.watch.manufacturer == manufacturer).toList();
+      for(WornWatchesClass worn in manList){
+        count += worn.count;
       }
       returnSeries.add(ManufacturerClass(manufacturer, count));
 
@@ -145,22 +136,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<MaterialClass> calculateCaseMaterialList(List<Watches> data){
+  static List<MaterialClass> calculateCaseMaterialList(List<WornWatchesClass> data){
     List<MaterialClass> returnSeries = [];
     //Get set of materials (to ensure all unique)
     Set<String> caseMaterials = {};
-    for(Watches watch in data){
-      if(watch.caseMaterial != null && watch.caseMaterial != "Not Entered" && watch.caseMaterial != "") {
-        caseMaterials.add(watch.caseMaterial!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.caseMaterial != null && worn.watch.caseMaterial != "Not Entered" && worn.watch.caseMaterial != "") {
+        caseMaterials.add(worn.watch.caseMaterial!);
       }
     }
     for(String material in caseMaterials) {
       int count = 0;
-      List<Watches> matList = data.where((watch) => watch.caseMaterial == material).toList();
-      for(Watches watch in matList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> matList = data.where((worn) => worn.watch.caseMaterial == material).toList();
+      for(WornWatchesClass worn in matList){
+        count += worn.count;
       }
 
       returnSeries.add(MaterialClass(WristCheckFormatter.getCaseMaterialEnum(material), count));
@@ -170,22 +159,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DateComplicationClass> calculateDateComplicationList(List<Watches> data){
+  static List<DateComplicationClass> calculateDateComplicationList(List<WornWatchesClass> data){
     List<DateComplicationClass> returnSeries = [];
     //Get set of materials (to ensure all unique)
     Set<String> dateComplication = {};
-    for(Watches watch in data){
-      if(watch.dateComplication != null && watch.dateComplication != "Not Entered" && watch.dateComplication != "") {
-        dateComplication.add(watch.dateComplication!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.dateComplication != null && worn.watch.dateComplication != "Not Entered" && worn.watch.dateComplication != "") {
+        dateComplication.add(worn.watch.dateComplication!);
       }
     }
     for(String date in dateComplication) {
       int count = 0;
-      List<Watches> dateTypeList = data.where((watch) => watch.dateComplication == date).toList();
-      for(Watches watch in dateTypeList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> dateTypeList = data.where((worn) => worn.watch.dateComplication == date).toList();
+      for(WornWatchesClass worn in dateTypeList){
+        count += worn.count;
       }
       returnSeries.add(DateComplicationClass(WristCheckFormatter.getDateComplicationEnum(date)!, count));
 
@@ -194,22 +181,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DimensionsClass> calculateCaseDiameterList(List<Watches> data){
+  static List<DimensionsClass> calculateCaseDiameterList(List<WornWatchesClass> data){
     List<DimensionsClass> returnSeries = [];
     //Get set of case diameters (to ensure all unique)
     Set<double> caseDiameters = {};
-    for(Watches watch in data){
-      if(watch.caseDiameter != null && watch.caseDiameter != 0.0) {
-        caseDiameters.add(watch.caseDiameter!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.caseDiameter != null && worn.watch.caseDiameter != 0.0) {
+        caseDiameters.add(worn.watch.caseDiameter!);
       }
     }
     for(double caseDiameter in caseDiameters) {
       int count = 0;
-      List<Watches> cdList = data.where((watch) => watch.caseDiameter == caseDiameter).toList();
-      for(Watches watch in cdList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> cdList = data.where((worn) => worn.watch.caseDiameter == caseDiameter).toList();
+      for(WornWatchesClass worn in cdList){
+        count += worn.count;
       }
       returnSeries.add(DimensionsClass(caseDiameter.toString(), count));
 
@@ -219,22 +204,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DimensionsClass> calculateLugWidthList(List<Watches> data){
+  static List<DimensionsClass> calculateLugWidthList(List<WornWatchesClass> data){
     List<DimensionsClass> returnSeries = [];
     //Get set of lugWidths (to ensure all unique)
     Set<int> lugWidths = {};
-    for(Watches watch in data){
-      if(watch.lugWidth != null && watch.lugWidth != 0) {
-        lugWidths.add(watch.lugWidth!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.lugWidth != null && worn.watch.lugWidth != 0) {
+        lugWidths.add(worn.watch.lugWidth!);
       }
     }
     for(int lugWidth in lugWidths) {
       int count = 0;
-      List<Watches> watchList = data.where((watch) => watch.lugWidth == lugWidth).toList();
-      for(Watches watch in watchList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> watchList = data.where((worn) => worn.watch.lugWidth == lugWidth).toList();
+      for(WornWatchesClass worn in watchList){
+        count += worn.count;
       }
 
       //Only add records where the wear count is > 0;
@@ -247,22 +230,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DimensionsClass> calculateLugToLugList(List<Watches> data){
+  static List<DimensionsClass> calculateLugToLugList(List<WornWatchesClass> data){
     List<DimensionsClass> returnSeries = [];
     //Get set of lugWidths (to ensure all unique)
     Set<double> lug2lugs = {};
-    for(Watches watch in data){
-      if(watch.lug2lug != null && watch.lug2lug != 0.0) {
-        lug2lugs.add(watch.lug2lug!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.lug2lug != null && worn.watch.lug2lug != 0.0) {
+        lug2lugs.add(worn.watch.lug2lug!);
       }
     }
     for(double lug2lug in lug2lugs) {
       int count = 0;
-      List<Watches> watchList = data.where((watch) => watch.lug2lug == lug2lug).toList();
-      for(Watches watch in watchList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> watchList = data.where((worn) => worn.watch.lug2lug == lug2lug).toList();
+      for(WornWatchesClass worn in watchList){
+        count += worn.count;
       }
       //Only add records where the wear count is > 0;
       if (count > 0) {
@@ -274,22 +255,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DimensionsClass> calculateCaseThicknessList(List<Watches> data){
+  static List<DimensionsClass> calculateCaseThicknessList(List<WornWatchesClass> data){
     List<DimensionsClass> returnSeries = [];
     //Get set of case thicknesses (to ensure all unique)
     Set<double> caseThicknesses = {};
-    for(Watches watch in data){
-      if(watch.caseThickness != null && watch.caseThickness != 0.0) {
-        caseThicknesses.add(watch.caseThickness!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.caseThickness != null && worn.watch.caseThickness != 0.0) {
+        caseThicknesses.add(worn.watch.caseThickness!);
       }
     }
     for(double caseThickness in caseThicknesses) {
       int count = 0;
-      List<Watches> watchList = data.where((watch) => watch.caseThickness == caseThickness).toList();
-      for(Watches watch in watchList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> watchList = data.where((worn) => worn.watch.caseThickness == caseThickness).toList();
+      for(WornWatchesClass worn in watchList){
+        count += worn.count;
       }
       //Only add records where the wear count is > 0;
       if (count > 0) {
@@ -301,22 +280,20 @@ class ChartHelper{
     return returnSeries;
   }
 
-  static List<DimensionsClass> calculateWaterResistanceList(List<Watches> data){
+  static List<DimensionsClass> calculateWaterResistanceList(List<WornWatchesClass> data){
     List<DimensionsClass> returnSeries = [];
     //Get set of water resistance values (to ensure all unique)
     Set<int> waterResistanceList = {};
-    for(Watches watch in data){
-      if(watch.waterResistance != null && watch.waterResistance != 0) {
-        waterResistanceList.add(watch.waterResistance!);
+    for(WornWatchesClass worn in data){
+      if(worn.watch.waterResistance != null && worn.watch.waterResistance != 0) {
+        waterResistanceList.add(worn.watch.waterResistance!);
       }
     }
     for(int wr in waterResistanceList) {
       int count = 0;
-      List<Watches> watchList = data.where((watch) => watch.waterResistance == wr).toList();
-      for(Watches watch in watchList){
-        if(watch.filteredWearList != null){
-          count += watch.filteredWearList!.length;
-        }
+      List<WornWatchesClass> watchList = data.where((worn) => worn.watch.waterResistance == wr).toList();
+      for(WornWatchesClass worn in watchList){
+        count += worn.count;
       }
 
       //Only add records where the wear count is > 0;

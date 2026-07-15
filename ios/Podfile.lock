@@ -6,14 +6,11 @@ PODS:
   - flutter_local_notifications (0.0.1):
     - Flutter
   - Kronos (4.1.0)
-  - moon_phase_plus (1.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_kronos (from `.symlinks/plugins/flutter_kronos/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
-  - moon_phase_plus (from `.symlinks/plugins/moon_phase_plus/ios`)
 
 SPEC REPOS:
   trunk:
@@ -26,15 +23,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_kronos/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
-  moon_phase_plus:
-    :path: ".symlinks/plugins/moon_phase_plus/ios"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_kronos: c27a805f5f0dc00932c840ebadabde71c3a7d520
   flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   Kronos: d67579565469f57fae67ac7985c3881738f02075
-  moon_phase_plus: 3ff3a5572f7d74fa346b3d0ee2ae9f2f8b1c44b4
 
 PODFILE CHECKSUM: 2a84ceac9d7f7522389c167d21c8744e7209e1d1
 
