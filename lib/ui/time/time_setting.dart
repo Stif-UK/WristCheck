@@ -64,7 +64,6 @@ class _TimeSettingState extends State<TimeSetting> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "timesetting");
 
-    updateTime();
     return PopScope(
       onPopInvokedWithResult: (bool didPop, dynamic result) => widget.timeController.updateIsTimerActive(!didPop),
       child: Obx(() => Column(
@@ -194,7 +193,6 @@ class _TimeSettingState extends State<TimeSetting> {
   @override
   void dispose() {
     widget.timeController.isTimerActive(false);
-    Get.delete<TimeController>();
     super.dispose();
   }
 
@@ -202,6 +200,7 @@ class _TimeSettingState extends State<TimeSetting> {
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     widget.timeController.isTimerActive(true);
+    updateTime();
     initPlatformState();
     super.initState();
   }
