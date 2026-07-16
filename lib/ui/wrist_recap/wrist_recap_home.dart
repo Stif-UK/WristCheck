@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/wrist_recap_bottomsheet.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_brand_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_category_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_watch_monthly.dart';
@@ -45,10 +46,17 @@ class WristRecapHome extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Obx(() => IconButton(icon: recapController.monthView.value? FaIcon(FontAwesomeIcons.toggleOn) : FaIcon(FontAwesomeIcons.toggleOff),
-              onPressed: (){recapController.toggleMonthView();},),
-            ),
-          )
+            child: IconButton(icon: FaIcon(FontAwesomeIcons.sliders,),
+            onPressed: (){
+                showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                builder: (context){
+                return WristRecapBottomsheet();
+                }
+                );
+                },
+           )),
         ],
       ),
       body: Column(
