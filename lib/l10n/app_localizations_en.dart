@@ -213,6 +213,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wristRecap => 'Wrist Recap';
 
   @override
+  String get recapOptionsTitle => 'Wrist Recap Settings';
+
+  @override
+  String get recapMonthly => 'Monthly';
+
+  @override
+  String get recapAnnually => 'Annually';
+
+  @override
   String get watchesWornTitle => 'Watches worn:';
 
   @override

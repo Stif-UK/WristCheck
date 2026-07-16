@@ -88,6 +88,9 @@
   "wristRecap" : "Přehled na zápěstí",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Nastavení Wrist Recap",
+  "recapMonthly" : "Měsíčně",
+  "recapAnnually" : "Ročně",
   "watchesWornTitle" : "Nošené hodinky:",
   "brandChartTitle" : "Graf značek",
   "categoryChartTitle" : "Graf kategorií",

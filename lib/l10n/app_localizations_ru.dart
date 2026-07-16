@@ -213,6 +213,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wristRecap => 'Обзор на запястье';
 
   @override
+  String get recapOptionsTitle => 'Настройки Wrist Recap';
+
+  @override
+  String get recapMonthly => 'Ежемесячно';
+
+  @override
+  String get recapAnnually => 'Ежегодно';
+
+  @override
   String get watchesWornTitle => 'Носимые часы:';
 
   @override

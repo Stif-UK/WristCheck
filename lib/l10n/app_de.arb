@@ -88,6 +88,9 @@
   "wristRecap" : "Handgelenk-Rückblick",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Wrist Recap Einstellungen",
+  "recapMonthly" : "Monatlich",
+  "recapAnnually" : "Jährlich",
   "watchesWornTitle" : "Getragene Uhren:",
   "brandChartTitle" : "Markendiagramm",
   "categoryChartTitle" : "Kategoriediagramm",

@@ -213,6 +213,15 @@ class AppLocalizationsCs extends AppLocalizations {
   String get wristRecap => 'Přehled na zápěstí';
 
   @override
+  String get recapOptionsTitle => 'Nastavení Wrist Recap';
+
+  @override
+  String get recapMonthly => 'Měsíčně';
+
+  @override
+  String get recapAnnually => 'Ročně';
+
+  @override
   String get watchesWornTitle => 'Nošené hodinky:';
 
   @override

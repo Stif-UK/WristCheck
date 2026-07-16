@@ -215,6 +215,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wristRecap => 'Wrist Recap';
 
   @override
+  String get recapOptionsTitle => 'Paramètres de Wrist Recap';
+
+  @override
+  String get recapMonthly => 'Mensuel';
+
+  @override
+  String get recapAnnually => 'Annuel';
+
+  @override
   String get watchesWornTitle => 'Montres portées :';
 
   @override

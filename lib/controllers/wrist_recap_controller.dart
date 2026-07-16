@@ -5,12 +5,14 @@ import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class WristRecapController extends GetxController{
   final month = 1.obs;
   final year = 2025.obs;
   final monthView = true.obs;
+  final selectedRecapOption = WristRecapEnums.monthly.obs;
   final watchesWorn = <WornWatchesClass>[].obs;
   final brandsWorn = <ManufacturersWornClass>[].obs;
   final duplicateBrand = false.obs;
@@ -37,6 +39,12 @@ class WristRecapController extends GetxController{
 
   updateMonthView(bool newValue){
     monthView(newValue);
+  }
+
+  setRecapOption(WristRecapEnums? value) {
+    if (value != null) {
+      selectedRecapOption(value);
+    }
   }
 
   toggleMonthView(){

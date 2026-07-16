@@ -514,6 +514,24 @@ abstract class AppLocalizations {
   /// **'Wrist Recap'**
   String get wristRecap;
 
+  /// No description provided for @recapOptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrist Recap Settings'**
+  String get recapOptionsTitle;
+
+  /// No description provided for @recapMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get recapMonthly;
+
+  /// No description provided for @recapAnnually.
+  ///
+  /// In en, this message translates to:
+  /// **'Annually'**
+  String get recapAnnually;
+
   /// No description provided for @watchesWornTitle.
   ///
   /// In en, this message translates to:

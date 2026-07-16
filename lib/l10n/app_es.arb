@@ -88,6 +88,9 @@
   "wristRecap" : "Resumen de Muñeca",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Ajustes de Wrist Recap",
+  "recapMonthly" : "Mensual",
+  "recapAnnually" : "Anual",
   "watchesWornTitle" : "Relojes usados:",
   "brandChartTitle" : "Gráfico de marcas",
   "categoryChartTitle" : "Gráfico de categorías",

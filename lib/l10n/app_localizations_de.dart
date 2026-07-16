@@ -214,6 +214,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wristRecap => 'Handgelenk-Rückblick';
 
   @override
+  String get recapOptionsTitle => 'Wrist Recap Einstellungen';
+
+  @override
+  String get recapMonthly => 'Monatlich';
+
+  @override
+  String get recapAnnually => 'Jährlich';
+
+  @override
   String get watchesWornTitle => 'Getragene Uhren:';
 
   @override

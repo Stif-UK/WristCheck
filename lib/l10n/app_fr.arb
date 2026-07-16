@@ -87,6 +87,9 @@
   "wristRecap" : "Wrist Recap",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Paramètres de Wrist Recap",
+  "recapMonthly" : "Mensuel",
+  "recapAnnually" : "Annuel",
   "watchesWornTitle" : "Montres portées :",
   "brandChartTitle" : "Graphique des marques",
   "categoryChartTitle" : "Graphique des catégories",

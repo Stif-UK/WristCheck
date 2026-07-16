@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:wristcheck/controllers/wrist_recap_controllers/wrist_recap_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';

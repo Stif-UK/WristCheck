@@ -88,6 +88,9 @@
   "wristRecap" : "Wrist Recap",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Wrist Recap Settings",
+  "recapMonthly" : "Monthly",
+  "recapAnnually" : "Annually",
   "watchesWornTitle" : "Watches worn:",
   "brandChartTitle" : "Brand chart",
   "categoryChartTitle" : "Category chart",

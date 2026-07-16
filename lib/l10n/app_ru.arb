@@ -88,6 +88,9 @@
   "wristRecap" : "Обзор на запястье",
 
   "@_WRIST_RECAP": {},
+  "recapOptionsTitle" : "Настройки Wrist Recap",
+  "recapMonthly" : "Ежемесячно",
+  "recapAnnually" : "Ежегодно",
   "watchesWornTitle" : "Носимые часы:",
   "brandChartTitle" : "Диаграмма брендов",
   "categoryChartTitle" : "Диаграмма категорий",
