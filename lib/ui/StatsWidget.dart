@@ -8,10 +8,8 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
-import 'package:wristcheck/ui/period_review/period_review_home.dart';
 import 'package:wristcheck/ui/wear_stats_v2.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_landing.dart';
 
 import '../provider/adstate.dart';
 
