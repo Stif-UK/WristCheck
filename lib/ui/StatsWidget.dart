@@ -9,6 +9,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/collection_stats.dart';
 import 'package:wristcheck/ui/wear_stats_v2.dart';
+import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 
 import '../provider/adstate.dart';
@@ -145,7 +146,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                           //Default to opening WristRecap at last month
                           DateTime now = DateTime.now();
                           DateTime lastMonth = DateTime(now.year, now.month-1);
-                          Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year, monthView: true));
+                          Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year, selectedOption: WristRecapEnums.monthly));
                         },
                         style: ButtonStyle(
                             shape: WidgetStateProperty.all<RoundedRectangleBorder>(

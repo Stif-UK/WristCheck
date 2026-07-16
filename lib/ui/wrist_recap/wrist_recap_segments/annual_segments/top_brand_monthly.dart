@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -14,7 +15,7 @@ class TopBrandMonthly extends StatelessWidget {
     final recapController = Get.find<WristRecapController>();
 
     return Obx(() {
-      if (recapController.monthView.value || recapController.topBrandMonthly.isEmpty) {
+      if (recapController.selectedRecapOption.value != WristRecapEnums.annually || recapController.topBrandMonthly.isEmpty) {
         return const SizedBox.shrink();
       }
 

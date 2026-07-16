@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/wrist_recap_bottomsheet.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_brand_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_category_monthly.dart';
@@ -21,11 +22,11 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_thanks
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapHome extends StatelessWidget {
-  WristRecapHome({super.key, required this.month, required this.year, required this.monthView});
+  WristRecapHome({super.key, this.month, this.year, this.selectedOption = WristRecapEnums.monthly});
 
-  final int month;
-  final int year;
-  final bool monthView;
+  final int? month;
+  final int? year;
+  final WristRecapEnums selectedOption;
   final recapController = Get.put(WristRecapController());
   final wristCheckController = Get.put(WristCheckController());
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -34,9 +35,9 @@ class WristRecapHome extends StatelessWidget {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "wrist_recap_v2");
     //Initialise the controller
-    recapController.updateMonth(month);
-    recapController.updateYear(year);
-    recapController.updateMonthView(monthView);
+    if (month != null) recapController.updateMonth(month!);
+    if (year != null) recapController.updateYear(year!);
+    recapController.setRecapOption(selectedOption);
     //Run refresh in controller
     recapController.refresh();
 
@@ -62,42 +63,46 @@ class WristRecapHome extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              IconButton(
-                icon: FaIcon(FontAwesomeIcons.chevronLeft),
-                onPressed: () => recapController.decrementMonth(),
-              ),
-              Expanded(
-                child: Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(8.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Obx(() => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              recapController.monthView.value
-                                  ? "${WristCheckFormatter.getMonthFullName(recapController.month.value)} ${recapController.year.value}"
-                                  : "${recapController.year.value}",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
-                    ],
+          Obx(() {
+            bool showNavigation = recapController.selectedRecapOption.value == WristRecapEnums.monthly ||
+                recapController.selectedRecapOption.value == WristRecapEnums.annually;
+            return Row(
+              children: [
+                if (showNavigation)
+                  IconButton(
+                    icon: FaIcon(FontAwesomeIcons.chevronLeft),
+                    onPressed: () => recapController.decrementMonth(),
+                  ),
+                Expanded(
+                  child: Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Obx(() => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                recapController.getRecapHeaderText(context),
+                                style: Theme.of(context).textTheme.headlineSmall,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              IconButton(
-                icon: FaIcon(FontAwesomeIcons.chevronRight),
-                onPressed: () => recapController.incrementMonth(),
-              ),
-            ],
-          ),
+                if (showNavigation)
+                  IconButton(
+                    icon: FaIcon(FontAwesomeIcons.chevronRight),
+                    onPressed: () => recapController.incrementMonth(),
+                  ),
+              ],
+            );
+          }),
           const Divider(
             thickness: 2,
           ),

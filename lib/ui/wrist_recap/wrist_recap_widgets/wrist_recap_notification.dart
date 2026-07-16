@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 
 class WristRecapNotification extends StatelessWidget {
@@ -71,7 +72,7 @@ class WristRecapNotification extends StatelessWidget {
                 Get.to(() => WristRecapHome(
                   month: lastMonth.month, 
                   year: lastMonth.year, 
-                  monthView: now.month != 1,
+                  selectedOption: now.month == 1 ? WristRecapEnums.annually : WristRecapEnums.monthly,
                 ));
               }),
         ],

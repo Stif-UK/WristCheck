@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -7,6 +8,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/util/helper_classes.dart';
+import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapController extends GetxController{
   final month = 1.obs;
@@ -27,6 +29,8 @@ class WristRecapController extends GetxController{
   final isLastMonth = false.obs;
   final expandAdCard = false.obs;
   final showOptionalAdCard = true.obs;
+  final startDate = DateTime(DateTime.now().year, 1, 1).obs;
+  final endDate = DateTime(DateTime.now().year, 12, 31).obs;
 
   
   updateMonth(int monthInt) async {
@@ -44,6 +48,9 @@ class WristRecapController extends GetxController{
   setRecapOption(WristRecapEnums? value) {
     if (value != null) {
       selectedRecapOption(value);
+      //Update monthView based on selection for legacy support in UI segments
+      monthView(value == WristRecapEnums.monthly);
+      refresh();
     }
   }
 
@@ -80,9 +87,35 @@ class WristRecapController extends GetxController{
     expandAdCard(!expandAdCard.value);
   }
 
+  List<WornWatchesClass> _getWornList() {
+    final allNonArchived = Boxes.getAllNonArchivedWatches();
+    switch (selectedRecapOption.value) {
+      case WristRecapEnums.monthly:
+        return Boxes.getWatchesWornFilter(allNonArchived, month.value, year.value);
+      case WristRecapEnums.annually:
+        return Boxes.getWatchesWornFilter(allNonArchived, null, year.value);
+      case WristRecapEnums.allData:
+        return Boxes.getWatchesWornFilter(allNonArchived, null, null);
+      case WristRecapEnums.last30days:
+        return Boxes.getRollingWatchesWornFilter(allNonArchived, 30);
+      case WristRecapEnums.last90days:
+        return Boxes.getRollingWatchesWornFilter(allNonArchived, 90);
+      case WristRecapEnums.last365days:
+        return Boxes.getRollingWatchesWornFilter(allNonArchived, 365);
+      case WristRecapEnums.sinceLastPurchase:
+        DateTime? lastPurchaseDate = Boxes.getLastPurchaseDate(List.from(allNonArchived));
+        if (lastPurchaseDate != null) {
+          return Boxes.getWatchesWornBetweenTwoDates(allNonArchived, lastPurchaseDate, DateTime.now().add(const Duration(days: 1)));
+        }
+        return [];
+      case WristRecapEnums.betweenDates:
+        return Boxes.getWatchesWornBetweenTwoDates(allNonArchived, startDate.value, endDate.value);
+    }
+  }
+
   generateWornWatchesDate(int wearMonth, int wearYear){
     //Get all watches worn during period
-    List<WornWatchesClass> wearList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wearList = _getWornList();
 
     //Order the list - descending count
     if(wearList.isNotEmpty) wearList.sort((a, b) => b.count.compareTo(a.count));
@@ -104,7 +137,7 @@ class WristRecapController extends GetxController{
     duplicateBrand(false);
     Map<String, int> brandMap = {};
     Map<String, int> watchesPerBrandCount = {};
-    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = _getWornList();
 
     for(WornWatchesClass worn in wornList){
         brandMap[worn.watch.manufacturer] = (brandMap[worn.watch.manufacturer] ?? 0) + worn.count;
@@ -135,7 +168,7 @@ class WristRecapController extends GetxController{
   
   generateStatusWornData(int wearMonth, int wearYear){
     Map<String, int> statusMap = {};
-    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = _getWornList();
 
     for(WornWatchesClass worn in wornList){
         String status = WatchStatusEnumExtension.fromDbString(worn.watch.status).toLocalizedString(Get.context!);
@@ -163,7 +196,7 @@ class WristRecapController extends GetxController{
   
   generateCategoriesWornData(int wearMonth, int wearYear){
     Map<String, int> categoryMap = {};
-    List<WornWatchesClass> wornList = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), monthView.value ? wearMonth : null, wearYear);
+    List<WornWatchesClass> wornList = _getWornList();
     bool complete = true;
 
     for(WornWatchesClass worn in wornList){
@@ -198,7 +231,7 @@ class WristRecapController extends GetxController{
   }
 
   generateTopWatchMonthlyData() {
-    if (monthView.value) {
+    if (selectedRecapOption.value != WristRecapEnums.annually) {
       topWatchMonthly([]);
       return;
     }
@@ -226,7 +259,7 @@ class WristRecapController extends GetxController{
   }
 
   generateTopBrandMonthlyData() {
-    if (monthView.value) {
+    if (selectedRecapOption.value != WristRecapEnums.annually) {
       topBrandMonthly([]);
       return;
     }
@@ -261,7 +294,7 @@ class WristRecapController extends GetxController{
   }
 
   generateTopCategoryMonthlyData() {
-    if (monthView.value) {
+    if (selectedRecapOption.value != WristRecapEnums.annually) {
       topCategoryMonthly([]);
       return;
     }
@@ -304,19 +337,42 @@ class WristRecapController extends GetxController{
     topCategoryMonthly(topCategoriesList);
   }
 
+  bool _isInPeriod(DateTime? date) {
+    if (date == null) return false;
+    switch (selectedRecapOption.value) {
+      case WristRecapEnums.monthly:
+        return date.month == month.value && date.year == year.value;
+      case WristRecapEnums.annually:
+        return date.year == year.value;
+      case WristRecapEnums.allData:
+        return true;
+      case WristRecapEnums.last30days:
+        return DateTime.now().difference(date).inDays < 30;
+      case WristRecapEnums.last90days:
+        return DateTime.now().difference(date).inDays < 90;
+      case WristRecapEnums.last365days:
+        return DateTime.now().difference(date).inDays < 365;
+      case WristRecapEnums.sinceLastPurchase:
+        DateTime? lastPurchaseDate = Boxes.getLastPurchaseDate(List.from(Boxes.getAllNonArchivedWatches()));
+        if (lastPurchaseDate != null) {
+          return date.isAtSameMomentAs(lastPurchaseDate) || date.isAfter(lastPurchaseDate);
+        }
+        return false;
+      case WristRecapEnums.betweenDates:
+        return (date.isAtSameMomentAs(startDate.value) || date.isAfter(startDate.value)) &&
+               (date.isAtSameMomentAs(endDate.value) || date.isBefore(endDate.value));
+    }
+  }
+
   generateWatchesSold() async {
-    List<Watches> soldWatches = [];
-    soldWatches = Boxes.getSoldWatches();
-    soldWatches.removeWhere((watch) => watch.soldDate == null );
-    soldWatches = soldWatches.where((watch) => (monthView.value ? watch.soldDate!.month == month.value : true) && watch.soldDate!.year == year.value).toList();
+    List<Watches> soldWatches = Boxes.getSoldWatches();
+    soldWatches = soldWatches.where((watch) => _isInPeriod(watch.soldDate)).toList();
     watchesSold(soldWatches);
   }
 
   generateWatchesPurchased() async{
-    List<Watches> purchasedWatches = [];
-    purchasedWatches = Boxes.getAllNonArchivedWatches();
-    purchasedWatches.removeWhere((watch) => watch.purchaseDate == null);
-    purchasedWatches = purchasedWatches.where((watch) => (monthView.value ? watch.purchaseDate!.month == month.value : true) && watch.purchaseDate!.year == year.value).toList();
+    List<Watches> purchasedWatches = Boxes.getAllNonArchivedWatches();
+    purchasedWatches = purchasedWatches.where((watch) => _isInPeriod(watch.purchaseDate)).toList();
     watchesBought(purchasedWatches);
   }
 
@@ -328,10 +384,12 @@ class WristRecapController extends GetxController{
 
   incrementMonth() {
     DateTime newDate;
-    if (monthView.value) {
+    if (selectedRecapOption.value == WristRecapEnums.monthly) {
       newDate = DateTime(year.value, month.value + 1);
-    } else {
+    } else if (selectedRecapOption.value == WristRecapEnums.annually) {
       newDate = DateTime(year.value + 1, month.value);
+    } else {
+      return;
     }
     month(newDate.month);
     year(newDate.year);
@@ -341,10 +399,12 @@ class WristRecapController extends GetxController{
 
   decrementMonth() {
     DateTime newDate;
-    if (monthView.value) {
+    if (selectedRecapOption.value == WristRecapEnums.monthly) {
       newDate = DateTime(year.value, month.value - 1);
-    } else {
+    } else if (selectedRecapOption.value == WristRecapEnums.annually) {
       newDate = DateTime(year.value - 1, month.value);
+    } else {
+      return;
     }
     month(newDate.month);
     year(newDate.year);
@@ -362,6 +422,59 @@ class WristRecapController extends GetxController{
 
   updateShowOptionalAdCard(bool showCard){
     showOptionalAdCard(showCard);
+  }
+
+  String getRecapHeaderText(BuildContext context) {
+    switch (selectedRecapOption.value) {
+      case WristRecapEnums.monthly:
+        return "${WristCheckFormatter.getMonthFullName(month.value)} ${year.value}";
+      case WristRecapEnums.annually:
+        return "${year.value}";
+      case WristRecapEnums.allData:
+        return AppLocalizations.of(context)!.allData;
+      case WristRecapEnums.last30days:
+        return AppLocalizations.of(context)!.last30days;
+      case WristRecapEnums.last90days:
+        return AppLocalizations.of(context)!.last90days;
+      case WristRecapEnums.last365days:
+        return AppLocalizations.of(context)!.last365days;
+      case WristRecapEnums.sinceLastPurchase:
+        return AppLocalizations.of(context)!.sinceLastPurchase;
+      case WristRecapEnums.betweenDates:
+        return "${WristCheckFormatter.getFormattedDate(startDate.value)} - ${WristCheckFormatter.getFormattedDate(endDate.value)}";
+    }
+  }
+
+  int getDaysInPeriod() {
+    switch (selectedRecapOption.value) {
+      case WristRecapEnums.monthly:
+        return DateUtils.getDaysInMonth(year.value, month.value);
+      case WristRecapEnums.annually:
+        bool isLeapYear = (year.value % 4 == 0 && year.value % 100 != 0) || (year.value % 400 == 0);
+        return isLeapYear ? 366 : 365;
+      case WristRecapEnums.allData:
+        // Use difference between first wear and now
+        List<Watches> all = Boxes.getAllWatches();
+        DateTime earliest = DateTime.now();
+        for (var w in all) {
+          if (w.wearList.isNotEmpty && w.wearList.first.isBefore(earliest)) earliest = w.wearList.first;
+        }
+        return DateTime.now().difference(earliest).inDays.clamp(1, 99999);
+      case WristRecapEnums.last30days:
+        return 30;
+      case WristRecapEnums.last90days:
+        return 90;
+      case WristRecapEnums.last365days:
+        return 365;
+      case WristRecapEnums.sinceLastPurchase:
+        DateTime? lastPurchaseDate = Boxes.getLastPurchaseDate(List.from(Boxes.getAllNonArchivedWatches()));
+        if (lastPurchaseDate != null) {
+          return DateTime.now().difference(lastPurchaseDate).inDays.clamp(1, 99999);
+        }
+        return 1;
+      case WristRecapEnums.betweenDates:
+        return endDate.value.difference(startDate.value).inDays.clamp(1, 99999);
+    }
   }
 
   refresh() async {
