@@ -19,6 +19,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
+import 'package:wristcheck/ui/widgets/donation_notification.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_notification.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
@@ -80,12 +81,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();
     }
-    //Check if recap notification should show
-    widget.wristCheckController.checkForRecapNotification();
+    //Check if any header notification should show
+    widget.wristCheckController.checkForNotifications();
 
     return Scaffold(
-
-
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
         actions: [
@@ -109,7 +108,9 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       body: Column(
         children: [
           //Hide wrist recap notification on clock screen initially
-          Obx(() => widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox(height: 0,)),
+
+          Obx(() => widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox.shrink()),
+          Obx(() => widget.wristCheckController.isAppPro.value && widget.wristCheckController.showDonationPrompt.value && !widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3 ? DonationNotification() : const SizedBox.shrink()),
           Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
         ],
       ),

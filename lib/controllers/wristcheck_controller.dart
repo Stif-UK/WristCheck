@@ -36,6 +36,10 @@ class WristCheckController extends GetxController {
   //WristRecap notification
   final lastRecapNotificationDismissed = WristCheckPreferences.getLastRecapNotification().obs;
   final showRecapNotification = false.obs;
+  //Donation Prompt Notification
+  final lastDonationNotificationDismissed = DateTime.now().obs;
+  final showDonationPrompt = false.obs;
+  final donationShowMore = false.obs;
 
   updateHomePageIndex(int index){
     homePageIndex(index);
@@ -69,11 +73,25 @@ class WristCheckController extends GetxController {
     update(); //Not sure if this line makes a difference...
   }
 
-  //Set last recap notification
-  dismissRecapNotification(DateTime lastRecap) async {
-    await WristCheckPreferences.setLastRecapNotification(lastRecap);
-    lastRecapNotificationDismissed(lastRecap);
-    showRecapNotification(false);
+  /**
+   * checkForNotifications runs each of the checkers for homepage notifications
+   * setting the boolean values to true if a notification is available.
+   */
+  checkForNotifications(){
+    checkForRecapNotification();
+    checkForDonationNotification();
+  }
+
+  checkForDonationNotification(){
+    //TODO: Implement logic
+    //Get last donation date using purchaseApi
+    showDonationPrompt(true);
+  }
+
+  dismissDonationNotification(DateTime lastDonationNotification) async {
+    //write date to preferences
+    lastDonationNotificationDismissed(lastDonationNotification);
+    showDonationPrompt(false);
   }
 
   checkForRecapNotification(){
@@ -103,6 +121,13 @@ class WristCheckController extends GetxController {
 
       showRecapNotification(showNotification);
     }
+  }
+
+  //Set last recap notification
+  dismissRecapNotification(DateTime lastRecap) async {
+    await WristCheckPreferences.setLastRecapNotification(lastRecap);
+    lastRecapNotificationDismissed(lastRecap);
+    showRecapNotification(false);
   }
 
 
@@ -230,6 +255,10 @@ final dateListLength = 0.obs;
 
   updateDateListLength(int length){
     dateListLength(length);
+  }
+
+  toggleDonationShowMore(){
+    donationShowMore(!donationShowMore.value);
   }
 
   //First Day of the week preference
