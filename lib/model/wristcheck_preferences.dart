@@ -71,6 +71,7 @@ class WristCheckPreferences {
 
   //Recap
   static const _keyLastRecapNotification = 'lastRecapNotification';
+  static const _keyLastDonationNotificationDismissed = 'lastDonationNotificationDismissed';
   static const _keyRewardedAdCount = 'rewardedAdCount';
   static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
 
@@ -633,6 +634,16 @@ class WristCheckPreferences {
   static DateTime getLastRecapNotification() {
     String? returnString = _preferences.getString(_keyLastRecapNotification);
     return returnString == null? DateTime(2000, 1, 1) : DateTime.parse(returnString);
+  }
+
+  //Getter and Setter for last donation notification dismissed date
+  static Future setLastDonationNotificationDismissed(DateTime lastDonation) async{
+    await _preferences.setString(_keyLastDonationNotificationDismissed, lastDonation.toString());
+  }
+
+  static DateTime? getLastDonationNotificationDismissed() {
+    String? returnString = _preferences.getString(_keyLastDonationNotificationDismissed);
+    return returnString == null ? DateTime(2000, 1, 1) : DateTime.parse(returnString);
   }
 
   //Getter and Setter for rewarded ad count

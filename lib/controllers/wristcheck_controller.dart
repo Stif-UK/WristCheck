@@ -37,7 +37,7 @@ class WristCheckController extends GetxController {
   final lastRecapNotificationDismissed = WristCheckPreferences.getLastRecapNotification().obs;
   final showRecapNotification = false.obs;
   //Donation Prompt Notification
-  final lastDonationNotificationDismissed = DateTime.now().obs;
+  final lastDonationNotificationDismissed = WristCheckPreferences.getLastDonationNotificationDismissed().obs;
   final showDonationPrompt = false.obs;
   final donationShowMore = false.obs;
 
@@ -89,7 +89,7 @@ class WristCheckController extends GetxController {
   }
 
   dismissDonationNotification(DateTime lastDonationNotification) async {
-    //write date to preferences
+    await WristCheckPreferences.setLastDonationNotificationDismissed(lastDonationNotification);
     lastDonationNotificationDismissed(lastDonationNotification);
     showDonationPrompt(false);
   }
