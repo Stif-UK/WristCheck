@@ -83,6 +83,16 @@ class WristRecapController extends GetxController{
     watchesSold(watchList);
   }
 
+  updateEndDate(DateTime newEndDate){
+    endDate(newEndDate);
+    if (selectedRecapOption.value == WristRecapEnums.betweenDates) refresh();
+  }
+
+  updateStartDate(DateTime newStartDate){
+    startDate(newStartDate);
+    if (selectedRecapOption.value == WristRecapEnums.betweenDates) refresh();
+  }
+
   toggleAdCard(){
     expandAdCard(!expandAdCard.value);
   }
