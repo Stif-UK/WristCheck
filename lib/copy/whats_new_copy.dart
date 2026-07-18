@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.18.1 \n"
+        "### Version 1.18.2 \n"
         "\n"
 
             "* Wrist Recap Updated\n"
@@ -27,7 +27,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.18.1 \n"
+                      "### Version 1.18.2 \n"
                       "\n"
 
                       "* Wrist Recap Updated\n"
@@ -38,6 +38,7 @@ class WhatsNewCopy{
                       "* Critical bug preventing data backups on iOS resolved\n"
                       "* Core development library updated to latest SDK\n"
                       "* Multiple internal libraries and build tooling updated\n"
+                      "* 1.18.2 fixed a navigation bug blocking back navigation"
 
                       "### Version 1.17.1 \n"
                       "\n"
