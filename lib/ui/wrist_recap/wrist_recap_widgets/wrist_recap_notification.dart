@@ -8,7 +8,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 
 class WristRecapNotification extends StatelessWidget {
   WristRecapNotification({super.key});
-  final wristCheckController = Get.put(WristCheckController());
+  final wristCheckController = Get.find<WristCheckController>();
 
   @override
   Widget build(BuildContext context) {
