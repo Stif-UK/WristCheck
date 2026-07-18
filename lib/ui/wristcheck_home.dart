@@ -53,7 +53,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
     //Check for a version update and show a dialog if a new version has been released
-    StartupChecksUtil.runStartupChecks(context);
+    //Ensures the UI is ready before showing dialogs/bottomsheets
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      StartupChecksUtil.runStartupChecks(context);
+    });
 
     //If app is pro, check entitlement is still valid - check once per week
     if(WristCheckPreferences.getAppPurchasedStatus() == true){

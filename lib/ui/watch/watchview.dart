@@ -696,13 +696,14 @@ class _WatchViewState extends State<WatchView> {
               //Before Navigating back, clear the form, to prevent the back navigation being stopped
               _formKey.currentState!.reset();
               widget.watchViewController.updateSkipBackCheck(true);
-              Get.back();
 
               Get.snackbar(
                   snackTitle,
                   AppLocalizations.of(Get.context!)!.addedToWatchbox,
                   snackPosition: SnackPosition.BOTTOM,
                   icon: const Icon(Icons.watch));
+              
+              Get.back();
             }
           },
             child: Row(

@@ -254,7 +254,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             //Please select a watch
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
-            Get.back();
+            Navigator.of(context).pop;
             WatchMethods.attemptToRecordWear(
                 widget.wristCheckController
                     .selectedWatch.value!,
@@ -266,7 +266,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         },
         onCancel: () async {
           //Delay prevents the view changing to show the button before the dialog exits
-          Get.back();
+          Navigator.of(context).pop();
           await Future.delayed(const Duration(milliseconds: 1000));
           widget.wristCheckController.updateNullWatchMemo(false);
           widget.wristCheckController.updateSelectedWatch(null);
@@ -334,14 +334,14 @@ class _ScheduleViewState extends State<ScheduleView> {
             //Please select a watch
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
-            Get.back();
+            Navigator.of(context).pop;
             WatchMethods.removeWearDate(widget.wristCheckController.selectedDate.value!, widget.wristCheckController.selectedWatch.value!);
 
           }
         },
         onCancel: () async {
           //Delay prevents the view changing to show the button before the dialog exits
-          Get.back();
+          Navigator.of(context).pop;
           await Future.delayed(const Duration(milliseconds: 1000));
           widget.wristCheckController.updateNullWatchMemo(false);
           widget.wristCheckController.updateSelectedWatch(null);

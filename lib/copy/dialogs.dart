@@ -254,11 +254,12 @@ class WristCheckDialogs {
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
       onPressed: () async {
         await WatchMethods.archiveWatch(currentWatch);
+        //Show snackbar before popping to ensure valid context
+        Get.snackbar(AppLocalizations.of(Get.context!)!.deleteWatchSnackbarConfirmation, AppLocalizations.of(Get.context!)!.deleteWatchSnackbarText(currentWatch.toString()));
         //Use back navigation twice to close overlay and move back while maintaining widget tree
         watchViewController.updateOverrideBacknav(true);
         Get.back(closeOverlays: true);
         Get.back();
-        Get.snackbar(AppLocalizations.of(Get.context!)!.deleteWatchSnackbarConfirmation, AppLocalizations.of(Get.context!)!.deleteWatchSnackbarText(currentWatch.toString()));
       },
     );
 
