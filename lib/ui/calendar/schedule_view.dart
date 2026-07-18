@@ -334,7 +334,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             //Please select a watch
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
-            Navigator.of(context).pop;
+            Get.back();//Navigator.of(context).pop;
             WatchMethods.removeWearDate(widget.wristCheckController.selectedDate.value!, widget.wristCheckController.selectedWatch.value!);
 
           }
