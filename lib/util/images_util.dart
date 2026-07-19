@@ -84,7 +84,7 @@ class ImagesUtil {
   static Future<ImageSource?> imageSourcePopUp(BuildContext context) async {
     return showModalBottomSheet(context: context,
         builder: (context) => Material(
-          color: Colors.grey[600],
+          color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
           borderRadius: BorderRadius.circular(15),
           clipBehavior: Clip.antiAlias,
           child: Container(
