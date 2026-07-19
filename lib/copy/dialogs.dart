@@ -15,6 +15,7 @@ import 'package:hive/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -254,12 +255,12 @@ class WristCheckDialogs {
       style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
       onPressed: () async {
         await WatchMethods.archiveWatch(currentWatch);
+        watchViewController.updateOverrideBacknav(true);
         //Show snackbar before popping to ensure valid context
         Get.snackbar(AppLocalizations.of(Get.context!)!.deleteWatchSnackbarConfirmation, AppLocalizations.of(Get.context!)!.deleteWatchSnackbarText(currentWatch.toString()));
-        //Use back navigation twice to close overlay and move back while maintaining widget tree
-        watchViewController.updateOverrideBacknav(true);
-        Get.back(closeOverlays: true);
-        Get.back();
+        Navigator.pop(context); //Close the dialog
+        Get.to(WristCheckHome());
+
       },
     );
 
