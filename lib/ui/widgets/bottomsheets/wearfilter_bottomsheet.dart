@@ -58,7 +58,7 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
 
 
     return Material(
-      color: Colors.grey[600],
+      color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
       borderRadius: BorderRadius.circular(15),
       clipBehavior: Clip.antiAlias,
       child: Container(

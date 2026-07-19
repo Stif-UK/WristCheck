@@ -33,7 +33,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
 
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
     return Material(
-      color: Colors.grey[600],
+      color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
       borderRadius: BorderRadius.circular(15),
       clipBehavior: Clip.antiAlias,
       child: Container(
