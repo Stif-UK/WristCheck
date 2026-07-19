@@ -83,35 +83,35 @@ class ImagesUtil {
    */
   static Future<ImageSource?> imageSourcePopUp(BuildContext context) async {
     return showModalBottomSheet(context: context,
-        builder: (context) => Container(
-          decoration: BoxDecoration(
-            color: Colors.white38,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10,),
-              const Divider(thickness: 2,),
-              ListTile(
-                  leading: const FaIcon(FontAwesomeIcons.cameraRetro),
-                  title: Text(AppLocalizations.of(Get.context!)!.takeWithCamera, style: Theme.of(context).textTheme.headlineSmall,),
-                  onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
-              ),
-              const Divider(thickness: 2,),
-              ListTile(
-                  leading: const FaIcon(FontAwesomeIcons.images),
-                  title: Text(AppLocalizations.of(Get.context!)!.selectFromGallery, style: Theme.of(context).textTheme.headlineSmall,),
-                  onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
-              ),
-              const Divider(thickness: 2,),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height*0.2
-              )
-            ],
+        builder: (context) => Material(
+          color: Colors.grey[600],
+          borderRadius: BorderRadius.circular(15),
+          clipBehavior: Clip.antiAlias,
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10,),
+                const Divider(thickness: 2,),
+                ListTile(
+                    leading: const FaIcon(FontAwesomeIcons.cameraRetro),
+                    title: Text(AppLocalizations.of(Get.context!)!.takeWithCamera, style: Theme.of(context).textTheme.headlineSmall,),
+                    onTap: ()=> Navigator.of(context).pop(ImageSource.camera)
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                    leading: const FaIcon(FontAwesomeIcons.images),
+                    title: Text(AppLocalizations.of(Get.context!)!.selectFromGallery, style: Theme.of(context).textTheme.headlineSmall,),
+                    onTap: ()=> Navigator.of(context).pop(ImageSource.gallery)
+                ),
+                const Divider(thickness: 2,),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height*0.2
+                )
+              ],
 
+            ),
           ),
         ));
   }
