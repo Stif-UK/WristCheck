@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watch_methods.dart';
@@ -15,17 +16,19 @@ class ImageUpdateBottomsheet extends StatelessWidget {
   Widget build(BuildContext context) {
     int primaryIndex = watch.primaryImageIndex ?? 0;
     return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white38,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(15),
+      child: Material(
+        color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
         ),
-        height: MediaQuery.of(context).size.height*0.6,
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+          height: MediaQuery.of(context).size.height*0.6,
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
             //Header#
       
       
@@ -75,6 +78,6 @@ class ImageUpdateBottomsheet extends StatelessWidget {
         ),
       
       ),
-    );
+    ));
   }
 }

@@ -18,14 +18,16 @@ class DatePickerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white38,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: const EdgeInsets.all(15),
-          child: Column(
+      child: Material(
+        color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
             children: [
               Text(AppLocalizations.of(context)!.selectDatesToAdd, style: Theme.of(context).textTheme.headlineSmall,),
               Card(
@@ -83,15 +85,16 @@ class DatePickerBottomSheet extends StatelessWidget {
                           showModalBottomSheet(context: context,
                               builder: (context) => SingleChildScrollView(
                                 physics: ClampingScrollPhysics(),
-                                child: Container(
-                                  //TODO: Improve the UI - "some dates failed to save"
-                                  decoration: BoxDecoration(
-                                    color: Colors.white38,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(15),
+                                child: Material(
+                                  color: Get.isDarkMode? Colors.grey[600] : Colors.white38,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
                                   ),
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Column(
                                     children: [
                                       Text(AppLocalizations.of(context)!.thereWasAProblemWithSomeDates,
                                           style: Theme.of(context).textTheme.bodyLarge,),
@@ -116,7 +119,7 @@ class DatePickerBottomSheet extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              ));
+                              )));
                         }
 
                     }
@@ -128,7 +131,7 @@ class DatePickerBottomSheet extends StatelessWidget {
               )
             ],
           )),
-    );
+    ));
   }
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
