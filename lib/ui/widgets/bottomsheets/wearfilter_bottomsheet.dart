@@ -57,17 +57,16 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
     _tabController.index = widget.filterController.lastFilterTabIndex.value;
 
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white38,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      height: MediaQuery.of(context).size.height*0.8,
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+    return Material(
+      color: Colors.grey[600],
+      borderRadius: BorderRadius.circular(15),
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        height: MediaQuery.of(context).size.height*0.8,
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -118,6 +117,6 @@ class _WearFilterBottomSheetState extends State<WearFilterBottomSheet> with Sing
           ]
       ),
 
-    );
+    ));
   }
 }

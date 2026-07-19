@@ -17,7 +17,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wristcheck/ui/widgets/wearfilter_bottomsheet.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/wearfilter_bottomsheet.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
