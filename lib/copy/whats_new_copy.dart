@@ -8,6 +8,7 @@ class WhatsNewCopy{
         "### Version 1.18.2 \n"
         "\n"
 
+            "* 1.18.2: Bug fix - navigation issues\n"
             "* Wrist Recap Updated\n"
             "* Monthly & Annual Wrist Recap reminders created\n"
             "* Image only 'gallery' option for main watchbox\n"
