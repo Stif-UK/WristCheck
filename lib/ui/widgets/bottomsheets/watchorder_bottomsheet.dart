@@ -30,15 +30,13 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
     analytics.logScreenView(screenName: "order_sheet");
 
     WatchOrder currentOrder = widget.wristCheckController.watchboxOrder.value ?? WatchOrder.watchbox;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white38,
-        shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(15),
-      ),
-      height: MediaQuery.of(context).size.height*0.85,
-      padding: const EdgeInsets.all(15),
-      child: Material(
+    return Material(
+      color: Get.isDarkMode ? Colors.grey[600] : Colors.white38,
+      borderRadius: BorderRadius.circular(15),
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        height: MediaQuery.of(context).size.height*0.85,
+        padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -173,7 +171,6 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
           ],
         ),
       ),
-
     );
   }
 }
