@@ -11,19 +11,19 @@ class SearchFilterBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        ),
+    return Material(
+      color: Get.isDarkMode ? Colors.grey[600] : Colors.white38,
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
       ),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Text(
             AppLocalizations.of(context)!.searchOptionsTitle,
             style: Theme.of(context).textTheme.headlineSmall,
@@ -76,6 +76,6 @@ class SearchFilterBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
         ],
       ),
-    );
+    ));
   }
 }

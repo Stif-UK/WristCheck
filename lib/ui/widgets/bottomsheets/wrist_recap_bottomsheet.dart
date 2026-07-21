@@ -13,11 +13,12 @@ class WristRecapBottomsheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Get.isDarkMode ? Colors.grey[600] : Colors.white38,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(15),
         topRight: Radius.circular(15),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Container(
           height: MediaQuery.of(context).size.height * 0.75,
           padding: const EdgeInsets.all(15),
