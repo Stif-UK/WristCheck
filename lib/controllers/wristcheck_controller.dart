@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckController extends GetxController {
+  final remoteConfig = FirebaseRemoteConfig.instance;
 
   //Manage app purchase status
   final isAppPro =  WristCheckConfig.acknowledgePurchase? WristCheckPreferences.getAppPurchasedStatus()!.obs : true.obs;
@@ -40,6 +42,9 @@ class WristCheckController extends GetxController {
   final lastDonationNotificationDismissed = WristCheckPreferences.getLastDonationNotificationDismissed().obs;
   final showDonationPrompt = false.obs;
   final donationShowMore = false.obs;
+  //Merch Store
+  final showMerchStore = false.obs;
+  final merchStoreUrl = "".obs;
 
   updateHomePageIndex(int index){
     homePageIndex(index);
@@ -285,6 +290,13 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
   updateWaterResistanceUnit(WRUnitsEnum units) async {
     await WristCheckPreferences.setWaterResistancePreference(units);
     waterResistanceUnit(units);
+  }
+
+  refreshShowMerchStore() async {
+    bool showMerch = await remoteConfig.getBool("show_merch_link");
+    String merchUrl = await remoteConfig.getString("merch_url");
+    showMerchStore(showMerch);
+    merchStoreUrl(merchUrl);
   }
 
 }

@@ -12,13 +12,13 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/more_menu/gallery/gallery.dart';
 import 'package:wristcheck/ui/more_menu/timeline/timeline.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreMenu extends StatefulWidget {
   MoreMenu({super.key});
   final wristCheckController = Get.put(WristCheckController());
-  final remoteConfig = FirebaseRemoteConfig.instance;
-  late bool showMerch;
+  //final remoteConfig = FirebaseRemoteConfig.instance;
+
 
 
   @override
@@ -34,7 +34,8 @@ class _MoreMenuState extends State<MoreMenu> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
-    widget.showMerch = widget.remoteConfig.getBool("show_merch_link");
+    // widget.showMerch = widget.remoteConfig.getBool("show_merch_link");
+    widget.wristCheckController.refreshShowMerchStore();
     super.initState();
   }
 
@@ -69,45 +70,51 @@ class _MoreMenuState extends State<MoreMenu> {
     return Obx(()=> Column(
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: pagePadding,
-                  child: ListTile(
-                    title: Text(AppLocalizations.of(context)!.gallery,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.center,),
-                    trailing: FaIcon(FontAwesomeIcons.images),
-                    onTap: ()=> Get.to(() => GalleryV2()),
-                  ),
-                ),
-                const Divider(thickness: 2,),
-                Padding(
-                  padding: pagePadding,
-                  child: ListTile(
-                    title: Text(AppLocalizations.of(context)!.timeline,
+            child: Obx(() => Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: pagePadding,
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.gallery,
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,),
-                    trailing: FaIcon(FontAwesomeIcons.timeline),
-                    onTap: ()=> Get.to(() => WristCheckTimeline()),
+                      trailing: FaIcon(FontAwesomeIcons.images),
+                      onTap: ()=> Get.to(() => GalleryV2()),
+                    ),
                   ),
-                ),
-                const Divider(thickness: 2,),
-                widget.showMerch ? Padding(
-                  padding: pagePadding,
-                  child: ListTile(
-                    title: Text("Merch Store",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,),
-                    trailing: FaIcon(FontAwesomeIcons.shirt),
-                    onTap: () {
-                      String url = widget.remoteConfig.getString("merch_url");
-                      print(url);
+                  const Divider(thickness: 2,),
+                  Padding(
+                    padding: pagePadding,
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.timeline,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                        textAlign: TextAlign.center,),
+                      trailing: FaIcon(FontAwesomeIcons.timeline),
+                      onTap: ()=> Get.to(() => WristCheckTimeline()),
+                    ),
+                  ),
+                  const Divider(thickness: 2,),
+                  widget.wristCheckController.showMerchStore.value ? Padding(
+                    padding: pagePadding,
+                    child: ListTile(
+                      title: Text("Merch Store",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                        textAlign: TextAlign.center,),
+                      subtitle: Text("(opens in browser)",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        textAlign: TextAlign.center,),
+                      trailing: FaIcon(FontAwesomeIcons.shirt),
+                      onTap: () async {
+                        final Uri url = Uri.parse(widget.wristCheckController.merchStoreUrl.value);
+                        if (!await launchUrl(url)) {
+                          throw Exception('Could not launch $url');
+                        }
                       }),
-                  ) : const SizedBox.shrink(),
-                widget.showMerch ? const Divider(thickness: 2,) : const SizedBox.shrink(),
-              ],
+                    ) : const SizedBox.shrink(),
+                  widget.wristCheckController.showMerchStore.value ? const Divider(thickness: 2,) : const SizedBox.shrink(),
+                ],
+              ),
             ),
           ),
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
