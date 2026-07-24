@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/errors/error_handling.dart';
@@ -39,7 +40,7 @@ class WristCheckController extends GetxController {
   final lastRecapNotificationDismissed = WristCheckPreferences.getLastRecapNotification().obs;
   final showRecapNotification = false.obs;
   //Donation Prompt Notification
-  final lastDonationNotificationDismissed = WristCheckPreferences.getLastDonationNotificationDismissed().obs;
+  final daysSinceLastDonation = 0.obs;
   final showDonationPrompt = false.obs;
   final donationShowMore = false.obs;
   //Merch Store
@@ -87,15 +88,29 @@ class WristCheckController extends GetxController {
     checkForDonationNotification();
   }
 
-  checkForDonationNotification(){
-    //TODO: Implement logic
-    //Get last donation date using purchaseApi
-    showDonationPrompt(true);
+  checkForDonationNotification() async {
+    //If the app is not pro, exit immediately
+    if(!isAppPro.value) {
+      showDonationPrompt(false);
+    } else{
+      DateTime now = DateTime.now();
+      //Check greater than 365 days since last donation
+      DateTime lastPurchaseDate = DateTime.parse(await PurchaseApi.getAppPurchaseDate(false));
+      int daysSinceLastPurchase = now.difference(lastPurchaseDate).inDays;
+      daysSinceLastDonation(daysSinceLastPurchase);
+      bool purchasedOver365 = daysSinceLastPurchase > 365;
+      if(purchasedOver365){
+        //If yes, check if the last notification dismissed was over 365 days ago
+        DateTime lastNotificationDismissed = await WristCheckPreferences.getLastDonationNotificationDismissed()!;
+        if(now.difference(lastNotificationDismissed).inDays > 365){
+          showDonationPrompt(true);
+        }
+      }
+    }
   }
 
   dismissDonationNotification(DateTime lastDonationNotification) async {
     await WristCheckPreferences.setLastDonationNotificationDismissed(lastDonationNotification);
-    lastDonationNotificationDismissed(lastDonationNotification);
     showDonationPrompt(false);
   }
 

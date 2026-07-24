@@ -110,10 +110,11 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       body: Column(
         children: [
-          //Hide wrist recap notification on clock screen initially
-
+          //Hide notifications on clock screen
+          //Check if a wrist recap notification should be shown
           Obx(() => widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox.shrink()),
-          Obx(() => widget.wristCheckController.isAppPro.value && widget.wristCheckController.showDonationPrompt.value && !widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3 ? DonationNotification() : const SizedBox.shrink()),
+          //Check if a donation notification should show - first test that no recap notification is showing
+          Obx(() => widget.wristCheckController.isAppPro.value && !widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.showDonationPrompt.value  && widget.wristCheckController.homePageIndex.value != 3 ? DonationNotification() : const SizedBox.shrink()),
           Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
         ],
       ),

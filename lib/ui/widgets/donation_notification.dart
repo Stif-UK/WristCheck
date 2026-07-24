@@ -41,7 +41,7 @@ class DonationNotification extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("You donated to WristTrack 365 days ago, thank you!", style: Theme.of(context).textTheme.bodyLarge,),
+                    child: Text("You donated to WristTrack ${wristCheckController.daysSinceLastDonation.value} days ago, thank you!", style: Theme.of(context).textTheme.bodyLarge,),
                   ),
                   const SizedBox(height: 5,),
                   Padding(

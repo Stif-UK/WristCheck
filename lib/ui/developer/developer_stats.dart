@@ -47,272 +47,270 @@ class _DeveloperStatsState extends State<DeveloperStats> {
           icon: FaIcon(FontAwesomeIcons.info),
           label: "Info",
         ),
+        BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.database),
+          label: "Database",
+        ),
       ],
 
       ),
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            _currentIndex == 1? ListTile(
-              title: const Text("Open Count"),
-              subtitle: Text("App Opened: ${WristCheckPreferences.getOpenCount()} times"),
-            ): const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-
-            _currentIndex == 0? ListTile(
-              title: const Text("App Purchased"),
-              subtitle: Text("${WristCheckPreferences.getAppPurchasedStatus() ?? false}"),
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 0? FutureBuilder(
-              builder: (context, snapshot){
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If we got an error
-                  if (snapshot.hasError) {
-                    return ListTile(
-                      title: Text('${snapshot.error} occurred'),
-                    );
-
-                    // if we got our data
-                  } else if (snapshot.hasData) {
-                    // Extracting data from snapshot object
-                    final data = snapshot.data as String;
-                    return ListTile(
-                      title: const Text("Purchase Date"),
-                      subtitle: Text(
-                        '$data',
-
-                      ),
-                    );
-                  }
-                }
-                return const ListTile(
-                  title: Text("Purchase Date"),
-                  trailing: CircularProgressIndicator(),
-                );
-
-              },
-              future: getPurchaseDate(),
-
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),            _currentIndex == 0? FutureBuilder(
-              builder: (context, snapshot){
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If we got an error
-                  if (snapshot.hasError) {
-                    return ListTile(
-                      title: Text('${snapshot.error} occurred'),
-                    );
-
-                    // if we got our data
-                  } else if (snapshot.hasData) {
-                    // Extracting data from snapshot object
-                    final data = snapshot.data as String;
-                    return ListTile(
-                      title: const Text("Last Donation Date"),
-                      subtitle: Text(
-                        '$data',
-
-                      ),
-                    );
-                  }
-                }
-                return const ListTile(
-                  title: Text("Last Donation Date"),
-                  trailing: CircularProgressIndicator(),
-                );
-
-              },
-              future: getLastDonationDate(),
-
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 0? FutureBuilder(
-              builder: (context, snapshot){
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If we got an error
-                  if (snapshot.hasError) {
-                    return ListTile(
-                      title: Text('${snapshot.error} occurred'),
-                    );
-
-                    // if we got our data
-                  } else if (snapshot.hasData) {
-                    // Extracting data from snapshot object
-                    final data = snapshot.data as String;
-                    return ListTile(
-                      title: const Text("Last Entitlement Check"),
-                      subtitle: Text(
-                        '$data',
-
-                      ),
-                    );
-                  }
-                }
-                return const ListTile(
-                  title: Text("Last Entitlement Check"),
-                  trailing: CircularProgressIndicator(),
-                );
-
-              },
-              future: getLastEntilementCheck(),
-
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 0? FutureBuilder(
-              builder: (context, snapshot){
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If we got an error
-                  if (snapshot.hasError) {
-                    return ListTile(
-                      title: Text('${snapshot.error} occurred'),
-                    );
-
-                    // if we got our data
-                  } else if (snapshot.hasData) {
-                    // Extracting data from snapshot object
-                    final data = snapshot.data as String;
-                    return ListTile(
-                      title: const Text("App User ID"),
-                      subtitle: Text(
-                        '$data',
-
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.copy),
-                        onPressed: (){
-                          //Copy the appUserID to the clipboard
-                          Clipboard.setData(ClipboardData(text:'$data'));
-                          Get.snackbar(
-                              "Copied",
-                              "appUserID saved to clipboard",
-                              icon: const Icon(Icons.copy),
-                              snackPosition: SnackPosition.BOTTOM
-                          );
-
-                        },
-                      ),
-                    );
-                  }
-                }
-                return const ListTile(
-                  title: Text("App User ID"),
-                  trailing: CircularProgressIndicator(),
-                );
-
-              },
-              future: PurchaseApi.getAppUserID(),
-
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Show 'what's new' dialog"),
-              subtitle: const Text("Click here to trigger dialog box for testing"),
-              onTap: (){
-                WristCheckDialogs.getWhatsNewDialog(context);
-              },
-            ): const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Show onboarding slides"),
-              subtitle: const Text("Click here to trigger the first use demo"),
-              onTap: (){
-                Get.to(()=>const WristCheckOnboarding());
-              },
-            ): const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 0? ListTile(
-              title: const Text("Revert Purchase Status"),
-              subtitle: const Text("Remove pro option and show ads by clicking here. If done in error purchases can be restored on the 'remove ads' page"),
-              onTap: (){
-                wristCheckController.revertPurchaseStatus();
-                Get.snackbar(
-                    "Reverted",
-                    "User is no longer Pro on this app",
-                    icon: const Icon(Icons.no_accounts),
-                    snackPosition: SnackPosition.BOTTOM
-                );
-              },
-            ): const SizedBox(height: 0,),
-            _currentIndex == 0? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Reset all dialog preferences"),
-              subtitle: const Text("Any dialogs that were chosen to 'not show again' will now be set to show"),
-              onTap: (){
-                WristCheckPreferences.setShowSoldDialog(true);
-                WristCheckPreferences.setShowAccuracyHelp(true);
-                Get.snackbar(
-                  "Action",
-                  "All Dialogs reset to show",
-                  snackPosition: SnackPosition.BOTTOM
-                );
-              },
-            ):const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: Text("Generate Crash"),
-              subtitle: Text("Caution: Pressing this tile will cause an app crash for crashlytics testing only!"),
-              onTap: () => throw Exception("Crashlytics test exception"),
-            ): const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: Text("Last Sale Prompt Dismissed"),
-              subtitle: WristCheckPreferences.getLastSalePrompt() != null? Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastSalePrompt()!)) : Text("Not Recorded"),
-              onLongPress: () async {
-                //When long pressed, push a date > 30 day sin the past
-                DateTime newDate = DateTime.now().subtract(Duration(days: 31));
-                await WristCheckPreferences.setLastSalePrompt(newDate);
-                setState(() {
-
-                });
-                Get.snackbar(
-                    "Date Amended",
-                    "Last Prompted date moved 30+ days into the past",
-                    icon: const Icon(Icons.date_range),
-                    snackPosition: SnackPosition.BOTTOM
-                );
-              },
-            ): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Last WristRecap Notification"),
-              subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecapNotification())),
-              onLongPress: () {
-                WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1));
-                setState(() {});
-              },
-            ) : const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Last Rewarded Ad Watched"),
-              subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecordedAdTimestamp())),
-              onLongPress: () {
-                WristCheckPreferences.setLastRecordedAdTimestamp(DateTime(2000, 1, 1));
-                setState(() {});
-              },
-            ) : const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Number of recorded ads watched"),
-              subtitle: Text(WristCheckPreferences.getRewardedAdCount().toString()),
-            ) : const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Show Accuracy Database"),
-              onTap: () => Get.to(()=> DeveloperAccuracyView()),
-            ) : const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-            _currentIndex == 1? ListTile(
-              title: const Text("Show Raw Watch Database"),
-              onTap: () => Get.to(()=> RawDataView()),
-            ) : const SizedBox(height: 0,),
-            _currentIndex == 1? const Divider(thickness: 2,): const SizedBox(height: 0,),
-
-
-
-          ],
-        ),
+        child: _buildCurrentTab(wristCheckController, context),
       ),
+    );
+  }
+
+  Widget _buildCurrentTab(WristCheckController wristCheckController, BuildContext context) {
+    switch (_currentIndex) {
+      case 0:
+        return _buildPurchaseTab(wristCheckController);
+      case 1:
+        return _buildInfoTab(context);
+      case 2:
+        return _buildDatabaseTab();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildPurchaseTab(WristCheckController wristCheckController) {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text("App Purchased"),
+          subtitle: Text("${WristCheckPreferences.getAppPurchasedStatus() ?? false}"),
+        ),
+        const Divider(thickness: 2,),
+        FutureBuilder(
+          builder: (context, snapshot){
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return ListTile(title: Text('${snapshot.error} occurred'),);
+              } else if (snapshot.hasData) {
+                final data = snapshot.data as String;
+                return ListTile(
+                  title: const Text("Purchase Date"),
+                  subtitle: Text('$data',),
+                );
+              }
+            }
+            return const ListTile(
+              title: Text("Purchase Date"),
+              trailing: CircularProgressIndicator(),
+            );
+          },
+          future: getPurchaseDate(),
+        ),
+        const Divider(thickness: 2,),
+        FutureBuilder(
+          builder: (context, snapshot){
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return ListTile(title: Text('${snapshot.error} occurred'),);
+              } else if (snapshot.hasData) {
+                final data = snapshot.data as String;
+                return ListTile(
+                  title: const Text("Last Donation Date"),
+                  subtitle: Text('$data',),
+                );
+              }
+            }
+            return const ListTile(
+              title: Text("Last Donation Date"),
+              trailing: CircularProgressIndicator(),
+            );
+          },
+          future: getLastDonationDate(),
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Last Donation Prompt Dismissed"),
+          subtitle: WristCheckPreferences.getLastDonationNotificationDismissed() != null
+              ? Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastDonationNotificationDismissed()!))
+              : const Text("Not Recorded"),
+          onLongPress: () async {
+            await WristCheckPreferences.setLastDonationNotificationDismissed(DateTime(2000, 1, 1));
+            setState(() {});
+            Get.snackbar(
+                "Date Reset",
+                "Last Donation Prompt date reset to 01/01/2000",
+                icon: const Icon(Icons.refresh),
+                snackPosition: SnackPosition.BOTTOM
+            );
+          },
+        ),
+        const Divider(thickness: 2,),
+        FutureBuilder(
+          builder: (context, snapshot){
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return ListTile(title: Text('${snapshot.error} occurred'),);
+              } else if (snapshot.hasData) {
+                final data = snapshot.data as String;
+                return ListTile(
+                  title: const Text("Last Entitlement Check"),
+                  subtitle: Text('$data',),
+                );
+              }
+            }
+            return const ListTile(
+              title: Text("Last Entitlement Check"),
+              trailing: CircularProgressIndicator(),
+            );
+          },
+          future: getLastEntilementCheck(),
+        ),
+        const Divider(thickness: 2,),
+        FutureBuilder(
+          builder: (context, snapshot){
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return ListTile(title: Text('${snapshot.error} occurred'),);
+              } else if (snapshot.hasData) {
+                final data = snapshot.data as String;
+                return ListTile(
+                  title: const Text("App User ID"),
+                  subtitle: Text('$data',),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.copy),
+                    onPressed: (){
+                      Clipboard.setData(ClipboardData(text:'$data'));
+                      Get.snackbar(
+                          "Copied",
+                          "appUserID saved to clipboard",
+                          icon: const Icon(Icons.copy),
+                          snackPosition: SnackPosition.BOTTOM
+                      );
+                    },
+                  ),
+                );
+              }
+            }
+            return const ListTile(
+              title: Text("App User ID"),
+              trailing: CircularProgressIndicator(),
+            );
+          },
+          future: PurchaseApi.getAppUserID(),
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Revert Purchase Status"),
+          subtitle: const Text("Remove pro option and show ads by clicking here. If done in error purchases can be restored on the 'remove ads' page"),
+          onTap: (){
+            wristCheckController.revertPurchaseStatus();
+            Get.snackbar(
+                "Reverted",
+                "User is no longer Pro on this app",
+                icon: const Icon(Icons.no_accounts),
+                snackPosition: SnackPosition.BOTTOM
+            );
+          },
+        ),
+        const Divider(thickness: 2,),
+      ],
+    );
+  }
+
+  Widget _buildInfoTab(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text("Open Count"),
+          subtitle: Text("App Opened: ${WristCheckPreferences.getOpenCount()} times"),
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Show 'what's new' dialog"),
+          subtitle: const Text("Click here to trigger dialog box for testing"),
+          onTap: (){
+            WristCheckDialogs.getWhatsNewDialog(context);
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Show onboarding slides"),
+          subtitle: const Text("Click here to trigger the first use demo"),
+          onTap: (){
+            Get.to(()=>const WristCheckOnboarding());
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Reset all dialog preferences"),
+          subtitle: const Text("Any dialogs that were chosen to 'not show again' will now be set to show"),
+          onTap: (){
+            WristCheckPreferences.setShowSoldDialog(true);
+            WristCheckPreferences.setShowAccuracyHelp(true);
+            Get.snackbar(
+              "Action",
+              "All Dialogs reset to show",
+              snackPosition: SnackPosition.BOTTOM
+            );
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: Text("Generate Crash"),
+          subtitle: Text("Caution: Pressing this tile will cause an app crash for crashlytics testing only!"),
+          onTap: () => throw Exception("Crashlytics test exception"),
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: Text("Last Sale Prompt Dismissed"),
+          subtitle: WristCheckPreferences.getLastSalePrompt() != null? Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastSalePrompt()!)) : Text("Not Recorded"),
+          onLongPress: () async {
+            DateTime newDate = DateTime.now().subtract(Duration(days: 31));
+            await WristCheckPreferences.setLastSalePrompt(newDate);
+            setState(() {});
+            Get.snackbar(
+                "Date Amended",
+                "Last Prompted date moved 30+ days into the past",
+                icon: const Icon(Icons.date_range),
+                snackPosition: SnackPosition.BOTTOM
+            );
+          },
+        ),
+        ListTile(
+          title: const Text("Last WristRecap Notification"),
+          subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecapNotification())),
+          onLongPress: () {
+            WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1));
+            setState(() {});
+          },
+        ),
+        ListTile(
+          title: const Text("Last Rewarded Ad Watched"),
+          subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecordedAdTimestamp())),
+          onLongPress: () {
+            WristCheckPreferences.setLastRecordedAdTimestamp(DateTime(2000, 1, 1));
+            setState(() {});
+          },
+        ),
+        ListTile(
+          title: const Text("Number of recorded ads watched"),
+          subtitle: Text(WristCheckPreferences.getRewardedAdCount().toString()),
+        ),
+        const Divider(thickness: 2,),
+      ],
+    );
+  }
+
+  Widget _buildDatabaseTab() {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text("Show Accuracy Database"),
+          onTap: () => Get.to(()=> DeveloperAccuracyView()),
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Show Raw Watch Database"),
+          onTap: () => Get.to(()=> RawDataView()),
+        ),
+        const Divider(thickness: 2,),
+      ],
     );
   }
 
@@ -330,9 +328,3 @@ class _DeveloperStatsState extends State<DeveloperStats> {
 
 
 }
-
-
-
-
-// "Last Entitlement Check: ${FryerPreferences.getLastEntitlementCheckDate() != null ? TextHelper.formatDate(await FryerPreferences.getLastEntitlementCheckDate()!): "N/A"}\n\n"
-// );
