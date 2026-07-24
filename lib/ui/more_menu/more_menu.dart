@@ -12,10 +12,13 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/more_menu/gallery/gallery.dart';
 import 'package:wristcheck/ui/more_menu/timeline/timeline.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class MoreMenu extends StatefulWidget {
   MoreMenu({super.key});
   final wristCheckController = Get.put(WristCheckController());
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  late bool showMerch;
 
 
   @override
@@ -27,9 +30,11 @@ class _MoreMenuState extends State<MoreMenu> {
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
+
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    widget.showMerch = widget.remoteConfig.getBool("show_merch_link");
     super.initState();
   }
 
@@ -89,6 +94,19 @@ class _MoreMenuState extends State<MoreMenu> {
                   ),
                 ),
                 const Divider(thickness: 2,),
+                widget.showMerch ? Padding(
+                  padding: pagePadding,
+                  child: ListTile(
+                    title: Text("Merch Store",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,),
+                    trailing: FaIcon(FontAwesomeIcons.shirt),
+                    onTap: () {
+                      String url = widget.remoteConfig.getString("merch_url");
+                      print(url);
+                      }),
+                  ) : const SizedBox.shrink(),
+                widget.showMerch ? const Divider(thickness: 2,) : const SizedBox.shrink(),
               ],
             ),
           ),
