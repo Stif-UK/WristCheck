@@ -98,10 +98,10 @@ class _MoreMenuState extends State<MoreMenu> {
                   widget.wristCheckController.showMerchStore.value ? Padding(
                     padding: pagePadding,
                     child: ListTile(
-                      title: Text("Merch Store",
+                      title: Text(AppLocalizations.of(context)!.merchStore,
                         style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.center,),
-                      subtitle: Text("(opens in browser)",
+                      subtitle: Text(AppLocalizations.of(context)!.opensInBrowser,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,),
                       trailing: FaIcon(FontAwesomeIcons.shirt),

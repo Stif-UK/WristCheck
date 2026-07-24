@@ -376,6 +376,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get timeline => 'Osa';
 
   @override
+  String get merchStore => 'Obchod s merchem';
+
+  @override
+  String get opensInBrowser => '(otevře se v prohlížeči)';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Naposledy nošeny: $shortDate';
   }

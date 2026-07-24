@@ -137,6 +137,8 @@
   "@_MORE_MENU": {},
   "gallery" : "Galería",
   "timeline" : "Línea de Tiempo",
+  "merchStore" : "Tienda",
+  "opensInBrowser" : "(se abre en el navegador)",
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Último uso: {shortDate}",

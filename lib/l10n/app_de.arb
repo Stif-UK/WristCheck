@@ -137,6 +137,8 @@
   "@_MORE_MENU": {},
   "gallery" : "Galerie",
   "timeline" : "Timeline",
+  "merchStore" : "Merch-Shop",
+  "opensInBrowser" : "(öffnet im Browser)",
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Zuletzt getragen: {shortDate}",

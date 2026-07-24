@@ -378,6 +378,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get timeline => 'Chronologie';
 
   @override
+  String get merchStore => 'Boutique';
+
+  @override
+  String get opensInBrowser => '(s\'ouvre dans le navigateur)';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Portée le : $shortDate';
   }

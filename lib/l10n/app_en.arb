@@ -140,6 +140,8 @@
   "@_MORE_MENU": {},
   "gallery" : "Gallery",
   "timeline" : "Timeline",
+  "merchStore" : "Merch Store",
+  "opensInBrowser" : "(opens in browser)",
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Last worn: {shortDate}",

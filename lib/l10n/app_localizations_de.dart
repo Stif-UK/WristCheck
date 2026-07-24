@@ -377,6 +377,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get timeline => 'Timeline';
 
   @override
+  String get merchStore => 'Merch-Shop';
+
+  @override
+  String get opensInBrowser => '(öffnet im Browser)';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Zuletzt getragen: $shortDate';
   }

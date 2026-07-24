@@ -137,6 +137,8 @@
   "@_MORE_MENU": {},
   "gallery" : "Galerie",
   "timeline" : "Osa",
+  "merchStore" : "Obchod s merchem",
+  "opensInBrowser" : "(otevře se v prohlížeči)",
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Naposledy nošeny: {shortDate}",

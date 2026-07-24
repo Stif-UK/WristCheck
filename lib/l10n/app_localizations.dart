@@ -784,6 +784,18 @@ abstract class AppLocalizations {
   /// **'Timeline'**
   String get timeline;
 
+  /// No description provided for @merchStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Merch Store'**
+  String get merchStore;
+
+  /// No description provided for @opensInBrowser.
+  ///
+  /// In en, this message translates to:
+  /// **'(opens in browser)'**
+  String get opensInBrowser;
+
   /// No description provided for @lastWorn.
   ///
   /// In en, this message translates to:

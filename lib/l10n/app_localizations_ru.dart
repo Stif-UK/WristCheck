@@ -374,6 +374,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get timeline => 'Хроника';
 
   @override
+  String get merchStore => 'Магазин мерча';
+
+  @override
+  String get opensInBrowser => '(откроется в браузере)';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Последний раз: $shortDate';
   }

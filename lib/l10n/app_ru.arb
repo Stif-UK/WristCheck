@@ -137,6 +137,8 @@
   "@_MORE_MENU": {},
   "gallery" : "Галерея",
   "timeline" : "Хроника",
+  "merchStore" : "Магазин мерча",
+  "opensInBrowser" : "(откроется в браузере)",
 
   "@_WATCH_DETAILS": {},
   "lastWorn" : "Последний раз: {shortDate}",

@@ -376,6 +376,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get timeline => 'Línea de Tiempo';
 
   @override
+  String get merchStore => 'Tienda';
+
+  @override
+  String get opensInBrowser => '(se abre en el navegador)';
+
+  @override
   String lastWorn(Object shortDate) {
     return 'Último uso: $shortDate';
   }
