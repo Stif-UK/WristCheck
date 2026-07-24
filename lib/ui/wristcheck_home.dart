@@ -19,7 +19,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
-import 'package:wristcheck/ui/widgets/donation_notification.dart';
+import 'package:wristcheck/ui/widgets/nba_notifications/donation_notification.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_notification.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
