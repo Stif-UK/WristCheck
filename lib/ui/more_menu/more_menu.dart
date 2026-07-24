@@ -106,6 +106,12 @@ class _MoreMenuState extends State<MoreMenu> {
                         textAlign: TextAlign.center,),
                       trailing: FaIcon(FontAwesomeIcons.shirt),
                       onTap: () async {
+                        await analytics.logEvent(
+                          name: "merch_store_clicked",
+                          parameters: {
+                            "url": widget.wristCheckController.merchStoreUrl.value
+                          },
+                        );
                         final Uri url = Uri.parse(widget.wristCheckController.merchStoreUrl.value);
                         if (!await launchUrl(url)) {
                           throw Exception('Could not launch $url');
