@@ -133,13 +133,29 @@ class _ScheduleViewState extends State<ScheduleView> {
               flex: 4,
               child: Column(
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(l!.trackWear,
+                                textAlign: TextAlign.center),
+                          ),
+                        onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
+                            widget.wristCheckController.updateSelectedWatch(null);
+                            _generateTrackDialog();
+                            await analytics.logEvent(name: "calendar_wear");
+                        },
+                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 25.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(l!.removeWear, style: TextStyle(
+                        child: Text(l.removeWear, style: TextStyle(
                           fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                         ), textAlign: TextAlign.center,),
                       ),
@@ -149,20 +165,6 @@ class _ScheduleViewState extends State<ScheduleView> {
                         await analytics.logEvent(name: "calendar_remove_wear");
                       },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 25.0),
-                    child: ElevatedButton(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(l.trackWear, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
-                          ),
-                        onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
-                            widget.wristCheckController.updateSelectedWatch(null);
-                            _generateTrackDialog();
-                            await analytics.logEvent(name: "calendar_wear");
-                        },
-                      ),
                   ),
                 ],
               ),
