@@ -43,6 +43,9 @@ class WristCheckController extends GetxController {
   final daysSinceLastDonation = 0.obs;
   final showDonationPrompt = false.obs;
   final donationShowMore = false.obs;
+  //Go Pro notification
+  final showGoProNotification = false.obs;
+  final lastGoProNotificationDismissed = (WristCheckPreferences.getLastGoProNotificationDismissed()).obs;
   //Merch Store
   final showMerchStore = false.obs;
   final merchStoreUrl = "".obs;
@@ -148,6 +151,24 @@ class WristCheckController extends GetxController {
     await WristCheckPreferences.setLastRecapNotification(lastRecap);
     lastRecapNotificationDismissed(lastRecap);
     showRecapNotification(false);
+  }
+
+  checkForGoProNotification() async {
+    //This notification relies on wearCount and openCount - both will be unique to the device
+    //unless an OS level data transfer has been used, so may not reflect o.g. totals.
+    int openCount = await WristCheckPreferences.getOpenCount() ?? 0;
+    int wearCount = await WristCheckPreferences.getWearCount() ?? 0;
+    bool isPro = await WristCheckPreferences.getAppPurchasedStatus() ?? false;
+    if(!isPro && openCount > 30 && wearCount > 30 ){
+        showGoProNotification(true);
+    }
+  }
+
+  //Set last recap notification
+  dismissGoProNotification(DateTime lastPrompt) async {
+    await WristCheckPreferences.setLastGoProNotificationDismissed(lastPrompt);
+    lastGoProNotificationDismissed(lastPrompt);
+    showGoProNotification(false);
   }
 
 

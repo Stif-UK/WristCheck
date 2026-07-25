@@ -69,9 +69,10 @@ class WristCheckPreferences {
   //WR Units
   static const _keyWRUnitsPreference = 'WRUnits';
 
-  //Recap
+  //Recap and Homepage notifications
   static const _keyLastRecapNotification = 'lastRecapNotification';
   static const _keyLastDonationNotificationDismissed = 'lastDonationNotificationDismissed';
+  static const _keyLastGoProNotificationDismissed = 'lastGoProNotificationDismissed';
   static const _keyRewardedAdCount = 'rewardedAdCount';
   static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
 
@@ -644,6 +645,16 @@ class WristCheckPreferences {
   static DateTime? getLastDonationNotificationDismissed() {
     String? returnString = _preferences.getString(_keyLastDonationNotificationDismissed);
     return returnString == null ? DateTime(2000, 1, 1) : DateTime.parse(returnString);
+  }
+
+  //Getter and Setter for last go pro notification dismissed date
+  static Future setLastGoProNotificationDismissed(DateTime lastDismissed) async{
+    await _preferences.setString(_keyLastGoProNotificationDismissed, lastDismissed.toString());
+  }
+
+  static DateTime getLastGoProNotificationDismissed() {
+    String? returnString = _preferences.getString(_keyLastGoProNotificationDismissed);
+    return returnString == null ? DateTime(2020, 1, 1) : DateTime.parse(returnString);
   }
 
   //Getter and Setter for rewarded ad count
