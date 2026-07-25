@@ -378,9 +378,6 @@ class WatchMethods {
     bool wearEnough = wearCount > 5;
     bool dateCheck = DateTime.now().difference(refDate) > const Duration(days: 10);
 
-    print("appReviewCheck called: $openEnough, $wearEnough, $dateCheck");
-
-
     if(openEnough && wearEnough && dateCheck){
       if(await inAppReview.isAvailable()){
         inAppReview.requestReview();
