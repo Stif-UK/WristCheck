@@ -210,7 +210,7 @@ class WristCheckController extends GetxController {
     int wearCount = WristCheckPreferences.getWearCount() ?? 0;
     bool isPro = isAppPro.value;
 
-    if(!isPro && openCount > 0 && wearCount > 3 ){
+    if(!isPro && openCount > 30 && wearCount > 30 ){
       DateTime lastPromptDismissed = WristCheckPreferences.getLastGoProNotificationDismissed();
       DateTime now = DateTime.now();
       if(now.difference(lastPromptDismissed).inDays > 90) {
