@@ -19,9 +19,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
-import 'package:wristcheck/ui/widgets/nba_notifications/donation_notification.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
-import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_notification.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
 
@@ -73,6 +70,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       }
 
     }
+    //Check for notifications on start
+    widget.wristCheckController.checkForNotifications();
   }
 
 
@@ -84,8 +83,6 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     if(Platform.isIOS) {
       AppTrackingTransparency.requestTrackingAuthorization();
     }
-    //Check if any header notification should show
-    widget.wristCheckController.checkForNotifications();
 
     return Scaffold(
       appBar: AppBar(
@@ -110,11 +107,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       body: Column(
         children: [
-          //Hide notifications on clock screen
-          //Check if a wrist recap notification should be shown
-          Obx(() => widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.homePageIndex.value != 3? WristRecapNotification() : const SizedBox.shrink()),
-          //Check if a donation notification should show - first test that no recap notification is showing
-          Obx(() => widget.wristCheckController.isAppPro.value && !widget.wristCheckController.showRecapNotification.value && widget.wristCheckController.showDonationPrompt.value  && widget.wristCheckController.homePageIndex.value != 3 ? DonationNotification() : const SizedBox.shrink()),
+          //Only show NBA if on collection screen and not on clock screen
+          Obx(() => widget.wristCheckController.homePageIndex.value != 3 ? 
+            (widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink()) : 
+            const SizedBox.shrink()),
           Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
         ],
       ),
@@ -186,21 +182,18 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   }
 
   void _onTabTapped(int index) {
-    final controller = Get.put(WristCheckController());
       analytics.logEvent(name: "homepage_bottom_nav",
       parameters: {
         "page_name" : _children[index].toString(),
         "page_index": index
       });
-      controller.updateHomePageIndex(index);
+      widget.wristCheckController.updateHomePageIndex(index);
 
   }
 
   getHeaderText(){
     return widget.wristCheckController.isAppPro.value? const Text("WristTrack Pro") : const Text("WristTrack");
   }
-
-
 
 }
 

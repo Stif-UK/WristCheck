@@ -272,14 +272,34 @@ class _DeveloperStatsState extends State<DeveloperStats> {
             );
           },
         ),
+        const Divider(thickness: 2,),
         ListTile(
-          title: const Text("Last WristRecap Notification"),
+          title: const Text("Last WristRecap Notification Dismissed"),
           subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecapNotification())),
           onLongPress: () {
             WristCheckPreferences.setLastRecapNotification(DateTime(2000, 1, 1));
             setState(() {});
           },
         ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Last Go Pro Notification Dismissed"),
+          subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastGoProNotificationDismissed())),
+          onLongPress: () {
+            WristCheckPreferences.setLastGoProNotificationDismissed(DateTime(2000, 1, 1));
+            setState(() {});
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Last NBA shown date"),
+          subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastNBADate())),
+          onLongPress: () {
+            WristCheckPreferences.setLastNBADate(DateTime(2000, 1, 1));
+            setState(() {});
+          },
+        ),
+        const Divider(thickness: 2,),
         ListTile(
           title: const Text("Last Rewarded Ad Watched"),
           subtitle: Text(WristCheckFormatter.getFormattedDate(WristCheckPreferences.getLastRecordedAdTimestamp())),
@@ -288,6 +308,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
             setState(() {});
           },
         ),
+        const Divider(thickness: 2,),
         ListTile(
           title: const Text("Number of recorded ads watched"),
           subtitle: Text(WristCheckPreferences.getRewardedAdCount().toString()),

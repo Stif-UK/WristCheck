@@ -73,6 +73,7 @@ class WristCheckPreferences {
   static const _keyLastRecapNotification = 'lastRecapNotification';
   static const _keyLastDonationNotificationDismissed = 'lastDonationNotificationDismissed';
   static const _keyLastGoProNotificationDismissed = 'lastGoProNotificationDismissed';
+  static const _keyLastNBADate = 'lastNBAdate';
   static const _keyRewardedAdCount = 'rewardedAdCount';
   static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
 
@@ -670,6 +671,15 @@ class WristCheckPreferences {
   static DateTime getLastRecordedAdTimestamp() {
     String? returnString = _preferences.getString(_keyLastRecordedAdTimestamp);
     return returnString == null ? DateTime(2000, 1, 1) : DateTime.parse(returnString);
+  }
+
+  //Getter and Setter for last NBA date
+  static Future setLastNBADate(DateTime date) async =>
+      await _preferences.setString(_keyLastNBADate, date.toString());
+
+  static DateTime getLastNBADate() {
+    String? returnString = _preferences.getString(_keyLastNBADate);
+    return returnString == null ? DateTime(2020, 1, 1) : DateTime.parse(returnString);
   }
 
   //Getter and Setter for realistic moon preference
