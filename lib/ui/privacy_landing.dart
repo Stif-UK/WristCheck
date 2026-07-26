@@ -21,6 +21,7 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
       body: Column(
         children: [
           ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy),
+          subtitle: Text(AppLocalizations.of(context)!.opensInBrowser),
           leading: const Icon(Icons.privacy_tip_outlined),
           onTap: () async {
             final Uri url = Uri.parse('https://www.wristtrack.app/privacypolicy/');
