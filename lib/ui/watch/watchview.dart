@@ -497,10 +497,13 @@ class _WatchViewState extends State<WatchView> {
                                     const Divider(thickness: 2,),
                                     WatchStatusHeader(currentWatch: widget.currentWatch),
                                     const Divider(thickness: 2,),
-                                    Column(
+                                    Obx(() => IndexedStack(
+                                      index: widget.wristCheckController.isAppPro.value 
+                                          ? widget.watchViewController.tabIndex.value 
+                                          : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value),
                                       children: [
-                                        //Tab one - Watch info
-                                        widget.watchViewController.tabIndex.value == 0 ? InfoTab(
+                                        // Index 0: Info
+                                        InfoTab(
                                             manufacturerFieldController: manufacturerFieldController,
                                             modelFieldController: modelFieldController,
                                             serialNumberFieldController: serialNumberFieldController,
@@ -508,10 +511,10 @@ class _WatchViewState extends State<WatchView> {
                                             movementFieldController: movementFieldController,
                                             categoryFieldController: categoryFieldController,
                                             bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                            context: context) : const SizedBox(height: 0,),
-
-                                        //Tab two - Schedule info
-                                        widget.watchViewController.tabIndex.value == 1 ? ServiceTab(
+                                            context: context),
+                                        
+                                        // Index 1: Service/Schedule
+                                        ServiceTab(
                                             deliveryDateFieldController: deliveryDateFieldController,
                                             purchaseDateFieldController: purchaseDateFieldController,
                                             soldDateFieldController: soldDateFieldController,
@@ -520,10 +523,10 @@ class _WatchViewState extends State<WatchView> {
                                             warrantyEndDateFieldController: warrantyEndDateFieldController,
                                             lastServicedDateFieldController: lastServicedDateFieldController,
                                             nextServiceDueFieldController: nextServiceDueFieldController,
-                                            currentWatch: widget.currentWatch): const SizedBox(height: 0,),
+                                            currentWatch: widget.currentWatch),
 
-                                        //Tab three - cost info
-                                        widget.watchViewController.tabIndex.value == 2 ? ValueTab(
+                                        // Index 2: Value/Cost
+                                        ValueTab(
                                             purchasePriceFieldController: purchasePriceFieldController,
                                             purchasedFromFieldController: purchasedFromFieldController,
                                             soldPriceFieldController: soldPriceFieldController,
@@ -531,11 +534,10 @@ class _WatchViewState extends State<WatchView> {
                                             currentWatch: widget.currentWatch,
                                             bodyLarge: Theme.of(context).textTheme.bodyLarge,
                                             headlineSmall: Theme.of(context).textTheme.headlineSmall,
-                                            locale: locale) : const SizedBox(height: 0,),
+                                            locale: locale),
 
-                                        //Tab four when app is pro - Pro Data
-                                        //Only show if app is pro
-                                        widget.watchViewController.tabIndex.value == 3 && widget.wristCheckController.isAppPro.value
+                                        // Index 3: Pro Data OR Notes (if non-pro)
+                                        widget.wristCheckController.isAppPro.value
                                             ? ProDataTab(
                                                 caseDiameterController: caseDiameterFieldController,
                                                 lugWidthController: lugWidthFieldController,
@@ -546,21 +548,18 @@ class _WatchViewState extends State<WatchView> {
                                                 winderTPDController: winderTPDFieldController,
                                                 winderDirectionController: winderDirectionFieldController,
                                                 dateComplicationController: dateComplicationFieldController,
-                                        )
-                                            : const SizedBox(height: 0,),
+                                              )
+                                            : NotesTab(notesFieldController: notesFieldController),
 
-                                        //Tab four when app is not pro- Notebook
-                                        widget.watchViewController.tabIndex.value == 3 && !widget.wristCheckController.isAppPro.value
-                                            ? NotesTab(notesFieldController: notesFieldController)
-                                            : const SizedBox(height: 0,),
-
-                                        //Tab five - Notebook (index 4 only exists when the app is pro)
-                                        widget.watchViewController.tabIndex.value == 4
-                                            ? NotesTab(notesFieldController: notesFieldController)
-                                            : const SizedBox(height: 0,),
-
-                                        const Divider(thickness: 2,),
-                                        //Implement Add / Save button and next button to show if in an 'add' state
+                                        // Index 4: Notes (only if pro)
+                                        if (widget.wristCheckController.isAppPro.value)
+                                          NotesTab(notesFieldController: notesFieldController),
+                                      ],
+                                    )),
+                                    const Divider(thickness: 2,),
+                                    //Implement Add / Save button and next button to show if in an 'add' state
+                                    Obx(() => Column(
+                                      children: [
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
                                             widget.watchViewController.tabIndex.value < finalTabIndex
                                             ? _nextTabButton()
@@ -572,10 +571,8 @@ class _WatchViewState extends State<WatchView> {
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.edit
                                             ?  _saveWatchUpdateButton()
                                             : const SizedBox(height: 0,)
-
-
                                       ],
-                                    ),
+                                    )),
                                   ],
                                 ),
                               ),
