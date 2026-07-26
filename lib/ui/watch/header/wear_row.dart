@@ -77,6 +77,7 @@ class _WearRowState extends State<WearRow> {
               //Show last worn date
               FittedBox(child: _displayLastWearDate()),
               _displayWearCount(),
+              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString() ?_displayWearFrequency() : const SizedBox.shrink(),
               const SizedBox(height: 20),
             ],
           ),
@@ -134,6 +135,23 @@ class _WearRowState extends State<WearRow> {
       children: [
         Text(AppLocalizations.of(Get.context!)!.nWears(wearCount)),
         //Text(WristCheckFormatter.getWearCountText(wearCount))
+      ],
+    );
+  }
+
+  Widget _displayWearFrequency(){
+    //If wearlist is empty then exit
+    if(widget.currentWatch!.wearList.length == 0) return const SizedBox.shrink();
+
+    DateTime firstWorn = widget.currentWatch!.wearList.first;
+    DateTime now = DateTime.now();
+    int daysSinceFirstWear = now.difference(firstWorn).inDays + 1; //+1 so the count begins from 1, not 0.
+    print("daysSinceFirstWear = $daysSinceFirstWear, wear count: ${widget.currentWatch!.wearList.length}");
+    var wearFrequency = (widget.currentWatch!.wearList.length / daysSinceFirstWear)*100;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Wear Frequency: ${wearFrequency.toStringAsFixed(0)} %")
       ],
     );
   }
