@@ -149,6 +149,7 @@
   "addOptionalDetails" : "¿Añadir detalles opcionales?",
   "addedToWatchbox" : "añadido a la caja de relojes",
   "favouriteLabel" : "Favorito",
+  "wearFrequency" : "Frecuencia de uso: {returnText} %",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Diámetro de la Caja (mm):",

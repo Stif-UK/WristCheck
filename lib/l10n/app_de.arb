@@ -149,6 +149,7 @@
   "addOptionalDetails" : "Optionale Details hinzufügen?",
   "addedToWatchbox" : "zur Uhrenbox hinzugefügt",
   "favouriteLabel" : "Favorit",
+  "wearFrequency" : "Tragehäufigkeit: {returnText} %",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Gehäusedurchmesser (mm):",

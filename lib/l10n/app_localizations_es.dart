@@ -410,6 +410,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get favouriteLabel => 'Favorito';
 
   @override
+  String wearFrequency(Object returnText) {
+    return 'Frecuencia de uso: $returnText %';
+  }
+
+  @override
   String get caseDiameterRowTitle => 'Diámetro de la Caja (mm):';
 
   @override

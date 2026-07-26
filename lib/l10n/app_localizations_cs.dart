@@ -410,6 +410,11 @@ class AppLocalizationsCs extends AppLocalizations {
   String get favouriteLabel => 'Oblíbené';
 
   @override
+  String wearFrequency(Object returnText) {
+    return 'Četnost nošení: $returnText %';
+  }
+
+  @override
   String get caseDiameterRowTitle => 'Průměr pouzdra (mm):';
 
   @override

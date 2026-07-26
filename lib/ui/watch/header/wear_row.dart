@@ -151,7 +151,7 @@ class _WearRowState extends State<WearRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Wear Frequency: ${wearFrequency.toStringAsFixed(0)} %")
+        Text(AppLocalizations.of(Get.context!)!.wearFrequency(wearFrequency.toStringAsFixed(0)))
       ],
     );
   }

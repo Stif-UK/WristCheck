@@ -412,6 +412,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get favouriteLabel => 'Coup de cœur';
 
   @override
+  String wearFrequency(Object returnText) {
+    return 'Fréquence de portée : $returnText %';
+  }
+
+  @override
   String get caseDiameterRowTitle => 'Diamètre du boîtier (mm) :';
 
   @override

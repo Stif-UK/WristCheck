@@ -411,6 +411,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get favouriteLabel => 'Favorit';
 
   @override
+  String wearFrequency(Object returnText) {
+    return 'Tragehäufigkeit: $returnText %';
+  }
+
+  @override
   String get caseDiameterRowTitle => 'Gehäusedurchmesser (mm):';
 
   @override

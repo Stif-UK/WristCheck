@@ -152,6 +152,7 @@
   "addOptionalDetails" : "Add optional details?",
   "addedToWatchbox" : "added to watchbox",
   "favouriteLabel" : "Favourite",
+  "wearFrequency" : "Wear Frequency: {returnText}%",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Case Diameter (mm):",

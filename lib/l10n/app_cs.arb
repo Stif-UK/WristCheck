@@ -149,6 +149,7 @@
   "addOptionalDetails" : "Přidat volitelné podrobnosti?",
   "addedToWatchbox" : "přidáno do hodinkovnice",
   "favouriteLabel" : "Oblíbené",
+  "wearFrequency" : "Četnost nošení: {returnText} %",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Průměr pouzdra (mm):",

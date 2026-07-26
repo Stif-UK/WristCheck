@@ -844,6 +844,12 @@ abstract class AppLocalizations {
   /// **'Favourite'**
   String get favouriteLabel;
 
+  /// No description provided for @wearFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear Frequency: {returnText}%'**
+  String wearFrequency(Object returnText);
+
   /// No description provided for @caseDiameterRowTitle.
   ///
   /// In en, this message translates to:

@@ -408,6 +408,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get favouriteLabel => 'В избранное';
 
   @override
+  String wearFrequency(Object returnText) {
+    return 'Частота ношения: $returnText %';
+  }
+
+  @override
   String get caseDiameterRowTitle => 'Диаметр корпуса (мм):';
 
   @override

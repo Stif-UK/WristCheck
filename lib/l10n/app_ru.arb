@@ -149,6 +149,7 @@
   "addOptionalDetails" : "Добавить доп. сведения?",
   "addedToWatchbox" : "добавлено в шкатулку",
   "favouriteLabel" : "В избранное",
+  "wearFrequency" : "Частота ношения: {returnText} %",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Диаметр корпуса (мм):",
