@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/privacy/initialisation_helper.dart';
-import 'package:wristcheck/ui/PrivacyPolicy.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyLanding extends StatefulWidget {
   const PrivacyLanding();
@@ -23,8 +22,11 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
         children: [
           ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy),
           leading: const Icon(Icons.privacy_tip_outlined),
-          onTap: (){
-            Get.to(() => PrivacyPolicy());
+          onTap: () async {
+            final Uri url = Uri.parse('https://www.wristtrack.app/privacypolicy/');
+            if (!await launchUrl(url)) {
+              throw Exception('Could not launch $url');
+            }
           }),
           const Divider(thickness: 2,),
           ListTile(title: Text(AppLocalizations.of(context)!.privacySettings),
