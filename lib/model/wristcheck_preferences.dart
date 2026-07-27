@@ -80,6 +80,7 @@ class WristCheckPreferences {
   //Visibility preferences
   static const _keyShowLastWornDate = 'showLastWornDate';
   static const _keyShowWearCountVisibility = 'showWearCountVisibility';
+  static const _keyShowWearFrequencyVisibility = 'showWearFrequencyVisibility';
 
   //Moon phase
   static const _keyRealisticMoon = 'realisticMoon';
@@ -627,6 +628,12 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyShowWearCountVisibility, showWearCount);
 
   static bool getShowWearCountPref() => _preferences.getBool(_keyShowWearCountVisibility) ?? true;
+
+  //Getter and Setter for show wear frequency visibility preference
+  static Future setShowWearFrequencyPref(bool showWearFrequency) async =>
+      await _preferences.setBool(_keyShowWearFrequencyVisibility, showWearFrequency);
+
+  static bool getShowWearFrequencyPref() => _preferences.getBool(_keyShowWearFrequencyVisibility) ?? true;
 
   //Getter and Setter for last recap notification date
   static Future setLastRecapNotification(DateTime lastRecap) async{

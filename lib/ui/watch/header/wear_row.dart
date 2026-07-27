@@ -77,7 +77,7 @@ class _WearRowState extends State<WearRow> {
               //Show last worn date
               FittedBox(child: _displayLastWearDate()),
               _displayWearCount(),
-              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString() ?_displayWearFrequency() : const SizedBox.shrink(),
+              widget.currentWatch!.status == WatchStatusEnum.inCollection.toDbString() ?_displayWearFrequency(widget.currentWatch) : const SizedBox.shrink(),
               const SizedBox(height: 20),
             ],
           ),
@@ -139,15 +139,14 @@ class _WearRowState extends State<WearRow> {
     );
   }
 
-  Widget _displayWearFrequency(){
+  Widget _displayWearFrequency(Watches? watch){
     //If wearlist is empty then exit
-    if(widget.currentWatch!.wearList.length == 0) return const SizedBox.shrink();
+    if(watch == null || watch.wearList.length == 0) return const SizedBox.shrink();
 
-    DateTime firstWorn = widget.currentWatch!.wearList.first;
+    DateTime firstWorn = watch.wearList.first;
     DateTime now = DateTime.now();
     int daysSinceFirstWear = now.difference(firstWorn).inDays + 1; //+1 so the count begins from 1, not 0.
-    print("daysSinceFirstWear = $daysSinceFirstWear, wear count: ${widget.currentWatch!.wearList.length}");
-    var wearFrequency = (widget.currentWatch!.wearList.length / daysSinceFirstWear)*100;
+    var wearFrequency = (watch.wearList.length / daysSinceFirstWear)*100;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

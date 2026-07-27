@@ -32,9 +32,10 @@ class WristCheckController extends GetxController {
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
   final watchBoxView = WristCheckPreferences.getWatchBoxView().obs;
-  //Manage visibility of last worn date and wear count
+  //Manage visibility of last worn date, wear count and wear frequency
   final showLastWornDate = WristCheckPreferences.getShowLastWornDatePref().obs;
   final showWearCount = WristCheckPreferences.getShowWearCountPref().obs;
+  final showWearFrequency = WristCheckPreferences.getShowWearFrequencyPref().obs;
   //Manage locale
   final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
   //homepage
@@ -248,6 +249,12 @@ class WristCheckController extends GetxController {
   updateShowWearCount(bool showWears) async {
     await WristCheckPreferences.setShowWearCountPref(showWears);
     showWearCount(showWears);
+  }
+
+  //Update visibility of wear frequency
+  updateShowWearFrequency(bool showFrequency) async {
+    await WristCheckPreferences.setShowWearFrequencyPref(showFrequency);
+    showWearFrequency(showFrequency);
   }
 
   //Set the locale
