@@ -1618,6 +1618,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get showWearCountOption => 'Zobrazit počty nošení';
 
   @override
+  String get showWearFrequencyOption => 'Zobrazit četnost nošení';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName zakoupeny';
   }

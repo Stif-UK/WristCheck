@@ -549,6 +549,7 @@
   "orderByLastWornDate" : "Ordenar por fecha de último uso",
   "showLastWornDateOption" : "Mostrar fechas de último uso",
   "showWearCountOption" : "Mostrar recuentos de uso",
+  "showWearFrequencyOption" : "Mostrar frecuencia de uso",
 
 
   "@_TIMELINE" : {},

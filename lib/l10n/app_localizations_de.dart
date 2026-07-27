@@ -1610,7 +1610,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showLastWornDateOption => 'Letzte Tragedaten anzeigen';
 
   @override
-  String get showWearCountOption => 'Tragehäufigkeit anzeigen';
+  String get showWearCountOption => 'Anzahl der Tragevorgänge anzeigen';
+
+  @override
+  String get showWearFrequencyOption => 'Tragehäufigkeit anzeigen';
 
   @override
   String watchNamePurchased(Object watchName) {

@@ -549,6 +549,7 @@
   "orderByLastWornDate" : "Trier par date de dernier porté",
   "showLastWornDateOption" : "Afficher les dates du dernier porté",
   "showWearCountOption" : "Afficher le nombre de portés",
+  "showWearFrequencyOption" : "Afficher la fréquence de portée",
 
   "@_TIMELINE" : {},
   "watchNamePurchased" : "{watchName} achetée",

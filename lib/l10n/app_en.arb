@@ -552,6 +552,7 @@
   "orderByLastWornDate" : "Order by last worn date",
   "showLastWornDateOption" : "Show last worn dates",
   "showWearCountOption" : "Show wear counts",
+  "showWearFrequencyOption" : "Show wear frequency",
 
 
   "@_TIMELINE" : {},

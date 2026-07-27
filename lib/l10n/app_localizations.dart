@@ -3022,6 +3022,12 @@ abstract class AppLocalizations {
   /// **'Show wear counts'**
   String get showWearCountOption;
 
+  /// No description provided for @showWearFrequencyOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Show wear frequency'**
+  String get showWearFrequencyOption;
+
   /// No description provided for @watchNamePurchased.
   ///
   /// In en, this message translates to:

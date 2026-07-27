@@ -549,6 +549,7 @@
   "orderByLastWornDate" : "По дате последнего ношения",
   "showLastWornDateOption" : "Показывать даты последнего ношения",
   "showWearCountOption" : "Показывать количество ношений",
+  "showWearFrequencyOption" : "Показывать частоту ношения",
 
 
   "@_TIMELINE" : {},

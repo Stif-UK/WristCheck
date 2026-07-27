@@ -1623,6 +1623,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showWearCountOption => 'Показывать количество ношений';
 
   @override
+  String get showWearFrequencyOption => 'Показывать частоту ношения';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName: куплены';
   }

@@ -549,6 +549,7 @@
   "orderByLastWornDate" : "Podle data posledního nošení",
   "showLastWornDateOption" : "Zobrazit data posledního nošení",
   "showWearCountOption" : "Zobrazit počty nošení",
+  "showWearFrequencyOption" : "Zobrazit četnost nošení",
 
 
   "@_TIMELINE" : {},

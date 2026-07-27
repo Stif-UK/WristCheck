@@ -169,7 +169,7 @@ class _WatchOrderBottomSheetState extends State<WatchOrderBottomSheet> {
                 onChanged: (bool)=> widget.wristCheckController.updateShowWearCount(bool)),
             ),
             Obx(()=> SwitchListTile(
-                title: Text("Show Wear Frequency"),
+                title: Text(AppLocalizations.of(context)!.showWearFrequencyOption),
                 value: widget.wristCheckController.showWearFrequency.value,
                 onChanged: (bool)=> widget.wristCheckController.updateShowWearFrequency(bool)),
 

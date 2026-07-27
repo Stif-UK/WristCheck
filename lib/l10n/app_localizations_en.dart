@@ -1590,6 +1590,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showWearCountOption => 'Show wear counts';
 
   @override
+  String get showWearFrequencyOption => 'Show wear frequency';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName purchased';
   }

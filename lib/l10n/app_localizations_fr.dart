@@ -1613,6 +1613,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get showWearCountOption => 'Afficher le nombre de portés';
 
   @override
+  String get showWearFrequencyOption => 'Afficher la fréquence de portée';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName achetée';
   }
