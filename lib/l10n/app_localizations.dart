@@ -730,6 +730,12 @@ abstract class AppLocalizations {
   /// **'GMT'**
   String get timeViewGMT;
 
+  /// No description provided for @gmtTimeOffsetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time offset:'**
+  String get gmtTimeOffsetLabel;
+
   /// No description provided for @moonPhase.
   ///
   /// In en, this message translates to:

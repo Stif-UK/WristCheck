@@ -126,6 +126,7 @@
   "realisticMoonLabel" : "Реалистичная Луна",
   "timeViewMoonPhase" : "Фаза Луны",
   "timeViewGMT" : "GMT",
+  "gmtTimeOffsetLabel" : "Смещение времени:",
   "moonPhase" : "Текущая фаза Луны",
   "newMoon" : "Новолуние",
   "waxingCrescent" : "Растущий серп",

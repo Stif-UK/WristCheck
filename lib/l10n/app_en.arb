@@ -129,6 +129,7 @@
   "realisticMoonLabel" : "Realistic Moon",
   "timeViewMoonPhase" : "Moonphase",
   "timeViewGMT" : "GMT",
+  "gmtTimeOffsetLabel" : "Time offset:",
   "moonPhase" : "Current Moon Phase",
   "newMoon" : "New Moon",
   "waxingCrescent" : "Waxing Crescent",

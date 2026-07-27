@@ -349,6 +349,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get timeViewGMT => 'GMT';
 
   @override
+  String get gmtTimeOffsetLabel => 'Časový posun:';
+
+  @override
   String get moonPhase => 'Aktuální fáze měsíce';
 
   @override

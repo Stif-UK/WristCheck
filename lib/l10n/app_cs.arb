@@ -126,6 +126,7 @@
   "realisticMoonLabel" : "Realistický měsíc",
   "timeViewMoonPhase" : "Fáze měsíce",
   "timeViewGMT" : "GMT",
+  "gmtTimeOffsetLabel" : "Časový posun:",
   "moonPhase" : "Aktuální fáze měsíce",
   "newMoon" : "Novoluní",
   "waxingCrescent" : "Dorůstající srp",

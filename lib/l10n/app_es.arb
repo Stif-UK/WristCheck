@@ -126,6 +126,7 @@
   "realisticMoonLabel" : "Luna realista",
   "timeViewMoonPhase" : "Fase lunar",
   "timeViewGMT" : "GMT",
+  "gmtTimeOffsetLabel" : "Desplazamiento horario:",
   "moonPhase" : "Fase Lunar Actual",
   "newMoon" : "Luna nueva",
   "waxingCrescent" : "Luna creciente",

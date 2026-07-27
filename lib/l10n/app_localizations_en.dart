@@ -345,6 +345,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeViewGMT => 'GMT';
 
   @override
+  String get gmtTimeOffsetLabel => 'Time offset:';
+
+  @override
   String get moonPhase => 'Current Moon Phase';
 
   @override

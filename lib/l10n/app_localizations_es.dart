@@ -349,6 +349,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get timeViewGMT => 'GMT';
 
   @override
+  String get gmtTimeOffsetLabel => 'Desplazamiento horario:';
+
+  @override
   String get moonPhase => 'Fase Lunar Actual';
 
   @override

@@ -126,6 +126,7 @@
   "realisticMoonLabel" : "Realistischer Mond",
   "timeViewMoonPhase" : "Mondphase",
   "timeViewGMT" : "GMT",
+  "gmtTimeOffsetLabel" : "Zeitversatz:",
   "moonPhase" : "Aktuelle Mondphase",
   "newMoon" : "Neumond",
   "waxingCrescent" : "Zunehmender Sichelmond",

@@ -19,7 +19,7 @@ class TimeController extends GetxController{
   final syncFailed = false.obs;
   final deviation = Duration(milliseconds: 0).obs;
   final timeView = TimeViewEnum.moonphase.obs;
-  final timeOffset = 2.obs;
+  final timeOffset = WristCheckPreferences.getTimeOffset().obs;
 
 
   @override
@@ -72,7 +72,8 @@ class TimeController extends GetxController{
     timeView(view);
   }
 
-  updateTimeOffset(int newOffsetValue){
+  updateTimeOffset(int newOffsetValue) async {
+    await WristCheckPreferences.setTimeOffset(newOffsetValue);
     timeOffset(newOffsetValue);
   }
 

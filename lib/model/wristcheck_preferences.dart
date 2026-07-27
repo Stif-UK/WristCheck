@@ -59,6 +59,7 @@ class WristCheckPreferences {
   //TimeSettingFeatures
   static const _keyEnableBeep = 'enableBeep';
   static const _keyMilitaryTime = 'militaryTime';
+  static const _keyTimeOffset = 'timeOffset';
 
   //Calendar - first day of week
   static const _keyFirstDayOfWeek = 'firstDayOfWeek';
@@ -537,6 +538,12 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyMilitaryTime, milTime);
 
   static bool getMilitaryTime() => _preferences.getBool(_keyMilitaryTime) ?? true;
+
+  //Getter and Setter for time offset
+  static Future setTimeOffset(int offset) async =>
+      await _preferences.setInt(_keyTimeOffset, offset);
+
+  static int getTimeOffset() => _preferences.getInt(_keyTimeOffset) ?? 0;
 
   //Getter and Setter for home page index
   static int getHomePageIndex() => _preferences.getInt(_keyHomePageIndex) ?? 0;

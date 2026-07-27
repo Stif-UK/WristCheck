@@ -350,6 +350,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get timeViewGMT => 'GMT';
 
   @override
+  String get gmtTimeOffsetLabel => 'Zeitversatz:';
+
+  @override
   String get moonPhase => 'Aktuelle Mondphase';
 
   @override

@@ -347,6 +347,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get timeViewGMT => 'GMT';
 
   @override
+  String get gmtTimeOffsetLabel => 'Смещение времени:';
+
+  @override
   String get moonPhase => 'Текущая фаза Луны';
 
   @override
