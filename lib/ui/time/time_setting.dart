@@ -16,6 +16,7 @@ import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/time_view_enum.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/time/gmt.dart';
 import 'package:wristcheck/ui/time/moon_phase.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/time_settings_bottomsheet.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -154,7 +155,8 @@ class _TimeSettingState extends State<TimeSetting> {
             widget.wristCheckController.isAppPro.value 
                 ? Obx(() => widget.timeController.timeView.value == TimeViewEnum.moonphase 
                     ? MoonPhaseWidget() 
-                    : const Center(child: Text("GMT View - Coming Soon"))) 
+                    : GMT(),
+              )
                 : const SizedBox(height: 0,),
             const SizedBox(height: 20,)
 
@@ -191,10 +193,12 @@ class _TimeSettingState extends State<TimeSetting> {
         widget.timeController.updateTimeSynced(false);
         date = DateTime.now();
       }
+      var gmt = date.add(Duration(hours: widget.timeController.timeOffset.value));
       triggerBeep(date.second);
       widget.timeController.currentDateTime(date);
       widget.timeController.currentTime(WristCheckFormatter.getTime(date, widget.timeController.militaryTime.value));
       widget.timeController.currentDate(WristCheckFormatter.getFormattedDateWithDay(date));
+      widget.timeController.currentGMTtime(WristCheckFormatter.getTime(gmt, widget.timeController.militaryTime.value));
 
     });
 

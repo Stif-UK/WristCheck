@@ -9,6 +9,7 @@ class TimeController extends GetxController{
   final lastBeep = 56.obs;
   final currentDate = "".obs;
   final currentTime = "".obs;
+  final currentGMTtime = "".obs;
   final currentDateTime = DateTime.now().obs;
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
@@ -18,6 +19,7 @@ class TimeController extends GetxController{
   final syncFailed = false.obs;
   final deviation = Duration(milliseconds: 0).obs;
   final timeView = TimeViewEnum.moonphase.obs;
+  final timeOffset = 2.obs;
 
 
   @override
@@ -68,6 +70,10 @@ class TimeController extends GetxController{
 
   updateTimeView(TimeViewEnum view){
     timeView(view);
+  }
+
+  updateTimeOffset(int newOffsetValue){
+    timeOffset(newOffsetValue);
   }
 
 
