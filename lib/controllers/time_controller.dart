@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/model/enums/time_view_enum.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -16,6 +17,7 @@ class TimeController extends GetxController{
   final timeSynced = false.obs;
   final syncFailed = false.obs;
   final deviation = Duration(milliseconds: 0).obs;
+  final timeView = TimeViewEnum.moonphase.obs;
 
 
   @override
@@ -62,6 +64,10 @@ class TimeController extends GetxController{
   updateRealisticMoon(bool realistic) async {
     await WristCheckPreferences.setRealisticMoon(realistic);
     realisticMoon(realistic);
+  }
+
+  updateTimeView(TimeViewEnum view){
+    timeView(view);
   }
 
 

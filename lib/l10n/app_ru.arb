@@ -124,6 +124,8 @@
   "timeFormat" : "24-часовой формат",
   "timeSettingsTitle" : "Настройки времени",
   "realisticMoonLabel" : "Реалистичная Луна",
+  "timeViewMoonPhase" : "Фаза Луны",
+  "timeViewGMT" : "GMT",
   "moonPhase" : "Текущая фаза Луны",
   "newMoon" : "Новолуние",
   "waxingCrescent" : "Растущий серп",

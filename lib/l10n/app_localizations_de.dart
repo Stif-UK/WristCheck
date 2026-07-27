@@ -344,6 +344,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get realisticMoonLabel => 'Realistischer Mond';
 
   @override
+  String get timeViewMoonPhase => 'Mondphase';
+
+  @override
+  String get timeViewGMT => 'GMT';
+
+  @override
   String get moonPhase => 'Aktuelle Mondphase';
 
   @override

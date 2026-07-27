@@ -124,6 +124,8 @@
   "timeFormat" : "24-Stunden-Format",
   "timeSettingsTitle" : "Zeiteinstellungen",
   "realisticMoonLabel" : "Realistischer Mond",
+  "timeViewMoonPhase" : "Mondphase",
+  "timeViewGMT" : "GMT",
   "moonPhase" : "Aktuelle Mondphase",
   "newMoon" : "Neumond",
   "waxingCrescent" : "Zunehmender Sichelmond",

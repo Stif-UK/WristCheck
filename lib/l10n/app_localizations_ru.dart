@@ -341,6 +341,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get realisticMoonLabel => 'Реалистичная Луна';
 
   @override
+  String get timeViewMoonPhase => 'Фаза Луны';
+
+  @override
+  String get timeViewGMT => 'GMT';
+
+  @override
   String get moonPhase => 'Текущая фаза Луны';
 
   @override

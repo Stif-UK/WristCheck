@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
+import 'package:wristcheck/model/enums/time_view_enum.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/time/moon_phase.dart';
@@ -112,8 +114,27 @@ class _TimeSettingState extends State<TimeSetting> {
                     Text(AppLocalizations.of(context)!.inProgress, style: Theme.of(context).textTheme.bodySmall))),
                 const Divider(thickness: 2,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Obx(() => widget.wristCheckController.isAppPro.value
+                          ? Wrap(
+                              spacing: 8.0,
+                              children: TimeViewEnum.values.map((option) {
+                                return ChoiceChip(
+                                  label: Text(option.toLocalizedString(context)),
+                                  selected: widget.timeController.timeView.value == option,
+                                  onSelected: (bool selected) {
+                                    if (selected) {
+                                      widget.timeController.updateTimeView(option);
+                                    }
+                                  },
+                                );
+                              }).toList(),
+                            )
+                          : const SizedBox.shrink()),
+                    ),
                     IconButton(
                       icon: const FaIcon(FontAwesomeIcons.sliders),
                       onPressed: () {
@@ -127,9 +148,14 @@ class _TimeSettingState extends State<TimeSetting> {
                 ),
               ],
             ),
+            const SizedBox(height: 20,),
             widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
             //TODO: Finish moonphase implementation
-            widget.wristCheckController.isAppPro.value? MoonPhaseWidget() : const SizedBox(height: 0,),
+            widget.wristCheckController.isAppPro.value 
+                ? Obx(() => widget.timeController.timeView.value == TimeViewEnum.moonphase 
+                    ? MoonPhaseWidget() 
+                    : const Center(child: Text("GMT View - Coming Soon"))) 
+                : const SizedBox(height: 0,),
             const SizedBox(height: 20,)
 
           ],

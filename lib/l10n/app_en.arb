@@ -127,6 +127,8 @@
   "timeFormat" : "24 hour time",
   "timeSettingsTitle" : "Time Settings",
   "realisticMoonLabel" : "Realistic Moon",
+  "timeViewMoonPhase" : "Moonphase",
+  "timeViewGMT" : "GMT",
   "moonPhase" : "Current Moon Phase",
   "newMoon" : "New Moon",
   "waxingCrescent" : "Waxing Crescent",

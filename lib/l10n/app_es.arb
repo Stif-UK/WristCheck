@@ -124,6 +124,8 @@
   "timeFormat" : "Formato de 24 horas",
   "timeSettingsTitle" : "Ajustes de hora",
   "realisticMoonLabel" : "Luna realista",
+  "timeViewMoonPhase" : "Fase lunar",
+  "timeViewGMT" : "GMT",
   "moonPhase" : "Fase Lunar Actual",
   "newMoon" : "Luna nueva",
   "waxingCrescent" : "Luna creciente",

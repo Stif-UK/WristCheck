@@ -718,6 +718,18 @@ abstract class AppLocalizations {
   /// **'Realistic Moon'**
   String get realisticMoonLabel;
 
+  /// No description provided for @timeViewMoonPhase.
+  ///
+  /// In en, this message translates to:
+  /// **'Moonphase'**
+  String get timeViewMoonPhase;
+
+  /// No description provided for @timeViewGMT.
+  ///
+  /// In en, this message translates to:
+  /// **'GMT'**
+  String get timeViewGMT;
+
   /// No description provided for @moonPhase.
   ///
   /// In en, this message translates to:

@@ -124,6 +124,8 @@
   "timeFormat" : "24hodinový formát",
   "timeSettingsTitle" : "Nastavení času",
   "realisticMoonLabel" : "Realistický měsíc",
+  "timeViewMoonPhase" : "Fáze měsíce",
+  "timeViewGMT" : "GMT",
   "moonPhase" : "Aktuální fáze měsíce",
   "newMoon" : "Novoluní",
   "waxingCrescent" : "Dorůstající srp",

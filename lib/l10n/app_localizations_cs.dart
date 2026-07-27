@@ -343,6 +343,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get realisticMoonLabel => 'Realistický měsíc';
 
   @override
+  String get timeViewMoonPhase => 'Fáze měsíce';
+
+  @override
+  String get timeViewGMT => 'GMT';
+
+  @override
   String get moonPhase => 'Aktuální fáze měsíce';
 
   @override
