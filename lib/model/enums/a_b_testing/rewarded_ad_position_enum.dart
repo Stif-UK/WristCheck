@@ -1,0 +1,1 @@
+enum RewardedAdPositionEnum {top, bottom}

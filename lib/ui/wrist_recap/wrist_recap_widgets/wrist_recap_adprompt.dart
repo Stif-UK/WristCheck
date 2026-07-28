@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -19,7 +20,14 @@ class WristRecapAdprompt extends StatefulWidget {
 
 class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
   final recapController = Get.put(WristRecapController());
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   RewardedAd? _rewardedAd;
+
+  @override
+  void initState() {
+    super.initState();
+    analytics.logEvent(name: 'recap_ad_prompt_shown');
+  }
 
   @override
   void didChangeDependencies() {
@@ -52,6 +60,7 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
       debugPrint('Warning: attempt to show rewarded ad before loaded.');
       return;
     }
+    analytics.logEvent(name: 'recap_ad_prompt_clicked');
     _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
         ad.dispose();
