@@ -19,6 +19,7 @@ class SearchWidget extends SearchDelegate{
         onPressed: () {
           showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
             builder: (context) => SearchFilterBottomSheet(),
           );
         },

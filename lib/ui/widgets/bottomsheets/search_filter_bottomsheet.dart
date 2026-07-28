@@ -19,6 +19,7 @@ class SearchFilterBottomSheet extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.75,
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           physics: ClampingScrollPhysics(),
