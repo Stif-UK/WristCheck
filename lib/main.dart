@@ -74,11 +74,30 @@ Future main() async{
   //Load the theme from assets
   final themeStrDark = await rootBundle.loadString('assets/theme/wc_theme_dark.json');
   final themeJsonDark = jsonDecode(themeStrDark);
-  final themeDark = ThemeDecoder.decodeThemeData(themeJsonDark);
+  final themeDark = ThemeDecoder.decodeThemeData(themeJsonDark)!.copyWith(
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+    ),
+  );
 
   final themeStrLight = await rootBundle.loadString('assets/theme/wc_theme_light.json');
   final themeJsonLight = jsonDecode(themeStrLight);
-  final themeLight = ThemeDecoder.decodeThemeData(themeJsonLight);
+  final themeLight = ThemeDecoder.decodeThemeData(themeJsonLight)!.copyWith(
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+      iconTheme: IconThemeData(color: Colors.black54),
+      actionsIconTheme: IconThemeData(color: Colors.black54),
+      titleTextStyle: TextStyle(
+        color: Colors.black54,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
 
   //Initialise Hive Database and open box
   await Hive.initFlutter();
