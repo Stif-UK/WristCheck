@@ -64,7 +64,7 @@ class AccuracyRow extends StatelessWidget {
     String rate = AppLocalizations.of(Get.context!)!.noRateFound;
     String prefix = "";
     if(latest.rawAccuracy != null){
-      rate = AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix).toStringAsFixed(1);
+      rate = WristCheckFormatter.getLocalizedDecimal(AccuracyHelper.getScaledRate(latest.rawAccuracy!, suffix), 1);
       if(latest.rawAccuracy! >= 0) prefix = "+";
     }
 

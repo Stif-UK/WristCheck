@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
+import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/accuracy_enums/rate_unit.dart';
 import 'package:wristcheck/model/enums/category.dart';
@@ -484,6 +485,20 @@ static int? getMonthInt(MonthList month){
     }
 
     return returnValue;
+}
+
+static String getLocalizedDecimal(double? value, [int? fixedDigits]){
+    if (value == null) return "";
+    final wristCheckController = Get.find<WristCheckController>();
+    String locale = getLocaleString(wristCheckController.locale.value);
+
+    final formatter = NumberFormat.decimalPattern(locale);
+    if (fixedDigits != null) {
+      formatter.minimumFractionDigits = fixedDigits;
+      formatter.maximumFractionDigits = fixedDigits;
+    }
+
+    return formatter.format(value);
 }
 
 static String getCurrencyValue(String locale, int price, int? digits){

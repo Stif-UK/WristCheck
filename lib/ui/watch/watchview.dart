@@ -353,10 +353,10 @@ class _WatchViewState extends State<WatchView> {
         purchasePriceFieldController.value = TextEditingValue(text: purchasePriceValue != null? purchasePriceValue.toString() : "" );
         var soldPriceValue = widget.currentWatch!.soldPrice;
         soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
-        caseDiameterFieldController.value = TextEditingValue(text: widget.currentWatch!.caseDiameter != null?"${widget.currentWatch!.caseDiameter}" : "" );
+        caseDiameterFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.caseDiameter));
         lugWidthFieldController.value = TextEditingValue(text: widget.currentWatch!.lugWidth != null? widget.currentWatch!.lugWidth.toString() : "");
-        lug2lugFieldController.value = TextEditingValue(text: widget.currentWatch!.lug2lug != null?"${widget.currentWatch!.lug2lug}" : "");
-        caseThicknessFieldController.value = TextEditingValue(text: widget.currentWatch!.caseThickness != null?"${widget.currentWatch!.caseThickness}" : "");
+        lug2lugFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.lug2lug));
+        caseThicknessFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.caseThickness));
         waterResistanceFieldController.value = TextEditingValue(text: widget.currentWatch!.waterResistance != null?"${widget.currentWatch!.waterResistance}" : "");
         caseMaterialFieldController.value = TextEditingValue(text: widget.currentWatch!.caseMaterial?? WristCheckFormatter.getCaseMaterialText(CaseMaterialEnum.blank));
         winderTPDFieldController.value = TextEditingValue(text: widget.currentWatch!.winderTPD != null? "${widget.currentWatch!.winderTPD}" : "");

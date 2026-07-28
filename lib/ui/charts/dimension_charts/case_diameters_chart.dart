@@ -55,7 +55,7 @@ class _CaseDiameterChartState extends State<CaseDiameterChart> {
               dataSource: getChartData,
               xValueMapper: (DiameterData mvmt, _) => mvmt.diameter,
               yValueMapper: (DiameterData mvmt, _) => mvmt.count,
-              dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.diameter)}mm: ${moov.count}",
+              dataLabelMapper: (moov, _)=> "${WristCheckFormatter.getLocalizedDecimal(double.tryParse(moov.diameter))}mm: ${moov.count}",
               dataLabelSettings: const DataLabelSettings(isVisible: true),
             )
           ],
@@ -72,7 +72,7 @@ String _calculateAverageCaseDiameter(List<Watches> data) {
   if(data.length != 0){
     data.removeWhere((watch) => watch.caseDiameter == null || watch.caseDiameter == 0.0);
     double average = data.map((m) => m.caseDiameter!).average;
-    returnString = "Average Case Diameter: ${double.parse(average.toStringAsFixed(2))} mm";
+    returnString = "Average Case Diameter: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
   }
 
   return returnString;

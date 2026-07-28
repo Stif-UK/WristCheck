@@ -48,7 +48,7 @@ Widget _getChart(Lug2lugChartEnum type, List<Watches> data){
             dataSource: data,
             xValueMapper: (Watches watch, _) => watch.toString(),
             yValueMapper: (Watches watch, _) => watch.lug2lug,
-            dataLabelMapper: (watch, _)=> "${watch.lug2lug}mm",
+            dataLabelMapper: (watch, _)=> "${WristCheckFormatter.getLocalizedDecimal(watch.lug2lug)}mm",
             dataLabelSettings: const DataLabelSettings(isVisible: true),
             markerSettings: MarkerSettings(isVisible: true),
           )
@@ -62,7 +62,7 @@ Widget _getChart(Lug2lugChartEnum type, List<Watches> data){
             dataSource: _getChartData(data),
             xValueMapper: (L2LData mvmt, _) => mvmt.lug2lug,
             yValueMapper: (L2LData mvmt, _) => mvmt.count,
-            dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.lug2lug)}mm",
+            dataLabelMapper: (moov, _)=> "${WristCheckFormatter.getLocalizedDecimal(double.tryParse(moov.lug2lug))}mm",
             dataLabelSettings: const DataLabelSettings(isVisible: true),
           )
         ],
@@ -77,7 +77,7 @@ String _calculateAverageLug2Lug(List<Watches> data) {
 
   if(data.length != 0){
     double average = data.map((m) => m.lug2lug!).average;
-    returnString = "Average Lug to Lug: ${double.parse(average.toStringAsFixed(2))} mm";
+    returnString = "Average Lug to Lug: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
   }
 
   return returnString;

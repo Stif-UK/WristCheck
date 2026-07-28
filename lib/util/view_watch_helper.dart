@@ -113,7 +113,10 @@ class ViewWatchHelper{
   }
 
   static double? getDoubleFromStringInput(String inputString){
-    return inputString.length == 0? null : double.parse(inputString);
+    if (inputString.isEmpty) return null;
+    // Replace commas with dots to support European decimal formats during parsing
+    String normalizedInput = inputString.replaceAll(',', '.');
+    return double.parse(normalizedInput);
   }
 
   static String getWearButtonText(Watches watch){

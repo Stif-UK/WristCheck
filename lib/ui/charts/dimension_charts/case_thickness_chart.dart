@@ -48,7 +48,7 @@ Widget _getChart(CaseThicknessChartEnum type, List<Watches> data){
               dataSource: data,
               xValueMapper: (Watches watch, _) => watch.toString(),
               yValueMapper: (Watches watch, _) => watch.caseThickness,
-              dataLabelMapper: (watch, _)=> "${watch.caseThickness}mm",
+              dataLabelMapper: (watch, _)=> "${WristCheckFormatter.getLocalizedDecimal(watch.caseThickness)}mm",
               dataLabelSettings: const DataLabelSettings(isVisible: true),
               markerSettings: MarkerSettings(isVisible: true),
               )
@@ -62,7 +62,7 @@ Widget _getChart(CaseThicknessChartEnum type, List<Watches> data){
             dataSource: _getChartData(data),
             xValueMapper: (CaseThicknessData mvmt, _) => mvmt.caseThickness,
             yValueMapper: (CaseThicknessData mvmt, _) => mvmt.count,
-            dataLabelMapper: (moov, _)=> "${WristCheckFormatter.trimDecimalZero(moov.caseThickness)}mm",
+            dataLabelMapper: (moov, _)=> "${WristCheckFormatter.getLocalizedDecimal(double.tryParse(moov.caseThickness))}mm",
             dataLabelSettings: const DataLabelSettings(isVisible: true),
           )
         ],
@@ -106,7 +106,7 @@ String _calculateAverageCaseThickness(List<Watches> data) {
 
   if(data.length != 0){
     double average = data.map((m) => m.caseThickness!).average;
-    returnString = "Average Case Thickness: ${double.parse(average.toStringAsFixed(2))} mm";
+    returnString = "Average Case Thickness: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
   }
 
   return returnString;
