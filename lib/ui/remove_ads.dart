@@ -36,6 +36,7 @@ class _RemoveAdsState extends State<RemoveAds> {
           title: widget.wristCheckController.isAppPro.value? Text(l!.support) : Text(l!.removeAds),
         ),
         body: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           child: Column(
             children: [
               Column(
