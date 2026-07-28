@@ -20,62 +20,65 @@ class SearchFilterBottomSheet extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Text(
-            AppLocalizations.of(context)!.searchOptionsTitle,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const Divider(thickness: 2),
-          const SizedBox(height: 10),
-          Obx(() => SwitchListTile(
-                title: Text(AppLocalizations.of(context)!.searchByName),
-                value: filterController.searchByWatchName.value,
-                onChanged: (val) => filterController.updateSearchByWatchName(val),
-              )),
-          Obx(() => SwitchListTile(
-                title: Text(AppLocalizations.of(context)!.searchByNotesLabel),
-                value: filterController.searchByNotes.value,
-                onChanged: (val) => filterController.updateSearchByNotes(val),
-              )),
-          Obx(() => wristCheckController.isAppPro.value
-              ? SwitchListTile(
-                  title: Text(AppLocalizations.of(context)!.searchByLugWidthLabel),
-                  value: filterController.searchByLugWidth.value,
-                  onChanged: (val) => filterController.updateSearchByLugWidth(val),
-                )
-              : const SizedBox(height: 0)),
-          const Divider(thickness: 2,),
-          Obx(() => SwitchListTile(
-            title: Text(AppLocalizations.of(context)!.includeArchivedWatches),
-            value: filterController.searchIncludeArchived.value,
-            onChanged: (val) => filterController.updateSearchIncludeArchived(val),
-          )),
-          Obx(() => SwitchListTile(
-            title: Text(AppLocalizations.of(context)!.includeSoldWatches),
-            value: filterController.searchIncludeSold.value,
-            onChanged: (val) => filterController.updateSearchIncludeSold(val),
-          )),
-          Obx(() => SwitchListTile(
-            title: Text(AppLocalizations.of(context)!.includeRetiredWatches),
-            value: filterController.searchIncludeRetired.value,
-            onChanged: (val) => filterController.updateSearchIncludeRetired(val),
-          )),
-          Obx(() => SwitchListTile(
-            title: Text(AppLocalizations.of(context)!.includeOnLoanWatches),
-            value: filterController.searchIncludeOnLoan.value,
-            onChanged: (val) => filterController.updateSearchIncludeOnLoan(val),
-          )),
-          Obx(() => SwitchListTile(
-            title: Text(AppLocalizations.of(context)!.includeWishlistedWatches),
-            value: filterController.searchIncludeWishlist.value,
-            onChanged: (val) => filterController.updateSearchIncludeWishlist(val),
-          )),
-          const SizedBox(height: 20),
-        ],
-      ),
+        child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(
+              AppLocalizations.of(context)!.searchOptionsTitle,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const Divider(thickness: 2),
+            const SizedBox(height: 10),
+            Obx(() => SwitchListTile(
+                  title: Text(AppLocalizations.of(context)!.searchByName),
+                  value: filterController.searchByWatchName.value,
+                  onChanged: (val) => filterController.updateSearchByWatchName(val),
+                )),
+            Obx(() => SwitchListTile(
+                  title: Text(AppLocalizations.of(context)!.searchByNotesLabel),
+                  value: filterController.searchByNotes.value,
+                  onChanged: (val) => filterController.updateSearchByNotes(val),
+                )),
+            Obx(() => wristCheckController.isAppPro.value
+                ? SwitchListTile(
+                    title: Text(AppLocalizations.of(context)!.searchByLugWidthLabel),
+                    value: filterController.searchByLugWidth.value,
+                    onChanged: (val) => filterController.updateSearchByLugWidth(val),
+                  )
+                : const SizedBox(height: 0)),
+            const Divider(thickness: 2,),
+            Obx(() => SwitchListTile(
+              title: Text(AppLocalizations.of(context)!.includeArchivedWatches),
+              value: filterController.searchIncludeArchived.value,
+              onChanged: (val) => filterController.updateSearchIncludeArchived(val),
+            )),
+            Obx(() => SwitchListTile(
+              title: Text(AppLocalizations.of(context)!.includeSoldWatches),
+              value: filterController.searchIncludeSold.value,
+              onChanged: (val) => filterController.updateSearchIncludeSold(val),
+            )),
+            Obx(() => SwitchListTile(
+              title: Text(AppLocalizations.of(context)!.includeRetiredWatches),
+              value: filterController.searchIncludeRetired.value,
+              onChanged: (val) => filterController.updateSearchIncludeRetired(val),
+            )),
+            Obx(() => SwitchListTile(
+              title: Text(AppLocalizations.of(context)!.includeOnLoanWatches),
+              value: filterController.searchIncludeOnLoan.value,
+              onChanged: (val) => filterController.updateSearchIncludeOnLoan(val),
+            )),
+            Obx(() => SwitchListTile(
+              title: Text(AppLocalizations.of(context)!.includeWishlistedWatches),
+              value: filterController.searchIncludeWishlist.value,
+              onChanged: (val) => filterController.updateSearchIncludeWishlist(val),
+            )),
+            const SizedBox(height: 20),
+          ],
+                ),
+        ),
     ));
   }
 }
