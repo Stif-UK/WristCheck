@@ -9,6 +9,7 @@ class RemoveAdsCopy{
     final l = AppLocalizations.of(context);
     return Container(
       child: Markdown(
+        physics: ClampingScrollPhysics(),
           shrinkWrap: true,
           styleSheet: MarkdownStyleSheet(p: Theme.of(context).textTheme.bodyLarge),
           data: l!.removeAdsMainCopy,
