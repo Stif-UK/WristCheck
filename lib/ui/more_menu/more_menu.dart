@@ -124,6 +124,7 @@ class _MoreMenuState extends State<MoreMenu> {
             ),
           ),
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+          const SizedBox(height: 55,)//Ensure ad doesn't hide behind bottom navigation bar
         ],
       ),
     );

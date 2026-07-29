@@ -191,7 +191,8 @@ class _ScheduleViewState extends State<ScheduleView> {
               ),
             )
           ],
-        )
+        ),
+        const SizedBox(height: 55,)
 
       ],
     )
