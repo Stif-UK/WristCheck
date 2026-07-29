@@ -162,6 +162,7 @@ class WristCheckDialogs {
       Container(
           height: MediaQuery.of(context).size.height, //*0.85,
         child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           child: Column(
             //mainAxisSize: MainAxisSize.min,
             children: [
@@ -175,6 +176,7 @@ class WristCheckDialogs {
               ),
               Markdown(data: WhatsNewCopy.getLatestVersionCopy(),
               shrinkWrap: true,),
+              const SizedBox(height: 20,)
             ],
           ),
         )
