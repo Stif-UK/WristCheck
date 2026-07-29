@@ -396,6 +396,7 @@ class _WatchViewState extends State<WatchView> {
           }
       },
       child: Scaffold(
+                extendBody: true,
                 appBar: AppBar(
                     title: Obx(()=> ViewWatchHelper.getTitle(
                         widget.watchViewController.watchViewState.value, widget.currentWatch)),
@@ -437,39 +438,67 @@ class _WatchViewState extends State<WatchView> {
                     ],
 
                 ),
-                bottomNavigationBar: Obx(()=> BottomNavigationBar(
-                    type: BottomNavigationBarType.fixed,
-                    currentIndex: widget.watchViewController.tabIndex.value,
-                    onTap: (index) {
-                      if (_formKey.currentState!.validate()) {
-                        widget.watchViewController.updateTabIndex(index);
-                      }
-                    },
-                    items:
-                        //If the app is pro then the list is longer and contains the extra tab
-                     [
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.watch),
-                        label: AppLocalizations.of(Get.context!)!.infoTabLabel,
+                bottomNavigationBar: Obx(()=> Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).bottomNavigationBarTheme.backgroundColor ?? Theme.of(context).canvasColor,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5), width: 1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeBottom: true,
+                        child: BottomNavigationBar(
+                            type: BottomNavigationBarType.fixed,
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            selectedFontSize: 12,
+                            unselectedFontSize: 12,
+                            currentIndex: widget.watchViewController.tabIndex.value,
+                            onTap: (index) {
+                              if (_formKey.currentState!.validate()) {
+                                widget.watchViewController.updateTabIndex(index);
+                              }
+                            },
+                            items:
+                                //If the app is pro then the list is longer and contains the extra tab
+                             [
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.watch),
+                                label: AppLocalizations.of(Get.context!)!.infoTabLabel,
+                              ),
+                              BottomNavigationBarItem(
+                                icon: FaIcon(FontAwesomeIcons.calendar),
+                                label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
+                              ),
+                              BottomNavigationBarItem(
+                                icon: FaIcon(FontAwesomeIcons.dollarSign),
+                                label: AppLocalizations.of(Get.context!)!.valueTabLabel,
+                              ),
+                              if(widget.wristCheckController.isAppPro.value)(BottomNavigationBarItem(
+                                  icon: FaIcon(FontAwesomeIcons.glasses),
+                                label: AppLocalizations.of(Get.context!)!.proDataTabLabel
+                              )),
+                              BottomNavigationBarItem(
+                                icon: FaIcon(FontAwesomeIcons.book),
+                                label: AppLocalizations.of(Get.context!)!.notesTabLabel,
+                              )
+                            ]
+                          ),
                       ),
-                      BottomNavigationBarItem(
-                        icon: FaIcon(FontAwesomeIcons.calendar),
-                        label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: FaIcon(FontAwesomeIcons.dollarSign),
-                        label: AppLocalizations.of(Get.context!)!.valueTabLabel,
-                      ),
-                      if(widget.wristCheckController.isAppPro.value)(BottomNavigationBarItem(
-                          icon: FaIcon(FontAwesomeIcons.glasses),
-                        label: AppLocalizations.of(Get.context!)!.proDataTabLabel
-                      )),
-                      BottomNavigationBarItem(
-                        icon: FaIcon(FontAwesomeIcons.book),
-                        label: AppLocalizations.of(Get.context!)!.notesTabLabel,
-                      )
-                    ]
+                    ),
                   ),
+                ),
                 ),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -570,7 +599,8 @@ class _WatchViewState extends State<WatchView> {
 
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.edit
                                             ?  _saveWatchUpdateButton()
-                                            : const SizedBox(height: 0,)
+                                            : const SizedBox(height: 0,),
+                                        const SizedBox(height: 80,),
                                       ],
                                     )),
                                   ],

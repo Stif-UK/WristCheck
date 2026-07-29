@@ -85,6 +85,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     }
 
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
         actions: [
@@ -137,34 +138,62 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
 
 
-      bottomNavigationBar: Obx(()=> BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: widget.wristCheckController.homePageIndex.value,
-          onTap: _onTabTapped,
-          items: [
-            BottomNavigationBarItem(
-              icon:  Icon(Icons.watch),
-              label: AppLocalizations.of(context)!.collection,
-            ),
-            BottomNavigationBarItem(
-              icon:  Icon(Icons.bar_chart),
-              label: AppLocalizations.of(context)!.stats,
-            ),
-            BottomNavigationBarItem(
-              icon:  Icon(Icons.calendar_month_sharp),
-              label: AppLocalizations.of(context)!.calendar,
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.clock),
-              label: AppLocalizations.of(context)!.time
-            ),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.chevronRight),
-                label: AppLocalizations.of(context)!.more
-            )
-          ],
+      bottomNavigationBar: Obx(()=> Padding(
+        padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor ?? Theme.of(context).canvasColor,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5), width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: MediaQuery.removePadding(
+              context: context,
+              removeBottom: true,
+              child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  selectedFontSize: 12,
+                  unselectedFontSize: 12,
+                  currentIndex: widget.wristCheckController.homePageIndex.value,
+                  onTap: _onTabTapped,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon:  Icon(Icons.watch),
+                      label: AppLocalizations.of(context)!.collection,
+                    ),
+                    BottomNavigationBarItem(
+                      icon:  Icon(Icons.bar_chart),
+                      label: AppLocalizations.of(context)!.stats,
+                    ),
+                    BottomNavigationBarItem(
+                      icon:  Icon(Icons.calendar_month_sharp),
+                      label: AppLocalizations.of(context)!.calendar,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.clock),
+                      label: AppLocalizations.of(context)!.time
+                    ),
+                    BottomNavigationBarItem(
+                        icon: FaIcon(FontAwesomeIcons.chevronRight),
+                        label: AppLocalizations.of(context)!.more
+                    )
+                  ],
 
+                ),
+            ),
+          ),
         ),
+      ),
       ),
     );
 
