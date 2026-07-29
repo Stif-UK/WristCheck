@@ -115,6 +115,11 @@
   "recapNotificationTitle" : "New Wrist Recap available!",
   "recapNotificationSubtitle" : "Click to see last months stats",
   "recapNotificationSubtitleAnnual" : "Click to see last years stats",
+  "recapAdPromptTitle" : "Thanks for using WristTrack",
+  "recapAdPromptSubtitle" : "Please consider clicking the play button to watch an optional short ad to support the app",
+  "recapAdPromptBody1" : "WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.",
+  "recapAdPromptBody2" : "Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more",
+  "recapThanksSubtitle" : "Your support is really appreciated!",
 
 
 
@@ -398,6 +403,8 @@
   "delete" : "Delete",
   "done" : "Done",
   "tellMeMore" : "Tell me more",
+  "showMore" : "Show more",
+  "showLess" : "Show less",
   "soldSuffix" : "(Sold)",
   "retiredSuffix": "(Retired)",
   "archivedSuffix" : "(Archived)",

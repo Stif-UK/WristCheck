@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
@@ -123,14 +124,14 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Thanks for using WristTrack",
+                        AppLocalizations.of(context)!.recapAdPromptTitle,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Please consider clicking the play button to watch an optional short ad to support the app",
+                        AppLocalizations.of(context)!.recapAdPromptSubtitle,
                         softWrap: true,
                       ),
                     ),
@@ -142,14 +143,14 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.",
+                                    AppLocalizations.of(context)!.recapAdPromptBody1,
                                     softWrap: true,
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more",
+                                    AppLocalizations.of(context)!.recapAdPromptBody2,
                                     softWrap: true,
                                   ),
                                 ),
@@ -169,8 +170,8 @@ class _WristRecapAdpromptState extends State<WristRecapAdprompt> {
                     Obx(
                       () => TextButton(
                         child: Text(recapController.expandAdCard.value
-                            ? "Show Less"
-                            : "Show more"),
+                            ? AppLocalizations.of(context)!.showLess
+                            : AppLocalizations.of(context)!.showMore),
                         onPressed: recapController.toggleAdCard,
                       ),
                     ),

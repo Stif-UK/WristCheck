@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class WristRecapThanks extends StatelessWidget {
   const WristRecapThanks({super.key});
@@ -39,14 +40,14 @@ class WristRecapThanks extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Thanks for using WristTrack",
+                        AppLocalizations.of(context)!.recapAdPromptTitle,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Your support is really appreciated!",
+                        AppLocalizations.of(context)!.recapThanksSubtitle,
                         softWrap: true,
                       ),
                     ),

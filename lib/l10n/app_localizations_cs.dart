@@ -321,6 +321,24 @@ class AppLocalizationsCs extends AppLocalizations {
       'Kliknutím zobrazíte statistiky za loňský rok';
 
   @override
+  String get recapAdPromptTitle => 'Děkujeme, že používáte WristTrack';
+
+  @override
+  String get recapAdPromptSubtitle =>
+      'Zvažte prosím kliknutí na tlačítko přehrávání a shlédnutí volitelné krátké reklamy na podporu aplikace';
+
+  @override
+  String get recapAdPromptBody1 =>
+      'WristTrack spoléhá na dary a příjmy z reklamy. Shlédnutí reklamy pro mě hodně znamená a doufám, že je pro vás jen malou nepříjemností.';
+
+  @override
+  String get recapAdPromptBody2 =>
+      'Případně můžete zvážit odemknutí WristTrack Pro darem. Klikněte na ikonu pro více informací';
+
+  @override
+  String get recapThanksSubtitle => 'Vaše podpora je opravdu oceňována!';
+
+  @override
   String get lastSync => 'Poslední synchronizace:';
 
   @override
@@ -1154,6 +1172,12 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get tellMeMore => 'Řekni mi více';
+
+  @override
+  String get showMore => 'Zobrazit více';
+
+  @override
+  String get showLess => 'Zobrazit méně';
 
   @override
   String get soldSuffix => '(Prodáno)';

@@ -678,6 +678,36 @@ abstract class AppLocalizations {
   /// **'Click to see last years stats'**
   String get recapNotificationSubtitleAnnual;
 
+  /// No description provided for @recapAdPromptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for using WristTrack'**
+  String get recapAdPromptTitle;
+
+  /// No description provided for @recapAdPromptSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please consider clicking the play button to watch an optional short ad to support the app'**
+  String get recapAdPromptSubtitle;
+
+  /// No description provided for @recapAdPromptBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.'**
+  String get recapAdPromptBody1;
+
+  /// No description provided for @recapAdPromptBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more'**
+  String get recapAdPromptBody2;
+
+  /// No description provided for @recapThanksSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your support is really appreciated!'**
+  String get recapThanksSubtitle;
+
   /// No description provided for @lastSync.
   ///
   /// In en, this message translates to:
@@ -2207,6 +2237,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tell me more'**
   String get tellMeMore;
+
+  /// No description provided for @showMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get showMore;
+
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get showLess;
 
   /// No description provided for @soldSuffix.
   ///

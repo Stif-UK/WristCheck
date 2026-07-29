@@ -322,6 +322,25 @@ class AppLocalizationsDe extends AppLocalizations {
       'Hier klicken für die Statistiken des letzten Jahres';
 
   @override
+  String get recapAdPromptTitle => 'Vielen Dank für die Nutzung von WristTrack';
+
+  @override
+  String get recapAdPromptSubtitle =>
+      'Bitte erwägen Sie, auf die Wiedergabetaste zu klicken, um eine optionale kurze Anzeige anzusehen und die App zu unterstützen';
+
+  @override
+  String get recapAdPromptBody1 =>
+      'WristTrack ist auf Spenden und Werbeeinnahmen angewiesen, um erfolgreich zu sein. Das Ansehen einer Anzeige bedeutet mir viel und ist hoffentlich nur eine kleine Unannehmlichkeit für Sie.';
+
+  @override
+  String get recapAdPromptBody2 =>
+      'Alternativ können Sie auch in Betracht ziehen, WristTrack Pro mit einer Spende freizuschalten. Klicken Sie auf das Symbol, um mehr zu erfahren';
+
+  @override
+  String get recapThanksSubtitle =>
+      'Ihre Unterstützung wird wirklich geschätzt!';
+
+  @override
   String get lastSync => 'Zuletzt synchronisiert:';
 
   @override
@@ -1154,6 +1173,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tellMeMore => 'Mehr erfahren';
+
+  @override
+  String get showMore => 'Mehr anzeigen';
+
+  @override
+  String get showLess => 'Weniger anzeigen';
 
   @override
   String get soldSuffix => '(Verkauft)';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 
 class GoProNotification extends StatelessWidget {
@@ -56,7 +57,9 @@ class GoProNotification extends StatelessWidget {
                       child: Text("WristTrack donations are used to continually improve the app and allow me to add more powerful features without a recurring subscription model."),
                     ): const SizedBox.shrink()),
                     Obx(() => TextButton(
-                      child: wristCheckController.goProShowMore.value ? Text("Show less", ) : Text("Show more"),
+                      child: wristCheckController.goProShowMore.value 
+                          ? Text(AppLocalizations.of(context)!.showLess) 
+                          : Text(AppLocalizations.of(context)!.showMore),
                       onPressed: wristCheckController.toggleGoProShowMore,
                     ),
                     )

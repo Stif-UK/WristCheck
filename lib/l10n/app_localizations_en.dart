@@ -318,6 +318,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recapNotificationSubtitleAnnual => 'Click to see last years stats';
 
   @override
+  String get recapAdPromptTitle => 'Thanks for using WristTrack';
+
+  @override
+  String get recapAdPromptSubtitle =>
+      'Please consider clicking the play button to watch an optional short ad to support the app';
+
+  @override
+  String get recapAdPromptBody1 =>
+      'WristTrack relies on donations and ad revenue to thrive. Watching an ad means a lot to me, and is hopefully only a small inconvenience to you.';
+
+  @override
+  String get recapAdPromptBody2 =>
+      'Alternatively, why not consider unlocking WristTrack Pro with a donation. Click the icon to learn more';
+
+  @override
+  String get recapThanksSubtitle => 'Your support is really appreciated!';
+
+  @override
   String get lastSync => 'Last Synced:';
 
   @override
@@ -1135,6 +1153,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tellMeMore => 'Tell me more';
+
+  @override
+  String get showMore => 'Show more';
+
+  @override
+  String get showLess => 'Show less';
 
   @override
   String get soldSuffix => '(Sold)';
