@@ -5,15 +5,18 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.18.2 \n"
+        "### Version 1.19.0 \n"
         "\n"
 
-            "* 1.18.2: Bug fix - navigation issues\n"
-            "* Wrist Recap Updated\n"
-            "* Monthly & Annual Wrist Recap reminders created\n"
-            "* Image only 'gallery' option for main watchbox\n"
-            "* Watchbox search updated to show more detail\n"
-            "* Option to search watch notes added\n"
+            "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
+            "* Wrist Recap Updated - New time period options available\n"
+            "* Search Updates - Search on more fields and filter the results by status\n"
+            "* New Wear Frequency metric - Percentage of days a watch has been 'worn' since its first tracked wear\n"
+            "* [Pro] Moon Phase updates - new realistic moon icon, and addition of on-screen text of the current phase.\n"
+            "* [Pro] GMT setting - select a time offset to show a second timezone\n"
+            "* UI updates - cleaner UI throughout, updating harsh headers and bottom pickers\n"
+            "* Language Support - Added Italian to the list of available languages\n"
+            "(want to see WristTrack in another language - send me an email!)\n"
             "* Additional small enhancements and bug fixes";
 
   }
@@ -28,6 +31,24 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.19.0 \n"
+                      "\n"
+
+                      "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
+                      "* Wrist Recap Updated - New time period options available\n"
+                      "* Search Updates - Search on more fields and filter the results by status\n"
+                      "* New Wear Frequency metric - Percentage of days a watch has been 'worn' since its first tracked wear\n"
+                      "* [Pro] Moon Phase updates - new realistic moon icon, and addition of on-screen text of the current phase.\n"
+                      "* [Pro] GMT setting - select a time offset to show a second timezone\n"
+                      "* UI updates - cleaner UI throughout, updating harsh headers and bottom pickers\n"
+                      "* Language Support - Added Italian to the list of available languages\n"
+                      "(want to see WristTrack in another language - send me an email!)\n"
+                      "* Data model updates to reduce database load\n"
+                      "* Validation and display updates to allow continental decimal separators\n"
+                      "* Calendar add and delete wear button order swapped, and updates to improve visibility\n"
+                      "* Small prompts added for pro (1x a year) and non-pro (90+ days) users to drive ongoing support\n"
+                      "* Privacy Policy externalised to a web link to improve maintainability\n"
+                      "---\n\n"
                       "### Version 1.18.2 \n"
                       "\n"
 
@@ -39,8 +60,9 @@ class WhatsNewCopy{
                       "* Critical bug preventing data backups on iOS resolved\n"
                       "* Core development library updated to latest SDK\n"
                       "* Multiple internal libraries and build tooling updated\n"
-                      "* 1.18.2 fixed a navigation bug blocking back navigation"
-
+                      "* 1.18.2 fixed a navigation bug blocking back navigation\n"
+                      ""
+                      "---\n\n"
                       "### Version 1.17.1 \n"
                       "\n"
 
@@ -49,7 +71,7 @@ class WhatsNewCopy{
                       "* UI improvements to watchbox list and grid views\n"
                       "* UI improvements to watch gallery view\n"
                       "* New 'On Loan' status for watches\n"
-                      "* Additional small enhancements and bug fixes"
+                      "* Additional small enhancements and bug fixes\n"
                       ""
                       "---\n\n"
                       "### Version 1.16.1 \n"
