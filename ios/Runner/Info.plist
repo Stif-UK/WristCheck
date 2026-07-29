@@ -14,6 +14,7 @@
 			<string>ru</string>
 			<string>cs</string>
 			<string>es</string>
+			<string>it</string>
 		</array>
 		<key>CFBundleDisplayName</key>
 		<string>WristTrack</string>

@@ -10,6 +10,7 @@ import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_it.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -103,6 +104,7 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('it'),
     Locale('ru'),
   ];
 
@@ -4407,6 +4409,7 @@ class _AppLocalizationsDelegate
     'en',
     'es',
     'fr',
+    'it',
     'ru',
   ].contains(locale.languageCode);
 
@@ -4427,6 +4430,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEs();
     case 'fr':
       return AppLocalizationsFr();
+    case 'it':
+      return AppLocalizationsIt();
     case 'ru':
       return AppLocalizationsRu();
   }

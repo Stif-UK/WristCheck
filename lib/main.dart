@@ -160,10 +160,11 @@ Future main() async{
               supportedLocales: [
                 Locale('en'),// English
                 Locale('fr'),// French
-                Locale('es'),//Spanish
+                Locale('es'),// Spanish
                 Locale('de'),// German
                 Locale('ru'),// Russian
-                Locale('cs') // Czech
+                Locale('cs'),// Czech
+                Locale('it')// Italian
               ],
 
                         home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
