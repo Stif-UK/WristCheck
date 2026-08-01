@@ -9,7 +9,7 @@ class AppLocalizationsIt extends AppLocalizations {
   AppLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get watchBox => 'Scatola degli Orologi';
+  String get watchBox => 'Watch Box';
 
   @override
   String get favouriteWatches => 'Orologi Preferiti';
@@ -403,7 +403,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get timeline => 'Cronologia';
 
   @override
-  String get merchStore => 'Negozio Merch';
+  String get merchStore => 'Negozio';
 
   @override
   String get opensInBrowser => '(si apre nel browser)';
@@ -438,7 +438,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String wearFrequency(Object returnText) {
-    return 'Frequenza indosso: $returnText%';
+    return 'Tempo al polso: $returnText%';
   }
 
   @override
@@ -1204,7 +1204,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String lastWornDate(Object shortDate) {
-    return 'Ultimo indosso: $shortDate';
+    return 'Ultima volta al polso: $shortDate';
   }
 
   @override
@@ -1314,10 +1314,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get track => 'Traccia';
 
   @override
-  String get trackWear => 'Registra Indosso';
+  String get trackWear => 'Metti al polso';
 
   @override
-  String get removeWear => 'Rimuovi Indosso';
+  String get removeWear => 'Rimuovi orologio';
 
   @override
   String get removeDate => 'Rimuovi Data';

@@ -1,5 +1,5 @@
 {
-  "watchBox": "Scatola degli Orologi",
+  "watchBox": "Watch Box",
   "@watchBox": {
     "description": "Watch box label"
   },
@@ -148,7 +148,7 @@
   "@_MORE_MENU": {},
   "gallery" : "Galleria",
   "timeline" : "Cronologia",
-  "merchStore" : "Negozio Merch",
+  "merchStore" : "Negozio",
   "opensInBrowser" : "(si apre nel browser)",
 
   "@_WATCH_DETAILS": {},
@@ -160,7 +160,7 @@
   "addOptionalDetails" : "Aggiungi dettagli opzionali?",
   "addedToWatchbox" : "aggiunto alla scatola",
   "favouriteLabel" : "Preferito",
-  "wearFrequency" : "Frequenza indosso: {returnText}%",
+  "wearFrequency" : "Tempo al polso: {returnText}%",
 
   "@_WATCH_ROWS": {},
   "caseDiameterRowTitle" : "Diametro Cassa (mm):",
@@ -417,7 +417,7 @@
   "success" : "Successo!",
   "today" : "Oggi",
   "notWornYet" : "Non ancora indossato",
-  "lastWornDate" : "Ultimo indosso: {shortDate}",
+  "lastWornDate" : "Ultima volta al polso: {shortDate}",
   "wearCount" : "Indossato {count} volte",
   "notRecorded" : "Non registrato",
   "soldDetails" : "Venduto il {shortDate} \nper {price}",
@@ -456,8 +456,8 @@
 
   "@_CALENDARS": {},
   "track" : "Traccia",
-  "trackWear" : "Registra Indosso",
-  "removeWear" : "Rimuovi Indosso",
+  "trackWear" : "Metti al polso",
+  "removeWear" : "Rimuovi orologio",
   "removeDate" : "Rimuovi Data",
   "date" : "Data:",
   "pickWatch" : "Scegli Orologio",
