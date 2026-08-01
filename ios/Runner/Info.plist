@@ -37,9 +37,9 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSCameraUsageDescription</key>
-		<string>To allow camera to take pictures of watches</string>
+		<string>WristTrack requires camera access to allow you to take pictures of your watches to store within the app.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>To allow selection of watch images</string>
+		<string>WristTrack requires photo library access to allow you to select images in your gallery to associate with your watch records.</string>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
@@ -71,7 +71,7 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<true/>
 		<key>NSUserTrackingUsageDescription</key>
-		<string>This identifier will be used to deliver personalized ads to you.</string>
+		<string>This identifier is requested by Google Admob will be used to deliver personalized ads to you if allowed.</string>
 		<key>SKAdNetworkItems</key>
 		<array>
 			<dict>
