@@ -438,9 +438,11 @@ class _WatchViewState extends State<WatchView> {
                     ],
 
                 ),
-                bottomNavigationBar: Obx(()=> Padding(
-                  padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
-                  child: Container(
+                bottomNavigationBar: Obx(()=> SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
+                    child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).bottomNavigationBarTheme.backgroundColor ?? Theme.of(context).canvasColor,
                       borderRadius: BorderRadius.circular(20),
@@ -498,6 +500,7 @@ class _WatchViewState extends State<WatchView> {
                       ),
                     ),
                   ),
+                ),
                 ),
                 ),
                 body: Column(
