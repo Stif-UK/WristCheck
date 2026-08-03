@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.19.0 \n"
+        "### Version 1.19.3 \n"
         "\n"
 
             "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
@@ -31,7 +31,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.19.1 \n"
+                      "### Version 1.19.3 \n"
                       "\n"
 
                       "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
