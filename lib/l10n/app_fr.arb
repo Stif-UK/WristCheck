@@ -156,7 +156,7 @@
   "addOptionalDetails" : "Plus de détails ?",
   "addedToWatchbox" : "Ajouté à la boîte à montres",
   "favouriteLabel" : "Coup de cœur",
-  "wearFrequency" : "Fréquence de portée : {returnText} %",
+  "wearFrequency" : "Fréquence de porté : {returnText} %",
 
   "@_WATCH_ROWS":{},
   "caseDiameterRowTitle" : "Diamètre du boîtier (mm) :",

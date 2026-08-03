@@ -440,7 +440,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String wearFrequency(Object returnText) {
-    return 'Fréquence de portée : $returnText %';
+    return 'Fréquence de porté : $returnText %';
   }
 
   @override
