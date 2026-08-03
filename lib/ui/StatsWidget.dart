@@ -163,6 +163,7 @@ class _StatsWidgetState extends State<StatsWidget> {
             ),
           ),
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
+          const SizedBox(height: 100,)
         ],
       ),
     );
