@@ -72,6 +72,8 @@
 		<true/>
 		<key>NSUserTrackingUsageDescription</key>
 		<string>This identifier is requested by Google Admob will be used to deliver personalized ads to you if allowed.</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>WristTrack uses your location data to help with localized analytics and to improve the user experience.</string>
 		<key>SKAdNetworkItems</key>
 		<array>
 			<dict>
