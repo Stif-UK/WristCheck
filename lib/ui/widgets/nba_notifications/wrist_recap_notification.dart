@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
+import 'package:wristcheck/ui/widgets/animations/wt_banner_icon.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 
 class WristRecapNotification extends StatelessWidget {
@@ -39,16 +40,10 @@ class WristRecapNotification extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 8.0),
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image:  AssetImage('assets/icon/drawerheader.png'),
-                      fit: BoxFit.contain
-                  ),
-                ),
+                child: WTBannerIcon(),
               ),
             ),
             Expanded(

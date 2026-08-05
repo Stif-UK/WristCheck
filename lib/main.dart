@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:rive/rive.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -70,6 +71,9 @@ Future main() async{
 
   //Initialise RevenueCat
   await PurchaseApi.init();
+
+  // Pre-initialize Rive Native bindings
+  await RiveNative.init();
 
   //Load the theme from assets
   final themeStrDark = await rootBundle.loadString('assets/theme/wc_theme_dark.json');

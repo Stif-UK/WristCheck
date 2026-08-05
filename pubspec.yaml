@@ -82,6 +82,7 @@ dependencies:
   syncfusion_localizations: 28.2.7
   flutter_localizations:
     sdk: flutter
+  rive: ^0.14.11
 
 
 dependency_overrides:
@@ -127,6 +128,7 @@ flutter:
     - assets/customicons/
     - assets/audio/
     - assets/img/
+    - assets/animation/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
