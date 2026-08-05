@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
@@ -10,6 +11,7 @@ import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/datalinks.dart';
 import 'package:wristcheck/ui/privacy_landing.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/widgets/animations/wt_banner_icon.dart';
 import 'package:wristcheck/util/general_helper.dart';
 
 class WatchHomeDrawer extends StatelessWidget {
@@ -27,6 +29,7 @@ class WatchHomeDrawer extends StatelessWidget {
       child: ListView(
         children:  [
           DrawerHeader(child:
+              WristCheckConfig.useAnimations? WTBannerIcon(fallbackIconDimensions: 130,) :
                 Container(
                 width: 130,
                   height: 130,

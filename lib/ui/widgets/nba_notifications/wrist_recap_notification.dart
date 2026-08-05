@@ -43,7 +43,7 @@ class WristRecapNotification extends StatelessWidget {
               child: SizedBox(
                 width: 40,
                 height: 40,
-                child: WTBannerIcon(),
+                child: WTBannerIcon(fallbackIconDimensions: 40,),
               ),
             ),
             Expanded(

@@ -20,6 +20,7 @@ class WristCheckConfig{
   static bool enableMultiDateWatchCalendar = true; //Multi-date picker on watch calendar view
   static bool enableLanguagePicker = true; //Language selection in Settings
   static bool enableMonthlyRecap = true; //Enable the monthly view for Wrist Recap
+  static bool useAnimations = true; //Enable animations within the app
 
 
   /*

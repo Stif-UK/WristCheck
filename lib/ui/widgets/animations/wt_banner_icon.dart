@@ -3,7 +3,8 @@ import 'package:rive/rive.dart';
 import 'package:wristcheck/ui/widgets/icons/wt_static_icon.dart';
 
 class WTBannerIcon extends StatefulWidget {
-  const WTBannerIcon({super.key});
+  const WTBannerIcon({super.key, required this.fallbackIconDimensions});
+  final double fallbackIconDimensions;
 
   @override
   State<WTBannerIcon> createState() => _WTBannerIconState();
@@ -21,7 +22,7 @@ class _WTBannerIconState extends State<WTBannerIcon> {
         // 2. Match the sealed loader states
         return switch (state) {
           RiveLoading() => const CircularProgressIndicator(),
-          RiveFailed(:final error) => WtStaticIcon(dimensions: 40.0,),
+          RiveFailed(:final error) => WtStaticIcon(dimensions: widget.fallbackIconDimensions,),
           RiveLoaded(:final controller) => RiveWidget(
             controller: controller,
             fit: Fit.contain,
