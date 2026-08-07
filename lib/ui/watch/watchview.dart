@@ -56,6 +56,43 @@ class _WatchViewState extends State<WatchView> {
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     widget.watchViewController.updateOverrideBacknav(false);
+
+    // Initialise watchViewController values only once on entry
+    widget.watchViewController.updateInEditState(widget.currentWatch == null);
+    if (widget.currentWatch != null) {
+      widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
+      widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
+      widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
+      widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
+      widget.watchViewController.updateMovement(widget.currentWatch?.movement ?? "");
+      widget.watchViewController.updateCategory(widget.currentWatch?.category ?? "");
+      widget.watchViewController.updateCaseMaterial(widget.currentWatch?.caseMaterial ?? "");
+      widget.watchViewController.updateWinderDirection(widget.currentWatch?.winderDirection ?? "");
+      widget.watchViewController.updateDateComplication(widget.currentWatch?.dateComplication ?? "");
+
+      _manufacturer = widget.currentWatch!.manufacturer;
+      _model = widget.currentWatch!.model;
+      _serviceInterval = widget.currentWatch!.serviceInterval;
+      _purchasedFrom = widget.currentWatch!.purchasedFrom;
+      _soldTo = widget.currentWatch!.soldTo;
+    } else {
+      widget.watchViewController.updatePurchasePrice(0);
+      widget.watchViewController.updateSoldPrice(0);
+      widget.watchViewController.updateMovement("");
+      widget.watchViewController.updateCategory("");
+      widget.watchViewController.updateFavourite(false);
+      widget.watchViewController.updateCaseMaterial("");
+      widget.watchViewController.updateWinderDirection("");
+      widget.watchViewController.updateDateComplication("");
+    }
+
+    widget.watchViewController.updateShowdays(false);
+    widget.watchViewController.updateSkipBackCheck(false);
+
+    // Determine the view state and pass to the controller
+    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
+        widget.currentWatch, widget.watchViewController.inEditState.value));
+
     super.initState();
   }
 
@@ -176,28 +213,7 @@ class _WatchViewState extends State<WatchView> {
     //Variable for the final tab index, to ensure next tab button shows on the correct screens when app is pro
     int finalTabIndex = widget.wristCheckController.isAppPro.value ? 4 : 3;
 
-    //On build initialise watchViewController values
-    //On first build default edit state - only default to true if this is a new watch record
-    widget.watchViewController.updateInEditState(widget.currentWatch == null);
-    //If the watch is not null ensure the selected status is updated to reflect the current watches value
-    if(widget.currentWatch != null) {
-      widget.watchViewController
-          .updateSelectedStatus(widget.currentWatch!.status!);
-    };
-    //Determine the view state and pass to the controller
-    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
     String locale = WristCheckFormatter.getLocaleString(widget.wristCheckController.locale.value);
-    //Reset controller values to default to prevent info carrying between watches - these should re-load later if a watch is loaded
-    widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
-    widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
-    widget.watchViewController.updateMovement("");
-    widget.watchViewController.updateCategory("");
-    widget.watchViewController.updateShowdays(false);
-    widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
-    widget.watchViewController.updateSkipBackCheck(false);
-    widget.watchViewController.updateCaseMaterial("");
-    widget.watchViewController.updateWinderDirection("");
-    widget.watchViewController.updateDateComplication("");
 
     //TODO: This method should be split - whilst form validation can happen here, the update to the watch itself should be externalised to WatchMethods
     void saveAndUpdate(){
@@ -310,22 +326,22 @@ class _WatchViewState extends State<WatchView> {
 
     if(widget.watchViewController.watchViewState.value != WatchViewEnum.add){
 
-      widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
-      _manufacturer = widget.currentWatch!.manufacturer;
-      _model = widget.currentWatch!.model;
-      _serviceInterval = widget.currentWatch!.serviceInterval;
-      widget.watchViewController.updateMovement(widget.currentWatch!.movement);
-      widget.watchViewController.updateCategory(widget.currentWatch!.category);
-      _purchasedFrom = widget.currentWatch!.purchasedFrom;
-      _soldTo = widget.currentWatch!.soldTo;
-      widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
-      widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
-      widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
-      widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
-      widget.watchViewController.updateDateComplication(widget.currentWatch!.dateComplication);
-
       //Load watch content, only if watch is not being edited
       if(!widget.watchViewController.inEditState.value) {
+        widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
+        _manufacturer = widget.currentWatch!.manufacturer;
+        _model = widget.currentWatch!.model;
+        _serviceInterval = widget.currentWatch!.serviceInterval;
+        widget.watchViewController.updateMovement(widget.currentWatch!.movement);
+        widget.watchViewController.updateCategory(widget.currentWatch!.category);
+        _purchasedFrom = widget.currentWatch!.purchasedFrom;
+        _soldTo = widget.currentWatch!.soldTo;
+        widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
+        widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
+        widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
+        widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
+        widget.watchViewController.updateDateComplication(widget.currentWatch!.dateComplication);
+
         manufacturerFieldController.value =
             TextEditingValue(text: widget.currentWatch!.manufacturer);
         modelFieldController.value =
