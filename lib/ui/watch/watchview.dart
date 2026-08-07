@@ -603,7 +603,10 @@ class _WatchViewState extends State<WatchView> {
                                         widget.watchViewController.watchViewState.value == WatchViewEnum.edit
                                             ?  _saveWatchUpdateButton()
                                             : const SizedBox(height: 0,),
-                                        const SizedBox(height: 80,),
+                                        //Add space at the bottom to avoid overlapping navigation bar. Slightly more space
+                                        //when a button is shown
+                                        widget.watchViewController.watchViewState.value == WatchViewEnum.view ?
+                                        const SizedBox(height: 90,) : const SizedBox(height: 110,),
                                       ],
                                     )),
                                   ],
