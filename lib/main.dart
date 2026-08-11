@@ -73,7 +73,11 @@ Future main() async{
   await PurchaseApi.init();
 
   // Pre-initialize Rive Native bindings
-  await RiveNative.init();
+  try {
+    await RiveNative.init();
+  } catch (e) {
+    debugPrint('Could not initialize RiveNative: $e');
+  }
 
   //Load the theme from assets
   final themeStrDark = await rootBundle.loadString('assets/theme/wc_theme_dark.json');

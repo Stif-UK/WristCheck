@@ -11,8 +11,8 @@ class WTBannerIcon extends StatefulWidget {
 }
 
 class _WTBannerIconState extends State<WTBannerIcon> {
-  // 1. Create an Asset FileLoader
-  late final _fileLoader = FileLoader.fromAsset('assets/animation/wt_banner_icon.riv', riveFactory: Factory.rive);
+  // Use Factory.flutter for maximum compatibility and to avoid native symbol lookup crashes in production
+  late final _fileLoader = FileLoader.fromAsset('assets/animation/wt_banner_icon.riv', riveFactory: Factory.flutter);
 
   @override
   Widget build(BuildContext context) {
