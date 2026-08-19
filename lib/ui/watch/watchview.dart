@@ -545,86 +545,99 @@ class _WatchViewState extends State<WatchView> {
                                     const Divider(thickness: 2,),
                                     WatchStatusHeader(currentWatch: widget.currentWatch),
                                     const Divider(thickness: 2,),
-                                    Obx(() => IndexedStack(
-                                      index: widget.wristCheckController.isAppPro.value 
-                                          ? widget.watchViewController.tabIndex.value 
-                                          : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value),
-                                      children: [
-                                        // Index 0: Info
-                                        InfoTab(
-                                            manufacturerFieldController: manufacturerFieldController,
-                                            modelFieldController: modelFieldController,
-                                            serialNumberFieldController: serialNumberFieldController,
-                                            referenceNumberFieldController: referenceNumberFieldController,
-                                            movementFieldController: movementFieldController,
-                                            categoryFieldController: categoryFieldController,
-                                            bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                            context: context),
-                                        
-                                        // Index 1: Service/Schedule
-                                        ServiceTab(
-                                            deliveryDateFieldController: deliveryDateFieldController,
-                                            purchaseDateFieldController: purchaseDateFieldController,
-                                            soldDateFieldController: soldDateFieldController,
-                                            timeInCollectionFieldController: timeInCollectionFieldController,
-                                            serviceIntervalFieldController: serviceIntervalFieldController,
-                                            warrantyEndDateFieldController: warrantyEndDateFieldController,
-                                            lastServicedDateFieldController: lastServicedDateFieldController,
-                                            nextServiceDueFieldController: nextServiceDueFieldController,
-                                            currentWatch: widget.currentWatch),
+                                    Obx(() {
+                                      int index = widget.wristCheckController.isAppPro.value
+                                          ? widget.watchViewController.tabIndex.value
+                                          : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value);
+                                      
+                                      return Column(
+                                        children: [
+                                          Offstage(
+                                            offstage: index != 0,
+                                            child: InfoTab(
+                                                manufacturerFieldController: manufacturerFieldController,
+                                                modelFieldController: modelFieldController,
+                                                serialNumberFieldController: serialNumberFieldController,
+                                                referenceNumberFieldController: referenceNumberFieldController,
+                                                movementFieldController: movementFieldController,
+                                                categoryFieldController: categoryFieldController,
+                                                bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                                context: context),
+                                          ),
+                                          Offstage(
+                                            offstage: index != 1,
+                                            child: ServiceTab(
+                                                deliveryDateFieldController: deliveryDateFieldController,
+                                                purchaseDateFieldController: purchaseDateFieldController,
+                                                soldDateFieldController: soldDateFieldController,
+                                                timeInCollectionFieldController: timeInCollectionFieldController,
+                                                serviceIntervalFieldController: serviceIntervalFieldController,
+                                                warrantyEndDateFieldController: warrantyEndDateFieldController,
+                                                lastServicedDateFieldController: lastServicedDateFieldController,
+                                                nextServiceDueFieldController: nextServiceDueFieldController,
+                                                currentWatch: widget.currentWatch),
+                                          ),
+                                          Offstage(
+                                            offstage: index != 2,
+                                            child: ValueTab(
+                                                purchasePriceFieldController: purchasePriceFieldController,
+                                                purchasedFromFieldController: purchasedFromFieldController,
+                                                soldPriceFieldController: soldPriceFieldController,
+                                                soldToFieldController: soldToFieldController,
+                                                currentWatch: widget.currentWatch,
+                                                bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                                headlineSmall: Theme.of(context).textTheme.headlineSmall,
+                                                locale: locale),
+                                          ),
+                                          // Index 3: Pro Data OR Notes (if non-pro)
+                                          Offstage(
+                                            offstage: index != 3,
+                                            child: widget.wristCheckController.isAppPro.value
+                                                ? ProDataTab(
+                                              caseDiameterController: caseDiameterFieldController,
+                                              lugWidthController: lugWidthFieldController,
+                                              lug2lugController: lug2lugFieldController,
+                                              caseThicknessController: caseThicknessFieldController,
+                                              waterResistanceController: waterResistanceFieldController,
+                                              caseMaterialController: caseMaterialFieldController,
+                                              winderTPDController: winderTPDFieldController,
+                                              winderDirectionController: winderDirectionFieldController,
+                                              dateComplicationController: dateComplicationFieldController,
+                                            )
+                                                : NotesTab(notesFieldController: notesFieldController),
+                                          ),
+                                          // Index 4: Notes (only if pro)
+                                          if (widget.wristCheckController.isAppPro.value)
+                                            Offstage(
+                                              offstage: index != 4,
+                                              child: NotesTab(notesFieldController: notesFieldController),
+                                            ),
 
-                                        // Index 2: Value/Cost
-                                        ValueTab(
-                                            purchasePriceFieldController: purchasePriceFieldController,
-                                            purchasedFromFieldController: purchasedFromFieldController,
-                                            soldPriceFieldController: soldPriceFieldController,
-                                            soldToFieldController: soldToFieldController,
-                                            currentWatch: widget.currentWatch,
-                                            bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                            headlineSmall: Theme.of(context).textTheme.headlineSmall,
-                                            locale: locale),
+                                          const Divider(thickness: 2,),
 
-                                        // Index 3: Pro Data OR Notes (if non-pro)
-                                        widget.wristCheckController.isAppPro.value
-                                            ? ProDataTab(
-                                                caseDiameterController: caseDiameterFieldController,
-                                                lugWidthController: lugWidthFieldController,
-                                                lug2lugController: lug2lugFieldController,
-                                                caseThicknessController: caseThicknessFieldController,
-                                                waterResistanceController: waterResistanceFieldController,
-                                                caseMaterialController: caseMaterialFieldController,
-                                                winderTPDController: winderTPDFieldController,
-                                                winderDirectionController: winderDirectionFieldController,
-                                                dateComplicationController: dateComplicationFieldController,
-                                              )
-                                            : NotesTab(notesFieldController: notesFieldController),
+                                          // Actions Column directly beneath the active tab
+                                          Column(
+                                            children: [
+                                              widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
+                                                  widget.watchViewController.tabIndex.value < finalTabIndex
+                                                  ? _nextTabButton()
+                                                  : const SizedBox(height: 10,),
+                                              widget.watchViewController.watchViewState.value == WatchViewEnum.add
+                                                  ? _addWatchButton()
+                                                  : const SizedBox(height: 0,),
 
-                                        // Index 4: Notes (only if pro)
-                                        if (widget.wristCheckController.isAppPro.value)
-                                          NotesTab(notesFieldController: notesFieldController),
-                                      ],
-                                    )),
-                                    const Divider(thickness: 2,),
-                                    //Implement Add / Save button and next button to show if in an 'add' state
-                                    Obx(() => Column(
-                                      children: [
-                                        widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
-                                            widget.watchViewController.tabIndex.value < finalTabIndex
-                                            ? _nextTabButton()
-                                            : const SizedBox(height: 10,),
-                                        widget.watchViewController.watchViewState.value == WatchViewEnum.add
-                                            ? _addWatchButton()
-                                            : const SizedBox(height: 0,),
+                                              widget.watchViewController.watchViewState.value == WatchViewEnum.edit
+                                                  ?  _saveWatchUpdateButton()
+                                                  : const SizedBox(height: 0,),
 
-                                        widget.watchViewController.watchViewState.value == WatchViewEnum.edit
-                                            ?  _saveWatchUpdateButton()
-                                            : const SizedBox(height: 0,),
-                                        //Add space at the bottom to avoid overlapping navigation bar. Slightly more space
-                                        //when a button is shown
-                                        widget.watchViewController.watchViewState.value == WatchViewEnum.view ?
-                                        const SizedBox(height: 90,) : const SizedBox(height: 110,),
-                                      ],
-                                    )),
+                                              // Responsive bottom spacing
+                                              widget.watchViewController.watchViewState.value == WatchViewEnum.view ?
+                                              const SizedBox(height: 90,) : const SizedBox(height: 110,),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    }),
                                   ],
                                 ),
                               ),
