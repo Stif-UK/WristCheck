@@ -19,7 +19,7 @@ class GMT extends StatelessWidget {
               const SizedBox(width: 10),
               Obx(() => DropdownButton<int>(
                     value: timeController.timeOffset.value,
-                    items: List.generate(27, (index) => index - 12).map((int value) {
+                    items: List.generate(29, (index) => index - 12).map((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
                         child: Text(value >= 0 ? "+$value" : "$value"),
