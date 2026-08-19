@@ -46,7 +46,7 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
 
         return Expanded(
           child: GridView.builder(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 100.0),
             itemCount: filteredList.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
