@@ -35,42 +35,54 @@ Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   //Initialise Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
-  //Initialise Remote Config
-  final remoteConfig = FirebaseRemoteConfig.instance;
-  await remoteConfig.setConfigSettings(RemoteConfigSettings(
-    fetchTimeout: const Duration(minutes: 1),
-    minimumFetchInterval: const Duration(hours: 1),
-  ));
-  await remoteConfig.setDefaults(const {
-    "show_merch_link" : "true",
-    "merch_url" : "https://wristtrack.teemill.com/"
-  });
-  await remoteConfig.fetchAndActivate();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ).timeout(const Duration(seconds: 10));
 
-  //Listen for real-time updates to Remote Config parameters
-  remoteConfig.onConfigUpdated.listen((event) async {
-    await remoteConfig.activate();
-  });
+    // Pass all uncaught "fatal" errors from the framework to Crashlytics
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
 
+    //Initialise Remote Config
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(seconds: 10), // Reduced from 1 minute to prevent blocking on slow connections
+      minimumFetchInterval: const Duration(hours: 1),
+    ));
+    await remoteConfig.setDefaults(const {
+      "show_merch_link" : "true",
+      "merch_url" : "https://wristtrack.teemill.com/"
+    });
+    
+    // Fetch and activate with a short timeout. If it fails (e.g. no internet), 
+    // the app continues with default or cached values.
+    await remoteConfig.fetchAndActivate().timeout(const Duration(seconds: 5));
+
+    //Listen for real-time updates to Remote Config parameters
+    remoteConfig.onConfigUpdated.listen((event) async {
+      await remoteConfig.activate();
+    });
+  } catch (e) {
+    debugPrint('Firebase/RemoteConfig initialization failed: $e');
+  }
 
   //Initialise Ads
   final initFuture = MobileAds.instance.initialize();
   final adState = AdState(initFuture);
 
   //Initialise RevenueCat
-  await PurchaseApi.init();
+  try {
+    await PurchaseApi.init().timeout(const Duration(seconds: 10));
+  } catch (e) {
+    debugPrint('RevenueCat initialization failed: $e');
+  }
 
   // Pre-initialize Rive Native bindings
   try {
