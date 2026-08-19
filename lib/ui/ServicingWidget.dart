@@ -11,7 +11,6 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
@@ -205,7 +204,8 @@ class _ServicingWidgetState extends State<ServicingWidget> with SingleTickerProv
                       ),
                     )
                   ],
-                )
+                ),
+                const SizedBox(height: 100,)
               ]
             )
         )
