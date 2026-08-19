@@ -20,13 +20,25 @@ class BrandChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(AppLocalizations.of(context)!.brandChartTitle, style: Theme.of(context).textTheme.bodyLarge),
-            SfCartesianChart(
-              primaryXAxis: CategoryAxis(
-                isVisible: false,
-              ),
-              primaryYAxis: NumericAxis(),
-              series: _getBarSeries()
-            )
+            Obx(() {
+              final recapController = Get.find<WristRecapController>();
+              double baseHeight = MediaQuery.of(context).size.height * 0.35;
+              // Linear scaling: height increases every 10 brands from the base height
+              int count = recapController.brandsWorn.length;
+              double heightMultiplier = (count / 10).ceilToDouble();
+              if (heightMultiplier < 1.0) heightMultiplier = 1.0;
+
+              return SizedBox(
+                height: baseHeight * heightMultiplier,
+                child: SfCartesianChart(
+                  primaryXAxis: CategoryAxis(
+                    isVisible: false,
+                  ),
+                  primaryYAxis: NumericAxis(),
+                  series: _getBarSeries(),
+                ),
+              );
+            }),
           ],
         ),
       ),
