@@ -65,9 +65,10 @@ class _WearChartState extends State<WearChart> {
                 Obx(() {
                   final recapController = Get.find<WristRecapController>();
                   double baseHeight = MediaQuery.of(context).size.height * 0.35;
-                  // Calculate multiplier: 1.0 for 0-9, 2.0 for 10-19, 4.0 for 20-29, etc.
-                  int factor = recapController.watchesWorn.length ~/ 10;
-                  double heightMultiplier = factor > 0 ? (1 << factor).toDouble() : 1.0;
+                  // Linear scaling: height increases every 10 watches from the base height
+                  int count = recapController.watchesWorn.length;
+                  double heightMultiplier = (count / 10).ceilToDouble();
+                  if (heightMultiplier < 1.0) heightMultiplier = 1.0;
 
                   return SizedBox(
                     height: baseHeight * heightMultiplier,
