@@ -1971,6 +1971,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get categoryTravel => 'Viaje / GMT';
 
   @override
+  String get categoryDigital => 'Digital';
+
+  @override
+  String get categoryGeneral => 'General';
+
+  @override
+  String get categoryCasual => 'Casual';
+
+  @override
+  String get categorySmartWatch => 'Smartwatch';
+
+  @override
   String get notEntered => 'No Introducido';
 
   @override

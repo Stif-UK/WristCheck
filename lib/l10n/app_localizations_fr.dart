@@ -1980,6 +1980,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categoryTravel => 'Voyage';
 
   @override
+  String get categoryDigital => 'Digital';
+
+  @override
+  String get categoryGeneral => 'Général';
+
+  @override
+  String get categoryCasual => 'Casual';
+
+  @override
+  String get categorySmartWatch => 'Montre connectée';
+
+  @override
   String get notEntered => 'Non renseigné';
 
   @override

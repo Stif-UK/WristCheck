@@ -55,6 +55,18 @@ class ListTileHelper {
       case CategoryEnum.travel:
         returnIcon = const FaIcon(FontAwesomeIcons.earthAmericas);
         break;
+      case CategoryEnum.digital:
+        returnIcon = const FaIcon(FontAwesomeIcons.clock);
+        break;
+      case CategoryEnum.general:
+        returnIcon = const FaIcon(FontAwesomeIcons.box);
+        break;
+      case CategoryEnum.casual:
+        returnIcon = const FaIcon(FontAwesomeIcons.couch);
+        break;
+      case CategoryEnum.smartWatch:
+        returnIcon = const FaIcon(FontAwesomeIcons.mobileScreenButton);
+        break;
     }
 
     return returnIcon;

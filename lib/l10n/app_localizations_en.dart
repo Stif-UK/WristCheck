@@ -1953,6 +1953,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryTravel => 'Travel';
 
   @override
+  String get categoryDigital => 'Digital';
+
+  @override
+  String get categoryGeneral => 'General';
+
+  @override
+  String get categoryCasual => 'Casual';
+
+  @override
+  String get categorySmartWatch => 'Smart Watch';
+
+  @override
   String get notEntered => 'Not Entered';
 
   @override

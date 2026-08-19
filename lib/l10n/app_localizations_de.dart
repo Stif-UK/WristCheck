@@ -1981,6 +1981,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get categoryTravel => 'Reiseuhr / GMT';
 
   @override
+  String get categoryDigital => 'Digital';
+
+  @override
+  String get categoryGeneral => 'Allgemein';
+
+  @override
+  String get categoryCasual => 'Freizeit';
+
+  @override
+  String get categorySmartWatch => 'Smartwatch';
+
+  @override
   String get notEntered => 'Nicht angegeben';
 
   @override

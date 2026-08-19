@@ -681,6 +681,10 @@
   "categoryTool" : "Nástrojové (Tool)",
   "categoryChronograph" : "Chronograf",
   "categoryTravel" : "Cestovní / GMT",
+  "categoryDigital" : "Digitální",
+  "categoryGeneral" : "Obecné",
+  "categoryCasual" : "Volnočasové",
+  "categorySmartWatch" : "Chytré hodinky",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Nezadáno",

@@ -683,6 +683,10 @@
   "categoryTool" : "Tool",
   "categoryChronograph" : "Chronograph",
   "categoryTravel" : "Travel",
+  "categoryDigital" : "Digital",
+  "categoryGeneral" : "General",
+  "categoryCasual" : "Casual",
+  "categorySmartWatch" : "Smart Watch",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Not Entered",

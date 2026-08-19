@@ -681,6 +681,10 @@
   "categoryTool" : "Инструментальные (Tool)",
   "categoryChronograph" : "Хронографы",
   "categoryTravel" : "Для путешествий / GMT",
+  "categoryDigital" : "Цифровые",
+  "categoryGeneral" : "Общие",
+  "categoryCasual" : "Повседневные",
+  "categorySmartWatch" : "Смарт-часы",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Не указан",

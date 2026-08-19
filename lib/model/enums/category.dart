@@ -10,7 +10,11 @@ enum CategoryEnum {
   dress,
   tool,
   chronograph,
-  travel
+  travel,
+  digital,
+  general,
+  casual,
+  smartWatch
 }
 
 extension CategoryEnumLocalization on CategoryEnum {
@@ -36,6 +40,14 @@ extension CategoryEnumLocalization on CategoryEnum {
         return localizations.categoryChronograph;
       case CategoryEnum.travel:
         return localizations.categoryTravel;
+      case CategoryEnum.digital:
+        return localizations.categoryDigital;
+      case CategoryEnum.general:
+        return localizations.categoryGeneral;
+      case CategoryEnum.casual:
+        return localizations.categoryCasual;
+      case CategoryEnum.smartWatch:
+        return localizations.categorySmartWatch;
     }
   }
 
@@ -60,6 +72,14 @@ extension CategoryEnumLocalization on CategoryEnum {
         return "Chronograph";
       case CategoryEnum.travel:
         return "Travel";
+      case CategoryEnum.digital:
+        return "Digital";
+      case CategoryEnum.general:
+        return "General";
+      case CategoryEnum.casual:
+        return "Casual";
+      case CategoryEnum.smartWatch:
+        return "Smart Watch";
     }
   }
 
@@ -82,6 +102,14 @@ extension CategoryEnumLocalization on CategoryEnum {
         return CategoryEnum.chronograph;
       case "Travel":
         return CategoryEnum.travel;
+      case "Digital":
+        return CategoryEnum.digital;
+      case "General":
+        return CategoryEnum.general;
+      case "Casual":
+        return CategoryEnum.casual;
+      case "Smart Watch":
+        return CategoryEnum.smartWatch;
       case "Not Selected":
       case "":
       case null:

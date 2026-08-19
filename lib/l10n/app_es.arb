@@ -676,6 +676,10 @@
   "categoryTool" : "Herramienta (Tool watch)",
   "categoryChronograph" : "Cronógrafo",
   "categoryTravel" : "Viaje / GMT",
+  "categoryDigital" : "Digital",
+  "categoryGeneral" : "General",
+  "categoryCasual" : "Casual",
+  "categorySmartWatch" : "Smartwatch",
 
   "@_MOVEMENTS": {},
   "notEntered" : "No Introducido",

@@ -680,6 +680,10 @@
   "categoryTool" : "Tool watch",
   "categoryChronograph" : "Chronographe",
   "categoryTravel" : "Voyage",
+  "categoryDigital" : "Digital",
+  "categoryGeneral" : "Général",
+  "categoryCasual" : "Casual",
+  "categorySmartWatch" : "Montre connectée",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Non renseigné",

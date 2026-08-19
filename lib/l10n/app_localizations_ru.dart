@@ -1989,6 +1989,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get categoryTravel => 'Для путешествий / GMT';
 
   @override
+  String get categoryDigital => 'Цифровые';
+
+  @override
+  String get categoryGeneral => 'Общие';
+
+  @override
+  String get categoryCasual => 'Повседневные';
+
+  @override
+  String get categorySmartWatch => 'Смарт-часы';
+
+  @override
   String get notEntered => 'Не указан';
 
   @override

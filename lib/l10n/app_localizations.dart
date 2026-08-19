@@ -3678,6 +3678,30 @@ abstract class AppLocalizations {
   /// **'Travel'**
   String get categoryTravel;
 
+  /// No description provided for @categoryDigital.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital'**
+  String get categoryDigital;
+
+  /// No description provided for @categoryGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get categoryGeneral;
+
+  /// No description provided for @categoryCasual.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual'**
+  String get categoryCasual;
+
+  /// No description provided for @categorySmartWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Watch'**
+  String get categorySmartWatch;
+
   /// No description provided for @notEntered.
   ///
   /// In en, this message translates to:

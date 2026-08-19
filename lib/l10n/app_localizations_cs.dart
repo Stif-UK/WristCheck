@@ -1983,6 +1983,18 @@ class AppLocalizationsCs extends AppLocalizations {
   String get categoryTravel => 'Cestovní / GMT';
 
   @override
+  String get categoryDigital => 'Digitální';
+
+  @override
+  String get categoryGeneral => 'Obecné';
+
+  @override
+  String get categoryCasual => 'Volnočasové';
+
+  @override
+  String get categorySmartWatch => 'Chytré hodinky';
+
+  @override
   String get notEntered => 'Nezadáno';
 
   @override
