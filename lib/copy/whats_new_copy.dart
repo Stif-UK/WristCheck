@@ -5,19 +5,15 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.19.5 \n"
+        "### Version 1.19.6 \n"
         "\n"
-
-            "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
-            "* Wrist Recap Updated - New time period options available\n"
-            "* Search Updates - Search on more fields and filter the results by status\n"
-            "* New Wear Frequency metric - Percentage of days a watch has been 'worn' since its first tracked wear\n"
-            "* [Pro] Moon Phase updates - new realistic moon icon, and addition of on-screen text of the current phase.\n"
-            "* [Pro] GMT setting - select a time offset to show a second timezone\n"
-            "* UI updates - cleaner UI throughout, updating harsh headers and bottom pickers\n"
-            "* Language Support - Added Italian to the list of available languages\n"
-            "(want to see WristTrack in another language - send me an email!)\n"
-            "* Additional small enhancements and bug fixes";
+        "A small point release to add minor improvements and squash some bugs...\n"
+            "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
+            "* Chart sizes in Wrist Recap now behave better with larger collections\n"
+            "* Fixed some pages where the floating navigation bar overlapped images or icons\n"
+            "* Extra whitespace removed from watch view\n"
+            "* [Pro] GMT Time offset expanded to +16 hours\n"
+            "* App startup sequence reviewed to improve stability and ensure full offline support";
 
   }
 
@@ -31,9 +27,19 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 1.19.6 \n"
+                      "\n"
+                      "A small point release to add minor improvements and squash some bugs...\n"
+                      "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
+                      "* Chart sizes in Wrist Recap now behave better with larger collections\n"
+                      "* Fixed some pages where the floating navigation bar overlapped images or icons\n"
+                      "* Extra whitespace removed from watch view\n"
+                      "* [Pro] GMT Time offset expanded to +16 hours\n"
+                      "* App startup sequence reviewed to improve stability and ensure full offline support"
+                      "---\n\n"
+
                       "### Version 1.19.5 \n"
                       "\n"
-
                       "* Merch Store added - grab a T-shirt and help support the next phase of WristTrack development!\n"
                       "* Wrist Recap Updated - New time period options available\n"
                       "* Search Updates - Search on more fields and filter the results by status\n"
@@ -49,6 +55,7 @@ class WhatsNewCopy{
                       "* Small prompts added for pro (1x a year) and non-pro (90+ days) users to drive ongoing support\n"
                       "* Privacy Policy externalised to a web link to improve maintainability\n"
                       "---\n\n"
+                  
                       "### Version 1.18.2 \n"
                       "\n"
 

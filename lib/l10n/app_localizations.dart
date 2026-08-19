@@ -2133,7 +2133,7 @@ abstract class AppLocalizations {
   /// No description provided for @supporterCopy.
   ///
   /// In en, this message translates to:
-  /// **'Thank you for supporting WristTrack!\n\nYour support means a lot and makes it possible for me to continue to develop WristTrack and other apps like it.\n\nIf you\'re enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you\'d like to see added to it!\n\nIf you\'d like to continue to support WristTrack additional donations can be made at any time.'**
+  /// **'Thank you for supporting WristTrack!\n\nYour support means a lot and makes it possible for me to continue to develop WristTrack!\n\nIf you\'re enjoying the app please consider telling your friends about it or leave a review to let me know what you like about the app and what else you\'d like to see added to it!\n\nIf you\'d like to continue to support WristTrack additional donations can be made at any time.'**
   String get supporterCopy;
 
   /// No description provided for @purchaseRestored.

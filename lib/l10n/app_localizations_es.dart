@@ -1110,7 +1110,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get supporterCopy =>
-      '¡Gracias por apoyar a WristTrack!\n\nTu apoyo significa mucho y hace posible que continúe desarrollando WristTrack y otras aplicaciones similares.\n\nSi estás disfrutando de la aplicación, considera recomendársela a tus amigos o dejar una reseña para contarme qué te gusta de ella y qué más te gustaría que se añadiera.\n\nSi deseas seguir apoyando a WristTrack, puedes realizar donaciones adicionales en cualquier momento.';
+      '¡Gracias por apoyar a WristTrack!\n\nTu apoyo significa mucho y hace posible que continúe desarrollando WristTrack.\n\nSi estás disfrutando de la aplicación, considera recomendársela a tus amigos o dejar una reseña para contarme qué te gusta de ella y qué más te gustaría que se añadiera.\n\nSi deseas seguir apoyando a WristTrack, puedes realizar donaciones adicionales en cualquier momento.';
 
   @override
   String get purchaseRestored => 'Compra Restaurada';
