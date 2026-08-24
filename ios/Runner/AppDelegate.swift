@@ -9,10 +9,9 @@ import rive_native
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
       
-      // Fake call to ensure Rive symbols are linked in production
-          // This function doesn't need to do anything, its presence just
-          // prevents the linker from stripping the library.
-          let _ = Rive.isInitialized
+    // Fake call to ensure Rive symbols are linked in production
+    // This prevents the linker from stripping the library when building for the App Store.
+    let _ = RiveNativePlugin.self
       
     GeneratedPluginRegistrant.register(with: self)
     if #available(iOS 10.0, *) {
