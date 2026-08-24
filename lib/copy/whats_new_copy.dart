@@ -5,7 +5,7 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.19.6 \n"
+        "### Version 1.19.7 \n"
         "\n"
         "A small point release to add minor improvements and squash some bugs...\n"
             "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
@@ -27,7 +27,7 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.19.6 \n"
+                      "### Version 1.19.7 \n"
                       "\n"
                       "A small point release to add minor improvements and squash some bugs...\n"
                       "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
