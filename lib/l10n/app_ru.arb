@@ -660,6 +660,7 @@
   "caseMaterialSteel" : "Сталь",
   "caseMaterialTitanium" : "Титан",
   "caseMaterialGold" : "Золото",
+  "caseMaterialWhiteGold" : "Белое золото",
   "caseMaterialTwoTone" : "Комбинированный (Two-Tone)",
   "caseMaterialPlatinum" : "Платина",
   "caseMaterialBronze" : "Бронза",

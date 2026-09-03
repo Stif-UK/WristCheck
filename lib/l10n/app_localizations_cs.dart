@@ -1926,6 +1926,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get caseMaterialGold => 'Zlato';
 
   @override
+  String get caseMaterialWhiteGold => 'Bílé zlato';
+
+  @override
   String get caseMaterialTwoTone => 'Bicolor (Two-Tone)';
 
   @override

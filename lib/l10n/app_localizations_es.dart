@@ -1914,6 +1914,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get caseMaterialGold => 'Oro';
 
   @override
+  String get caseMaterialWhiteGold => 'Oro Blanco';
+
+  @override
   String get caseMaterialTwoTone => 'Bicolor (Two-Tone)';
 
   @override

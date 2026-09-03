@@ -3564,6 +3564,12 @@ abstract class AppLocalizations {
   /// **'Gold'**
   String get caseMaterialGold;
 
+  /// No description provided for @caseMaterialWhiteGold.
+  ///
+  /// In en, this message translates to:
+  /// **'White Gold'**
+  String get caseMaterialWhiteGold;
+
   /// No description provided for @caseMaterialTwoTone.
   ///
   /// In en, this message translates to:

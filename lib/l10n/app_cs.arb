@@ -660,6 +660,7 @@
   "caseMaterialSteel" : "Ocel",
   "caseMaterialTitanium" : "Titan",
   "caseMaterialGold" : "Zlato",
+  "caseMaterialWhiteGold" : "Bílé zlato",
   "caseMaterialTwoTone" : "Bicolor (Two-Tone)",
   "caseMaterialPlatinum" : "Platina",
   "caseMaterialBronze" : "Bronz",

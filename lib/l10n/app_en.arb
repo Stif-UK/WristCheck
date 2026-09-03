@@ -662,6 +662,7 @@
   "caseMaterialSteel" : "Steel",
   "caseMaterialTitanium" : "Titanium",
   "caseMaterialGold" : "Gold",
+  "caseMaterialWhiteGold" : "White Gold",
   "caseMaterialTwoTone" : "Two-Tone",
   "caseMaterialPlatinum" : "Platinum",
   "caseMaterialBronze" : "Bronze",

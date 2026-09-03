@@ -7,6 +7,7 @@ enum CaseMaterialEnum {
   pvdsteel,
   titanium,
   gold,
+  whitegold,
   twotone,
   platinum,
   bronze,
@@ -33,6 +34,8 @@ extension CaseMaterialEnumLocalization on CaseMaterialEnum {
         return localizations.caseMaterialTitanium;
       case CaseMaterialEnum.gold:
         return localizations.caseMaterialGold;
+      case CaseMaterialEnum.whitegold:
+        return localizations.caseMaterialWhiteGold;
       case CaseMaterialEnum.twotone:
         return localizations.caseMaterialTwoTone;
       case CaseMaterialEnum.platinum:
@@ -65,6 +68,8 @@ extension CaseMaterialEnumLocalization on CaseMaterialEnum {
         return "Titanium";
       case CaseMaterialEnum.gold:
         return "Gold";
+      case CaseMaterialEnum.whitegold:
+        return "White Gold";
       case CaseMaterialEnum.twotone:
         return "Two-Tone";
       case CaseMaterialEnum.platinum:
@@ -97,6 +102,8 @@ extension CaseMaterialEnumLocalization on CaseMaterialEnum {
         return CaseMaterialEnum.titanium;
       case "Gold":
         return CaseMaterialEnum.gold;
+      case "White Gold":
+        return CaseMaterialEnum.whitegold;
       case "Two-Tone":
         return CaseMaterialEnum.twotone;
       case "Platinum":

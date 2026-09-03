@@ -1932,6 +1932,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get caseMaterialGold => 'Золото';
 
   @override
+  String get caseMaterialWhiteGold => 'Белое золото';
+
+  @override
   String get caseMaterialTwoTone => 'Комбинированный (Two-Tone)';
 
   @override

@@ -1924,6 +1924,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get caseMaterialGold => 'Gold';
 
   @override
+  String get caseMaterialWhiteGold => 'Weißgold';
+
+  @override
   String get caseMaterialTwoTone => 'Bicolor (Two-Tone)';
 
   @override
