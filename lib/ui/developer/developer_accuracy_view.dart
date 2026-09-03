@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/measurement_methods.dart';
 

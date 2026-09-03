@@ -1,6 +1,6 @@
 import 'package:wristcheck/model/watches.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 
 class DatabaseProvider extends ChangeNotifier {

@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/measurement.dart';

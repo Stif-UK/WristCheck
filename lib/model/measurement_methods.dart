@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';

@@ -10,7 +10,7 @@ import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';

@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dynamic_copy_helper.dart';

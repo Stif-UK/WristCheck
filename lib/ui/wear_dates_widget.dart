@@ -19,7 +19,7 @@ import 'package:wristcheck/util/general_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 

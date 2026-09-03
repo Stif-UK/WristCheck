@@ -11,7 +11,7 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
