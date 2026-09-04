@@ -537,7 +537,9 @@
   "dateComplicationsNoDate" : "Kein Datum",
   "dateComplicationsDayDate" : "Tag-Datum (Day-Date)",
   "dateComplicationsPointerDate" : "Zeigerdatum (Pointer Date)",
+  "dateComplicationsPointerDayDate" : "Zeiger-Tag-Datum (Pointer Day-Date)",
   "dateComplicationsSubDialDate": "Hilfszifferblatt-Datum",
+  "dateComplicationsSubDialDayDate": "Hilfszifferblatt-Tag-Datum",
   "dateComplicationsPerpetualDate" : "Ewiger Kalender",
   "dateComplicationsDigitalDate" : "Digitales Datum",
 

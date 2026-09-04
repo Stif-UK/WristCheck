@@ -1573,7 +1573,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Fecha por Aguja (Pointer Date)';
 
   @override
+  String get dateComplicationsPointerDayDate =>
+      'Día y Fecha por Aguja (Pointer Day-Date)';
+
+  @override
   String get dateComplicationsSubDialDate => 'Fecha en Subesfera';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Día y Fecha en Subesfera';
 
   @override
   String get dateComplicationsPerpetualDate => 'Calendario Perpetuo';

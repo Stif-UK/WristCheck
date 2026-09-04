@@ -540,7 +540,9 @@
   "dateComplicationsNoDate" : "No Date",
   "dateComplicationsDayDate" : "Day-Date",
   "dateComplicationsPointerDate" : "Pointer Date",
+  "dateComplicationsPointerDayDate" : "Pointer Day-Date",
   "dateComplicationsSubDialDate": "Sub-Dial Date",
+  "dateComplicationsSubDialDayDate": "Sub-Dial Day-Date",
   "dateComplicationsPerpetualDate" : "Perpetual Date",
   "dateComplicationsDigitalDate" : "Digital Date",
 

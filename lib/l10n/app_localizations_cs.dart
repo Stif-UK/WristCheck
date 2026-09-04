@@ -1585,7 +1585,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Ukazatel data (Pointer Date)';
 
   @override
+  String get dateComplicationsPointerDayDate =>
+      'Ukazatel dne a data (Pointer Day-Date)';
+
+  @override
   String get dateComplicationsSubDialDate => 'Datum na subciferníku';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Den a datum na subciferníku';
 
   @override
   String get dateComplicationsPerpetualDate => 'Věčný kalendář';

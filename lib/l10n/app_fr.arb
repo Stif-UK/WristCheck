@@ -537,7 +537,9 @@
   "dateComplicationsNoDate" : "Sans date",
   "dateComplicationsDayDate" : "Jour-Date",
   "dateComplicationsPointerDate" : "Date à aiguille",
+  "dateComplicationsPointerDayDate" : "Jour-Date à aiguille",
   "dateComplicationsSubDialDate": "Date sur sous-cadran",
+  "dateComplicationsSubDialDayDate": "Jour-Date sur sous-cadran",
   "dateComplicationsPerpetualDate" : "Quantième perpétuel",
   "dateComplicationsDigitalDate" : "Date digitale",
 

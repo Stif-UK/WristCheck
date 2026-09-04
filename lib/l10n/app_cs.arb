@@ -537,7 +537,9 @@
   "dateComplicationsNoDate" : "Bez data",
   "dateComplicationsDayDate" : "Den a datum (Day-Date)",
   "dateComplicationsPointerDate" : "Ukazatel data (Pointer Date)",
+  "dateComplicationsPointerDayDate" : "Ukazatel dne a data (Pointer Day-Date)",
   "dateComplicationsSubDialDate": "Datum na subciferníku",
+  "dateComplicationsSubDialDayDate": "Den a datum na subciferníku",
   "dateComplicationsPerpetualDate" : "Věčný kalendář",
   "dateComplicationsDigitalDate" : "Digitální datum",
 

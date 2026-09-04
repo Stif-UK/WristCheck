@@ -1557,7 +1557,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Pointer Date';
 
   @override
+  String get dateComplicationsPointerDayDate => 'Pointer Day-Date';
+
+  @override
   String get dateComplicationsSubDialDate => 'Sub-Dial Date';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Sub-Dial Day-Date';
 
   @override
   String get dateComplicationsPerpetualDate => 'Perpetual Date';

@@ -1580,7 +1580,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Date à aiguille';
 
   @override
+  String get dateComplicationsPointerDayDate => 'Jour-Date à aiguille';
+
+  @override
   String get dateComplicationsSubDialDate => 'Date sur sous-cadran';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Jour-Date sur sous-cadran';
 
   @override
   String get dateComplicationsPerpetualDate => 'Quantième perpétuel';

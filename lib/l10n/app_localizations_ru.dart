@@ -1590,7 +1590,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Стрелочный указатель даты';
 
   @override
+  String get dateComplicationsPointerDayDate =>
+      'Стрелочный указатель дня и даты';
+
+  @override
   String get dateComplicationsSubDialDate => 'Дата на суб-циферблате';
+
+  @override
+  String get dateComplicationsSubDialDayDate =>
+      'День недели и дата на суб-циферблате';
 
   @override
   String get dateComplicationsPerpetualDate => 'Вечный календарь';

@@ -1565,7 +1565,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Lancetta Data';
 
   @override
+  String get dateComplicationsPointerDayDate => 'Lancetta Giorno-Data';
+
+  @override
   String get dateComplicationsSubDialDate => 'Sotto-quadrante Data';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Sotto-quadrante Giorno-Data';
 
   @override
   String get dateComplicationsPerpetualDate => 'Calendario Perpetuo';

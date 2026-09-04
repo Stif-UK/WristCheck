@@ -1581,7 +1581,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dateComplicationsPointerDate => 'Zeigerdatum (Pointer Date)';
 
   @override
+  String get dateComplicationsPointerDayDate =>
+      'Zeiger-Tag-Datum (Pointer Day-Date)';
+
+  @override
   String get dateComplicationsSubDialDate => 'Hilfszifferblatt-Datum';
+
+  @override
+  String get dateComplicationsSubDialDayDate => 'Hilfszifferblatt-Tag-Datum';
 
   @override
   String get dateComplicationsPerpetualDate => 'Ewiger Kalender';

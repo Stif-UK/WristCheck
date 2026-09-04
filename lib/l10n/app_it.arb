@@ -540,7 +540,9 @@
   "dateComplicationsNoDate" : "Senza Data",
   "dateComplicationsDayDate" : "Giorno-Data",
   "dateComplicationsPointerDate" : "Lancetta Data",
+  "dateComplicationsPointerDayDate" : "Lancetta Giorno-Data",
   "dateComplicationsSubDialDate": "Sotto-quadrante Data",
+  "dateComplicationsSubDialDayDate": "Sotto-quadrante Giorno-Data",
   "dateComplicationsPerpetualDate" : "Calendario Perpetuo",
   "dateComplicationsDigitalDate" : "Data Digitale",
 

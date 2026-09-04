@@ -6,7 +6,9 @@ enum DateComplicationEnum {
   nodate,
   daydate,
   pointerdate,
+  pointerdaydate,
   subdialdate,
+  subdialdaydate,
   perpetualdate,
   digitaldate,
   blank
@@ -25,8 +27,12 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return localizations.dateComplicationsDayDate;
       case DateComplicationEnum.pointerdate:
         return localizations.dateComplicationsPointerDate;
+      case DateComplicationEnum.pointerdaydate:
+        return localizations.dateComplicationsPointerDayDate;
       case DateComplicationEnum.subdialdate:
         return localizations.dateComplicationsSubDialDate;
+      case DateComplicationEnum.subdialdaydate:
+        return localizations.dateComplicationsSubDialDayDate;
       case DateComplicationEnum.perpetualdate:
         return localizations.dateComplicationsPerpetualDate;
       case DateComplicationEnum.digitaldate:
@@ -47,8 +53,12 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return "Day-Date";
       case DateComplicationEnum.pointerdate:
         return "Pointer Date";
+      case DateComplicationEnum.pointerdaydate:
+        return "Pointer Day-Date";
       case DateComplicationEnum.subdialdate:
         return "Sub-Dial Date";
+      case DateComplicationEnum.subdialdaydate:
+        return "Sub-Dial Day-Date";
       case DateComplicationEnum.perpetualdate:
         return "Perpetual Date";
       case DateComplicationEnum.digitaldate:
@@ -69,8 +79,12 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return DateComplicationEnum.daydate;
       case "Pointer Date":
         return DateComplicationEnum.pointerdate;
+      case "Pointer Day-Date":
+        return DateComplicationEnum.pointerdaydate;
       case "Sub-Dial Date":
         return DateComplicationEnum.subdialdate;
+      case "Sub-Dial Day-Date":
+        return DateComplicationEnum.subdialdaydate;
       case "Perpetual Date":
         return DateComplicationEnum.perpetualdate;
       case "Digital Date":

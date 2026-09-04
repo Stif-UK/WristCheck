@@ -537,7 +537,9 @@
   "dateComplicationsNoDate" : "Sin Fecha",
   "dateComplicationsDayDate" : "Día y Fecha (Day-Date)",
   "dateComplicationsPointerDate" : "Fecha por Aguja (Pointer Date)",
+  "dateComplicationsPointerDayDate" : "Día y Fecha por Aguja (Pointer Day-Date)",
   "dateComplicationsSubDialDate": "Fecha en Subesfera",
+  "dateComplicationsSubDialDayDate": "Día y Fecha en Subesfera",
   "dateComplicationsPerpetualDate" : "Calendario Perpetuo",
   "dateComplicationsDigitalDate" : "Fecha Digital",
 

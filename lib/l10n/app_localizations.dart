@@ -2964,11 +2964,23 @@ abstract class AppLocalizations {
   /// **'Pointer Date'**
   String get dateComplicationsPointerDate;
 
+  /// No description provided for @dateComplicationsPointerDayDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pointer Day-Date'**
+  String get dateComplicationsPointerDayDate;
+
   /// No description provided for @dateComplicationsSubDialDate.
   ///
   /// In en, this message translates to:
   /// **'Sub-Dial Date'**
   String get dateComplicationsSubDialDate;
+
+  /// No description provided for @dateComplicationsSubDialDayDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-Dial Day-Date'**
+  String get dateComplicationsSubDialDayDate;
 
   /// No description provided for @dateComplicationsPerpetualDate.
   ///

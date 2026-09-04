@@ -537,7 +537,9 @@
   "dateComplicationsNoDate" : "Без даты",
   "dateComplicationsDayDate" : "День недели и дата (Day-Date)",
   "dateComplicationsPointerDate" : "Стрелочный указатель даты",
+  "dateComplicationsPointerDayDate" : "Стрелочный указатель дня и даты",
   "dateComplicationsSubDialDate": "Дата на суб-циферблате",
+  "dateComplicationsSubDialDayDate": "День недели и дата на суб-циферблате",
   "dateComplicationsPerpetualDate" : "Вечный календарь",
   "dateComplicationsDigitalDate" : "Цифровая дата",
 
