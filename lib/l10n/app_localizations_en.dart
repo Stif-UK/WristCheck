@@ -2476,4 +2476,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editWatchUnsavedChangesContinueEditingOption => 'Continue editing';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Current Collection Cost';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'This value is the sum of all recorded purchase prices of all watches currently marked as \'In Collection\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Total Collection Spend';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'This value is the sum of all recorded purchase prices of all watches marked as either \'In Collection\' or \'Sold\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Total Sold Value';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'This value is the sum of all recorded sale prices of all watches with a status of \'Sold\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Average Resale Percentage';
+
+  @override
+  String get averageResaleHelpText =>
+      'This value is the average percentage returned when selling a watch - it is only calculated for watches with status \'Sold\' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost.';
 }

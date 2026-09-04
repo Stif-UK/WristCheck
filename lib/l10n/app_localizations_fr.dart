@@ -2512,4 +2512,32 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Continuer les modifications';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Coût actuel de la collection';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Cette valeur est la somme de tous les prix d\'achat enregistrés de toutes les montres actuellement marquées \'En collection\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Dépense totale de la collection';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Cette valeur est la somme de tous les prix d\'achat enregistrés de toutes les montres marquées soit \'En collection\', soit \'Vendue\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Valeur totale vendue';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Cette valeur est la somme de tous les prix de vente enregistrés de toutes les montres ayant le statut \'Vendue\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Pourcentage moyen de revente';
+
+  @override
+  String get averageResaleHelpText =>
+      'Cette valeur est le pourcentage moyen récupéré lors de la vente d\'une montre - elle est uniquement calculée pour les montres ayant le statut \'Vendue\' pour lesquelles un prix d\'achat et un prix de vente sont enregistrés.\n\nLe pourcentage est calculé en divisant la valeur totale des ventes par le coût total d\'achat.';
 }

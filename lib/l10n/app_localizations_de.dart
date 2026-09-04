@@ -2514,4 +2514,33 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Weiter bearbeiten';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Aktueller Wert der Sammlung';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Dieser Wert ist die Summe aller erfassten Kaufpreise aller Uhren, die derzeit als \'In Sammlung\' markiert sind';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Gesamtausgaben für die Sammlung';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Dieser Wert ist die Summe aller erfassten Kaufpreise aller Uhren, die entweder als \'In Sammlung\' oder \'Verkauft\' markiert sind';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Gesamtwert der Verkäufe';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Dieser Wert ist die Summe aller erfassten Verkaufspreise aller Uhren mit dem Status \'Verkauft\'';
+
+  @override
+  String get averageResaleHelpTitle =>
+      'Durchschnittlicher Wiederverkaufsprozentsatz';
+
+  @override
+  String get averageResaleHelpText =>
+      'Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status \'Verkauft\' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird.';
 }

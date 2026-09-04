@@ -1008,5 +1008,13 @@
   "editWatchUnsavedChangesTitle" : "Modifications non enregistrées",
   "editWatchUnsavedChangesCopy" : "Voulez-vous vraiment quitter ?\nLes modifications non enregistrées seront perdues.",
   "editWatchUnsavedChangesExitOption" : "Quitter sans enregistrer",
-  "editWatchUnsavedChangesContinueEditingOption" : "Continuer les modifications"
+  "editWatchUnsavedChangesContinueEditingOption" : "Continuer les modifications",
+  "currentCollectionCostHelpTitle": "Coût actuel de la collection",
+  "currentCollectionCostHelpText": "Cette valeur est la somme de tous les prix d'achat enregistrés de toutes les montres actuellement marquées 'En collection'",
+  "totalCollectionSpendHelpTitle": "Dépense totale de la collection",
+  "totalCollectionSpendHelpText": "Cette valeur est la somme de tous les prix d'achat enregistrés de toutes les montres marquées soit 'En collection', soit 'Vendue'",
+  "totalSoldValueHelpTitle": "Valeur totale vendue",
+  "totalSoldValueHelpText": "Cette valeur est la somme de tous les prix de vente enregistrés de toutes les montres ayant le statut 'Vendue'",
+  "averageResaleHelpTitle": "Pourcentage moyen de revente",
+  "averageResaleHelpText": "Cette valeur est le pourcentage moyen récupéré lors de la vente d'une montre - elle est uniquement calculée pour les montres ayant le statut 'Vendue' pour lesquelles un prix d'achat et un prix de vente sont enregistrés.\n\nLe pourcentage est calculé en divisant la valeur totale des ventes par le coût total d'achat."
 }

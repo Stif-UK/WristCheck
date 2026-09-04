@@ -2525,4 +2525,32 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Продолжить редактирование';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Текущая стоимость коллекции';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Это значение представляет собой сумму всех записанных цен покупки всех часов, отмеченных в данный момент как \'В коллекции\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Всего потрачено на коллекцию';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Это значение представляет собой сумму всех записанных цен покупки всех часов, отмеченных как \'В коллекции\' или \'Проданы\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Общая сумма продаж';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Это значение представляет собой сумму всех записанных цен продажи всех часов со статусом \'Проданы\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Средний процент перепродажи';
+
+  @override
+  String get averageResaleHelpText =>
+      'Это значение показывает средний процент возврата средств при продаже часов — оно рассчитывается только для часов со статусом \'Проданы\', у которых указаны и цена покупки, и цена продажи.\n\nПроцент рассчитывается путем деления общей суммы продаж на общие расходы на покупку.';
 }

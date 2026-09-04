@@ -1011,5 +1011,13 @@
   "editWatchUnsavedChangesTitle" : "Hai modifiche non salvate",
   "editWatchUnsavedChangesCopy" : "Sei sicuro di voler uscire?\nLe modifiche non salvate andranno perse.",
   "editWatchUnsavedChangesExitOption" : "Esci senza salvare",
-  "editWatchUnsavedChangesContinueEditingOption" : "Continua a modificare"
+  "editWatchUnsavedChangesContinueEditingOption" : "Continua a modificare",
+  "currentCollectionCostHelpTitle": "Costo Collezione Attuale",
+  "currentCollectionCostHelpText": "Questo valore è la somma di tutti i prezzi d'acquisto registrati di tutti gli orologi attualmente contrassegnati come 'In Collezione'",
+  "totalCollectionSpendHelpTitle": "Spesa Totale Collezione",
+  "totalCollectionSpendHelpText": "Questo valore è la somma di tutti i prezzi d'acquisto registrati di tutti gli orologi contrassegnati come 'In Collezione' o 'Venduto'",
+  "totalSoldValueHelpTitle": "Valore Totale Venduto",
+  "totalSoldValueHelpText": "Questo valore è la somma di tutti i prezzi di vendita registrati di tutti gli orologi con stato 'Venduto'",
+  "averageResaleHelpTitle": "Percentuale Media di Rivendita",
+  "averageResaleHelpText": "Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato 'Venduto' che hanno sia un prezzo d'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d'acquisto."
 }

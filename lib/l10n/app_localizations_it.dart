@@ -2487,4 +2487,32 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Continua a modificare';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Costo Collezione Attuale';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Questo valore è la somma di tutti i prezzi d\'acquisto registrati di tutti gli orologi attualmente contrassegnati come \'In Collezione\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Spesa Totale Collezione';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Questo valore è la somma di tutti i prezzi d\'acquisto registrati di tutti gli orologi contrassegnati come \'In Collezione\' o \'Venduto\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Valore Totale Venduto';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Questo valore è la somma di tutti i prezzi di vendita registrati di tutti gli orologi con stato \'Venduto\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Percentuale Media di Rivendita';
+
+  @override
+  String get averageResaleHelpText =>
+      'Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato \'Venduto\' che hanno sia un prezzo d\'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d\'acquisto.';
 }

@@ -1009,5 +1009,13 @@
   "editWatchUnsavedChangesTitle" : "Máte neuložené změny",
   "editWatchUnsavedChangesCopy" : "Opravdu chcete odejít?\nNeuložené změny budou ztraceny.",
   "editWatchUnsavedChangesExitOption" : "Odejít bez uložení",
-  "editWatchUnsavedChangesContinueEditingOption" : "Pokračovat v úpravách"
+  "editWatchUnsavedChangesContinueEditingOption" : "Pokračovat v úpravách",
+  "currentCollectionCostHelpTitle": "Aktuální hodnota sbírky",
+  "currentCollectionCostHelpText": "Tato hodnota je součtem všech zaznamenaných nákupních cen všech hodinek aktuálně označených jako 'Ve sbírce'",
+  "totalCollectionSpendHelpTitle": "Celkové výdaje za sbírku",
+  "totalCollectionSpendHelpText": "Tato hodnota je součtem všech zaznamenaných nákupních cen všech hodinek označených buď jako 'Ve sbírce', nebo 'Prodané'",
+  "totalSoldValueHelpTitle": "Celková hodnota prodejů",
+  "totalSoldValueHelpText": "Tato hodnota je součtem všech zaznamenaných prodejních cen všech hodinek se stavem 'Prodané'",
+  "averageResaleHelpTitle": "Průměrné procento přeprodeje",
+  "averageResaleHelpText": "Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem 'Prodané', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady."
 }

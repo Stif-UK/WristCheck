@@ -1009,5 +1009,13 @@
   "editWatchUnsavedChangesTitle" : "Du hast ungespeicherte Änderungen",
   "editWatchUnsavedChangesCopy" : "Bist du sicher, dass du das Fenster schließen möchtest?\nUngespeicherte Änderungen gehen verloren.",
   "editWatchUnsavedChangesExitOption" : "Schließen ohne zu speichern",
-  "editWatchUnsavedChangesContinueEditingOption" : "Weiter bearbeiten"
+  "editWatchUnsavedChangesContinueEditingOption" : "Weiter bearbeiten",
+  "currentCollectionCostHelpTitle": "Aktueller Wert der Sammlung",
+  "currentCollectionCostHelpText": "Dieser Wert ist die Summe aller erfassten Kaufpreise aller Uhren, die derzeit als 'In Sammlung' markiert sind",
+  "totalCollectionSpendHelpTitle": "Gesamtausgaben für die Sammlung",
+  "totalCollectionSpendHelpText": "Dieser Wert ist die Summe aller erfassten Kaufpreise aller Uhren, die entweder als 'In Sammlung' oder 'Verkauft' markiert sind",
+  "totalSoldValueHelpTitle": "Gesamtwert der Verkäufe",
+  "totalSoldValueHelpText": "Dieser Wert ist die Summe aller erfassten Verkaufspreise aller Uhren mit dem Status 'Verkauft'",
+  "averageResaleHelpTitle": "Durchschnittlicher Wiederverkaufsprozentsatz",
+  "averageResaleHelpText": "Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status 'Verkauft' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird."
 }

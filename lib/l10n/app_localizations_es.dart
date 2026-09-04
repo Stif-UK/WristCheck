@@ -2502,4 +2502,32 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Continuar editando';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Coste Actual de la Colección';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Este valor es la suma de todos los precios de compra registrados de todos los relojes actualmente marcados como \'En la Colección\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Gasto Total en la Colección';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Este valor es la suma de todos los precios de compra registrados de todos los relojes marcados como \'En la Colección\' o \'Vendido\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Valor Total de Ventas';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Este valor es la suma de todos los precios de venta registrados de todos los relojes con estado \'Vendido\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Porcentaje Promedio de Reventa';
+
+  @override
+  String get averageResaleHelpText =>
+      'Este valor es el porcentaje promedio recuperado al vender un reloj; solo se calcula para los relojes con estado \'Vendido\' que tienen registrados tanto el precio de compra como el de venta.\n\nEl porcentaje se calcula dividiendo el valor total de venta entre el coste total de compra.';
 }

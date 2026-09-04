@@ -1011,5 +1011,13 @@
   "editWatchUnsavedChangesTitle" : "You have unsaved changes",
   "editWatchUnsavedChangesCopy" : "Are you sure you want to exit?\nUnsaved changes will be lost.",
   "editWatchUnsavedChangesExitOption" : "Exit without saving",
-  "editWatchUnsavedChangesContinueEditingOption" : "Continue editing"
+  "editWatchUnsavedChangesContinueEditingOption" : "Continue editing",
+  "currentCollectionCostHelpTitle": "Current Collection Cost",
+  "currentCollectionCostHelpText": "This value is the sum of all recorded purchase prices of all watches currently marked as 'In Collection'",
+  "totalCollectionSpendHelpTitle": "Total Collection Spend",
+  "totalCollectionSpendHelpText": "This value is the sum of all recorded purchase prices of all watches marked as either 'In Collection' or 'Sold'",
+  "totalSoldValueHelpTitle": "Total Sold Value",
+  "totalSoldValueHelpText": "This value is the sum of all recorded sale prices of all watches with a status of 'Sold'",
+  "averageResaleHelpTitle": "Average Resale Percentage",
+  "averageResaleHelpText": "This value is the average percentage returned when selling a watch - it is only calculated for watches with status 'Sold' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost."
 }

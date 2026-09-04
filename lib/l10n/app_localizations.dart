@@ -4475,6 +4475,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue editing'**
   String get editWatchUnsavedChangesContinueEditingOption;
+
+  /// No description provided for @currentCollectionCostHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Collection Cost'**
+  String get currentCollectionCostHelpTitle;
+
+  /// No description provided for @currentCollectionCostHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is the sum of all recorded purchase prices of all watches currently marked as \'In Collection\''**
+  String get currentCollectionCostHelpText;
+
+  /// No description provided for @totalCollectionSpendHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Collection Spend'**
+  String get totalCollectionSpendHelpTitle;
+
+  /// No description provided for @totalCollectionSpendHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is the sum of all recorded purchase prices of all watches marked as either \'In Collection\' or \'Sold\''**
+  String get totalCollectionSpendHelpText;
+
+  /// No description provided for @totalSoldValueHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sold Value'**
+  String get totalSoldValueHelpTitle;
+
+  /// No description provided for @totalSoldValueHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is the sum of all recorded sale prices of all watches with a status of \'Sold\''**
+  String get totalSoldValueHelpText;
+
+  /// No description provided for @averageResaleHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Resale Percentage'**
+  String get averageResaleHelpTitle;
+
+  /// No description provided for @averageResaleHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is the average percentage returned when selling a watch - it is only calculated for watches with status \'Sold\' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost.'**
+  String get averageResaleHelpText;
 }
 
 class _AppLocalizationsDelegate

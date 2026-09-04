@@ -2508,4 +2508,32 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get editWatchUnsavedChangesContinueEditingOption =>
       'Pokračovat v úpravách';
+
+  @override
+  String get currentCollectionCostHelpTitle => 'Aktuální hodnota sbírky';
+
+  @override
+  String get currentCollectionCostHelpText =>
+      'Tato hodnota je součtem všech zaznamenaných nákupních cen všech hodinek aktuálně označených jako \'Ve sbírce\'';
+
+  @override
+  String get totalCollectionSpendHelpTitle => 'Celkové výdaje za sbírku';
+
+  @override
+  String get totalCollectionSpendHelpText =>
+      'Tato hodnota je součtem všech zaznamenaných nákupních cen všech hodinek označených buď jako \'Ve sbírce\', nebo \'Prodané\'';
+
+  @override
+  String get totalSoldValueHelpTitle => 'Celková hodnota prodejů';
+
+  @override
+  String get totalSoldValueHelpText =>
+      'Tato hodnota je součtem všech zaznamenaných prodejních cen všech hodinek se stavem \'Prodané\'';
+
+  @override
+  String get averageResaleHelpTitle => 'Průměrné procento přeprodeje';
+
+  @override
+  String get averageResaleHelpText =>
+      'Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem \'Prodané\', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady.';
 }
