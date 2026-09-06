@@ -19,7 +19,6 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wrist_recap_insig
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/empty_data.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_adprompt.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/wrist_recap_thanks.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristRecapHome extends StatelessWidget {
   WristRecapHome({super.key, this.month, this.year, this.selectedOption = WristRecapEnums.monthly});
