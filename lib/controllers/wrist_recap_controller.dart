@@ -425,7 +425,7 @@ class WristRecapController extends GetxController{
   decideShowOptionalAdSpace(){
     DateTime lastAdShownTimestamp = WristCheckPreferences.getLastRecordedAdTimestamp();
     Duration difference = DateTime.now().difference(lastAdShownTimestamp);
-    if(difference.inHours < 48){
+    if(difference.inDays < 10){
       showOptionalAdCard(false);
     }
   }
