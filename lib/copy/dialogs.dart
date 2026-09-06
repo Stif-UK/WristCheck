@@ -1,14 +1,12 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/whats_new_bottomsheet.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:wristcheck/copy/whats_new_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:hive_ce/hive.dart';
@@ -17,8 +15,6 @@ import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:wristcheck/util/images_util.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
-import 'package:wristcheck/l10n/app_localizations.dart';
 
 class WristCheckDialogs {
 
@@ -154,33 +150,10 @@ class WristCheckDialogs {
   }
 
   static getWhatsNewDialog(BuildContext context){
-    Get.bottomSheet(
-      backgroundColor: Theme.of(Get.context!).dialogBackgroundColor,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35),
-          ),
-      Container(
-          height: MediaQuery.of(context).size.height, //*0.85,
-        child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          child: Column(
-            //mainAxisSize: MainAxisSize.min,
-            children: [
-              FaIcon(FontAwesomeIcons.gripLines,
-                size: Theme.of(Get.context!).textTheme.headlineMedium!.fontSize,
-                color: Theme.of(Get.context!).textTheme.headlineMedium!.color ,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(AppLocalizations.of(Get.context!)!.wristTrackUpdatedBottomSheetTitle,
-                  style: Theme.of(Get.context!).textTheme.headlineMedium, textAlign: TextAlign.center,),
-              ),
-              Markdown(data: WhatsNewCopy.getLatestVersionCopy(),
-              shrinkWrap: true,),
-              const SizedBox(height: 20,)
-            ],
-          ),
-        )
-      )
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const WhatsNewBottomSheet(),
     );
   }
 
