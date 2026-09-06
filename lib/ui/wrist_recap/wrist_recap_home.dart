@@ -114,6 +114,12 @@ class WristRecapHome extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //For non-pro users show a pro / ad prompt at the top
+                    Obx(() => wristCheckController.isAppPro.value
+                        ? const SizedBox(height: 0)
+                        : (recapController.showOptionalAdCard.value
+                            ? WristRecapAdprompt()
+                            : const SizedBox(height: 0))),
                     Obx(() => recapController.watchesWorn.isEmpty
                         ? const SizedBox(height: 0)
                         : Column(
@@ -134,9 +140,12 @@ class WristRecapHome extends StatelessWidget {
                     Obx(() => recapController.categoriesWorn.length > 1 ? CategoryChart() : const SizedBox(height: 0)),
                     TopCategoryMonthly(),
                     Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
-                    //For non-pro users show a pro / ad prompt
-                    Obx(() => wristCheckController.isAppPro.value ? const SizedBox(height: 0,) :
-                     recapController.showOptionalAdCard.value? WristRecapAdprompt() : WristRecapThanks()),
+                    //For non-pro users show thanks at bottom after watching ad
+                    Obx(() => wristCheckController.isAppPro.value
+                        ? const SizedBox(height: 0)
+                        : (recapController.showOptionalAdCard.value
+                            ? const SizedBox(height: 0)
+                            : WristRecapThanks())),
                     //Space at bottom of page
                     const SizedBox(
                       height: 50,
