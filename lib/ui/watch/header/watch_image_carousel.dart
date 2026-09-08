@@ -20,14 +20,12 @@ class WatchImageCarousel extends StatefulWidget {
 class _WatchImageCarouselState extends State<WatchImageCarousel> {
   late CarouselController _watchCarouselController;
   int _currentPage = 0;
-  late Future<List<File?>> _pageData;
 
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized();
     _currentPage = widget.currentWatch?.primaryImageIndex ?? 0;
     _watchCarouselController = CarouselController(initialItem: _currentPage);
-    _pageData = getPageData();
     super.initState();
   }
 
@@ -41,62 +39,56 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
   @override
   Widget build(BuildContext context) {
     List<File?> images;
+    if (widget.watchViewController.watchViewState.value != WatchViewEnum.add && widget.currentWatch != null) {
+      images = ImagesUtil.getAllImagesSync(widget.currentWatch!);
+    } else {
+      images = <File?>[
+        widget.watchViewController.frontImage.value,
+        widget.watchViewController.backImage.value,
+        widget.watchViewController.lumeImage.value,
+      ];
+    }
+    _prepDataList(images);
 
-    return FutureBuilder<List<File?>>(
-          future: _pageData,
-          builder: (context, AsyncSnapshot<List<File?>> snapshot) {
-            if (snapshot.hasData && snapshot.data != null) {
-              try {
-                images = snapshot.data!;
-              } on Exception catch (e) {
-                print("Exception caught in implementing image file list: $e");
-                images = [];
-              }
-              _prepDataList(images);
-
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:  [
-            Column(
-              children: [
-                Container(
-                  width: MediaQuery.sizeOf(context).width*0.95,
-                  height: MediaQuery.sizeOf(context).width*0.8,
-                  child:
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                        child: Obx(()=> Hero(
-                          tag: "ImageCarousel",
-                          child: CarouselView.weighted(
-                                onTap: (index) async {
-                                  //If there is no image selected, show the new image pop-up. Otherwise...
-                                  widget.watchViewController.imageList[index].image == null || widget.watchViewController.watchViewState == WatchViewEnum.add ?
-                                  await ImagesUtil.addImageViaController(index, context, widget.currentWatch): Get.to(()=> WatchImageGallery(watch: widget.currentWatch!, index: index,));
-                                    },
-                                flexWeights: [1,8,1],
-                                  controller: _watchCarouselController,
-                                  itemSnapping: true,
-                                  children: [widget.watchViewController.imageList[0], widget.watchViewController.imageList[1], widget.watchViewController.imageList[2],]
-                            ),
-                        ),
-                        ),
-                      )
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width * 0.95,
+              height: MediaQuery.sizeOf(context).width * 0.8,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                child: Obx(
+                  () => Hero(
+                    tag: "ImageCarousel",
+                    child: CarouselView.weighted(
+                      onTap: (index) async {
+                        widget.watchViewController.imageList[index].image == null ||
+                                widget.watchViewController.watchViewState == WatchViewEnum.add
+                            ? await ImagesUtil.addImageViaController(index, context, widget.currentWatch)
+                            : Get.to(() => WatchImageGallery(watch: widget.currentWatch!, index: index));
+                      },
+                      flexWeights: const [1, 8, 1],
+                      controller: _watchCarouselController,
+                      itemSnapping: true,
+                      children: [
+                        widget.watchViewController.imageList[0],
+                        widget.watchViewController.imageList[1],
+                        widget.watchViewController.imageList[2],
+                      ],
+                    ),
+                  ),
                 ),
-              ],
+              ),
             ),
           ],
-        );
-      }else {
-              return Container(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator()
-              );
-            }
-          }
-      );
-
-}
+        ),
+      ],
+    );
+  }
 
 /*
 When in an add state, get values for temporary images from the controller (will be null if not yet added)

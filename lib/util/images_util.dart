@@ -34,6 +34,26 @@ class ImagesUtil {
     return file.existsSync() ? file : null;
   }
 
+  static List<File?> getAllImagesSync(Watches currentWatch) {
+    if (appDocsPath == null) return [null, null, null];
+    List<File?> returnList = [];
+    List<String> nameList = [
+      currentWatch.frontImagePath ?? "",
+      currentWatch.backImagePath ?? "",
+      currentWatch.lumeImagePath ?? "",
+    ];
+
+    for (String imagePath in nameList) {
+      if (imagePath.isEmpty) {
+        returnList.add(null);
+      } else {
+        final file = File("$appDocsPath/$imagePath");
+        returnList.add(file.existsSync() ? file : null);
+      }
+    }
+    return returnList;
+  }
+
   /*
   pickImage takes in an ImageSource (camera or gallery) and a Watch and allows the user to select an image.
   the path to this is then saved to the given watch as it's display image, after forcing it to be cropped to the

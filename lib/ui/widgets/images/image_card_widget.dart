@@ -8,10 +8,15 @@ class ImageCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       color: Theme.of(context).colorScheme.inversePrimary,
-        child: image == null?  const Icon(Icons.add_a_photo_outlined, size: 85):
-        Image.file(image!, fit: BoxFit.cover,),
-      );
-    }
+      child: image == null
+          ? const Icon(Icons.add_a_photo_outlined, size: 85)
+          : Image.file(
+              image!,
+              cacheWidth: 800,
+              fit: BoxFit.cover,
+            ),
+    );
+  }
   }
