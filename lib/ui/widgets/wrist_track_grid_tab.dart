@@ -22,6 +22,7 @@ class WristTrackGridTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final wristCheckController = Get.find<WristCheckController>();
     const double boxSides = 175;
+    final File? imageFile = ImagesUtil.getImageSync(currentWatch, currentWatch.primaryImageIndex ?? 0);
 
     return GestureDetector(
       onTap: () => Get.to(() => WatchView(currentWatch: currentWatch,)),
@@ -32,30 +33,24 @@ class WristTrackGridTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Primary image
-            FutureBuilder(
-                future: ImagesUtil.getImage(currentWatch, currentWatch.primaryImageIndex ?? 0),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasError) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasData) {
-                      final data = snapshot.data as File;
-                      return Container(
-                        alignment: Alignment.centerLeft,
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxHeight: boxSides,
-                          ),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.file(data, fit: BoxFit.cover)),
+            imageFile != null
+                ? Container(
+                    alignment: Alignment.centerLeft,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: boxSides,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.file(
+                          imageFile,
+                          cacheWidth: 350,
+                          fit: BoxFit.cover,
                         ),
-                      );
-                    }
-                  }
-                  return _getEmptyIcon(context, boxSides);
-                } //builder
-                ),
+                      ),
+                    ),
+                  )
+                : _getEmptyIcon(context, boxSides),
             const SizedBox(height: 8),
             // Manufacturer
             Text(

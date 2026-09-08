@@ -19,6 +19,20 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 
 class ImagesUtil {
+  static String? appDocsPath;
+
+  static Future<void> init() async {
+    final directory = await getApplicationDocumentsDirectory();
+    appDocsPath = directory.path;
+  }
+
+  static File? getImageSync(Watches currentWatch, int index) {
+    if (appDocsPath == null) return null;
+    final String name = getNamePath(currentWatch, index);
+    if (name.isEmpty) return null;
+    final file = File("$appDocsPath/$name");
+    return file.existsSync() ? file : null;
+  }
 
   /*
   pickImage takes in an ImageSource (camera or gallery) and a Watch and allows the user to select an image.

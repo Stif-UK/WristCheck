@@ -21,7 +21,7 @@ class WatchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wristCheckController = Get.find<WristCheckController>();
-    bool showImage = watch.frontImagePath != null && watch.frontImagePath != "";
+    final File? imageFile = ImagesUtil.getImageSync(watch, watch.primaryImageIndex ?? 0);
 
     return Card(
       elevation: 2,
@@ -36,35 +36,17 @@ class WatchCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Watch Image
-              showImage
-                  ? FutureBuilder(
-                      future: ImagesUtil.getImage(watch, watch.primaryImageIndex ?? 0),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasError || !snapshot.hasData) {
-                            return _getEmptyIcon(context);
-                          }
-                          final data = snapshot.data as File;
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              data,
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }
-                        return Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(child: CircularProgressIndicator()),
-                        );
-                      },
+              imageFile != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.file(
+                        imageFile,
+                        width: 80,
+                        height: 80,
+                        cacheWidth: 160,
+                        cacheHeight: 160,
+                        fit: BoxFit.cover,
+                      ),
                     )
                   : _getEmptyIcon(context),
               const SizedBox(width: 15),
