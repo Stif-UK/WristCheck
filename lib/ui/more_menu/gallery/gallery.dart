@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -105,22 +104,18 @@ class _GalleryV2State extends State<GalleryV2> {
                           ),
                           itemCount: data.length,
                           itemBuilder: (context, index) {
+                            final imageFile = ImagesUtil.getImageSync(data[index], data[index].primaryImageIndex ?? 0);
+
                             return GestureDetector(
                               onTap: () {
                                 SwipeImageGallery(
                                   context: context,
                                   itemBuilder: (context, galleryIndex) {
-                                    return FutureBuilder<File?>(
-                                      future: ImagesUtil.getImage(data[galleryIndex], data[galleryIndex].primaryImageIndex ?? 0),
-                                      builder: (ctx, snapshot) {
-                                        if (snapshot.connectionState == ConnectionState.done) {
-                                          if (snapshot.hasData && snapshot.data != null) {
-                                            return Image.file(snapshot.data!);
-                                          }
-                                        }
-                                        return const Center(child: CircularProgressIndicator());
-                                      }
-                                    );
+                                    final fullImage = ImagesUtil.getImageSync(data[galleryIndex], data[galleryIndex].primaryImageIndex ?? 0);
+                                    if (fullImage != null) {
+                                      return Image.file(fullImage);
+                                    }
+                                    return const Center(child: CircularProgressIndicator());
                                   },
                                   itemCount: data.length,
                                   initialIndex: index,
@@ -139,23 +134,26 @@ class _GalleryV2State extends State<GalleryV2> {
                                   ),
                                 ).show();
                               },
-                              child: FutureBuilder<File?>(
-                                future: ImagesUtil.getImage(data[index], data[index].primaryImageIndex ?? 0),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.done) {
-                                    if (snapshot.hasData && snapshot.data != null) {
-                                      return ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        child: Image.file(
-                                          snapshot.data!,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
-                                    }
-                                  }
-                                  return const Center(child: CircularProgressIndicator());
-                                },
-                              ),
+                              child: imageFile != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.file(
+                                        imageFile,
+                                        cacheWidth: 350,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).disabledColor.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Icon(
+                                        Icons.watch,
+                                        size: 40,
+                                        color: Theme.of(context).disabledColor,
+                                      ),
+                                    ),
                             );
                           },
                         );

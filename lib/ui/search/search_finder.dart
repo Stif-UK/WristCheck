@@ -208,37 +208,19 @@ class _SearchFinderState extends State<SearchFinder> {
   }
 
   Widget _getWatchImage(Watches watch) {
-    bool showImage = watch.frontImagePath != null && watch.frontImagePath != "";
+    File? imageFile = ImagesUtil.getImageSync(watch, watch.primaryImageIndex ?? 0);
 
-    return showImage
-        ? FutureBuilder(
-            future: ImagesUtil.getImage(watch, watch.primaryImageIndex ?? 0),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasError || !snapshot.hasData) {
-                  return _getEmptyIcon(context);
-                }
-                final data = snapshot.data as File;
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.file(
-                    data,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                  ),
-                );
-              }
-              return Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).disabledColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(child: CircularProgressIndicator()),
-              );
-            },
+    return imageFile != null
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.file(
+              imageFile,
+              width: 80,
+              height: 80,
+              cacheWidth: 160,
+              cacheHeight: 160,
+              fit: BoxFit.cover,
+            ),
           )
         : _getEmptyIcon(context);
   }
