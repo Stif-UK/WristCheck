@@ -15,16 +15,50 @@ import 'package:in_app_review/in_app_review.dart';
 
 class WatchMethods {
 
-  static Future addWatch(String? manufacturer, String? model, String? serialNumber, bool favourite, String status,
-      DateTime? purchaseDate, DateTime? lastServicedDate, int serviceInterval, String? notes, String? referenceNumber, String? movement,
-      String? category, String? purchasedFrom, String soldTo, int? purchasePrice, int? soldPrice, DateTime? soldDate, DateTime? deliveryDate, DateTime? warrantyEndDate,
-      double? caseDiameter, int? lugWidth, double? lug2lug, double? caseThickness, int? waterResistance, String? caseMaterial, int? winderTPD, String? winderDirection,
-      String? dateComplication){
-    String m = manufacturer!;
-    String mo = model!;
+  static Future addWatch(
+    String manufacturer,
+    String model, {
+    String? serialNumber,
+    bool favourite = false,
+    String? status,
+    DateTime? purchaseDate,
+    DateTime? lastServicedDate,
+    int serviceInterval = 0,
+    String? notes,
+    String? referenceNumber,
+    String? movement,
+    String? category,
+    String? purchasedFrom,
+    String? soldTo,
+    int? purchasePrice,
+    int? soldPrice,
+    DateTime? soldDate,
+    DateTime? deliveryDate,
+    DateTime? warrantyEndDate,
+    double? caseDiameter,
+    int? lugWidth,
+    double? lug2lug,
+    double? caseThickness,
+    int? waterResistance,
+    String? caseMaterial,
+    int? winderTPD,
+    String? winderDirection,
+    String? dateComplication,
+    int? year,
+    int? weight,
+    int? winderTPDmax,
+    int? value,
+    String? primaryColour,
+    String? secondaryColour,
+    int? powerReserve,
+    String? crystal,
+    String? crown,
+  }) {
+    String m = manufacturer;
+    String mo = model;
     String? sn = serialNumber;
     bool fv = favourite;
-    String st = status;
+    String? st = status;
     DateTime? pd = purchaseDate;
     DateTime? ls = lastServicedDate;
     int si = serviceInterval;
@@ -48,9 +82,15 @@ class WatchMethods {
     int? wtpd = winderTPD;
     String? windDir = winderDirection;
     String? date = dateComplication;
-
-
-
+    int? y = year;
+    int? w = weight;
+    int? wtpdmax = winderTPDmax;
+    int? val = value;
+    String? pCol = primaryColour;
+    String? sCol = secondaryColour;
+    int? pr = powerReserve;
+    String? cry = crystal;
+    String? crn = crown;
 
     final watch = Watches()
       ..manufacturer = m.trim()
@@ -59,34 +99,43 @@ class WatchMethods {
       ..favourite = fv
       ..status = st
       ..purchaseDate = pd
-    ..lastServicedDate = ls
-    ..serviceInterval = si
-    ..nextServiceDue = calculateNextService(pd, ls, si)
-    ..notes = n
-    ..wearList = <DateTime>[]
-    ..frontImagePath = ""
-    ..backImagePath = ""
-    ..referenceNumber = rn
-    ..movement = mvmt
-    ..category = cat
-    ..purchasedFrom = pf
-    ..soldTo = sold
-    ..purchasePrice = pp
-    ..soldPrice = sp
-    ..soldDate = sd
-    ..deliveryDate = dd
-    ..warrantyEndDate = wed
-    ..caseDiameter = diameter
-    ..lugWidth = lw
-    ..lug2lug = l2l
-    ..caseThickness = thickness
-    ..waterResistance = wr
-    ..caseMaterial = cr
-    ..winderTPD = wtpd
-    ..winderDirection = windDir
-    ..dateComplication = date
-    ..lumeImagePath = ""
-    ..primaryImageIndex = 0;
+      ..lastServicedDate = ls
+      ..serviceInterval = si
+      ..nextServiceDue = calculateNextService(pd, ls, si)
+      ..notes = n
+      ..wearList = <DateTime>[]
+      ..frontImagePath = ""
+      ..backImagePath = ""
+      ..referenceNumber = rn
+      ..movement = mvmt
+      ..category = cat
+      ..purchasedFrom = pf
+      ..soldTo = sold
+      ..purchasePrice = pp
+      ..soldPrice = sp
+      ..soldDate = sd
+      ..deliveryDate = dd
+      ..warrantyEndDate = wed
+      ..caseDiameter = diameter
+      ..lugWidth = lw
+      ..lug2lug = l2l
+      ..caseThickness = thickness
+      ..waterResistance = wr
+      ..caseMaterial = cr
+      ..winderTPD = wtpd
+      ..winderDirection = windDir
+      ..dateComplication = date
+      ..lumeImagePath = ""
+      ..primaryImageIndex = 0
+      ..year = y
+      ..weight = w
+      ..winderTPDmax = wtpdmax
+      ..value = val
+      ..primaryColour = pCol
+      ..secondaryColour = sCol
+      ..powerReserve = pr
+      ..crystal = cry
+      ..crown = crn;
 
 
     final box = Boxes.getWatches();

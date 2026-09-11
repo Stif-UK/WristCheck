@@ -50,13 +50,22 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..winderDirection = fields[31] as String?
       ..dateComplication = fields[32] as String?
       ..lumeImagePath = fields[33] as String?
+      ..year = fields[34] as int?
+      ..weight = fields[35] as int?
+      ..winderTPDmax = fields[36] as int?
+      ..value = fields[37] as int?
+      ..primaryColour = fields[38] as String?
+      ..secondaryColour = fields[39] as String?
+      ..powerReserve = fields[40] as int?
+      ..crystal = fields[41] as String?
+      ..crown = fields[42] as String?
       ..primaryImageIndex = fields[44] as int?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(34)
+      ..writeByte(43)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -123,6 +132,24 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..write(obj.dateComplication)
       ..writeByte(33)
       ..write(obj.lumeImagePath)
+      ..writeByte(34)
+      ..write(obj.year)
+      ..writeByte(35)
+      ..write(obj.weight)
+      ..writeByte(36)
+      ..write(obj.winderTPDmax)
+      ..writeByte(37)
+      ..write(obj.value)
+      ..writeByte(38)
+      ..write(obj.primaryColour)
+      ..writeByte(39)
+      ..write(obj.secondaryColour)
+      ..writeByte(40)
+      ..write(obj.powerReserve)
+      ..writeByte(41)
+      ..write(obj.crystal)
+      ..writeByte(42)
+      ..write(obj.crown)
       ..writeByte(44)
       ..write(obj.primaryImageIndex);
   }

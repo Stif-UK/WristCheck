@@ -104,6 +104,33 @@ class Watches extends HiveObject{
   @HiveField(33)
   late String? lumeImagePath;
 
+  @HiveField(34)
+  late int? year;
+
+  @HiveField(35)
+  late int? weight;
+
+  @HiveField(36)
+  late int? winderTPDmax;
+
+  @HiveField(37)
+  late int? value;
+
+  @HiveField(38)
+  late String? primaryColour;
+
+  @HiveField(39)
+  late String? secondaryColour;
+
+  @HiveField(40)
+  late int? powerReserve;
+
+  @HiveField(41)
+  late String? crystal;
+
+  @HiveField(42)
+  late String? crown;
+
   @HiveField(44)
   late int? primaryImageIndex;
 
