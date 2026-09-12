@@ -601,6 +601,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get serviceIntervalRowHintText => 'Интервал обслуживания (лет)';
 
   @override
+  String get modelYearRowTitle => 'Год выпуска:';
+
+  @override
+  String get modelYearRowHintText => 'Год выпуска (например, 2023)';
+
+  @override
   String get nextServiceDueRowTitle => 'Следующий сервис:';
 
   @override
@@ -642,6 +648,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get mustBe099orBlank => 'Должно быть от 0 до 99 или пустым';
+
+  @override
+  String get mustBe4DigitYearOrBlank => 'Должно быть 4-значным годом или пустым';
 
   @override
   String get infoTabLabel => 'Инфо';

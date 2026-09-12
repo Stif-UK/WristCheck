@@ -212,6 +212,8 @@
   "timeInCollectionRowTitle" : "Temps en collection",
   "serviceIntervalRowTitle" : "Intervalle d'entretien :",
   "serviceIntervalRowHintText" : "Intervalle d'entretien (ans)",
+  "modelYearRowTitle" : "Année du modèle :",
+  "modelYearRowHintText" : "Année du modèle (ex. 2023)",
   "nextServiceDueRowTitle" : "Prochain entretien :",
   "nextServiceDueRowHintText" : "Prochain entretien :",
 
@@ -227,6 +229,7 @@
   "serialNumberErrorText" : "Le numéro de série contient des caractères non valides",
   "mustBeAValidWholeNumber" : "Saisissez un nombre entier valide",
   "mustBe099orBlank" : "Valeur de 0 à 99 ou vide",
+  "mustBe4DigitYearOrBlank" : "Doit être une année à 4 chiffres ou vide",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Infos",

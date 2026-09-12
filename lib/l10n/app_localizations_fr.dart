@@ -605,6 +605,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get serviceIntervalRowHintText => 'Intervalle d\'entretien (ans)';
 
   @override
+  String get modelYearRowTitle => 'Année du modèle :';
+
+  @override
+  String get modelYearRowHintText => 'Année du modèle (ex. 2023)';
+
+  @override
   String get nextServiceDueRowTitle => 'Prochain entretien :';
 
   @override
@@ -645,6 +651,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get mustBe099orBlank => 'Valeur de 0 à 99 ou vide';
+
+  @override
+  String get mustBe4DigitYearOrBlank => 'Doit être une année à 4 chiffres ou vide';
 
   @override
   String get infoTabLabel => 'Infos';

@@ -65,14 +65,14 @@ class DatesTab extends StatelessWidget {
       keyboardType: TextInputType.number,
       icon: const FaIcon(FontAwesomeIcons.calendar),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: "Model Year",
-      hintText: "Model Year (e.g. 2023)",
+      fieldTitle: AppLocalizations.of(Get.context!)!.modelYearRowTitle,
+      hintText: AppLocalizations.of(Get.context!)!.modelYearRowHintText,
       maxLines: 1,
       controller: modelYearFieldController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if (val != null && !val.isFourDigitYear) {
-          return "Must be a 4 digit year or blank";
+          return AppLocalizations.of(Get.context!)!.mustBe4DigitYearOrBlank;
         }
         return null;
       },

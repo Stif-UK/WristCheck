@@ -213,6 +213,8 @@
   "timeInCollectionRowTitle" : "Время в коллекции",
   "serviceIntervalRowTitle" : "Интервал обслуживания:",
   "serviceIntervalRowHintText" : "Интервал обслуживания (лет)",
+  "modelYearRowTitle" : "Год выпуска:",
+  "modelYearRowHintText" : "Год выпуска (например, 2023)",
   "nextServiceDueRowTitle" : "Следующий сервис:",
   "nextServiceDueRowHintText" : "Срок следующего сервиса:",
 
@@ -227,6 +229,7 @@
   "serialNumberErrorText" : "Серийный номер содержит недопустимые символы",
   "mustBeAValidWholeNumber" : "Должно быть целым числом",
   "mustBe099orBlank" : "Должно быть от 0 до 99 или пустым",
+  "mustBe4DigitYearOrBlank" : "Должно быть 4-значным годом или пустым",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Инфо",

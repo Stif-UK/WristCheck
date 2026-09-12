@@ -603,6 +603,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get serviceIntervalRowHintText => 'Servisní interval (v letech)';
 
   @override
+  String get modelYearRowTitle => 'Rok výroby:';
+
+  @override
+  String get modelYearRowHintText => 'Rok výroby (např. 2023)';
+
+  @override
   String get nextServiceDueRowTitle => 'Příští servis:';
 
   @override
@@ -641,6 +647,9 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get mustBe099orBlank => 'Musí být v rozmezí 0-99 nebo prázdné';
+
+  @override
+  String get mustBe4DigitYearOrBlank => 'Musí být čtyřmístný rok nebo prázdné';
 
   @override
   String get infoTabLabel => 'Info';

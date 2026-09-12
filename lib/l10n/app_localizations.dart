@@ -1218,6 +1218,18 @@ abstract class AppLocalizations {
   /// **'Service Interval (years)'**
   String get serviceIntervalRowHintText;
 
+  /// No description provided for @modelYearRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Model Year:'**
+  String get modelYearRowTitle;
+
+  /// No description provided for @modelYearRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Model Year (e.g. 2023)'**
+  String get modelYearRowHintText;
+
   /// No description provided for @nextServiceDueRowTitle.
   ///
   /// In en, this message translates to:
@@ -1289,6 +1301,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Must be 0-99 or blank'**
   String get mustBe099orBlank;
+
+  /// No description provided for @mustBe4DigitYearOrBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be a 4 digit year or blank'**
+  String get mustBe4DigitYearOrBlank;
 
   /// No description provided for @infoTabLabel.
   ///

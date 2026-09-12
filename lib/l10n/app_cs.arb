@@ -213,6 +213,8 @@
   "timeInCollectionRowTitle" : "Doba ve sbírce",
   "serviceIntervalRowTitle" : "Servisní interval:",
   "serviceIntervalRowHintText" : "Servisní interval (v letech)",
+  "modelYearRowTitle" : "Rok výroby:",
+  "modelYearRowHintText" : "Rok výroby (např. 2023)",
   "nextServiceDueRowTitle" : "Příští servis:",
   "nextServiceDueRowHintText" : "Příští servis fukční od:",
 
@@ -227,6 +229,7 @@
   "serialNumberErrorText" : "Sériové číslo obsahuje neplatné znaky",
   "mustBeAValidWholeNumber" : "Musí být celé číslo",
   "mustBe099orBlank" : "Musí být v rozmezí 0-99 nebo prázdné",
+  "mustBe4DigitYearOrBlank" : "Musí být čtyřmístný rok nebo prázdné",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",

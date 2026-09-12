@@ -216,6 +216,8 @@
   "timeInCollectionRowTitle" : "Time in Collection",
   "serviceIntervalRowTitle" : "Service Interval:",
   "serviceIntervalRowHintText" : "Service Interval (years)",
+  "modelYearRowTitle" : "Model Year:",
+  "modelYearRowHintText" : "Model Year (e.g. 2023)",
   "nextServiceDueRowTitle" : "Next Service Due:",
   "nextServiceDueRowHintText" : "Next Service Due:",
 
@@ -230,6 +232,7 @@
   "serialNumberErrorText" : "Serial Number contains invalid characters",
   "mustBeAValidWholeNumber" : "Must be a whole number",
   "mustBe099orBlank" : "Must be 0-99 or blank",
+  "mustBe4DigitYearOrBlank" : "Must be a 4 digit year or blank",
 
   "@_WATCH_TABS" : {},
   "infoTabLabel" : "Info",
