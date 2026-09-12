@@ -26,7 +26,7 @@ import 'package:wristcheck/ui/watch/header/wear_row.dart';
 import 'package:wristcheck/ui/watch/tabs/info_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/notes_tab.dart';
 import 'package:wristcheck/ui/watch/tabs/pro_data_tab.dart';
-import 'package:wristcheck/ui/watch/tabs/service_tab.dart';
+import 'package:wristcheck/ui/watch/tabs/dates_tab.dart';
 import 'package:wristcheck/ui/watch/header/status_favourite_header.dart';
 import 'package:wristcheck/ui/watch/tabs/value_tab.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
@@ -566,7 +566,7 @@ class _WatchViewState extends State<WatchView> {
                                           ),
                                           Offstage(
                                             offstage: index != 1,
-                                            child: ServiceTab(
+                                            child: DatesTab(
                                                 deliveryDateFieldController: deliveryDateFieldController,
                                                 purchaseDateFieldController: purchaseDateFieldController,
                                                 soldDateFieldController: soldDateFieldController,

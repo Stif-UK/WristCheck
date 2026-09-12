@@ -15,8 +15,8 @@ import 'package:wristcheck/util/string_extension.dart';
 
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 
-class ServiceTab extends StatelessWidget {
-  ServiceTab({super.key,
+class DatesTab extends StatelessWidget {
+  DatesTab({super.key,
     required this.deliveryDateFieldController,
     required this.purchaseDateFieldController,
     required this.soldDateFieldController,
