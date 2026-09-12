@@ -12,6 +12,7 @@ import 'package:wristcheck/ui/charts/collection_charts/date_complication_chart.d
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/cost_per_wear_chart.dart';
+import 'package:wristcheck/ui/charts/collection_charts/model_year_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_material_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_thickness_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/lug2lug_chart.dart';
@@ -80,6 +81,35 @@ class _CollectionChartsState extends State<CollectionCharts> {
           Padding(
             padding: getPagePadding(),
             child: const CategoryChart(),
+          ),
+          const Divider(thickness: 2,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(width: 48),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    l.modelYearRowTitle.replaceAll(':', ''),
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+              ),
+              Obx(() => IconButton(
+                icon: widget.collectionStatsController.groupWatchYearByDecade.value
+                    ? const FaIcon(FontAwesomeIcons.layerGroup)
+                    : const FaIcon(FontAwesomeIcons.calendar),
+                onPressed: () {
+                  widget.collectionStatsController.updateGroupWatchYearByDecade(
+                    !widget.collectionStatsController.groupWatchYearByDecade.value,
+                  );
+                },
+              )),
+            ],
+          ),
+          Padding(
+            padding: getPagePadding(),
+            child: const ModelYearChart(),
           ),
           const Divider(thickness: 2,),
           //Separate out other Pro charts for dimensions

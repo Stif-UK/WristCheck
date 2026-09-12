@@ -650,7 +650,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mustBe099orBlank => 'Должно быть от 0 до 99 или пустым';
 
   @override
-  String get mustBe4DigitYearOrBlank => 'Должно быть 4-значным годом или пустым';
+  String get mustBe4DigitYearOrBlank =>
+      'Должно быть 4-значным годом или пустым';
 
   @override
   String get infoTabLabel => 'Инфо';

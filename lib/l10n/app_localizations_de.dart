@@ -652,7 +652,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mustBe099orBlank => 'Muss zwischen 0-99 liegen oder leer sein';
 
   @override
-  String get mustBe4DigitYearOrBlank => 'Muss eine 4-stellige Jahreszahl oder leer sein';
+  String get mustBe4DigitYearOrBlank =>
+      'Muss eine 4-stellige Jahreszahl oder leer sein';
 
   @override
   String get infoTabLabel => 'Info';

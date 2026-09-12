@@ -650,7 +650,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get mustBe099orBlank => 'Inserire un valore tra 0-99 o lasciare vuoto';
 
   @override
-  String get mustBe4DigitYearOrBlank => 'Deve essere un anno di 4 cifre o vuoto';
+  String get mustBe4DigitYearOrBlank =>
+      'Deve essere un anno di 4 cifre o vuoto';
 
   @override
   String get infoTabLabel => 'Info';

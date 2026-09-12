@@ -653,7 +653,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mustBe099orBlank => 'Debe ser entre 0-99 o estar en blanco';
 
   @override
-  String get mustBe4DigitYearOrBlank => 'Debe ser un año de 4 dígitos o estar en blanco';
+  String get mustBe4DigitYearOrBlank =>
+      'Debe ser un año de 4 dígitos o estar en blanco';
 
   @override
   String get infoTabLabel => 'Info';

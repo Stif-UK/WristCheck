@@ -7,6 +7,7 @@ class CollectionStatsController extends GetxController{
   final caseThicknessChartType = CaseThicknessChartEnum.line.obs;
   final lug2lugChartType = Lug2lugChartEnum.line.obs;
   final showPrice = WristCheckPreferences.getCostPerWearValuePref().obs;//
+  final groupWatchYearByDecade = false.obs;
 
   updateCaseThicknessChartType(type){
     caseThicknessChartType(type);
@@ -19,5 +20,9 @@ class CollectionStatsController extends GetxController{
   updateShowPrice(price){
     showPrice(price);
     WristCheckPreferences.setCostPerWearValuePref(price);
+  }
+
+  updateGroupWatchYearByDecade(bool value){
+    groupWatchYearByDecade(value);
   }
 }

@@ -653,7 +653,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get mustBe099orBlank => 'Valeur de 0 à 99 ou vide';
 
   @override
-  String get mustBe4DigitYearOrBlank => 'Doit être une année à 4 chiffres ou vide';
+  String get mustBe4DigitYearOrBlank =>
+      'Doit être une année à 4 chiffres ou vide';
 
   @override
   String get infoTabLabel => 'Infos';
