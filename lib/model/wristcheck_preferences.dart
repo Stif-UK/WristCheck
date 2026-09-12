@@ -86,6 +86,9 @@ class WristCheckPreferences {
   //Moon phase
   static const _keyRealisticMoon = 'realisticMoon';
 
+  //Watch year chart
+  static const _keyGroupWatchYearByDecade = 'groupWatchYearByDecade';
+
 
 
 
@@ -701,5 +704,11 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyRealisticMoon, realistic);
 
   static bool getRealisticMoon() => _preferences.getBool(_keyRealisticMoon) ?? true;
+
+  //Getter and Setter for group watch year by decade preference
+  static Future setGroupWatchYearByDecade(bool groupByDecade) async =>
+      await _preferences.setBool(_keyGroupWatchYearByDecade, groupByDecade);
+
+  static bool getGroupWatchYearByDecade() => _preferences.getBool(_keyGroupWatchYearByDecade) ?? false;
 
 }
