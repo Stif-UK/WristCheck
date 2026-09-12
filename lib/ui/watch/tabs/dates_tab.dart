@@ -17,6 +17,7 @@ import 'package:wristcheck/model/enums/watch_status_enum.dart';
 
 class DatesTab extends StatelessWidget {
   DatesTab({super.key,
+    required this.modelYearFieldController,
     required this.deliveryDateFieldController,
     required this.purchaseDateFieldController,
     required this.soldDateFieldController,
@@ -29,6 +30,7 @@ class DatesTab extends StatelessWidget {
   });
 
   final watchViewController = Get.put(WatchViewController());
+  final TextEditingController modelYearFieldController;
   final TextEditingController deliveryDateFieldController;
   final TextEditingController purchaseDateFieldController;
   final TextEditingController soldDateFieldController;
@@ -45,6 +47,7 @@ class DatesTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString()? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
+          _modelYearRow(),
           PurchaseDateRow(enabled: watchViewController.inEditState.value, purchaseDateFieldController: purchaseDateFieldController),
           watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString()? Obx(()=> SoldDateRow(enabled: watchViewController.inEditState.value, soldDateFieldController: soldDateFieldController)): const SizedBox(height: 0,),
           watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
@@ -54,6 +57,25 @@ class DatesTab extends StatelessWidget {
           watchViewController.watchViewState.value == WatchViewEnum.view? _nextServiceDueRow(): const SizedBox(height: 0,)
         ],
       ),
+    );
+  }
+
+  Widget _modelYearRow(){
+    return WatchFormField(
+      keyboardType: TextInputType.number,
+      icon: const FaIcon(FontAwesomeIcons.calendar),
+      enabled: watchViewController.inEditState.value,
+      fieldTitle: "Model Year",
+      hintText: "Model Year (e.g. 2023)",
+      maxLines: 1,
+      controller: modelYearFieldController,
+      textCapitalization: TextCapitalization.none,
+      validator: (String? val) {
+        if (val != null && !val.isFourDigitYear) {
+          return "Must be a 4 digit year or blank";
+        }
+        return null;
+      },
     );
   }
 

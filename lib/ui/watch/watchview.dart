@@ -150,6 +150,7 @@ class _WatchViewState extends State<WatchView> {
   final serialNumberFieldController = TextEditingController();
   final referenceNumberFieldController = TextEditingController();
   final serviceIntervalFieldController = TextEditingController();
+  final modelYearFieldController = TextEditingController();
   final notesFieldController = TextEditingController();
   final purchaseDateFieldController = TextEditingController();
   final lastServicedDateFieldController = TextEditingController();
@@ -182,6 +183,7 @@ class _WatchViewState extends State<WatchView> {
     serialNumberFieldController.dispose();
     referenceNumberFieldController.dispose();
     serviceIntervalFieldController.dispose();
+    modelYearFieldController.dispose();
     purchaseDateFieldController.dispose();
     notesFieldController.dispose();
     lastServicedDateFieldController.dispose();
@@ -283,6 +285,9 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.winderTPD = _winderTPD;
             widget.currentWatch!.winderDirection = widget.watchViewController.winderDirection.value;
             widget.currentWatch!.dateComplication = widget.watchViewController.dateComplication.value;
+            widget.currentWatch!.year = modelYearFieldController.value.text.isEmpty
+                ? null
+                : int.tryParse(modelYearFieldController.value.text);
             widget.currentWatch!.save();
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
@@ -378,6 +383,7 @@ class _WatchViewState extends State<WatchView> {
         winderTPDFieldController.value = TextEditingValue(text: widget.currentWatch!.winderTPD != null? "${widget.currentWatch!.winderTPD}" : "");
         winderDirectionFieldController.value = TextEditingValue(text: widget.currentWatch!.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank));
         dateComplicationFieldController.value = TextEditingValue(text: widget.currentWatch!.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank));
+        modelYearFieldController.value = TextEditingValue(text: widget.currentWatch!.year != null ? "${widget.currentWatch!.year}" : "");
       }
     }
 
@@ -567,6 +573,7 @@ class _WatchViewState extends State<WatchView> {
                                           Offstage(
                                             offstage: index != 1,
                                             child: DatesTab(
+                                                modelYearFieldController: modelYearFieldController,
                                                 deliveryDateFieldController: deliveryDateFieldController,
                                                 purchaseDateFieldController: purchaseDateFieldController,
                                                 soldDateFieldController: soldDateFieldController,
@@ -738,6 +745,9 @@ class _WatchViewState extends State<WatchView> {
                 winderTPD: _winderTPD,
                 winderDirection: winderDirectionFieldController.value.text,
                 dateComplication: dateComplicationFieldController.value.text,
+                year: modelYearFieldController.value.text.isEmpty
+                    ? null
+                    : int.tryParse(modelYearFieldController.value.text),
               );
 
               //if a front image has been set, we add this to the newly created watch before exiting
@@ -833,7 +843,8 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.caseMaterial != caseMaterialFieldController.value.text ||
       widget.currentWatch!.winderTPD != ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text) ||
       widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text ||
-      widget.currentWatch!.dateComplication != dateComplicationFieldController.value.text
+      widget.currentWatch!.dateComplication != dateComplicationFieldController.value.text ||
+      widget.currentWatch!.year != (modelYearFieldController.value.text.isEmpty ? null : int.tryParse(modelYearFieldController.value.text))
     ){
       returnValue = true;
     }

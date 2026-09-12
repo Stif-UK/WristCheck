@@ -20,6 +20,12 @@ extension ExtString on String{
     final titleRegExp = RegExp(r"^([0-9]{1,2}|)$");
     return titleRegExp.hasMatch(this);
   }
+
+  bool get isFourDigitYear{
+    // 4 digit year or blank
+    final titleRegExp = RegExp(r"^(\d{4}|)$");
+    return titleRegExp.hasMatch(this);
+  }
   
   bool get isUnboundPositiveInteger{
     //Is a positive integer, allowing null or empty string
