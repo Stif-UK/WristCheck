@@ -987,13 +987,13 @@ abstract class AppLocalizations {
   /// No description provided for @primaryColourRowTitle.
   ///
   /// In en, this message translates to:
-  /// **'Primary Colour:'**
+  /// **'Colour:'**
   String get primaryColourRowTitle;
 
   /// No description provided for @primaryColourHintText.
   ///
   /// In en, this message translates to:
-  /// **'Primary Colour'**
+  /// **'Colour'**
   String get primaryColourHintText;
 
   /// No description provided for @purchaseDateRowTitle.

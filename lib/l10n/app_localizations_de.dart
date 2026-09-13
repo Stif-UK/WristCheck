@@ -486,10 +486,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get modelRowHintText => 'Modell';
 
   @override
-  String get primaryColourRowTitle => 'Hauptfarbe:';
+  String get primaryColourRowTitle => 'Farbe:';
 
   @override
-  String get primaryColourHintText => 'Hauptfarbe';
+  String get primaryColourHintText => 'Farbe';
 
   @override
   String get purchaseDateRowTitle => 'Kaufdatum:';

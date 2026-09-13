@@ -482,10 +482,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get modelRowHintText => 'Модель';
 
   @override
-  String get primaryColourRowTitle => 'Основной цвет:';
+  String get primaryColourRowTitle => 'Цвет:';
 
   @override
-  String get primaryColourHintText => 'Основной цвет';
+  String get primaryColourHintText => 'Цвет';
 
   @override
   String get purchaseDateRowTitle => 'Дата покупки:';

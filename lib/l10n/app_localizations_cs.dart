@@ -484,10 +484,10 @@ class AppLocalizationsCs extends AppLocalizations {
   String get modelRowHintText => 'Model';
 
   @override
-  String get primaryColourRowTitle => 'Hlavní barva:';
+  String get primaryColourRowTitle => 'Barva:';
 
   @override
-  String get primaryColourHintText => 'Hlavní barva';
+  String get primaryColourHintText => 'Barva';
 
   @override
   String get purchaseDateRowTitle => 'Datum nákupu:';
