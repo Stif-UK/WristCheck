@@ -5,15 +5,12 @@ import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
-import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
-import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
-import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class InfoTab extends StatelessWidget {
