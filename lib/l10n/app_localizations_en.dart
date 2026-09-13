@@ -480,6 +480,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelRowHintText => 'Model';
 
   @override
+  String get primaryColourRowTitle => 'Primary Colour:';
+
+  @override
+  String get primaryColourHintText => 'Primary Colour';
+
+  @override
   String get purchaseDateRowTitle => 'Purchase Date:';
 
   @override
@@ -625,6 +631,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get modelInvalidError =>
       'Model missing or invalid characters included';
+
+  @override
+  String get primaryColourInvalidError =>
+      'Primary Colour contains invalid characters';
 
   @override
   String get digitsNoDecimalsError =>

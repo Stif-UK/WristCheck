@@ -44,6 +44,11 @@ extension ExtString on String{
     return titleRegExp.hasMatch(this);
   }
 
+  bool get isAlphaOrEmpty{
+    final titleRegExp = RegExp(r'^[\p{L}\s]*$', unicode: true);
+    return titleRegExp.hasMatch(this);
+  }
+
   bool get isWcCurrency{
     //valid int or blank
     final titleRegExp = RegExp(r"^(\d+|\s*)$");

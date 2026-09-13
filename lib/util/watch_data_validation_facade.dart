@@ -135,6 +135,13 @@ class WatchDataValidationFacade{
     return waterResistance.isUnboundPositiveInteger;
   }
 
+  static bool validatePrimaryColour(var primaryColour){
+    if(primaryColour is !String){
+      primaryColour = primaryColour.toString();
+    }
+    return primaryColour.isAlphaOrEmpty;
+  }
+
 
 
 }

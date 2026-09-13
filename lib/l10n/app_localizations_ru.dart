@@ -482,6 +482,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get modelRowHintText => 'Модель';
 
   @override
+  String get primaryColourRowTitle => 'Основной цвет:';
+
+  @override
+  String get primaryColourHintText => 'Основной цвет';
+
+  @override
   String get purchaseDateRowTitle => 'Дата покупки:';
 
   @override
@@ -627,6 +633,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get modelInvalidError =>
       'Отсутствует модель или используются недопустимые символы';
+
+  @override
+  String get primaryColourInvalidError =>
+      'Основной цвет содержит недопустимые символы';
 
   @override
   String get digitsNoDecimalsError =>

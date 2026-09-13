@@ -17,7 +17,9 @@ class WatchFormField extends StatelessWidget {
     required this.enabled,
     this.icon,
     this.keyboardType,
-    this.datePicker
+    this.datePicker,
+    this.focusNode,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   final String fieldTitle;
@@ -29,9 +31,11 @@ class WatchFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool enabled;
-  final Icon? icon;
+  final Widget? icon;
   final TextInputType? keyboardType;
   final bool? datePicker;
+  final FocusNode? focusNode;
+  final VoidCallback? onFieldSubmitted;
 
 
   @override
@@ -53,6 +57,8 @@ class WatchFormField extends StatelessWidget {
             minLines: minLines,
             maxLines: maxLines,
             validator: validator,
+            focusNode: focusNode,
+            onFieldSubmitted: onFieldSubmitted != null ? (_) => onFieldSubmitted!() : null,
             //If datepicker is requested, show picker and add to controller
             onTap: date? () async {
               DateTime? pickedDate = await showDatePicker(

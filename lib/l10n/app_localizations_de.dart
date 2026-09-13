@@ -486,6 +486,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get modelRowHintText => 'Modell';
 
   @override
+  String get primaryColourRowTitle => 'Hauptfarbe:';
+
+  @override
+  String get primaryColourHintText => 'Hauptfarbe';
+
+  @override
   String get purchaseDateRowTitle => 'Kaufdatum:';
 
   @override
@@ -630,6 +636,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get modelInvalidError => 'Modell fehlt oder enthält ungültige Zeichen';
+
+  @override
+  String get primaryColourInvalidError =>
+      'Hauptfarbe enthält ungültige Zeichen';
 
   @override
   String get digitsNoDecimalsError =>

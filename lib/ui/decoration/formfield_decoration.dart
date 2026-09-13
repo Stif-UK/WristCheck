@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class WristCheckFormFieldDecoration{
 
-  static getFormFieldDecoration(Icon? icon, BuildContext context){
+  static getFormFieldDecoration(Widget? icon, BuildContext context){
     return InputDecoration(
         icon: icon,
         enabledBorder: OutlineInputBorder(

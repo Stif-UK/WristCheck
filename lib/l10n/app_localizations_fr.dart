@@ -486,6 +486,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get modelRowHintText => 'Modèle';
 
   @override
+  String get primaryColourRowTitle => 'Couleur principale :';
+
+  @override
+  String get primaryColourHintText => 'Couleur principale';
+
+  @override
   String get purchaseDateRowTitle => 'Date d\'achat :';
 
   @override
@@ -630,6 +636,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get modelInvalidError => 'Modèle manquant ou caractères non valides';
+
+  @override
+  String get primaryColourInvalidError =>
+      'La couleur principale contient des caractères non valides';
 
   @override
   String get digitsNoDecimalsError =>

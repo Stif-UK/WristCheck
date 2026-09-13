@@ -142,6 +142,7 @@ class _WatchViewState extends State<WatchView> {
   int? _waterResistance;
   int? _winderTPD;
   String? _dateComplication;
+  String? _primaryColour = "";
 
   //Form Key
   final _formKey = GlobalKey<FormState>();
@@ -174,6 +175,7 @@ class _WatchViewState extends State<WatchView> {
   final winderTPDFieldController = TextEditingController();
   final winderDirectionFieldController = TextEditingController();
   final dateComplicationFieldController = TextEditingController();
+  final primaryColourFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -207,6 +209,7 @@ class _WatchViewState extends State<WatchView> {
     winderTPDFieldController.dispose();
     winderDirectionFieldController.dispose();
     dateComplicationFieldController.dispose();
+    primaryColourFieldController.dispose();
     super.dispose();
   }
 
@@ -252,6 +255,7 @@ class _WatchViewState extends State<WatchView> {
             _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
             widget.watchViewController.updateWinderDirection(winderDirectionFieldController.value.text);
             widget.watchViewController.updateDateComplication(dateComplicationFieldController.value.text);
+            _primaryColour = primaryColourFieldController.value.text;
 
             widget.currentWatch!.manufacturer = _manufacturer;
             widget.currentWatch!.model = _model;
@@ -285,6 +289,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.winderTPD = _winderTPD;
             widget.currentWatch!.winderDirection = widget.watchViewController.winderDirection.value;
             widget.currentWatch!.dateComplication = widget.watchViewController.dateComplication.value;
+            widget.currentWatch!.primaryColour = _primaryColour;
             widget.currentWatch!.year = modelYearFieldController.value.text.isEmpty
                 ? null
                 : int.tryParse(modelYearFieldController.value.text);
@@ -384,6 +389,7 @@ class _WatchViewState extends State<WatchView> {
         winderDirectionFieldController.value = TextEditingValue(text: widget.currentWatch!.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank));
         dateComplicationFieldController.value = TextEditingValue(text: widget.currentWatch!.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank));
         modelYearFieldController.value = TextEditingValue(text: widget.currentWatch!.year != null ? "${widget.currentWatch!.year}" : "");
+        primaryColourFieldController.value = TextEditingValue(text: widget.currentWatch!.primaryColour ?? "");
       }
     }
 
@@ -567,6 +573,7 @@ class _WatchViewState extends State<WatchView> {
                                                 referenceNumberFieldController: referenceNumberFieldController,
                                                 movementFieldController: movementFieldController,
                                                 categoryFieldController: categoryFieldController,
+                                                primaryColourFieldController: primaryColourFieldController,
                                                 bodyLarge: Theme.of(context).textTheme.bodyLarge,
                                                 context: context),
                                           ),
@@ -745,6 +752,7 @@ class _WatchViewState extends State<WatchView> {
                 winderTPD: _winderTPD,
                 winderDirection: winderDirectionFieldController.value.text,
                 dateComplication: dateComplicationFieldController.value.text,
+                primaryColour: primaryColourFieldController.value.text,
                 year: modelYearFieldController.value.text.isEmpty
                     ? null
                     : int.tryParse(modelYearFieldController.value.text),
@@ -844,6 +852,7 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.winderTPD != ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text) ||
       widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text ||
       widget.currentWatch!.dateComplication != dateComplicationFieldController.value.text ||
+      widget.currentWatch!.primaryColour != primaryColourFieldController.value.text ||
       widget.currentWatch!.year != (modelYearFieldController.value.text.isEmpty ? null : int.tryParse(modelYearFieldController.value.text))
     ){
       returnValue = true;
@@ -865,7 +874,8 @@ class _WatchViewState extends State<WatchView> {
         serialNumberFieldController.value.text.isNotEmpty ||
         referenceNumberFieldController.value.text.isNotEmpty ||
         movementFieldController.value.text.isNotEmpty ||
-        dateComplicationFieldController.value.text.isNotEmpty
+        dateComplicationFieldController.value.text.isNotEmpty ||
+        primaryColourFieldController.value.text.isNotEmpty
     ){
       returnValue = true;
     }

@@ -484,6 +484,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get modelRowHintText => 'Model';
 
   @override
+  String get primaryColourRowTitle => 'Hlavní barva:';
+
+  @override
+  String get primaryColourHintText => 'Hlavní barva';
+
+  @override
   String get purchaseDateRowTitle => 'Datum nákupu:';
 
   @override
@@ -627,6 +633,10 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get modelInvalidError => 'Chybí model nebo byly zadány neplatné znaky';
+
+  @override
+  String get primaryColourInvalidError =>
+      'Hlavní barva obsahuje neplatné znaky';
 
   @override
   String get digitsNoDecimalsError =>

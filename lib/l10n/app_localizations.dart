@@ -984,6 +984,18 @@ abstract class AppLocalizations {
   /// **'Model'**
   String get modelRowHintText;
 
+  /// No description provided for @primaryColourRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Colour:'**
+  String get primaryColourRowTitle;
+
+  /// No description provided for @primaryColourHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Colour'**
+  String get primaryColourHintText;
+
   /// No description provided for @purchaseDateRowTitle.
   ///
   /// In en, this message translates to:
@@ -1265,6 +1277,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Model missing or invalid characters included'**
   String get modelInvalidError;
+
+  /// No description provided for @primaryColourInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Colour contains invalid characters'**
+  String get primaryColourInvalidError;
 
   /// No description provided for @digitsNoDecimalsError.
   ///
