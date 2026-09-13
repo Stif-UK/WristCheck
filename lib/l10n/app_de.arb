@@ -288,6 +288,8 @@
   "endDate" : "  Enddatum:",
   "resetToDefaults" : "Auf Standard zurücksetzen",
   "chartGrouping" : "Diagrammgruppierung",
+  "byYear" : "Nach Jahr",
+  "byDecade" : "Nach Jahrzehnt",
   "includeCurrentCollection" : "Aktuelle Sammlung einschließen",
   "includeSoldWatches" : "Verkaufte Uhren einschließen",
   "includeRetiredWatches" : "Ausgemusterte Uhren einschließen",

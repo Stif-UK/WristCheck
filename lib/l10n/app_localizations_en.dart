@@ -808,6 +808,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chartGrouping => 'Chart Grouping';
 
   @override
+  String get byYear => 'By Year';
+
+  @override
+  String get byDecade => 'By Decade';
+
+  @override
   String get includeCurrentCollection => 'Include Current Collection';
 
   @override

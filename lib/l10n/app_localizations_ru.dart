@@ -811,6 +811,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chartGrouping => 'Группировка графиков';
 
   @override
+  String get byYear => 'По годам';
+
+  @override
+  String get byDecade => 'По десятилетиям';
+
+  @override
   String get includeCurrentCollection => 'Включая текущую коллекцию';
 
   @override

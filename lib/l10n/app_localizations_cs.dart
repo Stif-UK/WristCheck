@@ -809,6 +809,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get chartGrouping => 'Seskupování grafů';
 
   @override
+  String get byYear => 'Podle roku';
+
+  @override
+  String get byDecade => 'Podle dekády';
+
+  @override
   String get includeCurrentCollection => 'Zahrnout aktuální sbírku';
 
   @override

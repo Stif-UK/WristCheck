@@ -288,6 +288,8 @@
   "endDate" : "  Koncové datum:",
   "resetToDefaults" : "Obnovit výchozí",
   "chartGrouping" : "Seskupování grafů",
+  "byYear" : "Podle roku",
+  "byDecade" : "Podle dekády",
   "includeCurrentCollection" : "Zahrnout aktuální sbírku",
   "includeSoldWatches" : "Zahrnout prodané hodinky",
   "includeRetiredWatches" : "Zahrnout vyřazené hodinky",

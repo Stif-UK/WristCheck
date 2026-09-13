@@ -146,19 +146,21 @@ class _AdvancedFiltersWidgetState extends State<AdvancedFiltersWidget> {
       widget.filterController.updateChartGrouping(grouping!);
     }
 
+    final activeList = widget.wristCheckController.isAppPro.value ? ChartGrouping.values : groupList;
+
     return Column(
       children: [
         InlineChoice.single(
             clearable: true,
             value: widget.filterController.chartGrouping.value,
-            itemCount: widget.wristCheckController.isAppPro.value? ChartGrouping.values.length : groupList.length,
+            itemCount: activeList.length,
             onChanged: setSelectedValue,
             itemBuilder: (state, i) {
               return ChoiceChip(
                 selectedColor: Colors.red,
-                selected: state.selected(ChartGrouping.values[i]),
-                onSelected: state.onSelected(ChartGrouping.values[i]),
-                label: Text(WristCheckFormatter.getChartGroupingText(ChartGrouping.values[i])),
+                selected: state.selected(activeList[i]),
+                onSelected: state.onSelected(activeList[i]),
+                label: Text(WristCheckFormatter.getChartGroupingText(activeList[i])),
               );
             },
             listBuilder: ChoiceList.createWrapped()

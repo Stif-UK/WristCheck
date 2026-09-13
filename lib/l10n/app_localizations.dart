@@ -1620,6 +1620,18 @@ abstract class AppLocalizations {
   /// **'Chart Grouping'**
   String get chartGrouping;
 
+  /// No description provided for @byYear.
+  ///
+  /// In en, this message translates to:
+  /// **'By Year'**
+  String get byYear;
+
+  /// No description provided for @byDecade.
+  ///
+  /// In en, this message translates to:
+  /// **'By Decade'**
+  String get byDecade;
+
   /// No description provided for @includeCurrentCollection.
   ///
   /// In en, this message translates to:

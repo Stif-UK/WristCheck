@@ -49,6 +49,12 @@ class DateComplicationClass extends ChartClass{
   late final DateComplicationEnum dateComplication;
 }
 
+class YearGroupClass extends ChartClass{
+  YearGroupClass(this.yearLabel, int count) : super(count);
+
+  late final String yearLabel;
+}
+
 class DimensionsClass extends ChartClass{
   DimensionsClass(this.dimension, int count) : super(count);
 
@@ -303,6 +309,51 @@ class ChartHelper{
     }
 
     returnSeries = sortChartData(returnSeries) as List<DimensionsClass>;
+    return returnSeries;
+  }
+
+  static List<YearGroupClass> calculateYearList(List<WornWatchesClass> data){
+    List<YearGroupClass> returnSeries = [];
+    Set<int> years = {};
+    for(WornWatchesClass worn in data){
+      if(worn.watch.year != null && worn.watch.year != 0){
+        years.add(worn.watch.year!);
+      }
+    }
+    for(int y in years){
+      int count = 0;
+      List<WornWatchesClass> yearList = data.where((worn) => worn.watch.year == y).toList();
+      for(WornWatchesClass worn in yearList){
+        count += worn.count;
+      }
+      if(count > 0){
+        returnSeries.add(YearGroupClass(y.toString(), count));
+      }
+    }
+    returnSeries = sortChartData(returnSeries) as List<YearGroupClass>;
+    return returnSeries;
+  }
+
+  static List<YearGroupClass> calculateDecadeList(List<WornWatchesClass> data){
+    List<YearGroupClass> returnSeries = [];
+    Set<int> decades = {};
+    for(WornWatchesClass worn in data){
+      if(worn.watch.year != null && worn.watch.year != 0){
+        int decade = (worn.watch.year! ~/ 10) * 10;
+        decades.add(decade);
+      }
+    }
+    for(int dec in decades){
+      int count = 0;
+      List<WornWatchesClass> decadeList = data.where((worn) => worn.watch.year != null && ((worn.watch.year! ~/ 10) * 10) == dec).toList();
+      for(WornWatchesClass worn in decadeList){
+        count += worn.count;
+      }
+      if(count > 0){
+        returnSeries.add(YearGroupClass("${dec}s", count));
+      }
+    }
+    returnSeries = sortChartData(returnSeries) as List<YearGroupClass>;
     return returnSeries;
   }
   

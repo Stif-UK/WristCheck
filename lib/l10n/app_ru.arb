@@ -288,6 +288,8 @@
   "endDate" : "  Дата конца:",
   "resetToDefaults" : "Сбросить настройки",
   "chartGrouping" : "Группировка графиков",
+  "byYear" : "По годам",
+  "byDecade" : "По десятилетиям",
   "includeCurrentCollection" : "Включая текущую коллекцию",
   "includeSoldWatches" : "Включая проданные часы",
   "includeRetiredWatches" : "Включая выведенные часы",

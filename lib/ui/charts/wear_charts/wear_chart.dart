@@ -149,6 +149,30 @@ class _WearChartState extends State<WearChart> {
           )
         ];
         break;
+      case ChartGrouping.year:
+        returnSeries = <BarSeries<YearGroupClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateYearList(widget.data),
+            xValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.yearLabel,
+            yValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.count,
+            dataLabelMapper: (item, _) => item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          )
+        ];
+        break;
+      case ChartGrouping.decade:
+        returnSeries = <BarSeries<YearGroupClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateDecadeList(widget.data),
+            xValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.yearLabel,
+            yValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.count,
+            dataLabelMapper: (item, _) => item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          )
+        ];
+        break;
+      default:
+        break;
     }
     return returnSeries;
   }

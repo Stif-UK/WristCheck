@@ -813,6 +813,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get chartGrouping => 'Diagrammgruppierung';
 
   @override
+  String get byYear => 'Nach Jahr';
+
+  @override
+  String get byDecade => 'Nach Jahrzehnt';
+
+  @override
   String get includeCurrentCollection => 'Aktuelle Sammlung einschließen';
 
   @override

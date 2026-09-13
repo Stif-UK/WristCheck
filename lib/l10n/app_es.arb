@@ -288,6 +288,8 @@
   "endDate" : "  Fecha de Fin:",
   "resetToDefaults" : "Restablecer Valores Predeterminados",
   "chartGrouping" : "Agrupación del Gráfico",
+  "byYear" : "Por Año",
+  "byDecade" : "Por Década",
   "includeCurrentCollection" : "Incluir Colección Actual",
   "includeSoldWatches" : "Incluir Relojes Vendidos",
   "includeRetiredWatches" : "Incluir Relojes Retirados",

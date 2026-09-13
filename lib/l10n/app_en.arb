@@ -291,6 +291,8 @@
   "endDate" : "  End Date:",
   "resetToDefaults" : "Reset to Defaults",
   "chartGrouping" : "Chart Grouping",
+  "byYear" : "By Year",
+  "byDecade" : "By Decade",
   "includeCurrentCollection" : "Include Current Collection",
   "includeSoldWatches" : "Include Sold Watches",
   "includeRetiredWatches" : "Include Retired Watches",

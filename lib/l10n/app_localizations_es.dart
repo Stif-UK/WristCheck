@@ -814,6 +814,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get chartGrouping => 'Agrupación del Gráfico';
 
   @override
+  String get byYear => 'Por Año';
+
+  @override
+  String get byDecade => 'Por Década';
+
+  @override
   String get includeCurrentCollection => 'Incluir Colección Actual';
 
   @override

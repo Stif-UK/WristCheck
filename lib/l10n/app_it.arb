@@ -291,6 +291,8 @@
   "endDate" : "Data Fine:",
   "resetToDefaults" : "Ripristina Predefiniti",
   "chartGrouping" : "Raggruppamento Grafico",
+  "byYear" : "Per Anno",
+  "byDecade" : "Per Decennio",
   "includeCurrentCollection" : "Includi Collezione Attuale",
   "includeSoldWatches" : "Includi Orologi Venduti",
   "includeRetiredWatches" : "Includi Orologi Ritirati",

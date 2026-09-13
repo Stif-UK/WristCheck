@@ -167,6 +167,34 @@ class WearPieChart extends StatelessWidget {
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
+      case ChartGrouping.year:
+        returnSeries = <PieSeries<YearGroupClass, String>>[PieSeries<YearGroupClass, String>(
+            dataSource: ChartHelper.calculateYearList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (YearGroupClass series, _) => series.yearLabel,
+            yValueMapper: (YearGroupClass series, _) =>
+            series.count == 0 ? null : series.count,
+            dataLabelMapper: (item, _) =>
+            item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
+      case ChartGrouping.decade:
+        returnSeries = <PieSeries<YearGroupClass, String>>[PieSeries<YearGroupClass, String>(
+            dataSource: ChartHelper.calculateDecadeList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (YearGroupClass series, _) => series.yearLabel,
+            yValueMapper: (YearGroupClass series, _) =>
+            series.count == 0 ? null : series.count,
+            dataLabelMapper: (item, _) =>
+            item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
+      default:
+        break;
     }
 
     return returnSeries;

@@ -584,8 +584,12 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         return AppLocalizations.of(Get.context!)!.caseMaterial;
       case ChartGrouping.dateComplication:
         return AppLocalizations.of(Get.context!)!.dateComplication;
-        default:
-          return "";
+      case ChartGrouping.year:
+        return AppLocalizations.of(Get.context!)!.byYear;
+      case ChartGrouping.decade:
+        return AppLocalizations.of(Get.context!)!.byDecade;
+      default:
+        return "";
     }
   }
 
