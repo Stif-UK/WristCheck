@@ -18,8 +18,10 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/wearfilter_bottomsheet.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
+import 'package:wristcheck/model/enums/chart_grouping.dart';
 
 /// In this class we'll create a widget to graph which watches have been worn, and how often
 /// eventually extending this to allow for different parameters to be passed in to redraw the graph
@@ -248,14 +250,46 @@ class _WearStatsState extends State<WearStatsV2> {
     WearPieChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value);
   }
 
+  int _getGroupedDataCount(ChartGrouping grouping, List<WornWatchesClass> data) {
+    switch (grouping) {
+      case ChartGrouping.watch:
+        return data.length;
+      case ChartGrouping.movement:
+        return ChartHelper.calculateMovementList(data).length;
+      case ChartGrouping.category:
+        return ChartHelper.calculateCategoryList(data).length;
+      case ChartGrouping.manufacturer:
+        return ChartHelper.calculateManufacturerList(data).length;
+      case ChartGrouping.caseDiameter:
+        return ChartHelper.calculateCaseDiameterList(data).length;
+      case ChartGrouping.lugWidth:
+        return ChartHelper.calculateLugWidthList(data).length;
+      case ChartGrouping.lug2lug:
+        return ChartHelper.calculateLugToLugList(data).length;
+      case ChartGrouping.caseThickness:
+        return ChartHelper.calculateCaseThicknessList(data).length;
+      case ChartGrouping.waterResistance:
+        return ChartHelper.calculateWaterResistanceList(data).length;
+      case ChartGrouping.caseMaterial:
+        return ChartHelper.calculateCaseMaterialList(data).length;
+      case ChartGrouping.dateComplication:
+        return ChartHelper.calculateDateComplicationList(data).length;
+      case ChartGrouping.year:
+        return ChartHelper.calculateYearList(data).length;
+      case ChartGrouping.decade:
+        return ChartHelper.calculateDecadeList(data).length;
+    }
+  }
+
   double _calculateChartSpace(bool barChart, BuildContext context){
     double baseSize = MediaQuery.of(context).size.height*0.7;
     if(barChart){
-      if(_getLoadData().length > 0){
-        int dataSize = _getLoadData().length;
-        if (dataSize > 15) {
-          baseSize = baseSize * (dataSize / 15);
-        }
+      final loadData = _getLoadData();
+      final grouping = widget.filterController.chartGrouping.value;
+      int displayRowCount = _getGroupedDataCount(grouping, loadData);
+
+      if (displayRowCount > 15) {
+        baseSize = baseSize * (displayRowCount / 15);
       }
     }
 
