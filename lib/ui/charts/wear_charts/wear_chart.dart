@@ -110,6 +110,17 @@ class _WearChartState extends State<WearChart> {
           )
         ];
         break;
+      case ChartGrouping.colour:
+        returnSeries = <BarSeries<ColourClass, String>>[
+          BarSeries(
+            dataSource: ChartHelper.calculateColourList(widget.data),
+            xValueMapper: (ColourClass series, _) => series.count == 0? null: series.colour,
+            yValueMapper: (ColourClass series, _) => series.count == 0? null : series.count,
+            dataLabelMapper: (col, _) => col.count == 0? "":"${col.colour}: ${col.count}",
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          )
+        ];
+        break;
       case ChartGrouping.caseDiameter:
         returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(widget.data), "mm");
         break;

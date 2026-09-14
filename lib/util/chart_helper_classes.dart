@@ -37,6 +37,12 @@ class ManufacturerClass extends ChartClass{
   late final String manufacturer;
 }
 
+class ColourClass extends ChartClass{
+  ColourClass(this.colour, int count) : super(count);
+
+  late final String colour;
+}
+
 class MaterialClass extends ChartClass{
   MaterialClass(this.material, int count) : super(count);
 
@@ -139,6 +145,26 @@ class ChartHelper{
 
     }
     returnSeries = sortChartData(returnSeries) as List<ManufacturerClass>;
+    return returnSeries;
+  }
+
+  static List<ColourClass> calculateColourList(List<WornWatchesClass> data){
+    List<ColourClass> returnSeries = [];
+    Set<String> colours = {};
+    for(WornWatchesClass worn in data){
+      if(worn.watch.primaryColour != null && worn.watch.primaryColour!.trim().isNotEmpty && worn.watch.primaryColour != "Not Entered") {
+        colours.add(worn.watch.primaryColour!.trim());
+      }
+    }
+    for(String colour in colours) {
+      int count = 0;
+      List<WornWatchesClass> colourList = data.where((worn) => worn.watch.primaryColour?.trim() == colour).toList();
+      for(WornWatchesClass worn in colourList){
+        count += worn.count;
+      }
+      returnSeries.add(ColourClass(colour, count));
+    }
+    returnSeries = sortChartData(returnSeries) as List<ColourClass>;
     return returnSeries;
   }
 

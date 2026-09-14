@@ -106,6 +106,22 @@ class WearPieChart extends StatelessWidget {
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
+      case ChartGrouping.colour:
+        returnSeries = <PieSeries<ColourClass, String>>[PieSeries<ColourClass, String>(
+            dataSource: ChartHelper.calculateColourList(data),
+            explode: true,
+            explodeIndex: 0,
+            xValueMapper: (ColourClass series, _) =>
+            series.colour,
+            yValueMapper: (ColourClass series, _) =>
+            series.count == 0
+                ? null
+                : series.count,
+            dataLabelMapper: (col, _) =>
+            col.count == 0 ? "" : "${col.colour}: ${col.count}",
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: true, showZeroValue: false))];
+        break;
       case ChartGrouping.caseDiameter:
         returnSeries = <PieSeries<DimensionsClass, String>>[PieSeries<DimensionsClass, String>(
             dataSource: ChartHelper.calculateCaseDiameterList(data),

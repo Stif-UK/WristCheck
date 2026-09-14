@@ -570,6 +570,8 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
         return AppLocalizations.of(Get.context!)!.category;
       case ChartGrouping.manufacturer:
         return AppLocalizations.of(Get.context!)!.manufacturer;
+      case ChartGrouping.colour:
+        return AppLocalizations.of(Get.context!)!.primaryColourHintText;
       case ChartGrouping.caseDiameter:
         return AppLocalizations.of(Get.context!)!.caseDiameter;
       case ChartGrouping.lugWidth:

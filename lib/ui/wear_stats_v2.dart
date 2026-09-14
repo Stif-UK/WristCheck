@@ -260,6 +260,8 @@ class _WearStatsState extends State<WearStatsV2> {
         return ChartHelper.calculateCategoryList(data).length;
       case ChartGrouping.manufacturer:
         return ChartHelper.calculateManufacturerList(data).length;
+      case ChartGrouping.colour:
+        return ChartHelper.calculateColourList(data).length;
       case ChartGrouping.caseDiameter:
         return ChartHelper.calculateCaseDiameterList(data).length;
       case ChartGrouping.lugWidth:
