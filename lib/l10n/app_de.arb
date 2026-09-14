@@ -744,6 +744,7 @@
   "@_SEARCH" : {},
   "search" : "Suchen",
   "searchOptionsTitle" : "Suchoptionen",
+  "searchByColourLabel" : "Nach Farbe suchen",
   "searchByNotesLabel" : "Notizen durchsuchen",
   "searchByLugWidthLabel" : "Nach Stegbreite suchen",
   "noResultsFound" :  "Keine Ergebnisse gefunden",

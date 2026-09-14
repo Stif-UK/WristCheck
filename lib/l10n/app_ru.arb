@@ -744,6 +744,7 @@
   "@_SEARCH" : {},
   "search" : "Поиск",
   "searchOptionsTitle" : "Параметры поиска",
+  "searchByColourLabel" : "Поиск по цвету",
   "searchByNotesLabel" : "Поиск по заметкам",
   "searchByLugWidthLabel" : "Поиск по ширине ушек",
   "noResultsFound" :  "Ничего не найдено",

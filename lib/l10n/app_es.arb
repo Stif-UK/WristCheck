@@ -739,6 +739,7 @@
   "@_SEARCH" : {},
   "search" : "Buscar",
   "searchOptionsTitle" : "Opciones de búsqueda",
+  "searchByColourLabel" : "Buscar por color",
   "searchByNotesLabel" : "Buscar en notas",
   "searchByLugWidthLabel" : "Buscar por ancho de asas",
   "noResultsFound" :  "No se Encontraron Resultados",

@@ -746,6 +746,7 @@
   "@_SEARCH" : {},
   "search" : "Search",
   "searchOptionsTitle" : "Search Options",
+  "searchByColourLabel" : "Search by colour",
   "searchByNotesLabel" : "Search notes",
   "searchByLugWidthLabel" : "Search by lug width",
   "noResultsFound" :  "No Results Found",

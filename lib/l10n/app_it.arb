@@ -746,6 +746,7 @@
   "@_SEARCH" : {},
   "search" : "Cerca",
   "searchOptionsTitle" : "Opzioni di Ricerca",
+  "searchByColourLabel" : "Cerca per colore",
   "searchByNotesLabel" : "Cerca nelle note",
   "searchByLugWidthLabel" : "Cerca per larghezza ansa",
   "noResultsFound" :  "Nessun Risultato Trovato",

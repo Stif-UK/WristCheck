@@ -4008,6 +4008,12 @@ abstract class AppLocalizations {
   /// **'Search Options'**
   String get searchOptionsTitle;
 
+  /// No description provided for @searchByColourLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by colour'**
+  String get searchByColourLabel;
+
   /// No description provided for @searchByNotesLabel.
   ///
   /// In en, this message translates to:

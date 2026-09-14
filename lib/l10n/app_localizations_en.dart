@@ -2133,6 +2133,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchOptionsTitle => 'Search Options';
 
   @override
+  String get searchByColourLabel => 'Search by colour';
+
+  @override
   String get searchByNotesLabel => 'Search notes';
 
   @override

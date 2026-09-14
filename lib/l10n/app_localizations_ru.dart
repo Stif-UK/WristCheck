@@ -2172,6 +2172,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchOptionsTitle => 'Параметры поиска';
 
   @override
+  String get searchByColourLabel => 'Поиск по цвету';
+
+  @override
   String get searchByNotesLabel => 'Поиск по заметкам';
 
   @override

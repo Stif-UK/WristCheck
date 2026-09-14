@@ -743,6 +743,7 @@
   "@_SEARCH" : {},
   "search" : "Rechercher",
   "searchOptionsTitle" : "Options de recherche",
+  "searchByColourLabel" : "Rechercher par couleur",
   "searchByNotesLabel" : "Rechercher dans les notes",
   "searchByLugWidthLabel" : "Rechercher par entrecorne",
   "noResultsFound" : "Aucun résultat trouvé",

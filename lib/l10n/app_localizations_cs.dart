@@ -2163,6 +2163,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get searchOptionsTitle => 'Možnosti hledání';
 
   @override
+  String get searchByColourLabel => 'Hledat podle barvy';
+
+  @override
   String get searchByNotesLabel => 'Hledat v poznámkách';
 
   @override

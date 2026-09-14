@@ -39,6 +39,11 @@ class SearchFilterBottomSheet extends StatelessWidget {
                   onChanged: (val) => filterController.updateSearchByWatchName(val),
                 )),
             Obx(() => SwitchListTile(
+                  title: Text(AppLocalizations.of(context)!.searchByColourLabel),
+                  value: filterController.searchByColour.value,
+                  onChanged: (val) => filterController.updateSearchByColour(val),
+                )),
+            Obx(() => SwitchListTile(
                   title: Text(AppLocalizations.of(context)!.searchByNotesLabel),
                   value: filterController.searchByNotes.value,
                   onChanged: (val) => filterController.updateSearchByNotes(val),

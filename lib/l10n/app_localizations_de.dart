@@ -2164,6 +2164,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get searchOptionsTitle => 'Suchoptionen';
 
   @override
+  String get searchByColourLabel => 'Nach Farbe suchen';
+
+  @override
   String get searchByNotesLabel => 'Notizen durchsuchen';
 
   @override

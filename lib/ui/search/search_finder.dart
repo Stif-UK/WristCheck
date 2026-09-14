@@ -79,6 +79,7 @@ class _SearchFinderState extends State<SearchFinder> {
               return Obx(() {
                 // Access observables here to ensure Obx always has a dependency to track
                 final searchByName = filterController.searchByWatchName.value;
+                final searchByColour = filterController.searchByColour.value;
                 final searchByNotes = filterController.searchByNotes.value;
                 final searchByLugWidth = filterController.searchByLugWidth.value;
                 final incArchived = filterController.searchIncludeArchived.value;
@@ -104,6 +105,11 @@ class _SearchFinderState extends State<SearchFinder> {
                         if (searchByName) {
                           if (c.model.toLowerCase().contains(widget.query.toLowerCase()) ||
                               c.manufacturer.toLowerCase().contains(widget.query.toLowerCase())) {
+                            matches = true;
+                          }
+                        }
+                        if (searchByColour && !matches) {
+                          if (c.primaryColour != null && c.primaryColour!.toLowerCase().contains(widget.query.toLowerCase())) {
                             matches = true;
                           }
                         }
@@ -168,6 +174,13 @@ class _SearchFinderState extends State<SearchFinder> {
                                             WatchStatusEnumExtension.fromDbString(watchesListItem.status).toLocalizedString(context),
                                             style: Theme.of(context).textTheme.bodyMedium,
                                           ),
+                                          if (searchByColour && watchesListItem.primaryColour != null && watchesListItem.primaryColour!.isNotEmpty) ...[
+                                            const SizedBox(height: 4.0),
+                                            Text(
+                                              "${AppLocalizations.of(context)!.primaryColourHintText}: ${watchesListItem.primaryColour}",
+                                              style: Theme.of(context).textTheme.bodySmall,
+                                            ),
+                                          ],
                                           if (searchByNotes && watchesListItem.notes != null && watchesListItem.notes!.isNotEmpty) ...[
                                             const SizedBox(height: 8.0),
                                             Text(

@@ -744,6 +744,7 @@
   "@_SEARCH" : {},
   "search" : "Hledat",
   "searchOptionsTitle" : "Možnosti hledání",
+  "searchByColourLabel" : "Hledat podle barvy",
   "searchByNotesLabel" : "Hledat v poznámkách",
   "searchByLugWidthLabel" : "Hledat podle rozteče nožek",
   "noResultsFound" :  "Nebyly nalezeny žádné výsledky",

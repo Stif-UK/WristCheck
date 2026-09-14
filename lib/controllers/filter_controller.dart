@@ -36,6 +36,7 @@ class FilterController extends GetxController{
   final endDate = DateTime.now().obs;
 
   final searchByWatchName = true.obs;
+  final searchByColour = false.obs;
   final searchByNotes = false.obs;
   final searchByLugWidth = false.obs;
   final searchIncludeArchived = false.obs;
@@ -151,6 +152,10 @@ class FilterController extends GetxController{
 
   updateSearchByWatchName(bool newValue){
     searchByWatchName(newValue);
+  }
+
+  updateSearchByColour(bool newValue){
+    searchByColour(newValue);
   }
 
   updateSearchByNotes(bool newValue){

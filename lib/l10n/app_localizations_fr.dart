@@ -2162,6 +2162,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get searchOptionsTitle => 'Options de recherche';
 
   @override
+  String get searchByColourLabel => 'Rechercher par couleur';
+
+  @override
   String get searchByNotesLabel => 'Rechercher dans les notes';
 
   @override
