@@ -7,7 +7,9 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
+import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
+import 'package:wristcheck/ui/charts/collection_charts/colour_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/date_complication_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/category_chart.dart';
@@ -81,6 +83,45 @@ class _CollectionChartsState extends State<CollectionCharts> {
           Padding(
             padding: getPagePadding(),
             child: const CategoryChart(),
+          ),
+          const Divider(thickness: 2,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(width: 48),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    l.colourChartTitle,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+              ),
+              Obx(() {
+                Widget iconWidget;
+                switch (widget.collectionStatsController.colourChartType.value) {
+                  case ColourChartEnum.bar:
+                    iconWidget = const FaIcon(FontAwesomeIcons.chartBar, size: 18);
+                    break;
+                  case ColourChartEnum.pie:
+                    iconWidget = const FaIcon(FontAwesomeIcons.chartPie, size: 18);
+                    break;
+                  case ColourChartEnum.donut:
+                    iconWidget = const Icon(Icons.donut_large, size: 22);
+                    break;
+                }
+                return IconButton(
+                  icon: iconWidget,
+                  onPressed: () {
+                    widget.collectionStatsController.cycleColourChartType();
+                  },
+                );
+              }),
+            ],
+          ),
+          Padding(
+            padding: getPagePadding(),
+            child: const ColourChart(),
           ),
           const Divider(thickness: 2,),
           Row(

@@ -176,6 +176,7 @@
   "modelRowHintText" : "Modell",
   "primaryColourRowTitle" : "Farbe:",
   "primaryColourHintText" : "Farbe",
+  "colourChartTitle" : "Farben-Diagramm",
   "primaryColourInvalidError" : "Hauptfarbe enthält ungültige Zeichen",
   "purchaseDateRowTitle" : "Kaufdatum:",
   "purchaseDateRowHintText" : "Kaufdatum",

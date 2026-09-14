@@ -175,6 +175,7 @@
   "modelRowHintText" : "Modèle",
   "primaryColourRowTitle" : "Couleur :",
   "primaryColourHintText" : "Couleur",
+  "colourChartTitle" : "Graphique des couleurs",
   "primaryColourInvalidError" : "La couleur principale contient des caractères non valides",
   "purchaseDateRowTitle" : "Date d'achat :",
   "purchaseDateRowHintText" : "Date d'achat",

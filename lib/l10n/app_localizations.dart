@@ -996,6 +996,12 @@ abstract class AppLocalizations {
   /// **'Colour'**
   String get primaryColourHintText;
 
+  /// No description provided for @colourChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour Chart'**
+  String get colourChartTitle;
+
   /// No description provided for @purchaseDateRowTitle.
   ///
   /// In en, this message translates to:

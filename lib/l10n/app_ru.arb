@@ -176,6 +176,7 @@
   "modelRowHintText" : "Модель",
   "primaryColourRowTitle" : "Цвет:",
   "primaryColourHintText" : "Цвет",
+  "colourChartTitle" : "Диаграмма цветов",
   "primaryColourInvalidError" : "Основной цвет содержит недопустимые символы",
   "purchaseDateRowTitle" : "Дата покупки:",
   "purchaseDateRowHintText" : "Дата покупки",

@@ -490,6 +490,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get primaryColourHintText => 'Barva';
 
   @override
+  String get colourChartTitle => 'Graf barev';
+
+  @override
   String get purchaseDateRowTitle => 'Datum nákupu:';
 
   @override

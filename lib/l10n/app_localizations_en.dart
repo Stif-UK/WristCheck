@@ -486,6 +486,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get primaryColourHintText => 'Colour';
 
   @override
+  String get colourChartTitle => 'Colour Chart';
+
+  @override
   String get purchaseDateRowTitle => 'Purchase Date:';
 
   @override

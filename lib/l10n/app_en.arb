@@ -179,6 +179,7 @@
   "modelRowHintText" : "Model",
   "primaryColourRowTitle" : "Colour:",
   "primaryColourHintText" : "Colour",
+  "colourChartTitle" : "Colour Chart",
   "purchaseDateRowTitle" : "Purchase Date:",
   "purchaseDateRowHintText" : "Purchase Date",
   "purchasePriceRowTitle" : "Purchase Price:",

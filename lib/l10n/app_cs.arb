@@ -176,6 +176,7 @@
   "modelRowHintText" : "Model",
   "primaryColourRowTitle" : "Barva:",
   "primaryColourHintText" : "Barva",
+  "colourChartTitle" : "Graf barev",
   "primaryColourInvalidError" : "Hlavní barva obsahuje neplatné znaky",
   "purchaseDateRowTitle" : "Datum nákupu:",
   "purchaseDateRowHintText" : "Datum nákupu",
