@@ -208,6 +208,8 @@
   "tpdRowTitle" : "TPD (otáčky za den):",
   "winderDirectionRowTitle" : "Směr natahování:",
   "dateComplicationRowTitle" : "Datová komplikace:",
+  "powerReserveRowTitle" : "Rezerva chodu (hodiny):",
+  "powerReserveRowHintText" : "Rezerva chodu",
   "notesRowTitle" : "Poznámky:",
   "notesRowHintText" : "Poznámky",
   "costPerWearRowTitle" : "Cena za jedno nošení:",

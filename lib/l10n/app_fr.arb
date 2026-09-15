@@ -207,6 +207,8 @@
   "tpdRowTitle" : "Tours par jour (TPD) :",
   "winderDirectionRowTitle" : "Sens de rotation :",
   "dateComplicationRowTitle" : "Complication date :",
+  "powerReserveRowTitle" : "Réserve de marche (heures) :",
+  "powerReserveRowHintText" : "Réserve de marche",
   "notesRowTitle" : "Notes :",
   "notesRowHintText" : "Notes",
   "costPerWearRowTitle" : "Coût par porté :",

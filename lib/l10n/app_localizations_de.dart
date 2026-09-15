@@ -587,6 +587,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dateComplicationRowTitle => 'Datumsanzeige:';
 
   @override
+  String get powerReserveRowTitle => 'Gangreserve (Stunden):';
+
+  @override
+  String get powerReserveRowHintText => 'Gangreserve';
+
+  @override
   String get notesRowTitle => 'Notizen:';
 
   @override

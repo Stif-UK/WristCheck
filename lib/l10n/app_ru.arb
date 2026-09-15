@@ -208,6 +208,8 @@
   "tpdRowTitle" : "TPD (оборотов в сутки):",
   "winderDirectionRowTitle" : "Направление вращения:",
   "dateComplicationRowTitle" : "Усложнение даты:",
+  "powerReserveRowTitle" : "Запас хода (часы):",
+  "powerReserveRowHintText" : "Запас хода",
   "notesRowTitle" : "Заметки:",
   "notesRowHintText" : "Заметки",
   "costPerWearRowTitle" : "Стоимость одного ношения:",

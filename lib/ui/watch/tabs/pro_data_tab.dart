@@ -12,6 +12,7 @@ import 'package:wristcheck/ui/watch/rows/case_diameter_row.dart';
 import 'package:wristcheck/ui/watch/rows/case_thickness_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_to_lug_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
+import 'package:wristcheck/ui/watch/rows/power_reserve_row.dart';
 import 'package:wristcheck/ui/watch/rows/water_resistance_row.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,8 @@ class ProDataTab extends StatelessWidget {
     required this.caseMaterialController,
     required this.winderTPDController,
     required this.winderDirectionController,
-    required this.dateComplicationController
+    required this.dateComplicationController,
+    required this.powerReserveController,
   });
 
   final watchViewController = Get.put(WatchViewController());
@@ -43,6 +45,7 @@ class ProDataTab extends StatelessWidget {
   final TextEditingController winderTPDController;
   final TextEditingController winderDirectionController;
   final TextEditingController dateComplicationController;
+  final TextEditingController powerReserveController;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +74,8 @@ class ProDataTab extends StatelessWidget {
         CaseThicknessRow(enabled: watchViewController.inEditState.value, caseThicknessController: caseThicknessController),
         WaterResistanceRow(enabled: watchViewController.inEditState.value, waterResistanceController: waterResistanceController, units: wristCheckController.waterResistanceUnit.value.toLocalizedString(Get.context!)),
         _buildCaseMaterialField(),
-        _buildDateComplicationField()
+        _buildDateComplicationField(),
+        PowerReserveRow(enabled: watchViewController.inEditState.value, powerReserveController: powerReserveController),
       ],
     );
   }

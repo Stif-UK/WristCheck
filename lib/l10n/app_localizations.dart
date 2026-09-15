@@ -1182,6 +1182,18 @@ abstract class AppLocalizations {
   /// **'Date Complication:'**
   String get dateComplicationRowTitle;
 
+  /// No description provided for @powerReserveRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Power Reserve (hours):'**
+  String get powerReserveRowTitle;
+
+  /// No description provided for @powerReserveRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Power Reserve'**
+  String get powerReserveRowHintText;
+
   /// No description provided for @notesRowTitle.
   ///
   /// In en, this message translates to:

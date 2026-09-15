@@ -210,6 +210,8 @@
   "tpdRowTitle" : "TPD:",
   "winderDirectionRowTitle" : "Winder Direction:",
   "dateComplicationRowTitle" : "Date Complication:",
+  "powerReserveRowTitle" : "Power Reserve (hours):",
+  "powerReserveRowHintText" : "Power Reserve",
   "notesRowTitle" : "Notes:",
   "notesRowHintText" : "Notes",
   "costPerWearRowTitle" : "Cost per Wear:",

@@ -585,6 +585,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get dateComplicationRowTitle => 'Complicazione Data:';
 
   @override
+  String get powerReserveRowTitle => 'Riserva di Carica (ore):';
+
+  @override
+  String get powerReserveRowHintText => 'Riserva di Carica';
+
+  @override
   String get notesRowTitle => 'Note:';
 
   @override

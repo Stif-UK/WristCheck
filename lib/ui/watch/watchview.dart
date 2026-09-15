@@ -75,6 +75,7 @@ class _WatchViewState extends State<WatchView> {
       _serviceInterval = widget.currentWatch!.serviceInterval;
       _purchasedFrom = widget.currentWatch!.purchasedFrom;
       _soldTo = widget.currentWatch!.soldTo;
+      _powerReserve = widget.currentWatch!.powerReserve;
     } else {
       widget.watchViewController.updatePurchasePrice(0);
       widget.watchViewController.updateSoldPrice(0);
@@ -141,6 +142,7 @@ class _WatchViewState extends State<WatchView> {
   double? _caseThickness;
   int? _waterResistance;
   int? _winderTPD;
+  int? _powerReserve;
   String? _dateComplication;
   String? _primaryColour = "";
 
@@ -176,6 +178,7 @@ class _WatchViewState extends State<WatchView> {
   final winderDirectionFieldController = TextEditingController();
   final dateComplicationFieldController = TextEditingController();
   final primaryColourFieldController = TextEditingController();
+  final powerReserveFieldController = TextEditingController();
 
   @override
   void dispose(){
@@ -210,6 +213,7 @@ class _WatchViewState extends State<WatchView> {
     winderDirectionFieldController.dispose();
     dateComplicationFieldController.dispose();
     primaryColourFieldController.dispose();
+    powerReserveFieldController.dispose();
     super.dispose();
   }
 
@@ -253,6 +257,9 @@ class _WatchViewState extends State<WatchView> {
             _waterResistance = ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text);
             widget.watchViewController.updateCaseMaterial(caseMaterialFieldController.value.text);
             _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
+            _powerReserve = powerReserveFieldController.value.text.isEmpty
+                ? null
+                : int.tryParse(powerReserveFieldController.value.text);
             widget.watchViewController.updateWinderDirection(winderDirectionFieldController.value.text);
             widget.watchViewController.updateDateComplication(dateComplicationFieldController.value.text);
             _primaryColour = primaryColourFieldController.value.text;
@@ -287,6 +294,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.waterResistance = _waterResistance;
             widget.currentWatch!.caseMaterial = widget.watchViewController.caseMaterial.value;
             widget.currentWatch!.winderTPD = _winderTPD;
+            widget.currentWatch!.powerReserve = _powerReserve;
             widget.currentWatch!.winderDirection = widget.watchViewController.winderDirection.value;
             widget.currentWatch!.dateComplication = widget.watchViewController.dateComplication.value;
             widget.currentWatch!.primaryColour = _primaryColour;
@@ -390,6 +398,7 @@ class _WatchViewState extends State<WatchView> {
         dateComplicationFieldController.value = TextEditingValue(text: widget.currentWatch!.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank));
         modelYearFieldController.value = TextEditingValue(text: widget.currentWatch!.year != null ? "${widget.currentWatch!.year}" : "");
         primaryColourFieldController.value = TextEditingValue(text: widget.currentWatch!.primaryColour ?? "");
+        powerReserveFieldController.value = TextEditingValue(text: widget.currentWatch!.powerReserve != null ? "${widget.currentWatch!.powerReserve}" : "");
       }
     }
 
@@ -617,6 +626,7 @@ class _WatchViewState extends State<WatchView> {
                                               winderTPDController: winderTPDFieldController,
                                               winderDirectionController: winderDirectionFieldController,
                                               dateComplicationController: dateComplicationFieldController,
+                                              powerReserveController: powerReserveFieldController,
                                             )
                                                 : NotesTab(notesFieldController: notesFieldController),
                                           ),
@@ -719,6 +729,9 @@ class _WatchViewState extends State<WatchView> {
               _caseThickness = ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text);
               _waterResistance = ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text);
               _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
+              _powerReserve = powerReserveFieldController.value.text.isEmpty
+                  ? null
+                  : int.tryParse(powerReserveFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
 
@@ -753,6 +766,7 @@ class _WatchViewState extends State<WatchView> {
                 winderDirection: winderDirectionFieldController.value.text,
                 dateComplication: dateComplicationFieldController.value.text,
                 primaryColour: primaryColourFieldController.value.text,
+                powerReserve: _powerReserve,
                 year: modelYearFieldController.value.text.isEmpty
                     ? null
                     : int.tryParse(modelYearFieldController.value.text),
@@ -853,6 +867,7 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.winderDirection != winderDirectionFieldController.value.text ||
       widget.currentWatch!.dateComplication != dateComplicationFieldController.value.text ||
       widget.currentWatch!.primaryColour != primaryColourFieldController.value.text ||
+      widget.currentWatch!.powerReserve != (powerReserveFieldController.value.text.isEmpty ? null : int.tryParse(powerReserveFieldController.value.text)) ||
       widget.currentWatch!.year != (modelYearFieldController.value.text.isEmpty ? null : int.tryParse(modelYearFieldController.value.text))
     ){
       returnValue = true;
@@ -875,7 +890,8 @@ class _WatchViewState extends State<WatchView> {
         referenceNumberFieldController.value.text.isNotEmpty ||
         movementFieldController.value.text.isNotEmpty ||
         dateComplicationFieldController.value.text.isNotEmpty ||
-        primaryColourFieldController.value.text.isNotEmpty
+        primaryColourFieldController.value.text.isNotEmpty ||
+        powerReserveFieldController.value.text.isNotEmpty
     ){
       returnValue = true;
     }

@@ -208,6 +208,8 @@
   "tpdRowTitle" : "TPD (Giros por Día):",
   "winderDirectionRowTitle" : "Dirección de Giro:",
   "dateComplicationRowTitle" : "Complicación de Fecha:",
+  "powerReserveRowTitle" : "Reserva de Marcha (horas):",
+  "powerReserveRowHintText" : "Reserva de Marcha",
   "notesRowTitle" : "Notas:",
   "notesRowHintText" : "Notas",
   "costPerWearRowTitle" : "Coste por Uso:",

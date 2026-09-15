@@ -581,6 +581,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateComplicationRowTitle => 'Date Complication:';
 
   @override
+  String get powerReserveRowTitle => 'Power Reserve (hours):';
+
+  @override
+  String get powerReserveRowHintText => 'Power Reserve';
+
+  @override
   String get notesRowTitle => 'Notes:';
 
   @override

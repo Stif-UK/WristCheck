@@ -587,6 +587,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dateComplicationRowTitle => 'Complication date :';
 
   @override
+  String get powerReserveRowTitle => 'Réserve de marche (heures) :';
+
+  @override
+  String get powerReserveRowHintText => 'Réserve de marche';
+
+  @override
   String get notesRowTitle => 'Notes :';
 
   @override

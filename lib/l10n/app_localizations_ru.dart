@@ -583,6 +583,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dateComplicationRowTitle => 'Усложнение даты:';
 
   @override
+  String get powerReserveRowTitle => 'Запас хода (часы):';
+
+  @override
+  String get powerReserveRowHintText => 'Запас хода';
+
+  @override
   String get notesRowTitle => 'Заметки:';
 
   @override

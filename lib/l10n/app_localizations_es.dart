@@ -585,6 +585,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dateComplicationRowTitle => 'Complicación de Fecha:';
 
   @override
+  String get powerReserveRowTitle => 'Reserva de Marcha (horas):';
+
+  @override
+  String get powerReserveRowHintText => 'Reserva de Marcha';
+
+  @override
   String get notesRowTitle => 'Notas:';
 
   @override

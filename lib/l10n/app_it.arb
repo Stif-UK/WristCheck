@@ -211,6 +211,8 @@
   "tpdRowTitle" : "TPD (Giri al giorno):",
   "winderDirectionRowTitle" : "Direzione rotazione:",
   "dateComplicationRowTitle" : "Complicazione Data:",
+  "powerReserveRowTitle" : "Riserva di Carica (ore):",
+  "powerReserveRowHintText" : "Riserva di Carica",
   "notesRowTitle" : "Note:",
   "notesRowHintText" : "Note",
   "costPerWearRowTitle" : "Costo per Indosso:",

@@ -585,6 +585,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get dateComplicationRowTitle => 'Datová komplikace:';
 
   @override
+  String get powerReserveRowTitle => 'Rezerva chodu (hodiny):';
+
+  @override
+  String get powerReserveRowHintText => 'Rezerva chodu';
+
+  @override
   String get notesRowTitle => 'Poznámky:';
 
   @override

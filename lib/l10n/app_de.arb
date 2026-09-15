@@ -208,6 +208,8 @@
   "tpdRowTitle" : "TPD (Umdrehungen pro Tag):",
   "winderDirectionRowTitle" : "Drehrichtung:",
   "dateComplicationRowTitle" : "Datumsanzeige:",
+  "powerReserveRowTitle" : "Gangreserve (Stunden):",
+  "powerReserveRowHintText" : "Gangreserve",
   "notesRowTitle" : "Notizen:",
   "notesRowHintText" : "Notizen",
   "costPerWearRowTitle" : "Kosten pro Tragen:",
