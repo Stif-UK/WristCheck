@@ -36,6 +36,25 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>UIRequiresFullScreen</key>
+		<true/>
+		<key>UIApplicationSceneManifest</key>
+		<dict>
+			<key>UIApplicationSupportsMultipleScenes</key>
+			<false/>
+			<key>UISceneConfigurations</key>
+			<dict>
+				<key>UIWindowSceneSessionRoleApplication</key>
+				<array>
+					<dict>
+						<key>UISceneConfigurationName</key>
+						<string>Default Configuration</string>
+						<key>UISceneDelegateClassName</key>
+						<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
 		<key>NSCameraUsageDescription</key>
 		<string>WristTrack requires camera access to allow you to take pictures of your watches to store within the app.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
@@ -60,7 +79,9 @@
 			<string>fetch</string>
 			<string>remote-notification</string>
 		</array>
-		<key>UISupportsDocumentBrowser</key>
+		<key>UIFileSharingEnabled</key>
+		<true/>
+		<key>LSSupportsOpeningDocumentsInPlace</key>
 		<true/>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
