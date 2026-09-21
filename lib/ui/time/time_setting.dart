@@ -37,7 +37,8 @@ class _TimeSettingState extends State<TimeSetting> {
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
-  late final AudioPlayer _audioPlayer;
+  late final List<AudioPlayer> _audioPlayers;
+  int _audioPlayerIndex = 0;
   Timer? _timer;
   Duration _ntpOffset = Duration.zero;
 
@@ -196,11 +197,12 @@ class _TimeSettingState extends State<TimeSetting> {
     if (triggerList.contains(current)) {
       if (widget.timeController.enableBeep.value) {
         if (current != widget.timeController.lastBeep.value) {
-          if (current == 0) {
-            _audioPlayer.play(AssetSource('audio/main_chime1.mp3'));
-          } else {
-            _audioPlayer.play(AssetSource('audio/chime1.mp3'));
-          }
+          final player = _audioPlayers[_audioPlayerIndex];
+          _audioPlayerIndex = (_audioPlayerIndex + 1) % _audioPlayers.length;
+          final asset = (current == 0) ? 'audio/main_chime1.mp3' : 'audio/chime1.mp3';
+          player.stop().then((_) {
+            player.play(AssetSource(asset));
+          });
         }
       }
       widget.timeController.updateLastBeep(current);
@@ -210,7 +212,9 @@ class _TimeSettingState extends State<TimeSetting> {
   @override
   void dispose() {
     _timer?.cancel();
-    _audioPlayer.dispose();
+    for (final player in _audioPlayers) {
+      player.dispose();
+    }
     widget.timeController.isTimerActive(false);
     super.dispose();
   }
@@ -218,7 +222,7 @@ class _TimeSettingState extends State<TimeSetting> {
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
+    _audioPlayers = List.generate(3, (_) => AudioPlayer());
     analytics.setAnalyticsCollectionEnabled(true);
     widget.timeController.isTimerActive(true);
     initPlatformState();
