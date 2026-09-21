@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +36,10 @@ class _TimeSettingState extends State<TimeSetting> {
   DateTime? _currentNTPDateTime;
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+
+  late final AudioPlayer _audioPlayer;
+  Timer? _timer;
+  Duration _ntpOffset = Duration.zero;
 
 
   @override
@@ -168,53 +171,37 @@ class _TimeSettingState extends State<TimeSetting> {
 
   }
 
-
-
-  updateTime() {
-    Future.delayed(Duration(seconds: 2), () async {
-      //small delay, then check if time is synced - if it is, set the value of synced in the controller
-      var synced = await FlutterKronos.getNtpDateTime;
-      if(synced != null) {
-        widget.timeController.updateTimeSynced(true);
-        widget.timeController.updateLastSyncTime(_currentNTPDateTime ?? synced);
-        widget.timeController.updateDeviation(DateTime.now().difference(synced));
-      }
-      if(synced == null){
-        widget.timeController.updateSyncFailed(true);
-      }
-    });
-
-    Timer.periodic(Duration(milliseconds: 50), (Timer t) async {
-      if(!widget.timeController.isTimerActive.value){
+  void startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
+      if (!widget.timeController.isTimerActive.value) {
         t.cancel();
+        return;
       }
-      var date = widget.timeController.timeSynced.value? await FlutterKronos.getNtpDateTime : DateTime.now();
-      if(date == null) {
-        widget.timeController.updateTimeSynced(false);
-        date = DateTime.now();
-      }
+      var date = widget.timeController.timeSynced.value
+          ? DateTime.now().add(_ntpOffset)
+          : DateTime.now();
+
       var gmt = date.add(Duration(hours: widget.timeController.timeOffset.value));
       triggerBeep(date.second);
       widget.timeController.currentDateTime(date);
       widget.timeController.currentTime(WristCheckFormatter.getTime(date, widget.timeController.militaryTime.value));
       widget.timeController.currentDate(WristCheckFormatter.getFormattedDateWithDay(date));
       widget.timeController.currentGMTtime(WristCheckFormatter.getTime(gmt, widget.timeController.militaryTime.value));
-
     });
-
   }
 
-  triggerBeep(int current){
-    final player = AudioPlayer();
-    var triggerList = [57, 58, 59, 00];
-    if(triggerList.contains(current)) {
-      if(widget.timeController.enableBeep.value) {
+  triggerBeep(int current) {
+    var triggerList = [57, 58, 59, 0];
+    if (triggerList.contains(current)) {
+      if (widget.timeController.enableBeep.value) {
         if (current != widget.timeController.lastBeep.value) {
-          current == 00
-              ? player.play(AssetSource('audio/main_chime1.mp3'))
-              : player.play(AssetSource('audio/chime1.mp3'));
+          if (current == 0) {
+            _audioPlayer.play(AssetSource('audio/main_chime1.mp3'));
+          } else {
+            _audioPlayer.play(AssetSource('audio/chime1.mp3'));
+          }
         }
-        ;
       }
       widget.timeController.updateLastBeep(current);
     }
@@ -222,32 +209,41 @@ class _TimeSettingState extends State<TimeSetting> {
 
   @override
   void dispose() {
+    _timer?.cancel();
+    _audioPlayer.dispose();
     widget.timeController.isTimerActive(false);
     super.dispose();
   }
 
   @override
   void initState() {
+    super.initState();
+    _audioPlayer = AudioPlayer();
     analytics.setAnalyticsCollectionEnabled(true);
     widget.timeController.isTimerActive(true);
-    updateTime();
     initPlatformState();
-    super.initState();
+    startTimer();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    // Platform messages may fail, so we use a try/catch PlatformException.
     FlutterKronos.sync();
+    await Future.delayed(const Duration(seconds: 2));
     try {
       _currentNTPDateTime = await FlutterKronos.getNtpDateTime;
-    } on PlatformException {}
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
+      if (_currentNTPDateTime != null && mounted) {
+        _ntpOffset = _currentNTPDateTime!.difference(DateTime.now());
+        widget.timeController.updateTimeSynced(true);
+        widget.timeController.updateLastSyncTime(_currentNTPDateTime!);
+        widget.timeController.updateDeviation(_ntpOffset);
+      } else if (mounted) {
+        widget.timeController.updateSyncFailed(true);
+      }
+    } on PlatformException {
+      if (mounted) {
+        widget.timeController.updateSyncFailed(true);
+      }
+    }
   }
 }
 
@@ -256,6 +252,6 @@ Widget _buildAdSpace(BannerAd? banner, BuildContext context){
       ? SizedBox(height: MediaQuery.of(context).size.height > 500.0? 250: 100,)
       : Container(
     height: MediaQuery.of(context).size.height > 500.0? 250: 100,
-    child: AdWidget(ad: banner!),
+    child: AdWidget(ad: banner),
   );
 }
