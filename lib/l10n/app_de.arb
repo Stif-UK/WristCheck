@@ -1029,5 +1029,12 @@
   "totalSoldValueHelpTitle": "Gesamtwert der Verkäufe",
   "totalSoldValueHelpText": "Dieser Wert ist die Summe aller erfassten Verkaufspreise aller Uhren mit dem Status 'Verkauft'",
   "averageResaleHelpTitle": "Durchschnittlicher Wiederverkaufsprozentsatz",
-  "averageResaleHelpText": "Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status 'Verkauft' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird."
+  "averageResaleHelpText": "Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status 'Verkauft' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird.",
+  "averagePowerReserve": "Durchschnittliche Gangreserve: {value} Stunden",
+  "averageWaterResistance": "Durchschnittliche Wasserdichtigkeit: {value} {unit}",
+  "averageCaseDiameter": "Durchschnittlicher Gehäusedurchmesser: {value} mm",
+  "averageCaseThickness": "Durchschnittliche Gehäusedicke: {value} mm",
+  "averageLugToLug": "Durchschnittlicher Horn-zu-Horn-Abstand: {value} mm",
+  "medianLugWidth": "Stegbreiten-Median: {value}",
+  "noColourDataRecorded": "Keine Farbdaten aufgezeichnet"
 }

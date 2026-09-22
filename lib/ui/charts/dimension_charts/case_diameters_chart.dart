@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -61,18 +62,18 @@ class _CaseDiameterChartState extends State<CaseDiameterChart> {
           ],
           primaryXAxis: CategoryAxis(isVisible: false),
         ),
-        Text(_calculateAverageCaseDiameter(data)),
+        Text(_calculateAverageCaseDiameter(context, data)),
       ],
     );
   }
 }
 
-String _calculateAverageCaseDiameter(List<Watches> data) {
+String _calculateAverageCaseDiameter(BuildContext context, List<Watches> data) {
   String returnString = "";
-  if(data.length != 0){
+  if(data.isNotEmpty){
     data.removeWhere((watch) => watch.caseDiameter == null || watch.caseDiameter == 0.0);
     double average = data.map((m) => m.caseDiameter!).average;
-    returnString = "Average Case Diameter: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
+    returnString = AppLocalizations.of(context)!.averageCaseDiameter(WristCheckFormatter.getLocalizedDecimal(average, 2));
   }
 
   return returnString;

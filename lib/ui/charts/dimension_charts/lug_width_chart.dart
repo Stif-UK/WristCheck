@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:collection/collection.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 
 class LugWidthChart extends StatefulWidget {
@@ -62,24 +62,23 @@ class _LugWidthChartState extends State<LugWidthChart> {
           ],
           primaryXAxis: CategoryAxis(isVisible: false),
         ),
-        Text(_getMedianLugWidth(data)),
+        Text(_getMedianLugWidth(context, data)),
       ],
     );
   }
 }
 
-String _getMedianLugWidth(List<Watches> data) {
+String _getMedianLugWidth(BuildContext context, List<Watches> data) {
   String returnString = "";
 
-  if (data.length != 0) {
-    //int median;
+  if (data.isNotEmpty) {
     //remove nulls and zeros
     data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
     List<int> lugWidthList = data.map((obj) => obj.lugWidth!).toList();
 
     String median = ChartHelper.getMedianAsString(lugWidthList, "mm");
     if (median.length > 1) {
-      returnString = "Median Lug Width: $median";
+      returnString = AppLocalizations.of(context)!.medianLugWidth(median);
     }
   }
   return returnString;

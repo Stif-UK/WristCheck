@@ -2541,4 +2541,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'This value is the average percentage returned when selling a watch - it is only calculated for watches with status \'Sold\' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Average Power Reserve: $value hours';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Average Water Resistance: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Average Case Diameter: $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Average Case Thickness: $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Average Lug to Lug: $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Median Lug Width: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'No colour data recorded';
 }

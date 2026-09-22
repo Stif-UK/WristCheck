@@ -2578,4 +2578,37 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Cette valeur est le pourcentage moyen récupéré lors de la vente d\'une montre - elle est uniquement calculée pour les montres ayant le statut \'Vendue\' pour lesquelles un prix d\'achat et un prix de vente sont enregistrés.\n\nLe pourcentage est calculé en divisant la valeur totale des ventes par le coût total d\'achat.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Réserve de marche moyenne : $value heures';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Étanchéité moyenne : $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Diamètre moyen du boîtier : $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Épaisseur moyenne du boîtier : $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Longueur corne à corne moyenne : $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Largeur d\'entrecorne médiane : $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'Aucune donnée de couleur enregistrée';
 }

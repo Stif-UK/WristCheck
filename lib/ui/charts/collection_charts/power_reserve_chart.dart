@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/power_reserve_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -29,7 +30,7 @@ class _PowerReserveChartState extends State<PowerReserveChart> {
     return Obx(() => Column(
         children: [
           _getChart(widget.collectionStatsController.powerReserveChartType.value, data),
-          Text(_calculateAveragePowerReserve(data))
+          Text(_calculateAveragePowerReserve(context, data))
         ],
       ),
     );
@@ -95,12 +96,12 @@ List<PowerReserveData> _getChartData(List<Watches> data) {
   return getChartData;
 }
 
-String _calculateAveragePowerReserve(List<Watches> data) {
+String _calculateAveragePowerReserve(BuildContext context, List<Watches> data) {
   String returnString = "";
 
   if (data.isNotEmpty) {
     double average = data.map((m) => m.powerReserve!).average;
-    returnString = "Average Power Reserve: ${WristCheckFormatter.getLocalizedDecimal(average, 1)} hours";
+    returnString = AppLocalizations.of(context)!.averagePowerReserve(WristCheckFormatter.getLocalizedDecimal(average, 1));
   }
 
   return returnString;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -31,7 +32,7 @@ class _L2LChartState extends State<L2LChart> {
     return Obx(()=> Column(
         children: [
           _getChart(widget.collectionStatsController.lug2lugChartType.value, data),
-          Text(_calculateAverageLug2Lug(data)),
+          Text(_calculateAverageLug2Lug(context, data)),
         ],
       ),
     );
@@ -72,12 +73,12 @@ Widget _getChart(Lug2lugChartEnum type, List<Watches> data){
 
 }
 
-String _calculateAverageLug2Lug(List<Watches> data) {
+String _calculateAverageLug2Lug(BuildContext context, List<Watches> data) {
   String returnString = "";
 
-  if(data.length != 0){
+  if(data.isNotEmpty){
     double average = data.map((m) => m.lug2lug!).average;
-    returnString = "Average Lug to Lug: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
+    returnString = AppLocalizations.of(context)!.averageLugToLug(WristCheckFormatter.getLocalizedDecimal(average, 2));
   }
 
   return returnString;

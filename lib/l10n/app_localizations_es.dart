@@ -2568,4 +2568,37 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Este valor es el porcentaje promedio recuperado al vender un reloj; solo se calcula para los relojes con estado \'Vendido\' que tienen registrados tanto el precio de compra como el de venta.\n\nEl porcentaje se calcula dividiendo el valor total de venta entre el coste total de compra.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Reserva de marcha promedio: $value horas';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Resistencia al agua promedio: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Diámetro de caja promedio: $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Grosor de caja promedio: $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Distancia de asa a asa promedio: $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Ancho de asa mediano: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'No hay datos de color registrados';
 }

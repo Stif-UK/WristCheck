@@ -2581,4 +2581,37 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status \'Verkauft\' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Durchschnittliche Gangreserve: $value Stunden';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Durchschnittliche Wasserdichtigkeit: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Durchschnittlicher Gehäusedurchmesser: $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Durchschnittliche Gehäusedicke: $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Durchschnittlicher Horn-zu-Horn-Abstand: $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Stegbreiten-Median: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'Keine Farbdaten aufgezeichnet';
 }

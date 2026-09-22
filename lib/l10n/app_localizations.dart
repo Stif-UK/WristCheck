@@ -4595,6 +4595,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This value is the average percentage returned when selling a watch - it is only calculated for watches with status \'Sold\' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost.'**
   String get averageResaleHelpText;
+
+  /// Calculated average power reserve formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Average Power Reserve: {value} hours'**
+  String averagePowerReserve(String value);
+
+  /// Calculated average water resistance formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Average Water Resistance: {value} {unit}'**
+  String averageWaterResistance(String value, String unit);
+
+  /// Calculated average case diameter formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Average Case Diameter: {value} mm'**
+  String averageCaseDiameter(String value);
+
+  /// Calculated average case thickness formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Average Case Thickness: {value} mm'**
+  String averageCaseThickness(String value);
+
+  /// Calculated average lug to lug formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Average Lug to Lug: {value} mm'**
+  String averageLugToLug(String value);
+
+  /// Calculated median lug width formatted text
+  ///
+  /// In en, this message translates to:
+  /// **'Median Lug Width: {value}'**
+  String medianLugWidth(String value);
+
+  /// No description provided for @noColourDataRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'No colour data recorded'**
+  String get noColourDataRecorded;
 }
 
 class _AppLocalizationsDelegate

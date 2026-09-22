@@ -2553,4 +2553,37 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato \'Venduto\' che hanno sia un prezzo d\'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d\'acquisto.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Riserva di carica media: $value ore';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Impermeabilità media: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Diametro cassa medio: $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Spessore cassa medio: $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Distanza da ansa ad ansa media: $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Larghezza anse mediana: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'Nessun dato sul colore registrato';
 }

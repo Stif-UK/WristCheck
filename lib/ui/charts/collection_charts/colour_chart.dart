@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 
@@ -35,10 +36,10 @@ class _ColourChartState extends State<ColourChart> {
         .toList();
 
     if (getChartData.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 100,
         child: Center(
-          child: Text("No colour data recorded"),
+          child: Text(AppLocalizations.of(context)!.noColourDataRecorded),
         ),
       );
     }

@@ -928,6 +928,64 @@
       }
     }
   },
+  "@averagePowerReserve": {
+    "description": "Calculated average power reserve formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "42.0"
+      }
+    }
+  },
+  "@averageWaterResistance": {
+    "description": "Calculated average water resistance formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "100"
+      },
+      "unit": {
+        "type": "String",
+        "example": "metres"
+      }
+    }
+  },
+  "@averageCaseDiameter": {
+    "description": "Calculated average case diameter formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "40.0"
+      }
+    }
+  },
+  "@averageCaseThickness": {
+    "description": "Calculated average case thickness formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "12.0"
+      }
+    }
+  },
+  "@averageLugToLug": {
+    "description": "Calculated average lug to lug formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "47.0"
+      }
+    }
+  },
+  "@medianLugWidth": {
+    "description": "Calculated median lug width formatted text",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "20 mm"
+      }
+    }
+  },
   "nYears": "{count, plural, =0{0 years} =1{1 year} other{{count} years}}",
   "@nYears": {
     "description": "Returns the suitable plural of years",
@@ -1031,5 +1089,12 @@
   "totalSoldValueHelpTitle": "Total Sold Value",
   "totalSoldValueHelpText": "This value is the sum of all recorded sale prices of all watches with a status of 'Sold'",
   "averageResaleHelpTitle": "Average Resale Percentage",
-  "averageResaleHelpText": "This value is the average percentage returned when selling a watch - it is only calculated for watches with status 'Sold' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost."
+  "averageResaleHelpText": "This value is the average percentage returned when selling a watch - it is only calculated for watches with status 'Sold' which have both a purchase and sale price tracked.\n\nThe percentage is calculated using total sale value divided by total purchase cost.",
+  "averagePowerReserve": "Average Power Reserve: {value} hours",
+  "averageWaterResistance": "Average Water Resistance: {value} {unit}",
+  "averageCaseDiameter": "Average Case Diameter: {value} mm",
+  "averageCaseThickness": "Average Case Thickness: {value} mm",
+  "averageLugToLug": "Average Lug to Lug: {value} mm",
+  "medianLugWidth": "Median Lug Width: {value}",
+  "noColourDataRecorded": "No colour data recorded"
 }

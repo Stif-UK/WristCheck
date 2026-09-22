@@ -1028,5 +1028,12 @@
   "totalSoldValueHelpTitle": "Valeur totale vendue",
   "totalSoldValueHelpText": "Cette valeur est la somme de tous les prix de vente enregistrés de toutes les montres ayant le statut 'Vendue'",
   "averageResaleHelpTitle": "Pourcentage moyen de revente",
-  "averageResaleHelpText": "Cette valeur est le pourcentage moyen récupéré lors de la vente d'une montre - elle est uniquement calculée pour les montres ayant le statut 'Vendue' pour lesquelles un prix d'achat et un prix de vente sont enregistrés.\n\nLe pourcentage est calculé en divisant la valeur totale des ventes par le coût total d'achat."
+  "averageResaleHelpText": "Cette valeur est le pourcentage moyen récupéré lors de la vente d'une montre - elle est uniquement calculée pour les montres ayant le statut 'Vendue' pour lesquelles un prix d'achat et un prix de vente sont enregistrés.\n\nLe pourcentage est calculé en divisant la valeur totale des ventes par le coût total d'achat.",
+  "averagePowerReserve": "Réserve de marche moyenne : {value} heures",
+  "averageWaterResistance": "Étanchéité moyenne : {value} {unit}",
+  "averageCaseDiameter": "Diamètre moyen du boîtier : {value} mm",
+  "averageCaseThickness": "Épaisseur moyenne du boîtier : {value} mm",
+  "averageLugToLug": "Longueur corne à corne moyenne : {value} mm",
+  "medianLugWidth": "Largeur d'entrecorne médiane : {value}",
+  "noColourDataRecorded": "Aucune donnée de couleur enregistrée"
 }

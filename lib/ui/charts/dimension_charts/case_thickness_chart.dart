@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -31,7 +32,7 @@ class _CaseThicknessChartState extends State<CaseThicknessChart> {
     return Obx(()=> Column(
         children: [
           _getChart(widget.collectionStatsController.caseThicknessChartType.value, data),
-          Text(_calculateAverageCaseThickness(data))
+          Text(_calculateAverageCaseThickness(context, data))
         ],
       ),
     );
@@ -101,12 +102,12 @@ List<CaseThicknessData> _getChartData(List<Watches> data) {
 
 }
 
-String _calculateAverageCaseThickness(List<Watches> data) {
+String _calculateAverageCaseThickness(BuildContext context, List<Watches> data) {
   String returnString = "";
 
-  if(data.length != 0){
+  if(data.isNotEmpty){
     double average = data.map((m) => m.caseThickness!).average;
-    returnString = "Average Case Thickness: ${WristCheckFormatter.getLocalizedDecimal(average, 2)} mm";
+    returnString = AppLocalizations.of(context)!.averageCaseThickness(WristCheckFormatter.getLocalizedDecimal(average, 2));
   }
 
   return returnString;

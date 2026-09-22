@@ -2591,4 +2591,37 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Это значение показывает средний процент возврата средств при продаже часов — оно рассчитывается только для часов со статусом \'Проданы\', у которых указаны и цена покупки, и цена продажи.\n\nПроцент рассчитывается путем деления общей суммы продаж на общие расходы на покупку.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Средний запас хода: $value ч.';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Средняя водонепроницаемость: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Средний диаметр корпуса: $value мм';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Средняя толщина корпуса: $value мм';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Среднее расстояние от ушка до ушка: $value мм';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Медианная ширина ушек: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'Нет данных о цвете';
 }

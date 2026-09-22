@@ -1029,5 +1029,12 @@
   "totalSoldValueHelpTitle": "Celková hodnota prodejů",
   "totalSoldValueHelpText": "Tato hodnota je součtem všech zaznamenaných prodejních cen všech hodinek se stavem 'Prodané'",
   "averageResaleHelpTitle": "Průměrné procento přeprodeje",
-  "averageResaleHelpText": "Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem 'Prodané', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady."
+  "averageResaleHelpText": "Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem 'Prodané', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady.",
+  "averagePowerReserve": "Průměrná rezerva chodu: {value} hodin",
+  "averageWaterResistance": "Průměrná vodotěsnost: {value} {unit}",
+  "averageCaseDiameter": "Průměrný průměr pouzdra: {value} mm",
+  "averageCaseThickness": "Průměrná tloušťka pouzdra: {value} mm",
+  "averageLugToLug": "Průměrná rozteč nožiček: {value} mm",
+  "medianLugWidth": "Medián šířky nožiček: {value}",
+  "noColourDataRecorded": "Nebyly zaznamenány žádné údaje o barvě"
 }

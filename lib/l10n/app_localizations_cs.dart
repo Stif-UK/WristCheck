@@ -2573,4 +2573,37 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get averageResaleHelpText =>
       'Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem \'Prodané\', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady.';
+
+  @override
+  String averagePowerReserve(String value) {
+    return 'Průměrná rezerva chodu: $value hodin';
+  }
+
+  @override
+  String averageWaterResistance(String value, String unit) {
+    return 'Průměrná vodotěsnost: $value $unit';
+  }
+
+  @override
+  String averageCaseDiameter(String value) {
+    return 'Průměrný průměr pouzdra: $value mm';
+  }
+
+  @override
+  String averageCaseThickness(String value) {
+    return 'Průměrná tloušťka pouzdra: $value mm';
+  }
+
+  @override
+  String averageLugToLug(String value) {
+    return 'Průměrná rozteč nožiček: $value mm';
+  }
+
+  @override
+  String medianLugWidth(String value) {
+    return 'Medián šířky nožiček: $value';
+  }
+
+  @override
+  String get noColourDataRecorded => 'Nebyly zaznamenány žádné údaje o barvě';
 }

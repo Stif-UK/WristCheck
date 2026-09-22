@@ -1031,5 +1031,12 @@
   "totalSoldValueHelpTitle": "Valore Totale Venduto",
   "totalSoldValueHelpText": "Questo valore è la somma di tutti i prezzi di vendita registrati di tutti gli orologi con stato 'Venduto'",
   "averageResaleHelpTitle": "Percentuale Media di Rivendita",
-  "averageResaleHelpText": "Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato 'Venduto' che hanno sia un prezzo d'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d'acquisto."
+  "averageResaleHelpText": "Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato 'Venduto' che hanno sia un prezzo d'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d'acquisto.",
+  "averagePowerReserve": "Riserva di carica media: {value} ore",
+  "averageWaterResistance": "Impermeabilità media: {value} {unit}",
+  "averageCaseDiameter": "Diametro cassa medio: {value} mm",
+  "averageCaseThickness": "Spessore cassa medio: {value} mm",
+  "averageLugToLug": "Distanza da ansa ad ansa media: {value} mm",
+  "medianLugWidth": "Larghezza anse mediana: {value}",
+  "noColourDataRecorded": "Nessun dato sul colore registrato"
 }

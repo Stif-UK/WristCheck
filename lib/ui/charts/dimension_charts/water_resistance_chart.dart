@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:collection/collection.dart';
@@ -61,26 +63,27 @@ class _WaterResistanceChartState extends State<WaterResistanceChart> {
               dataSource: getChartData,
               xValueMapper: (WaterResistanceData mvmt, _) => mvmt.waterResistance,
               yValueMapper: (WaterResistanceData mvmt, _) => mvmt.count,
-              dataLabelMapper: (moov, _)=> "${moov.waterResistance} ${widget.wristCheckController.waterResistanceUnit.value.name}: ${moov.count}",
+              dataLabelMapper: (moov, _)=> "${moov.waterResistance} ${widget.wristCheckController.waterResistanceUnit.value.toLocalizedString(context)}: ${moov.count}",
               dataLabelSettings: const DataLabelSettings(isVisible: true),
             )
           ],
           primaryXAxis: CategoryAxis(isVisible: false),
         ),
-        Text(_calculateAverageWaterResistance(data)),
+        Text(_calculateAverageWaterResistance(context, data)),
       ],
     );
   }
 }
 
-//TODO: Replace with average info for WR
-String _calculateAverageWaterResistance(List<Watches> data) {
+String _calculateAverageWaterResistance(BuildContext context, List<Watches> data) {
   final wristcheckController = Get.put(WristCheckController());
   String returnString = "";
 
-  if(data.length != 0){
+  if (data.isNotEmpty) {
     double average = data.map((watch) => watch.waterResistance!).average;
-    returnString = "Average Water Resistance: ${double.parse(average.toStringAsFixed(2)).round()} ${wristcheckController.waterResistanceUnit.value.name}";
+    String valueStr = double.parse(average.toStringAsFixed(2)).round().toString();
+    String unitStr = wristcheckController.waterResistanceUnit.value.toLocalizedString(context);
+    returnString = AppLocalizations.of(context)!.averageWaterResistance(valueStr, unitStr);
   }
 
   return returnString;
