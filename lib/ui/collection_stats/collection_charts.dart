@@ -9,8 +9,10 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/case_thickness_chart_enum.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/lug2lug_chart_enum.dart';
+import 'package:wristcheck/model/enums/collection_chart_enums/power_reserve_chart_enum.dart';
 import 'package:wristcheck/ui/charts/collection_charts/colour_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/date_complication_chart.dart';
+import 'package:wristcheck/ui/charts/collection_charts/power_reserve_chart.dart';
 import 'package:wristcheck/ui/charts/dimension_charts/case_diameters_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/category_chart.dart';
 import 'package:wristcheck/ui/charts/collection_charts/cost_per_wear_chart.dart';
@@ -229,6 +231,33 @@ class _CollectionChartsState extends State<CollectionCharts> {
                 Padding(
                   padding: getPagePadding(),
                   child: CaseThicknessChart(),
+                ),
+                const Divider(thickness: 2,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: getPagePadding(),
+                      child: Text(
+                        AppLocalizations.of(context)!.powerReserveRowHintText,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    IconButton(
+                      icon: widget.collectionStatsController.powerReserveChartType.value == PowerReserveChartEnum.line
+                          ? FaIcon(FontAwesomeIcons.chartLine)
+                          : FaIcon(FontAwesomeIcons.chartBar),
+                      onPressed: () {
+                        widget.collectionStatsController.powerReserveChartType.value == PowerReserveChartEnum.line
+                            ? widget.collectionStatsController.updatePowerReserveChartType(PowerReserveChartEnum.bar)
+                            : widget.collectionStatsController.updatePowerReserveChartType(PowerReserveChartEnum.line);
+                      },
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: getPagePadding(),
+                  child: PowerReserveChart(),
                 ),
                 const Divider(thickness: 2,),
                 Padding(

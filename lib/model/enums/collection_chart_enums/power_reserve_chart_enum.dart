@@ -1,0 +1,1 @@
+enum PowerReserveChartEnum { line, bar }
