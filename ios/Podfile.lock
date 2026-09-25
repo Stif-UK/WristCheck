@@ -3,14 +3,11 @@ PODS:
   - flutter_kronos (0.0.1):
     - Flutter
     - Kronos (= 4.1.0)
-  - flutter_local_notifications (0.0.1):
-    - Flutter
   - Kronos (4.1.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_kronos (from `.symlinks/plugins/flutter_kronos/ios`)
-  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
 
 SPEC REPOS:
   trunk:
@@ -21,13 +18,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_kronos:
     :path: ".symlinks/plugins/flutter_kronos/ios"
-  flutter_local_notifications:
-    :path: ".symlinks/plugins/flutter_local_notifications/ios"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_kronos: c27a805f5f0dc00932c840ebadabde71c3a7d520
-  flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   Kronos: d67579565469f57fae67ac7985c3881738f02075
 
 PODFILE CHECKSUM: 3bff2054dfec3f1cfae3f9c3c1c75f4016fb4a0f

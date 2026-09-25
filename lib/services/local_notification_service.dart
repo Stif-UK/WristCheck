@@ -89,7 +89,6 @@ class WristCheckLocalNotificationService{
         body,
         tz.TZDateTime.from(notificationTime, tz.local),
         details,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         matchDateTimeComponents: DateTimeComponents.time
     );
