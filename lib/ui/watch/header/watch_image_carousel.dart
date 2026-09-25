@@ -24,9 +24,21 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized();
-    _currentPage = widget.currentWatch?.primaryImageIndex ?? 0;
+    try {
+      _currentPage = widget.currentWatch?.primaryImageIndex ?? 0;
+    } catch (_) {
+      _currentPage = 0;
+    }
     _watchCarouselController = CarouselController(initialItem: _currentPage);
     super.initState();
+    if (_currentPage > 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _watchCarouselController.hasClients) {
+          final double extent = MediaQuery.sizeOf(context).width * 0.8;
+          _watchCarouselController.jumpTo(_currentPage * extent);
+        }
+      });
+    }
   }
 
 
@@ -62,25 +74,30 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                 child: Obx(
-                  () => Hero(
-                    tag: "ImageCarousel",
-                    child: CarouselView.weighted(
-                      onTap: (index) async {
-                        widget.watchViewController.imageList[index].image == null ||
-                                widget.watchViewController.watchViewState == WatchViewEnum.add
-                            ? await ImagesUtil.addImageViaController(index, context, widget.currentWatch)
-                            : Get.to(() => WatchImageGallery(watch: widget.currentWatch!, index: index));
-                      },
-                      flexWeights: const [1, 8, 1],
-                      controller: _watchCarouselController,
-                      itemSnapping: true,
-                      children: [
-                        widget.watchViewController.imageList[0],
-                        widget.watchViewController.imageList[1],
-                        widget.watchViewController.imageList[2],
-                      ],
-                    ),
-                  ),
+                  () {
+                    if (widget.watchViewController.imageList.length < 3) {
+                      return const SizedBox();
+                    }
+                    return Hero(
+                      tag: "ImageCarousel",
+                      child: CarouselView(
+                        itemExtent: MediaQuery.sizeOf(context).width * 0.8,
+                        controller: _watchCarouselController,
+                        itemSnapping: true,
+                        onTap: (index) async {
+                          widget.watchViewController.imageList[index].image == null ||
+                                  widget.watchViewController.watchViewState == WatchViewEnum.add
+                              ? await ImagesUtil.addImageViaController(index, context, widget.currentWatch)
+                              : Get.to(() => WatchImageGallery(watch: widget.currentWatch!, index: index));
+                        },
+                        children: [
+                          widget.watchViewController.imageList[0],
+                          widget.watchViewController.imageList[1],
+                          widget.watchViewController.imageList[2],
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -108,12 +125,9 @@ Get the data to show on the page - this is either a list of File? objects (inclu
   Prep the data - use the returned images and nulls to generate a series of either images or icons
    */
   void _prepDataList(List<File?> images) {
-    //Clear the current list
-    widget.watchViewController.clearImageList();
-    //We need to create a list of ImageCards - images or icons depending on what's currently saved
-    for (int i = 0; i < images.length; i++){
-      widget.watchViewController.imageList.add(ImageCardWidget(image: images[i]));
-    }
+    widget.watchViewController.imageList.assignAll(
+      images.map((image) => ImageCardWidget(image: image)).toList(),
+    );
   }
 
 }
