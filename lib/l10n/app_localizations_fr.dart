@@ -492,6 +492,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get primaryColourHintText => 'Couleur';
 
   @override
+  String get secondaryColourRowTitle => 'Couleur secondaire :';
+
+  @override
+  String get secondaryColourHintText => 'Couleur secondaire';
+
+  @override
+  String get primaryColourLabel => 'Couleur principale';
+
+  @override
+  String get secondaryColourLabel => 'Couleur secondaire';
+
+  @override
   String get colourChartTitle => 'Graphique des couleurs';
 
   @override
@@ -649,6 +661,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get primaryColourInvalidError =>
       'La couleur principale contient des caractères non valides';
+
+  @override
+  String get secondaryColourInvalidError =>
+      'La couleur secondaire contient des caractères non valides';
 
   @override
   String get digitsNoDecimalsError =>

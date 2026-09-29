@@ -490,6 +490,18 @@ class AppLocalizationsCs extends AppLocalizations {
   String get primaryColourHintText => 'Barva';
 
   @override
+  String get secondaryColourRowTitle => 'Sekundární barva:';
+
+  @override
+  String get secondaryColourHintText => 'Sekundární barva';
+
+  @override
+  String get primaryColourLabel => 'Hlavní barva';
+
+  @override
+  String get secondaryColourLabel => 'Sekundární barva';
+
+  @override
   String get colourChartTitle => 'Graf barev';
 
   @override
@@ -646,6 +658,10 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get primaryColourInvalidError =>
       'Hlavní barva obsahuje neplatné znaky';
+
+  @override
+  String get secondaryColourInvalidError =>
+      'Sekundární barva obsahuje neplatné znaky';
 
   @override
   String get digitsNoDecimalsError =>

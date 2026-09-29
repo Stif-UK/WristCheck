@@ -996,6 +996,30 @@ abstract class AppLocalizations {
   /// **'Colour'**
   String get primaryColourHintText;
 
+  /// No description provided for @secondaryColourRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Colour:'**
+  String get secondaryColourRowTitle;
+
+  /// No description provided for @secondaryColourHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Colour'**
+  String get secondaryColourHintText;
+
+  /// No description provided for @primaryColourLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Colour'**
+  String get primaryColourLabel;
+
+  /// No description provided for @secondaryColourLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Colour'**
+  String get secondaryColourLabel;
+
   /// No description provided for @colourChartTitle.
   ///
   /// In en, this message translates to:
@@ -1301,6 +1325,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Primary Colour contains invalid characters'**
   String get primaryColourInvalidError;
+
+  /// No description provided for @secondaryColourInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Colour contains invalid characters'**
+  String get secondaryColourInvalidError;
 
   /// No description provided for @digitsNoDecimalsError.
   ///

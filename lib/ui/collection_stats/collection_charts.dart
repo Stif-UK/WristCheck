@@ -101,16 +101,15 @@ class _CollectionChartsState extends State<CollectionCharts> {
               ),
               Obx(() {
                 Widget iconWidget;
-                switch (widget.collectionStatsController.colourChartType.value) {
-                  case ColourChartEnum.bar:
-                    iconWidget = const FaIcon(FontAwesomeIcons.chartBar, size: 18);
-                    break;
-                  case ColourChartEnum.pie:
-                    iconWidget = const FaIcon(FontAwesomeIcons.chartPie, size: 18);
-                    break;
-                  case ColourChartEnum.donut:
-                    iconWidget = const Icon(Icons.donut_large, size: 22);
-                    break;
+                final chartType = widget.collectionStatsController.colourChartType.value;
+                if (chartType == ColourChartEnum.bar) {
+                  iconWidget = const FaIcon(FontAwesomeIcons.chartBar, size: 18);
+                } else if (chartType == ColourChartEnum.pie) {
+                  iconWidget = const FaIcon(FontAwesomeIcons.chartPie, size: 18);
+                } else if (chartType == ColourChartEnum.donut) {
+                  iconWidget = const Icon(Icons.donut_large, size: 22);
+                } else {
+                  iconWidget = const FaIcon(FontAwesomeIcons.layerGroup, size: 18);
                 }
                 return IconButton(
                   icon: iconWidget,

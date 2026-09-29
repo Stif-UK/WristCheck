@@ -142,6 +142,13 @@ class WatchDataValidationFacade{
     return primaryColour.isAlphaOrEmpty;
   }
 
+  static bool validateSecondaryColour(var secondaryColour){
+    if(secondaryColour is !String){
+      secondaryColour = secondaryColour.toString();
+    }
+    return secondaryColour.isAlphaOrEmpty;
+  }
+
 
 
 }

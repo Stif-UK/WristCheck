@@ -9,7 +9,7 @@ class CollectionStatsController extends GetxController{
   final caseThicknessChartType = CaseThicknessChartEnum.line.obs;
   final lug2lugChartType = Lug2lugChartEnum.line.obs;
   final powerReserveChartType = PowerReserveChartEnum.line.obs;
-  final colourChartType = ColourChartEnum.bar.obs;
+  final colourChartType = ColourChartEnum.stackedBar.obs;
   final showPrice = WristCheckPreferences.getCostPerWearValuePref().obs;//
   final groupWatchYearByDecade = WristCheckPreferences.getGroupWatchYearByDecade().obs;
 
@@ -31,6 +31,9 @@ class CollectionStatsController extends GetxController{
 
   cycleColourChartType(){
     switch (colourChartType.value) {
+      case ColourChartEnum.stackedBar:
+        colourChartType(ColourChartEnum.bar);
+        break;
       case ColourChartEnum.bar:
         colourChartType(ColourChartEnum.pie);
         break;
@@ -38,7 +41,7 @@ class CollectionStatsController extends GetxController{
         colourChartType(ColourChartEnum.donut);
         break;
       case ColourChartEnum.donut:
-        colourChartType(ColourChartEnum.bar);
+        colourChartType(ColourChartEnum.stackedBar);
         break;
     }
   }

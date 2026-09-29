@@ -20,20 +20,26 @@ class _ColourChartState extends State<ColourChart> {
     final collectionStatsController = Get.find<CollectionStatsController>();
     final List<Watches> data = Boxes.getCollectionWatches();
 
-    Map<String, int> chartData = <String, int>{};
+    Map<String, _ColourCounts> colourCounts = {};
+
     for (var watch in data) {
       if (watch.primaryColour != null && watch.primaryColour!.trim().isNotEmpty) {
-        String colour = watch.primaryColour!.trim();
-        chartData.update(colour, (value) => ++value, ifAbsent: () => 1);
+        String pCol = watch.primaryColour!.trim();
+        colourCounts.putIfAbsent(pCol, () => _ColourCounts());
+        colourCounts[pCol]!.primaryCount++;
+      }
+      if (watch.secondaryColour != null && watch.secondaryColour!.trim().isNotEmpty) {
+        String sCol = watch.secondaryColour!.trim();
+        colourCounts.putIfAbsent(sCol, () => _ColourCounts());
+        colourCounts[sCol]!.secondaryCount++;
       }
     }
 
-    var sortedEntries = chartData.entries.toList()
-      ..sort((e1, e2) => e1.value.compareTo(e2.value));
+    List<ColourData> getChartData = colourCounts.entries.map((e) {
+      return ColourData(e.key, e.value.primaryCount, e.value.secondaryCount);
+    }).toList();
 
-    List<ColourData> getChartData = sortedEntries
-        .map((e) => ColourData(e.key, e.value))
-        .toList();
+    getChartData.sort((a, b) => a.totalCount.compareTo(b.totalCount));
 
     if (getChartData.isEmpty) {
       return SizedBox(
@@ -45,67 +51,108 @@ class _ColourChartState extends State<ColourChart> {
     }
 
     return Obx(() {
-      switch (collectionStatsController.colourChartType.value) {
-        case ColourChartEnum.bar:
-          return SfCartesianChart(
-            series: <CartesianSeries>[
-              BarSeries<ColourData, String>(
-                dataSource: getChartData,
-                xValueMapper: (ColourData item, _) => item.colour,
-                yValueMapper: (ColourData item, _) => item.count,
-                dataLabelMapper: (ColourData item, _) => "${item.colour}: ${item.count}",
-                dataLabelSettings: const DataLabelSettings(isVisible: true),
-              )
-            ],
-            primaryXAxis: CategoryAxis(isVisible: false),
-          );
-        case ColourChartEnum.pie:
-          return SfCircularChart(
-            legend: const Legend(
-              isVisible: true,
-              overflowMode: LegendItemOverflowMode.wrap,
+      final chartType = collectionStatsController.colourChartType.value;
+      if (chartType == ColourChartEnum.bar) {
+        return SfCartesianChart(
+          primaryXAxis: CategoryAxis(isVisible: false),
+          primaryYAxis: NumericAxis(),
+          series: <CartesianSeries>[
+            BarSeries<ColourData, String>(
+              dataSource: getChartData,
+              xValueMapper: (ColourData item, _) => item.colour,
+              yValueMapper: (ColourData item, _) => item.totalCount,
+              dataLabelMapper: (ColourData item, _) =>
+                  "${item.colour}: ${item.totalCount}",
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+            )
+          ],
+        );
+      } else if (chartType == ColourChartEnum.pie) {
+        return SfCircularChart(
+          legend: const Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+          ),
+          series: <CircularSeries<ColourData, String>>[
+            PieSeries<ColourData, String>(
+              dataSource: getChartData,
+              xValueMapper: (ColourData item, _) => item.colour,
+              yValueMapper: (ColourData item, _) => item.totalCount,
+              dataLabelMapper: (ColourData item, _) =>
+                  "${item.colour}: ${item.totalCount}",
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                labelPosition: ChartDataLabelPosition.outside,
+              ),
+              enableTooltip: true,
+            )
+          ],
+        );
+      } else if (chartType == ColourChartEnum.donut) {
+        return SfCircularChart(
+          legend: const Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+          ),
+          series: <CircularSeries<ColourData, String>>[
+            DoughnutSeries<ColourData, String>(
+              dataSource: getChartData,
+              xValueMapper: (ColourData item, _) => item.colour,
+              yValueMapper: (ColourData item, _) => item.totalCount,
+              dataLabelMapper: (ColourData item, _) =>
+                  "${item.colour}: ${item.totalCount}",
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                labelPosition: ChartDataLabelPosition.outside,
+              ),
+              enableTooltip: true,
+            )
+          ],
+        );
+      } else {
+        return SfCartesianChart(
+          legend: const Legend(
+            isVisible: true,
+            position: LegendPosition.top,
+            overflowMode: LegendItemOverflowMode.wrap,
+          ),
+          primaryXAxis: CategoryAxis(isVisible: true),
+          primaryYAxis: NumericAxis(),
+          series: <CartesianSeries>[
+            StackedBarSeries<ColourData, String>(
+              name: AppLocalizations.of(context)!.primaryColourLabel,
+              dataSource: getChartData,
+              xValueMapper: (ColourData item, _) => item.colour,
+              yValueMapper: (ColourData item, _) => item.primaryCount,
+              dataLabelMapper: (ColourData item, _) =>
+                  item.primaryCount > 0 ? "${item.primaryCount}" : "",
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
             ),
-            series: <CircularSeries<ColourData, String>>[
-              PieSeries<ColourData, String>(
-                dataSource: getChartData,
-                xValueMapper: (ColourData item, _) => item.colour,
-                yValueMapper: (ColourData item, _) => item.count,
-                dataLabelMapper: (ColourData item, _) => "${item.colour}: ${item.count}",
-                dataLabelSettings: const DataLabelSettings(
-                  isVisible: true,
-                  labelPosition: ChartDataLabelPosition.outside,
-                ),
-                enableTooltip: true,
-              )
-            ],
-          );
-        case ColourChartEnum.donut:
-          return SfCircularChart(
-            legend: const Legend(
-              isVisible: true,
-              overflowMode: LegendItemOverflowMode.wrap,
+            StackedBarSeries<ColourData, String>(
+              name: AppLocalizations.of(context)!.secondaryColourLabel,
+              dataSource: getChartData,
+              xValueMapper: (ColourData item, _) => item.colour,
+              yValueMapper: (ColourData item, _) => item.secondaryCount,
+              dataLabelMapper: (ColourData item, _) =>
+                  item.secondaryCount > 0 ? "${item.secondaryCount}" : "",
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
             ),
-            series: <CircularSeries<ColourData, String>>[
-              DoughnutSeries<ColourData, String>(
-                dataSource: getChartData,
-                xValueMapper: (ColourData item, _) => item.colour,
-                yValueMapper: (ColourData item, _) => item.count,
-                dataLabelMapper: (ColourData item, _) => "${item.colour}: ${item.count}",
-                dataLabelSettings: const DataLabelSettings(
-                  isVisible: true,
-                  labelPosition: ChartDataLabelPosition.outside,
-                ),
-                enableTooltip: true,
-              )
-            ],
-          );
+          ],
+        );
       }
     });
   }
 }
 
+class _ColourCounts {
+  int primaryCount = 0;
+  int secondaryCount = 0;
+}
+
 class ColourData {
-  ColourData(this.colour, this.count);
+  ColourData(this.colour, this.primaryCount, this.secondaryCount);
   final String colour;
-  final int count;
+  final int primaryCount;
+  final int secondaryCount;
+  int get totalCount => primaryCount + secondaryCount;
 }

@@ -10,6 +10,7 @@ import 'package:wristcheck/ui/watch/rows/manufacturer_row.dart';
 import 'package:wristcheck/ui/watch/rows/model_row.dart';
 import 'package:wristcheck/ui/watch/rows/primary_colour_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
+import 'package:wristcheck/ui/watch/rows/secondary_colour_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -23,6 +24,7 @@ class InfoTab extends StatelessWidget {
     required this.movementFieldController,
     required this.categoryFieldController,
     required this.primaryColourFieldController,
+    required this.secondaryColourFieldController,
     required this.bodyLarge,
     required this.context,
   });
@@ -35,6 +37,7 @@ class InfoTab extends StatelessWidget {
   final TextEditingController movementFieldController;
   final TextEditingController categoryFieldController;
   final TextEditingController primaryColourFieldController;
+  final TextEditingController secondaryColourFieldController;
   final TextStyle? bodyLarge;
   final BuildContext context; //Passing context is bad practice! Only used to determine app theme
 
@@ -48,6 +51,7 @@ class InfoTab extends StatelessWidget {
         ModelRow(enabled: watchViewController.inEditState.value, modelFieldController: modelFieldController),
         _buildCategoryField(),
         PrimaryColourRow(enabled: watchViewController.inEditState.value, primaryColourFieldController: primaryColourFieldController),
+        SecondaryColourRow(enabled: watchViewController.inEditState.value, secondaryColourFieldController: secondaryColourFieldController),
         SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: watchViewController.inEditState.value, viewState: watchViewController.watchViewState.value),
         ReferenceNumberRow(enabled: watchViewController.inEditState.value, referenceNumberFieldController: referenceNumberFieldController, viewState: watchViewController.watchViewState.value),
         _buildMovementField()

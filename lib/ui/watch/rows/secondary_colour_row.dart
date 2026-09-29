@@ -7,48 +7,48 @@ import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 
-class PrimaryColourRow extends StatefulWidget {
-  const PrimaryColourRow({
+class SecondaryColourRow extends StatefulWidget {
+  const SecondaryColourRow({
     super.key,
     required this.enabled,
-    required this.primaryColourFieldController,
+    required this.secondaryColourFieldController,
   });
 
   final bool enabled;
-  final TextEditingController primaryColourFieldController;
+  final TextEditingController secondaryColourFieldController;
 
   @override
-  State<PrimaryColourRow> createState() => _PrimaryColourRowState();
+  State<SecondaryColourRow> createState() => _SecondaryColourRowState();
 }
 
-class _PrimaryColourRowState extends State<PrimaryColourRow> {
+class _SecondaryColourRowState extends State<SecondaryColourRow> {
   TextEditingController? _autocompleteController;
 
   @override
   void initState() {
     super.initState();
-    widget.primaryColourFieldController.addListener(_onExternalControllerChanged);
+    widget.secondaryColourFieldController.addListener(_onExternalControllerChanged);
   }
 
   @override
-  void didUpdateWidget(covariant PrimaryColourRow oldWidget) {
+  void didUpdateWidget(covariant SecondaryColourRow oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.primaryColourFieldController != widget.primaryColourFieldController) {
-      oldWidget.primaryColourFieldController.removeListener(_onExternalControllerChanged);
-      widget.primaryColourFieldController.addListener(_onExternalControllerChanged);
+    if (oldWidget.secondaryColourFieldController != widget.secondaryColourFieldController) {
+      oldWidget.secondaryColourFieldController.removeListener(_onExternalControllerChanged);
+      widget.secondaryColourFieldController.addListener(_onExternalControllerChanged);
     }
   }
 
   @override
   void dispose() {
-    widget.primaryColourFieldController.removeListener(_onExternalControllerChanged);
+    widget.secondaryColourFieldController.removeListener(_onExternalControllerChanged);
     super.dispose();
   }
 
   void _onExternalControllerChanged() {
     if (_autocompleteController != null &&
-        _autocompleteController!.text != widget.primaryColourFieldController.text) {
-      _autocompleteController!.text = widget.primaryColourFieldController.text;
+        _autocompleteController!.text != widget.secondaryColourFieldController.text) {
+      _autocompleteController!.text = widget.secondaryColourFieldController.text;
     }
   }
 
@@ -71,7 +71,7 @@ class _PrimaryColourRowState extends State<PrimaryColourRow> {
   @override
   Widget build(BuildContext context) {
     return Autocomplete<String>(
-      initialValue: TextEditingValue(text: widget.primaryColourFieldController.text),
+      initialValue: TextEditingValue(text: widget.secondaryColourFieldController.text),
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text.isEmpty) {
           return const Iterable<String>.empty();
@@ -82,7 +82,7 @@ class _PrimaryColourRowState extends State<PrimaryColourRow> {
         });
       },
       onSelected: (String selection) {
-        widget.primaryColourFieldController.text = selection;
+        widget.secondaryColourFieldController.text = selection;
       },
       fieldViewBuilder: (BuildContext context,
           TextEditingController fieldTextEditingController,
@@ -90,16 +90,16 @@ class _PrimaryColourRowState extends State<PrimaryColourRow> {
           VoidCallback onFieldSubmitted) {
         _autocompleteController = fieldTextEditingController;
         fieldTextEditingController.addListener(() {
-          if (widget.primaryColourFieldController.text != fieldTextEditingController.text) {
-            widget.primaryColourFieldController.text = fieldTextEditingController.text;
+          if (widget.secondaryColourFieldController.text != fieldTextEditingController.text) {
+            widget.secondaryColourFieldController.text = fieldTextEditingController.text;
           }
         });
 
         return WatchFormField(
           icon: const FaIcon(FontAwesomeIcons.palette),
           enabled: widget.enabled,
-          fieldTitle: AppLocalizations.of(Get.context!)!.primaryColourRowTitle,
-          hintText: AppLocalizations.of(Get.context!)!.primaryColourHintText,
+          fieldTitle: AppLocalizations.of(Get.context!)!.secondaryColourRowTitle,
+          hintText: AppLocalizations.of(Get.context!)!.secondaryColourHintText,
           maxLines: 1,
           controller: fieldTextEditingController,
           focusNode: focusNode,
@@ -107,7 +107,7 @@ class _PrimaryColourRowState extends State<PrimaryColourRow> {
           textCapitalization: TextCapitalization.words,
           validator: (String? val) {
             if (val != null && val.isNotEmpty && !val.isAlphaOrEmpty) {
-              return AppLocalizations.of(Get.context!)!.primaryColourInvalidError;
+              return AppLocalizations.of(Get.context!)!.secondaryColourInvalidError;
             }
             return null;
           },

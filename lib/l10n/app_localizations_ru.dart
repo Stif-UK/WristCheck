@@ -488,6 +488,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get primaryColourHintText => 'Цвет';
 
   @override
+  String get secondaryColourRowTitle => 'Вторичный цвет:';
+
+  @override
+  String get secondaryColourHintText => 'Вторичный цвет';
+
+  @override
+  String get primaryColourLabel => 'Основной цвет';
+
+  @override
+  String get secondaryColourLabel => 'Вторичный цвет';
+
+  @override
   String get colourChartTitle => 'Диаграмма цветов';
 
   @override
@@ -646,6 +658,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get primaryColourInvalidError =>
       'Основной цвет содержит недопустимые символы';
+
+  @override
+  String get secondaryColourInvalidError =>
+      'Вторичный цвет содержит недопустимые символы';
 
   @override
   String get digitsNoDecimalsError =>
