@@ -109,7 +109,8 @@ class _SearchFinderState extends State<SearchFinder> {
                           }
                         }
                         if (searchByColour && !matches) {
-                          if (c.primaryColour != null && c.primaryColour!.toLowerCase().contains(widget.query.toLowerCase())) {
+                          if ((c.primaryColour != null && c.primaryColour!.toLowerCase().contains(widget.query.toLowerCase())) ||
+                              (c.secondaryColour != null && c.secondaryColour!.toLowerCase().contains(widget.query.toLowerCase()))) {
                             matches = true;
                           }
                         }
@@ -178,6 +179,13 @@ class _SearchFinderState extends State<SearchFinder> {
                                             const SizedBox(height: 4.0),
                                             Text(
                                               "${AppLocalizations.of(context)!.primaryColourHintText}: ${watchesListItem.primaryColour}",
+                                              style: Theme.of(context).textTheme.bodySmall,
+                                            ),
+                                          ],
+                                          if (searchByColour && watchesListItem.secondaryColour != null && watchesListItem.secondaryColour!.isNotEmpty) ...[
+                                            const SizedBox(height: 4.0),
+                                            Text(
+                                              "${AppLocalizations.of(context)!.secondaryColourHintText}: ${watchesListItem.secondaryColour}",
                                               style: Theme.of(context).textTheme.bodySmall,
                                             ),
                                           ],
