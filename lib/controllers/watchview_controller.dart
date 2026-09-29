@@ -17,6 +17,7 @@ class WatchViewController extends GetxController{
   final watchViewState = WatchViewEnum.view.obs;
   final purchasePrice = 0.obs;
   final soldPrice = 0.obs;
+  final currentValue = 0.obs;
   final movement = "".obs;
   final category = "".obs;
   final caseMaterial = "".obs;
@@ -69,6 +70,10 @@ class WatchViewController extends GetxController{
 
   updateSoldPrice(int price){
     soldPrice(price);
+  }
+
+  updateCurrentValue(int price){
+    currentValue(price);
   }
 
   updateMovement(String? _movement){

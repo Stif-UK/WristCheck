@@ -187,6 +187,8 @@
   "purchaseDateRowHintText" : "Date d'achat",
   "purchasePriceRowTitle" : "Prix d'achat :",
   "purchasePriceRowHintText" : "Prix d'achat",
+  "currentValueRowTitle" : "Valeur actuelle :",
+  "currentValueRowHintText" : "Valeur actuelle",
   "purchasedFromRowTitle" : "Lieu d'achat :",
   "purchasedFromHintText" : "Lieu d'achat",
   "referenceNumberRowTitle" : "Référence :",

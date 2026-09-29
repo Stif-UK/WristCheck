@@ -64,6 +64,7 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
       widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
       widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
+      widget.watchViewController.updateCurrentValue(widget.currentWatch?.value ?? 0);
       widget.watchViewController.updateMovement(widget.currentWatch?.movement ?? "");
       widget.watchViewController.updateCategory(widget.currentWatch?.category ?? "");
       widget.watchViewController.updateCaseMaterial(widget.currentWatch?.caseMaterial ?? "");
@@ -79,6 +80,7 @@ class _WatchViewState extends State<WatchView> {
     } else {
       widget.watchViewController.updatePurchasePrice(0);
       widget.watchViewController.updateSoldPrice(0);
+      widget.watchViewController.updateCurrentValue(0);
       widget.watchViewController.updateMovement("");
       widget.watchViewController.updateCategory("");
       widget.watchViewController.updateFavourite(false);
@@ -165,6 +167,7 @@ class _WatchViewState extends State<WatchView> {
   final soldToFieldController = TextEditingController();
   final purchasePriceFieldController = TextEditingController();
   final soldPriceFieldController = TextEditingController();
+  final currentValueFieldController = TextEditingController();
   final timeInCollectionFieldController = TextEditingController();
   final soldDateFieldController = TextEditingController();
   final deliveryDateFieldController = TextEditingController();
@@ -201,6 +204,7 @@ class _WatchViewState extends State<WatchView> {
     soldToFieldController.dispose();
     purchasePriceFieldController.dispose();
     soldPriceFieldController.dispose();
+    currentValueFieldController.dispose();
     timeInCollectionFieldController.dispose();
     soldDateFieldController.dispose();
     deliveryDateFieldController.dispose();
@@ -252,6 +256,7 @@ class _WatchViewState extends State<WatchView> {
             _soldTo = soldToFieldController.value.text;
             widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
             widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
+            widget.watchViewController.updateCurrentValue(ViewWatchHelper.getPrice(currentValueFieldController.value.text));
             _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
             _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
             _lugWidth = ViewWatchHelper.getIntInputValue(lugWidthFieldController.value.text);
@@ -288,6 +293,7 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.soldTo = _soldTo;
             widget.currentWatch!.purchasePrice = widget.watchViewController.purchasePrice.value;
             widget.currentWatch!.soldPrice = widget.watchViewController.soldPrice.value;
+            widget.currentWatch!.value = widget.watchViewController.currentValue.value;
             widget.currentWatch!.soldDate = _soldDate;
             widget.currentWatch!.deliveryDate = _deliveryDate;
             widget.currentWatch!.warrantyEndDate = _warrantyEndDate;
@@ -361,6 +367,7 @@ class _WatchViewState extends State<WatchView> {
         _soldTo = widget.currentWatch!.soldTo;
         widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
         widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
+        widget.watchViewController.updateCurrentValue(widget.currentWatch!.value ?? 0);
         widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
         widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
         widget.watchViewController.updateDateComplication(widget.currentWatch!.dateComplication);
@@ -392,6 +399,8 @@ class _WatchViewState extends State<WatchView> {
         purchasePriceFieldController.value = TextEditingValue(text: purchasePriceValue != null? purchasePriceValue.toString() : "" );
         var soldPriceValue = widget.currentWatch!.soldPrice;
         soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
+        var currentValueValue = widget.currentWatch!.value;
+        currentValueFieldController.value = TextEditingValue(text: currentValueValue != null? currentValueValue.toString() : "");
         caseDiameterFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.caseDiameter));
         lugWidthFieldController.value = TextEditingValue(text: widget.currentWatch!.lugWidth != null? widget.currentWatch!.lugWidth.toString() : "");
         lug2lugFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.lug2lug));
@@ -614,6 +623,7 @@ class _WatchViewState extends State<WatchView> {
                                                 purchasedFromFieldController: purchasedFromFieldController,
                                                 soldPriceFieldController: soldPriceFieldController,
                                                 soldToFieldController: soldToFieldController,
+                                                currentValueFieldController: currentValueFieldController,
                                                 currentWatch: widget.currentWatch,
                                                 bodyLarge: Theme.of(context).textTheme.bodyLarge,
                                                 headlineSmall: Theme.of(context).textTheme.headlineSmall,
@@ -741,6 +751,7 @@ class _WatchViewState extends State<WatchView> {
                   : int.tryParse(powerReserveFieldController.value.text);
               widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
               widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
+              widget.watchViewController.updateCurrentValue(ViewWatchHelper.getPrice(currentValueFieldController.value.text));
 
 
               watchKey = await WatchMethods.addWatch(
@@ -760,6 +771,7 @@ class _WatchViewState extends State<WatchView> {
                 soldTo: soldToFieldController.value.text,
                 purchasePrice: widget.watchViewController.purchasePrice.value,
                 soldPrice: widget.watchViewController.soldPrice.value,
+                value: widget.watchViewController.currentValue.value,
                 soldDate: _soldDate,
                 deliveryDate: _deliveryDate,
                 warrantyEndDate: _warrantyEndDate,
@@ -852,6 +864,7 @@ class _WatchViewState extends State<WatchView> {
       widget.currentWatch!.model != modelFieldController.value.text ||
       widget.currentWatch!.soldPrice != ViewWatchHelper.getPrice(soldPriceFieldController.value.text) ||
       widget.currentWatch!.purchasePrice != ViewWatchHelper.getPrice(purchasePriceFieldController.value.text) ||
+      widget.currentWatch!.value != ViewWatchHelper.getPrice(currentValueFieldController.value.text) ||
       widget.currentWatch!.category != categoryFieldController.value.text ||
       widget.currentWatch!.soldTo != soldToFieldController.value.text ||
       widget.currentWatch!.purchasedFrom != purchasedFromFieldController.value.text ||

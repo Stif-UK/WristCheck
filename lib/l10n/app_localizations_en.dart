@@ -516,6 +516,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchasePriceRowHintText => 'Purchase Price';
 
   @override
+  String get currentValueRowTitle => 'Current Value:';
+
+  @override
+  String get currentValueRowHintText => 'Current Value';
+
+  @override
   String get purchasedFromRowTitle => 'Purchased From:';
 
   @override

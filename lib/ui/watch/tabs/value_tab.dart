@@ -6,6 +6,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/watch/rows/current_value_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_price_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchased_from_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_price_row.dart';
@@ -21,6 +22,7 @@ class ValueTab extends StatelessWidget {
     required this.purchasedFromFieldController,
     required this.soldPriceFieldController,
     required this.soldToFieldController,
+    required this.currentValueFieldController,
     required this.currentWatch,
     required this.bodyLarge,
     required this.headlineSmall,
@@ -32,6 +34,7 @@ class ValueTab extends StatelessWidget {
   final TextEditingController purchasedFromFieldController;
   final TextEditingController soldPriceFieldController;
   final TextEditingController soldToFieldController;
+  final TextEditingController currentValueFieldController;
   final Watches? currentWatch;
   final TextStyle? bodyLarge;
   final TextStyle? headlineSmall;
@@ -50,7 +53,9 @@ class ValueTab extends StatelessWidget {
             watchViewController.selectedStatus.value == "Sold" ? Obx(()=> SoldPriceRow(enabled: watchViewController.inEditState.value, soldPriceFieldController: soldPriceFieldController, viewState: watchViewController.watchViewState.value,locale: locale,
             price: watchViewController.soldPrice.value, bodyLarge: bodyLarge, headlineSmall: headlineSmall,)): const SizedBox(height: 0,),
             watchViewController.selectedStatus.value == "Sold" ? Obx(()=> SoldToRow(enabled: watchViewController.inEditState.value, soldToFieldController: soldToFieldController)): const SizedBox(height: 0,),
-            _costPerWearRow(locale)
+            _costPerWearRow(locale),
+            Obx(()=> CurrentValueRow(enabled: watchViewController.inEditState.value, currentValueFieldController: currentValueFieldController, viewState: watchViewController.watchViewState.value, locale: locale,
+                price: watchViewController.currentValue.value, bodyLarge: bodyLarge, headlineSmall: headlineSmall,)),
           ],
 
         )

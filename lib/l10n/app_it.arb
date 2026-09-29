@@ -191,6 +191,8 @@
   "purchaseDateRowHintText" : "Data d'Acquisto",
   "purchasePriceRowTitle" : "Prezzo d'Acquisto:",
   "purchasePriceRowHintText" : "Prezzo d'Acquisto",
+  "currentValueRowTitle" : "Valore Attuale:",
+  "currentValueRowHintText" : "Valore Attuale",
   "purchasedFromRowTitle" : "Acquistato da:",
   "purchasedFromHintText" : "Acquistato da",
   "referenceNumberRowTitle" : "Referenza:",

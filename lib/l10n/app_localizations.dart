@@ -1056,6 +1056,18 @@ abstract class AppLocalizations {
   /// **'Purchase Price'**
   String get purchasePriceRowHintText;
 
+  /// No description provided for @currentValueRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Value:'**
+  String get currentValueRowTitle;
+
+  /// No description provided for @currentValueRowHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Value'**
+  String get currentValueRowHintText;
+
   /// No description provided for @purchasedFromRowTitle.
   ///
   /// In en, this message translates to:

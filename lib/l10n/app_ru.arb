@@ -188,6 +188,8 @@
   "purchaseDateRowHintText" : "Дата покупки",
   "purchasePriceRowTitle" : "Цена покупки:",
   "purchasePriceRowHintText" : "Цена покупки",
+  "currentValueRowTitle" : "Текущая стоимость:",
+  "currentValueRowHintText" : "Текущая стоимость",
   "purchasedFromRowTitle" : "Где куплены:",
   "purchasedFromHintText" : "Место покупки",
   "referenceNumberRowTitle" : "Референс-номер:",

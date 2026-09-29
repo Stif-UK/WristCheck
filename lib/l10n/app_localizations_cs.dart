@@ -520,6 +520,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get purchasePriceRowHintText => 'Nákupní cena';
 
   @override
+  String get currentValueRowTitle => 'Aktuální hodnota:';
+
+  @override
+  String get currentValueRowHintText => 'Aktuální hodnota';
+
+  @override
   String get purchasedFromRowTitle => 'Zakoupeno od / kde:';
 
   @override

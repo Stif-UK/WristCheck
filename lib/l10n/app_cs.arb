@@ -188,6 +188,8 @@
   "purchaseDateRowHintText" : "Datum nákupu",
   "purchasePriceRowTitle" : "Nákupní cena:",
   "purchasePriceRowHintText" : "Nákupní cena",
+  "currentValueRowTitle" : "Aktuální hodnota:",
+  "currentValueRowHintText" : "Aktuální hodnota",
   "purchasedFromRowTitle" : "Zakoupeno od / kde:",
   "purchasedFromHintText" : "Zakoupeno od / kde",
   "referenceNumberRowTitle" : "Referenční číslo:",

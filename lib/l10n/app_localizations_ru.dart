@@ -518,6 +518,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get purchasePriceRowHintText => 'Цена покупки';
 
   @override
+  String get currentValueRowTitle => 'Текущая стоимость:';
+
+  @override
+  String get currentValueRowHintText => 'Текущая стоимость';
+
+  @override
   String get purchasedFromRowTitle => 'Где куплены:';
 
   @override
