@@ -184,6 +184,7 @@
   "primaryColourLabel" : "Primary Colour",
   "secondaryColourLabel" : "Secondary Colour",
   "colourChartTitle" : "Colour Chart",
+  "primaryColourOnlySubHeader" : "(primary colour only)",
   "purchaseDateRowTitle" : "Purchase Date:",
   "purchaseDateRowHintText" : "Purchase Date",
   "purchasePriceRowTitle" : "Purchase Price:",

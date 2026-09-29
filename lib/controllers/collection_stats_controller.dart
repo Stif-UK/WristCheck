@@ -32,9 +32,6 @@ class CollectionStatsController extends GetxController{
   cycleColourChartType(){
     switch (colourChartType.value) {
       case ColourChartEnum.stackedBar:
-        colourChartType(ColourChartEnum.bar);
-        break;
-      case ColourChartEnum.bar:
         colourChartType(ColourChartEnum.pie);
         break;
       case ColourChartEnum.pie:

@@ -50,24 +50,14 @@ class _ColourChartState extends State<ColourChart> {
       );
     }
 
+    List<ColourData> primaryOnlyData = getChartData
+        .where((item) => item.primaryCount > 0)
+        .toList()
+      ..sort((a, b) => a.primaryCount.compareTo(b.primaryCount));
+
     return Obx(() {
       final chartType = collectionStatsController.colourChartType.value;
-      if (chartType == ColourChartEnum.bar) {
-        return SfCartesianChart(
-          primaryXAxis: CategoryAxis(isVisible: false),
-          primaryYAxis: NumericAxis(),
-          series: <CartesianSeries>[
-            BarSeries<ColourData, String>(
-              dataSource: getChartData,
-              xValueMapper: (ColourData item, _) => item.colour,
-              yValueMapper: (ColourData item, _) => item.totalCount,
-              dataLabelMapper: (ColourData item, _) =>
-                  "${item.colour}: ${item.totalCount}",
-              dataLabelSettings: const DataLabelSettings(isVisible: true),
-            )
-          ],
-        );
-      } else if (chartType == ColourChartEnum.pie) {
+      if (chartType == ColourChartEnum.pie) {
         return SfCircularChart(
           legend: const Legend(
             isVisible: true,
@@ -75,11 +65,11 @@ class _ColourChartState extends State<ColourChart> {
           ),
           series: <CircularSeries<ColourData, String>>[
             PieSeries<ColourData, String>(
-              dataSource: getChartData,
+              dataSource: primaryOnlyData,
               xValueMapper: (ColourData item, _) => item.colour,
-              yValueMapper: (ColourData item, _) => item.totalCount,
+              yValueMapper: (ColourData item, _) => item.primaryCount,
               dataLabelMapper: (ColourData item, _) =>
-                  "${item.colour}: ${item.totalCount}",
+                  "${item.colour}: ${item.primaryCount}",
               dataLabelSettings: const DataLabelSettings(
                 isVisible: true,
                 labelPosition: ChartDataLabelPosition.outside,
@@ -96,11 +86,11 @@ class _ColourChartState extends State<ColourChart> {
           ),
           series: <CircularSeries<ColourData, String>>[
             DoughnutSeries<ColourData, String>(
-              dataSource: getChartData,
+              dataSource: primaryOnlyData,
               xValueMapper: (ColourData item, _) => item.colour,
-              yValueMapper: (ColourData item, _) => item.totalCount,
+              yValueMapper: (ColourData item, _) => item.primaryCount,
               dataLabelMapper: (ColourData item, _) =>
-                  "${item.colour}: ${item.totalCount}",
+                  "${item.colour}: ${item.primaryCount}",
               dataLabelSettings: const DataLabelSettings(
                 isVisible: true,
                 labelPosition: ChartDataLabelPosition.outside,

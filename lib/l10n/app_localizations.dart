@@ -1026,6 +1026,12 @@ abstract class AppLocalizations {
   /// **'Colour Chart'**
   String get colourChartTitle;
 
+  /// No description provided for @primaryColourOnlySubHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'(primary colour only)'**
+  String get primaryColourOnlySubHeader;
+
   /// No description provided for @purchaseDateRowTitle.
   ///
   /// In en, this message translates to:

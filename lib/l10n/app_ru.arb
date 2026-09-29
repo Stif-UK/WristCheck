@@ -181,6 +181,7 @@
   "primaryColourLabel" : "Основной цвет",
   "secondaryColourLabel" : "Вторичный цвет",
   "colourChartTitle" : "Диаграмма цветов",
+  "primaryColourOnlySubHeader" : "(только основной цвет)",
   "primaryColourInvalidError" : "Основной цвет содержит недопустимые символы",
   "secondaryColourInvalidError" : "Вторичный цвет содержит недопустимые символы",
   "purchaseDateRowTitle" : "Дата покупки:",

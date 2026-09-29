@@ -180,6 +180,7 @@
   "primaryColourLabel" : "Couleur principale",
   "secondaryColourLabel" : "Couleur secondaire",
   "colourChartTitle" : "Graphique des couleurs",
+  "primaryColourOnlySubHeader" : "(couleur principale uniquement)",
   "primaryColourInvalidError" : "La couleur principale contient des caractères non valides",
   "secondaryColourInvalidError" : "La couleur secondaire contient des caractères non valides",
   "purchaseDateRowTitle" : "Date d'achat :",

@@ -505,6 +505,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get colourChartTitle => 'Grafico dei colori';
 
   @override
+  String get primaryColourOnlySubHeader => '(solo colore principale)';
+
+  @override
   String get purchaseDateRowTitle => 'Data d\'Acquisto:';
 
   @override

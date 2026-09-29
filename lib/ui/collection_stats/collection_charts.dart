@@ -92,19 +92,29 @@ class _CollectionChartsState extends State<CollectionCharts> {
             children: [
               const SizedBox(width: 48),
               Expanded(
-                child: Center(
-                  child: Text(
-                    l.colourChartTitle,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
+                child: Column(
+                  children: [
+                    Text(
+                      l.colourChartTitle,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    Obx(() {
+                      final chartType = widget.collectionStatsController.colourChartType.value;
+                      if (chartType == ColourChartEnum.pie || chartType == ColourChartEnum.donut) {
+                        return Text(
+                          l.primaryColourOnlySubHeader,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
+                  ],
                 ),
               ),
               Obx(() {
                 Widget iconWidget;
                 final chartType = widget.collectionStatsController.colourChartType.value;
-                if (chartType == ColourChartEnum.bar) {
-                  iconWidget = const FaIcon(FontAwesomeIcons.chartBar, size: 18);
-                } else if (chartType == ColourChartEnum.pie) {
+                if (chartType == ColourChartEnum.pie) {
                   iconWidget = const FaIcon(FontAwesomeIcons.chartPie, size: 18);
                 } else if (chartType == ColourChartEnum.donut) {
                   iconWidget = const Icon(Icons.donut_large, size: 22);

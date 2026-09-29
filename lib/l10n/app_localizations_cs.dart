@@ -505,6 +505,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get colourChartTitle => 'Graf barev';
 
   @override
+  String get primaryColourOnlySubHeader => '(pouze hlavní barva)';
+
+  @override
   String get purchaseDateRowTitle => 'Datum nákupu:';
 
   @override

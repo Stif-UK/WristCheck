@@ -181,6 +181,7 @@
   "primaryColourLabel" : "Hlavní barva",
   "secondaryColourLabel" : "Sekundární barva",
   "colourChartTitle" : "Graf barev",
+  "primaryColourOnlySubHeader" : "(pouze hlavní barva)",
   "primaryColourInvalidError" : "Hlavní barva obsahuje neplatné znaky",
   "secondaryColourInvalidError" : "Sekundární barva obsahuje neplatné znaky",
   "purchaseDateRowTitle" : "Datum nákupu:",

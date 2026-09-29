@@ -181,6 +181,7 @@
   "primaryColourLabel" : "Hauptfarbe",
   "secondaryColourLabel" : "Sekundärfarbe",
   "colourChartTitle" : "Farben-Diagramm",
+  "primaryColourOnlySubHeader" : "(nur Hauptfarbe)",
   "primaryColourInvalidError" : "Hauptfarbe enthält ungültige Zeichen",
   "secondaryColourInvalidError" : "Sekundärfarbe enthält ungültige Zeichen",
   "purchaseDateRowTitle" : "Kaufdatum:",

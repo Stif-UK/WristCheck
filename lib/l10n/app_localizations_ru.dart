@@ -503,6 +503,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get colourChartTitle => 'Диаграмма цветов';
 
   @override
+  String get primaryColourOnlySubHeader => '(только основной цвет)';
+
+  @override
   String get purchaseDateRowTitle => 'Дата покупки:';
 
   @override

@@ -1,2 +1,1 @@
-enum ColourChartEnum { stackedBar, bar, pie, donut }
-
+enum ColourChartEnum { stackedBar, pie, donut }
