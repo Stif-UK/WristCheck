@@ -6,6 +6,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/appdata/data_watchlist.dart';
 
 class DataCompleteness extends StatelessWidget {
   DataCompleteness({super.key});
@@ -52,6 +53,7 @@ class DataCompleteness extends StatelessWidget {
           '-/$totalCount',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
+        onTap: null,
       );
     }
 
@@ -86,6 +88,12 @@ class DataCompleteness extends StatelessWidget {
         '$populatedCount/$totalCount',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
+      onTap: () {
+        Get.to(() => DataWatchlist(
+              fieldTitle: title,
+              fieldExtractor: fieldExtractor,
+            ));
+      },
     );
   }
 
