@@ -100,7 +100,7 @@ class _DataLinksState extends State<DataLinks> {
                         title: const Text('Data Completeness'),
                         leading: const FaIcon(FontAwesomeIcons.listCheck),
                         onTap: (){
-                          Get.to(()=> const DataCompleteness());
+                          Get.to(()=> DataCompleteness());
                         }
                     ),
                     const Divider(thickness: 2,),
