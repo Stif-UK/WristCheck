@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:wristcheck/ui/appdata/data_watchlist.dart';
 class DataCompleteness extends StatelessWidget {
   DataCompleteness({super.key});
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final wristCheckController = Get.put(WristCheckController());
 
   bool _isPopulated(dynamic value) {
@@ -99,6 +101,9 @@ class DataCompleteness extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.logScreenView(screenName: "data_completeness");
+
     final headerStyle = Theme.of(context).textTheme.headlineSmall;
 
     return Scaffold(

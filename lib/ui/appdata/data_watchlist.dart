@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -7,12 +8,13 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 
 class DataWatchlist extends StatelessWidget {
-  const DataWatchlist({
+  DataWatchlist({
     super.key,
     required this.fieldTitle,
     required this.fieldExtractor,
   });
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final String fieldTitle;
   final dynamic Function(Watches) fieldExtractor;
 
@@ -29,6 +31,9 @@ class DataWatchlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.logScreenView(screenName: "data_watchlist");
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Watch data: $fieldTitle'),
