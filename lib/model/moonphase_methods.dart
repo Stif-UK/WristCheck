@@ -40,6 +40,14 @@ class MoonPhaseMethods {
     if (phase < 0.78) return l.lastQuarter;
     return l.waningCrescent;
   }
+
+  /// Returns the current moon phase illumination percentage (0.0 to 100.0)
+  /// rounded to a single decimal place.
+  static double getMoonPhasePercentage(DateTime date) {
+    final double phase = getMoonPhase(date);
+    final double illumination = (1 - cos(2 * pi * phase)) / 2 * 100;
+    return double.parse(illumination.toStringAsFixed(1));
+  }
 }
 
 class CustomMoonWidget extends StatelessWidget {

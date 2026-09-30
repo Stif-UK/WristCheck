@@ -32,9 +32,19 @@ class MoonPhaseWidget extends StatelessWidget {
             ),
           ],
         ),
-        Text(
-          MoonPhaseMethods.getMoonPhaseText(DateTime.now(), context),
-          style: Theme.of(context).textTheme.bodyLarge,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              MoonPhaseMethods.getMoonPhaseText(DateTime.now(), context),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(width: 6.0),
+            Text(
+              '(${MoonPhaseMethods.getMoonPhasePercentage(DateTime.now()).toStringAsFixed(1)}%)',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
         ),
       ],
     );
