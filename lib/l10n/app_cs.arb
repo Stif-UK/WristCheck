@@ -1039,7 +1039,7 @@
   "totalSoldValueHelpTitle": "Celková hodnota prodejů",
   "totalSoldValueHelpText": "Tato hodnota je součtem všech zaznamenaných prodejních cen všech hodinek se stavem 'Prodané'",
   "totalTrackedValueHelpTitle": "Celková sledovaná hodnota",
-  "totalTrackedValueHelpText": "Tato hodnota je součtem všech zaznamenaných hodnot všech hodinek aktuálně označených jako 'Ve sbírce'",
+  "totalTrackedValueHelpText": "Toto je součet všech ručně zaznamenaných hodnot všech hodinek aktuálně označených jako 'Ve sbírce'.",
   "averageResaleHelpTitle": "Průměrné procento přeprodeje",
   "averageResaleHelpText": "Tato hodnota představuje průměrný procentuální výnos při prodeji hodinek – počítá se pouze pro hodinky se stavem 'Prodané', které mají zaznamenanou nákupní i prodejní cenu.\n\nProcento se vypočítá jako celková prodejní hodnota dělená celkovými nákupními náklady.",
   "averagePowerReserve": "Průměrná rezerva chodu: {value} hodin",

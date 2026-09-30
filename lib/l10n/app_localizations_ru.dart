@@ -2623,7 +2623,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get totalTrackedValueHelpText =>
-      'Это значение представляет собой сумму всех записанных стоимостей всех часов, находящихся сейчас в вашей коллекции';
+      'Это сумма всех вручную записанных стоимостей всех часов, отмеченных в данный момент как \'В коллекции\'.';
 
   @override
   String get averageResaleHelpTitle => 'Средний процент перепродажи';

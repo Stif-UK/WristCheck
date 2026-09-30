@@ -2612,7 +2612,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get totalTrackedValueHelpText =>
-      'Dieser Wert ist die Summe aller erfassten Werte aller Uhren, die derzeit als \'In Sammlung\' markiert sind';
+      'Dies ist die Summe aller manuell erfassten Werte aller Uhren, die derzeit als \'In Sammlung\' markiert sind.';
 
   @override
   String get averageResaleHelpTitle =>

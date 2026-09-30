@@ -1041,7 +1041,7 @@
   "totalSoldValueHelpTitle": "Valore Totale Venduto",
   "totalSoldValueHelpText": "Questo valore è la somma di tutti i prezzi di vendita registrati di tutti gli orologi con stato 'Venduto'",
   "totalTrackedValueHelpTitle": "Valore Totale Tracciato",
-  "totalTrackedValueHelpText": "Questo valore è la somma di tutti i valori registrati di tutti gli orologi attualmente contrassegnati come 'In Collezione'",
+  "totalTrackedValueHelpText": "Questa è la somma di tutti i valori registrati manualmente di tutti gli orologi attualmente contrassegnati come 'In Collezione'.",
   "averageResaleHelpTitle": "Percentuale Media di Rivendita",
   "averageResaleHelpText": "Questo valore è la percentuale media ottenuta dalla vendita di un orologio – viene calcolato solo per gli orologi con stato 'Venduto' che hanno sia un prezzo d'acquisto che un prezzo di vendita registrati.\n\nLa percentuale viene calcolata dividendo il valore totale di vendita per il costo totale d'acquisto.",
   "averagePowerReserve": "Riserva di carica media: {value} ore",

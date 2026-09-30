@@ -2585,7 +2585,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get totalTrackedValueHelpText =>
-      'Questo valore è la somma di tutti i valori registrati di tutti gli orologi attualmente contrassegnati come \'In Collezione\'';
+      'Questa è la somma di tutti i valori registrati manualmente di tutti gli orologi attualmente contrassegnati come \'In Collezione\'.';
 
   @override
   String get averageResaleHelpTitle => 'Percentuale Media di Rivendita';

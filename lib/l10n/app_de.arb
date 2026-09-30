@@ -1039,7 +1039,7 @@
   "totalSoldValueHelpTitle": "Gesamtwert der Verkäufe",
   "totalSoldValueHelpText": "Dieser Wert ist die Summe aller erfassten Verkaufspreise aller Uhren mit dem Status 'Verkauft'",
   "totalTrackedValueHelpTitle": "Gesamter verfolgter Wert",
-  "totalTrackedValueHelpText": "Dieser Wert ist die Summe aller erfassten Werte aller Uhren, die derzeit als 'In Sammlung' markiert sind",
+  "totalTrackedValueHelpText": "Dies ist die Summe aller manuell erfassten Werte aller Uhren, die derzeit als 'In Sammlung' markiert sind.",
   "averageResaleHelpTitle": "Durchschnittlicher Wiederverkaufsprozentsatz",
   "averageResaleHelpText": "Dieser Wert ist der durchschnittliche Prozentsatz, der beim Verkauf einer Uhr erzielt wird – er wird nur für Uhren mit dem Status 'Verkauft' berechnet, für die sowohl ein Kauf- als auch ein Verkaufspreis erfasst wurde.\n\nDer Prozentsatz wird berechnet, indem der Gesamtverkaufswert durch die Gesamtkaufkosten geteilt wird.",
   "averagePowerReserve": "Durchschnittliche Gangreserve: {value} Stunden",

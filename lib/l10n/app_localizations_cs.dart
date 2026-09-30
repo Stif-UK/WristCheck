@@ -2605,7 +2605,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get totalTrackedValueHelpText =>
-      'Tato hodnota je součtem všech zaznamenaných hodnot všech hodinek aktuálně označených jako \'Ve sbírce\'';
+      'Toto je součet všech ručně zaznamenaných hodnot všech hodinek aktuálně označených jako \'Ve sbírce\'.';
 
   @override
   String get averageResaleHelpTitle => 'Průměrné procento přeprodeje';

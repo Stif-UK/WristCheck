@@ -2610,7 +2610,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get totalTrackedValueHelpText =>
-      'Cette valeur est la somme de toutes les valeurs enregistrées de toutes les montres actuellement marquées \'En collection\'';
+      'C\'est la somme de toutes les valeurs enregistrées manuellement de toutes les montres actuellement marquées \'En collection\'.';
 
   @override
   String get averageResaleHelpTitle => 'Pourcentage moyen de revente';

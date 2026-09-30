@@ -4653,7 +4653,7 @@ abstract class AppLocalizations {
   /// No description provided for @totalTrackedValueHelpText.
   ///
   /// In en, this message translates to:
-  /// **'This value is the sum of all recorded values of all watches currently marked as \'In Collection\''**
+  /// **'This is the sum of all manually recorded values of all watches currently marked as \'In Collection\'.'**
   String get totalTrackedValueHelpText;
 
   /// No description provided for @averageResaleHelpTitle.
