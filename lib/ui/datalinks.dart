@@ -14,6 +14,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/backup/alternative_exports.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
+import 'package:wristcheck/ui/data_completeness.dart';
 import 'package:wristcheck/ui/uploads/uploads_landing.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -92,6 +93,14 @@ class _DataLinksState extends State<DataLinks> {
                         leading: const FaIcon(FontAwesomeIcons.fileExport),
                         onTap: (){
                           Get.to(()=> AlternativeExports());
+                        }
+                    ),
+                    const Divider(thickness: 2,),
+                    ListTile(
+                        title: const Text('Data Completeness'),
+                        leading: const FaIcon(FontAwesomeIcons.listCheck),
+                        onTap: (){
+                          Get.to(()=> const DataCompleteness());
                         }
                     ),
                     const Divider(thickness: 2,),
