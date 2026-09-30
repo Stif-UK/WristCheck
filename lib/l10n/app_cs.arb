@@ -133,6 +133,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Časový posun:",
   "moonPhase" : "Aktuální fáze měsíce",
+  "upcomingPhases" : "Nadcházející fáze",
   "newMoon" : "Novoluní",
   "waxingCrescent" : "Dorůstající srp",
   "firstQuarter" : "První čtvrť",

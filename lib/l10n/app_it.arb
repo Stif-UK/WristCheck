@@ -136,6 +136,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Fuso orario:",
   "moonPhase" : "Fase Lunare Attuale",
+  "upcomingPhases" : "Prossime fasi",
   "newMoon" : "Luna Nuova",
   "waxingCrescent" : "Luna Crescente",
   "firstQuarter" : "Primo Quarto",

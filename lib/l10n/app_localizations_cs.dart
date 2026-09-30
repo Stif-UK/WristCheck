@@ -373,6 +373,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get moonPhase => 'Aktuální fáze měsíce';
 
   @override
+  String get upcomingPhases => 'Nadcházející fáze';
+
+  @override
   String get newMoon => 'Novoluní';
 
   @override

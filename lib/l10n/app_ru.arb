@@ -133,6 +133,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Смещение времени:",
   "moonPhase" : "Текущая фаза Луны",
+  "upcomingPhases" : "Предстоящие фазы",
   "newMoon" : "Новолуние",
   "waxingCrescent" : "Растущий серп",
   "firstQuarter" : "Первая четверть",

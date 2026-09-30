@@ -371,6 +371,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get moonPhase => 'Текущая фаза Луны';
 
   @override
+  String get upcomingPhases => 'Предстоящие фазы';
+
+  @override
   String get newMoon => 'Новолуние';
 
   @override

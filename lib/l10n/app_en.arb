@@ -136,6 +136,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Time offset:",
   "moonPhase" : "Current Moon Phase",
+  "upcomingPhases" : "Upcoming phases",
   "newMoon" : "New Moon",
   "waxingCrescent" : "Waxing Crescent",
   "firstQuarter" : "First Quarter",

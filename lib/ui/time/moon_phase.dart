@@ -54,7 +54,7 @@ class MoonPhaseWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ExpansionTile(
             title: Text(
-              'More Info',
+              AppLocalizations.of(context)!.upcomingPhases,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             children: [

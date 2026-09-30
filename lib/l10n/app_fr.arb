@@ -132,6 +132,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Décalage horaire :",
   "moonPhase" : "Phase lunaire actuelle",
+  "upcomingPhases" : "Prochaines phases",
   "newMoon" : "Nouvelle lune",
   "waxingCrescent" : "Premier croissant",
   "firstQuarter" : "Premier quartier",

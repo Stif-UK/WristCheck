@@ -133,6 +133,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Desplazamiento horario:",
   "moonPhase" : "Fase Lunar Actual",
+  "upcomingPhases" : "Próximas fases",
   "newMoon" : "Luna nueva",
   "waxingCrescent" : "Luna creciente",
   "firstQuarter" : "Cuarto creciente",

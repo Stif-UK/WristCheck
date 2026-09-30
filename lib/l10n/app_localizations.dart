@@ -774,6 +774,12 @@ abstract class AppLocalizations {
   /// **'Current Moon Phase'**
   String get moonPhase;
 
+  /// No description provided for @upcomingPhases.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming phases'**
+  String get upcomingPhases;
+
   /// No description provided for @newMoon.
   ///
   /// In en, this message translates to:

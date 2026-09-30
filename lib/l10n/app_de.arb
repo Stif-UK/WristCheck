@@ -133,6 +133,7 @@
   "timeViewGMT" : "GMT",
   "gmtTimeOffsetLabel" : "Zeitversatz:",
   "moonPhase" : "Aktuelle Mondphase",
+  "upcomingPhases" : "Kommende Phasen",
   "newMoon" : "Neumond",
   "waxingCrescent" : "Zunehmender Sichelmond",
   "firstQuarter" : "Erstes Viertel",

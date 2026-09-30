@@ -375,6 +375,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get moonPhase => 'Phase lunaire actuelle';
 
   @override
+  String get upcomingPhases => 'Prochaines phases';
+
+  @override
   String get newMoon => 'Nouvelle lune';
 
   @override
