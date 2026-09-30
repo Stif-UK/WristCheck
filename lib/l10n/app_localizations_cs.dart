@@ -1064,6 +1064,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String get totalSold => 'Celková hodnota prodejů';
 
   @override
+  String get totalTrackedValue => 'Celková sledovaná hodnota';
+
+  @override
+  String watchesTrackedSummary(Object aTracked, Object bTotal) {
+    return '($aTracked/$bTotal hodinek sledováno)';
+  }
+
+  @override
   String get averageResale => 'Průměrný přeprodej v %';
 
   @override
@@ -2591,6 +2599,13 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get totalSoldValueHelpText =>
       'Tato hodnota je součtem všech zaznamenaných prodejních cen všech hodinek se stavem \'Prodané\'';
+
+  @override
+  String get totalTrackedValueHelpTitle => 'Celková sledovaná hodnota';
+
+  @override
+  String get totalTrackedValueHelpText =>
+      'Tato hodnota je součtem všech zaznamenaných hodnot všech hodinek aktuálně označených jako \'Ve sbírce\'';
 
   @override
   String get averageResaleHelpTitle => 'Průměrné procento přeprodeje';

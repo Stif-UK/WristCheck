@@ -23,6 +23,9 @@ class ValueData extends StatelessWidget {
     int collectionCost = WatchMethods.calculateCollectionCost(false);
     int totalSpend = WatchMethods.calculateCollectionCost(true);
     int totalSoldValue = WatchMethods.calculateSoldIncome();
+    int totalCollectionValue = WatchMethods.calculateTotalCollectionValue();
+    int valueTrackedCount = WatchMethods.calculateValueTrackedCount();
+    int totalCollectionWatchesCount = WatchMethods.calculateTotalCollectionCount();
     int resaleRatio = WatchMethods.calculateResaleRatio();
     String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
 
@@ -66,6 +69,30 @@ class ValueData extends StatelessWidget {
                   icon: const FaIcon(FontAwesomeIcons.question),
                   onPressed: (){
                     ValueDataHelpDialogs.getTotalSoldValueHelp();
+                  },
+                ),
+              ),
+              const Divider(thickness: 2,),
+              ListTile(
+                leading: const FaIcon(FontAwesomeIcons.tag),
+                title: Text(l.totalTrackedValue),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l.watchesTrackedSummary(valueTrackedCount, totalCollectionWatchesCount),
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    Text(
+                      totalCollectionValue == 0 ? l.noValue : NumberFormat.simpleCurrency(locale: locale, decimalDigits: 0).format(totalCollectionValue),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.question),
+                  onPressed: (){
+                    ValueDataHelpDialogs.getTotalTrackedValueHelp();
                   },
                 ),
               ),

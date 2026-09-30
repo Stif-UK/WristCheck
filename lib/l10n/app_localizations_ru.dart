@@ -1066,6 +1066,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get totalSold => 'Общая сумма продаж';
 
   @override
+  String get totalTrackedValue => 'Общая отслеживаемая стоимость';
+
+  @override
+  String watchesTrackedSummary(Object aTracked, Object bTotal) {
+    return '($aTracked/$bTotal часов отслеживается)';
+  }
+
+  @override
   String get averageResale => 'Средний % перепродажи';
 
   @override
@@ -2609,6 +2617,13 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get totalSoldValueHelpText =>
       'Это значение представляет собой сумму всех записанных цен продажи всех часов со статусом \'Проданы\'';
+
+  @override
+  String get totalTrackedValueHelpTitle => 'Общая отслеживаемая стоимость';
+
+  @override
+  String get totalTrackedValueHelpText =>
+      'Это значение представляет собой сумму всех записанных стоимостей всех часов, находящихся сейчас в вашей коллекции';
 
   @override
   String get averageResaleHelpTitle => 'Средний процент перепродажи';

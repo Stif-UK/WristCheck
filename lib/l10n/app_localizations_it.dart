@@ -1068,6 +1068,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get totalSold => 'Valore Totale Venduto';
 
   @override
+  String get totalTrackedValue => 'Valore Totale Tracciato';
+
+  @override
+  String watchesTrackedSummary(Object aTracked, Object bTotal) {
+    return '($aTracked/$bTotal orologi tracciati)';
+  }
+
+  @override
   String get averageResale => 'Media Rivendita %';
 
   @override
@@ -2571,6 +2579,13 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get totalSoldValueHelpText =>
       'Questo valore è la somma di tutti i prezzi di vendita registrati di tutti gli orologi con stato \'Venduto\'';
+
+  @override
+  String get totalTrackedValueHelpTitle => 'Valore Totale Tracciato';
+
+  @override
+  String get totalTrackedValueHelpText =>
+      'Questo valore è la somma di tutti i valori registrati di tutti gli orologi attualmente contrassegnati come \'In Collezione\'';
 
   @override
   String get averageResaleHelpTitle => 'Percentuale Media di Rivendita';

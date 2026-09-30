@@ -1074,6 +1074,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get totalSold => 'Gesamtwert der Verkäufe';
 
   @override
+  String get totalTrackedValue => 'Gesamter verfolgter Wert';
+
+  @override
+  String watchesTrackedSummary(Object aTracked, Object bTotal) {
+    return '($aTracked/$bTotal Uhren erfasst)';
+  }
+
+  @override
   String get averageResale => 'Durchschnittlicher Wiederverkauf %';
 
   @override
@@ -2598,6 +2606,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get totalSoldValueHelpText =>
       'Dieser Wert ist die Summe aller erfassten Verkaufspreise aller Uhren mit dem Status \'Verkauft\'';
+
+  @override
+  String get totalTrackedValueHelpTitle => 'Gesamter verfolgter Wert';
+
+  @override
+  String get totalTrackedValueHelpText =>
+      'Dieser Wert ist die Summe aller erfassten Werte aller Uhren, die derzeit als \'In Sammlung\' markiert sind';
 
   @override
   String get averageResaleHelpTitle =>

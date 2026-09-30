@@ -1062,6 +1062,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalSold => 'Total Sold Value';
 
   @override
+  String get totalTrackedValue => 'Total Tracked Value';
+
+  @override
+  String watchesTrackedSummary(Object aTracked, Object bTotal) {
+    return '($aTracked/$bTotal watches tracked)';
+  }
+
+  @override
   String get averageResale => 'Average Resale %';
 
   @override
@@ -2559,6 +2567,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get totalSoldValueHelpText =>
       'This value is the sum of all recorded sale prices of all watches with a status of \'Sold\'';
+
+  @override
+  String get totalTrackedValueHelpTitle => 'Total Tracked Value';
+
+  @override
+  String get totalTrackedValueHelpText =>
+      'This value is the sum of all recorded values of all watches currently marked as \'In Collection\'';
 
   @override
   String get averageResaleHelpTitle => 'Average Resale Percentage';

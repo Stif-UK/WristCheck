@@ -2064,6 +2064,18 @@ abstract class AppLocalizations {
   /// **'Total Sold Value'**
   String get totalSold;
 
+  /// No description provided for @totalTrackedValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Tracked Value'**
+  String get totalTrackedValue;
+
+  /// No description provided for @watchesTrackedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'({aTracked}/{bTotal} watches tracked)'**
+  String watchesTrackedSummary(Object aTracked, Object bTotal);
+
   /// No description provided for @averageResale.
   ///
   /// In en, this message translates to:
@@ -4631,6 +4643,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This value is the sum of all recorded sale prices of all watches with a status of \'Sold\''**
   String get totalSoldValueHelpText;
+
+  /// No description provided for @totalTrackedValueHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Tracked Value'**
+  String get totalTrackedValueHelpTitle;
+
+  /// No description provided for @totalTrackedValueHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is the sum of all recorded values of all watches currently marked as \'In Collection\''**
+  String get totalTrackedValueHelpText;
 
   /// No description provided for @averageResaleHelpTitle.
   ///

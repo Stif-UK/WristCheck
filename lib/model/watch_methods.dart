@@ -370,6 +370,32 @@ class WatchMethods {
     return value;
   }
 
+  static int calculateTotalCollectionValue(){
+    List<Watches> collection = Boxes.getCollectionWatches();
+    int value = 0;
+    for(var watch in collection){
+      if(watch.value != null){
+        value = value + watch.value!;
+      }
+    }
+    return value;
+  }
+
+  static int calculateValueTrackedCount(){
+    List<Watches> collection = Boxes.getCollectionWatches();
+    int count = 0;
+    for(var watch in collection){
+      if(watch.value != null && watch.value! > 0){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  static int calculateTotalCollectionCount(){
+    return Boxes.getCollectionWatches().length;
+  }
+
   static int calculateResaleRatio(){
     List<Watches> soldWatches = Boxes.getSoldWatches();
     int purchaseTotal = 0;

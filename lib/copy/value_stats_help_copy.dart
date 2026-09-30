@@ -27,6 +27,14 @@ class ValueDataHelpDialogs{
     );
   }
 
+  static getTotalTrackedValueHelp(){
+    Get.defaultDialog(
+      title: AppLocalizations.of(Get.context!)!.totalTrackedValueHelpTitle,
+      barrierDismissible: true,
+      middleText: AppLocalizations.of(Get.context!)!.totalTrackedValueHelpText,
+    );
+  }
+
   static getAverageResaleHelp(){
     Get.defaultDialog(
       title: AppLocalizations.of(Get.context!)!.averageResaleHelpTitle,
