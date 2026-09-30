@@ -48,6 +48,58 @@ class MoonPhaseMethods {
     final double illumination = (1 - cos(2 * pi * phase)) / 2 * 100;
     return double.parse(illumination.toStringAsFixed(1));
   }
+
+  /// Returns a list of the next upcoming key moon phases (New Moon, First Quarter,
+  /// Full Moon, Last Quarter) in chronological order starting from [now].
+  static List<UpcomingMoonPhase> getUpcomingMoonPhases(DateTime now, BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    const double synodicMonth = 29.530588853;
+    final double currentPhase = getMoonPhase(now);
+
+    final targets = [
+      {'phase': 0.0, 'title': l.newMoon},
+      {'phase': 0.25, 'title': l.firstQuarter},
+      {'phase': 0.5, 'title': l.fullMoon},
+      {'phase': 0.75, 'title': l.lastQuarter},
+    ];
+
+    List<UpcomingMoonPhase> list = [];
+
+    for (var t in targets) {
+      double targetPhase = t['phase'] as double;
+      String title = t['title'] as String;
+
+      double phaseDiff = targetPhase - currentPhase;
+      if (phaseDiff <= 0.0003) {
+        phaseDiff += 1.0;
+      }
+
+      double daysUntil = phaseDiff * synodicMonth;
+      DateTime eventDate = now.add(Duration(milliseconds: (daysUntil * 24 * 60 * 60 * 1000).round()));
+
+      list.add(UpcomingMoonPhase(
+        title: title,
+        date: eventDate,
+        targetPhase: targetPhase,
+      ));
+    }
+
+    list.sort((a, b) => a.date.compareTo(b.date));
+
+    return list;
+  }
+}
+
+class UpcomingMoonPhase {
+  final String title;
+  final DateTime date;
+  final double targetPhase;
+
+  UpcomingMoonPhase({
+    required this.title,
+    required this.date,
+    required this.targetPhase,
+  });
 }
 
 class CustomMoonWidget extends StatelessWidget {

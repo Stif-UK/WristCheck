@@ -73,7 +73,9 @@ class _TimeSettingState extends State<TimeSetting> {
 
     return PopScope(
       onPopInvokedWithResult: (bool didPop, dynamic result) => widget.timeController.updateIsTimerActive(!didPop),
-      child: Obx(() => Column(
+      child: Obx(() => SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Column(
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -166,7 +168,7 @@ class _TimeSettingState extends State<TimeSetting> {
 
           ],
         ),
-      ),
+      )),
     );
 
 
