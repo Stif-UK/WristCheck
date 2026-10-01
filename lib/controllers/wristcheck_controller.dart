@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/donation_notification.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/go_pro_notification.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/wrist_recap_notification.dart';
+import 'package:wristcheck/ui/widgets/nba_notifications/wristtrack_global_banner.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckController extends GetxController {
@@ -55,6 +57,17 @@ class WristCheckController extends GetxController {
   //Merch Store
   final showMerchStore = false.obs;
   final merchStoreUrl = "".obs;
+
+  // Global Banner Notification
+  final showGlobalBanner = false.obs;
+  final globalBannerId = "".obs;
+  final globalBannerTitle = "".obs;
+  final globalBannerMessage = "".obs;
+  final globalBannerShowMore = false.obs;
+  final globalBannerExtendedMessage = "".obs;
+  final globalBannerDismissible = true.obs;
+  final globalBannerActionUrl = "".obs;
+  final globalBannerExpanded = false.obs;
 
   //Track the currently active notification to display in the header
   final activeNBA = Rxn<Widget>();
@@ -112,6 +125,7 @@ class WristCheckController extends GetxController {
     await checkForRecapNotification();
     await checkForDonationNotification();
     await checkForGoProNotification();
+    await checkForGlobalBannerNotification();
 
     // If nothing is currently active, and we are allowed to show something new today
     if (activeNBA.value == null && isNewDay) {
@@ -123,6 +137,9 @@ class WristCheckController extends GetxController {
         await WristCheckPreferences.setLastNBADate(now);
       } else if (isAppPro.value && showDonationPrompt.value) {
         activeNBA(DonationNotification());
+        await WristCheckPreferences.setLastNBADate(now);
+      } else if (showGlobalBanner.value) {
+        activeNBA(WristtrackGlobalBanner());
         await WristCheckPreferences.setLastNBADate(now);
       }
     }
@@ -404,6 +421,59 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
     String merchUrl = await remoteConfig.getString("merch_url");
     showMerchStore(showMerch);
     merchStoreUrl(merchUrl);
+  }
+
+  checkForGlobalBannerNotification() async {
+    String bannerJsonStr = remoteConfig.getString('global_banner_notice');
+    if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
+      bannerJsonStr = remoteConfig.getString('global_banner_notification');
+    }
+
+    if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
+      showGlobalBanner(false);
+      return;
+    }
+
+    try {
+      Map<String, dynamic> data = jsonDecode(bannerJsonStr);
+      bool active = data['active'] ?? false;
+      if (!active) {
+        showGlobalBanner(false);
+        return;
+      }
+
+      String id = data['id'] ?? '';
+      List<String> dismissedIds = WristCheckPreferences.getDismissedBannerIds();
+      if (dismissedIds.contains(id)) {
+        showGlobalBanner(false);
+        return;
+      }
+
+      globalBannerId(id);
+      globalBannerTitle(data['title'] ?? '');
+      globalBannerMessage(data['message'] ?? '');
+      globalBannerShowMore(data['showMore'] ?? false);
+      globalBannerExtendedMessage(data['extendedMessage'] ?? '');
+      globalBannerDismissible(data['dismissible'] ?? true);
+      globalBannerActionUrl(data['action_url'] ?? data['actionUrl'] ?? '');
+
+      showGlobalBanner(true);
+    } catch (e) {
+      debugPrint('Failed to parse global banner JSON: $e');
+      showGlobalBanner(false);
+    }
+  }
+
+  dismissGlobalBannerNotification(String id) async {
+    showGlobalBanner(false);
+    if (id.isNotEmpty) {
+      await WristCheckPreferences.addDismissedBannerId(id);
+    }
+    Future.microtask(() => activeNBA(SizedBox.shrink()));
+  }
+
+  toggleGlobalBannerShowMore() {
+    globalBannerExpanded(!globalBannerExpanded.value);
   }
 
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/developer/developer_accuracy_view.dart';
 import 'package:wristcheck/ui/developer/raw_data_view.dart';
 import 'package:wristcheck/ui/onboarding.dart';
+import 'package:wristcheck/ui/widgets/nba_notifications/wristtrack_global_banner.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
@@ -51,6 +53,10 @@ class _DeveloperStatsState extends State<DeveloperStats> {
           icon: FaIcon(FontAwesomeIcons.database),
           label: "Database",
         ),
+        BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.bell),
+          label: "Notifications",
+        ),
       ],
 
       ),
@@ -69,6 +75,8 @@ class _DeveloperStatsState extends State<DeveloperStats> {
         return _buildInfoTab(context);
       case 2:
         return _buildDatabaseTab();
+      case 3:
+        return _buildNotificationsTab();
       default:
         return const SizedBox.shrink();
     }
@@ -329,6 +337,96 @@ class _DeveloperStatsState extends State<DeveloperStats> {
         ListTile(
           title: const Text("Show Raw Watch Database"),
           onTap: () => Get.to(()=> RawDataView()),
+        ),
+        const Divider(thickness: 2,),
+      ],
+    );
+  }
+
+  Widget _buildNotificationsTab() {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text("Show notification JSON"),
+          subtitle: const Text("Tap to view current Remote Config banner payload"),
+          onTap: () {
+            final remoteConfig = FirebaseRemoteConfig.instance;
+            final jsonContent = remoteConfig.getString('global_banner_notice');
+            final displayJson = jsonContent.isNotEmpty ? jsonContent : remoteConfig.getString('global_banner_notification');
+
+            Get.defaultDialog(
+              title: "Notification JSON",
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Text(displayJson.isNotEmpty ? displayJson : "{}"),
+                ),
+              ),
+              textConfirm: "Close",
+              confirmTextColor: Colors.white,
+              onConfirm: () => Get.back(),
+            );
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Dismissed Notification IDs"),
+          subtitle: Text("Most recent: ${WristCheckPreferences.getDismissedBannerIds().isNotEmpty ? WristCheckPreferences.getDismissedBannerIds().last : 'None'}\nTap to view, long press to clear."),
+          onTap: () {
+            List<String> dismissed = WristCheckPreferences.getDismissedBannerIds();
+            Get.defaultDialog(
+              title: "Dismissed IDs",
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: dismissed.isEmpty
+                      ? const Text("No dismissed notification IDs found.")
+                      : ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 300),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: dismissed
+                                  .map((id) => ListTile(
+                                        title: Text(id),
+                                      ))
+                                  .toList(),
+                            ),
+                          ),
+                        ),
+                ),
+              ),
+              textConfirm: "Close",
+              confirmTextColor: Colors.white,
+              onConfirm: () => Get.back(),
+            );
+          },
+          onLongPress: () async {
+            await WristCheckPreferences.clearDismissedBannerIds();
+            setState(() {});
+            Get.snackbar(
+              "Cleared",
+              "All dismissed notification IDs cleared",
+              icon: const Icon(Icons.delete),
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          },
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("Load Test Notification"),
+          subtitle: const Text("Tap to force load the global banner notification"),
+          onTap: () {
+            final wristCheckController = Get.find<WristCheckController>();
+            wristCheckController.activeNBA(WristtrackGlobalBanner());
+            Get.snackbar(
+              "Notification Loaded",
+              "Global banner notification loaded into active NBA",
+              icon: const Icon(Icons.notifications_active),
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          },
         ),
         const Divider(thickness: 2,),
       ],

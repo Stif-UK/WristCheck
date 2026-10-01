@@ -77,6 +77,7 @@ class WristCheckPreferences {
   static const _keyLastNBADate = 'lastNBAdate';
   static const _keyRewardedAdCount = 'rewardedAdCount';
   static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
+  static const _keyDismissedBannerIds = 'dismissedBannerIds';
 
   //Visibility preferences
   static const _keyShowLastWornDate = 'showLastWornDate';
@@ -710,5 +711,20 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyGroupWatchYearByDecade, groupByDecade);
 
   static bool getGroupWatchYearByDecade() => _preferences.getBool(_keyGroupWatchYearByDecade) ?? false;
+
+  // Dismissed banner IDs methods updated
+  static List<String> getDismissedBannerIds() => _preferences.getStringList(_keyDismissedBannerIds) ?? [];
+
+  static Future addDismissedBannerId(String id) async {
+    List<String> list = getDismissedBannerIds();
+    if (!list.contains(id)) {
+      list.add(id);
+      await _preferences.setStringList(_keyDismissedBannerIds, list);
+    }
+  }
+
+  static Future clearDismissedBannerIds() async {
+    await _preferences.remove(_keyDismissedBannerIds);
+  }
 
 }
