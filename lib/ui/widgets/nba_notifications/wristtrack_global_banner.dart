@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/ui/widgets/icons/wt_static_icon.dart';
 import 'package:wristcheck/util/global_notification_helper.dart';
 
 class WristtrackGlobalBanner extends StatelessWidget {
@@ -40,6 +41,14 @@ class WristtrackGlobalBanner extends StatelessWidget {
                   ],
                 ),
               ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 8.0),
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: _buildBannerIcon(),
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -90,6 +99,31 @@ class WristtrackGlobalBanner extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildBannerIcon() {
+    String type = wristCheckController.globalBannerType.value.toLowerCase();
+    switch (type) {
+      case 'warning':
+        return const Center(
+          child: FaIcon(
+            FontAwesomeIcons.triangleExclamation,
+            color: Colors.red,
+            size: 24,
+          ),
+        );
+      case 'info':
+        return const Center(
+          child: FaIcon(
+            FontAwesomeIcons.circleInfo,
+            color: Colors.blue,
+            size: 24,
+          ),
+        );
+      case 'announcement':
+      default:
+        return const WtStaticIcon(dimensions: 40);
+    }
   }
 
   void _handleTap(BuildContext context) {

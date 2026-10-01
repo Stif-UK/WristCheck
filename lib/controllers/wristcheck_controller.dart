@@ -68,6 +68,7 @@ class WristCheckController extends GetxController {
   final globalBannerDismissible = true.obs;
   final globalBannerActionUrl = "".obs;
   final globalBannerExpanded = false.obs;
+  final globalBannerType = "announcement".obs;
 
   //Track the currently active notification to display in the header
   final activeNBA = Rxn<Widget>();
@@ -424,6 +425,7 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
   }
 
   checkForGlobalBannerNotification() async {
+    // Parse global banner notification from Remote Config
     String bannerJsonStr = remoteConfig.getString('global_banner_notice');
     if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
       bannerJsonStr = remoteConfig.getString('global_banner_notification');
@@ -456,6 +458,7 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
       globalBannerExtendedMessage(data['extendedMessage'] ?? '');
       globalBannerDismissible(data['dismissible'] ?? true);
       globalBannerActionUrl(data['action_url'] ?? data['actionUrl'] ?? '');
+      globalBannerType(data['type'] ?? 'announcement');
 
       showGlobalBanner(true);
     } catch (e) {
