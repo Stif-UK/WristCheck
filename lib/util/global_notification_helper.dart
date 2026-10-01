@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /**
@@ -13,6 +14,17 @@ class GlobalNotificationHelper {
 
   static void handleBannerTap(BuildContext context, String actionUrl) async {
     if (actionUrl.isEmpty) return;
+
+    // Check for special action deep links (e.g. store review / open store listing)
+    if (actionUrl == '/store' || actionUrl == '/review' || actionUrl == 'wristcheck://store' || actionUrl == 'wristcheck://review') {
+      final InAppReview inAppReview = InAppReview.instance;
+      try {
+        await inAppReview.openStoreListing(appStoreId: "1642718252");
+      } catch (e) {
+        debugPrint('Failed to open store listing: $e');
+      }
+      return;
+    }
 
     // Check if it's an internal deep link (starts with '/' or custom scheme like 'wristcheck://')
     if (actionUrl.startsWith('/') || actionUrl.startsWith('wristcheck://')) {
