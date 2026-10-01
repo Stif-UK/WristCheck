@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +42,14 @@ Future main() async{
       options: DefaultFirebaseOptions.currentPlatform,
     ).timeout(const Duration(seconds: 10));
 
+    // Set analytics user property for environment targeting (dev vs prod)
+    final analytics = FirebaseAnalytics.instance;
+    if (kDebugMode) {
+      await analytics.setUserProperty(name: 'app_environment', value: 'dev');
+    } else {
+      await analytics.setUserProperty(name: 'app_environment', value: 'prod');
+    }
+
     // Pass all uncaught "fatal" errors from the framework to Crashlytics
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -59,7 +68,8 @@ Future main() async{
     ));
     await remoteConfig.setDefaults(const {
       "show_merch_link" : "true",
-      "merch_url" : "https://wristtrack.teemill.com/"
+      "merch_url" : "https://wristtrack.teemill.com/",
+      'global_banner_notice': '{}',
     });
     
     // Fetch and activate with a short timeout. If it fails (e.g. no internet), 
