@@ -14,7 +14,16 @@ import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/appdata/data_completeness.dart';
+import 'package:wristcheck/ui/appdata/datalinks.dart';
+import 'package:wristcheck/ui/calendar/calendarhome.dart';
+import 'package:wristcheck/ui/collection_stats.dart';
+import 'package:wristcheck/ui/developer/developer_stats.dart';
 import 'package:wristcheck/ui/onboarding.dart';
+import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/settings/SettingsPage.dart';
+import 'package:wristcheck/ui/uploads/uploads_landing.dart';
+import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
@@ -201,8 +210,50 @@ Future main() async{
                 Locale('cs'),// Czech
                 Locale('it')// Italian
               ],
-
-                        home:  hasSeenDemo? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding(),
+              //Define deep links
+              initialRoute: '/',
+              getPages: [
+                GetPage(name: '/', page: () => hasSeenDemo ? InitialiseScreen(targetWidget: WristCheckHome()) : const WristCheckOnboarding()),
+                GetPage(name: '/settings', page: () => SettingsPage()),
+                GetPage(name: '/remove-ads', page: () => RemoveAds()),
+                GetPage(name: '/watchbox', page: () => Watchbox()),
+                GetPage(name: '/calendar', page: () => CalendarHome()),
+                GetPage(name: '/developer-stats', page: () => DeveloperStats()),
+                GetPage(name: '/datacompleteness', page: () => DataCompleteness()),
+                GetPage(name: '/appdata', page: () => DataLinks()),
+                GetPage(name: '/uploads', page: () => UploadsLanding()),
+                GetPage(name: '/collectionstats', page: () => CollectionStats()),
+              ],
+              unknownRoute: GetPage(
+                name: '/not-found',
+                page: () => Scaffold(
+                  appBar: AppBar(
+                    title: const Text('Page Not Found'),
+                  ),
+                  body: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error_outline, size: 64, color: Colors.grey),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Oops! The requested route could not be found.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () => Get.offAll(() => InitialiseScreen(targetWidget: WristCheckHome())),
+                            child: const Text('Return Home'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
                       ),
             )),
       ));
