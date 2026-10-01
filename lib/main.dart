@@ -76,9 +76,12 @@ Future main() async{
     // the app continues with default or cached values.
     await remoteConfig.fetchAndActivate().timeout(const Duration(seconds: 5));
 
-    //Listen for real-time updates to Remote Config parameters
+    // Listen for real-time updates to Remote Config in all environments
     remoteConfig.onConfigUpdated.listen((event) async {
       await remoteConfig.activate();
+      if (event.updatedKeys.contains('global_banner_notice')) {
+        // Trigger a state refresh in your banner provider/notifier if needed
+      }
     });
   } catch (e) {
     debugPrint('Firebase/RemoteConfig initialization failed: $e');
