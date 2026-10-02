@@ -15,8 +15,10 @@ class GlobalNotificationHelper {
   static void handleBannerTap(BuildContext context, String actionUrl) async {
     if (actionUrl.isEmpty) return;
 
+    String lowerUrl = actionUrl.toLowerCase();
+
     // Check for special action deep links (e.g. store review / open store listing)
-    if (actionUrl == '/store' || actionUrl == '/review' || actionUrl == 'wristcheck://store' || actionUrl == 'wristcheck://review') {
+    if (lowerUrl == '/store' || lowerUrl == '/review' || lowerUrl == 'wristcheck://store' || lowerUrl == 'wristcheck://review') {
       final InAppReview inAppReview = InAppReview.instance;
       try {
         await inAppReview.openStoreListing(appStoreId: "1642718252");
@@ -27,12 +29,12 @@ class GlobalNotificationHelper {
     }
 
     // Check if it's an internal deep link (starts with '/' or custom scheme like 'wristcheck://')
-    if (actionUrl.startsWith('/') || actionUrl.startsWith('wristcheck://')) {
-      String routePath = actionUrl;
-      if (actionUrl.startsWith('wristcheck://')) {
+    if (lowerUrl.startsWith('/') || lowerUrl.startsWith('wristcheck://')) {
+      String routePath = lowerUrl;
+      if (lowerUrl.startsWith('wristcheck://')) {
         final uri = Uri.tryParse(actionUrl);
         if (uri != null) {
-          routePath = '/${uri.pathSegments.join('/')}';
+          routePath = '/${uri.pathSegments.map((s) => s.toLowerCase()).join('/')}';
           if (!routePath.startsWith('/')) {
             routePath = '/$routePath';
           }
