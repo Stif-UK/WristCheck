@@ -10,6 +10,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/developer/developer_accuracy_view.dart';
 import 'package:wristcheck/ui/developer/raw_data_view.dart';
 import 'package:wristcheck/ui/onboarding.dart';
+import 'package:wristcheck/ui/developer/animated_recap_preview_page.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/wristtrack_global_banner.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -224,6 +225,14 @@ class _DeveloperStatsState extends State<DeveloperStats> {
   Widget _buildInfoTab(BuildContext context) {
     return Column(
       children: [
+        ListTile(
+          title: const Text("Preview Annual Recap Animation"),
+          subtitle: const Text("Tap to view annual_recap_demo.riv Rive animation"),
+          onTap: () {
+            Get.to(() => const AnimatedRecapPreviewPage());
+          },
+        ),
+        const Divider(thickness: 2,),
         ListTile(
           title: const Text("Open Count"),
           subtitle: Text("App Opened: ${WristCheckPreferences.getOpenCount()} times"),

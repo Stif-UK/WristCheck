@@ -22,7 +22,7 @@ class _WTBannerIconState extends State<WTBannerIcon> {
         // 2. Match the sealed loader states
         return switch (state) {
           RiveLoading() => const CircularProgressIndicator(),
-          RiveFailed(:final error) => WtStaticIcon(dimensions: widget.fallbackIconDimensions,),
+          RiveFailed() => WtStaticIcon(dimensions: widget.fallbackIconDimensions,),
           RiveLoaded(:final controller) => RiveWidget(
             controller: controller,
             fit: Fit.contain,
