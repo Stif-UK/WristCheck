@@ -3,6 +3,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/category.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/ui/widgets/animations/wt_annual_recap_animation.dart';
 
 class AnimatedRecapPreviewPage extends StatefulWidget {
@@ -93,6 +94,7 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your animated recap"),
+        backgroundColor: WristCheckConfig.getWCColour(),
       ),
       body: SizedBox.expand(
         child: WTAnnualRecapAnimation(
