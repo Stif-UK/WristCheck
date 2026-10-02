@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,9 @@ class WristCheckController extends GetxController {
   final remoteConfig = FirebaseRemoteConfig.instance;
 
   //Manage app purchase status
-  final isAppPro =  WristCheckConfig.acknowledgePurchase? WristCheckPreferences.getAppPurchasedStatus()!.obs : true.obs;
+  final isAppPro = (kDebugMode && !WristCheckConfig.acknowledgePurchase)
+      ? true.obs
+      : WristCheckPreferences.getAppPurchasedStatus()!.obs;
   //Manage Watchbox view order
   final watchboxOrder = WristCheckPreferences.getWatchOrder().obs;
   //Manage Watchbox View Type
