@@ -17,6 +17,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     this.top2Watch,
     this.top3Watch,
     this.onControllerReady,
+    this.fit = Fit.fill,
   });
 
   final double fallbackIconDimensions;
@@ -31,6 +32,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
   final String? top2Watch;
   final String? top3Watch;
   final ValueChanged<WTAnnualRecapAnimationController?>? onControllerReady;
+  final Fit fit;
 
   @override
   State<WTAnnualRecapAnimation> createState() => WTAnnualRecapAnimationState();
@@ -107,7 +109,7 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
               widget.onControllerReady?.call(animCtrl);
               return RiveWidget(
                 controller: controller,
-                fit: Fit.contain,
+                fit: widget.fit,
               );
             },
           ),
