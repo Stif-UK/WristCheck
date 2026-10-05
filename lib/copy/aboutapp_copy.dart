@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutAppCopy{
 
@@ -35,10 +36,34 @@ class AboutAppCopy{
   }
 
   static Widget getAcknowledgementCopy(){
-    return const Padding(
-      padding: EdgeInsets.all(12.0),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text("App Contributors",
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          const Divider(thickness: 2),
+          const Text("Animations within WristTrack have been gratefully created by Daire at Feesh Animations",),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("Find out more at: "),
+              InkWell(
+                onTap: () async {
+                  final Uri url = Uri.parse('https://www.feeshon.com');
+                  if (!await launchUrl(url)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+                child: const Text(
+                  "www.feeshon.com",
+                  style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
+          ),
+          Divider(thickness: 2),
           Text("This application is build with the use of the following libraries and services:",
           style: TextStyle(fontWeight: FontWeight.bold),),
           Divider(thickness: 2),
