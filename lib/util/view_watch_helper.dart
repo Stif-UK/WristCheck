@@ -86,14 +86,24 @@ class ViewWatchHelper{
     final langController = Get.put(LanguageController());
     final l10n = AppLocalizations.of(Get.context!)!;
 
-    if(dateField == l10n.notRecorded || dateField == l10n.na){
+    if(dateField.isEmpty || dateField == l10n.notRecorded || dateField == l10n.na || dateField == "Not Recorded" || dateField == "N/A"){
       return null;
     } else {
       try {
-        final dateFormat = DateFormat('MMM d, yyyy', langController.language.value.countryCode);
-        return dateField.length != 0 ? dateFormat.parse(dateField) : null;
+        final dateFormat = DateFormat('yMMMd', langController.language.value.toString());
+        return dateFormat.parse(dateField);
       } on Exception catch (e) {
-        return null;
+        try {
+          final dateFormatAlt = DateFormat('MMM d, yyyy', langController.language.value.countryCode);
+          return dateFormatAlt.parse(dateField);
+        } on Exception catch (e2) {
+          try {
+            final dateFormatDefault = DateFormat.yMMMd();
+            return dateFormatDefault.parse(dateField);
+          } on Exception catch (e3) {
+            return null;
+          }
+        }
       }
     }
   }

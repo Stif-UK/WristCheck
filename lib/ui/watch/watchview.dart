@@ -380,11 +380,12 @@ class _WatchViewState extends State<WatchView> {
             TextEditingValue(text: widget.currentWatch!.serialNumber ??"");
         referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
         serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
-        purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): "Not Recorded");
-        soldDateFieldController.value = TextEditingValue(text: widget.currentWatch!.soldDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.soldDate!): "Not Recorded");
-        deliveryDateFieldController.value = TextEditingValue(text: widget.currentWatch!.deliveryDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.deliveryDate!): "Not Recorded");
-        lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): "N/A");
-        warrantyEndDateFieldController.value = TextEditingValue(text: widget.currentWatch!.warrantyEndDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.warrantyEndDate!): "Not Recorded");
+        final l10n = AppLocalizations.of(context)!;
+        purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): l10n.notRecorded);
+        soldDateFieldController.value = TextEditingValue(text: widget.currentWatch!.soldDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.soldDate!): l10n.notRecorded);
+        deliveryDateFieldController.value = TextEditingValue(text: widget.currentWatch!.deliveryDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.deliveryDate!): l10n.notRecorded);
+        lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): l10n.na);
+        warrantyEndDateFieldController.value = TextEditingValue(text: widget.currentWatch!.warrantyEndDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.warrantyEndDate!): l10n.notRecorded);
         widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
         nextServiceDueFieldController.value = TextEditingValue(text: widget.watchViewController.nextServiceDue.value);
         notesFieldController.value =
