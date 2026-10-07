@@ -19,10 +19,12 @@ class PurchaseApi{
 
   static Future<List<Offering>> fetchOffers() async{
     try{
-      final offerings = await Purchases.getOfferings();
+      final offerings = await Purchases.getOfferings().timeout(const Duration(seconds: 5));
       final current = offerings.current;
       return current == null? [] : [current];
     } on PlatformException catch (_) {
+      return [];
+    } catch (_) {
       return [];
     }
   }
@@ -44,11 +46,11 @@ class PurchaseApi{
     String returnString = "Not Found";
     if (WristCheckPreferences.getAppPurchasedStatus() ?? false) {
       try {
-        CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+        CustomerInfo customerInfo = await Purchases.getCustomerInfo().timeout(const Duration(seconds: 5));
         returnString = first? customerInfo.allPurchaseDates.values.last.toString(): customerInfo.allPurchaseDates.values.first.toString() ;
       } on PlatformException catch (e) {
         WristCheckErrorHandling.surfacePlatformError(e);
-      }
+      } catch (_) {}
     }
     return returnString;
   }
@@ -56,11 +58,11 @@ class PurchaseApi{
   static Future<bool> restorePurchases() async {
     bool? restoreSuccess = false;
     try {
-      CustomerInfo customerInfo = await Purchases.restorePurchases();
+      CustomerInfo customerInfo = await Purchases.restorePurchases().timeout(const Duration(seconds: 5));
       restoreSuccess = customerInfo.entitlements.all["WristCheck Pro"]?.isActive ;
     } on PlatformException catch (e) {
       WristCheckErrorHandling.handlePurchaseError(e);
-    }
+    } catch (_) {}
     return restoreSuccess ?? false;
   }
 
@@ -70,7 +72,7 @@ class PurchaseApi{
 
     try {
       print("Getting customer info");
-      CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+      CustomerInfo customerInfo = await Purchases.getCustomerInfo().timeout(const Duration(seconds: 5));
       print("Checking entitlement is valid");
       entitlementValid = customerInfo.entitlements.all["WristCheck Pro"]?.isActive ;
       print("Status: $entitlementValid");

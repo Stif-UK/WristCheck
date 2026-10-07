@@ -3,53 +3,99 @@
 /// may be required.
 
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class InitialisationHelper {
   Future<FormError?> initialise() async {
     final completer = Completer<FormError?>();
 
-    final params = ConsentRequestParameters();
-    ConsentInformation.instance.requestConsentInfoUpdate(
-      params,
-      () async {
-        if (await ConsentInformation.instance.isConsentFormAvailable()) {
-          await _loadConsentForm();
-        } else {
-          await _initialise();
-        }
-        completer.complete();
-      },
-      (error) {
-        completer.complete(error);
-      },
-    );
+    try {
+      final params = ConsentRequestParameters();
+      ConsentInformation.instance.requestConsentInfoUpdate(
+        params,
+        () async {
+          try {
+            if (await ConsentInformation.instance.isConsentFormAvailable()) {
+              await _loadConsentForm();
+            } else {
+              await _initialise();
+            }
+          } catch (e) {
+            debugPrint('Error during consent check/load: $e');
+            try {
+              await _initialise();
+            } catch (_) {}
+          }
+          if (!completer.isCompleted) completer.complete(null);
+        },
+        (error) async {
+          debugPrint('Consent info update failed (possibly offline): $error');
+          try {
+            await _initialise();
+          } catch (_) {}
+          if (!completer.isCompleted) completer.complete(error);
+        },
+      );
+    } catch (e) {
+      debugPrint('Exception in initialise: $e');
+      try {
+        await _initialise();
+      } catch (_) {}
+      if (!completer.isCompleted) completer.complete(null);
+    }
     return completer.future;
   }
 
   Future<void> _loadConsentForm() async {
     final completer = Completer<void>();
 
-    ConsentForm.loadConsentForm(
-      (consentForm) async {
-        final status = await ConsentInformation.instance.getConsentStatus();
-        if (status == ConsentStatus.required) {
-          consentForm.show((formError) {
-            if (formError != null) {
-              completer.completeError(formError);
+    try {
+      ConsentForm.loadConsentForm(
+        (consentForm) async {
+          try {
+            final status = await ConsentInformation.instance.getConsentStatus();
+            if (status == ConsentStatus.required) {
+              consentForm.show((formError) async {
+                try {
+                  await _initialise();
+                } catch (_) {}
+                if (formError != null) {
+                  if (!completer.isCompleted) completer.complete();
+                } else {
+                  _loadConsentForm().then((_) {
+                    if (!completer.isCompleted) completer.complete();
+                  }).catchError((_) {
+                    if (!completer.isCompleted) completer.complete();
+                  });
+                }
+              });
             } else {
-              _loadConsentForm().then((_) => completer.complete());
+              await _initialise();
+              if (!completer.isCompleted) completer.complete();
             }
-          });
-        } else {
-          await _initialise();
-          completer.complete();
-        }
-      },
-      (formError) {
-        completer.completeError(formError);
-      },
-    );
+          } catch (e) {
+            try {
+              await _initialise();
+            } catch (_) {}
+            if (!completer.isCompleted) completer.complete();
+          }
+        },
+        (formError) async {
+          debugPrint('Consent form load failed (possibly offline): $formError');
+          try {
+            await _initialise();
+          } catch (_) {}
+          if (!completer.isCompleted) completer.complete();
+        },
+      );
+    } catch (e) {
+      debugPrint('Exception in _loadConsentForm: $e');
+      try {
+        await _initialise();
+      } catch (_) {}
+      if (!completer.isCompleted) completer.complete();
+    }
 
     return completer.future;
   }
@@ -57,35 +103,50 @@ class InitialisationHelper {
   Future<bool> changePrivacyPreferences() async {
     final completer = Completer<bool>();
 
-    ConsentInformation.instance.requestConsentInfoUpdate(
-      ConsentRequestParameters(),
-      () async {
-        if (await ConsentInformation.instance.isConsentFormAvailable()) {
-          ConsentForm.loadConsentForm(
-            (consentForm) {
-              consentForm.show((formError) async {
-                await _initialise();
-                completer.complete(true);
-              });
-            },
-            (formError) {
-              completer.complete(false);
-            },
-          );
-        } else {
-          completer.complete(false);
-        }
-      },
-      (error) {
-        completer.complete(false);
-      },
-    );
+    try {
+      ConsentInformation.instance.requestConsentInfoUpdate(
+        ConsentRequestParameters(),
+        () async {
+          try {
+            if (await ConsentInformation.instance.isConsentFormAvailable()) {
+              ConsentForm.loadConsentForm(
+                (consentForm) {
+                  consentForm.show((formError) async {
+                    try {
+                      await _initialise();
+                    } catch (_) {}
+                    if (!completer.isCompleted) completer.complete(true);
+                  });
+                },
+                (formError) async {
+                  try {
+                    await _initialise();
+                  } catch (_) {}
+                  if (!completer.isCompleted) completer.complete(false);
+                },
+              );
+            } else {
+              if (!completer.isCompleted) completer.complete(false);
+            }
+          } catch (_) {
+            if (!completer.isCompleted) completer.complete(false);
+          }
+        },
+        (error) async {
+          if (!completer.isCompleted) completer.complete(false);
+        },
+      );
+    } catch (_) {
+      if (!completer.isCompleted) completer.complete(false);
+    }
 
     return completer.future;
   }
 
   Future<void> _initialise() async {
-    await MobileAds.instance.initialize();
+    try {
+      await MobileAds.instance.initialize();
+    } catch (_) {}
   }
 
 }

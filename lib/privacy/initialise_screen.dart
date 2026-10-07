@@ -32,10 +32,22 @@ class _InitialiseScreenState extends State<InitialiseScreen> {
     final navigator = Navigator.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _initialisationHelper.initialise();
-      navigator.pushReplacement(
-        MaterialPageRoute(builder: (context) => widget.targetWidget)
-      );
+      try {
+        await _initialisationHelper.initialise().timeout(
+          const Duration(seconds: 6),
+          onTimeout: () {
+            debugPrint('InitialisationHelper timed out (offline/no signal). Proceeding...');
+            return null;
+          },
+        );
+      } catch (e) {
+        debugPrint('InitialisationHelper threw error during startup: $e');
+      }
+      if (mounted) {
+        navigator.pushReplacement(
+          MaterialPageRoute(builder: (context) => widget.targetWidget)
+        );
+      }
     });
   }
 
