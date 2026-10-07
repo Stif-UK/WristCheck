@@ -5,15 +5,18 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.19.7 \n"
+        "### Version 1.20.0 \n"
         "\n"
-        "A small point release to add minor improvements and squash some bugs...\n"
-            "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
-            "* Chart sizes in Wrist Recap now behave better with larger collections\n"
-            "* Fixed some pages where the floating navigation bar overlapped images or icons\n"
-            "* Extra whitespace removed from watch view\n"
-            "* [Pro] GMT Time offset expanded to +16 hours\n"
-            "* App startup sequence reviewed to improve stability and ensure full offline support";
+            "* New Data fields & Charts - Primary & Secondary colour, watch value, year of manufacture and [Pro only] power reserve.\n"
+            "* New case material option - white gold\n"
+            "* New date complication options - Pointer day-date & Subdial day-date\n"
+            "* [Pro] Moonphase calculator updated with more information and future milestone dates\n"
+            "* Data completeness view added (found in Sidebar > App Data) to help you plug data gaps\n"
+            "* Server driven banner notifications added to keep you updated\n"
+            "* Improvement: Database updated to latest library version\n"
+            "* Improvement: App startup sequence further reviewed to better support offline use\n"
+            "* Bug fix: Fixed memory leak issue on Time Setting screen\n"
+            "* Bug fix: Fixed issue with date handling when using the app in any language other than English";
 
   }
 
@@ -27,7 +30,21 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
-                      "### Version 1.19.7 \n"
+                      "### Version 1.20.0 \n"
+                      "\n"
+                      "* New Data fields & Charts - Primary & Secondary colour, watch value, year of manufacture and [Pro only] power reserve.\n"
+                      "* New case material option - white gold\n"
+                      "* New date complication options - Pointer day-date & Subdial day-date\n"
+                      "* [Pro] Moonphase calculator updated with more information and future milestone dates\n"
+                      "* Data completeness view added (found in Sidebar > App Data) to help you plug data gaps\n"
+                      "* Server driven banner notifications added to keep you updated\n"
+                      "* Improvement: Database updated to latest library version\n"
+                      "* Improvement: App startup sequence further reviewed to better support offline use\n"
+                      "* Bug fix: Fixed memory leak issue on Time Setting screen\n"
+                      "* Bug fix: Fixed issue with date handling when using the app in any language other than English"
+                      "---\n\n"
+
+              "### Version 1.19.7 \n"
                       "\n"
                       "A small point release to add minor improvements and squash some bugs...\n"
                       "* Additional categories added for selection and filtering: 'General', 'Digital', 'Casual', 'Smart watch'\n"
