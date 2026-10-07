@@ -1184,7 +1184,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get removeAdsMainCopy =>
-      'Les fonctionnalités de base de **WristTrack** sont gratuites, financées par de petites publicités dans l\'application.\n\nCependant, vous pouvez supprimer ces publicités en choisissant un prix pour l\'application ci-dessous — toutes les options débloquent la version **WristTrack Pro**.\n\n**WristTrack Pro** débloque également :\n\n* L\'option de définir un deuxième rappel quotidien\n* Des graphiques individuels par montre affichant les statistiques de portée par mois et par jour de la semaine\n* Des champs de données et des graphiques supplémentaires pour vos montres';
+      'Les fonctionnalités de base de **WristTrack** sont gratuites, financées par de petites publicités dans l\'application.\n\nCependant, vous pouvez supprimer ces publicités en choisissant un prix pour l\'application ci-dessous — toutes les options débloquent la version **WristTrack Pro**.\n\n**WristTrack Pro** débloque également :\n\n* L\'option de définir un deuxième rappel quotidien\n* Des graphiques individuels par montre affichant les statistiques de portée par mois et par jour de la semaine\n* Des champs de données et des graphiques supplémentaires pour vos montres\n* Phase lunaire et calculateurs d\'heure GMT';
 
   @override
   String get supporterCopy =>
