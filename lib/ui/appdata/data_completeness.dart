@@ -8,6 +8,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/appdata/data_watchlist.dart';
+import 'package:wristcheck/ui/remove_ads.dart';
 
 class DataCompleteness extends StatelessWidget {
   DataCompleteness({super.key});
@@ -55,7 +56,13 @@ class DataCompleteness extends StatelessWidget {
           '-/$totalCount',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
-        onTap: null,
+        onTap: () {
+          analytics.logEvent(
+            name: "pro_completeness_tile_tapped",
+            parameters: {"field": title},
+          );
+          Get.to(() => RemoveAds());
+        },
       );
     }
 
