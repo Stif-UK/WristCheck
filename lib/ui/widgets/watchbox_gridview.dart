@@ -53,7 +53,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                     crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 0.67,
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
