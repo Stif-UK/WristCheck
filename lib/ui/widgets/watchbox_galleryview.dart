@@ -73,6 +73,7 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
               var currentWatch = filteredList.elementAt(index);
               return ShrinkOnScrollItem(
                 scrollController: _scrollController,
+                maxShrink: 0.38,
                 child: InkWell(
                   onTap: () => Get.to(() => WatchView(currentWatch: currentWatch)),
                   child: _getWatchImage(currentWatch),
