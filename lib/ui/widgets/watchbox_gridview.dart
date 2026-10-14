@@ -73,6 +73,9 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                   return ShrinkOnScrollItem(
                     scrollController: _scrollController,
                     maxShrink: 0.30,
+                    maxHorizontalShift: 20.0,
+                    columnIndex: index % 2,
+                    totalColumns: 2,
                     child: WristTrackGridTab(
                       currentWatch: currentWatch,
                       collectionValue: widget.collectionValue,
