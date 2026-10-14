@@ -1,5 +1,26 @@
 {
+  "cs": [
+    "enableShrinkOnScroll"
+  ],
+
+  "de": [
+    "enableShrinkOnScroll"
+  ],
+
   "es": [
+    "enableShrinkOnScroll",
     "categoriseAndCaptureTheDetails"
+  ],
+
+  "fr": [
+    "enableShrinkOnScroll"
+  ],
+
+  "it": [
+    "enableShrinkOnScroll"
+  ],
+
+  "ru": [
+    "enableShrinkOnScroll"
   ]
 }

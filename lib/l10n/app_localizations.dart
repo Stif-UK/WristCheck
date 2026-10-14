@@ -3234,6 +3234,12 @@ abstract class AppLocalizations {
   /// **'Show wear frequency'**
   String get showWearFrequencyOption;
 
+  /// No description provided for @enableShrinkOnScroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable shrink-on-scroll animation'**
+  String get enableShrinkOnScroll;
+
   /// No description provided for @watchNamePurchased.
   ///
   /// In en, this message translates to:

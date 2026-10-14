@@ -9,6 +9,7 @@ import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
+import 'package:wristcheck/ui/widgets/shrink_on_scroll_item.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 class WatchboxGalleryView extends StatefulWidget {
@@ -28,6 +29,19 @@ class WatchboxGalleryView extends StatefulWidget {
 
 class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
   final watchBox = Boxes.getWatches();
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +60,8 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
 
         return Expanded(
           child: GridView.builder(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 100.0),
+            controller: _scrollController,
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 110.0),
             itemCount: filteredList.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -56,9 +71,12 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
             ),
             itemBuilder: (BuildContext context, int index) {
               var currentWatch = filteredList.elementAt(index);
-              return InkWell(
-                onTap: () => Get.to(() => WatchView(currentWatch: currentWatch)),
-                child: _getWatchImage(currentWatch),
+              return ShrinkOnScrollItem(
+                scrollController: _scrollController,
+                child: InkWell(
+                  onTap: () => Get.to(() => WatchView(currentWatch: currentWatch)),
+                  child: _getWatchImage(currentWatch),
+                ),
               );
             },
           ),

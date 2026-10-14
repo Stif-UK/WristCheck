@@ -1726,6 +1726,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get showWearFrequencyOption => 'Afficher la fréquence de portée';
 
   @override
+  String get enableShrinkOnScroll => 'Enable shrink-on-scroll animation';
+
+  @override
   String watchNamePurchased(Object watchName) {
     return '$watchName achetée';
   }

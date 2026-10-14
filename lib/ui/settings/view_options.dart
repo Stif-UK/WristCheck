@@ -102,6 +102,12 @@ class _ViewOptionsState extends State<ViewOptions> {
                               onChanged: (value) async => await widget.wristCheckController.updateWatchBoxView(value as WatchBoxView)
                           ),
                         ),
+                        Obx(()=> SwitchListTile(
+                            title: Text(AppLocalizations.of(Get.context!)!.enableShrinkOnScroll),
+                            value: widget.wristCheckController.enableShrinkOnScroll.value,
+                            onChanged: (bool value) => widget.wristCheckController.updateEnableShrinkOnScroll(value),
+                          ),
+                        ),
               
                       ],
                     ),

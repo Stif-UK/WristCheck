@@ -587,6 +587,7 @@
   "showLastWornDateOption" : "Show last worn dates",
   "showWearCountOption" : "Show wear counts",
   "showWearFrequencyOption" : "Show wear frequency",
+  "enableShrinkOnScroll" : "Enable shrink-on-scroll animation",
 
 
   "@_TIMELINE" : {},

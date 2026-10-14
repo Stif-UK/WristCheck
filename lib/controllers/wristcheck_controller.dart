@@ -41,6 +41,7 @@ class WristCheckController extends GetxController {
   final showLastWornDate = WristCheckPreferences.getShowLastWornDatePref().obs;
   final showWearCount = WristCheckPreferences.getShowWearCountPref().obs;
   final showWearFrequency = WristCheckPreferences.getShowWearFrequencyPref().obs;
+  final enableShrinkOnScroll = WristCheckPreferences.getEnableShrinkOnScrollPref().obs;
   //Manage locale
   final locale = WristCheckFormatter.getLocaleEnum(WristCheckPreferences.getLocale()!).obs;
   //homepage
@@ -276,6 +277,12 @@ class WristCheckController extends GetxController {
   updateShowWearFrequency(bool showFrequency) async {
     await WristCheckPreferences.setShowWearFrequencyPref(showFrequency);
     showWearFrequency(showFrequency);
+  }
+
+  //Update enable shrink-on-scroll animation
+  updateEnableShrinkOnScroll(bool enable) async {
+    await WristCheckPreferences.setEnableShrinkOnScrollPref(enable);
+    enableShrinkOnScroll(enable);
   }
 
   //Set the locale

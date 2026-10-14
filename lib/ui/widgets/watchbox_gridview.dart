@@ -7,6 +7,7 @@ import 'package:wristcheck/copy/dynamic_copy_helper.dart';
 import 'package:wristcheck/model/enums/collection_view.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/widgets/shrink_on_scroll_item.dart';
 import 'package:wristcheck/ui/widgets/wrist_track_grid_tab.dart';
 
 class WatchboxGridView extends StatefulWidget {
@@ -26,9 +27,19 @@ class WatchboxGridView extends StatefulWidget {
 
 class _WatchboxGridViewState extends State<WatchboxGridView> {
   final watchBox = Boxes.getWatches();
+  late final ScrollController _scrollController;
 
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
 
-
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +59,8 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
 
           Expanded(
             child: GridView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
               itemCount: filteredList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -57,9 +70,12 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
-                  return WristTrackGridTab(
-                    currentWatch: currentWatch,
-                    collectionValue: widget.collectionValue,
+                  return ShrinkOnScrollItem(
+                    scrollController: _scrollController,
+                    child: WristTrackGridTab(
+                      currentWatch: currentWatch,
+                      collectionValue: widget.collectionValue,
+                    ),
                   );
                 })
           );
@@ -69,4 +85,5 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
     );
   }
 }
+
 

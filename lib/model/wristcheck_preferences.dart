@@ -83,6 +83,7 @@ class WristCheckPreferences {
   static const _keyShowLastWornDate = 'showLastWornDate';
   static const _keyShowWearCountVisibility = 'showWearCountVisibility';
   static const _keyShowWearFrequencyVisibility = 'showWearFrequencyVisibility';
+  static const _keyEnableShrinkOnScroll = 'enableShrinkOnScroll';
 
   //Moon phase
   static const _keyRealisticMoon = 'realisticMoon';
@@ -645,6 +646,12 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyShowWearFrequencyVisibility, showWearFrequency);
 
   static bool getShowWearFrequencyPref() => _preferences.getBool(_keyShowWearFrequencyVisibility) ?? true;
+
+  //Getter and Setter for enable shrink on scroll preference
+  static Future setEnableShrinkOnScrollPref(bool enableShrinkOnScroll) async =>
+      await _preferences.setBool(_keyEnableShrinkOnScroll, enableShrinkOnScroll);
+
+  static bool getEnableShrinkOnScrollPref() => _preferences.getBool(_keyEnableShrinkOnScroll) ?? true;
 
   //Getter and Setter for last recap notification date
   static Future setLastRecapNotification(DateTime lastRecap) async{
