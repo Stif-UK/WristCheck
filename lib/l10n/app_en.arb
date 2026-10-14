@@ -713,6 +713,7 @@
   "categoryGeneral" : "General",
   "categoryCasual" : "Casual",
   "categorySmartWatch" : "Smart Watch",
+  "categoryLuxury" : "Luxury",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Not Entered",

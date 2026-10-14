@@ -70,6 +70,7 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       case CategoryEnum.dive:
         return 'DIVER';
       case CategoryEnum.dress:
+      case CategoryEnum.luxury:
         return 'DRESS';
       case CategoryEnum.field:
         return 'FIELD';

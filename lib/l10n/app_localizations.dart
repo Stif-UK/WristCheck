@@ -3858,6 +3858,12 @@ abstract class AppLocalizations {
   /// **'Smart Watch'**
   String get categorySmartWatch;
 
+  /// No description provided for @categoryLuxury.
+  ///
+  /// In en, this message translates to:
+  /// **'Luxury'**
+  String get categoryLuxury;
+
   /// No description provided for @notEntered.
   ///
   /// In en, this message translates to:

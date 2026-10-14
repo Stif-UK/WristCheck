@@ -49,6 +49,13 @@ class MoonPhaseMethods {
     return double.parse(illumination.toStringAsFixed(1));
   }
 
+  /// Calculates the number of days since the last new moon as an integer.
+  static int getDaysSinceLastNewMoon(DateTime date) {
+    const double synodicMonth = 29.530588853;
+    final double phase = getMoonPhase(date);
+    return (phase * synodicMonth).round();
+  }
+
   /// Returns a list of the next upcoming key moon phases (New Moon, First Quarter,
   /// Full Moon, Last Quarter) in chronological order starting from [now].
   static List<UpcomingMoonPhase> getUpcomingMoonPhases(DateTime now, BuildContext context) {

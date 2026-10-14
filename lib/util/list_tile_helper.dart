@@ -67,6 +67,9 @@ class ListTileHelper {
       case CategoryEnum.smartWatch:
         returnIcon = const FaIcon(FontAwesomeIcons.mobileScreenButton);
         break;
+      case CategoryEnum.luxury:
+        returnIcon = const FaIcon(FontAwesomeIcons.gem);
+        break;
     }
 
     return returnIcon;

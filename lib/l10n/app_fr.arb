@@ -709,6 +709,7 @@
   "categoryGeneral" : "Général",
   "categoryCasual" : "Casual",
   "categorySmartWatch" : "Montre connectée",
+  "categoryLuxury" : "Luxe",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Non renseigné",

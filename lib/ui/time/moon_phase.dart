@@ -49,6 +49,13 @@ class MoonPhaseWidget extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 4.0),
+        Text(
+          '${MoonPhaseMethods.getDaysSinceLastNewMoon(DateTime.now())} days since last new moon',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontStyle: FontStyle.italic,
+              ),
+        ),
         const SizedBox(height: 16.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

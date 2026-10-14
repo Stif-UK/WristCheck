@@ -705,6 +705,7 @@
   "categoryGeneral" : "General",
   "categoryCasual" : "Casual",
   "categorySmartWatch" : "Smartwatch",
+  "categoryLuxury" : "Lujo",
 
   "@_MOVEMENTS": {},
   "notEntered" : "No Introducido",

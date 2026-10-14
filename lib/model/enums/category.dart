@@ -14,7 +14,8 @@ enum CategoryEnum {
   digital,
   general,
   casual,
-  smartWatch
+  smartWatch,
+  luxury
 }
 
 extension CategoryEnumLocalization on CategoryEnum {
@@ -48,6 +49,8 @@ extension CategoryEnumLocalization on CategoryEnum {
         return localizations.categoryCasual;
       case CategoryEnum.smartWatch:
         return localizations.categorySmartWatch;
+      case CategoryEnum.luxury:
+        return localizations.categoryLuxury;
     }
   }
 
@@ -80,6 +83,8 @@ extension CategoryEnumLocalization on CategoryEnum {
         return "Casual";
       case CategoryEnum.smartWatch:
         return "Smart Watch";
+      case CategoryEnum.luxury:
+        return "Luxury";
     }
   }
 
@@ -110,6 +115,8 @@ extension CategoryEnumLocalization on CategoryEnum {
         return CategoryEnum.casual;
       case "Smart Watch":
         return CategoryEnum.smartWatch;
+      case "Luxury":
+        return CategoryEnum.luxury;
       case "Not Selected":
       case "":
       case null:

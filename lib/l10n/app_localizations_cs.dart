@@ -2078,6 +2078,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get categorySmartWatch => 'Chytré hodinky';
 
   @override
+  String get categoryLuxury => 'Luxusní';
+
+  @override
   String get notEntered => 'Nezadáno';
 
   @override

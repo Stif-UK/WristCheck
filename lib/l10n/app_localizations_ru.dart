@@ -2086,6 +2086,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get categorySmartWatch => 'Смарт-часы';
 
   @override
+  String get categoryLuxury => 'Люкс';
+
+  @override
   String get notEntered => 'Не указан';
 
   @override

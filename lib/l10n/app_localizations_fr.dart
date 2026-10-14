@@ -2075,6 +2075,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categorySmartWatch => 'Montre connectée';
 
   @override
+  String get categoryLuxury => 'Luxe';
+
+  @override
   String get notEntered => 'Non renseigné';
 
   @override

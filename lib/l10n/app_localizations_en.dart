@@ -2047,6 +2047,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categorySmartWatch => 'Smart Watch';
 
   @override
+  String get categoryLuxury => 'Luxury';
+
+  @override
   String get notEntered => 'Not Entered';
 
   @override

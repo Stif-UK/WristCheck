@@ -710,6 +710,7 @@
   "categoryGeneral" : "Общие",
   "categoryCasual" : "Повседневные",
   "categorySmartWatch" : "Смарт-часы",
+  "categoryLuxury" : "Люкс",
 
   "@_MOVEMENTS": {},
   "notEntered" : "Не указан",
