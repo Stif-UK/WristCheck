@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 
 class AuthService {
@@ -11,6 +12,9 @@ class AuthService {
         email: email,
         password: password,
       );
+      if (response.user != null) {
+        await PurchaseApi.logIn(response.user!.id);
+      }
       return response;
     } on AuthException catch (e) {
       WristCheckErrorHandling.showError(e.message);
@@ -46,6 +50,9 @@ class AuthService {
         token: token,
         type: OtpType.signup,
       );
+      if (response.user != null) {
+        await PurchaseApi.logIn(response.user!.id);
+      }
       return response;
     } on AuthException catch (e) {
       WristCheckErrorHandling.showError(e.message);

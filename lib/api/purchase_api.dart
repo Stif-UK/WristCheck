@@ -99,6 +99,26 @@ class PurchaseApi{
     return returnString;
   }
 
+  static Future<void> logIn(String appUserID) async {
+    try {
+      await Purchases.logIn(appUserID);
+    } on PlatformException catch (e) {
+      WristCheckErrorHandling.surfacePlatformError(e);
+    } catch (e) {
+      print('Error logging in to RevenueCat: $e');
+    }
+  }
+
+  static Future<void> logOut() async {
+    try {
+      await Purchases.logOut();
+    } on PlatformException catch (e) {
+      WristCheckErrorHandling.surfacePlatformError(e);
+    } catch (e) {
+      print('Error logging out of RevenueCat: $e');
+    }
+  }
+
   static showSuccessDialog(){
     Get.defaultDialog(
         title: "Payment Successful",
