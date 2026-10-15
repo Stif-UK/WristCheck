@@ -88,11 +88,10 @@ class PurchaseApi{
     }
   }
 
-  static getAppUserID() async{
+  static Future<String> getAppUserID() async {
     String returnString = "N/A";
     try {
-      CustomerInfo customerInfo = await Purchases.getCustomerInfo();
-      returnString = customerInfo.originalAppUserId;
+      returnString = await Purchases.appUserID;
     } on PlatformException catch (_) {
       //WristCheckErrorHandling.handlePurchaseError(e);
     }
