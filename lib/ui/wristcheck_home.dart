@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -89,6 +90,20 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
         actions: [
+          WristCheckConfig.enableLoginScreen? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Theme.of(context).textTheme.headlineSmall!.color!, width: 1),
+              ),
+              child: IconButton(
+                iconSize: 20,
+                icon: const FaIcon(FontAwesomeIcons.user),
+                onPressed: (){},
+              ),
+            ),
+          ):
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: (){Get.to(() => SettingsPage());},
@@ -97,7 +112,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.menu,
+          size: 28,),
           onPressed: () { Scaffold.of(context).openDrawer(); },
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         );
@@ -224,7 +240,10 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   }
 
   getHeaderText(){
-    return widget.wristCheckController.isAppPro.value? const Text("WristTrack Pro") : const Text("WristTrack");
+    TextStyle style = TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.bold);//Theme.of(context).textTheme.headlineSmall!;
+    return widget.wristCheckController.isAppPro.value? Text("WristTrack Pro", style: style,) : Text("WristTrack", style: style,);
   }
 
 }
