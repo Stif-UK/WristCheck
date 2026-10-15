@@ -38,7 +38,37 @@ class AuthService {
     }
   }
 
-  // Sign out
+  //Verify OTP
+  Future<AuthResponse?> verifyOTP(String email, String token) async {
+    try {
+      final response = await _supabase.auth.verifyOTP(
+        email: email,
+        token: token,
+        type: OtpType.signup,
+      );
+      return response;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return null;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return null;
+    }
+  }
+
+  //Resend OTP
+  Future<void> resendOTP(String email) async {
+    try {
+      await _supabase.auth.resend(
+        type: OtpType.signup,
+        email: email,
+      );
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+    }
+  }  // Sign out
   Future<void> signOut() async {
     try {
       await _supabase.auth.signOut();
@@ -48,4 +78,31 @@ class AuthService {
       WristCheckErrorHandling.showError(e.toString());
     }
   }
+
+  // Get user email
+  String? getUserEmail() {
+    final session = _supabase.auth.currentSession;
+    final user = session?.user;
+    return user?.email;
+  }
+
+  // Update Password
+  Future<UserResponse?> updatePassword(String oldPassword, String newPassword) async {
+    try {
+      final response = await _supabase.auth.updateUser(
+        UserAttributes(
+          password: newPassword,
+          currentPassword: oldPassword,
+        ),
+      );
+      return response;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return null;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return null;
+    }
+  }
+
 }

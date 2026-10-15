@@ -25,6 +25,7 @@ import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
 import 'package:wristcheck/ui/uploads/uploads_landing.dart';
+import 'package:wristcheck/ui/user/otp_page.dart';
 import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/wristcheck_home.dart';
 import 'package:get/get.dart';
@@ -235,6 +236,7 @@ Future main() async{
                 GetPage(name: '/appdata', page: () => DataLinks()),
                 GetPage(name: '/uploads', page: () => UploadsLanding()),
                 GetPage(name: '/collectionstats', page: () => CollectionStats()),
+                GetPage(name: '/otp-demo', page: () => const OtpPage(email: 'test@example.com', onCancel: _dummyPop)),
               ],
               unknownRoute: GetPage(
                 name: '/not-found',
@@ -276,6 +278,8 @@ Future main() async{
     statusBarColor: Colors.transparent,
   ));
 }
+
+void _dummyPop() {}
 
 void _updateOpenCount(){
   int? currentCount = WristCheckPreferences.getOpenCount();

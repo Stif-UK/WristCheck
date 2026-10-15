@@ -91,6 +91,13 @@ class _DeveloperStatsState extends State<DeveloperStats> {
           subtitle: Text("${WristCheckPreferences.getAppPurchasedStatus() ?? false}"),
         ),
         const Divider(thickness: 2,),
+        ListTile(
+          title: const Text("OTP Auth Test"),
+          subtitle: const Text("Open the OTP verify view"),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () => Get.toNamed('/otp-demo'),
+        ),
+        const Divider(thickness: 2,),
         FutureBuilder(
           builder: (context, snapshot){
             if (snapshot.connectionState == ConnectionState.done) {
