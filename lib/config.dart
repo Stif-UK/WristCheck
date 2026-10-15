@@ -21,7 +21,7 @@ class WristCheckConfig{
   static bool enableLanguagePicker = true; //Language selection in Settings
   static bool enableMonthlyRecap = true; //Enable the monthly view for Wrist Recap
   static bool useAnimations = false; //Enable animations within the app
-  static bool enableLoginScreen = false; //Enable the login screen
+  static bool enableLoginScreen = true; //Enable the login screen
 
 
   /*

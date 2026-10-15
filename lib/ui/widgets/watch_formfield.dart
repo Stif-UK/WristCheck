@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -21,6 +20,7 @@ class WatchFormField extends StatelessWidget {
     this.datePicker,
     this.focusNode,
     this.onFieldSubmitted,
+    this.obscureText = false,
   }) : super(key: key);
 
   final String fieldTitle;
@@ -37,6 +37,7 @@ class WatchFormField extends StatelessWidget {
   final bool? datePicker;
   final FocusNode? focusNode;
   final VoidCallback? onFieldSubmitted;
+  final bool obscureText;
 
 
   @override
@@ -56,9 +57,10 @@ class WatchFormField extends StatelessWidget {
             textCapitalization: textCapitalization,
             controller: controller,
             minLines: minLines,
-            maxLines: maxLines,
+            maxLines: obscureText ? 1 : maxLines,
             validator: validator,
             focusNode: focusNode,
+            obscureText: obscureText,
             onFieldSubmitted: onFieldSubmitted != null ? (_) => onFieldSubmitted!() : null,
             //If datepicker is requested, show picker and add to controller
             onTap: date? () async {
@@ -73,7 +75,7 @@ class WatchFormField extends StatelessWidget {
             }
             }
                 :null,
-            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(icon, context)
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(icon, context, hintText)
 
           ),
         ],
