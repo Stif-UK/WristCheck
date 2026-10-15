@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rive/rive.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wristcheck/api/keys.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -105,6 +107,16 @@ Future main() async{
     await PurchaseApi.init().timeout(const Duration(seconds: 10));
   } catch (e) {
     debugPrint('RevenueCat initialization failed: $e');
+  }
+
+  //Initialise Supabase
+  try {
+    await Supabase.initialize(
+      url: WristCheckKeys.getSupabaseUrl(),
+      publishableKey: WristCheckKeys.getSupabaseAnonKey(),
+    ).timeout(const Duration(seconds: 10));
+  } catch (e) {
+    debugPrint('Supabase initialization failed: $e');
   }
 
   // Pre-initialize Rive Native bindings
