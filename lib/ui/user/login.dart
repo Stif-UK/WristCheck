@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/ui/user/signup_page.dart';
 import 'package:wristcheck/ui/widgets/google_logo.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 
@@ -11,12 +13,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -34,7 +36,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text("Logging into WristTrack is optional - the app is 'local first' and all of your data is your own.\n"
-                  "However logging in simplifies tracking Pro upgrades and syncronising data between devices."),
+                  "However logging in simplifies tracking Pro upgrades and allows syncronising data between devices."),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -45,10 +47,10 @@ class _LoginState extends State<Login> {
               ),
               const Divider(thickness: 2,),
               WatchFormField(
-                fieldTitle: 'Username',
-                hintText: 'Enter your username',
+                fieldTitle: 'Email',
+                hintText: 'Enter your email address',
                 icon: const FaIcon(FontAwesomeIcons.user),
-                controller: _usernameController,
+                controller: _emailController,
                 enabled: true,
                 maxLines: 1,
                 textCapitalization: TextCapitalization.none,
@@ -158,7 +160,9 @@ class _LoginState extends State<Login> {
                     ),
                     TextButton(
                       child: Text("Sign Up Here"),
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.to(() => const SignupPage());
+                      },
                     )
                     ]
                 ),
