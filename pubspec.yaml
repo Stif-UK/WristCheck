@@ -83,6 +83,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   rive: ^0.14.11
+  supabase_flutter: ^2.18.3
 
 
 dependency_overrides:
