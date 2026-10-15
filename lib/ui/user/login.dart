@@ -33,6 +33,17 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text("Logging into WristTrack is optional - the app is 'local first' and all of your data is your own.\n"
+                  "However logging in simplifies tracking Pro upgrades and syncronising data between devices."),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(child:
+                    Text("Learn more",),
+                  onPressed: (){},),
+                ],
+              ),
+              const Divider(thickness: 2,),
               WatchFormField(
                 fieldTitle: 'Username',
                 hintText: 'Enter your username',
@@ -133,6 +144,24 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.grey,
+                          ),
+                    ),
+                    TextButton(
+                      child: Text("Sign Up Here"),
+                      onPressed: (){},
+                    )
+                    ]
+                ),
               )
             ],
           ),
