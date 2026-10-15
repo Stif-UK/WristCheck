@@ -3,9 +3,17 @@ import 'package:get/get.dart';
 import 'package:purchases_flutter/errors.dart';
 import 'dart:io' show Platform;
 
-class WristCheckErrorHandling{
+class WristCheckErrorHandling {
 
-  static surfacePlatformError(PlatformException e){
+  static showError(String message, {String title = "An Error Occurred"}) {
+    Get.defaultDialog(
+        title: title,
+        middleText: message,
+        textConfirm: "Dismiss"
+    );
+  }
+
+  static surfacePlatformError(PlatformException e) {
     Get.defaultDialog(
         title: "An Error Occurred",
         middleText: "Code: ${e.code}\n\n"
