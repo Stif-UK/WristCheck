@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/auth/auth_service.dart';
 import 'package:wristcheck/ui/user/signup_page.dart';
 import 'package:wristcheck/ui/widgets/google_logo.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
@@ -15,12 +16,33 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _signIn() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+
+      await AuthService().signInWithEmailAndPassword(email, password);
+
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -32,62 +54,83 @@ class _LoginState extends State<Login> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text("Logging into WristTrack is optional - the app is 'local first' and all of your data is your own.\n"
-                  "However logging in simplifies tracking Pro upgrades and allows syncronising data between devices."),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(child:
-                    Text("Learn more",),
-                  onPressed: (){},),
-                ],
-              ),
-              const Divider(thickness: 2,),
-              WatchFormField(
-                fieldTitle: 'Email',
-                hintText: 'Enter your email address',
-                icon: const FaIcon(FontAwesomeIcons.user),
-                controller: _emailController,
-                enabled: true,
-                maxLines: 1,
-                textCapitalization: TextCapitalization.none,
-              ),
-              const SizedBox(height: 12.0),
-              WatchFormField(
-                fieldTitle: 'Password',
-                hintText: 'Enter your password',
-                icon: const FaIcon(FontAwesomeIcons.lock),
-                controller: _passwordController,
-                enabled: true,
-                maxLines: 1,
-                obscureText: true,
-                textCapitalization: TextCapitalization.none,
-              ),
-              const SizedBox(height: 24.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => const Home()),
-                    // );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  child: Text('Login', style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
-                  ),),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text("Logging into WristTrack is optional - the app is 'local first' and all of your data is your own.\n"
+                    "However logging in simplifies tracking Pro upgrades and allows syncronising data between devices."),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(child:
+                      Text("Learn more",),
+                    onPressed: (){},),
+                  ],
                 ),
-              ),
+                const Divider(thickness: 2,),
+                WatchFormField(
+                  fieldTitle: 'Email',
+                  hintText: 'Enter your email address',
+                  icon: const FaIcon(FontAwesomeIcons.user),
+                  controller: _emailController,
+                  enabled: true,
+                  maxLines: 1,
+                  textCapitalization: TextCapitalization.none,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Email is required';
+                    }
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value.trim())) {
+                      return 'Enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 12.0),
+                WatchFormField(
+                  fieldTitle: 'Password',
+                  hintText: 'Enter your password',
+                  icon: const FaIcon(FontAwesomeIcons.lock),
+                  controller: _passwordController,
+                  enabled: true,
+                  maxLines: 1,
+                  obscureText: true,
+                  textCapitalization: TextCapitalization.none,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 24.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _signIn,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 3,
+                            ),
+                          )
+                        : const Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                  ),
+                ),
               const SizedBox(height: 24.0),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -159,7 +202,7 @@ class _LoginState extends State<Login> {
                           ),
                     ),
                     TextButton(
-                      child: Text("Sign Up Here"),
+                      child: const Text("Sign Up Here"),
                       onPressed: (){
                         Get.to(() => const SignupPage());
                       },
@@ -169,6 +212,7 @@ class _LoginState extends State<Login> {
               )
             ],
           ),
+        ),
         ),
       ),
     );

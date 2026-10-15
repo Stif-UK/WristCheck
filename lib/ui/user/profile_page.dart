@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/ui/user/auth_gate.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +39,33 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             ElevatedButton.icon(
-              onPressed: () async {
+              onPressed: _isLoading ? null : () async {
+                setState(() {
+                  _isLoading = true;
+                });
+                
+                // Ensure no pending OTP email leaks over to the next state
+                AuthGate.pendingOtpEmail.value = null;
+                
                 await AuthService().signOut();
+                
+                // Delay to allow the auth stream to broadcast the sign out
+                await Future.delayed(const Duration(milliseconds: 500));
+                
+                if (mounted) {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                }
               },
-              icon: const Icon(Icons.logout),
-              label: const Text('Sign Out'),
+              icon: _isLoading 
+                ? const SizedBox(
+                    height: 20, 
+                    width: 20, 
+                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)
+                  )
+                : const Icon(Icons.logout),
+              label: Text(_isLoading ? 'Signing Out...' : 'Sign Out'),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),

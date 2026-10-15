@@ -18,6 +18,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _passwordVerifyController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _isLoading = false;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -28,6 +30,10 @@ class _SignupPageState extends State<SignupPage> {
   
   void _signUp() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       final email = _emailController.text.trim();
       final password = _passwordController.text;
       
@@ -36,8 +42,18 @@ class _SignupPageState extends State<SignupPage> {
       // If sign up was successful, but email verification is required, session will be null.
       if (response != null && response.session == null && response.user != null) {
         AuthGate.pendingOtpEmail.value = email;
+        
+        // Add a slight delay to ensure AuthGate updates its state fully before we pop
+        await Future.delayed(const Duration(milliseconds: 500));
+        
         if (mounted && Navigator.canPop(context)) {
           Navigator.pop(context);
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
         }
       }
     }
@@ -128,17 +144,29 @@ class _SignupPageState extends State<SignupPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton(
-                    onPressed: _signUp,
+                    onPressed: _isLoading ? null : _signUp,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
-                    child: const Text('Create Account', style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25
-                    ),),
+                    child: _isLoading 
+                      ? const SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 3,
+                          ),
+                        )
+                      : const Text(
+                          'Create Account', 
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25
+                          ),
+                        ),
                   ),
                 ),
                 const SizedBox(height: 24.0),
