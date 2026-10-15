@@ -12,7 +12,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/more_menu/more_menu.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
 import 'package:wristcheck/ui/calendar/calendarhome.dart';
-import 'package:wristcheck/ui/user/login.dart';
+import 'package:wristcheck/ui/user/auth_gate.dart';
 import 'package:wristcheck/ui/watch/watchview.dart';
 import 'package:wristcheck/ui/watchbox.dart';
 import 'package:wristcheck/ui/StatsWidget.dart';
@@ -101,7 +101,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
               child: IconButton(
                 iconSize: 20,
                 icon: const FaIcon(FontAwesomeIcons.user),
-                onPressed: (){Get.to(()=> Login());},
+                onPressed: (){Get.to(()=> const AuthGate());},
               ),
             ),
           ):

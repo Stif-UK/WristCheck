@@ -9,7 +9,8 @@ class WristCheckErrorHandling {
     Get.defaultDialog(
         title: title,
         middleText: message,
-        textConfirm: "Dismiss"
+        textConfirm: "Dismiss",
+        onConfirm: () => Get.back(),
     );
   }
 
@@ -18,7 +19,8 @@ class WristCheckErrorHandling {
         title: "An Error Occurred",
         middleText: "Code: ${e.code}\n\n"
             "Message: ${e.details}",
-        textConfirm: "Dismiss"
+        textConfirm: "Dismiss",
+        onConfirm: () => Get.back(),
     );
   }
 
