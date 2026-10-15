@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/ui/widgets/google_logo.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 
 class Login extends StatefulWidget {
@@ -75,19 +76,62 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 24.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Row(
+                  children: [
+                    const Expanded(child: Divider(thickness: 1)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        "or login with",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.grey,
+                            ),
+                      ),
+                    ),
+                    const Expanded(child: Divider(thickness: 1)),
+                  ],
+                ),
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Expanded(child: Divider(thickness: 1)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      "or login with",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey,
-                          ),
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      iconSize: 30,
+                      padding: EdgeInsets.zero,
+                      icon: const GoogleLogo(size: 30),
                     ),
                   ),
-                  const Expanded(child: Divider(thickness: 1)),
+                  const SizedBox(width: 20),
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      iconSize: 30,
+                      padding: EdgeInsets.zero,
+                      icon: FaIcon(
+                        FontAwesomeIcons.apple,
+                        size: 30,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],
