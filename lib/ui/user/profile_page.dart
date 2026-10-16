@@ -91,7 +91,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: ListTile(
                   leading: FaIcon(FontAwesomeIcons.cloud),
                   title: Text("Data Sync Status: "),
+                  subtitle: Text("Last Sync: 12:30 AM"),
                   trailing: FaIcon(FontAwesomeIcons.check, color: Colors.green,),
+                )),
+            Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.image),
+                  title: Text("Image Sync Status: "),
+                  subtitle: Text("Sync in progress"),
+                  trailing: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
                 )),
             const SizedBox(height: 15,),
             const Divider(thickness: 2,),
