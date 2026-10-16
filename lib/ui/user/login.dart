@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/ui/user/reset_password.dart';
 import 'package:wristcheck/ui/user/signup_page.dart';
 import 'package:wristcheck/ui/widgets/google_logo.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
@@ -104,6 +105,16 @@ class _LoginState extends State<Login> {
                     }
                     return null;
                   },
+                ),
+                const SizedBox(height: 12.0),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Get.to(()=>ResetPassword());
+                    },
+                    child: const Text('Forgot Password?'),
+                  ),
                 ),
                 const SizedBox(height: 24.0),
                 Padding(

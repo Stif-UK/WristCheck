@@ -112,4 +112,46 @@ class AuthService {
     }
   }
 
+  // Request Password Reset
+  Future<void> requestPasswordReset(String email) async {
+    try {
+      await _supabase.auth.resetPasswordForEmail(email);
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+    }
+  }
+
+  // Verify Recovery OTP and Set New Password
+  Future<bool> verifyRecoveryOtpAndSetPassword(String email, String token, String newPassword) async {
+    try {
+      // 1. Verify the recovery OTP, which logs the user in if successful
+      final response = await _supabase.auth.verifyOTP(
+        email: email,
+        token: token,
+        type: OtpType.recovery,
+      );
+
+      if (response.user != null) {
+        await PurchaseApi.logIn(response.user!.id);
+        
+        // 2. Immediately update the password now that they have an active session
+        await _supabase.auth.updateUser(
+          UserAttributes(
+            password: newPassword,
+          ),
+        );
+        return true;
+      }
+      return false;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return false;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return false;
+    }
+  }
+
 }
