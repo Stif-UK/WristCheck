@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/auth/auth_service.dart';
 import 'package:wristcheck/ui/user/auth_gate.dart';
@@ -82,6 +83,35 @@ class _ProfilePageState extends State<ProfilePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 20,),
+            Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.cloud),
+                  title: Text("Data Sync Status: "),
+                  trailing: FaIcon(FontAwesomeIcons.check, color: Colors.green,),
+                )),
+            const SizedBox(height: 15,),
+            const Divider(thickness: 2,),
+            const SizedBox(height: 15,),
+            Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              child: ListTile(
+                leading: FaIcon(FontAwesomeIcons.envelope),
+                title: Text("Update Email"),
+            )),
+            Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.lock),
+                  title: Text("Change Password"),
+                )),
           ],
         ),
       ),
