@@ -21,4 +21,8 @@ class WristCheckKeys {
   static String getSupabaseAnonKey() {
     return kReleaseMode ? _supabaseProdAnonKey : _supabaseDevAnonKey;
   }
+
+  // Google Sign-In Client IDs
+  static const String googleWebClientId = "YOUR_WEB_CLIENT_ID.apps.googleusercontent.com";
+  static const String googleIosClientId = "YOUR_IOS_CLIENT_ID.apps.googleusercontent.com";
 }

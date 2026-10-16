@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "433262753642",
     "project_id": "wristcheck-f8662",
-    "storage_bucket": "wristcheck-f8662.appspot.com"
+    "storage_bucket": "wristcheck-f8662.firebasestorage.app"
   },
   "client": [
     {
@@ -12,7 +12,20 @@
           "package_name": "com.stifdev.wristcheck"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "433262753642-1sd0qajq1a86eiqv8ir5q6g52sc38c31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stifdev.wristcheck",
+            "certificate_hash": "2d3817589bc3d8ee3b6a2f8d47fe2ce486041fea"
+          }
+        },
+        {
+          "client_id": "433262753642-61oag7cgcp14u0mkm4hdjplbr6uj7eg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNgFyIdTunwIYoipkNHxKytqObuXKVkMI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433262753642-61oag7cgcp14u0mkm4hdjplbr6uj7eg1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "433262753642-44uab1elpi83sdj9f45hqiljcfvdk6dp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com"
+              }
+            }
+          ]
         }
       }
     }

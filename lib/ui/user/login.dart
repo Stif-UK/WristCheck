@@ -172,7 +172,17 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        await AuthService().signInWithGoogle();
+                        if (mounted) {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
+                      },
                       iconSize: 30,
                       padding: EdgeInsets.zero,
                       icon: const GoogleLogo(size: 30),

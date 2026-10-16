@@ -1,9 +1,55 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wristcheck/api/keys.dart';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 
 class AuthService {
   final SupabaseClient _supabase = Supabase.instance.client;
+
+  // Sign in with Google
+  Future<AuthResponse?> signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+      
+      // Initialize with client IDs
+      await googleSignIn.initialize(
+        clientId: WristCheckKeys.googleIosClientId, 
+        serverClientId: WristCheckKeys.googleWebClientId,
+      );
+
+      final googleAccount = await googleSignIn.authenticate();
+
+      final googleAuth = googleAccount.authentication;
+      final idToken = googleAuth.idToken;
+      
+      final googleAuthorization = await googleAccount.authorizationClient.authorizationForScopes([]);
+      final accessToken = googleAuthorization?.accessToken;
+
+      if (idToken == null || accessToken == null) {
+        throw 'Missing authentication tokens.';
+      }
+
+      final response = await _supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+
+      if (response.user != null) {
+        await PurchaseApi.logIn(response.user!.id);
+      }
+      return response;
+      
+    } catch (e) {
+      if (e is AuthException) {
+        WristCheckErrorHandling.showError(e.message);
+      } else {
+        WristCheckErrorHandling.showError(e.toString());
+      }
+      return null;
+    }
+  }
 
   // Sign in with email and password
   Future<AuthResponse?> signInWithEmailAndPassword(String email, String password) async {
