@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:io' show Platform;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wristcheck/api/keys.dart';
-import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 
 class AuthService {
@@ -36,14 +39,81 @@ class AuthService {
         accessToken: accessToken,
       );
 
-      if (response.user != null) {
-        await PurchaseApi.logIn(response.user!.id);
-      }
       return response;
       
     } catch (e) {
       if (e is AuthException) {
         WristCheckErrorHandling.showError(e.message);
+      } else {
+        WristCheckErrorHandling.showError(e.toString());
+      }
+      return null;
+    }
+  }
+
+  // Sign in with Apple
+  Future<AuthResponse?> signInWithApple() async {
+    try {
+      
+      if (Platform.isAndroid) {
+        // For Android we use Supabase's web OAuth flow which handles the dance automatically
+        await _supabase.auth.signInWithOAuth(
+          OAuthProvider.apple,
+          // You do not strictly need a deep link callback if you let the default intent handle the supabase domain,
+          // but defining one helps if you've set up App Links
+        );
+        return null; // returning null here ensures the UI doesn't crash while we wait for the deep link callback
+      }
+      
+      // Native iOS Sign in with Apple
+      final rawNonce = _supabase.auth.generateRawNonce();
+      final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: hashedNonce,
+      );
+
+      final idToken = credential.identityToken;
+      if (idToken == null) {
+        throw 'Could not find ID Token from generated credential.';
+      }
+
+      final response = await _supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.apple,
+        idToken: idToken,
+        nonce: rawNonce,
+      );
+
+      // On first sign in with Apple, we can get their name from the credential.
+      // Apple only returns the full name exactly ONCE (on the very first sign in).
+      final String? givenName = credential.givenName;
+      final String? familyName = credential.familyName;
+      
+      if (givenName != null || familyName != null) {
+        // Update user metadata in Supabase
+        await _supabase.auth.updateUser(
+          UserAttributes(
+            data: {
+              if (givenName != null) 'first_name': givenName,
+              if (familyName != null) 'last_name': familyName,
+              'full_name': '${givenName ?? ''} ${familyName ?? ''}'.trim(),
+            },
+          ),
+        );
+      }
+
+      return response;
+
+    } catch (e) {
+      if (e is AuthException) {
+        WristCheckErrorHandling.showError(e.message);
+      } else if (e is SignInWithAppleAuthorizationException) {
+         // Handle cancellation silently so we don't spam the user with an error
+        print("Apple sign-in exception: ${e.message}");
       } else {
         WristCheckErrorHandling.showError(e.toString());
       }
@@ -58,9 +128,6 @@ class AuthService {
         email: email,
         password: password,
       );
-      if (response.user != null) {
-        await PurchaseApi.logIn(response.user!.id);
-      }
       return response;
     } on AuthException catch (e) {
       WristCheckErrorHandling.showError(e.message);
@@ -96,9 +163,6 @@ class AuthService {
         token: token,
         type: OtpType.signup,
       );
-      if (response.user != null) {
-        await PurchaseApi.logIn(response.user!.id);
-      }
       return response;
     } on AuthException catch (e) {
       WristCheckErrorHandling.showError(e.message);
@@ -180,8 +244,6 @@ class AuthService {
       );
 
       if (response.user != null) {
-        await PurchaseApi.logIn(response.user!.id);
-        
         // 2. Immediately update the password now that they have an active session
         await _supabase.auth.updateUser(
           UserAttributes(

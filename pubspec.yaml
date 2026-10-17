@@ -85,6 +85,7 @@ dependencies:
   rive: ^0.14.11
   supabase_flutter: ^2.18.3
   google_sign_in: ^7.2.0
+  sign_in_with_apple: ^8.2.0
 
 
 dependency_overrides:
