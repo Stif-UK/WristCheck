@@ -59,8 +59,7 @@ class AuthService {
         // For Android we use Supabase's web OAuth flow which handles the dance automatically
         await _supabase.auth.signInWithOAuth(
           OAuthProvider.apple,
-          // You do not strictly need a deep link callback if you let the default intent handle the supabase domain,
-          // but defining one helps if you've set up App Links
+          redirectTo: 'io.supabase.wristcheck://login-callback',
         );
         return null; // returning null here ensures the UI doesn't crash while we wait for the deep link callback
       }
