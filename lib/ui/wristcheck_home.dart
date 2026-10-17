@@ -108,7 +108,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: (){Get.to(() => SettingsPage());},
-          )
+          ),
+          const SizedBox(width: 10,)
         ],
         leading: Builder(
           builder: (BuildContext context) {
