@@ -48,8 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final email = AuthService().getUserEmail() ?? 'Unknown User';
-    
+    final name = AuthService().getUsersName() ?? "";
+    final email = AuthService().getUserEmail() ?? '(no email found)';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile Page"),
@@ -77,6 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
+            //Display the users name and email address
+            Text(name, style: Theme.of(context).textTheme.titleMedium,),
             Text(
               email,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -84,28 +87,28 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 20,),
-            Card(
-                elevation: 2,
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.cloud),
-                  title: Text("Data Sync Status: "),
-                  subtitle: Text("Last Sync: 12:30 AM"),
-                  trailing: FaIcon(FontAwesomeIcons.check, color: Colors.green,),
-                )),
-            Card(
-                elevation: 2,
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.image),
-                  title: Text("Image Sync Status: "),
-                  subtitle: Text("Sync in progress"),
-                  trailing: CircularProgressIndicator(
-                    strokeWidth: 3,
-                  ),
-                )),
+            // Card(
+            //     elevation: 2,
+            //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            //     child: ListTile(
+            //       leading: FaIcon(FontAwesomeIcons.cloud),
+            //       title: Text("Data Sync Status: "),
+            //       subtitle: Text("Last Sync: 12:30 AM"),
+            //       trailing: FaIcon(FontAwesomeIcons.check, color: Colors.green,),
+            //     )),
+            // Card(
+            //     elevation: 2,
+            //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            //     child: ListTile(
+            //       leading: FaIcon(FontAwesomeIcons.image),
+            //       title: Text("Image Sync Status: "),
+            //       subtitle: Text("Sync in progress"),
+            //       trailing: CircularProgressIndicator(
+            //         strokeWidth: 3,
+            //       ),
+            //     )),
             const SizedBox(height: 15,),
             const Divider(thickness: 2,),
             const SizedBox(height: 15,),

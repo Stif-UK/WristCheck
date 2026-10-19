@@ -202,6 +202,35 @@ class AuthService {
     return user?.email;
   }
 
+  // Get user name
+  String? getUsersName() {
+    final session = _supabase.auth.currentSession;
+    final user = session?.user;
+    
+    if (user == null) return null;
+
+    // Check user_metadata first (where Apple explicitly stores names if saved properly)
+    final metadataName = user.userMetadata?['full_name'] ?? user.userMetadata?['name'];
+    if (metadataName != null && metadataName.toString().trim().isNotEmpty) {
+      return metadataName.toString().trim();
+    }
+
+    // Fallback: Check identities array for OAuth providers like Google that might supply 'name' or 'full_name'
+    if (user.identities != null) {
+      for (final identity in user.identities!) {
+        final identityData = identity.identityData;
+        if (identityData != null) {
+          final identityName = identityData['full_name'] ?? identityData['name'];
+          if (identityName != null && identityName.toString().trim().isNotEmpty) {
+            return identityName.toString().trim();
+          }
+        }
+      }
+    }
+
+    return null; // No name found anywhere
+  }
+
   // Update Password
   Future<UserResponse?> updatePassword(String oldPassword, String newPassword) async {
     try {
