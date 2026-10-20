@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wristcheck/api/purchase_api.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/user/login.dart';
 import 'package:wristcheck/ui/user/otp_page.dart';
 import 'package:wristcheck/ui/user/profile_page.dart';
@@ -34,13 +35,18 @@ class _AuthGateState extends State<AuthGate> {
     final session = Supabase.instance.client.auth.currentSession;
     if (session != null) {
       _currentScreen = AuthScreenState.profile;
-    } else if (AuthGate.pendingOtpEmail.value != null) {
+    } else if (WristCheckPreferences.getPendingOtpEmail() != null) {
       _currentScreen = AuthScreenState.otp;
+      AuthGate.pendingOtpEmail.value = WristCheckPreferences.getPendingOtpEmail();
     }
 
     _authStateSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final session = data.session;
       if (session != null) {
+        // Clear pending OTP on successful login
+        WristCheckPreferences.setPendingOtpEmail(null);
+        AuthGate.pendingOtpEmail.value = null;
+        
         // Sync RevenueCat whenever a session is established
         PurchaseApi.logIn(session.user.id);
         
@@ -60,6 +66,8 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   void _onPendingEmailChanged() {
+    WristCheckPreferences.setPendingOtpEmail(AuthGate.pendingOtpEmail.value);
+    
     if (AuthGate.pendingOtpEmail.value != null && Supabase.instance.client.auth.currentSession == null) {
       setState(() {
         _currentScreen = AuthScreenState.otp;

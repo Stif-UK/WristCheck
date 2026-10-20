@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/user/auth_gate.dart';
+import 'package:wristcheck/ui/user/otp_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -112,14 +114,142 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 15,),
             const Divider(thickness: 2,),
             const SizedBox(height: 15,),
+            //Update Name
             Card(
                 elevation: 2,
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              child: ListTile(
-                leading: FaIcon(FontAwesomeIcons.envelope),
-                title: Text("Update Email"),
-            )),
+                child: ListTile(
+                  leading: const FaIcon(FontAwesomeIcons.user),
+                  title: const Text("Update Name"),
+                  onTap: () {
+                    final currentName = AuthService().getUsersName() ?? "";
+                    final nameController = TextEditingController(text: currentName);
+                    
+                    Get.defaultDialog(
+                      title: "Update Name",
+                      content: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                            labelText: "Full Name",
+                            border: OutlineInputBorder(),
+                          ),
+                          textCapitalization: TextCapitalization.words,
+                        ),
+                      ),
+                      textConfirm: "Save",
+                      textCancel: "Cancel",
+                      confirmTextColor: Colors.white,
+                      onConfirm: () async {
+                        Get.back(); // close the dialog
+                        final success = await AuthService().updateUserName(nameController.text);
+                        if (success && mounted) {
+                          setState(() {}); // refresh the profile page UI to show new name
+                        }
+                      },
+                    );
+                  },
+                )),
+            //Update email
+            Builder(
+              builder: (context) {
+                String? pendingEmail = WristCheckPreferences.getPendingEmailChangeEmail();
+                DateTime? pendingTimestamp = WristCheckPreferences.getPendingEmailChangeTimestamp();
+                bool hasActiveEmailChange = false;
+
+                if (pendingEmail != null && pendingTimestamp != null) {
+                  if (DateTime.now().difference(pendingTimestamp).inMinutes < 60) {
+                    hasActiveEmailChange = true;
+                  } else {
+                    // Expired
+                    WristCheckPreferences.setPendingEmailChange(null, null);
+                    pendingEmail = null;
+                  }
+                }
+
+                return Card(
+                  elevation: 2,
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  child: ListTile(
+                    leading: const FaIcon(FontAwesomeIcons.envelope),
+                    title: Text(hasActiveEmailChange ? "Complete email update" : "Update Email"),
+                    onTap: () async {
+                      if (hasActiveEmailChange) {
+                        await Get.to(() => OtpPage(
+                          email: pendingEmail!,
+                          isEmailChange: true,
+                          onCancel: () => Get.back(),
+                        ));
+                        if (mounted) setState(() {});
+                        return;
+                      }
+
+                      final currentEmail = AuthService().getUserEmail() ?? "";
+                      final emailController = TextEditingController(text: currentEmail);
+                      
+                      Get.defaultDialog(
+                        title: "Update Email",
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                "Once changed you will receive a one-time passcode to the new address.",
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 16),
+                              TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
+                                  labelText: "New Email",
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.emailAddress,
+                                textCapitalization: TextCapitalization.none,
+                              ),
+                            ],
+                          ),
+                        ),
+                        textConfirm: "Send",
+                        textCancel: "Cancel",
+                        confirmTextColor: Colors.white,
+                        onConfirm: () async {
+                          Get.back(); // close the dialog
+                          final newEmail = emailController.text.trim();
+                          if (newEmail.isEmpty || newEmail == currentEmail) return;
+                          
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          
+                          final success = await AuthService().updateEmail(newEmail);
+                          
+                          if (mounted) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            
+                            if (success) {
+                              await WristCheckPreferences.setPendingEmailChange(newEmail, DateTime.now());
+                              await Get.to(() => OtpPage(
+                                email: newEmail,
+                                isEmailChange: true,
+                                onCancel: () => Get.back(),
+                              ));
+                              if (mounted) setState(() {});
+                            }
+                          }
+                        },
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
             Card(
                 elevation: 2,
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

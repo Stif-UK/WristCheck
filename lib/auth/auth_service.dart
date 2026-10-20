@@ -173,10 +173,10 @@ class AuthService {
   }
 
   //Resend OTP
-  Future<void> resendOTP(String email) async {
+  Future<void> resendOTP(String email, {OtpType type = OtpType.signup}) async {
     try {
       await _supabase.auth.resend(
-        type: OtpType.signup,
+        type: type,
         email: email,
       );
     } on AuthException catch (e) {
@@ -247,6 +247,62 @@ class AuthService {
     } catch (e) {
       WristCheckErrorHandling.showError(e.toString());
       return null;
+    }
+  }
+
+  // Update User Name
+  Future<bool> updateUserName(String newName) async {
+    try {
+      final response = await _supabase.auth.updateUser(
+        UserAttributes(
+          data: {
+            'full_name': newName.trim(),
+          },
+        ),
+      );
+      return response.user != null;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return false;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return false;
+    }
+  }
+
+  // Update Email address
+  Future<bool> updateEmail(String newEmail) async {
+    try {
+      final response = await _supabase.auth.updateUser(
+        UserAttributes(
+          email: newEmail.trim(),
+        ),
+      );
+      return response.user != null;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return false;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return false;
+    }
+  }
+
+  // Verify Email Change OTP
+  Future<bool> verifyEmailChangeOtp(String newEmail, String token) async {
+    try {
+      final response = await _supabase.auth.verifyOTP(
+        email: newEmail.trim(),
+        token: token,
+        type: OtpType.emailChange,
+      );
+      return response.user != null;
+    } on AuthException catch (e) {
+      WristCheckErrorHandling.showError(e.message);
+      return false;
+    } catch (e) {
+      WristCheckErrorHandling.showError(e.toString());
+      return false;
     }
   }
 

@@ -1,15 +1,24 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 
 class OtpPage extends StatefulWidget {
   final String email;
   final VoidCallback onCancel;
+  final bool isEmailChange;
 
-  const OtpPage({super.key, required this.email, required this.onCancel});
+  const OtpPage({
+    super.key, 
+    required this.email, 
+    required this.onCancel,
+    this.isEmailChange = false,
+  });
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -58,16 +67,28 @@ class _OtpPageState extends State<OtpPage> {
 
   void _verifyOtp() async {
     if (_formKey.currentState!.validate()) {
-      final response = await AuthService().verifyOTP(widget.email, _otpController.text.trim());
-      if (response != null && response.session != null) {
-        // Success handled by AuthGate listening to stream
+      if (widget.isEmailChange) {
+        final success = await AuthService().verifyEmailChangeOtp(widget.email, _otpController.text.trim());
+        if (success && mounted) {
+          await WristCheckPreferences.setPendingEmailChange(null, null);
+          widget.onCancel(); // Use the callback to pop back to ProfilePage
+          Get.snackbar("Success", "Your email address has been successfully updated.", snackPosition: SnackPosition.BOTTOM);
+        }
+      } else {
+        final response = await AuthService().verifyOTP(widget.email, _otpController.text.trim());
+        if (response != null && response.session != null) {
+          // Success handled by AuthGate listening to stream
+        }
       }
     }
   }
 
   void _resendOtp() async {
     if (!_isResendActive) return;
-    await AuthService().resendOTP(widget.email);
+    await AuthService().resendOTP(
+      widget.email,
+      type: widget.isEmailChange ? OtpType.emailChange : OtpType.signup,
+    );
     _startCountdown();
   }
 

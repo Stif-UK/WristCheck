@@ -15,6 +15,7 @@ class WristCheckPreferences {
   static late SharedPreferences _preferences;
 
   static const _keyAppPurchased = 'appPurchased';
+  static const _keyPendingOtpEmail = 'pendingOtpEmail';
   static const _keyLatestVersion = 'latestAppVersion';
   static const _keyOpenCount = 'openCount';
   static const _keyWearCount = 'wearCount';
@@ -96,6 +97,38 @@ class WristCheckPreferences {
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
+
+  // Pending OTP
+  static Future setPendingOtpEmail(String? email) async {
+    if (email == null) {
+      await _preferences.remove(_keyPendingOtpEmail);
+    } else {
+      await _preferences.setString(_keyPendingOtpEmail, email);
+    }
+  }
+
+  static String? getPendingOtpEmail() => _preferences.getString(_keyPendingOtpEmail);
+
+  // Pending Email Change OTP
+  static const _keyPendingEmailChangeEmail = 'pendingEmailChangeEmail';
+  static const _keyPendingEmailChangeTimestamp = 'pendingEmailChangeTimestamp';
+
+  static Future setPendingEmailChange(String? email, DateTime? timestamp) async {
+    if (email == null || timestamp == null) {
+      await _preferences.remove(_keyPendingEmailChangeEmail);
+      await _preferences.remove(_keyPendingEmailChangeTimestamp);
+    } else {
+      await _preferences.setString(_keyPendingEmailChangeEmail, email);
+      await _preferences.setInt(_keyPendingEmailChangeTimestamp, timestamp.millisecondsSinceEpoch);
+    }
+  }
+
+  static String? getPendingEmailChangeEmail() => _preferences.getString(_keyPendingEmailChangeEmail);
+  
+  static DateTime? getPendingEmailChangeTimestamp() {
+    int? millis = _preferences.getInt(_keyPendingEmailChangeTimestamp);
+    return millis != null ? DateTime.fromMillisecondsSinceEpoch(millis) : null;
+  }
 
   //Getter and setter for show sold dialog
   static Future setShowSoldDialog(bool showDialog) async =>
