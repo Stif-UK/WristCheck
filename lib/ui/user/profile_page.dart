@@ -5,6 +5,7 @@ import 'package:wristcheck/auth/auth_service.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/user/auth_gate.dart';
 import 'package:wristcheck/ui/user/otp_page.dart';
+import 'package:wristcheck/ui/user/update_password_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -255,8 +256,39 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.lock),
-                  title: Text("Change Password"),
+                  leading: const FaIcon(FontAwesomeIcons.lock),
+                  title: Text(AuthService().hasPassword() ? "Change Password" : "Set Password"),
+                  onTap: () {
+                    final authService = AuthService();
+                    final hasPwd = authService.hasPassword();
+
+                    if (hasPwd) {
+                      Get.to(() => const UpdatePasswordPage(hasExistingPassword: true));
+                    } else {
+                      final email = authService.getUserEmail();
+                      if (email == null || email.trim().isEmpty) {
+                        Get.defaultDialog(
+                          title: "Email Required",
+                          middleText: "An email address is required to be set first.",
+                          textConfirm: "OK",
+                          confirmTextColor: Colors.white,
+                          onConfirm: () => Get.back(),
+                        );
+                      } else {
+                        Get.defaultDialog(
+                          title: "Set Password",
+                          middleText: "Password login is optional when using OAuth login, however setting it provides an alternative login route.",
+                          textConfirm: "Proceed",
+                          textCancel: "Cancel",
+                          confirmTextColor: Colors.white,
+                          onConfirm: () {
+                            Get.back();
+                            Get.to(() => const UpdatePasswordPage(hasExistingPassword: false));
+                          },
+                        );
+                      }
+                    }
+                  },
                 )),
           ],
         ),

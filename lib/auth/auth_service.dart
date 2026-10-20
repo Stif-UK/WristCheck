@@ -231,8 +231,15 @@ class AuthService {
     return null; // No name found anywhere
   }
 
+  // Has Password
+  bool hasPassword() {
+    final user = _supabase.auth.currentSession?.user;
+    if (user == null) return false;
+    return user.identities?.any((identity) => identity.provider == 'email') ?? false;
+  }
+
   // Update Password
-  Future<UserResponse?> updatePassword(String oldPassword, String newPassword) async {
+  Future<UserResponse?> updatePassword({String? oldPassword, required String newPassword}) async {
     try {
       final response = await _supabase.auth.updateUser(
         UserAttributes(
