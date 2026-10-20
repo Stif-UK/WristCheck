@@ -21,8 +21,8 @@ import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
+import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
-
 
 class WristCheckHome extends StatefulWidget{
   final wristCheckController = Get.find<WristCheckController>();
@@ -36,6 +36,7 @@ class WristCheckHome extends StatefulWidget{
 class _WristCheckHomeState extends State<WristCheckHome> {
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  File? _avatarFile;
 
   //int _currentIndex = 0;
   final List<Widget> _children =[
@@ -57,6 +58,8 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       StartupChecksUtil.runStartupChecks(context);
     });
+    
+    _loadAvatar();
 
     //If app is pro, check entitlement is still valid - check once per week
     if(WristCheckPreferences.getAppPurchasedStatus() == true){
@@ -99,9 +102,19 @@ class _WristCheckHomeState extends State<WristCheckHome> {
                 border: Border.all(color: Theme.of(context).textTheme.headlineSmall!.color!, width: 1),
               ),
               child: IconButton(
-                iconSize: 20,
-                icon: const FaIcon(FontAwesomeIcons.user),
-                onPressed: (){Get.to(()=> const AuthGate());},
+                iconSize: _avatarFile != null ? 36 : 20,
+                padding: _avatarFile != null ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+                icon: _avatarFile != null 
+                    ? CircleAvatar(
+                        backgroundImage: FileImage(_avatarFile!),
+                        backgroundColor: Colors.transparent,
+                      )
+                    : const FaIcon(FontAwesomeIcons.user),
+                onPressed: () async {
+                  await Get.to(()=> const AuthGate());
+                  // Refresh the avatar after returning from AuthGate, in case they logged in/out or updated it
+                  _loadAvatar();
+                },
               ),
             ),
           ):
@@ -229,6 +242,17 @@ class _WristCheckHomeState extends State<WristCheckHome> {
   }
 
   void onSettingsPressed() {
+  }
+
+  Future<void> _loadAvatar() async {
+    final file = await ImagesUtil.getLocalAvatar();
+    if (file != null && await file.exists()) {
+      if (mounted) {
+        setState(() {
+          _avatarFile = file;
+        });
+      }
+    }
   }
 
   void _onTabTapped(int index) {

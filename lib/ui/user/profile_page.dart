@@ -198,12 +198,12 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 100,),
+          const SizedBox(height: 50,),
           Stack(
             alignment: Alignment.center,
             children: [
               CircleAvatar(
-                radius: 60,
+                radius: 100,
                 backgroundColor: Colors.transparent,
                 backgroundImage: _localAvatar != null 
                     ? FileImage(
