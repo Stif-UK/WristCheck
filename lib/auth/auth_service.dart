@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:io' show Platform;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wristcheck/api/keys.dart';
@@ -274,6 +274,52 @@ class AuthService {
     } catch (e) {
       WristCheckErrorHandling.showError(e.toString());
       return false;
+    }
+  }
+
+  // Update Avatar URL
+  Future<bool> updateAvatarUrl(String avatarUrl) async {
+    try {
+      final response = await _supabase.auth.updateUser(
+        UserAttributes(
+          data: {
+            'avatar_url': avatarUrl,
+          },
+        ),
+      );
+      return response.user != null;
+    } catch (e) {
+      print("Failed to update avatar URL: $e");
+      return false;
+    }
+  }
+
+  // Upload Avatar
+  Future<String?> uploadAvatar(File imageFile) async {
+    try {
+      final userId = _supabase.auth.currentUser!.id;
+      final fileExt = imageFile.path.split('.').last.toLowerCase();
+      final fileName = 'avatar.$fileExt';
+      final storagePath = '$userId/$fileName';
+      
+      // Upload or overwrite the file
+      await _supabase.storage.from('avatars').upload(
+        storagePath,
+        imageFile,
+        fileOptions: const FileOptions(upsert: true),
+      );
+      
+      // Create a signed URL valid for a long time (e.g. 1 year) so we can cache it locally
+      // Or 60 seconds if we only need it to download immediately. We'll use 60 seconds
+      // since the sync function will pull it down and cache it locally immediately.
+      final String signedUrl = await _supabase.storage.from('avatars').createSignedUrl(storagePath, 60);
+      final String timestampUrl = '$signedUrl&t=${DateTime.now().millisecondsSinceEpoch}';
+
+      return timestampUrl;
+    } catch (e) {
+      print("Error uploading avatar: $e");
+      WristCheckErrorHandling.showError("Failed to upload avatar to the cloud. It will be saved locally.");
+      return null;
     }
   }
 

@@ -439,17 +439,63 @@ class ImagesUtil {
     final watchViewController = Get.put(WatchViewController());
 
     var imageSource = await ImagesUtil.imageSourcePopUp(context);
+    if (imageSource == null) return;
     //Split this method depending on status
     if (watchViewController.watchViewState.value != WatchViewEnum.add) {
-      await  ImagesUtil.pickAndSaveImage(source: imageSource!, currentWatch: watch!, index: index);
-      watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(watch!, index)),  index);
+      await  ImagesUtil.pickAndSaveImage(source: imageSource, currentWatch: watch!, index: index);
+      watchViewController.updateImageListIndex(ImageCardWidget(image:  await ImagesUtil.getImage(watch, index)),  index);
     }
     else {
-      var tempImage = imageSource!= null? await ImagesUtil.pickImage(source: imageSource): null;
+      var tempImage = await ImagesUtil.pickImage(source: imageSource);
       watchViewController.updateImage(tempImage, index);
       watchViewController.updateImageListIndex(ImageCardWidget(image: tempImage), index);
     }
   }
 
+  // --- Avatar Methods ---
+
+  static Future<File?> getLocalAvatar() async {
+    if (appDocsPath == null) return null;
+    final file = File("$appDocsPath/avatar/avatar.jpg");
+    return file.existsSync() ? file : null;
+  }
+
+  static Future<void> syncAvatar(String remoteUrl) async {
+    if (appDocsPath == null || remoteUrl.isEmpty) return;
+    
+    // Check if the URL has changed exactly (including the timestamp ?t=...)
+    final lastUrl = WristCheckPreferences.getLastAvatarUrl();
+    final file = File("$appDocsPath/avatar/avatar.jpg");
+    
+    if (lastUrl == remoteUrl && file.existsSync()) {
+      // Avatar URL hasn't changed and we already have the file locally, no need to download
+      return;
+    }
+
+    try {
+      final request = await HttpClient().getUrl(Uri.parse(remoteUrl));
+      final response = await request.close();
+      if (response.statusCode == 200) {
+        final directory = await getApplicationDocumentsDirectory();
+        final avatarDir = Directory("${directory.path}/avatar");
+        if (!await avatarDir.exists()) {
+          await avatarDir.create();
+        }
+        final file = File("${avatarDir.path}/avatar.jpg");
+        
+        // If an old avatar exists, explicitly delete it before piping the new bytes
+        if (await file.exists()) {
+          await file.delete();
+        }
+        
+        await response.pipe(file.openWrite());
+        
+        // Save the new URL to preferences so we don't download it again
+        await WristCheckPreferences.setLastAvatarUrl(remoteUrl);
+      }
+    } catch (e) {
+      print("Failed to sync avatar: $e");
+    }
+  }
 
 }

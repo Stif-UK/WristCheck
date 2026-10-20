@@ -130,6 +130,14 @@ class WristCheckPreferences {
     return millis != null ? DateTime.fromMillisecondsSinceEpoch(millis) : null;
   }
 
+  // Avatar Cache
+  static const _keyLastAvatarUrl = 'lastAvatarUrl';
+  
+  static Future setLastAvatarUrl(String url) async =>
+      await _preferences.setString(_keyLastAvatarUrl, url);
+      
+  static String? getLastAvatarUrl() => _preferences.getString(_keyLastAvatarUrl);
+
   //Getter and setter for show sold dialog
   static Future setShowSoldDialog(bool showDialog) async =>
     await _preferences.setBool(_keyShowSoldDialog, showDialog);
