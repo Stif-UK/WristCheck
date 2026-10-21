@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wristcheck/boxes.dart';
@@ -14,6 +15,12 @@ class SyncService {
   static bool _isSyncing = false;
   static DateTime? lastLocalWriteTime;
 
+  static void _safeSetStatus(SyncStatusState state, {String? error}) {
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.setStatus(state, error: error);
+    }
+  }
+
   /// Performs a full bidirectional sync (Push local changes, Pull remote changes, Sync images)
   static Future<void> syncData() async {
     if (_isSyncing) {
@@ -23,29 +30,33 @@ class SyncService {
 
     final user = _supabase.auth.currentUser;
     if (user == null) {
-      SyncController.to.setStatus(SyncStatusState.waitingForConnection);
+      _safeSetStatus(SyncStatusState.waitingForConnection);
       debugPrint('SyncService: No authenticated user. Skipping sync.');
       return;
     }
 
     _isSyncing = true;
-    SyncController.to.setStatus(SyncStatusState.inProgress);
+    _safeSetStatus(SyncStatusState.inProgress);
     try {
       final box = Boxes.getWatches();
-      SyncController.to.totalWatches.value = max(1, box.length);
-      SyncController.to.syncedWatches.value = 0;
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.totalWatches.value = max(1, box.length);
+        SyncController.to.syncedWatches.value = 0;
+      }
 
       debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
 
-      SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
+      }
       lastLocalWriteTime = DateTime.now();
-      SyncController.to.setStatus(SyncStatusState.upToDate);
+      _safeSetStatus(SyncStatusState.upToDate);
       debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
     } catch (e, stackTrace) {
-      SyncController.to.setStatus(SyncStatusState.syncFailure, error: e.toString());
+      _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
       debugPrint('SyncService: Error during synchronization: $e');
       debugPrint(stackTrace.toString());
     } finally {
@@ -69,7 +80,9 @@ class SyncService {
       data['user_id'] = userId;
       batchPayload.add(data);
       done++;
-      SyncController.to.syncedWatches.value = ((done / total) * (total / 3)).floor();
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.syncedWatches.value = ((done / total) * (total / 3)).floor();
+      }
     }
 
     // Perform a single batch upsert request to Supabase
@@ -179,7 +192,9 @@ class SyncService {
         }
       }
       done++;
-      SyncController.to.syncedWatches.value = (total / 3).floor() + ((done / totalRemote) * (total / 3)).floor();
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.syncedWatches.value = ((total / 3)).floor() + ((done / totalRemote) * (total / 3)).floor();
+      }
     }
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
@@ -278,7 +293,9 @@ class SyncService {
         }
       }
       done++;
-      SyncController.to.syncedWatches.value = ((total / 3) * 2).floor() + ((done / total) * (total / 3)).floor();
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.syncedWatches.value = (((total / 3) * 2)).floor() + ((done / total) * (total / 3)).floor();
+      }
     }
   }
 }

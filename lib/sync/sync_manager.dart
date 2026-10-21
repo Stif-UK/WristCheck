@@ -8,24 +8,30 @@ class SyncManager {
   static StreamSubscription<AuthState>? _authSubscription;
   static RealtimeChannel? _realtimeChannel;
   static Timer? _debounceTimer;
+  static String? _currentSyncedUserId;
 
   /// Initialize the sync manager to listen to auth state changes and realtime events
   static void init() {
-    // Check initial state on app boot
-    final session = _supabase.auth.currentSession;
-    if (session != null) {
-      _startSyncAndRealtime(session.user.id);
-    }
-
-    // Listen to auth state changes (login / logout)
+    // Supabase onAuthStateChange automatically emits the initial session upon listening,
+    // so we handle both startup session and subsequent sign-in/sign-out events here.
     _authSubscription = _supabase.auth.onAuthStateChange.listen((data) {
       final session = data.session;
-      if (session != null) {
-        debugPrint('SyncManager: User logged in (${session.user.id}). Starting sync & realtime.');
-        _startSyncAndRealtime(session.user.id);
+      final userId = session?.user.id;
+
+      if (userId != null) {
+        if (_currentSyncedUserId != userId) {
+          _currentSyncedUserId = userId;
+          debugPrint('SyncManager: User session active ($userId). Starting sync & realtime.');
+          _startSyncAndRealtime(userId);
+        } else {
+          debugPrint('SyncManager: Session already active for user $userId. Skipping duplicate sync trigger.');
+        }
       } else {
-        debugPrint('SyncManager: User logged out. Stopping sync & realtime.');
-        _stopSyncAndRealtime();
+        if (_currentSyncedUserId != null) {
+          _currentSyncedUserId = null;
+          debugPrint('SyncManager: User logged out. Stopping sync & realtime.');
+          _stopSyncAndRealtime();
+        }
       }
     });
   }
