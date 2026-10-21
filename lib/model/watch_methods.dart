@@ -146,8 +146,11 @@ class WatchMethods {
   }
 
   static Future<bool> archiveWatch(Watches watch) async{
+    watch.ensureInitialized();
     watch.status = "Archived";
-    watch.save();
+    watch.updatedAt = DateTime.now();
+    await watch.save();
+    unawaited(SyncService.syncData());
     return true;
   }
 
@@ -162,19 +165,31 @@ class WatchMethods {
     for(Measurement record in recordList){
       measurements.delete(record.key);
     }
-    //3. Delete the watch
+    //3. Soft delete for cloud sync, then delete locally
+    watch.ensureInitialized();
+    watch.isDeleted = true;
+    watch.updatedAt = DateTime.now();
+    await watch.save();
+    await SyncService.syncData();
+
+    //4. Delete the watch locally
     watchbox.delete(watch.key);
-
   }
 
-  static void updateStatus(Watches watch, String status){
+  static void updateStatus(Watches watch, String status) async {
+    watch.ensureInitialized();
     watch.status = status;
-    watch.save();
+    watch.updatedAt = DateTime.now();
+    await watch.save();
+    unawaited(SyncService.syncData());
   }
 
-  static void setPrimaryImage(Watches watch, int index){
+  static void setPrimaryImage(Watches watch, int index) async {
+    watch.ensureInitialized();
     watch.primaryImageIndex = index;
-    watch.save();
+    watch.updatedAt = DateTime.now();
+    await watch.save();
+    unawaited(SyncService.syncData());
   }
 
   /*

@@ -81,7 +81,7 @@ class SyncService {
       batchPayload.add(data);
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = ((done / total) * (total / 3)).floor();
+        SyncController.to.syncedWatches.value = ((done / total) * (total / 2)).floor();
       }
     }
 
@@ -102,9 +102,15 @@ class SyncService {
     debugPrint('SyncService: Fetched ${remoteData.length} remote watches from Supabase.');
 
     final box = Boxes.getWatches();
+    
+    // Dynamically update totalWatches to reflect actual remote count if local was empty
+    final actualTotal = max(1, max(box.length, remoteData.length));
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.totalWatches.value = actualTotal;
+    }
+
     int done = 0;
     int totalRemote = max(1, remoteData.length);
-    int total = max(1, box.length);
 
     for (var item in remoteData) {
       final remoteMap = item as Map<String, dynamic>;
@@ -193,7 +199,7 @@ class SyncService {
       }
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = ((total / 3)).floor() + ((done / totalRemote) * (total / 3)).floor();
+        SyncController.to.syncedWatches.value = min(actualTotal, ((actualTotal / 2)).floor() + ((done / totalRemote) * (actualTotal / 2)).floor());
       }
     }
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
@@ -203,8 +209,6 @@ class SyncService {
   static Future<void> _syncImages(String userId) async {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
-    int done = 0;
-    int total = max(1, box.length);
 
     for (var watch in box.values) {
       if (watch.id != null) {
@@ -291,10 +295,6 @@ class SyncService {
             }
           }
         }
-      }
-      done++;
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = (((total / 3) * 2)).floor() + ((done / total) * (total / 3)).floor();
       }
     }
   }
