@@ -9,17 +9,24 @@ class SyncService {
   static final SupabaseClient _supabase = Supabase.instance.client;
   static const String _watchesTable = 'watches';
   static const String _storageBucket = 'watch_images';
+  static bool _isSyncing = false;
 
   /// Performs a full bidirectional sync (Push local changes, Pull remote changes, Sync images)
   static Future<void> syncData() async {
+    if (_isSyncing) {
+      debugPrint('SyncService: Sync already in progress. Skipping overlapping call.');
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user == null) {
       debugPrint('SyncService: No authenticated user. Skipping sync.');
       return;
     }
 
+    _isSyncing = true;
     try {
-      debugPrint('SyncService: Starting synchronization for user ${user.id}...');
+      debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
@@ -27,21 +34,27 @@ class SyncService {
     } catch (e, stackTrace) {
       debugPrint('SyncService: Error during synchronization: $e');
       debugPrint(stackTrace.toString());
+    } finally {
+      _isSyncing = false;
     }
   }
 
-  /// 1. Push local changes (and soft deletes) to Supabase
+  /// 1. Push local changes (and soft deletes) to Supabase in a single batch
   static Future<void> _pushLocalChanges(String userId) async {
     final box = Boxes.getWatches();
+    if (box.isEmpty) return;
+
+    final List<Map<String, dynamic>> batchPayload = [];
     for (var watch in box.values) {
       watch.ensureInitialized();
-
       final data = watch.toJson();
-      data['user_id'] = userId; // Injected dynamically at sync time
-
-      await _supabase.from(_watchesTable).upsert(data);
+      data['user_id'] = userId;
+      batchPayload.add(data);
     }
-    debugPrint('SyncService: Pushed ${box.length} local watches to Supabase.');
+
+    // Perform a single batch upsert request to Supabase
+    await _supabase.from(_watchesTable).upsert(batchPayload);
+    debugPrint('SyncService: Pushed batch of ${batchPayload.length} local watches to Supabase.');
   }
 
   /// 2. Pull remote changes from Supabase and apply Last-Write-Wins conflict resolution

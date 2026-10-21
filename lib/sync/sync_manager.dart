@@ -7,10 +7,11 @@ class SyncManager {
   static final SupabaseClient _supabase = Supabase.instance.client;
   static StreamSubscription<AuthState>? _authSubscription;
   static RealtimeChannel? _realtimeChannel;
+  static Timer? _debounceTimer;
 
   /// Initialize the sync manager to listen to auth state changes and realtime events
   static void init() {
-    // Check initial state
+    // Check initial state on app boot
     final session = _supabase.auth.currentSession;
     if (session != null) {
       _startSyncAndRealtime(session.user.id);
@@ -31,8 +32,8 @@ class SyncManager {
 
   /// Start initial sync and subscribe to Supabase Realtime
   static void _startSyncAndRealtime(String userId) async {
-    // 1. Run immediate sync on login/startup
-    await SyncService.syncData();
+    // 1. Run immediate sync in the background (non-blocking)
+    unawaited(SyncService.syncData());
 
     // 2. Setup Supabase Realtime listener for cross-device updates
     await _realtimeChannel?.unsubscribe();
@@ -49,8 +50,12 @@ class SyncManager {
         value: userId,
       ),
       callback: (payload) {
-        debugPrint('SyncManager: Realtime change detected from another device. Triggering sync...');
-        SyncService.syncData();
+        debugPrint('SyncManager: Realtime change detected from another device. Debouncing sync...');
+        // Debounce rapid successive events to prevent network spam & jank
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(seconds: 2), () {
+          unawaited(SyncService.syncData());
+        });
       },
     );
 
@@ -65,6 +70,7 @@ class SyncManager {
 
   /// Stop sync and remove realtime subscription on logout
   static void _stopSyncAndRealtime() async {
+    _debounceTimer?.cancel();
     if (_realtimeChannel != null) {
       await _supabase.removeChannel(_realtimeChannel!);
       _realtimeChannel = null;
