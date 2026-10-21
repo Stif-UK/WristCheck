@@ -39,6 +39,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:wristcheck/util/cloud_migration_util.dart';
 import 'package:wristcheck/sync/sync_manager.dart';
+import 'package:wristcheck/controllers/sync_controller.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
@@ -169,6 +170,7 @@ Future main() async{
 
   // Initialize Supabase Sync Manager
   SyncManager.init();
+  Get.put(SyncController());
 
   //Get SharedPreferences for watches and set opencount
   await WristCheckPreferences.init().then((_) => _updateOpenCount());
