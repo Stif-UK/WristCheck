@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -30,10 +31,16 @@ class SyncService {
     _isSyncing = true;
     SyncController.to.setStatus(SyncStatusState.inProgress);
     try {
+      final box = Boxes.getWatches();
+      SyncController.to.totalWatches.value = max(1, box.length);
+      SyncController.to.syncedWatches.value = 0;
+
       debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
+
+      SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
       lastLocalWriteTime = DateTime.now();
       SyncController.to.setStatus(SyncStatusState.upToDate);
       debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
@@ -53,11 +60,16 @@ class SyncService {
     if (box.isEmpty) return;
 
     final List<Map<String, dynamic>> batchPayload = [];
+    int done = 0;
+    int total = max(1, box.length);
+
     for (var watch in box.values) {
       watch.ensureInitialized();
       final data = watch.toJson();
       data['user_id'] = userId;
       batchPayload.add(data);
+      done++;
+      SyncController.to.syncedWatches.value = ((done / total) * (total / 3)).floor();
     }
 
     // Perform a single batch upsert request to Supabase
@@ -77,92 +89,97 @@ class SyncService {
     debugPrint('SyncService: Fetched ${remoteData.length} remote watches from Supabase.');
 
     final box = Boxes.getWatches();
+    int done = 0;
+    int totalRemote = max(1, remoteData.length);
+    int total = max(1, box.length);
 
     for (var item in remoteData) {
       final remoteMap = item as Map<String, dynamic>;
       final remoteWatch = Watches.fromJson(remoteMap);
       final remoteId = remoteWatch.id;
 
-      if (remoteId == null) continue;
+      if (remoteId != null) {
+        // Find matching local watch by UUID id
+        Watches? localWatch;
+        for (var w in box.values) {
+          if (w.id == remoteId) {
+            localWatch = w;
+            break;
+          }
+        }
 
-      // Find matching local watch by UUID id
-      Watches? localWatch;
-      for (var w in box.values) {
-        if (w.id == remoteId) {
-          localWatch = w;
-          break;
+        if (localWatch == null) {
+          // If remote watch is not deleted and doesn't exist locally, insert it
+          if (remoteWatch.isDeleted != true) {
+            await box.add(remoteWatch);
+            debugPrint('SyncService: Added new remote watch locally: ${remoteWatch.manufacturer} ${remoteWatch.model}');
+          }
+        } else {
+          // Conflict Resolution: Last-Write-Wins based on updatedAt
+          final localTime = localWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final remoteTime = remoteWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+          if (remoteWatch.isDeleted == true) {
+            // If remote is marked deleted, delete locally
+            await localWatch.delete();
+            debugPrint('SyncService: Deleted local watch due to remote soft-delete: ${localWatch.manufacturer} ${localWatch.model}');
+          } else if (remoteTime.isAfter(localTime)) {
+            // Remote is newer, update local record properties
+            localWatch.manufacturer = remoteWatch.manufacturer;
+            localWatch.model = remoteWatch.model;
+            localWatch.serialNumber = remoteWatch.serialNumber;
+            localWatch.favourite = remoteWatch.favourite;
+            localWatch.status = remoteWatch.status;
+            localWatch.purchaseDate = remoteWatch.purchaseDate;
+            localWatch.lastServicedDate = remoteWatch.lastServicedDate;
+            localWatch.serviceInterval = remoteWatch.serviceInterval;
+            localWatch.nextServiceDue = remoteWatch.nextServiceDue;
+            localWatch.notes = remoteWatch.notes;
+            localWatch.wearList = remoteWatch.wearList;
+            localWatch.frontImagePath = remoteWatch.frontImagePath;
+            localWatch.referenceNumber = remoteWatch.referenceNumber;
+            localWatch.backImagePath = remoteWatch.backImagePath;
+            localWatch.movement = remoteWatch.movement;
+            localWatch.category = remoteWatch.category;
+            localWatch.purchasedFrom = remoteWatch.purchasedFrom;
+            localWatch.soldTo = remoteWatch.soldTo;
+            localWatch.purchasePrice = remoteWatch.purchasePrice;
+            localWatch.soldPrice = remoteWatch.soldPrice;
+            localWatch.soldDate = remoteWatch.soldDate;
+            localWatch.deliveryDate = remoteWatch.deliveryDate;
+            localWatch.warrantyEndDate = remoteWatch.warrantyEndDate;
+            localWatch.caseDiameter = remoteWatch.caseDiameter;
+            localWatch.lugWidth = remoteWatch.lugWidth;
+            localWatch.lug2lug = remoteWatch.lug2lug;
+            localWatch.caseThickness = remoteWatch.caseThickness;
+            localWatch.waterResistance = remoteWatch.waterResistance;
+            localWatch.caseMaterial = remoteWatch.caseMaterial;
+            localWatch.winderTPD = remoteWatch.winderTPD;
+            localWatch.winderDirection = remoteWatch.winderDirection;
+            localWatch.dateComplication = remoteWatch.dateComplication;
+            localWatch.lumeImagePath = remoteWatch.lumeImagePath;
+            localWatch.year = remoteWatch.year;
+            localWatch.weight = remoteWatch.weight;
+            localWatch.winderTPDmax = remoteWatch.winderTPDmax;
+            localWatch.value = remoteWatch.value;
+            localWatch.primaryColour = remoteWatch.primaryColour;
+            localWatch.secondaryColour = remoteWatch.secondaryColour;
+            localWatch.powerReserve = remoteWatch.powerReserve;
+            localWatch.crystal = remoteWatch.crystal;
+            localWatch.crown = remoteWatch.crown;
+            localWatch.primaryImageIndex = remoteWatch.primaryImageIndex;
+            localWatch.updatedAt = remoteWatch.updatedAt;
+            localWatch.isDeleted = remoteWatch.isDeleted;
+            localWatch.frontImageSynced = remoteWatch.frontImageSynced;
+            localWatch.backImageSynced = remoteWatch.backImageSynced;
+            localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
+            await localWatch.save();
+            debugPrint('SyncService: Updated local watch from newer remote version: ${localWatch.manufacturer} ${localWatch.model}');
+          }
         }
       }
-
-      if (localWatch == null) {
-        // If remote watch is not deleted and doesn't exist locally, insert it
-        if (remoteWatch.isDeleted != true) {
-          await box.add(remoteWatch);
-          debugPrint('SyncService: Added new remote watch locally: ${remoteWatch.manufacturer} ${remoteWatch.model}');
-        }
-      } else {
-        // Conflict Resolution: Last-Write-Wins based on updatedAt
-        final localTime = localWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-        final remoteTime = remoteWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-
-        if (remoteWatch.isDeleted == true) {
-          // If remote is marked deleted, delete locally
-          await localWatch.delete();
-          debugPrint('SyncService: Deleted local watch due to remote soft-delete: ${localWatch.manufacturer} ${localWatch.model}');
-        } else if (remoteTime.isAfter(localTime)) {
-          // Remote is newer, update local record properties
-          localWatch.manufacturer = remoteWatch.manufacturer;
-          localWatch.model = remoteWatch.model;
-          localWatch.serialNumber = remoteWatch.serialNumber;
-          localWatch.favourite = remoteWatch.favourite;
-          localWatch.status = remoteWatch.status;
-          localWatch.purchaseDate = remoteWatch.purchaseDate;
-          localWatch.lastServicedDate = remoteWatch.lastServicedDate;
-          localWatch.serviceInterval = remoteWatch.serviceInterval;
-          localWatch.nextServiceDue = remoteWatch.nextServiceDue;
-          localWatch.notes = remoteWatch.notes;
-          localWatch.wearList = remoteWatch.wearList;
-          localWatch.frontImagePath = remoteWatch.frontImagePath;
-          localWatch.referenceNumber = remoteWatch.referenceNumber;
-          localWatch.backImagePath = remoteWatch.backImagePath;
-          localWatch.movement = remoteWatch.movement;
-          localWatch.category = remoteWatch.category;
-          localWatch.purchasedFrom = remoteWatch.purchasedFrom;
-          localWatch.soldTo = remoteWatch.soldTo;
-          localWatch.purchasePrice = remoteWatch.purchasePrice;
-          localWatch.soldPrice = remoteWatch.soldPrice;
-          localWatch.soldDate = remoteWatch.soldDate;
-          localWatch.deliveryDate = remoteWatch.deliveryDate;
-          localWatch.warrantyEndDate = remoteWatch.warrantyEndDate;
-          localWatch.caseDiameter = remoteWatch.caseDiameter;
-          localWatch.lugWidth = remoteWatch.lugWidth;
-          localWatch.lug2lug = remoteWatch.lug2lug;
-          localWatch.caseThickness = remoteWatch.caseThickness;
-          localWatch.waterResistance = remoteWatch.waterResistance;
-          localWatch.caseMaterial = remoteWatch.caseMaterial;
-          localWatch.winderTPD = remoteWatch.winderTPD;
-          localWatch.winderDirection = remoteWatch.winderDirection;
-          localWatch.dateComplication = remoteWatch.dateComplication;
-          localWatch.lumeImagePath = remoteWatch.lumeImagePath;
-          localWatch.year = remoteWatch.year;
-          localWatch.weight = remoteWatch.weight;
-          localWatch.winderTPDmax = remoteWatch.winderTPDmax;
-          localWatch.value = remoteWatch.value;
-          localWatch.primaryColour = remoteWatch.primaryColour;
-          localWatch.secondaryColour = remoteWatch.secondaryColour;
-          localWatch.powerReserve = remoteWatch.powerReserve;
-          localWatch.crystal = remoteWatch.crystal;
-          localWatch.crown = remoteWatch.crown;
-          localWatch.primaryImageIndex = remoteWatch.primaryImageIndex;
-          localWatch.updatedAt = remoteWatch.updatedAt;
-          localWatch.isDeleted = remoteWatch.isDeleted;
-          localWatch.frontImageSynced = remoteWatch.frontImageSynced;
-          localWatch.backImageSynced = remoteWatch.backImageSynced;
-          localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
-          await localWatch.save();
-          debugPrint('SyncService: Updated local watch from newer remote version: ${localWatch.manufacturer} ${localWatch.model}');
-        }
-      }
+      done++;
+      SyncController.to.syncedWatches.value = (total / 3).floor() + ((done / totalRemote) * (total / 3)).floor();
     }
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
@@ -171,99 +188,97 @@ class SyncService {
   static Future<void> _syncImages(String userId) async {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
+    int done = 0;
+    int total = max(1, box.length);
 
     for (var watch in box.values) {
-      if (watch.id == null) continue;
+      if (watch.id != null) {
+        // --- Front Image ---
+        if (watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty) {
+          final localFile = File("${directory.path}${watch.frontImagePath}");
+          final storagePath = '$userId/${watch.id}/front.jpg';
 
-      // --- Front Image ---
-      if (watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty) {
-        final localFile = File("${directory.path}${watch.frontImagePath}");
-        final storagePath = '$userId/${watch.id}/front.jpg';
+          if (!localFile.existsSync()) {
+            try {
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              await localFile.parent.create(recursive: true);
+              await localFile.writeAsBytes(bytes);
+              watch.frontImageSynced = true;
+              await watch.save();
+            } catch (_) {}
+          } else if (watch.frontImageSynced != true) {
+            try {
+              await _supabase.storage.from(_storageBucket).upload(
+                    storagePath,
+                    localFile,
+                    fileOptions: const FileOptions(upsert: true),
+                  );
+              watch.frontImageSynced = true;
+              await watch.save();
+            } catch (e) {
+              debugPrint('SyncService: Error uploading front image: $e');
+            }
+          }
+        }
 
-        if (!localFile.existsSync()) {
-          try {
-            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
-            await localFile.parent.create(recursive: true);
-            await localFile.writeAsBytes(bytes);
-            watch.frontImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Downloaded front image for watch ${watch.id}');
-          } catch (_) {}
-        } else if (watch.frontImageSynced != true) {
-          try {
-            await _supabase.storage.from(_storageBucket).upload(
-                  storagePath,
-                  localFile,
-                  fileOptions: const FileOptions(upsert: true),
-                );
-            watch.frontImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Uploaded front image for watch ${watch.id}');
-          } catch (e) {
-            debugPrint('SyncService: Error uploading front image: $e');
+        // --- Back Image ---
+        if (watch.backImagePath != null && watch.backImagePath!.isNotEmpty) {
+          final localFile = File("${directory.path}${watch.backImagePath}");
+          final storagePath = '$userId/${watch.id}/back.jpg';
+
+          if (!localFile.existsSync()) {
+            try {
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              await localFile.parent.create(recursive: true);
+              await localFile.writeAsBytes(bytes);
+              watch.backImageSynced = true;
+              await watch.save();
+            } catch (_) {}
+          } else if (watch.backImageSynced != true) {
+            try {
+              await _supabase.storage.from(_storageBucket).upload(
+                    storagePath,
+                    localFile,
+                    fileOptions: const FileOptions(upsert: true),
+                  );
+              watch.backImageSynced = true;
+              await watch.save();
+            } catch (e) {
+              debugPrint('SyncService: Error uploading back image: $e');
+            }
+          }
+        }
+
+        // --- Lume Image ---
+        if (watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty) {
+          final localFile = File("${directory.path}${watch.lumeImagePath}");
+          final storagePath = '$userId/${watch.id}/lume.jpg';
+
+          if (!localFile.existsSync()) {
+            try {
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              await localFile.parent.create(recursive: true);
+              await localFile.writeAsBytes(bytes);
+              watch.lumeImageSynced = true;
+              await watch.save();
+            } catch (_) {}
+          } else if (watch.lumeImageSynced != true) {
+            try {
+              await _supabase.storage.from(_storageBucket).upload(
+                    storagePath,
+                    localFile,
+                    fileOptions: const FileOptions(upsert: true),
+                  );
+              watch.lumeImageSynced = true;
+              await watch.save();
+            } catch (e) {
+              debugPrint('SyncService: Error uploading lume image: $e');
+            }
           }
         }
       }
-
-      // --- Back Image ---
-      if (watch.backImagePath != null && watch.backImagePath!.isNotEmpty) {
-        final localFile = File("${directory.path}${watch.backImagePath}");
-        final storagePath = '$userId/${watch.id}/back.jpg';
-
-        if (!localFile.existsSync()) {
-          try {
-            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
-            await localFile.parent.create(recursive: true);
-            await localFile.writeAsBytes(bytes);
-            watch.backImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Downloaded back image for watch ${watch.id}');
-          } catch (_) {}
-        } else if (watch.backImageSynced != true) {
-          try {
-            await _supabase.storage.from(_storageBucket).upload(
-                  storagePath,
-                  localFile,
-                  fileOptions: const FileOptions(upsert: true),
-                );
-            watch.backImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Uploaded back image for watch ${watch.id}');
-          } catch (e) {
-            debugPrint('SyncService: Error uploading back image: $e');
-          }
-        }
-      }
-
-      // --- Lume Image ---
-      if (watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty) {
-        final localFile = File("${directory.path}${watch.lumeImagePath}");
-        final storagePath = '$userId/${watch.id}/lume.jpg';
-
-        if (!localFile.existsSync()) {
-          try {
-            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
-            await localFile.parent.create(recursive: true);
-            await localFile.writeAsBytes(bytes);
-            watch.lumeImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Downloaded lume image for watch ${watch.id}');
-          } catch (_) {}
-        } else if (watch.lumeImageSynced != true) {
-          try {
-            await _supabase.storage.from(_storageBucket).upload(
-                  storagePath,
-                  localFile,
-                  fileOptions: const FileOptions(upsert: true),
-                );
-            watch.lumeImageSynced = true;
-            await watch.save();
-            debugPrint('SyncService: Uploaded lume image for watch ${watch.id}');
-          } catch (e) {
-            debugPrint('SyncService: Error uploading lume image: $e');
-          }
-        }
-      }
+      done++;
+      SyncController.to.syncedWatches.value = ((total / 3) * 2).floor() + ((done / total) * (total / 3)).floor();
     }
   }
 }

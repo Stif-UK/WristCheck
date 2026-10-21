@@ -17,14 +17,30 @@ class SyncController extends GetxController {
   final Rx<DateTime?> lastSyncTime = Rx<DateTime?>(null);
   final RxString errorMessage = ''.obs;
 
+  // Progress tracking
+  final RxInt totalWatches = 0.obs;
+  final RxInt syncedWatches = 0.obs;
+
   void setStatus(SyncStatusState newStatus, {String? error}) {
     status.value = newStatus;
     if (newStatus == SyncStatusState.upToDate || newStatus == SyncStatusState.syncFailure) {
       lastSyncTime.value = DateTime.now();
     }
+    if (newStatus == SyncStatusState.upToDate) {
+      syncedWatches.value = totalWatches.value;
+    }
     if (error != null) {
       errorMessage.value = error;
     }
+  }
+
+  double get progressValue {
+    if (totalWatches.value == 0) return 0.0;
+    return (syncedWatches.value / totalWatches.value).clamp(0.0, 1.0);
+  }
+
+  String get progressText {
+    return "${syncedWatches.value}/${totalWatches.value} watches synced";
   }
 
   String get statusText {

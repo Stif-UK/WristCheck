@@ -437,6 +437,7 @@ class _ProfilePageState extends State<ProfilePage> {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: ExpansionTile(
+                initiallyExpanded: true,
                   title: const Text("Database Sync"),
               children: [
                 Obx(() => Card(
@@ -449,18 +450,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       subtitle: Text(SyncController.to.subtitleText),
                       trailing: SyncController.to.trailingIcon,
                     ))),
-                // Card(
-                //     elevation: 2,
-                //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                //     child: ListTile(
-                //       leading: FaIcon(FontAwesomeIcons.image),
-                //       title: Text("Image Sync Status: "),
-                //       subtitle: Text("Sync in progress"),
-                //       trailing: CircularProgressIndicator(
-                //         strokeWidth: 3,
-                //       ),
-                //     )),
+                Obx(() => SyncController.to.status.value == SyncStatusState.inProgress
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            LinearProgressIndicator(
+                              value: SyncController.to.progressValue,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              SyncController.to.progressText,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox.shrink())
               ],),
             )
           ],
