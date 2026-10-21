@@ -52,7 +52,9 @@ class WatchStatusHeader extends StatelessWidget {
 
                 ).toList(),
                 onChanged: (status) {
-                  watchViewController.updateSelectedStatus(status.toString());
+                  if (status != null) {
+                    watchViewController.updateSelectedStatus(status.toString());
+                  }
                   if(watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString() && WristCheckPreferences.getShowSoldDialog()){
                     WristCheckDialogs.getSoldStatusPopup();
                   }

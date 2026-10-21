@@ -38,20 +38,11 @@ class SyncService {
     _isSyncing = true;
     _safeSetStatus(SyncStatusState.inProgress);
     try {
-      final box = Boxes.getWatches();
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.totalWatches.value = max(1, box.length);
-        SyncController.to.syncedWatches.value = 0;
-      }
-
       debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
 
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
-      }
       lastLocalWriteTime = DateTime.now();
       _safeSetStatus(SyncStatusState.upToDate);
       debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
@@ -64,30 +55,49 @@ class SyncService {
     }
   }
 
-  /// 1. Push local changes (and soft deletes) to Supabase in a single batch
+  /// 1. Push local dirty changes to Supabase in a single batch
   static Future<void> _pushLocalChanges(String userId) async {
     final box = Boxes.getWatches();
-    debugPrint('SyncService: Pushing ${box.length} local watches to Supabase for user $userId...');
-    if (box.isEmpty) return;
+    final dirtyWatches = box.values
+        .where((w) => (w.isDirty == true || w.isDeleted == true))
+        .toList();
+
+    debugPrint('SyncService: Found ${dirtyWatches.length} dirty/deleted local watches to push.');
+    if (dirtyWatches.isEmpty) return;
+
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.totalWatches.value = max(1, dirtyWatches.length);
+      SyncController.to.syncedWatches.value = 0;
+    }
 
     final List<Map<String, dynamic>> batchPayload = [];
     int done = 0;
-    int total = max(1, box.length);
 
-    for (var watch in box.values) {
+    for (var watch in dirtyWatches) {
       watch.ensureInitialized();
       final data = watch.toJson();
       data['user_id'] = userId;
       batchPayload.add(data);
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = ((done / total) * (total / 2)).floor();
+        SyncController.to.syncedWatches.value = done;
       }
     }
 
     // Perform a single batch upsert request to Supabase
     await _supabase.from(_watchesTable).upsert(batchPayload);
-    debugPrint('SyncService: Successfully pushed batch of ${batchPayload.length} local watches.');
+
+    // Mark pushed watches as clean, or delete local tombstones for deleted records
+    for (var watch in dirtyWatches) {
+      if (watch.isDeleted == true) {
+        await watch.delete();
+      } else {
+        watch.isDirty = false;
+        await watch.save();
+      }
+    }
+
+    debugPrint('SyncService: Successfully pushed batch of ${batchPayload.length} dirty watches.');
   }
 
   /// 2. Pull remote changes from Supabase and apply Last-Write-Wins conflict resolution
@@ -103,14 +113,12 @@ class SyncService {
 
     final box = Boxes.getWatches();
     
-    // Dynamically update totalWatches to reflect actual remote count if local was empty
-    final actualTotal = max(1, max(box.length, remoteData.length));
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.totalWatches.value = actualTotal;
+      SyncController.to.totalWatches.value = max(1, remoteData.length);
+      SyncController.to.syncedWatches.value = 0;
     }
 
     int done = 0;
-    int totalRemote = max(1, remoteData.length);
 
     for (var item in remoteData) {
       final remoteMap = item as Map<String, dynamic>;
@@ -189,6 +197,7 @@ class SyncService {
             localWatch.primaryImageIndex = remoteWatch.primaryImageIndex;
             localWatch.updatedAt = remoteWatch.updatedAt;
             localWatch.isDeleted = remoteWatch.isDeleted;
+            localWatch.isDirty = false; // Clean after pulling remote winner
             localWatch.frontImageSynced = remoteWatch.frontImageSynced;
             localWatch.backImageSynced = remoteWatch.backImageSynced;
             localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
@@ -199,7 +208,7 @@ class SyncService {
       }
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = min(actualTotal, ((actualTotal / 2)).floor() + ((done / totalRemote) * (actualTotal / 2)).floor());
+        SyncController.to.syncedWatches.value = done;
       }
     }
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');

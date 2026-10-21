@@ -7,6 +7,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:wristcheck/copy/snackbars.dart';
 import 'package:wristcheck/copy/dialogs.dart';
@@ -147,7 +148,7 @@ class WatchMethods {
 
   static Future<bool> archiveWatch(Watches watch) async{
     watch.ensureInitialized();
-    watch.status = "Archived";
+    watch.status = WatchStatusEnum.archived.toDbString();
     watch.updatedAt = DateTime.now();
     await watch.save();
     unawaited(SyncService.syncData());

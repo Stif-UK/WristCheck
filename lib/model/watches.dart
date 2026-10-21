@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:hive_ce/hive.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 
 part 'watches.g.dart';
 
@@ -156,14 +158,27 @@ class Watches extends HiveObject {
   @HiveField(50)
   bool? lumeImageSynced;
 
+  @HiveField(51)
+  bool? isDirty;
+
   /// Ensure ID and sync metadata are initialized
   void ensureInitialized() {
     id ??= const Uuid().v4();
     updatedAt ??= DateTime.now();
     isDeleted ??= false;
+    isDirty ??= true; // New or migrated watches start dirty
     frontImageSynced ??= frontImagePath == null || frontImagePath!.isEmpty;
     backImageSynced ??= backImagePath == null || backImagePath!.isEmpty;
     lumeImageSynced ??= lumeImagePath == null || lumeImagePath!.isEmpty;
+  }
+
+  /// Helper to save changes and mark watch as dirty for incremental cloud sync
+  Future<void> saveModified() async {
+    ensureInitialized();
+    isDirty = true;
+    updatedAt = DateTime.now();
+    await save();
+    unawaited(SyncService.syncData());
   }
 
   /// Serialize to JSON for Supabase upsert
@@ -273,6 +288,7 @@ class Watches extends HiveObject {
       ..primaryImageIndex = json['primary_image_index'] as int? ?? 0
       ..updatedAt = json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null
       ..isDeleted = json['is_deleted'] as bool? ?? false
+      ..isDirty = false // Pulled from remote, so initially clean
       ..frontImageSynced = json['front_image_synced'] as bool? ?? false
       ..backImageSynced = json['back_image_synced'] as bool? ?? false
       ..lumeImageSynced = json['lume_image_synced'] as bool? ?? false;
