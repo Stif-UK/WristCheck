@@ -50,8 +50,14 @@ class SyncManager {
         value: userId,
       ),
       callback: (payload) {
+        // Ignore self-triggered echoes from our own sync pushes/writes
+        if (SyncService.lastLocalWriteTime != null &&
+            DateTime.now().difference(SyncService.lastLocalWriteTime!) < const Duration(seconds: 5)) {
+          debugPrint('SyncManager: Ignoring self-triggered Realtime event.');
+          return;
+        }
+
         debugPrint('SyncManager: Realtime change detected from another device. Debouncing sync...');
-        // Debounce rapid successive events to prevent network spam & jank
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(seconds: 2), () {
           unawaited(SyncService.syncData());

@@ -10,6 +10,7 @@ class SyncService {
   static const String _watchesTable = 'watches';
   static const String _storageBucket = 'watch_images';
   static bool _isSyncing = false;
+  static DateTime? lastLocalWriteTime;
 
   /// Performs a full bidirectional sync (Push local changes, Pull remote changes, Sync images)
   static Future<void> syncData() async {
@@ -30,6 +31,7 @@ class SyncService {
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
+      lastLocalWriteTime = DateTime.now();
       debugPrint('SyncService: Synchronization completed successfully.');
     } catch (e, stackTrace) {
       debugPrint('SyncService: Error during synchronization: $e');
@@ -153,7 +155,7 @@ class SyncService {
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
 
-  /// 3. Upload/Download images to Supabase Storage
+  /// 3. Upload local images and download missing remote images via Supabase Storage
   static Future<void> _syncImages(String userId) async {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
@@ -161,48 +163,93 @@ class SyncService {
     for (var watch in box.values) {
       if (watch.id == null) continue;
 
-      // Sync Front Image
-      if (watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty && watch.frontImageSynced != true) {
+      // --- Front Image ---
+      if (watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty) {
         final localFile = File("${directory.path}${watch.frontImagePath}");
-        if (await localFile.exists()) {
-          final storagePath = '$userId/${watch.id}/front.jpg';
-          await _supabase.storage.from(_storageBucket).upload(
-                storagePath,
-                localFile,
-                fileOptions: const FileOptions(upsert: true),
-              );
-          watch.frontImageSynced = true;
-          await watch.save();
+        final storagePath = '$userId/${watch.id}/front.jpg';
+
+        if (!localFile.existsSync()) {
+          try {
+            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+            await localFile.parent.create(recursive: true);
+            await localFile.writeAsBytes(bytes);
+            watch.frontImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Downloaded front image for watch ${watch.id}');
+          } catch (_) {}
+        } else if (watch.frontImageSynced != true) {
+          try {
+            await _supabase.storage.from(_storageBucket).upload(
+                  storagePath,
+                  localFile,
+                  fileOptions: const FileOptions(upsert: true),
+                );
+            watch.frontImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Uploaded front image for watch ${watch.id}');
+          } catch (e) {
+            debugPrint('SyncService: Error uploading front image: $e');
+          }
         }
       }
 
-      // Sync Back Image
-      if (watch.backImagePath != null && watch.backImagePath!.isNotEmpty && watch.backImageSynced != true) {
+      // --- Back Image ---
+      if (watch.backImagePath != null && watch.backImagePath!.isNotEmpty) {
         final localFile = File("${directory.path}${watch.backImagePath}");
-        if (await localFile.exists()) {
-          final storagePath = '$userId/${watch.id}/back.jpg';
-          await _supabase.storage.from(_storageBucket).upload(
-                storagePath,
-                localFile,
-                fileOptions: const FileOptions(upsert: true),
-              );
-          watch.backImageSynced = true;
-          await watch.save();
+        final storagePath = '$userId/${watch.id}/back.jpg';
+
+        if (!localFile.existsSync()) {
+          try {
+            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+            await localFile.parent.create(recursive: true);
+            await localFile.writeAsBytes(bytes);
+            watch.backImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Downloaded back image for watch ${watch.id}');
+          } catch (_) {}
+        } else if (watch.backImageSynced != true) {
+          try {
+            await _supabase.storage.from(_storageBucket).upload(
+                  storagePath,
+                  localFile,
+                  fileOptions: const FileOptions(upsert: true),
+                );
+            watch.backImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Uploaded back image for watch ${watch.id}');
+          } catch (e) {
+            debugPrint('SyncService: Error uploading back image: $e');
+          }
         }
       }
 
-      // Sync Lume Image
-      if (watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty && watch.lumeImageSynced != true) {
+      // --- Lume Image ---
+      if (watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty) {
         final localFile = File("${directory.path}${watch.lumeImagePath}");
-        if (await localFile.exists()) {
-          final storagePath = '$userId/${watch.id}/lume.jpg';
-          await _supabase.storage.from(_storageBucket).upload(
-                storagePath,
-                localFile,
-                fileOptions: const FileOptions(upsert: true),
-              );
-          watch.lumeImageSynced = true;
-          await watch.save();
+        final storagePath = '$userId/${watch.id}/lume.jpg';
+
+        if (!localFile.existsSync()) {
+          try {
+            final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+            await localFile.parent.create(recursive: true);
+            await localFile.writeAsBytes(bytes);
+            watch.lumeImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Downloaded lume image for watch ${watch.id}');
+          } catch (_) {}
+        } else if (watch.lumeImageSynced != true) {
+          try {
+            await _supabase.storage.from(_storageBucket).upload(
+                  storagePath,
+                  localFile,
+                  fileOptions: const FileOptions(upsert: true),
+                );
+            watch.lumeImageSynced = true;
+            await watch.save();
+            debugPrint('SyncService: Uploaded lume image for watch ${watch.id}');
+          } catch (e) {
+            debugPrint('SyncService: Error uploading lume image: $e');
+          }
         }
       }
     }
