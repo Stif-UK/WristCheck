@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -312,7 +314,10 @@ class _WatchViewState extends State<WatchView> {
             widget.currentWatch!.year = modelYearFieldController.value.text.isEmpty
                 ? null
                 : int.tryParse(modelYearFieldController.value.text);
+            widget.currentWatch!.ensureInitialized();
+            widget.currentWatch!.updatedAt = DateTime.now();
             widget.currentWatch!.save();
+            unawaited(SyncService.syncData());
             //Update next service due in controller to refresh view
             widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
           }

@@ -36,7 +36,7 @@ class SyncService {
       await _syncImages(user.id);
       lastLocalWriteTime = DateTime.now();
       SyncController.to.setStatus(SyncStatusState.upToDate);
-      debugPrint('SyncService: Synchronization completed successfully.');
+      debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
     } catch (e, stackTrace) {
       SyncController.to.setStatus(SyncStatusState.syncFailure, error: e.toString());
       debugPrint('SyncService: Error during synchronization: $e');
@@ -49,6 +49,7 @@ class SyncService {
   /// 1. Push local changes (and soft deletes) to Supabase in a single batch
   static Future<void> _pushLocalChanges(String userId) async {
     final box = Boxes.getWatches();
+    debugPrint('SyncService: Pushing ${box.length} local watches to Supabase for user $userId...');
     if (box.isEmpty) return;
 
     final List<Map<String, dynamic>> batchPayload = [];
@@ -61,17 +62,20 @@ class SyncService {
 
     // Perform a single batch upsert request to Supabase
     await _supabase.from(_watchesTable).upsert(batchPayload);
-    debugPrint('SyncService: Pushed batch of ${batchPayload.length} local watches to Supabase.');
+    debugPrint('SyncService: Successfully pushed batch of ${batchPayload.length} local watches.');
   }
 
   /// 2. Pull remote changes from Supabase and apply Last-Write-Wins conflict resolution
   static Future<void> _pullRemoteChanges(String userId) async {
+    debugPrint('SyncService: Pulling remote changes from Supabase for user $userId...');
     final response = await _supabase
         .from(_watchesTable)
         .select()
         .eq('user_id', userId);
 
     final List<dynamic> remoteData = response as List<dynamic>;
+    debugPrint('SyncService: Fetched ${remoteData.length} remote watches from Supabase.');
+
     final box = Boxes.getWatches();
 
     for (var item in remoteData) {
@@ -94,6 +98,7 @@ class SyncService {
         // If remote watch is not deleted and doesn't exist locally, insert it
         if (remoteWatch.isDeleted != true) {
           await box.add(remoteWatch);
+          debugPrint('SyncService: Added new remote watch locally: ${remoteWatch.manufacturer} ${remoteWatch.model}');
         }
       } else {
         // Conflict Resolution: Last-Write-Wins based on updatedAt
@@ -103,6 +108,7 @@ class SyncService {
         if (remoteWatch.isDeleted == true) {
           // If remote is marked deleted, delete locally
           await localWatch.delete();
+          debugPrint('SyncService: Deleted local watch due to remote soft-delete: ${localWatch.manufacturer} ${localWatch.model}');
         } else if (remoteTime.isAfter(localTime)) {
           // Remote is newer, update local record properties
           localWatch.manufacturer = remoteWatch.manufacturer;
@@ -154,6 +160,7 @@ class SyncService {
           localWatch.backImageSynced = remoteWatch.backImageSynced;
           localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
           await localWatch.save();
+          debugPrint('SyncService: Updated local watch from newer remote version: ${localWatch.manufacturer} ${localWatch.model}');
         }
       }
     }

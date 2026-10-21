@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
@@ -6,6 +7,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
@@ -81,7 +83,10 @@ class WatchStatusHeader extends StatelessWidget {
               value: watchViewController.favourite.value,
               onChanged: (value){
                 watch.favourite = value;
+                watch.ensureInitialized();
+                watch.updatedAt = DateTime.now();
                 watch.save();
+                unawaited(SyncService.syncData());
                 watchViewController.updateFavourite(watch.favourite);
               }),
           ),

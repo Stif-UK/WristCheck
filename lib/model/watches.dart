@@ -137,12 +137,12 @@ class Watches extends HiveObject {
   @HiveField(44)
   late int? primaryImageIndex;
 
-  // --- Cloud Sync Fields ---
+  // --- Cloud Sync Fields (Nullable to prevent LateInitializationError) ---
   @HiveField(43)
-  late String? id;
+  String? id;
 
   @HiveField(46)
-  late DateTime? updatedAt;
+  DateTime? updatedAt;
 
   @HiveField(47)
   bool? isDeleted;

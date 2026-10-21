@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -293,16 +295,22 @@ class ImagesUtil {
     switch(index){
       case(0):
         currentWatch.frontImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        currentWatch.frontImageSynced = false;
         break;
       case(1):
         currentWatch.backImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        currentWatch.backImageSynced = false;
         break;
       case(2):
         currentWatch.lumeImagePath = "/img/$timestamp$safeName$perspective.jpg";
+        currentWatch.lumeImageSynced = false;
         break;
     }
 
-     currentWatch.save();
+    currentWatch.ensureInitialized();
+    currentWatch.updatedAt = DateTime.now();
+    currentWatch.save();
+    unawaited(SyncService.syncData());
 
     return File(imagePath).copy(image.path);
   }
@@ -317,6 +325,8 @@ class ImagesUtil {
         if(frontExists){
           await File("${directory.path}${watch.frontImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
         }
+        watch.frontImagePath = "";
+        watch.frontImageSynced = false;
         break;
       case(1):
         final back = watch.backImagePath ?? "";
@@ -324,6 +334,8 @@ class ImagesUtil {
         if(backExists){
           await File("${directory.path}${watch.backImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
         }
+        watch.backImagePath = "";
+        watch.backImageSynced = false;
         break;
       case(2):
         final lume = watch.lumeImagePath ?? "";
@@ -331,9 +343,15 @@ class ImagesUtil {
         if(lumeExists){
           await File("${directory.path}${watch.lumeImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
         }
+        watch.lumeImagePath = "";
+        watch.lumeImageSynced = false;
         break;
     }
 
+    watch.ensureInitialized();
+    watch.updatedAt = DateTime.now();
+    watch.save();
+    unawaited(SyncService.syncData());
   }
 
   static deleteImages(Watches watch) async {
@@ -354,6 +372,16 @@ class ImagesUtil {
       await File("${directory.path}${watch.lumeImagePath!}").delete().catchError((Object error) => print("Failed to delete old image: $error"));
     }
 
+    watch.frontImagePath = "";
+    watch.frontImageSynced = false;
+    watch.backImagePath = "";
+    watch.backImageSynced = false;
+    watch.lumeImagePath = "";
+    watch.lumeImageSynced = false;
+    watch.ensureInitialized();
+    watch.updatedAt = DateTime.now();
+    watch.save();
+    unawaited(SyncService.syncData());
   }
 
   ///deleteAllImages() iterates through the open watchbox and deletes all associated images

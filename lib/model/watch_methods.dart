@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -138,6 +140,7 @@ class WatchMethods {
       ..crown = crn;
 
 
+    watch.ensureInitialized();
     final box = Boxes.getWatches();
     return box.add(watch);
   }
@@ -200,7 +203,10 @@ class WatchMethods {
       });
       print(index);
       DateTime removed = watch.wearList.removeAt(index);
+      watch.ensureInitialized();
+      watch.updatedAt = DateTime.now();
       watch.save();
+      unawaited(SyncService.syncData());
       WristCheckSnackBars.removeWearSnackbar(watch, removed);
     } on Exception catch (e) {
       WristCheckDialogs.getGeneralErrorDialog(e);
@@ -226,7 +232,10 @@ class WatchMethods {
   static _recordWear(Watches watch, DateTime date) async {
     if(!date.isAfter(DateTime.now())){
       watch.wearList.add(date);
-      watch.save();
+      watch.ensureInitialized();
+      watch.updatedAt = DateTime.now();
+      await watch.save();
+      unawaited(SyncService.syncData());
       //increment the lifetime tracked wear count
       int? _wearCount = WristCheckPreferences.getWearCount();
       _wearCount == null? WristCheckPreferences.setWearCount(1) : WristCheckPreferences.setWearCount(_wearCount+1);
@@ -262,7 +271,10 @@ class WatchMethods {
     for(DateTime date in successList){
       watch.wearList.add(date);
     }
-    watch.save();
+    watch.ensureInitialized();
+    watch.updatedAt = DateTime.now();
+    await watch.save();
+    unawaited(SyncService.syncData());
 
     return results;
   }

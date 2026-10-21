@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -316,7 +318,10 @@ Widget _buildListView(Watches watch, BuildContext context) {
                 key: Key(watch.wearList[index].toString()),
                 onDismissed: (direction){
                   watch.wearList.removeAt(index);
+                  watch.ensureInitialized();
+                  watch.updatedAt = DateTime.now();
                   watch.save();
+                  unawaited(SyncService.syncData());
                   wristCheckController.updateDateListLength(watch.wearList.length);
                 },
                 child: ListTile(
