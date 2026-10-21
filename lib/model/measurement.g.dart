@@ -17,11 +17,11 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Measurement()
-      ..watchKey = fields[0] as int
+      ..watchKey = (fields[0] as num).toInt()
       ..baseLine = fields[1] as bool
       ..atomicTime = fields[2] as DateTime
       ..watchTime = fields[3] as DateTime
-      ..rawAccuracy = fields[4] as double?;
+      ..rawAccuracy = (fields[4] as num?)?.toDouble();
   }
 
   @override

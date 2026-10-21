@@ -37,6 +37,7 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wristcheck/util/cloud_migration_util.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
@@ -160,6 +161,8 @@ Future main() async{
   await ImagesUtil.init();
   Hive.registerAdapter(WatchesAdapter());
   await Hive.openBox<Watches>("WatchBox");
+  // Run migration for existing local collections
+  CloudMigrationUtil.migrateExistingWatches();
   Hive.registerAdapter(MeasurementAdapter());
   await Hive.openBox<Measurement>("AccuracyBox");
 

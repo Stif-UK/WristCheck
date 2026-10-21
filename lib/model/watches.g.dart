@@ -24,7 +24,7 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..status = fields[4] as String?
       ..purchaseDate = fields[5] as DateTime?
       ..lastServicedDate = fields[6] as DateTime?
-      ..serviceInterval = fields[7] as int
+      ..serviceInterval = (fields[7] as num).toInt()
       ..nextServiceDue = fields[8] as DateTime?
       ..notes = fields[9] as String?
       ..wearList = (fields[10] as List).cast<DateTime>()
@@ -35,37 +35,43 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..category = fields[16] as String?
       ..purchasedFrom = fields[17] as String?
       ..soldTo = fields[18] as String?
-      ..purchasePrice = fields[19] as int?
-      ..soldPrice = fields[20] as int?
+      ..purchasePrice = (fields[19] as num?)?.toInt()
+      ..soldPrice = (fields[20] as num?)?.toInt()
       ..soldDate = fields[21] as DateTime?
       ..deliveryDate = fields[22] as DateTime?
       ..warrantyEndDate = fields[23] as DateTime?
-      ..caseDiameter = fields[24] as double?
-      ..lugWidth = fields[25] as int?
-      ..lug2lug = fields[26] as double?
-      ..caseThickness = fields[27] as double?
-      ..waterResistance = fields[28] as int?
+      ..caseDiameter = (fields[24] as num?)?.toDouble()
+      ..lugWidth = (fields[25] as num?)?.toInt()
+      ..lug2lug = (fields[26] as num?)?.toDouble()
+      ..caseThickness = (fields[27] as num?)?.toDouble()
+      ..waterResistance = (fields[28] as num?)?.toInt()
       ..caseMaterial = fields[29] as String?
-      ..winderTPD = fields[30] as int?
+      ..winderTPD = (fields[30] as num?)?.toInt()
       ..winderDirection = fields[31] as String?
       ..dateComplication = fields[32] as String?
       ..lumeImagePath = fields[33] as String?
-      ..year = fields[34] as int?
-      ..weight = fields[35] as int?
-      ..winderTPDmax = fields[36] as int?
-      ..value = fields[37] as int?
+      ..year = (fields[34] as num?)?.toInt()
+      ..weight = (fields[35] as num?)?.toInt()
+      ..winderTPDmax = (fields[36] as num?)?.toInt()
+      ..value = (fields[37] as num?)?.toInt()
       ..primaryColour = fields[38] as String?
       ..secondaryColour = fields[39] as String?
-      ..powerReserve = fields[40] as int?
+      ..powerReserve = (fields[40] as num?)?.toInt()
       ..crystal = fields[41] as String?
       ..crown = fields[42] as String?
-      ..primaryImageIndex = fields[44] as int?;
+      ..primaryImageIndex = (fields[44] as num?)?.toInt()
+      ..id = fields[43] as String?
+      ..updatedAt = fields[46] as DateTime?
+      ..isDeleted = fields[47] as bool?
+      ..frontImageSynced = fields[48] as bool?
+      ..backImageSynced = fields[49] as bool?
+      ..lumeImageSynced = fields[50] as bool?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(43)
+      ..writeByte(49)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -151,7 +157,19 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(42)
       ..write(obj.crown)
       ..writeByte(44)
-      ..write(obj.primaryImageIndex);
+      ..write(obj.primaryImageIndex)
+      ..writeByte(43)
+      ..write(obj.id)
+      ..writeByte(46)
+      ..write(obj.updatedAt)
+      ..writeByte(47)
+      ..write(obj.isDeleted)
+      ..writeByte(48)
+      ..write(obj.frontImageSynced)
+      ..writeByte(49)
+      ..write(obj.backImageSynced)
+      ..writeByte(50)
+      ..write(obj.lumeImageSynced);
   }
 
   @override
