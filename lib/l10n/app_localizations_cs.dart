@@ -1183,7 +1183,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get removeAdsMainCopy =>
-      'Základní funkce **WristTrack** jsou zdarma, podporované malými reklamami v aplikaci.\n\nTyto reklamy však můžete odstranit výběrem příspěvku níže – všechny možnosti upgradují aplikaci na **WristTrack Pro**.\n\n**WristTrack Pro** také odemyká:\n\n* Možnost nastavit druhé denní připomenutí\n* Individuální grafy hodinek ukazující statistiky nošení podle měsíců a dnů v týdnu\n* Další datová pole hodinek a grafy\n* Fáze měsíce a GMT kalkulačky času';
+      '### Odemknout WristTrack Pro\n\nUdržujte sledování své sbírky čisté a bez rušivých vlivů. Vyberte libovolnou částku níže, abyste odstranili reklamy a upgradovali na Pro.\n\nVáš příspěvek přímo podporuje průběžný hosting serveru a aktivní vývoj budoucích aktualizací.\n\n**Funkce Pro:**\n\n* 100% zážitek bez reklam\n* Druhé denní připomenutí záznamu\n* Grafy měsíčního a týdenního rozpadu nošení\n* Rozšířená metadata hodinek a vizuální metriky\n* Zobrazení fáze měsíce a GMT kalkulačky';
 
   @override
   String get supporterCopy =>

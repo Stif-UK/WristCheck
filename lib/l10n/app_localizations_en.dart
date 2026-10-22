@@ -1166,7 +1166,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removeAdsMainCopy =>
-      'The core features of **WristTrack** are free, supported by small ads throughout the app.\n\nHowever, you can remove these ads by picking a price for the app below - all options will upgrade the app to **WristTrack Pro**.\n\n**WristTrack Pro** also unlocks:\n\n* The option to set a second daily reminder\n* Individual watch charts showing wear stats by months and weekdays\n* Additional watch data fields and charts\n* Moon Phase and GMT time calculators ';
+      '### Unlock WristTrack Pro\n\nKeep your collection tracking clean and distraction-free. Choose any amount below to remove ads and upgrade to Pro.\n\nYour contribution directly supports ongoing server hosting and active development for future updates.\n\n**Pro Features:**\n\n* 100% ad-free experience\n* Second daily logging reminder\n* Monthly and weekday wear breakdown charts\n* Extended watch metadata and visual metrics\n* Moon Phase display and GMT calculators';
 
   @override
   String get supporterCopy =>
