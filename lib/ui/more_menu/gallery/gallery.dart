@@ -70,6 +70,16 @@ class _GalleryV2State extends State<GalleryV2> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "gallery");
 
+    final double screenWidth = MediaQuery.of(context).size.width;
+    int crossAxisCount = 3;
+    if (screenWidth >= 1200) {
+      crossAxisCount = 6;
+    } else if (screenWidth >= 900) {
+      crossAxisCount = 5;
+    } else if (screenWidth >= 600) {
+      crossAxisCount = 4;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(Get.context!)!.galleryTitle),
@@ -97,8 +107,8 @@ class _GalleryV2State extends State<GalleryV2> {
 
                         return GridView.builder(
                           padding: const EdgeInsets.all(8.0),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
                             crossAxisSpacing: 8.0,
                             mainAxisSpacing: 8.0,
                           ),

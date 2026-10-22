@@ -48,6 +48,16 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
     List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
     List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
+    final double screenWidth = MediaQuery.of(context).size.width;
+    int crossAxisCount = 3;
+    if (screenWidth >= 1200) {
+      crossAxisCount = 6;
+    } else if (screenWidth >= 900) {
+      crossAxisCount = 5;
+    } else if (screenWidth >= 600) {
+      crossAxisCount = 4;
+    }
+
     return ValueListenableBuilder<Box<Watches>>(
       valueListenable: watchBox.listenable(),
       builder: (context, box, _) {
@@ -63,8 +73,8 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
             controller: _scrollController,
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 110.0),
             itemCount: filteredList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
               childAspectRatio: 1.0,
@@ -75,8 +85,8 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
                 scrollController: _scrollController,
                 maxShrink: 0.38,
                 maxHorizontalShift: 18.0,
-                columnIndex: index % 3,
-                totalColumns: 3,
+                columnIndex: index % crossAxisCount,
+                totalColumns: crossAxisCount,
                 child: InkWell(
                   onTap: () => Get.to(() => WatchView(currentWatch: currentWatch)),
                   child: _getWatchImage(currentWatch),

@@ -46,6 +46,16 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
     List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
     List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
+    final double screenWidth = MediaQuery.of(context).size.width;
+    int crossAxisCount = 2;
+    if (screenWidth >= 1200) {
+      crossAxisCount = 5;
+    } else if (screenWidth >= 900) {
+      crossAxisCount = 4;
+    } else if (screenWidth >= 600) {
+      crossAxisCount = 3;
+    }
+
 
     return ValueListenableBuilder<Box<Watches>>(
         valueListenable: watchBox.listenable(),
@@ -62,8 +72,8 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
               controller: _scrollController,
               padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
               itemCount: filteredList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   childAspectRatio: 0.67,
@@ -74,8 +84,8 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                     scrollController: _scrollController,
                     maxShrink: 0.30,
                     maxHorizontalShift: 20.0,
-                    columnIndex: index % 2,
-                    totalColumns: 2,
+                    columnIndex: index % crossAxisCount,
+                    totalColumns: crossAxisCount,
                     child: WristTrackGridTab(
                       currentWatch: currentWatch,
                       collectionValue: widget.collectionValue,
