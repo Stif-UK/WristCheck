@@ -214,6 +214,19 @@ class SyncService {
     // Mark pushed watches as clean, or delete local tombstones for deleted records
     for (var watch in dirtyWatches) {
       if (watch.isDeleted == true) {
+        try {
+          if (watch.id != null) {
+            await _supabase.storage.from(_storageBucket).remove([
+              '$userId/${watch.id}/front.jpg',
+              '$userId/${watch.id}/back.jpg',
+              '$userId/${watch.id}/lume.jpg',
+            ]);
+            debugPrint('SyncService: Deleted storage images for soft-deleted watch ${watch.id}');
+          }
+        } catch (e) {
+          debugPrint('SyncService: Error removing storage images for deleted watch: $e');
+        }
+
         await watch.delete();
       } else {
         watch.isDirty = false;
