@@ -21,7 +21,6 @@ class WristTrackGridTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wristCheckController = Get.find<WristCheckController>();
-    const double boxSides = 175;
     final File? imageFile = ImagesUtil.getImageSync(currentWatch, currentWatch.primaryImageIndex ?? 0);
 
     return GestureDetector(
@@ -34,23 +33,26 @@ class WristTrackGridTab extends StatelessWidget {
           children: [
             // Primary image
             imageFile != null
-                ? Container(
-                    alignment: Alignment.centerLeft,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxHeight: boxSides,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.file(
-                          imageFile,
-                          cacheWidth: 350,
-                          fit: BoxFit.cover,
-                        ),
+                ? AspectRatio(
+                    aspectRatio: 1.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.file(
+                        imageFile,
+                        cacheWidth: 350,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   )
-                : _getEmptyIcon(context, boxSides),
+                : AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Theme.of(context).disabledColor)),
+                      child: const Icon(Icons.watch),
+                    ),
+                  ),
             const SizedBox(height: 8),
             // Manufacturer
             Text(
@@ -93,15 +95,5 @@ class WristTrackGridTab extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _getEmptyIcon(BuildContext context, double boxSides) {
-    return Container(
-        width: boxSides,
-        height: boxSides,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Theme.of(context).disabledColor)),
-        child: const Icon(Icons.watch));
   }
 }
