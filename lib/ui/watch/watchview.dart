@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:wristcheck/sync/sync_service.dart';
+import 'package:wristcheck/controllers/sync_controller.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -461,9 +463,48 @@ class _WatchViewState extends State<WatchView> {
 
 
                     actions: [
-                      // ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value) == WatchViewEnum.add
-                          widget.watchViewController.watchViewState.value == WatchViewEnum.add?
-                          const SizedBox(height: 0,) :
+                          widget.watchViewController.watchViewState.value != WatchViewEnum.view?
+                          const SizedBox.shrink() :
+                          Obx(() {
+                            final isLoggedIn = Supabase.instance.client.auth.currentUser != null;
+                            final isSyncing = SyncController.to.status.value == SyncStatusState.inProgress;
+                            final isFailure = SyncController.to.status.value == SyncStatusState.syncFailure;
+                            final isDirty = widget.currentWatch?.isDirty == true;
+
+                            IconData iconData;
+                            Color iconColor;
+                            String tooltip;
+
+                            if (!isLoggedIn) {
+                              iconData = Icons.cloud_off;
+                              iconColor = Colors.grey;
+                              tooltip = "Not signed in";
+                            } else if (isSyncing) {
+                              iconData = Icons.cloud_sync;
+                              iconColor = Colors.blue;
+                              tooltip = "Syncing...";
+                            } else if (isFailure) {
+                              iconData = Icons.cloud_off;
+                              iconColor = Colors.red;
+                              tooltip = "Sync failed";
+                            } else if (isDirty) {
+                              iconData = Icons.cloud_upload;
+                              iconColor = Colors.orange;
+                              tooltip = "Unsynced changes";
+                            } else {
+                              iconData = Icons.cloud_done;
+                              iconColor = Colors.green;
+                              tooltip = "Up to date";
+                            }
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Tooltip(
+                                message: tooltip,
+                                child: Icon(iconData, color: iconColor),
+                              ),
+                            );
+                          }),
                           Obx(()=> Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: IconButton(
