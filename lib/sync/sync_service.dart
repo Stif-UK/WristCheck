@@ -11,6 +11,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/user/conflict_resolution_dialog.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 class SyncService {
   static final SupabaseClient _supabase = Supabase.instance.client;
@@ -71,6 +72,8 @@ class SyncService {
         buttonColor: Colors.redAccent,
         onConfirm: () async {
           Get.back();
+          // Clean up local images to free up device space
+          await ImagesUtil.deleteAllImages();
           // Clear local box and pull cloud data fresh
           await box.clear();
           await syncData();
@@ -78,6 +81,8 @@ class SyncService {
         textCancel: "Merge Collections",
         cancelTextColor: Colors.black,
         onCancel: () async {
+          Get.back();
+          await Future.delayed(const Duration(milliseconds: 100));
           // User chose to merge -> Proceed to detect individual duplicate conflicts
           await _detectAndResolveDuplicates(box, remoteData);
         },

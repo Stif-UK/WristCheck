@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 enum ConflictChoice { keepBoth, prioritizeLocal, prioritizeCloud }
@@ -8,7 +9,7 @@ enum ConflictChoice { keepBoth, prioritizeLocal, prioritizeCloud }
 class ConflictItem {
   final Watches localWatch;
   final Watches remoteWatch;
-  ConflictChoice choice = ConflictChoice.keepBoth;
+  ConflictChoice choice = ConflictChoice.prioritizeCloud; // Default to prioritize cloud
 
   ConflictItem({required this.localWatch, required this.remoteWatch});
 }
@@ -86,16 +87,16 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
                             isExpanded: true,
                             items: const [
                               DropdownMenuItem(
-                                value: ConflictChoice.keepBoth,
-                                child: Text("Keep Both (Allow Duplicate)"),
+                                value: ConflictChoice.prioritizeCloud,
+                                child: Text("Prioritize Cloud (Discard Local)"),
                               ),
                               DropdownMenuItem(
                                 value: ConflictChoice.prioritizeLocal,
                                 child: Text("Prioritize Local (Overwrite Cloud)"),
                               ),
                               DropdownMenuItem(
-                                value: ConflictChoice.prioritizeCloud,
-                                child: Text("Prioritize Cloud (Discard Local)"),
+                                value: ConflictChoice.keepBoth,
+                                child: Text("Keep Both (Allow Duplicate)"),
                               ),
                             ],
                             onChanged: (val) {
@@ -117,6 +118,13 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
         ),
       ),
       actions: [
+        TextButton(
+          onPressed: () {
+            Get.back(); // close conflict dialog
+            SyncService.checkForConflictsAndSync(); // return to high-level warning dialog
+          },
+          child: const Text("Cancel"),
+        ),
         ElevatedButton(
           onPressed: () {
             Get.back();
