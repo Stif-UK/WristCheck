@@ -21,7 +21,11 @@ class SyncService {
     }
   }
 
-  /// Performs a full bidirectional sync (Push local changes, Pull remote changes, Sync images)
+  /// Performs a full bidirectional sync with correct order:
+  /// 1. Upload local images first (so storage is ready)
+  /// 2. Push local metadata changes second
+  /// 3. Pull remote metadata changes third
+  /// 4. Download remote images fourth
   static Future<void> syncData() async {
     if (_isSyncing) {
       debugPrint('SyncService: Sync already in progress. Skipping overlapping call.');
@@ -38,27 +42,24 @@ class SyncService {
     _isSyncing = true;
     _safeSetStatus(SyncStatusState.inProgress);
     try {
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.isSyncingImages.value = false;
-      }
-
       debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
-      await _pushLocalChanges(user.id);
-      await _pullRemoteChanges(user.id);
+      
+      // 1. Upload local images FIRST so Supabase Storage is up to date before metadata pushes
       await _syncImages(user.id);
 
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.isSyncingImages.value = false;
-        SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
-      }
+      // 2. Push local metadata changes SECOND
+      await _pushLocalChanges(user.id);
+
+      // 3. Pull remote metadata changes THIRD
+      await _pullRemoteChanges(user.id);
+
+      // 4. Download any remote images if missing FOURTH
+      await _syncImages(user.id);
 
       lastLocalWriteTime = DateTime.now();
       _safeSetStatus(SyncStatusState.upToDate);
       debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
     } catch (e, stackTrace) {
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.isSyncingImages.value = false;
-      }
       _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
       debugPrint('SyncService: Error during synchronization: $e');
       debugPrint(stackTrace.toString());
