@@ -220,6 +220,7 @@ class WatchMethods {
       print(index);
       DateTime removed = watch.wearList.removeAt(index);
       watch.ensureInitialized();
+      watch.isDirty = true;
       watch.updatedAt = DateTime.now();
       watch.save();
       unawaited(SyncService.syncData());
@@ -249,6 +250,7 @@ class WatchMethods {
     if(!date.isAfter(DateTime.now())){
       watch.wearList.add(date);
       watch.ensureInitialized();
+      watch.isDirty = true;
       watch.updatedAt = DateTime.now();
       await watch.save();
       unawaited(SyncService.syncData());
@@ -288,6 +290,7 @@ class WatchMethods {
       watch.wearList.add(date);
     }
     watch.ensureInitialized();
+    watch.isDirty = true;
     watch.updatedAt = DateTime.now();
     await watch.save();
     unawaited(SyncService.syncData());
