@@ -13,6 +13,7 @@ class SyncService {
   static const String _watchesTable = 'watches';
   static const String _storageBucket = 'watch_images';
   static bool _isSyncing = false;
+  static bool _syncRequestedAgain = false;
   static DateTime? lastLocalWriteTime;
 
   static void _safeSetStatus(SyncStatusState state, {String? error}) {
@@ -21,14 +22,11 @@ class SyncService {
     }
   }
 
-  /// Performs a full bidirectional sync with correct order:
-  /// 1. Upload local images first (so storage is ready)
-  /// 2. Push local metadata changes second
-  /// 3. Pull remote metadata changes third
-  /// 4. Download remote images fourth
+  /// Performs a full bidirectional sync with automatic re-sync queuing if triggered during an active sync
   static Future<void> syncData() async {
     if (_isSyncing) {
-      debugPrint('SyncService: Sync already in progress. Skipping overlapping call.');
+      debugPrint('SyncService: Sync already in progress. Queuing re-sync request.');
+      _syncRequestedAgain = true;
       return;
     }
 
@@ -41,28 +39,25 @@ class SyncService {
 
     _isSyncing = true;
     _safeSetStatus(SyncStatusState.inProgress);
+
     try {
-      debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
-      
-      // 1. Upload local images FIRST so Supabase Storage is up to date before metadata pushes
-      await _syncImages(user.id);
+      do {
+        _syncRequestedAgain = false;
+        try {
+          debugPrint('SyncService: Starting synchronization for user ${user.id}...');
+          await _pushLocalChanges(user.id);
+          await _pullRemoteChanges(user.id);
+          await _syncImages(user.id);
 
-      // 2. Push local metadata changes SECOND
-      await _pushLocalChanges(user.id);
-
-      // 3. Pull remote metadata changes THIRD
-      await _pullRemoteChanges(user.id);
-
-      // 4. Download any remote images if missing FOURTH
-      await _syncImages(user.id);
-
-      lastLocalWriteTime = DateTime.now();
-      _safeSetStatus(SyncStatusState.upToDate);
-      debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
-    } catch (e, stackTrace) {
-      _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
-      debugPrint('SyncService: Error during synchronization: $e');
-      debugPrint(stackTrace.toString());
+          lastLocalWriteTime = DateTime.now();
+          _safeSetStatus(SyncStatusState.upToDate);
+          debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
+        } catch (e, stackTrace) {
+          _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
+          debugPrint('SyncService: Error during synchronization: $e');
+          debugPrint(stackTrace.toString());
+        }
+      } while (_syncRequestedAgain);
     } finally {
       _isSyncing = false;
     }
