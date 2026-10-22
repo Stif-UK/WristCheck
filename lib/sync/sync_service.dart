@@ -38,15 +38,27 @@ class SyncService {
     _isSyncing = true;
     _safeSetStatus(SyncStatusState.inProgress);
     try {
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.isSyncingImages.value = false;
+      }
+
       debugPrint('SyncService: Starting background synchronization for user ${user.id}...');
       await _pushLocalChanges(user.id);
       await _pullRemoteChanges(user.id);
       await _syncImages(user.id);
 
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.isSyncingImages.value = false;
+        SyncController.to.syncedWatches.value = SyncController.to.totalWatches.value;
+      }
+
       lastLocalWriteTime = DateTime.now();
       _safeSetStatus(SyncStatusState.upToDate);
       debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
     } catch (e, stackTrace) {
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.isSyncingImages.value = false;
+      }
       _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
       debugPrint('SyncService: Error during synchronization: $e');
       debugPrint(stackTrace.toString());
@@ -219,6 +231,10 @@ class SyncService {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
 
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.isSyncingImages.value = true;
+    }
+
     for (var watch in box.values) {
       if (watch.id != null) {
         // --- Front Image ---
@@ -305,6 +321,10 @@ class SyncService {
           }
         }
       }
+    }
+    
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.isSyncingImages.value = false;
     }
   }
 }

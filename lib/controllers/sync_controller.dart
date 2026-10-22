@@ -20,11 +20,13 @@ class SyncController extends GetxController {
   // Progress tracking
   final RxInt totalWatches = 0.obs;
   final RxInt syncedWatches = 0.obs;
+  final RxBool isSyncingImages = false.obs;
 
   void setStatus(SyncStatusState newStatus, {String? error}) {
     status.value = newStatus;
     if (newStatus == SyncStatusState.upToDate || newStatus == SyncStatusState.syncFailure) {
       lastSyncTime.value = DateTime.now();
+      isSyncingImages.value = false;
     }
     if (newStatus == SyncStatusState.upToDate) {
       syncedWatches.value = totalWatches.value;
@@ -35,11 +37,15 @@ class SyncController extends GetxController {
   }
 
   double get progressValue {
+    if (isSyncingImages.value) return 1.0; // Indeterminate or full while images sync
     if (totalWatches.value == 0) return 0.0;
     return (syncedWatches.value / totalWatches.value).clamp(0.0, 1.0);
   }
 
   String get progressText {
+    if (isSyncingImages.value) {
+      return "Syncing watch images...";
+    }
     return "${syncedWatches.value}/${totalWatches.value} watches synced";
   }
 
