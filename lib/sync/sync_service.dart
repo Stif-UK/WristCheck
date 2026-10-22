@@ -1,12 +1,16 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/user/conflict_resolution_dialog.dart';
 
 class SyncService {
   static final SupabaseClient _supabase = Supabase.instance.client;
@@ -19,6 +23,113 @@ class SyncService {
   static void _safeSetStatus(SyncStatusState state, {String? error}) {
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.setStatus(state, error: error);
+    }
+  }
+
+  /// Entry point for syncing that first warns if cloud data exists, giving option to prioritize cloud or merge
+  static Future<void> checkForConflictsAndSync() async {
+    final user = _supabase.auth.currentUser;
+    if (user == null) {
+      _safeSetStatus(SyncStatusState.waitingForConnection);
+      debugPrint('SyncService: No authenticated user. Skipping sync.');
+      return;
+    }
+
+    final box = Boxes.getWatches();
+    if (box.isEmpty) {
+      await syncData();
+      return;
+    }
+
+    try {
+      final response = await _supabase
+          .from(_watchesTable)
+          .select()
+          .eq('user_id', user.id);
+
+      final List<dynamic> remoteData = response as List<dynamic>;
+      if (remoteData.isEmpty) {
+        await syncData();
+        return;
+      }
+
+      final remoteIds = remoteData.map((e) => e['id'] as String?).toSet();
+      bool hasUnsyncedLocal = box.values.any((w) => w.id == null || !remoteIds.contains(w.id));
+
+      if (!hasUnsyncedLocal) {
+        await syncData();
+        return;
+      }
+
+      // 1. Show high-level warning dialog first
+      await Get.defaultDialog(
+        title: "Existing Cloud Data Found",
+        middleText: "We found existing watch data in your cloud account as well as on this device.\n\nWould you like to prioritize the Cloud collection (which will overwrite local data), or Merge collections?",
+        barrierDismissible: false,
+        textConfirm: "Prioritize Cloud (Overwrite)",
+        confirmTextColor: Colors.white,
+        buttonColor: Colors.redAccent,
+        onConfirm: () async {
+          Get.back();
+          // Clear local box and pull cloud data fresh
+          await box.clear();
+          await syncData();
+        },
+        textCancel: "Merge Collections",
+        cancelTextColor: Colors.black,
+        onCancel: () async {
+          // User chose to merge -> Proceed to detect individual duplicate conflicts
+          await _detectAndResolveDuplicates(box, remoteData);
+        },
+      );
+    } catch (e) {
+      debugPrint('SyncService: Error checking conflicts: $e');
+      await syncData();
+    }
+  }
+
+  static Future<void> _detectAndResolveDuplicates(Box<Watches> box, List<dynamic> remoteData) async {
+    final remoteIds = remoteData.map((e) => e['id'] as String?).toSet();
+    List<ConflictItem> conflicts = [];
+
+    for (var localWatch in box.values) {
+      if (localWatch.id != null && remoteIds.contains(localWatch.id)) continue;
+
+      for (var remoteItem in remoteData) {
+        final remoteWatch = Watches.fromJson(remoteItem as Map<String, dynamic>);
+        if (localWatch.manufacturer.toLowerCase().trim() == remoteWatch.manufacturer.toLowerCase().trim() &&
+            localWatch.model.toLowerCase().trim() == remoteWatch.model.toLowerCase().trim()) {
+          conflicts.add(ConflictItem(localWatch: localWatch, remoteWatch: remoteWatch));
+          break;
+        }
+      }
+    }
+
+    if (conflicts.isNotEmpty) {
+      await Get.dialog(
+        ConflictResolutionDialog(
+          conflicts: conflicts,
+          resolvedCallback: () async {
+            for (var item in conflicts) {
+              if (item.choice == ConflictChoice.prioritizeCloud) {
+                await item.localWatch.delete();
+              } else if (item.choice == ConflictChoice.prioritizeLocal) {
+                item.localWatch.id = item.remoteWatch.id;
+                item.localWatch.isDirty = true;
+                await item.localWatch.save();
+              } else if (item.choice == ConflictChoice.keepBoth) {
+                item.localWatch.id = const Uuid().v4();
+                item.localWatch.isDirty = true;
+                await item.localWatch.save();
+              }
+            }
+            await syncData();
+          },
+        ),
+        barrierDismissible: false,
+      );
+    } else {
+      await syncData();
     }
   }
 

@@ -21,7 +21,7 @@ class SyncManager {
       if (userId != null) {
         if (_currentSyncedUserId != userId) {
           _currentSyncedUserId = userId;
-          debugPrint('SyncManager: User session active ($userId). Starting sync & realtime.');
+          debugPrint('SyncManager: User session active ($userId). Starting conflict check & realtime.');
           _startSyncAndRealtime(userId);
         } else {
           debugPrint('SyncManager: Session already active for user $userId. Skipping duplicate sync trigger.');
@@ -36,10 +36,10 @@ class SyncManager {
     });
   }
 
-  /// Start initial sync and subscribe to Supabase Realtime
+  /// Start initial conflict check and subscribe to Supabase Realtime
   static void _startSyncAndRealtime(String userId) async {
-    // 1. Run immediate sync in the background (non-blocking)
-    unawaited(SyncService.syncData());
+    // 1. Check for potential duplicate conflicts on sign-in before regular sync
+    unawaited(SyncService.checkForConflictsAndSync());
 
     // 2. Setup Supabase Realtime listener for cross-device updates
     await _realtimeChannel?.unsubscribe();
