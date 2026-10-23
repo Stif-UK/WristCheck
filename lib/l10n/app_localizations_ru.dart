@@ -1805,6 +1805,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get privacyPolicy => 'Политика конфиденциальности';
 
   @override
+  String get termsAndConditions => 'Условия использования';
+
+  @override
   String get privacySettings => 'Настройки конфиденциальности';
 
   @override

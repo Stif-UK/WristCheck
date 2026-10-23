@@ -606,6 +606,7 @@
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Datenschutzerklärung",
+  "termsAndConditions" : "General Geschäftsbedingungen",
   "privacySettings" : "Datenschutzeinstellungen",
   "privacySettingsUpdated" : "Deine Datenschutzeinstellungen wurden aktualisiert",
   "privacyError" : "Beim Aktualisieren der Datenschutzeinstellungen ist ein Fehler aufgetreten – bitte versuche es erneut",

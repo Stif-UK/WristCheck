@@ -610,6 +610,7 @@
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Privacy Policy",
+  "termsAndConditions" : "Terms & Conditions",
   "privacySettings" : "Privacy Settings",
   "privacySettingsUpdated" : "Your Privacy choices have been updated",
   "privacyError" : "An error occurred whilst attempting to update privacy settings - please try again",

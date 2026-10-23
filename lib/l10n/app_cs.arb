@@ -606,6 +606,7 @@
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Zásady ochrany osobních údajů",
+  "termsAndConditions" : "Smluvní podmínky",
   "privacySettings" : "Nastavení soukromí",
   "privacySettingsUpdated" : "Vaše volby soukromí byly aktualizovány",
   "privacyError" : "Při pokusu o aktualizaci nastavení soukromí došlo k chybě – zkuste to prosím znovu",

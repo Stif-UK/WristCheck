@@ -30,6 +30,16 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
             }
           }),
           const Divider(thickness: 2,),
+          ListTile(title: Text(AppLocalizations.of(context)!.termsAndConditions),
+          subtitle: Text(AppLocalizations.of(context)!.opensInBrowser),
+          leading: const Icon(Icons.description_outlined),
+          onTap: () async {
+            final Uri url = Uri.parse('https://www.wristtrack.app/terms_and_conditions/');
+            if (!await launchUrl(url)) {
+              throw Exception('Could not launch $url');
+            }
+          }),
+          const Divider(thickness: 2,),
           ListTile(title: Text(AppLocalizations.of(context)!.privacySettings),
           leading: const Icon(Icons.settings),
           onTap: () async{

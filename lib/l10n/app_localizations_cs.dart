@@ -1798,6 +1798,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get privacyPolicy => 'Zásady ochrany osobních údajů';
 
   @override
+  String get termsAndConditions => 'Smluvní podmínky';
+
+  @override
   String get privacySettings => 'Nastavení soukromí';
 
   @override

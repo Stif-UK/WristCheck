@@ -609,6 +609,7 @@
 
   "@_PRIVACY" : {},
   "privacyPolicy" : "Informativa sulla Privacy",
+  "termsAndConditions" : "Termini e Condizioni",
   "privacySettings" : "Impostazioni Privacy",
   "privacySettingsUpdated" : "Le tue scelte sulla privacy sono state aggiornate",
   "privacyError" : "Si è verificato un errore durante l'aggiornamento delle impostazioni sulla privacy - riprova",

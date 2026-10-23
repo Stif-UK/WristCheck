@@ -1787,6 +1787,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get privacyPolicy => 'Política de Privacidad';
 
   @override
+  String get termsAndConditions => 'Términos y Condiciones';
+
+  @override
   String get privacySettings => 'Ajustes de Privacidad';
 
   @override
