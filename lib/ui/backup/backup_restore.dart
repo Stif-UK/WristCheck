@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:wristcheck/config.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/ui/backup/share_backup.dart';
 import 'package:wristcheck/ui/backup/restore.dart';
+import 'package:wristcheck/ui/user/auth_gate.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import '../../provider/adstate.dart';
 
@@ -77,6 +79,22 @@ class _BackupRestoreState extends State<BackupRestore> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 30,),
+                SizedBox(
+                  width: (MediaQuery.of(context).size.width)*0.8,
+                  height: (MediaQuery.of(context).size.height)*0.15,
+                  child: Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    child: ListTile(
+                      leading: FaIcon(FontAwesomeIcons.triangleExclamation),
+                      title: Text("Backup and Restore is a legacy feature, only required if you want to manually manage your data and keep device local to your own device.\n"
+                          "If you sign-in to WristTrack your data will automatically sync between devices.\n\n"
+                          "Click here to visit the sign-in page."),
+                      onTap: ()=> Get.to(()=> AuthGate())
+                    )
+                  ),
+                ),
                 SizedBox(
                   width: (MediaQuery.of(context).size.width)*0.8,
                   height: (MediaQuery.of(context).size.height)*0.15,
