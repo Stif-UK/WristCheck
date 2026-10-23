@@ -452,17 +452,32 @@ class _ProfilePageState extends State<ProfilePage> {
                     ))),
                 Obx(() => SyncController.to.status.value == SyncStatusState.inProgress
                     ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            LinearProgressIndicator(
-                              value: SyncController.to.progressValue,
+                            _buildSyncPhaseRow(
+                              context,
+                              title: "Watch Records",
+                              progress: SyncController.to.watchProgress,
+                              countText: "${SyncController.to.watchSynced.value}/${SyncController.to.watchTotal.value}",
+                              isComplete: SyncController.to.isWatchComplete,
                             ),
-                            const SizedBox(height: 6),
-                            Text(
-                              SyncController.to.progressText,
-                              style: Theme.of(context).textTheme.bodySmall,
+                            const SizedBox(height: 12),
+                            _buildSyncPhaseRow(
+                              context,
+                              title: "Accuracy Records",
+                              progress: SyncController.to.accuracyProgress,
+                              countText: "${SyncController.to.accuracySynced.value}/${SyncController.to.accuracyTotal.value}",
+                              isComplete: SyncController.to.isAccuracyComplete,
+                            ),
+                            const SizedBox(height: 12),
+                            _buildSyncPhaseRow(
+                              context,
+                              title: "Watch Images",
+                              progress: SyncController.to.imageProgress,
+                              countText: "${SyncController.to.imageSynced.value}/${SyncController.to.imageTotal.value}",
+                              isComplete: SyncController.to.isImageComplete,
                             ),
                           ],
                         ),
@@ -473,6 +488,36 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSyncPhaseRow(BuildContext context, {required String title, required double progress, required String countText, required bool isComplete}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+            Row(
+              children: [
+                Text(countText, style: Theme.of(context).textTheme.bodySmall),
+                const SizedBox(width: 6),
+                if (isComplete)
+                  const FaIcon(FontAwesomeIcons.check, size: 12, color: Colors.green)
+                else
+                  const SizedBox(
+                    width: 12,
+                    height: 12,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        LinearProgressIndicator(value: progress),
+      ],
     );
   }
 }

@@ -17,37 +17,41 @@ class SyncController extends GetxController {
   final Rx<DateTime?> lastSyncTime = Rx<DateTime?>(null);
   final RxString errorMessage = ''.obs;
 
-  // Progress tracking
-  final RxInt totalWatches = 0.obs;
-  final RxInt syncedWatches = 0.obs;
-  final RxBool isSyncingImages = false.obs;
+  // Phase tracking
+  final RxString currentPhase = 'none.obs'.obs; // 'watches', 'accuracy', 'images', 'done'
+
+  final RxInt watchTotal = 0.obs;
+  final RxInt watchSynced = 0.obs;
+
+  final RxInt accuracyTotal = 0.obs;
+  final RxInt accuracySynced = 0.obs;
+
+  final RxInt imageTotal = 0.obs;
+  final RxInt imageSynced = 0.obs;
 
   void setStatus(SyncStatusState newStatus, {String? error}) {
     status.value = newStatus;
     if (newStatus == SyncStatusState.upToDate || newStatus == SyncStatusState.syncFailure) {
       lastSyncTime.value = DateTime.now();
-      isSyncingImages.value = false;
+      currentPhase.value = 'done';
     }
     if (newStatus == SyncStatusState.upToDate) {
-      syncedWatches.value = totalWatches.value;
+      watchSynced.value = watchTotal.value;
+      accuracySynced.value = accuracyTotal.value;
+      imageSynced.value = imageTotal.value;
     }
     if (error != null) {
       errorMessage.value = error;
     }
   }
 
-  double get progressValue {
-    if (isSyncingImages.value) return 1.0; // Indeterminate or full while images sync
-    if (totalWatches.value == 0) return 0.0;
-    return (syncedWatches.value / totalWatches.value).clamp(0.0, 1.0);
-  }
+  double get watchProgress => watchTotal.value == 0 ? 1.0 : (watchSynced.value / watchTotal.value).clamp(0.0, 1.0);
+  double get accuracyProgress => accuracyTotal.value == 0 ? 1.0 : (accuracySynced.value / accuracyTotal.value).clamp(0.0, 1.0);
+  double get imageProgress => imageTotal.value == 0 ? 1.0 : (imageSynced.value / imageTotal.value).clamp(0.0, 1.0);
 
-  String get progressText {
-    if (isSyncingImages.value) {
-      return "Syncing watch images...";
-    }
-    return "${syncedWatches.value}/${totalWatches.value} watches synced";
-  }
+  bool get isWatchComplete => watchTotal.value > 0 && watchSynced.value >= watchTotal.value;
+  bool get isAccuracyComplete => accuracyTotal.value > 0 && accuracySynced.value >= accuracyTotal.value;
+  bool get isImageComplete => imageTotal.value > 0 && imageSynced.value >= imageTotal.value;
 
   String get statusText {
     switch (status.value) {

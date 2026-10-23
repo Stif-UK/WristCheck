@@ -65,13 +65,14 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..isDeleted = fields[47] as bool?
       ..frontImageSynced = fields[48] as bool?
       ..backImageSynced = fields[49] as bool?
-      ..lumeImageSynced = fields[50] as bool?;
+      ..lumeImageSynced = fields[50] as bool?
+      ..isDirty = fields[51] as bool?;
   }
 
   @override
   void write(BinaryWriter writer, Watches obj) {
     writer
-      ..writeByte(49)
+      ..writeByte(50)
       ..writeByte(0)
       ..write(obj.manufacturer)
       ..writeByte(1)
@@ -169,7 +170,9 @@ class WatchesAdapter extends TypeAdapter<Watches> {
       ..writeByte(49)
       ..write(obj.backImageSynced)
       ..writeByte(50)
-      ..write(obj.lumeImageSynced);
+      ..write(obj.lumeImageSynced)
+      ..writeByte(51)
+      ..write(obj.isDirty);
   }
 
   @override

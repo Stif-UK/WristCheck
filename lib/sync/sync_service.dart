@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
+import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/user/conflict_resolution_dialog.dart';
 import 'package:wristcheck/util/images_util.dart';
@@ -16,6 +17,7 @@ import 'package:wristcheck/util/images_util.dart';
 class SyncService {
   static final SupabaseClient _supabase = Supabase.instance.client;
   static const String _watchesTable = 'watches';
+  static const String _measurementsTable = 'measurements';
   static const String _storageBucket = 'watch_images';
   static bool _isSyncing = false;
   static bool _syncRequestedAgain = false;
@@ -74,8 +76,9 @@ class SyncService {
           Get.back();
           // Clean up local images to free up device space
           await ImagesUtil.deleteAllImages();
-          // Clear local box and pull cloud data fresh
+          // Clear local boxes and pull cloud data fresh
           await box.clear();
+          await Boxes.getMeasurements().clear();
           await syncData();
         },
         textCancel: "Merge Collections",
@@ -138,7 +141,7 @@ class SyncService {
     }
   }
 
-  /// Performs a full bidirectional sync with automatic re-sync queuing if triggered during an active sync
+  /// Performs a smart, selective sync skipping phases that have no dirty data
   static Future<void> syncData() async {
     if (_isSyncing) {
       debugPrint('SyncService: Sync already in progress. Queuing re-sync request.');
@@ -160,10 +163,63 @@ class SyncService {
       do {
         _syncRequestedAgain = false;
         try {
-          debugPrint('SyncService: Starting synchronization for user ${user.id}...');
-          await _pushLocalChanges(user.id);
+          debugPrint('SyncService: Starting smart synchronization for user ${user.id}...');
+          
+          final watchBox = Boxes.getWatches();
+          final measurementBox = Boxes.getMeasurements();
+
+          bool hasDirtyWatches = watchBox.values.any((w) => w.isDirty == true || w.isDeleted == true);
+          bool hasDirtyMeasurements = measurementBox.values.any((m) => m.isDirty == true || m.isDeleted == true);
+          bool hasUnsyncedImages = watchBox.values.any((w) => 
+            (w.frontImagePath != null && w.frontImagePath!.trim().isNotEmpty && w.frontImageSynced != true) ||
+            (w.backImagePath != null && w.backImagePath!.trim().isNotEmpty && w.backImageSynced != true) ||
+            (w.lumeImagePath != null && w.lumeImagePath!.trim().isNotEmpty && w.lumeImageSynced != true)
+          );
+
+          // Phase 1: Watches
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.currentPhase.value = 'watches';
+          }
+          if (hasDirtyWatches) {
+            await _pushLocalChanges(user.id);
+          } else {
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.watchTotal.value = 1;
+              SyncController.to.watchSynced.value = 1;
+            }
+          }
           await _pullRemoteChanges(user.id);
-          await _syncImages(user.id);
+
+          // Phase 2: Accuracy Records
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.currentPhase.value = 'accuracy';
+          }
+          if (hasDirtyMeasurements) {
+            await _pushLocalMeasurements(user.id);
+          } else {
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.accuracyTotal.value = 1;
+              SyncController.to.accuracySynced.value = 1;
+            }
+          }
+          await _pullRemoteMeasurements(user.id);
+
+          // Phase 3: Images
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.currentPhase.value = 'images';
+          }
+          if (hasUnsyncedImages) {
+            await _syncImages(user.id);
+          } else {
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageTotal.value = 1;
+              SyncController.to.imageSynced.value = 1;
+            }
+          }
+
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.currentPhase.value = 'done';
+          }
 
           lastLocalWriteTime = DateTime.now();
           _safeSetStatus(SyncStatusState.upToDate);
@@ -190,8 +246,8 @@ class SyncService {
     if (dirtyWatches.isEmpty) return;
 
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.totalWatches.value = max(1, dirtyWatches.length);
-      SyncController.to.syncedWatches.value = 0;
+      SyncController.to.watchTotal.value = max(1, dirtyWatches.length);
+      SyncController.to.watchSynced.value = 0;
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
@@ -204,7 +260,7 @@ class SyncService {
       batchPayload.add(data);
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = done;
+        SyncController.to.watchSynced.value = done;
       }
     }
 
@@ -221,17 +277,17 @@ class SyncService {
               '$userId/${watch.id}/back.jpg',
               '$userId/${watch.id}/lume.jpg',
             ]);
-            debugPrint('SyncService: Deleted storage images for soft-deleted watch ${watch.id}');
           }
-        } catch (e) {
-          debugPrint('SyncService: Error removing storage images for deleted watch: $e');
-        }
-
+        } catch (_) {}
         await watch.delete();
       } else {
         watch.isDirty = false;
         await watch.save();
       }
+    }
+
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
     }
 
     debugPrint('SyncService: Successfully pushed batch of ${batchPayload.length} dirty watches.');
@@ -251,8 +307,8 @@ class SyncService {
     final box = Boxes.getWatches();
     
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.totalWatches.value = max(1, remoteData.length);
-      SyncController.to.syncedWatches.value = 0;
+      SyncController.to.watchTotal.value = max(1, max(box.values.length, remoteData.length));
+      SyncController.to.watchSynced.value = 0;
     }
 
     int done = 0;
@@ -345,10 +401,152 @@ class SyncService {
       }
       done++;
       if (Get.isRegistered<SyncController>()) {
-        SyncController.to.syncedWatches.value = done;
+        SyncController.to.watchSynced.value = done;
       }
     }
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
+    }
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
+  }
+
+  /// Push local measurements
+  static Future<void> _pushLocalMeasurements(String userId) async {
+    final box = Boxes.getMeasurements();
+    final watchBox = Boxes.getWatches();
+    final dirtyMeasurements = box.values
+        .where((m) => (m.isDirty == true || m.isDeleted == true))
+        .toList();
+
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.accuracyTotal.value = max(1, box.values.length);
+      SyncController.to.accuracySynced.value = 0;
+    }
+
+    if (dirtyMeasurements.isEmpty) {
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
+      }
+      return;
+    }
+
+    final List<Map<String, dynamic>> batchPayload = [];
+    int done = 0;
+    for (var m in dirtyMeasurements) {
+      if (m.watchId == null || m.watchId!.isEmpty) {
+        Watches? parentWatch;
+        for (var w in watchBox.values) {
+          if (w.key == m.watchKey) {
+            parentWatch = w;
+            break;
+          }
+        }
+        m.ensureInitialized(parentWatch?.id ?? '');
+      }
+      batchPayload.add(m.toJson(userId));
+      done++;
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.accuracySynced.value = done;
+      }
+    }
+
+    await _supabase.from(_measurementsTable).upsert(batchPayload);
+
+    for (var m in dirtyMeasurements) {
+      if (m.isDeleted == true) {
+        await m.delete();
+      } else {
+        m.isDirty = false;
+        await m.save();
+      }
+    }
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
+    }
+  }
+
+  /// Pull remote measurements
+  static Future<void> _pullRemoteMeasurements(String userId) async {
+    final response = await _supabase
+        .from(_measurementsTable)
+        .select()
+        .eq('user_id', userId);
+
+    final List<dynamic> remoteData = response as List<dynamic>;
+    final box = Boxes.getMeasurements();
+    final watchBox = Boxes.getWatches();
+
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.accuracyTotal.value = max(1, max(box.values.length, remoteData.length));
+      SyncController.to.accuracySynced.value = 0;
+    }
+
+    int done = 0;
+    for (var item in remoteData) {
+      final remoteMap = item as Map<String, dynamic>;
+      final remoteMeasurement = Measurement.fromJson(remoteMap);
+      final remoteId = remoteMeasurement.id;
+
+      if (remoteId != null) {
+        Measurement? localMeasurement;
+        for (var m in box.values) {
+          if (m.id == remoteId) {
+            localMeasurement = m;
+            break;
+          }
+        }
+
+        if (localMeasurement == null) {
+          if (remoteMeasurement.isDeleted != true) {
+            Watches? parentWatch;
+            for (var w in watchBox.values) {
+              if (w.id == remoteMeasurement.watchId) {
+                parentWatch = w;
+                break;
+              }
+            }
+            if (parentWatch != null) {
+              remoteMeasurement.watchKey = parentWatch.key as int;
+              await box.add(remoteMeasurement);
+            }
+          }
+        } else {
+          final localTime = localMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final remoteTime = remoteMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+          if (remoteMeasurement.isDeleted == true) {
+            await localMeasurement.delete();
+          } else if (remoteTime.isAfter(localTime)) {
+            Watches? parentWatch;
+            for (var w in watchBox.values) {
+              if (w.id == remoteMeasurement.watchId) {
+                parentWatch = w;
+                break;
+              }
+            }
+            if (parentWatch != null) {
+              localMeasurement.watchKey = parentWatch.key as int;
+            }
+            localMeasurement.watchId = remoteMeasurement.watchId;
+            localMeasurement.baseLine = remoteMeasurement.baseLine;
+            localMeasurement.atomicTime = remoteMeasurement.atomicTime;
+            localMeasurement.watchTime = remoteMeasurement.watchTime;
+            localMeasurement.rawAccuracy = remoteMeasurement.rawAccuracy;
+            localMeasurement.updatedAt = remoteMeasurement.updatedAt;
+            localMeasurement.isDeleted = remoteMeasurement.isDeleted;
+            localMeasurement.isDirty = false;
+            await localMeasurement.save();
+          }
+        }
+      }
+      done++;
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.accuracySynced.value = done;
+      }
+    }
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
+    }
   }
 
   /// 3. Upload local images and download missing remote images via Supabase Storage
@@ -356,14 +554,35 @@ class SyncService {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
 
-    if (Get.isRegistered<SyncController>()) {
-      SyncController.to.isSyncingImages.value = true;
+    int totalImages = 0;
+    for (var watch in box.values) {
+      if (watch.id != null) {
+        if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
+          final f = File("${directory.path}${watch.frontImagePath}");
+          if (f.existsSync() || watch.frontImageSynced != true) totalImages++;
+        }
+        if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
+          final f = File("${directory.path}${watch.backImagePath}");
+          if (f.existsSync() || watch.backImageSynced != true) totalImages++;
+        }
+        if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
+          final f = File("${directory.path}${watch.lumeImagePath}");
+          if (f.existsSync() || watch.lumeImageSynced != true) totalImages++;
+        }
+      }
     }
+
+    if (Get.isRegistered<SyncController>()) {
+      SyncController.to.imageTotal.value = max(1, totalImages);
+      SyncController.to.imageSynced.value = 0;
+    }
+
+    int doneImages = 0;
 
     for (var watch in box.values) {
       if (watch.id != null) {
         // --- Front Image ---
-        if (watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty) {
+        if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.frontImagePath}");
           final storagePath = '$userId/${watch.id}/front.jpg';
 
@@ -388,10 +607,14 @@ class SyncService {
               debugPrint('SyncService: Error uploading front image: $e');
             }
           }
+          doneImages++;
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.imageSynced.value = doneImages;
+          }
         }
 
         // --- Back Image ---
-        if (watch.backImagePath != null && watch.backImagePath!.isNotEmpty) {
+        if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.backImagePath}");
           final storagePath = '$userId/${watch.id}/back.jpg';
 
@@ -416,10 +639,14 @@ class SyncService {
               debugPrint('SyncService: Error uploading back image: $e');
             }
           }
+          doneImages++;
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.imageSynced.value = doneImages;
+          }
         }
 
         // --- Lume Image ---
-        if (watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty) {
+        if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.lumeImagePath}");
           final storagePath = '$userId/${watch.id}/lume.jpg';
 
@@ -444,12 +671,16 @@ class SyncService {
               debugPrint('SyncService: Error uploading lume image: $e');
             }
           }
+          doneImages++;
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.imageSynced.value = doneImages;
+          }
         }
       }
     }
     
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.isSyncingImages.value = false;
+      SyncController.to.imageSynced.value = SyncController.to.imageTotal.value;
     }
   }
 }

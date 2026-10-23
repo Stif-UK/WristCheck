@@ -38,6 +38,7 @@ import 'package:json_theme/json_theme.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:wristcheck/util/cloud_migration_util.dart';
+import 'package:wristcheck/util/accuracy_migration_util.dart';
 import 'package:wristcheck/sync/sync_manager.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
 import 'firebase_options.dart';
@@ -167,6 +168,7 @@ Future main() async{
   CloudMigrationUtil.migrateExistingWatches();
   Hive.registerAdapter(MeasurementAdapter());
   await Hive.openBox<Measurement>("AccuracyBox");
+  AccuracyMigrationUtil.migrateExistingMeasurements();
 
   // Initialize Supabase Sync Manager
   SyncManager.init();
