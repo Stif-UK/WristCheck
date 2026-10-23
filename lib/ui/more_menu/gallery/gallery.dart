@@ -10,7 +10,7 @@ import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
-import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/gallery_image_item.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/more_menu/gallery/image_overlay.dart';
@@ -31,7 +31,6 @@ class GalleryV2 extends StatefulWidget {
 
 class _GalleryV2State extends State<GalleryV2> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  StreamController<Widget> overlayController = StreamController<Widget>.broadcast();
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
 
@@ -39,12 +38,6 @@ class _GalleryV2State extends State<GalleryV2> {
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    overlayController.close();
-    super.dispose();
   }
 
   @override
@@ -88,8 +81,8 @@ class _GalleryV2State extends State<GalleryV2> {
         children: [
           _getCollectionPickerRow(),
           Expanded(
-            child: FutureBuilder<List<Watches>>(
-                  future: ImagesUtil.getWatchesWithImages(widget.galleryController.gallerySelection.value),
+            child: FutureBuilder<List<GalleryImageItem>>(
+                  future: ImagesUtil.getGalleryImageItems(widget.galleryController.gallerySelection.value),
                   builder: (ctx, snapshot){
                     if(snapshot.connectionState == ConnectionState.done){
                       if(snapshot.hasError){
@@ -114,56 +107,46 @@ class _GalleryV2State extends State<GalleryV2> {
                           ),
                           itemCount: data.length,
                           itemBuilder: (context, index) {
-                            final imageFile = ImagesUtil.getImageSync(data[index], data[index].primaryImageIndex ?? 0);
+                            final imageFile = data[index].imageFile;
 
                             return GestureDetector(
                               onTap: () {
+                                final StreamController<Widget> galleryOverlayController =
+                                    StreamController<Widget>.broadcast();
+
                                 SwipeImageGallery(
                                   context: context,
                                   itemBuilder: (context, galleryIndex) {
-                                    final fullImage = ImagesUtil.getImageSync(data[galleryIndex], data[galleryIndex].primaryImageIndex ?? 0);
-                                    if (fullImage != null) {
-                                      return Image.file(fullImage);
-                                    }
-                                    return const Center(child: CircularProgressIndicator());
+                                    final fullImage = data[galleryIndex].imageFile;
+                                    return Image.file(fullImage);
                                   },
                                   itemCount: data.length,
                                   initialIndex: index,
                                   onSwipe: (swipeIndex) {
-                                    overlayController.add(ImageOverlay(
+                                    galleryOverlayController.add(ImageOverlay(
                                       title: '${swipeIndex + 1}/${data.length}',
-                                      subtitle: data[swipeIndex].toString(),
-                                      subtitle2: WristCheckFormatter.getGallerySubheaderText(data[swipeIndex], context),
+                                      subtitle: data[swipeIndex].watch.toString(),
+                                      subtitle2: WristCheckFormatter.getGallerySubheaderText(data[swipeIndex].watch, context),
+                                      subtitle3: 'Image ${data[swipeIndex].imageIndex + 1}',
                                     ));
                                   },
-                                  overlayController: overlayController,
+                                  overlayController: galleryOverlayController,
                                   initialOverlay: ImageOverlay(
                                     title: '${index + 1}/${data.length}',
-                                    subtitle: data[index].toString(),
-                                    subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index], context),
+                                    subtitle: data[index].watch.toString(),
+                                    subtitle2: WristCheckFormatter.getGallerySubheaderText(data[index].watch, context),
+                                    subtitle3: 'Image ${data[index].imageIndex + 1}',
                                   ),
                                 ).show();
                               },
-                              child: imageFile != null
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.file(
-                                        imageFile,
-                                        cacheWidth: 350,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).disabledColor.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Icon(
-                                        Icons.watch,
-                                        size: 40,
-                                        color: Theme.of(context).disabledColor,
-                                      ),
-                                    ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.file(
+                                  imageFile,
+                                  cacheWidth: 350,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             );
                           },
                         );

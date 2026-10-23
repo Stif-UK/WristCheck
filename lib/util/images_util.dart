@@ -15,6 +15,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/model/gallery_image_item.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -416,9 +417,12 @@ class ImagesUtil {
     return returnList;
   }
 
-  //TODO: Update this method to take a sort order as input
-  static Future<List<Watches>> getWatchesWithImages(GallerySelectionEnum selection) async{
-    var watchList = [];
+  static Future<List<GalleryImageItem>> getGalleryImageItems(GallerySelectionEnum selection) async {
+    if (appDocsPath == null) {
+      await init();
+    }
+
+    List<Watches> watchList = [];
     WatchOrder sortOrder = await WristCheckPreferences.getWatchOrder() ?? WatchOrder.watchbox;
 
     switch(selection) {
@@ -449,21 +453,39 @@ class ImagesUtil {
       case GallerySelectionEnum.all:
         watchList = Boxes.getAllNonArchivedWatches();
         break;
-      default:
-        watchList = Boxes.getCollectionWatches();
-        break;
     }
 
-    List<Watches> returnlist = [];
-    for(Watches watch in watchList){
-      if(await ImagesUtil.imageExists(watch, 0)){
-        returnlist.add(watch);
+    watchList = Boxes.sortWatchBox(watchList, sortOrder);
+
+    List<GalleryImageItem> returnList = [];
+
+    for (var watch in watchList) {
+      for (int i = 0; i < 3; i++) {
+        final File? file = getImageSync(watch, i);
+        if (file != null) {
+          returnList.add(
+            GalleryImageItem(
+              watch: watch,
+              imageIndex: i,
+              imageFile: file,
+            ),
+          );
+        }
       }
     }
-    //TODO: Implement sort method - use Boxes sort method for collection & favourites
-    //Initially just sort by the users selected watchbox order preference
-    returnlist = Boxes.sortWatchBox(returnlist, sortOrder);
-    return returnlist;
+
+    return returnList;
+  }
+
+  static Future<List<Watches>> getWatchesWithImages(GallerySelectionEnum selection) async {
+    final items = await getGalleryImageItems(selection);
+    List<Watches> returnList = [];
+    for (var item in items) {
+      if (!returnList.contains(item.watch)) {
+        returnList.add(item.watch);
+      }
+    }
+    return returnList;
   }
 
   static addImageViaController(int index, BuildContext context, Watches? watch) async {

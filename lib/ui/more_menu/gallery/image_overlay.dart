@@ -5,12 +5,13 @@ class ImageOverlay extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    required this.subtitle2
+    required this.subtitle2,
+    this.subtitle3,
   });
   final String title;
   final String subtitle;
   final String subtitle2;
-
+  final String? subtitle3;
 
   @override
   Widget build(BuildContext context) {
@@ -44,24 +45,43 @@ class ImageOverlay extends StatelessWidget {
             ],
           ),
           Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-          Container(
-          color: Colors.black.withAlpha(50),
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        subtitle,
-        style: const TextStyle(
-          color: Colors.white,
-          decoration: TextDecoration.none,
-          fontSize: 18.0,
-        ),
-      ),
-    ),
-]
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: Colors.black.withAlpha(50),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+            ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: Colors.black.withAlpha(50),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  subtitle2,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (subtitle3 != null && subtitle3!.isNotEmpty)
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,7 +89,7 @@ class ImageOverlay extends StatelessWidget {
                   color: Colors.black.withAlpha(50),
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    subtitle2,
+                    subtitle3!,
                     style: const TextStyle(
                       color: Colors.white,
                       decoration: TextDecoration.none,
@@ -77,8 +97,8 @@ class ImageOverlay extends StatelessWidget {
                     ),
                   ),
                 ),
-              ]
-          )
+              ],
+            ),
         ],
       ),
     );
