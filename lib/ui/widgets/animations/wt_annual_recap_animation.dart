@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:wristcheck/ui/widgets/icons/wt_static_icon.dart';
+import 'package:wristcheck/config.dart';
 
 class WTAnnualRecapAnimation extends StatefulWidget {
   const WTAnnualRecapAnimation({
@@ -17,7 +18,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     this.top2Watch,
     this.top3Watch,
     this.onControllerReady,
-    this.fit = Fit.fill,
+    this.fit = Fit.contain,
   });
 
   final double fallbackIconDimensions;
@@ -95,26 +96,29 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
 
   @override
   Widget build(BuildContext context) {
-    return RiveWidgetBuilder(
-      fileLoader: _fileLoader,
-      builder: (context, state) {
-        return switch (state) {
-          RiveLoading() => const CircularProgressIndicator(),
-          RiveFailed() => WtStaticIcon(dimensions: widget.fallbackIconDimensions,),
-          RiveLoaded(:final controller) => Builder(
-            builder: (context) {
-              final animCtrl = WTAnnualRecapAnimationController(controller);
-              _animController = animCtrl;
-              _applyInputs(widget, animCtrl);
-              widget.onControllerReady?.call(animCtrl);
-              return RiveWidget(
-                controller: controller,
-                fit: widget.fit,
-              );
-            },
-          ),
-        };
-      },
+    return Container(
+      color: WristCheckConfig.getWCColour(),
+      child: RiveWidgetBuilder(
+        fileLoader: _fileLoader,
+        builder: (context, state) {
+          return switch (state) {
+            RiveLoading() => const Center(child: CircularProgressIndicator(color: Colors.white)),
+            RiveFailed() => Center(child: WtStaticIcon(dimensions: widget.fallbackIconDimensions)),
+            RiveLoaded(:final controller) => Builder(
+              builder: (context) {
+                final animCtrl = WTAnnualRecapAnimationController(controller);
+                _animController = animCtrl;
+                _applyInputs(widget, animCtrl);
+                widget.onControllerReady?.call(animCtrl);
+                return RiveWidget(
+                  controller: controller,
+                  fit: widget.fit,
+                );
+              },
+            ),
+          };
+        },
+      ),
     );
   }
 }
