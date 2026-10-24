@@ -71,6 +71,7 @@
 
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Účet a cloudová synchronizace",
   "languageLink" : "Jazyk",
   "reminderLink" : "Denní připomenutí",
   "currencyLink" : "Možnosti měny",

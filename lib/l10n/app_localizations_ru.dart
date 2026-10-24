@@ -174,6 +174,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Ед. водонепроницаемости';
 
   @override
+  String get accountAndCloudSyncLink => 'Аккаунт и облачная синхронизация';
+
+  @override
   String get languageLink => 'Язык';
 
   @override

@@ -174,6 +174,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Unidades de WR';
 
   @override
+  String get accountAndCloudSyncLink => 'Cuenta y sincronización en la nube';
+
+  @override
   String get languageLink => 'Idioma';
 
   @override

@@ -71,6 +71,7 @@
 
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Аккаунт и облачная синхронизация",
   "languageLink" : "Язык",
   "reminderLink" : "Ежедневное напоминание",
   "currencyLink" : "Параметры валюты",

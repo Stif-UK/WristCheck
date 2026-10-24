@@ -438,6 +438,12 @@ abstract class AppLocalizations {
   /// **'WR Units'**
   String get wrUnitsSectionTitle;
 
+  /// No description provided for @accountAndCloudSyncLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & Cloud Sync'**
+  String get accountAndCloudSyncLink;
+
   /// No description provided for @languageLink.
   ///
   /// In en, this message translates to:

@@ -70,6 +70,7 @@
   "wrUnitsSectionTitle" : "Unités d'étanchéité",
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Compte et synchronisation cloud",
   "languageLink" : "Langue",
   "reminderLink" : "Rappel quotidien",
   "currencyLink" : "Options de devise",

@@ -71,6 +71,7 @@
 
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Cuenta y sincronización en la nube",
   "languageLink" : "Idioma",
   "reminderLink" : "Recordatorio Diario",
   "currencyLink" : "Opciones de Moneda",

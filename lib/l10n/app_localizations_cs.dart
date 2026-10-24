@@ -174,6 +174,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Jednotky vodotěsnosti';
 
   @override
+  String get accountAndCloudSyncLink => 'Účet a cloudová synchronizace';
+
+  @override
   String get languageLink => 'Jazyk';
 
   @override

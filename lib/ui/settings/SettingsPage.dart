@@ -16,6 +16,7 @@ import 'package:wristcheck/ui/settings/locale_options.dart';
 import 'package:wristcheck/ui/notifications.dart';
 import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/settings/view_options.dart';
+import 'package:wristcheck/ui/user/auth_gate.dart';
 
 
 
@@ -96,6 +97,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: Text(AppLocalizations.of(context)!.appPreferencesLink),
                   leading: const FaIcon(FontAwesomeIcons.display),
                   onTap: () => Get.to(() => ViewOptions()),
+                ),
+                const Divider(thickness: 2,),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.accountAndCloudSyncLink),
+                  leading: const Icon(Icons.cloud_sync_outlined),
+                  onTap: () => Get.to(() => const AuthGate()),
                 ),
                 const Divider(thickness: 2,),
                 ListTile(

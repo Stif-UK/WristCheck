@@ -176,6 +176,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Unités d\'étanchéité';
 
   @override
+  String get accountAndCloudSyncLink => 'Compte et synchronisation cloud';
+
+  @override
   String get languageLink => 'Langue';
 
   @override

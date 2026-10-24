@@ -71,6 +71,7 @@
 
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Account & Cloud Sync",
   "languageLink" : "Language",
   "reminderLink" : "Daily Reminder",
   "currencyLink" : "Currency Options",

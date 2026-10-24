@@ -175,6 +175,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Wasserdichtigkeitseinheiten';
 
   @override
+  String get accountAndCloudSyncLink => 'Konto & Cloud-Synchronisierung';
+
+  @override
   String get languageLink => 'Sprache';
 
   @override

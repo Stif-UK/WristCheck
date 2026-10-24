@@ -71,6 +71,7 @@
 
 
   "@_SETTINGS_LINKS": {},
+  "accountAndCloudSyncLink" : "Account e sincronizzazione cloud",
   "languageLink" : "Lingua",
   "reminderLink" : "Promemoria Giornaliero",
   "currencyLink" : "Opzioni Valuta",
