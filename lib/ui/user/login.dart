@@ -60,16 +60,21 @@ class _LoginState extends State<Login> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("Logging into WristTrack is optional - the app is 'local first' and all of your data is your own.\n"
-                    "However logging in simplifies tracking Pro upgrades and allows syncronising data between devices."),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(child:
-                      Text("Learn more",),
-                    onPressed: (){},),
-                  ],
+                const Divider(thickness: 2,),
+                ExpansionTile(
+                  title: Text("Why sign in?", style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.start,),
+                  children: [Text("WristTrack is a 'Local First' app - your data lives on your device and works offline, owned by you.\n\n"
+                      "Creating an account and logging in is optional. \nIt allows your collection to backup to the cloud and sync with other devices,"
+                      "as well as tracking WristTrack Pro purchases between devices."),]
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     TextButton(child:
+                //       Text("Learn more",),
+                //     onPressed: (){},),
+                //   ],
+                // ),
                 const Divider(thickness: 2,),
                 WatchFormField(
                   fieldTitle: 'Email',
