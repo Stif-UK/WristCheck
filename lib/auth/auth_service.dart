@@ -399,4 +399,72 @@ class AuthService {
     }
   }
 
+  // Delete user account and all cloud data
+  Future<bool> deleteUserAccountAndCloudData() async {
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) return false;
+      final userId = user.id;
+
+      // 1. Delete watch images from 'watch_images' bucket
+      try {
+        final remoteWatches = await _supabase
+            .from('watches')
+            .select('id')
+            .eq('user_id', userId);
+
+        final List<String> imagePaths = [];
+        for (final row in remoteWatches) {
+          final watchId = row['id'];
+          if (watchId != null) {
+            imagePaths.add('$userId/$watchId/front.jpg');
+            imagePaths.add('$userId/$watchId/back.jpg');
+            imagePaths.add('$userId/$watchId/lume.jpg');
+          }
+        }
+        if (imagePaths.isNotEmpty) {
+          await _supabase.storage.from('watch_images').remove(imagePaths);
+        }
+      } catch (e) {
+        print("Error deleting watch images from cloud: $e");
+      }
+
+      // 2. Delete avatar from 'avatars' bucket
+      try {
+        await _supabase.storage.from('avatars').remove(['$userId/avatar.jpg']);
+      } catch (e) {
+        print("Error deleting avatar from cloud: $e");
+      }
+
+      // 3. Delete measurements records
+      try {
+        await _supabase.from('measurements').delete().eq('user_id', userId);
+      } catch (e) {
+        print("Error deleting measurements: $e");
+      }
+
+      // 4. Delete watches records
+      try {
+        await _supabase.from('watches').delete().eq('user_id', userId);
+      } catch (e) {
+        print("Error deleting watches: $e");
+      }
+
+      // 5. Delete the Auth User via Supabase RPC function
+      try {
+        await _supabase.rpc('delete_user');
+      } catch (e) {
+        print("RPC delete_user failed or not implemented in Supabase: $e");
+      }
+
+      // 6. Sign out session locally
+      await _supabase.auth.signOut();
+
+      return true;
+    } catch (e) {
+      print("Error during deleteUserAccountAndCloudData: $e");
+      return false;
+    }
+  }
+
 }

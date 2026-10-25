@@ -484,10 +484,303 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     : const SizedBox.shrink())
               ],),
-            )
+            ),
+            Card(
+              elevation: 2,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              child: ExpansionTile(
+                leading: const FaIcon(FontAwesomeIcons.triangleExclamation, color: Colors.redAccent),
+                title: const Text(
+                  "Delete Account",
+                  style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+                ),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          "Deleting your account will permanently remove all cloud data, synced watches, wear history, timing logs, and uploaded images.",
+                          style: TextStyle(fontSize: 13, color: Colors.grey),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          icon: const FaIcon(FontAwesomeIcons.trash, size: 16),
+                          label: const Text("Delete Account", style: TextStyle(fontWeight: FontWeight.bold)),
+                          onPressed: _isLoading ? null : _showDeleteAccountConfirmationDialog,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
+    );
+  }
+
+  void _showDeleteAccountConfirmationDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Delete Your Account?"),
+        content: const SingleChildScrollView(
+          child: Text(
+            "Are you sure you want to delete your WristTrack account?\n\n"
+            "This action is permanent and cannot be undone:\n"
+            "• Your cloud account and login details will be deleted.\n"
+            "• All synced watches, wear history, timing logs, and uploaded images stored in the cloud will be permanently removed.\n"
+            "• Local data currently on this device will remain intact unless you choose to reset the app.",
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () {
+              Get.back(); // close confirmation dialog
+              _showReAuthenticationDialog();
+            },
+            child: const Text("Delete Account"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showReAuthenticationDialog() {
+    final hasPassword = AuthService().hasPassword();
+    final passwordController = TextEditingController();
+    bool isReAuthenticating = false;
+
+    if (hasPassword) {
+      Get.dialog(
+        StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text("Re-authenticate"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Please enter your current password to confirm account deletion:"),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "Current Password",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isReAuthenticating ? null : () => Get.back(),
+                  child: const Text("Cancel"),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: isReAuthenticating
+                      ? null
+                      : () async {
+                          final password = passwordController.text.trim();
+                          if (password.isEmpty) return;
+
+                          setDialogState(() {
+                            isReAuthenticating = true;
+                          });
+
+                          final userEmail = AuthService().getUserEmail();
+                          if (userEmail == null) {
+                            Get.back();
+                            _showErrorSnackbar();
+                            return;
+                          }
+
+                          final response = await AuthService().signInWithEmailAndPassword(userEmail, password);
+                          if (response != null && response.user != null) {
+                            Get.back(); // close re-auth dialog
+                            _executeAccountDeletion();
+                          } else {
+                            setDialogState(() {
+                              isReAuthenticating = false;
+                            });
+                          }
+                        },
+                  child: isReAuthenticating
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : const Text("Confirm & Delete"),
+                ),
+              ],
+            );
+          },
+        ),
+        barrierDismissible: false,
+      );
+    } else {
+      Get.dialog(
+        StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text("Re-authenticate"),
+              content: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Please re-authenticate with your sign-in provider to confirm account deletion."),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isReAuthenticating ? null : () => Get.back(),
+                  child: const Text("Cancel"),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton.icon(
+                      icon: const FaIcon(FontAwesomeIcons.google, size: 16),
+                      label: const Text("Re-authenticate with Google"),
+                      onPressed: isReAuthenticating
+                          ? null
+                          : () async {
+                              setDialogState(() {
+                                isReAuthenticating = true;
+                              });
+                              final res = await AuthService().signInWithGoogle();
+                              if (res != null && res.user != null) {
+                                Get.back();
+                                _executeAccountDeletion();
+                              } else {
+                                setDialogState(() {
+                                  isReAuthenticating = false;
+                                });
+                              }
+                            },
+                    ),
+                    if (Platform.isIOS) ...[
+                      const SizedBox(height: 8),
+                      ElevatedButton.icon(
+                        icon: const FaIcon(FontAwesomeIcons.apple, size: 16),
+                        label: const Text("Re-authenticate with Apple"),
+                        onPressed: isReAuthenticating
+                            ? null
+                            : () async {
+                                setDialogState(() {
+                                  isReAuthenticating = true;
+                                });
+                                final res = await AuthService().signInWithApple();
+                                if (res != null && res.user != null) {
+                                  Get.back();
+                                  _executeAccountDeletion();
+                                } else {
+                                  setDialogState(() {
+                                    isReAuthenticating = false;
+                                  });
+                                }
+                              },
+                      ),
+                    ],
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
+        barrierDismissible: false,
+      );
+    }
+  }
+
+  void _executeAccountDeletion() async {
+    // Show loading spinner dialog
+    Get.dialog(
+      const Dialog(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Expanded(
+                child: Text(
+                  "Deleting your cloud account and stored data...",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+
+    final success = await AuthService().deleteUserAccountAndCloudData();
+
+    // Close loading dialog
+    Get.back();
+
+    if (success) {
+      // Wipe local avatar cache
+      final file = await ImagesUtil.getLocalAvatar();
+      if (file != null && await file.exists()) {
+        await file.delete();
+      }
+      await WristCheckPreferences.setLastAvatarUrl("");
+      AuthGate.pendingOtpEmail.value = null;
+
+      // Confirmation banner/toast
+      Get.snackbar(
+        "Account Deleted",
+        "Your account and cloud data have been permanently deleted. WristTrack will now run in local-only mode.",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 6),
+        backgroundColor: Colors.black87,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+      );
+
+      // Return to local mode / close ProfilePage
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    } else {
+      _showErrorSnackbar();
+    }
+  }
+
+  void _showErrorSnackbar() {
+    Get.snackbar(
+      "Error",
+      "Unable to delete account. Please check your internet connection and try again, or contact support@wristtrack.app.",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 6),
+      backgroundColor: Colors.redAccent,
+      colorText: Colors.white,
+      margin: const EdgeInsets.all(10),
     );
   }
 
