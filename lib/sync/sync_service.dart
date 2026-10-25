@@ -225,35 +225,72 @@ class SyncService {
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
-    int done = 0;
 
     for (var watch in dirtyWatches) {
       watch.ensureInitialized();
       final data = watch.toJson();
       data['user_id'] = userId;
       batchPayload.add(data);
-      done++;
     }
 
     // Perform a single batch upsert request to Supabase
     await _supabase.from(_watchesTable).upsert(batchPayload);
 
-    // Mark pushed watches as clean, or delete local tombstones for deleted records
+    // Upload local images for dirty watches
+    final directory = await getApplicationDocumentsDirectory();
     for (var watch in dirtyWatches) {
-      if (watch.isDeleted == true) {
-        try {
-          if (watch.id != null) {
+      if (watch.id != null) {
+        if (watch.isDeleted == true) {
+          try {
             await _supabase.storage.from(_storageBucket).remove([
               '$userId/${watch.id}/front.jpg',
               '$userId/${watch.id}/back.jpg',
               '$userId/${watch.id}/lume.jpg',
             ]);
+          } catch (_) {}
+          await watch.delete();
+        } else {
+          // Upload local images to Supabase storage if files exist
+          if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
+            final f = File("${directory.path}${watch.frontImagePath}");
+            if (f.existsSync()) {
+              try {
+                await _supabase.storage.from(_storageBucket).upload(
+                      '$userId/${watch.id}/front.jpg',
+                      f,
+                      fileOptions: const FileOptions(upsert: true),
+                    );
+              } catch (_) {}
+            }
           }
-        } catch (_) {}
-        await watch.delete();
-      } else {
-        watch.isDirty = false;
-        await watch.save();
+          if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
+            final f = File("${directory.path}${watch.backImagePath}");
+            if (f.existsSync()) {
+              try {
+                await _supabase.storage.from(_storageBucket).upload(
+                      '$userId/${watch.id}/back.jpg',
+                      f,
+                      fileOptions: const FileOptions(upsert: true),
+                    );
+              } catch (_) {}
+            }
+          }
+          if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
+            final f = File("${directory.path}${watch.lumeImagePath}");
+            if (f.existsSync()) {
+              try {
+                await _supabase.storage.from(_storageBucket).upload(
+                      '$userId/${watch.id}/lume.jpg',
+                      f,
+                      fileOptions: const FileOptions(upsert: true),
+                    );
+              } catch (_) {}
+            }
+          }
+
+          watch.isDirty = false;
+          await watch.save();
+        }
       }
     }
 
@@ -362,9 +399,6 @@ class SyncService {
             localWatch.updatedAt = remoteWatch.updatedAt;
             localWatch.isDeleted = remoteWatch.isDeleted;
             localWatch.isDirty = false; // Clean after pulling remote winner
-            localWatch.frontImageSynced = remoteWatch.frontImageSynced;
-            localWatch.backImageSynced = remoteWatch.backImageSynced;
-            localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
             await localWatch.save();
             debugPrint('SyncService: Updated local watch from newer remote version: ${localWatch.manufacturer} ${localWatch.model}');
           }
@@ -381,16 +415,10 @@ class SyncService {
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
 
-  /// Push local measurements safely (filtering out orphaned records with missing parent watches)
+  /// Push local measurements
   static Future<void> _pushLocalMeasurements(String userId) async {
     final box = Boxes.getMeasurements();
     final watchBox = Boxes.getWatches();
-
-    final validWatchIds = watchBox.values
-        .where((w) => w.id != null && w.id!.isNotEmpty)
-        .map((w) => w.id!)
-        .toSet();
-
     final dirtyMeasurements = box.values
         .where((m) => (m.isDirty == true || m.isDeleted == true))
         .toList();
@@ -408,8 +436,6 @@ class SyncService {
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
-    final List<Measurement> validMeasurementsToClean = [];
-
     for (var m in dirtyMeasurements) {
       if (m.watchId == null || m.watchId!.isEmpty) {
         Watches? parentWatch;
@@ -419,27 +445,14 @@ class SyncService {
             break;
           }
         }
-        if (parentWatch?.id != null) {
-          m.ensureInitialized(parentWatch!.id!);
-        }
+        m.ensureInitialized(parentWatch?.id ?? '');
       }
-
-      // Ensure the parent watch exists locally and has a valid ID before pushing
-      if (m.watchId != null && validWatchIds.contains(m.watchId)) {
-        batchPayload.add(m.toJson(userId));
-        validMeasurementsToClean.add(m);
-      } else {
-        // Orphaned measurement with no matching watch; clean up locally to avoid foreign key errors
-        debugPrint('SyncService: Cleaning up orphaned local measurement ${m.key} with missing parent watch.');
-        await m.delete();
-      }
+      batchPayload.add(m.toJson(userId));
     }
 
-    if (batchPayload.isNotEmpty) {
-      await _supabase.from(_measurementsTable).upsert(batchPayload);
-    }
+    await _supabase.from(_measurementsTable).upsert(batchPayload);
 
-    for (var m in validMeasurementsToClean) {
+    for (var m in dirtyMeasurements) {
       if (m.isDeleted == true) {
         await m.delete();
       } else {
@@ -447,7 +460,6 @@ class SyncService {
         await m.save();
       }
     }
-
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
     }
@@ -537,136 +549,99 @@ class SyncService {
     }
   }
 
-  /// 3. Upload local images and download missing remote images via Supabase Storage
+  /// 3. Download missing remote images via Supabase Storage
   static Future<void> _syncImages(String userId) async {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
 
-    int totalImages = 0;
+    int missingImagesCount = 0;
     for (var watch in box.values) {
       if (watch.id != null) {
         if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
           final f = File("${directory.path}${watch.frontImagePath}");
-          if (f.existsSync() || watch.frontImageSynced != true) totalImages++;
+          if (!f.existsSync()) missingImagesCount++;
         }
         if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
           final f = File("${directory.path}${watch.backImagePath}");
-          if (f.existsSync() || watch.backImageSynced != true) totalImages++;
+          if (!f.existsSync()) missingImagesCount++;
         }
         if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
           final f = File("${directory.path}${watch.lumeImagePath}");
-          if (f.existsSync() || watch.lumeImageSynced != true) totalImages++;
+          if (!f.existsSync()) missingImagesCount++;
         }
       }
+    }
+
+    if (missingImagesCount == 0) {
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.imageTotal.value = 1;
+        SyncController.to.imageSynced.value = 1;
+      }
+      return;
     }
 
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.imageTotal.value = max(1, totalImages);
+      SyncController.to.imageTotal.value = missingImagesCount;
       SyncController.to.imageSynced.value = 0;
     }
 
-    int doneImages = 0;
-
+    int downloaded = 0;
     for (var watch in box.values) {
       if (watch.id != null) {
-        // --- Front Image ---
+        // Front
         if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.frontImagePath}");
-          final storagePath = '$userId/${watch.id}/front.jpg';
-
           if (!localFile.existsSync()) {
             try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
-              watch.frontImageSynced = true;
-              await watch.save();
-            } catch (_) {}
-          } else if (watch.frontImageSynced != true) {
-            try {
-              await _supabase.storage.from(_storageBucket).upload(
-                    storagePath,
-                    localFile,
-                    fileOptions: const FileOptions(upsert: true),
-                  );
-              watch.frontImageSynced = true;
-              await watch.save();
-            } catch (e) {
-              debugPrint('SyncService: Error uploading front image: $e');
+            } catch (_) {
+              // Image doesn't exist online; ignore
+            }
+            downloaded++;
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageSynced.value = downloaded;
             }
           }
-          doneImages++;
-          if (Get.isRegistered<SyncController>()) {
-            SyncController.to.imageSynced.value = doneImages;
-          }
         }
-
-        // --- Back Image ---
+        // Back
         if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.backImagePath}");
-          final storagePath = '$userId/${watch.id}/back.jpg';
-
           if (!localFile.existsSync()) {
             try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/back.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
-              watch.backImageSynced = true;
-              await watch.save();
-            } catch (_) {}
-          } else if (watch.backImageSynced != true) {
-            try {
-              await _supabase.storage.from(_storageBucket).upload(
-                    storagePath,
-                    localFile,
-                    fileOptions: const FileOptions(upsert: true),
-                  );
-              watch.backImageSynced = true;
-              await watch.save();
-            } catch (e) {
-              debugPrint('SyncService: Error uploading back image: $e');
+            } catch (_) {
+              // Image doesn't exist online; ignore
             }
-          }
-          doneImages++;
-          if (Get.isRegistered<SyncController>()) {
-            SyncController.to.imageSynced.value = doneImages;
+            downloaded++;
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageSynced.value = downloaded;
+            }
           }
         }
-
-        // --- Lume Image ---
+        // Lume
         if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.lumeImagePath}");
-          final storagePath = '$userId/${watch.id}/lume.jpg';
-
           if (!localFile.existsSync()) {
             try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download(storagePath);
+              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/lume.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
-              watch.lumeImageSynced = true;
-              await watch.save();
-            } catch (_) {}
-          } else if (watch.lumeImageSynced != true) {
-            try {
-              await _supabase.storage.from(_storageBucket).upload(
-                    storagePath,
-                    localFile,
-                    fileOptions: const FileOptions(upsert: true),
-                  );
-              watch.lumeImageSynced = true;
-              await watch.save();
-            } catch (e) {
-              debugPrint('SyncService: Error uploading lume image: $e');
+            } catch (_) {
+              // Image doesn't exist online; ignore
             }
-          }
-          doneImages++;
-          if (Get.isRegistered<SyncController>()) {
-            SyncController.to.imageSynced.value = doneImages;
+            downloaded++;
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageSynced.value = downloaded;
+            }
           }
         }
       }
     }
-    
+
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.imageSynced.value = SyncController.to.imageTotal.value;
     }
