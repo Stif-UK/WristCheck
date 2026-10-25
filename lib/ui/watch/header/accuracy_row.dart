@@ -22,6 +22,9 @@ class AccuracyRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (currentWatch == null) {
+      return const SizedBox.shrink();
+    }
     //populate the required controller data
     accuracyController.updateLastMeasurement(MeasurementMethods.getLatestMeasurementForWatch(currentWatch!));
     return Padding(

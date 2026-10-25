@@ -29,6 +29,10 @@ class WearRow extends StatefulWidget {
 class _WearRowState extends State<WearRow> {
   @override
   Widget build(BuildContext context) {
+    if (widget.currentWatch == null) {
+      return const SizedBox.shrink();
+    }
+
     //Default canRecordWear value
     widget.watchViewController.updateCanRecordWear(false);
 

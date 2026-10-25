@@ -63,6 +63,7 @@ class _WatchViewState extends State<WatchView> {
 
     // Initialise watchViewController values only once on entry
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
+    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
     if (widget.currentWatch != null) {
       widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
       widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
@@ -513,8 +514,11 @@ class _WatchViewState extends State<WatchView> {
                                 onPressed: () async {
                                     if(widget.watchViewController.inEditState.value){
                                       await analytics.logEvent(name: "save_edit_top_pressed");
-                                      saveAndUpdate();
-                                      //saveAndUpdate also performs change to view and edit state as called elsewhere
+                                      if (widget.watchViewController.watchViewState.value == WatchViewEnum.add || widget.currentWatch == null) {
+                                        await _executeAddWatch();
+                                      } else {
+                                        saveAndUpdate();
+                                      }
                                     } else
                                     {
                                       await analytics.logEvent(name: "edit_watch_pressed");
@@ -769,116 +773,118 @@ class _WatchViewState extends State<WatchView> {
     );
   }
 
-  Widget _addWatchButton(){
+  Future<void> _executeAddWatch() async {
     Watches? tempWatch;
+    if (_formKey.currentState!.validate()) {
+      var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
 
+      _purchaseDate = ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text);
+      _soldDate = ViewWatchHelper.getDateFromFieldString(soldDateFieldController.value.text);
+      _deliveryDate = ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text);
+      _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
+      _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
+      _serviceInterval = ViewWatchHelper.getIntInputValue(serviceIntervalFieldController.value.text);
+      _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
+      _lugWidth = ViewWatchHelper.getIntInputValue(lugWidthFieldController.value.text);
+      _lug2lug = ViewWatchHelper.getDoubleFromStringInput(lug2lugFieldController.value.text);
+      _caseThickness = ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text);
+      _waterResistance = ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text);
+      _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
+      _powerReserve = powerReserveFieldController.value.text.isEmpty
+          ? null
+          : int.tryParse(powerReserveFieldController.value.text);
+      widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
+      widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
+      widget.watchViewController.updateCurrentValue(ViewWatchHelper.getPrice(currentValueFieldController.value.text));
+
+      watchKey = await WatchMethods.addWatch(
+        manufacturerFieldController.value.text,
+        modelFieldController.value.text,
+        serialNumber: serialNumberFieldController.value.text,
+        favourite: favourite,
+        status: widget.watchViewController.selectedStatus.value,
+        purchaseDate: _purchaseDate,
+        lastServicedDate: _lastServicedDate,
+        serviceInterval: _serviceInterval,
+        notes: notesFieldController.value.text,
+        referenceNumber: referenceNumberFieldController.value.text,
+        movement: movementFieldController.value.text,
+        category: categoryFieldController.value.text,
+        purchasedFrom: purchasedFromFieldController.value.text,
+        soldTo: soldToFieldController.value.text,
+        purchasePrice: widget.watchViewController.purchasePrice.value,
+        soldPrice: widget.watchViewController.soldPrice.value,
+        value: widget.watchViewController.currentValue.value,
+        soldDate: _soldDate,
+        deliveryDate: _deliveryDate,
+        warrantyEndDate: _warrantyEndDate,
+        caseDiameter: _caseDiameter,
+        lugWidth: _lugWidth,
+        lug2lug: _lug2lug,
+        caseThickness: _caseThickness,
+        waterResistance: _waterResistance,
+        caseMaterial: caseMaterialFieldController.value.text,
+        winderTPD: _winderTPD,
+        winderDirection: winderDirectionFieldController.value.text,
+        dateComplication: dateComplicationFieldController.value.text,
+        primaryColour: primaryColourFieldController.value.text,
+        secondaryColour: secondaryColourFieldController.value.text,
+        powerReserve: _powerReserve,
+        year: modelYearFieldController.value.text.isEmpty
+            ? null
+            : int.tryParse(modelYearFieldController.value.text),
+      );
+
+      //if a front image has been set, we add this to the newly created watch before exiting
+      if (widget.watchViewController.frontImage.value != null) {
+        tempWatch = watchBox.get(watchKey);
+        ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, 0);
+      }
+      //and repeat for the back image
+      if (widget.watchViewController.backImage.value != null) {
+        tempWatch = watchBox.get(watchKey);
+        ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, 1);
+      }
+      //and for the lume image
+      if (widget.watchViewController.lumeImage.value != null) {
+        tempWatch = watchBox.get(watchKey);
+        ImagesUtil.saveImage(widget.watchViewController.lumeImage.value!.path, tempWatch!, 2);
+      }
+      //Before Navigating back, clear the form, to prevent the back navigation being stopped
+      _formKey.currentState!.reset();
+      widget.watchViewController.updateSkipBackCheck(true);
+      widget.watchViewController.updateOverrideBacknav(true);
+
+      Get.snackbar(
+          snackTitle,
+          AppLocalizations.of(Get.context!)!.addedToWatchbox,
+          snackPosition: SnackPosition.BOTTOM,
+          icon: const Icon(Icons.watch));
+
+      Navigator.of(context).pop();
+    }
+  }
+
+  Widget _addWatchButton(){
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Center(
         child: ElevatedButton(
           onPressed: () async {
             await analytics.logEvent(name: "add_watch_pressed");
-            if(_formKey.currentState!.validate()){
-              var snackTitle = "${manufacturerFieldController.value.text} ${modelFieldController.value.text}";
-
-              _purchaseDate = ViewWatchHelper.getDateFromFieldString(purchaseDateFieldController.value.text);
-              _soldDate = ViewWatchHelper.getDateFromFieldString(soldDateFieldController.value.text);
-              _deliveryDate = ViewWatchHelper.getDateFromFieldString(deliveryDateFieldController.value.text);
-              _lastServicedDate = ViewWatchHelper.getDateFromFieldString(lastServicedDateFieldController.value.text);
-              _warrantyEndDate = ViewWatchHelper.getDateFromFieldString(warrantyEndDateFieldController.value.text);
-              _serviceInterval = ViewWatchHelper.getIntInputValue(serviceIntervalFieldController.value.text);
-              _caseDiameter = ViewWatchHelper.getDoubleFromStringInput(caseDiameterFieldController.value.text);
-              _lugWidth = ViewWatchHelper.getIntInputValue(lugWidthFieldController.value.text);
-              _lug2lug = ViewWatchHelper.getDoubleFromStringInput(lug2lugFieldController.value.text);
-              _caseThickness = ViewWatchHelper.getDoubleFromStringInput(caseThicknessFieldController.value.text);
-              _waterResistance = ViewWatchHelper.getIntInputValue(waterResistanceFieldController.value.text);
-              _winderTPD = ViewWatchHelper.getIntInputValue(winderTPDFieldController.value.text);
-              _powerReserve = powerReserveFieldController.value.text.isEmpty
-                  ? null
-                  : int.tryParse(powerReserveFieldController.value.text);
-              widget.watchViewController.updatePurchasePrice(ViewWatchHelper.getPrice(purchasePriceFieldController.value.text));
-              widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
-              widget.watchViewController.updateCurrentValue(ViewWatchHelper.getPrice(currentValueFieldController.value.text));
-
-
-              watchKey = await WatchMethods.addWatch(
-                manufacturerFieldController.value.text,
-                modelFieldController.value.text,
-                serialNumber: serialNumberFieldController.value.text,
-                favourite: favourite,
-                status: widget.watchViewController.selectedStatus.value,
-                purchaseDate: _purchaseDate,
-                lastServicedDate: _lastServicedDate,
-                serviceInterval: _serviceInterval,
-                notes: notesFieldController.value.text,
-                referenceNumber: referenceNumberFieldController.value.text,
-                movement: movementFieldController.value.text,
-                category: categoryFieldController.value.text,
-                purchasedFrom: purchasedFromFieldController.value.text,
-                soldTo: soldToFieldController.value.text,
-                purchasePrice: widget.watchViewController.purchasePrice.value,
-                soldPrice: widget.watchViewController.soldPrice.value,
-                value: widget.watchViewController.currentValue.value,
-                soldDate: _soldDate,
-                deliveryDate: _deliveryDate,
-                warrantyEndDate: _warrantyEndDate,
-                caseDiameter: _caseDiameter,
-                lugWidth: _lugWidth,
-                lug2lug: _lug2lug,
-                caseThickness: _caseThickness,
-                waterResistance: _waterResistance,
-                caseMaterial: caseMaterialFieldController.value.text,
-                winderTPD: _winderTPD,
-                winderDirection: winderDirectionFieldController.value.text,
-                dateComplication: dateComplicationFieldController.value.text,
-                primaryColour: primaryColourFieldController.value.text,
-                secondaryColour: secondaryColourFieldController.value.text,
-                powerReserve: _powerReserve,
-                year: modelYearFieldController.value.text.isEmpty
-                    ? null
-                    : int.tryParse(modelYearFieldController.value.text),
-              );
-
-              //if a front image has been set, we add this to the newly created watch before exiting
-              if(widget.watchViewController.frontImage.value != null){
-                tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, 0);
-            }
-            //and repeat for the back image
-            if(widget.watchViewController.backImage.value != null){
-            tempWatch = watchBox.get(watchKey);
-            ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, 1);
-            }
-            //and for the lume image
-              if(widget.watchViewController.lumeImage.value != null){
-                tempWatch = watchBox.get(watchKey);
-                ImagesUtil.saveImage(widget.watchViewController.lumeImage.value!.path, tempWatch!, 2);
-              }
-              //Before Navigating back, clear the form, to prevent the back navigation being stopped
-              _formKey.currentState!.reset();
-              widget.watchViewController.updateSkipBackCheck(true);
-              widget.watchViewController.updateOverrideBacknav(true);
-
-              Get.snackbar(
-                  snackTitle,
-                  AppLocalizations.of(Get.context!)!.addedToWatchbox,
-                  snackPosition: SnackPosition.BOTTOM,
-                  icon: const Icon(Icons.watch));
-              
-              Navigator.of(context).pop();
-            }
+            await _executeAddWatch();
           },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.save),
-                ),
-                Text(AppLocalizations.of(Get.context!)!.addWatch),
-              ],
-            )
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.save),
+              ),
+              Text(AppLocalizations.of(Get.context!)!.addWatch),
+            ],
+          ),
         ),
       ),
     );

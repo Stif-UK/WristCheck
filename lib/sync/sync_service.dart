@@ -141,7 +141,7 @@ class SyncService {
     }
   }
 
-  /// Performs a smart, selective sync skipping phases that have no dirty data
+  /// Performs a full bidirectional sync with automatic re-sync queuing if triggered during an active sync
   static Future<void> syncData() async {
     if (_isSyncing) {
       debugPrint('SyncService: Sync already in progress. Queuing re-sync request.');
@@ -163,59 +163,27 @@ class SyncService {
       do {
         _syncRequestedAgain = false;
         try {
-          debugPrint('SyncService: Starting smart synchronization for user ${user.id}...');
+          debugPrint('SyncService: Starting synchronization for user ${user.id}...');
           
-          final watchBox = Boxes.getWatches();
-          final measurementBox = Boxes.getMeasurements();
-
-          bool hasDirtyWatches = watchBox.values.any((w) => w.isDirty == true || w.isDeleted == true);
-          bool hasDirtyMeasurements = measurementBox.values.any((m) => m.isDirty == true || m.isDeleted == true);
-          bool hasUnsyncedImages = watchBox.values.any((w) => 
-            (w.frontImagePath != null && w.frontImagePath!.trim().isNotEmpty && w.frontImageSynced != true) ||
-            (w.backImagePath != null && w.backImagePath!.trim().isNotEmpty && w.backImageSynced != true) ||
-            (w.lumeImagePath != null && w.lumeImagePath!.trim().isNotEmpty && w.lumeImageSynced != true)
-          );
-
           // Phase 1: Watches
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'watches';
           }
-          if (hasDirtyWatches) {
-            await _pushLocalChanges(user.id);
-          } else {
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.watchTotal.value = 1;
-              SyncController.to.watchSynced.value = 1;
-            }
-          }
+          await _pushLocalChanges(user.id);
           await _pullRemoteChanges(user.id);
 
           // Phase 2: Accuracy Records
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'accuracy';
           }
-          if (hasDirtyMeasurements) {
-            await _pushLocalMeasurements(user.id);
-          } else {
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.accuracyTotal.value = 1;
-              SyncController.to.accuracySynced.value = 1;
-            }
-          }
+          await _pushLocalMeasurements(user.id);
           await _pullRemoteMeasurements(user.id);
 
           // Phase 3: Images
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'images';
           }
-          if (hasUnsyncedImages) {
-            await _syncImages(user.id);
-          } else {
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.imageTotal.value = 1;
-              SyncController.to.imageSynced.value = 1;
-            }
-          }
+          await _syncImages(user.id);
 
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'done';
@@ -243,11 +211,17 @@ class SyncService {
         .toList();
 
     debugPrint('SyncService: Found ${dirtyWatches.length} dirty/deleted local watches to push.');
-    if (dirtyWatches.isEmpty) return;
-
+    
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.watchTotal.value = max(1, dirtyWatches.length);
+      SyncController.to.watchTotal.value = max(1, box.values.length);
       SyncController.to.watchSynced.value = 0;
+    }
+
+    if (dirtyWatches.isEmpty) {
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
+      }
+      return;
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
@@ -259,9 +233,6 @@ class SyncService {
       data['user_id'] = userId;
       batchPayload.add(data);
       done++;
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.watchSynced.value = done;
-      }
     }
 
     // Perform a single batch upsert request to Supabase
@@ -410,10 +381,16 @@ class SyncService {
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
 
-  /// Push local measurements
+  /// Push local measurements safely (filtering out orphaned records with missing parent watches)
   static Future<void> _pushLocalMeasurements(String userId) async {
     final box = Boxes.getMeasurements();
     final watchBox = Boxes.getWatches();
+
+    final validWatchIds = watchBox.values
+        .where((w) => w.id != null && w.id!.isNotEmpty)
+        .map((w) => w.id!)
+        .toSet();
+
     final dirtyMeasurements = box.values
         .where((m) => (m.isDirty == true || m.isDeleted == true))
         .toList();
@@ -431,7 +408,8 @@ class SyncService {
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
-    int done = 0;
+    final List<Measurement> validMeasurementsToClean = [];
+
     for (var m in dirtyMeasurements) {
       if (m.watchId == null || m.watchId!.isEmpty) {
         Watches? parentWatch;
@@ -441,18 +419,27 @@ class SyncService {
             break;
           }
         }
-        m.ensureInitialized(parentWatch?.id ?? '');
+        if (parentWatch?.id != null) {
+          m.ensureInitialized(parentWatch!.id!);
+        }
       }
-      batchPayload.add(m.toJson(userId));
-      done++;
-      if (Get.isRegistered<SyncController>()) {
-        SyncController.to.accuracySynced.value = done;
+
+      // Ensure the parent watch exists locally and has a valid ID before pushing
+      if (m.watchId != null && validWatchIds.contains(m.watchId)) {
+        batchPayload.add(m.toJson(userId));
+        validMeasurementsToClean.add(m);
+      } else {
+        // Orphaned measurement with no matching watch; clean up locally to avoid foreign key errors
+        debugPrint('SyncService: Cleaning up orphaned local measurement ${m.key} with missing parent watch.');
+        await m.delete();
       }
     }
 
-    await _supabase.from(_measurementsTable).upsert(batchPayload);
+    if (batchPayload.isNotEmpty) {
+      await _supabase.from(_measurementsTable).upsert(batchPayload);
+    }
 
-    for (var m in dirtyMeasurements) {
+    for (var m in validMeasurementsToClean) {
       if (m.isDeleted == true) {
         await m.delete();
       } else {
@@ -460,6 +447,7 @@ class SyncService {
         await m.save();
       }
     }
+
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
     }

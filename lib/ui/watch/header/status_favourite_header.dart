@@ -27,7 +27,7 @@ class WatchStatusHeader extends StatelessWidget {
         Expanded(
             child: _buildStatusDropdownRow(context)
         ),
-        watchViewController.watchViewState.value == WatchViewEnum.add
+        watchViewController.watchViewState.value == WatchViewEnum.add || currentWatch == null
             ? const SizedBox(height: 0,)
             : _buildFavouriteRow(
             currentWatch!),
@@ -35,40 +35,55 @@ class WatchStatusHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusDropdownRow(BuildContext context){
+  Widget _buildStatusDropdownRow(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-      child: Obx(()=> Row(
+      child: Obx(() {
+        final isViewMode = currentWatch != null &&
+            !watchViewController.inEditState.value &&
+            watchViewController.watchViewState.value == WatchViewEnum.view;
+
+        return Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            (watchViewController.inEditState.value == false) && (watchViewController.watchViewState.value == WatchViewEnum.view)? Text(WatchStatusEnumExtension.fromDbString(currentWatch!.status).toLocalizedString(context), style: Theme.of(context).textTheme.bodyLarge,):
-            Obx(()=> DropdownButton(
+            if (isViewMode)
+              Text(
+                WatchStatusEnumExtension.fromDbString(currentWatch!.status)
+                    .toLocalizedString(context),
+                style: Theme.of(context).textTheme.bodyLarge,
+              )
+            else
+              DropdownButton(
                 dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
                 value: watchViewController.selectedStatus.value,
                 items: WatchStatusEnum.values
                     .map((status) => DropdownMenuItem(
-                    value: status.toDbString(),
-                    child: Text(status.toLocalizedString(context), style: Theme.of(context).textTheme.bodyLarge,))
-
-                ).toList(),
+                          value: status.toDbString(),
+                          child: Text(
+                            status.toLocalizedString(context),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ))
+                    .toList(),
                 onChanged: (status) {
                   if (status != null) {
                     watchViewController.updateSelectedStatus(status.toString());
                   }
-                  if(watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString() && WristCheckPreferences.getShowSoldDialog()){
+                  if (watchViewController.selectedStatus.value ==
+                          WatchStatusEnum.sold.toDbString() &&
+                      WristCheckPreferences.getShowSoldDialog()) {
                     WristCheckDialogs.getSoldStatusPopup();
                   }
-                  if(watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString() && WristCheckPreferences.getShowPreOrderDialog()){
+                  if (watchViewController.selectedStatus.value ==
+                          WatchStatusEnum.preOrder.toDbString() &&
+                      WristCheckPreferences.getShowPreOrderDialog()) {
                     WristCheckDialogs.getPreOrderStatusPopUp();
                   }
-                }
-            ),
-            )
-
-
-          ]
-      ),
-      ),
+                },
+              ),
+          ],
+        );
+      }),
     );
   }
 
