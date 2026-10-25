@@ -79,20 +79,35 @@ class _BackupRestoreState extends State<BackupRestore> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 30,),
-                SizedBox(
-                  width: (MediaQuery.of(context).size.width)*0.8,
-                  height: (MediaQuery.of(context).size.height)*0.15,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
                   child: Card(
                     elevation: 2,
-                    margin: const EdgeInsets.symmetric(vertical: 6),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    child: ListTile(
-                      leading: FaIcon(FontAwesomeIcons.triangleExclamation),
-                      title: Text("Backup and Restore is a legacy feature, only required if you want to manually manage your data and keep device local to your own device.\n"
-                          "If you sign-in to WristTrack your data will automatically sync between devices.\n\n"
-                          "Click here to visit the sign-in page."),
-                      onTap: ()=> Get.to(()=> AuthGate())
-                    )
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () => Get.to(() => const AuthGate()),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 2.0, right: 12.0),
+                              child: FaIcon(FontAwesomeIcons.triangleExclamation, color: Colors.orange, size: 20),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Backup and Restore is a legacy feature, only required if you want to manually manage your data locally.\n"
+                                "If you sign-in to WristTrack, your data will automatically sync between devices.\n\n"
+                                "Click here to visit the sign-in page.",
+                                style: TextStyle(fontSize: 13, height: 1.3),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(

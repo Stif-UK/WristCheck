@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:wristcheck/boxes.dart';
@@ -6,6 +7,9 @@ import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wristcheck/sync/sync_service.dart';
+import 'package:wristcheck/util/accuracy_migration_util.dart';
+import 'package:wristcheck/util/cloud_migration_util.dart';
 
 class BackupRestoreMethods {
   static Future<String?> pickBackupLocation() async {
@@ -60,7 +64,18 @@ class BackupRestoreMethods {
       _errored = true;
       WristCheckDialogs.getRestoreFailedDialog(e.toString());
     } finally{
-      _errored? print("Finally called") : WristCheckDialogs.getRestoreSuccessDialog();
+      if (_errored) {
+        print("Finally called with error");
+      } else {
+        // Run migration to assign UUIDs and mark all restored watches and measurements as dirty
+        CloudMigrationUtil.migrateExistingWatches();
+        AccuracyMigrationUtil.migrateExistingMeasurements();
+
+        // Trigger database sync to push restored collection to Supabase
+        unawaited(SyncService.syncData());
+
+        WristCheckDialogs.getRestoreSuccessDialog();
+      }
     }
   }
 
