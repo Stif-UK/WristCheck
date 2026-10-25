@@ -9,37 +9,30 @@ class AccuracyMigrationUtil {
     bool modified = false;
 
     for (var measurement in measurementBox.values) {
-      bool updated = false;
-
       if (measurement.id == null || measurement.id!.isEmpty) {
         measurement.id = const Uuid().v4();
-        updated = true;
       }
 
       if (measurement.watchId == null || measurement.watchId!.isEmpty) {
         final parentWatch = watchBox.get(measurement.watchKey);
         if (parentWatch != null && parentWatch.id != null) {
           measurement.watchId = parentWatch.id;
-          updated = true;
         }
       }
 
       if (measurement.updatedAt == null) {
         measurement.updatedAt = DateTime.now();
-        updated = true;
       }
 
       measurement.isDeleted ??= false;
-      measurement.isDirty ??= true;
+      measurement.isDirty = true; // Force dirty so restored/migrated records push to cloud
 
-      if (updated) {
-        measurement.save();
-        modified = true;
-      }
+      measurement.save();
+      modified = true;
     }
 
     if (modified) {
-      debugPrint('Successfully migrated existing local measurements with UUIDs and watchId links.');
+      debugPrint('Successfully migrated and marked existing local measurements as dirty for sync.');
     }
   }
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:path/path.dart';
@@ -12,6 +14,8 @@ import 'package:wristcheck/util/accuracy_migration_util.dart';
 import 'package:wristcheck/util/cloud_migration_util.dart';
 
 class BackupRestoreMethods {
+  static bool isPickingFile = false;
+
   static Future<String?> pickBackupLocation() async {
     String? selectedDirectory = await FilePicker.getDirectoryPath();
     if (selectedDirectory == null) {
@@ -55,68 +59,55 @@ class BackupRestoreMethods {
   }
 
   static restoreWatchBox(File watchbox) async {
-    final box = Boxes.getWatches();
-    final _boxPath = box.path;
     bool _errored = false;
-    try{
-      await watchbox.copy(_boxPath!).onError((error, stackTrace) => WristCheckDialogs.getRestoreFailedDialog(error.toString()));
-    } catch(e) {
+    try {
+      final box = Boxes.getWatches();
+      final boxPath = box.path;
+      debugPrint('Restore: Target boxPath = $boxPath, source watchbox path = ${watchbox.path}');
+
+      // 1. Close the open box before replacing the file
+      if (box.isOpen) {
+        await box.close();
+      }
+
+      // 2. Read bytes from picked backup file and write directly to active box path
+      if (boxPath != null) {
+        final activeFile = File(boxPath);
+        if (await activeFile.exists()) {
+          await activeFile.delete();
+        }
+        
+        final bytes = await watchbox.readAsBytes();
+        await activeFile.writeAsBytes(bytes);
+        debugPrint('Restore: Successfully wrote ${bytes.length} bytes from backup file to $boxPath');
+      }
+    } catch(e, stackTrace) {
       _errored = true;
+      debugPrint('Restore error: $e');
+      debugPrint(stackTrace.toString());
       WristCheckDialogs.getRestoreFailedDialog(e.toString());
-    } finally{
+    } finally {
       if (_errored) {
-        print("Finally called with error");
+        debugPrint("Restore finally called with error");
+        if (!Hive.isBoxOpen("WatchBox")) {
+          await Hive.openBox<Watches>("WatchBox");
+        }
       } else {
-        // Run migration to assign UUIDs and mark all restored watches and measurements as dirty
+        debugPrint("Restore successful, re-opening box and running migration...");
+        // 3. Re-open the box
+        await Hive.openBox<Watches>("WatchBox");
+
+        // 4. Run migration to assign UUIDs and mark all restored watches and measurements as dirty
         CloudMigrationUtil.migrateExistingWatches();
         AccuracyMigrationUtil.migrateExistingMeasurements();
 
-        // Trigger database sync to push restored collection to Supabase
+        // 5. Trigger database sync to push restored collection to Supabase
         unawaited(SyncService.syncData());
 
         WristCheckDialogs.getRestoreSuccessDialog();
       }
     }
   }
-
-  /*
-  restoreImages() is in DRAFT - the aim is to iterate over a folder of backed up images and restore them to the app directory
-  Further work and understanding is required to progress, but saving for now
-   */
-  // static restoreImages() async {
-  //   try {
-  //     String? dirPath = await FilePicker.platform.getDirectoryPath();
-  //     print("picked directory $dirPath");
-  //     if(dirPath != null){
-  //       int count = 0;
-  //       //List dirList = Directory(dirPath!).listSync().where((element) => element is File).toList();
-  //       List dirList = Directory(dirPath!).listSync();
-  //       print("got directory list - size: ${dirList.length}");
-  //       for(File file in dirList){
-  //         //check filetype
-  //         print("trying to iterate files");
-  //         String fileName = basename(file.path);
-  //         print("File name: $fileName");
-  //         if(fileName.isWCJpg){
-  //           count++;
-  //         }
-  //       }
-  //       Get.defaultDialog(
-  //         title: "Image Backup",
-  //         middleText: "Found $count images"
-  //       );
-  //     } else {
-  //       //handle null directory
-  //     }
-  //   } on Exception catch (e) {
-  //     Get.defaultDialog(
-  //       title: "Something went wrong",
-  //       middleText: "Failed to access files, the following error was returned:\n"
-  //           "${e.toString()}"
-  //     );
-  //   }
-  // }
-
 
 
   /*
@@ -125,8 +116,14 @@ class BackupRestoreMethods {
   isn't utilised for the restore.
    */
   static Future<File?> pickBackupFile() async {
+    isPickingFile = true;
     FilePicker.clearTemporaryFiles();
-    FilePickerResult? result = await FilePicker.pickFiles();
+    FilePickerResult? result;
+    try {
+      result = await FilePicker.pickFiles();
+    } finally {
+      isPickingFile = false;
+    }
     File? file;
 
     if (result != null) {

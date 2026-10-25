@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/model/backup_restore_methods.dart';
 
 class BiometricLockWrapper extends StatefulWidget {
   final Widget child;
@@ -47,6 +48,7 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (_isAuthenticating) return;
+    if (BackupRestoreMethods.isPickingFile) return;
 
     final bool isBiometricsEnabled = WristCheckPreferences.getEnableBiometrics();
     if (!isBiometricsEnabled) {
