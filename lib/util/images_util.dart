@@ -12,6 +12,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/privacy/biometric_lock_wrapper.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
@@ -68,49 +69,53 @@ class ImagesUtil {
     required Watches currentWatch,
     required int index
   }) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return null;
+    return await BiometricLockWrapper.suppressLockDuring(() async {
+      try {
+        final image = await ImagePicker().pickImage(source: source);
+        if (image == null) return null;
 
-      final imageTemporary = File(image.path);
-      var croppedImage = await ImagesUtil.cropImage(imageTemporary);
-      File returnImage;
-      if(croppedImage == null){
+        final imageTemporary = File(image.path);
+        var croppedImage = await ImagesUtil.cropImage(imageTemporary);
+        File returnImage;
+        if(croppedImage == null){
+          return null;
+        } else{
+          returnImage = File(croppedImage.path);
+          await ImagesUtil.saveImage(croppedImage.path, currentWatch, index);
+
+        }
+      } on PlatformException catch (e) {
+        print('Failed to pick image: $e');
+        //ToDo: Implement error handling
         return null;
-      } else{
-        returnImage = File(croppedImage.path);
-        await ImagesUtil.saveImage(croppedImage.path, currentWatch, index);
-
       }
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-      //ToDo: Implement error handling
-      return null;
-    }
+    });
   }
 
   static Future<File?> pickImage({
     required ImageSource source,
   }) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return null;
+    return await BiometricLockWrapper.suppressLockDuring(() async {
+      try {
+        final image = await ImagePicker().pickImage(source: source);
+        if (image == null) return null;
 
-      final imageTemporary = File(image.path);
-      var croppedImage = await ImagesUtil.cropImage(imageTemporary);
-      File returnImage;
-      if(croppedImage == null){
+        final imageTemporary = File(image.path);
+        var croppedImage = await ImagesUtil.cropImage(imageTemporary);
+        File returnImage;
+        if(croppedImage == null){
+          return null;
+        } else{
+          returnImage = File(croppedImage.path);
+          return returnImage;
+          //await ImagesUtil.saveImage(croppedImage.path, currentWatch);
+
+        }
+      } on PlatformException catch (e) {
+        WristCheckDialogs.getFailedToPickImageDialog(e);
         return null;
-      } else{
-        returnImage = File(croppedImage.path);
-        return returnImage;
-        //await ImagesUtil.saveImage(croppedImage.path, currentWatch);
-
       }
-    } on PlatformException catch (e) {
-      WristCheckDialogs.getFailedToPickImageDialog(e);
-      return null;
-    }
+    });
   }
 
 

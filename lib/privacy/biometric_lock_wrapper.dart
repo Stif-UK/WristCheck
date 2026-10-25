@@ -10,6 +10,28 @@ class BiometricLockWrapper extends StatefulWidget {
 
   const BiometricLockWrapper({super.key, required this.child});
 
+  static bool _isLockPaused = false;
+
+  static void pauseLock() {
+    _isLockPaused = true;
+  }
+
+  static void resumeLock() {
+    _isLockPaused = false;
+  }
+
+  static Future<T> suppressLockDuring<T>(Future<T> Function() action) async {
+    pauseLock();
+    try {
+      return await action();
+    } finally {
+      // Delay resuming lock briefly so the resuming lifecycle event passes without locking
+      Future.delayed(const Duration(milliseconds: 600), () {
+        resumeLock();
+      });
+    }
+  }
+
   @override
   State<BiometricLockWrapper> createState() => _BiometricLockWrapperState();
 }
@@ -19,6 +41,8 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
   final LocalAuthentication _auth = LocalAuthentication();
   bool _isLocked = false;
   bool _isAuthenticating = false;
+  DateTime? _pausedAt;
+  static const Duration _gracePeriod = Duration(seconds: 5);
 
   @override
   void initState() {
@@ -48,7 +72,14 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (_isAuthenticating) return;
-    if (BackupRestoreMethods.isPickingFile) return;
+    if (BackupRestoreMethods.isPickingFile || BiometricLockWrapper._isLockPaused) {
+      if (state == AppLifecycleState.resumed && _isLocked) {
+        setState(() {
+          _isLocked = false;
+        });
+      }
+      return;
+    }
 
     final bool isBiometricsEnabled = WristCheckPreferences.getEnableBiometrics();
     if (!isBiometricsEnabled) {
@@ -61,10 +92,17 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
     }
 
     if (state == AppLifecycleState.paused || state == AppLifecycleState.hidden) {
+      _pausedAt = DateTime.now();
       setState(() {
         _isLocked = true;
       });
     } else if (state == AppLifecycleState.resumed && _isLocked) {
+      if (_pausedAt != null && DateTime.now().difference(_pausedAt!) < _gracePeriod) {
+        setState(() {
+          _isLocked = false;
+        });
+        return;
+      }
       _authenticate();
     }
   }
