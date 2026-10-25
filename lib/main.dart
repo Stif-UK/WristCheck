@@ -14,6 +14,7 @@ import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/privacy/biometric_lock_wrapper.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/appdata/data_completeness.dart';
@@ -213,6 +214,7 @@ Future main() async{
             child: Obx(()=> GetMaterialApp(
                 debugShowCheckedModeBanner: false,
               title: 'WristCheck',
+              builder: (context, child) => BiometricLockWrapper(child: child ?? const SizedBox()),
 
                         theme: themeLight ,
                         darkTheme: themeDark,

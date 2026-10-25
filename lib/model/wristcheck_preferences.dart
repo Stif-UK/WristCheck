@@ -92,6 +92,9 @@ class WristCheckPreferences {
   //Watch year chart
   static const _keyGroupWatchYearByDecade = 'groupWatchYearByDecade';
 
+  //Biometrics lock
+  static const _keyEnableBiometrics = 'enableBiometrics';
+
 
 
 
@@ -774,5 +777,11 @@ class WristCheckPreferences {
   static Future clearDismissedBannerIds() async {
     await _preferences.remove(_keyDismissedBannerIds);
   }
+
+  //Getter and Setter for biometric lock preference
+  static Future setEnableBiometrics(bool enable) async =>
+      await _preferences.setBool(_keyEnableBiometrics, enable);
+
+  static bool getEnableBiometrics() => _preferences.getBool(_keyEnableBiometrics) ?? false;
 
 }

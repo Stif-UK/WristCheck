@@ -59,6 +59,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>WristTrack requires camera access to allow you to take pictures of your watches to store within the app.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>WristTrack uses Face ID or Touch ID to securely lock and unlock your application.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>WristTrack uses your location data to help with localized analytics and to improve the user experience.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

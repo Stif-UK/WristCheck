@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/privacy/initialisation_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
+import 'package:wristcheck/ui/privacy/biometrics.dart';
 
 class PrivacyLanding extends StatefulWidget {
   const PrivacyLanding();
@@ -25,7 +27,10 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
           ListTile(
             title: Text("Biometric App Lock"),
             leading: FaIcon(FontAwesomeIcons.fingerprint),
-            onTap: (){},
+            onTap: () {
+              print("Biometric App Lock clicked");
+              Get.to(() => Biometrics());
+            },
           ),
           const Divider(thickness: 2,),
           ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy),

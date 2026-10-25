@@ -9,7 +9,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/settings/SettingsPage.dart';
 import 'package:wristcheck/ui/AboutApp.dart';
 import 'package:wristcheck/ui/appdata/datalinks.dart';
-import 'package:wristcheck/ui/privacy_landing.dart';
+import 'package:wristcheck/ui/privacy/privacy_landing.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
 import 'package:wristcheck/ui/widgets/animations/wt_banner_icon.dart';
 import 'package:wristcheck/util/general_helper.dart';

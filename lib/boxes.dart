@@ -78,11 +78,11 @@ class Boxes {
   }
 
   static List<Watches> getAllWatches() {
-    return Hive.box<Watches>("WatchBox").values.toList();
+    return getWatches().values.toList();
   }
 
   static List<Watches> getAllNonArchivedWatches(){
-    List<Watches> returnList = Hive.box<Watches>("WatchBox").values.toList();
+    List<Watches> returnList = getWatches().values.toList();
     returnList.removeWhere((watch) => watch.status == WatchStatusEnum.archived.toDbString());
     return returnList;
   }
@@ -104,62 +104,62 @@ class Boxes {
   }
 
   static List<Watches> getCollectionWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
   }
 
   static List<Watches> getValidToHaveWornWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString() || watch.status == WatchStatusEnum.retired.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString() || watch.status == WatchStatusEnum.retired.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
   }
 
   static List<Watches> getSoldWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.sold.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.sold.toDbString()).toList();
   }
 
   static List<Watches> getCollectionAndSoldWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString()).toList();
   }
 
   static List<Watches> getCollectionAndOnLoanWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
   }
 
   static List<Watches> getCollectionAndSoldAndOnLoanWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.inCollection.toDbString() || watch.status == WatchStatusEnum.sold.toDbString() || watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
   }
 
   static List<Watches> getWishlistWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.wishlist.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.wishlist.toDbString()).toList();
   }
 
   static List<Watches> getArchivedWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.archived.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.archived.toDbString()).toList();
   }
 
   static List<Watches> getOnLoanWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.onLoan.toDbString()).toList();
   }
 
   static List<Watches> getPreOrderWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.preOrder.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.preOrder.toDbString()).toList();
   }
 
   static List<Watches> getRetiredWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.status == WatchStatusEnum.retired.toDbString()).toList();
+    return getWatches().values.where((watch) => watch.status == WatchStatusEnum.retired.toDbString()).toList();
   }
 
   static List<Watches> getFavouriteWatches() {
-    return Hive.box<Watches>("WatchBox").values.where((watch) => watch.favourite == true && watch.status != "Sold").toList();
+    return getWatches().values.where((watch) => watch.favourite == true && watch.status != "Sold").toList();
   }
 
 
   static List<Watches> getServiceSchedule(){
-    var returnList = Hive.box<Watches>("WatchBox").values.where((watch) => watch.nextServiceDue != null && watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
+    var returnList = getWatches().values.where((watch) => watch.nextServiceDue != null && watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
     returnList.sort((a, b) => a.nextServiceDue!.compareTo(b.nextServiceDue!));
     return returnList;
   }
 
   static List<Watches> getWarrantySchedule(){
-    var returnList = Hive.box<Watches>("WatchBox").values.where((watch) => watch.warrantyEndDate != null && watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
+    var returnList = getWatches().values.where((watch) => watch.warrantyEndDate != null && watch.status == WatchStatusEnum.inCollection.toDbString()).toList();
     returnList.sort((a, b) => a.warrantyEndDate!.compareTo(b.warrantyEndDate!));
     return returnList;
   }
