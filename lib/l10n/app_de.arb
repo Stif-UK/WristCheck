@@ -952,7 +952,8 @@
   },
 
   "@_MESSAGES" : {},
-  "deleteWarning" : "Das Drücken von OK löscht alle Uhrendaten, einschließlich deiner Wunschliste und aller gespeicherten Bilder.\n \n DIES KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN",
+  "deleteWarning" : "Wenn Sie fortfahren, werden alle lokalen Daten von Ihrem Gerät gelöscht. Wenn Sie angemeldet sind, bleiben die Cloud-Daten davon unberührt. Um Cloud-Daten zu löschen, wählen Sie bitte Ihr Konto löschen unter Einstellungen > Konto & Cloud-Synchronisierung.",
+  "deleteLocalData" : "Lokale Daten löschen",
   "backupInstruction" : "Drücke den Button unten, um eine Kopie der App-Datenbank zu erstellen (dies kann einige Sekunden dauern!). \n\nSobald sie erstellt wurde, sollte ein 'Teilen'-Pop-up erscheinen, in dem du auswählen kannst, wohin du die Backup-Datei senden möchtest.",
   "imageBackupInstructions" : "Uhrenbilder können separat exportiert werden.",
   "altExtractsGuidance" : "**Alternative Datenselektionen**\n\nDiese Optionen ermöglichen es, deine Uhren- und Tragedaten aus **WristTrack** zu exportieren.\n\nSie sind dafür gedacht, deine Daten frei verfügbar zu machen, und nicht als normales Backup _(nutze die Backup-/Wiederherstellungsoptionen, wenn du lediglich Daten von einem Gerät auf ein anderes übertragen möchtest)._\n\nDer einfache Export liefert eine Liste aller Uhrendaten, einschließlich der Anzahl der Tragetage und Notizen **(eine Zeile pro Uhr)**.\n\nDer detaillierte Export liefert eine Datenzeile für jeden **erfassten Tragetag** und enthält nur Uhren, die als getragen markiert wurden **(mehrere Zeile pro Uhr)**.\n\nDiese Rohdaten werden im CSV-Format ausgegeben, was einen einfachen Import in deine bevorzugte Tabellenkalkulation ermöglicht.",

@@ -2297,7 +2297,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deleteWarning =>
-      'En appuyant sur OK, vous supprimerez toutes les données des montres, y compris votre liste de souhaits et toutes les images enregistrées\n \n CETTE ACTION EST IRRÉVERSIBLE';
+      'Si vous continuez, toutes les données locales seront supprimées de votre appareil. Si vous êtes connecté, les données cloud ne seront pas affectées. Pour supprimer les données cloud, choisissez de supprimer votre compte via Réglages > Compte et synchronisation cloud.';
+
+  @override
+  String get deleteLocalData => 'Supprimer les données locales';
 
   @override
   String get backupInstruction =>

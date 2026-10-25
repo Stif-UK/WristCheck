@@ -4161,8 +4161,14 @@ abstract class AppLocalizations {
   /// No description provided for @deleteWarning.
   ///
   /// In en, this message translates to:
-  /// **'Pressing OK will delete all watch data, including your wishlist and all saved images\n \n THIS CANNOT BE UNDONE'**
+  /// **'If you proceed all local data will be deleted from your device. If you are signed in, cloud data remains unaffected. To delete cloud data please choose to delete your account via Settings > Account & Cloud data.'**
   String get deleteWarning;
+
+  /// No description provided for @deleteLocalData.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Local Data'**
+  String get deleteLocalData;
 
   /// No description provided for @backupInstruction.
   ///

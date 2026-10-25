@@ -2289,7 +2289,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get deleteWarning =>
-      'Al presionar Aceptar se eliminarán todos los datos de los relojes, incluyendo tu lista de deseos y todas las imágenes guardadas.\n \n ESTO NO SE PUEDE DESHACER';
+      'Si continúas, todos los datos locales se eliminarán de tu dispositivo. Si has iniciado sesión, los datos de la nube no se verán afectados. Para eliminar los datos de la nube, selecciona eliminar tu cuenta en Ajustes > Cuenta y sincronización en la nube.';
+
+  @override
+  String get deleteLocalData => 'Eliminar datos locales';
 
   @override
   String get backupInstruction =>

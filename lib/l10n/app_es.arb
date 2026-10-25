@@ -947,7 +947,8 @@
   },
 
   "@_MESSAGES" : {},
-  "deleteWarning" : "Al presionar Aceptar se eliminarán todos los datos de los relojes, incluyendo tu lista de deseos y todas las imágenes guardadas.\n \n ESTO NO SE PUEDE DESHACER",
+  "deleteWarning" : "Si continúas, todos los datos locales se eliminarán de tu dispositivo. Si has iniciado sesión, los datos de la nube no se verán afectados. Para eliminar los datos de la nube, selecciona eliminar tu cuenta en Ajustes > Cuenta y sincronización en la nube.",
+  "deleteLocalData" : "Eliminar datos locales",
   "backupInstruction" : "Presiona el botón de abajo para crear una copia de la base de datos de la app (¡esto puede tardar unos segundos!). \n\nUna vez creada, debería aparecer una ventana emergente para 'compartir', lo que te permitirá elegir a dónde enviar el archivo de copia de seguridad.",
   "imageBackupInstructions" : "Las imágenes de los relojes se pueden exportar por separado.",
   "altExtractsGuidance" : "**Extracciones de Datos Alternativas**\n\nEstas opciones permiten extraer tus datos de relojes y de uso de **WristTrack**\n\nEstán pensadas para liberar tus datos, no como una copia de seguridad _(consulta las opciones de Copia de seguridad/Restaurar si solo buscas mover datos de un dispositivo a otro)._\n\nLa extracción simple proporciona una lista de todos los datos de los relojes, incluyendo el recuento de usos y las notas **(una fila por reloj)**.\n\nLa extracción detallada proporciona una línea de datos por cada **fecha de uso registrada** y solo incluye los relojes que tienen usos registrados **(múltiples filas por reloj)**.\n\nEstos datos brutos se exportan en formato CSV, lo que permite importarlos fácilmente en tu aplicación de hojas de cálculo favorita.",

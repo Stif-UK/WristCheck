@@ -954,7 +954,8 @@
   },
 
   "@_MESSAGES" : {},
-  "deleteWarning" : "Premendo OK eliminerai tutti i dati degli orologi, inclusa la lista dei desideri e tutte le immagini salvate\n \n L'AZIONE NON È ANNULLABILE",
+  "deleteWarning" : "Se procedi, tutti i dati locali verranno eliminati dal tuo dispositivo. Se hai effettuato l'accesso, i dati nel cloud rimarranno inalterati. Per eliminare i dati nel cloud, scegli di eliminare il tuo account tramite Impostazioni > Account e sincronizzazione cloud.",
+  "deleteLocalData" : "Elimina dati locali",
   "backupInstruction" : "Premi il pulsante qui sotto per creare una copia del database dell'app (può richiedere alcuni secondi!). \n\nUna volta creato, apparirà un pop-up per scegliere dove inviare il file di backup.",
   "imageBackupInstructions" : "Le immagini degli orologi possono essere esportate separatamente.",
   "altExtractsGuidance" : "**Estrazioni Dati Alternative**\n\nQueste opzioni permettono di estrarre i dati dei tuoi orologi e degli indossi da **WristTrack**.\n\nServono per liberare i tuoi dati, non come backup _(usa le opzioni Backup/Ripristino se vuoi semplicemente spostare i dati tra dispositivi)._\n\nL'estrazione semplice fornisce una lista di tutti i dati degli orologi, inclusi conteggio indossi e note **(una riga per orologio)**.\n\nL'estrazione dettagliata fornisce una riga di dati per ogni **data di indosso tracciata** e include solo gli orologi registrati come indossati **(righe multiple per orologio)**.\n\nQuesti dati grezzi sono in formato CSV, facilmente importabili nel tuo foglio di calcolo preferito.",

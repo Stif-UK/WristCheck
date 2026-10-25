@@ -2277,7 +2277,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get deleteWarning =>
-      'Premendo OK eliminerai tutti i dati degli orologi, inclusa la lista dei desideri e tutte le immagini salvate\n \n L\'AZIONE NON È ANNULLABILE';
+      'Se procedi, tutti i dati locali verranno eliminati dal tuo dispositivo. Se hai effettuato l\'accesso, i dati nel cloud rimarranno inalterati. Per eliminare i dati nel cloud, scegli di eliminare il tuo account tramite Impostazioni > Account e sincronizzazione cloud.';
+
+  @override
+  String get deleteLocalData => 'Elimina dati locali';
 
   @override
   String get backupInstruction =>

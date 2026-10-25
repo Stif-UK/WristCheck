@@ -2299,7 +2299,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get deleteWarning =>
-      'Das Drücken von OK löscht alle Uhrendaten, einschließlich deiner Wunschliste und aller gespeicherten Bilder.\n \n DIES KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN';
+      'Wenn Sie fortfahren, werden alle lokalen Daten von Ihrem Gerät gelöscht. Wenn Sie angemeldet sind, bleiben die Cloud-Daten davon unberührt. Um Cloud-Daten zu löschen, wählen Sie bitte Ihr Konto löschen unter Einstellungen > Konto & Cloud-Synchronisierung.';
+
+  @override
+  String get deleteLocalData => 'Lokale Daten löschen';
 
   @override
   String get backupInstruction =>

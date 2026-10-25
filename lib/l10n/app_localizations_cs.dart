@@ -2298,7 +2298,10 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get deleteWarning =>
-      'Stisknutím tlačítka OK smažete všechna data o hodinkách, včetně vašeho seznamu přání a všech uložených obrázků.\n \nTUTO AKCI NELZE VRÁTIT ZPĚT';
+      'Pokud budete pokračovat, všechna místní data budou z vašeho zařízení smazána. Pokud jste přihlášeni, data v cloudu zůstanou nedotčena. Chcete-li smazat data v cloudu, zvolte smazání účtu v Nastavení > Účet a cloudová synchronizace.';
+
+  @override
+  String get deleteLocalData => 'Smazat místní data';
 
   @override
   String get backupInstruction =>

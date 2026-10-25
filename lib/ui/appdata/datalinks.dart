@@ -122,8 +122,10 @@ class _DataLinksState extends State<DataLinks> {
                               Get.defaultDialog(
                                   title: l.warning,
                                   middleText: l.deleteWarning,
-                                  textConfirm: l.ok,
+                                  textConfirm: l.deleteLocalData,
                                   textCancel: l.cancel,
+                                  confirmTextColor: Colors.white,
+                                  buttonColor: Colors.redAccent,
                                   onConfirm: (){
                                     _deleteCollection();
                                     Get.back();

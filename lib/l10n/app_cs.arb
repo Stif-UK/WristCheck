@@ -952,7 +952,8 @@
   },
 
   "@_MESSAGES" : {},
-  "deleteWarning" : "Stisknutím tlačítka OK smažete všechna data o hodinkách, včetně vašeho seznamu přání a všech uložených obrázků.\n \nTUTO AKCI NELZE VRÁTIT ZPĚT",
+  "deleteWarning" : "Pokud budete pokračovat, všechna místní data budou z vašeho zařízení smazána. Pokud jste přihlášeni, data v cloudu zůstanou nedotčena. Chcete-li smazat data v cloudu, zvolte smazání účtu v Nastavení > Účet a cloudová synchronizace.",
+  "deleteLocalData" : "Smazat místní data",
   "backupInstruction" : "Stisknutím tlačítka níže vytvoříte kopii databáze aplikace (to může trvat několik sekund!). \n\nPo vytvoření by se mělo objevit vyskakovací okno 'sdílet', které vám umožní vybrat, kam soubor zálohy odeslat.",
   "imageBackupInstructions" : "Obrázky hodinek lze exportovat samostatně.",
   "altExtractsGuidance" : "**Alternativní exporty dat**\n\nTyto možnosti umožňují extrahovat data o vašich hodinkách a nošení z aplikace **WristTrack**.\n\nJsou určeny k uvolnění vašich dat pro osobní použití, nikoli jako klasická záloha _(pokud chcete pouze přesunout data z jednoho zařízení do druhého, podívejte se na možnosti Zálohování/Obnovení)._\n\nJednoduchý export poskytuje seznam všech dat o hodinkách, včetně počtu nošení a poznámek **(jeden řádek na jedny hodinky)**.\n\nPodrobný export poskytuje řádek dat pro každé **zaznamenané datum nošení** a zahrnuje pouze hodinky, u kterých bylo nošení sledováno **(více řádků na jedny hodinky)**.\n\nTato surová data jsou na výstupu ve formátu CSV, což umožňuje snadný import do vaší oblíbené tabulkové aplikace.",
