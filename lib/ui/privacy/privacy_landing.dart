@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/privacy/initialisation_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,6 +21,13 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
       ),
       body: Column(
         children: [
+          const Divider(thickness: 2,),
+          ListTile(
+            title: Text("Biometric App Lock"),
+            leading: FaIcon(FontAwesomeIcons.fingerprint),
+            onTap: (){},
+          ),
+          const Divider(thickness: 2,),
           ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy),
           subtitle: Text(AppLocalizations.of(context)!.opensInBrowser),
           leading: const Icon(Icons.privacy_tip_outlined),
