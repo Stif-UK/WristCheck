@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class WearChart extends StatefulWidget {
 class _WearChartState extends State<WearChart> {
   final wristCheckController = Get.find<WristCheckController>();
   BannerAd? banner;
+  bool isExpanded = false;
 
   @override
   void didChangeDependencies() {
@@ -61,7 +63,28 @@ class _WearChartState extends State<WearChart> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppLocalizations.of(context)!.wearChartTitle),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.wearChartTitle,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        isExpanded
+                            ? FontAwesomeIcons.compress
+                            : FontAwesomeIcons.expand,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 Obx(() {
                   final recapController = Get.find<WristRecapController>();
                   double baseHeight = MediaQuery.of(context).size.height * 0.35;
@@ -70,8 +93,13 @@ class _WearChartState extends State<WearChart> {
                   double heightMultiplier = (count / 10).ceilToDouble();
                   if (heightMultiplier < 1.0) heightMultiplier = 1.0;
 
+                  double chartHeight = baseHeight * heightMultiplier;
+                  if (isExpanded) {
+                    chartHeight *= 1.5;
+                  }
+
                   return SizedBox(
-                    height: baseHeight * heightMultiplier,
+                    height: chartHeight,
                     child: SfCartesianChart(
                       primaryXAxis: CategoryAxis(
                         isVisible: false,

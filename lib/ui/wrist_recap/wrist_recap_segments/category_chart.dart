@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
-class CategoryChart extends StatelessWidget {
+class CategoryChart extends StatefulWidget {
   CategoryChart({super.key});
+
+  @override
+  State<CategoryChart> createState() => _CategoryChartState();
+}
+
+class _CategoryChartState extends State<CategoryChart> {
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +27,63 @@ class CategoryChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context)!.categoryChartTitle, style: Theme.of(context).textTheme.bodyLarge),
-            SfCartesianChart(
-              primaryXAxis: CategoryAxis(
-                isVisible: false,
-              ),
-              primaryYAxis: NumericAxis(),
-              series: _getBarSeries()
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(AppLocalizations.of(context)!.categoryChartTitle, style: Theme.of(context).textTheme.bodyLarge),
+                IconButton(
+                  icon: FaIcon(
+                    isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
+                    size: 16,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isExpanded = !isExpanded;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Obx(() {
+              final recapController = Get.find<WristRecapController>();
+              double baseHeight = MediaQuery.of(context).size.height * 0.35;
+              int count = recapController.categoriesWorn.length;
+              double heightMultiplier = (count / 10).ceilToDouble();
+              if (heightMultiplier < 1.0) heightMultiplier = 1.0;
+
+              double chartHeight = baseHeight * heightMultiplier;
+              if (isExpanded) {
+                chartHeight *= 1.5;
+              }
+
+              return SizedBox(
+                height: chartHeight,
+                child: SfCartesianChart(
+                  primaryXAxis: CategoryAxis(
+                    isVisible: false,
+                  ),
+                  primaryYAxis: NumericAxis(),
+                  series: _getBarSeries(),
+                ),
+              );
+            }),
           ],
         ),
       ),
     );
   }
-}
 
-List<BarSeries<dynamic, dynamic>> _getBarSeries() {
-  final recapController = Get.put(WristRecapController());
+  List<BarSeries<dynamic, dynamic>> _getBarSeries() {
+    final recapController = Get.put(WristRecapController());
 
-  return <BarSeries<CategoriesWornClass, String>>[
-    BarSeries(
-      dataSource: recapController.categoriesWorn.reversed.toList(),
-      xValueMapper: (CategoriesWornClass series, _) => series.category,
-      yValueMapper: (CategoriesWornClass series, _) => series.count,
-      dataLabelMapper: (series, _) => "${series.category} : ${series.count} (${series.percentage})",
-      dataLabelSettings: const DataLabelSettings(isVisible: true),
-    )
-  ];
+    return <BarSeries<CategoriesWornClass, String>>[
+      BarSeries(
+        dataSource: recapController.categoriesWorn.reversed.toList(),
+        xValueMapper: (CategoriesWornClass series, _) => series.category,
+        yValueMapper: (CategoriesWornClass series, _) => series.count,
+        dataLabelMapper: (series, _) => "${series.category} : ${series.count} (${series.percentage})",
+        dataLabelSettings: const DataLabelSettings(isVisible: true),
+      )
+    ];
+  }
 }

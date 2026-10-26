@@ -15,6 +15,7 @@ class StatusWearChart extends StatefulWidget {
 
 class _StatusWearChartState extends State<StatusWearChart> {
   bool isDonut = false;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,32 +33,64 @@ class _StatusWearChartState extends State<StatusWearChart> {
               children: [
                 Text(AppLocalizations.of(context)!.statusChartTitle,
                     style: Theme.of(context).textTheme.bodyLarge),
-                IconButton(
-                  icon: FaIcon(
-                    isDonut ? FontAwesomeIcons.chartSimple : FontAwesomeIcons.chartPie,
-                    size: 16,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isDonut = !isDonut;
-                    });
-                  },
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: FaIcon(
+                        isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        isDonut ? FontAwesomeIcons.chartSimple : FontAwesomeIcons.chartPie,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isDonut = !isDonut;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
-            isDonut
-                ? SfCircularChart(
-                    legend: Legend(
-                        isVisible: true,
-                        overflowMode: LegendItemOverflowMode.wrap),
-                    series: _getDonutSeries(),
-                  )
-                : SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
-                      isVisible: false,
-                    ),
-                    primaryYAxis: NumericAxis(),
-                    series: _getBarSeries()),
+            Obx(() {
+              final recapController = Get.find<WristRecapController>();
+              double baseHeight = MediaQuery.of(context).size.height * 0.35;
+              int count = recapController.statusWorn.length;
+              double heightMultiplier = (count / 10).ceilToDouble();
+              if (heightMultiplier < 1.0) heightMultiplier = 1.0;
+
+              double chartHeight = baseHeight * heightMultiplier;
+              if (isExpanded) {
+                chartHeight *= 1.5;
+              }
+
+              return SizedBox(
+                height: chartHeight,
+                child: isDonut
+                    ? SfCircularChart(
+                        legend: Legend(
+                            isVisible: true,
+                            overflowMode: LegendItemOverflowMode.wrap),
+                        series: _getDonutSeries(),
+                      )
+                    : SfCartesianChart(
+                        primaryXAxis: CategoryAxis(
+                          isVisible: false,
+                        ),
+                        primaryYAxis: NumericAxis(),
+                        series: _getBarSeries()),
+              );
+            }),
           ],
         ),
       ),
