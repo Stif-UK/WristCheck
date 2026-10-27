@@ -1053,5 +1053,23 @@
   "averageCaseThickness": "Средняя толщина корпуса: {value} мм",
   "averageLugToLug": "Среднее расстояние от ушка до ушка: {value} мм",
   "medianLugWidth": "Медианная ширина ушек: {value}",
-  "noColourDataRecorded": "Нет данных о цвете"
+  "noColourDataRecorded": "Нет данных о цвете",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Биометрическая блокировка",
+  "biometricsTitle": "Биометрия",
+  "biometricsDescription": "Хотите сохранить конфиденциальность вашей коллекции? Включите биометрию, чтобы использовать распознавание лица или отпечаток пальца для разблокировки приложения.\n\nВам будет предлагаться пройти аутентификацию при каждом входе в приложение.\n\n(Примечание: ваше устройство должно поддерживать биометрию и иметь зарегистрированные данные)",
+  "enableBiometrics": "Включить биометрию",
+  "biometricsEnabledSubtitle": "Приложение заблокировано с помощью биометрии",
+  "biometricsDisabledSubtitle": "Блокировка приложения отключена",
+  "biometricsNotSupported": "Биометрическая аутентификация недоступна или не настроена на этом устройстве.",
+  "biometricsAuthReasonEnable": "Пройдите аутентификацию для включения биометрической блокировки",
+  "biometricsAuthReasonDisable": "Пройдите аутентификацию для отключения биометрической блокировки",
+  "biometricsLockEnabledSnackBar": "Биометрическая блокировка включена",
+  "biometricsLockDisabledSnackBar": "Биометрическая блокировка отключена",
+  "biometricsAuthErrorPrefix": "Ошибка биометрической аутентификации: {error}",
+  "biometricsAuthReasonAccess": "Пройдите аутентификацию для доступа к WristTrack",
+  "appLockedTitle": "WristTrack заблокирован",
+  "appLockedSubtitle": "Требуется аутентификация для доступа к вашей коллекции часов.",
+  "unlockAppButton": "Разблокировать приложение"
 }

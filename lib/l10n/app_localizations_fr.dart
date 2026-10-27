@@ -2669,4 +2669,63 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noColourDataRecorded => 'Aucune donnée de couleur enregistrée';
+
+  @override
+  String get biometricAppLock => 'Verrouillage biométrique';
+
+  @override
+  String get biometricsTitle => 'Biométrie';
+
+  @override
+  String get biometricsDescription =>
+      'Vous souhaitez garder votre collection privée ? Activez la biométrie pour utiliser votre visage ou votre empreinte digitale afin de déverrouiller l\'application.\n\nIl vous sera alors demandé de vous authentifier à chaque ouverture de l\'application.\n\n(Remarque : votre appareil doit prendre en charge la biométrie et avoir des données biométriques enregistrées)';
+
+  @override
+  String get enableBiometrics => 'Activer la biométrie';
+
+  @override
+  String get biometricsEnabledSubtitle =>
+      'L\'application est actuellement verrouillée par biométrie';
+
+  @override
+  String get biometricsDisabledSubtitle =>
+      'Le verrouillage de l\'application est désactivé';
+
+  @override
+  String get biometricsNotSupported =>
+      'L\'authentification biométrique n\'est pas disponible ou configurée sur cet appareil.';
+
+  @override
+  String get biometricsAuthReasonEnable =>
+      'Veuillez vous authentifier pour activer le verrouillage biométrique';
+
+  @override
+  String get biometricsAuthReasonDisable =>
+      'Veuillez vous authentifier pour désactiver le verrouillage biométrique';
+
+  @override
+  String get biometricsLockEnabledSnackBar => 'Verrouillage biométrique activé';
+
+  @override
+  String get biometricsLockDisabledSnackBar =>
+      'Verrouillage biométrique désactivé';
+
+  @override
+  String biometricsAuthErrorPrefix(Object error) {
+    return 'Erreur d\'authentification biométrique : $error';
+  }
+
+  @override
+  String get biometricsAuthReasonAccess =>
+      'Veuillez vous authentifier pour accéder à WristTrack';
+
+  @override
+  String get appLockedTitle => 'WristTrack verrouillé';
+
+  @override
+  String get appLockedSubtitle =>
+      'Authentification requise pour accéder à votre collection de montres.';
+
+  @override
+  String get unlockAppButton => 'Déverrouiller l\'application';
 }

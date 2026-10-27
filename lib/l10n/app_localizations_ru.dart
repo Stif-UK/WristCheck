@@ -2682,4 +2682,63 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noColourDataRecorded => 'Нет данных о цвете';
+
+  @override
+  String get biometricAppLock => 'Биометрическая блокировка';
+
+  @override
+  String get biometricsTitle => 'Биометрия';
+
+  @override
+  String get biometricsDescription =>
+      'Хотите сохранить конфиденциальность вашей коллекции? Включите биометрию, чтобы использовать распознавание лица или отпечаток пальца для разблокировки приложения.\n\nВам будет предлагаться пройти аутентификацию при каждом входе в приложение.\n\n(Примечание: ваше устройство должно поддерживать биометрию и иметь зарегистрированные данные)';
+
+  @override
+  String get enableBiometrics => 'Включить биометрию';
+
+  @override
+  String get biometricsEnabledSubtitle =>
+      'Приложение заблокировано с помощью биометрии';
+
+  @override
+  String get biometricsDisabledSubtitle => 'Блокировка приложения отключена';
+
+  @override
+  String get biometricsNotSupported =>
+      'Биометрическая аутентификация недоступна или не настроена на этом устройстве.';
+
+  @override
+  String get biometricsAuthReasonEnable =>
+      'Пройдите аутентификацию для включения биометрической блокировки';
+
+  @override
+  String get biometricsAuthReasonDisable =>
+      'Пройдите аутентификацию для отключения биометрической блокировки';
+
+  @override
+  String get biometricsLockEnabledSnackBar =>
+      'Биометрическая блокировка включена';
+
+  @override
+  String get biometricsLockDisabledSnackBar =>
+      'Биометрическая блокировка отключена';
+
+  @override
+  String biometricsAuthErrorPrefix(Object error) {
+    return 'Ошибка биометрической аутентификации: $error';
+  }
+
+  @override
+  String get biometricsAuthReasonAccess =>
+      'Пройдите аутентификацию для доступа к WristTrack';
+
+  @override
+  String get appLockedTitle => 'WristTrack заблокирован';
+
+  @override
+  String get appLockedSubtitle =>
+      'Требуется аутентификация для доступа к вашей коллекции часов.';
+
+  @override
+  String get unlockAppButton => 'Разблокировать приложение';
 }

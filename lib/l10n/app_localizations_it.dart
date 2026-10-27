@@ -2644,4 +2644,62 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get noColourDataRecorded => 'Nessun dato sul colore registrato';
+
+  @override
+  String get biometricAppLock => 'Blocco biometrico';
+
+  @override
+  String get biometricsTitle => 'Biometria';
+
+  @override
+  String get biometricsDescription =>
+      'Vuoi mantenere privata la tua collezione? Abilita la biometria per usare il tuo volto o la tua impronta digitale per sbloccare l\'app.\n\nTi verrà chiesto di autenticarti ogni volta che apri l\'app.\n\n(Nota: il tuo dispositivo deve supportare la biometria ed averla registrata)';
+
+  @override
+  String get enableBiometrics => 'Abilita biometria';
+
+  @override
+  String get biometricsEnabledSubtitle =>
+      'L\'app è attualmente bloccata con la biometria';
+
+  @override
+  String get biometricsDisabledSubtitle =>
+      'Il blocco dell\'app è attualmente disattivato';
+
+  @override
+  String get biometricsNotSupported =>
+      'L\'autenticazione biometrica non è disponibile o configurata su questo dispositivo.';
+
+  @override
+  String get biometricsAuthReasonEnable =>
+      'Autenticati per abilitare il blocco biometrico';
+
+  @override
+  String get biometricsAuthReasonDisable =>
+      'Autenticati per disabilitare il blocco biometrico';
+
+  @override
+  String get biometricsLockEnabledSnackBar => 'Blocco biometrico abilitato';
+
+  @override
+  String get biometricsLockDisabledSnackBar => 'Blocco biometrico disabilitato';
+
+  @override
+  String biometricsAuthErrorPrefix(Object error) {
+    return 'Errore di autenticazione biometrica: $error';
+  }
+
+  @override
+  String get biometricsAuthReasonAccess =>
+      'Autenticati per accedere a WristTrack';
+
+  @override
+  String get appLockedTitle => 'WristTrack bloccato';
+
+  @override
+  String get appLockedSubtitle =>
+      'Autenticazione richiesta per accedere alla tua collezione di orologi.';
+
+  @override
+  String get unlockAppButton => 'Sblocca app';
 }

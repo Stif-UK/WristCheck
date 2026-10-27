@@ -2,7 +2,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 
 class Biometrics extends StatefulWidget {
@@ -48,8 +50,8 @@ class _BiometricsState extends State<Biometrics> {
           await analytics.logEvent(name: "biometrics_not_supported");
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Biometric authentication is not available or set up on this device."),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.biometricsNotSupported),
               ),
             );
           }
@@ -60,7 +62,7 @@ class _BiometricsState extends State<Biometrics> {
         }
 
         final bool authenticated = await _auth.authenticate(
-          localizedReason: 'Please authenticate to enable biometric lock',
+          localizedReason: AppLocalizations.of(Get.context!)!.biometricsAuthReasonEnable,
           options: const AuthenticationOptions(
             stickyAuth: true,
             biometricOnly: false,
@@ -75,7 +77,7 @@ class _BiometricsState extends State<Biometrics> {
               _isBiometricsEnabled = true;
             });
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Biometric lock enabled")),
+              SnackBar(content: Text(AppLocalizations.of(context)!.biometricsLockEnabledSnackBar)),
             );
           }
         } else {
@@ -90,7 +92,7 @@ class _BiometricsState extends State<Biometrics> {
         bool authenticated = true;
         if (canAuthenticate) {
           authenticated = await _auth.authenticate(
-            localizedReason: 'Please authenticate to disable biometric lock',
+            localizedReason: AppLocalizations.of(Get.context!)!.biometricsAuthReasonDisable,
             options: const AuthenticationOptions(
               stickyAuth: true,
               biometricOnly: false,
@@ -106,7 +108,7 @@ class _BiometricsState extends State<Biometrics> {
               _isBiometricsEnabled = false;
             });
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Biometric lock disabled")),
+              SnackBar(content: Text(AppLocalizations.of(context)!.biometricsLockDisabledSnackBar)),
             );
           }
         } else {
@@ -121,7 +123,11 @@ class _BiometricsState extends State<Biometrics> {
       );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Biometric authentication error: ${e.message}")),
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.biometricsAuthErrorPrefix(e.message ?? e.code),
+            ),
+          ),
         );
       }
     } catch (e) {
@@ -141,9 +147,10 @@ class _BiometricsState extends State<Biometrics> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Biometrics"),
+        title: Text(l10n.biometricsTitle),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -158,20 +165,19 @@ class _BiometricsState extends State<Biometrics> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Want to keep your collection private? Enable biometrics to use your face or fingerprint to unlock the app.\n\n"
-                  "You'll then be asked to authenticate every time you open the app.",
+                  l10n.biometricsDescription,
                   textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: 20),
               SwitchListTile(
                 value: _isBiometricsEnabled,
-                title: const Text("Enable Biometrics"),
+                title: Text(l10n.enableBiometrics),
                 subtitle: Text(
-                  _isBiometricsEnabled ? "App is currently locked with biometrics" : "App lock is currently turned off",
+                  _isBiometricsEnabled ? l10n.biometricsEnabledSubtitle : l10n.biometricsDisabledSubtitle,
                 ),
                 onChanged: _isProcessing ? null : (value) => _toggleBiometrics(value),
               ),

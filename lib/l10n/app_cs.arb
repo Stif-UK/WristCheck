@@ -1053,5 +1053,23 @@
   "averageCaseThickness": "Průměrná tloušťka pouzdra: {value} mm",
   "averageLugToLug": "Průměrná rozteč nožiček: {value} mm",
   "medianLugWidth": "Medián šířky nožiček: {value}",
-  "noColourDataRecorded": "Nebyly zaznamenány žádné údaje o barvě"
+  "noColourDataRecorded": "Nebyly zaznamenány žádné údaje o barvě",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Biometrický zámek aplikace",
+  "biometricsTitle": "Biometrie",
+  "biometricsDescription": "Chcete udržet svou sbírku v soukromí? Povolte biometrii a používejte k odemknutí aplikace obličej nebo otisk prstu.\n\nPři každém otevření aplikace budete požádáni o ověření.\n\n(Poznámka: Vaše zařízení musí podporovat biometrii a mít ji zaregistrovanou)",
+  "enableBiometrics": "Povolit biometrii",
+  "biometricsEnabledSubtitle": "Aplikace je momentálně uzamčena biometrií",
+  "biometricsDisabledSubtitle": "Zámek aplikace je momentálně vypnutý",
+  "biometricsNotSupported": "Biometrické ověření není na tomto zařízení k dispozici nebo nastaveno.",
+  "biometricsAuthReasonEnable": "Ověřte se prosím pro povolení biometrického zámku",
+  "biometricsAuthReasonDisable": "Ověřte se prosím pro vypnutí biometrického zámku",
+  "biometricsLockEnabledSnackBar": "Biometrický zámek povolen",
+  "biometricsLockDisabledSnackBar": "Biometrický zámek vypnut",
+  "biometricsAuthErrorPrefix": "Chyba biometrického ověření: {error}",
+  "biometricsAuthReasonAccess": "Ověřte se prosím pro přístup k WristTrack",
+  "appLockedTitle": "WristTrack uzamčen",
+  "appLockedSubtitle": "K přístupu ke sbírce hodinek je vyžadováno ověření.",
+  "unlockAppButton": "Odemknout aplikaci"
 }

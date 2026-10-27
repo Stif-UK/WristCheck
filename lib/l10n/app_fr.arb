@@ -1052,5 +1052,23 @@
   "averageCaseThickness": "Épaisseur moyenne du boîtier : {value} mm",
   "averageLugToLug": "Longueur corne à corne moyenne : {value} mm",
   "medianLugWidth": "Largeur d'entrecorne médiane : {value}",
-  "noColourDataRecorded": "Aucune donnée de couleur enregistrée"
+  "noColourDataRecorded": "Aucune donnée de couleur enregistrée",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Verrouillage biométrique",
+  "biometricsTitle": "Biométrie",
+  "biometricsDescription": "Vous souhaitez garder votre collection privée ? Activez la biométrie pour utiliser votre visage ou votre empreinte digitale afin de déverrouiller l'application.\n\nIl vous sera alors demandé de vous authentifier à chaque ouverture de l'application.\n\n(Remarque : votre appareil doit prendre en charge la biométrie et avoir des données biométriques enregistrées)",
+  "enableBiometrics": "Activer la biométrie",
+  "biometricsEnabledSubtitle": "L'application est actuellement verrouillée par biométrie",
+  "biometricsDisabledSubtitle": "Le verrouillage de l'application est désactivé",
+  "biometricsNotSupported": "L'authentification biométrique n'est pas disponible ou configurée sur cet appareil.",
+  "biometricsAuthReasonEnable": "Veuillez vous authentifier pour activer le verrouillage biométrique",
+  "biometricsAuthReasonDisable": "Veuillez vous authentifier pour désactiver le verrouillage biométrique",
+  "biometricsLockEnabledSnackBar": "Verrouillage biométrique activé",
+  "biometricsLockDisabledSnackBar": "Verrouillage biométrique désactivé",
+  "biometricsAuthErrorPrefix": "Erreur d'authentification biométrique : {error}",
+  "biometricsAuthReasonAccess": "Veuillez vous authentifier pour accéder à WristTrack",
+  "appLockedTitle": "WristTrack verrouillé",
+  "appLockedSubtitle": "Authentification requise pour accéder à votre collection de montres.",
+  "unlockAppButton": "Déverrouiller l'application"
 }

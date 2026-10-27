@@ -2,7 +2,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/model/backup_restore_methods.dart';
 
@@ -131,8 +133,12 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
         return;
       }
 
+      final reason = Get.context != null && AppLocalizations.of(Get.context!) != null
+          ? AppLocalizations.of(Get.context!)!.biometricsAuthReasonAccess
+          : 'Please authenticate to access WristTrack';
+
       final bool authenticated = await _auth.authenticate(
-        localizedReason: 'Please authenticate to access WristTrack',
+        localizedReason: reason,
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: false,
@@ -206,6 +212,11 @@ class BiometricLockScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    final title = l10n?.appLockedTitle ?? "WristTrack Locked";
+    final subtitle = l10n?.appLockedSubtitle ?? "Authentication required to access your watch collection.";
+    final buttonText = l10n?.unlockAppButton ?? "Unlock App";
+
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
@@ -230,7 +241,7 @@ class BiometricLockScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  "WristTrack Locked",
+                  title,
                   style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -238,7 +249,7 @@ class BiometricLockScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "Authentication required to access your watch collection.",
+                  subtitle,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
                   ),
@@ -256,9 +267,9 @@ class BiometricLockScreen extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: onUnlockPressed,
                       icon: const FaIcon(FontAwesomeIcons.fingerprint, size: 20),
-                      label: const Text(
-                        "Unlock App",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      label: Text(
+                        buttonText,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),

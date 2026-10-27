@@ -1048,5 +1048,23 @@
   "averageCaseThickness": "Grosor de caja promedio: {value} mm",
   "averageLugToLug": "Distancia de asa a asa promedio: {value} mm",
   "medianLugWidth": "Ancho de asa mediano: {value}",
-  "noColourDataRecorded": "No hay datos de color registrados"
+  "noColourDataRecorded": "No hay datos de color registrados",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Bloqueo biométrico",
+  "biometricsTitle": "Biometría",
+  "biometricsDescription": "¿Quieres mantener tu colección en privado? Activa la biometría para usar tu rostro o huella dactilar para desbloquear la aplicación.\n\nSe te pedirá que te autentiques cada vez que abras la aplicación.\n\n(Nota: Tu dispositivo debe admitir la biometría y tenerla configurada)",
+  "enableBiometrics": "Activar biometría",
+  "biometricsEnabledSubtitle": "La aplicación está bloqueada con biometría",
+  "biometricsDisabledSubtitle": "El bloqueo de la aplicación está desactivado",
+  "biometricsNotSupported": "La autenticación biométrica no está disponible o configurada en este dispositivo.",
+  "biometricsAuthReasonEnable": "Por favor, autentícate para activar el bloqueo biométrico",
+  "biometricsAuthReasonDisable": "Por favor, autentícate para desactivar el bloqueo biométrico",
+  "biometricsLockEnabledSnackBar": "Bloqueo biométrico activado",
+  "biometricsLockDisabledSnackBar": "Bloqueo biométrico desactivado",
+  "biometricsAuthErrorPrefix": "Error de autenticación biométrica: {error}",
+  "biometricsAuthReasonAccess": "Por favor, autentícate para acceder a WristTrack",
+  "appLockedTitle": "WristTrack bloqueado",
+  "appLockedSubtitle": "Se requiere autenticación para acceder a tu colección de relojes.",
+  "unlockAppButton": "Desbloquear aplicación"
 }

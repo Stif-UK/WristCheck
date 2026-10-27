@@ -2672,4 +2672,63 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get noColourDataRecorded => 'Keine Farbdaten aufgezeichnet';
+
+  @override
+  String get biometricAppLock => 'Biometrische App-Sperre';
+
+  @override
+  String get biometricsTitle => 'Biometrie';
+
+  @override
+  String get biometricsDescription =>
+      'Möchten Sie Ihre Sammlung privat halten? Aktivieren Sie die Biometrie, um die App mit Ihrem Gesicht oder Fingerabdruck zu entsperren.\n\nSie werden dann bei jedem Öffnen der App zur Authentifizierung aufgefordert.\n\n(Hinweis: Ihr Gerät muss Biometrie unterstützen und entsprechende Daten eingerichtet haben)';
+
+  @override
+  String get enableBiometrics => 'Biometrie aktivieren';
+
+  @override
+  String get biometricsEnabledSubtitle =>
+      'App ist derzeit biometrisch gesperrt';
+
+  @override
+  String get biometricsDisabledSubtitle =>
+      'App-Sperre ist derzeit ausgeschaltet';
+
+  @override
+  String get biometricsNotSupported =>
+      'Biometrische Authentifizierung ist auf diesem Gerät nicht verfügbar oder eingerichtet.';
+
+  @override
+  String get biometricsAuthReasonEnable =>
+      'Bitte authentifizieren Sie sich, um die biometrische Sperre zu aktivieren';
+
+  @override
+  String get biometricsAuthReasonDisable =>
+      'Bitte authentifizieren Sie sich, um die biometrische Sperre zu deaktivieren';
+
+  @override
+  String get biometricsLockEnabledSnackBar => 'Biometrische Sperre aktiviert';
+
+  @override
+  String get biometricsLockDisabledSnackBar =>
+      'Biometrische Sperre deaktiviert';
+
+  @override
+  String biometricsAuthErrorPrefix(Object error) {
+    return 'Biometrischer Authentifizierungsfehler: $error';
+  }
+
+  @override
+  String get biometricsAuthReasonAccess =>
+      'Bitte authentifizieren Sie sich, um auf WristTrack zuzugreifen';
+
+  @override
+  String get appLockedTitle => 'WristTrack gesperrt';
+
+  @override
+  String get appLockedSubtitle =>
+      'Authentifizierung erforderlich, um auf Ihre Uhrensammlung zuzugreifen.';
+
+  @override
+  String get unlockAppButton => 'App entsperren';
 }

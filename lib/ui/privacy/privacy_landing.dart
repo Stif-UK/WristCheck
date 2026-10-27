@@ -25,7 +25,7 @@ class _PrivacyLandingState extends State<PrivacyLanding> {
         children: [
           const Divider(thickness: 2,),
           ListTile(
-            title: Text("Biometric App Lock"),
+            title: Text(AppLocalizations.of(context)!.biometricAppLock),
             leading: FaIcon(FontAwesomeIcons.fingerprint),
             onTap: () {
               print("Biometric App Lock clicked");

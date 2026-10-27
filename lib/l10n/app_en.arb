@@ -1114,5 +1114,23 @@
   "averageCaseThickness": "Average Case Thickness: {value} mm",
   "averageLugToLug": "Average Lug to Lug: {value} mm",
   "medianLugWidth": "Median Lug Width: {value}",
-  "noColourDataRecorded": "No colour data recorded"
+  "noColourDataRecorded": "No colour data recorded",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Biometric App Lock",
+  "biometricsTitle": "Biometrics",
+  "biometricsDescription": "Want to keep your collection private? Enable biometrics to use your face or fingerprint to unlock the app.\n\nYou'll then be asked to authenticate every time you open the app.\n\n(Note: Your device must support biometrics, and have them enrolled on this device)",
+  "enableBiometrics": "Enable Biometrics",
+  "biometricsEnabledSubtitle": "App is currently locked with biometrics",
+  "biometricsDisabledSubtitle": "App lock is currently turned off",
+  "biometricsNotSupported": "Biometric authentication is not available or set up on this device.",
+  "biometricsAuthReasonEnable": "Please authenticate to enable biometric lock",
+  "biometricsAuthReasonDisable": "Please authenticate to disable biometric lock",
+  "biometricsLockEnabledSnackBar": "Biometric lock enabled",
+  "biometricsLockDisabledSnackBar": "Biometric lock disabled",
+  "biometricsAuthErrorPrefix": "Biometric authentication error: {error}",
+  "biometricsAuthReasonAccess": "Please authenticate to access WristTrack",
+  "appLockedTitle": "WristTrack Locked",
+  "appLockedSubtitle": "Authentication required to access your watch collection.",
+  "unlockAppButton": "Unlock App"
 }

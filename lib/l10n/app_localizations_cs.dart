@@ -2664,4 +2664,62 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get noColourDataRecorded => 'Nebyly zaznamenány žádné údaje o barvě';
+
+  @override
+  String get biometricAppLock => 'Biometrický zámek aplikace';
+
+  @override
+  String get biometricsTitle => 'Biometrie';
+
+  @override
+  String get biometricsDescription =>
+      'Chcete udržet svou sbírku v soukromí? Povolte biometrii a používejte k odemknutí aplikace obličej nebo otisk prstu.\n\nPři každém otevření aplikace budete požádáni o ověření.\n\n(Poznámka: Vaše zařízení musí podporovat biometrii a mít ji zaregistrovanou)';
+
+  @override
+  String get enableBiometrics => 'Povolit biometrii';
+
+  @override
+  String get biometricsEnabledSubtitle =>
+      'Aplikace je momentálně uzamčena biometrií';
+
+  @override
+  String get biometricsDisabledSubtitle =>
+      'Zámek aplikace je momentálně vypnutý';
+
+  @override
+  String get biometricsNotSupported =>
+      'Biometrické ověření není na tomto zařízení k dispozici nebo nastaveno.';
+
+  @override
+  String get biometricsAuthReasonEnable =>
+      'Ověřte se prosím pro povolení biometrického zámku';
+
+  @override
+  String get biometricsAuthReasonDisable =>
+      'Ověřte se prosím pro vypnutí biometrického zámku';
+
+  @override
+  String get biometricsLockEnabledSnackBar => 'Biometrický zámek povolen';
+
+  @override
+  String get biometricsLockDisabledSnackBar => 'Biometrický zámek vypnut';
+
+  @override
+  String biometricsAuthErrorPrefix(Object error) {
+    return 'Chyba biometrického ověření: $error';
+  }
+
+  @override
+  String get biometricsAuthReasonAccess =>
+      'Ověřte se prosím pro přístup k WristTrack';
+
+  @override
+  String get appLockedTitle => 'WristTrack uzamčen';
+
+  @override
+  String get appLockedSubtitle =>
+      'K přístupu ke sbírce hodinek je vyžadováno ověření.';
+
+  @override
+  String get unlockAppButton => 'Odemknout aplikaci';
 }

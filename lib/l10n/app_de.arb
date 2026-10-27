@@ -1053,5 +1053,23 @@
   "averageCaseThickness": "Durchschnittliche Gehäusedicke: {value} mm",
   "averageLugToLug": "Durchschnittlicher Horn-zu-Horn-Abstand: {value} mm",
   "medianLugWidth": "Stegbreiten-Median: {value}",
-  "noColourDataRecorded": "Keine Farbdaten aufgezeichnet"
+  "noColourDataRecorded": "Keine Farbdaten aufgezeichnet",
+
+  "@_BIOMETRICS": {},
+  "biometricAppLock": "Biometrische App-Sperre",
+  "biometricsTitle": "Biometrie",
+  "biometricsDescription": "Möchten Sie Ihre Sammlung privat halten? Aktivieren Sie die Biometrie, um die App mit Ihrem Gesicht oder Fingerabdruck zu entsperren.\n\nSie werden dann bei jedem Öffnen der App zur Authentifizierung aufgefordert.\n\n(Hinweis: Ihr Gerät muss Biometrie unterstützen und entsprechende Daten eingerichtet haben)",
+  "enableBiometrics": "Biometrie aktivieren",
+  "biometricsEnabledSubtitle": "App ist derzeit biometrisch gesperrt",
+  "biometricsDisabledSubtitle": "App-Sperre ist derzeit ausgeschaltet",
+  "biometricsNotSupported": "Biometrische Authentifizierung ist auf diesem Gerät nicht verfügbar oder eingerichtet.",
+  "biometricsAuthReasonEnable": "Bitte authentifizieren Sie sich, um die biometrische Sperre zu aktivieren",
+  "biometricsAuthReasonDisable": "Bitte authentifizieren Sie sich, um die biometrische Sperre zu deaktivieren",
+  "biometricsLockEnabledSnackBar": "Biometrische Sperre aktiviert",
+  "biometricsLockDisabledSnackBar": "Biometrische Sperre deaktiviert",
+  "biometricsAuthErrorPrefix": "Biometrischer Authentifizierungsfehler: {error}",
+  "biometricsAuthReasonAccess": "Bitte authentifizieren Sie sich, um auf WristTrack zuzugreifen",
+  "appLockedTitle": "WristTrack gesperrt",
+  "appLockedSubtitle": "Authentifizierung erforderlich, um auf Ihre Uhrensammlung zuzugreifen.",
+  "unlockAppButton": "App entsperren"
 }

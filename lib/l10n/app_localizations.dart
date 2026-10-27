@@ -4745,6 +4745,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No colour data recorded'**
   String get noColourDataRecorded;
+
+  /// No description provided for @biometricAppLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric App Lock'**
+  String get biometricAppLock;
+
+  /// No description provided for @biometricsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics'**
+  String get biometricsTitle;
+
+  /// No description provided for @biometricsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Want to keep your collection private? Enable biometrics to use your face or fingerprint to unlock the app.\n\nYou\'ll then be asked to authenticate every time you open the app.\n\n(Note: Your device must support biometrics, and have them enrolled on this device)'**
+  String get biometricsDescription;
+
+  /// No description provided for @enableBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Biometrics'**
+  String get enableBiometrics;
+
+  /// No description provided for @biometricsEnabledSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App is currently locked with biometrics'**
+  String get biometricsEnabledSubtitle;
+
+  /// No description provided for @biometricsDisabledSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App lock is currently turned off'**
+  String get biometricsDisabledSubtitle;
+
+  /// No description provided for @biometricsNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available or set up on this device.'**
+  String get biometricsNotSupported;
+
+  /// No description provided for @biometricsAuthReasonEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Please authenticate to enable biometric lock'**
+  String get biometricsAuthReasonEnable;
+
+  /// No description provided for @biometricsAuthReasonDisable.
+  ///
+  /// In en, this message translates to:
+  /// **'Please authenticate to disable biometric lock'**
+  String get biometricsAuthReasonDisable;
+
+  /// No description provided for @biometricsLockEnabledSnackBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric lock enabled'**
+  String get biometricsLockEnabledSnackBar;
+
+  /// No description provided for @biometricsLockDisabledSnackBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric lock disabled'**
+  String get biometricsLockDisabledSnackBar;
+
+  /// No description provided for @biometricsAuthErrorPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication error: {error}'**
+  String biometricsAuthErrorPrefix(Object error);
+
+  /// No description provided for @biometricsAuthReasonAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Please authenticate to access WristTrack'**
+  String get biometricsAuthReasonAccess;
+
+  /// No description provided for @appLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack Locked'**
+  String get appLockedTitle;
+
+  /// No description provided for @appLockedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication required to access your watch collection.'**
+  String get appLockedSubtitle;
+
+  /// No description provided for @unlockAppButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock App'**
+  String get unlockAppButton;
 }
 
 class _AppLocalizationsDelegate
