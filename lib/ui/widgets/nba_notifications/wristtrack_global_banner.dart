@@ -12,12 +12,13 @@ class WristtrackGlobalBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _handleTap(context),
-      child: Card(
-        elevation: 4,
-        margin: const EdgeInsets.all(8.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.all(8.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15),
+        onTap: () => _handleTap(context),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -91,9 +92,11 @@ class WristtrackGlobalBanner extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.chevronRight),
-              onPressed: () => _handleTap(context),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(4.0, 16.0, 12.0, 16.0),
+              child: Center(
+                child: FaIcon(FontAwesomeIcons.chevronRight),
+              ),
             ),
           ],
         ),
