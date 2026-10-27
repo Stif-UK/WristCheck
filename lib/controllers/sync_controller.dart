@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 enum SyncStatusState {
   upToDate,
@@ -18,7 +19,7 @@ class SyncController extends GetxController {
   final RxString errorMessage = ''.obs;
 
   // Phase tracking
-  final RxString currentPhase = 'none.obs'.obs; // 'watches', 'accuracy', 'images', 'done'
+  final RxString currentPhase = 'none'.obs; // 'watches', 'accuracy', 'images', 'done'
 
   final RxInt watchTotal = 0.obs;
   final RxInt watchSynced = 0.obs;
@@ -54,15 +55,16 @@ class SyncController extends GetxController {
   bool get isImageComplete => imageTotal.value > 0 && imageSynced.value >= imageTotal.value;
 
   String get statusText {
+    final l = Get.context != null ? AppLocalizations.of(Get.context!) : null;
     switch (status.value) {
       case SyncStatusState.upToDate:
-        return "Up to date";
+        return l?.syncStatusUpToDate ?? "Up to date";
       case SyncStatusState.inProgress:
-        return "In Progress";
+        return l?.syncStatusInProgress ?? "In Progress";
       case SyncStatusState.waitingForConnection:
-        return "Waiting for connection";
+        return l?.syncStatusWaitingForConnection ?? "Waiting for connection";
       case SyncStatusState.syncFailure:
-        return "Sync Failure";
+        return l?.syncStatusFailure ?? "Sync Failure";
     }
   }
 
@@ -84,10 +86,11 @@ class SyncController extends GetxController {
   }
 
   String get subtitleText {
+    final l = Get.context != null ? AppLocalizations.of(Get.context!) : null;
     if (lastSyncTime.value == null) {
-      return "Last Sync: Never";
+      return l?.syncLastSyncNever ?? "Last Sync: Never";
     }
     final formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(lastSyncTime.value!);
-    return "Last Sync: $formattedTime";
+    return l != null ? l.syncLastSyncTime(formattedTime) : "Last Sync: $formattedTime";
   }
 }

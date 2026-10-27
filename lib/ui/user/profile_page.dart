@@ -11,6 +11,7 @@ import 'package:wristcheck/ui/user/otp_page.dart';
 import 'package:wristcheck/ui/user/update_password_page.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -177,6 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final name = AuthService().getUsersName() ?? "";
     final email = AuthService().getUserEmail() ?? '(no email found)';
 
@@ -438,7 +440,7 @@ class _ProfilePageState extends State<ProfilePage> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: ExpansionTile(
                 initiallyExpanded: true,
-                  title: const Text("Database Sync"),
+                  title: Text(l.databaseSync),
               children: [
                 Obx(() => Card(
                     elevation: 2,
@@ -446,7 +448,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     child: ListTile(
                       leading: const FaIcon(FontAwesomeIcons.cloud),
-                      title: Text("Data Sync Status: ${SyncController.to.statusText}"),
+                      title: Text("${l.databaseSync}: ${SyncController.to.statusText}"),
                       subtitle: Text(SyncController.to.subtitleText),
                       trailing: SyncController.to.trailingIcon,
                     ))),
@@ -458,7 +460,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             _buildSyncPhaseRow(
                               context,
-                              title: "Watch Records",
+                              title: l.watchRecords,
                               progress: SyncController.to.watchProgress,
                               countText: "${SyncController.to.watchSynced.value}/${SyncController.to.watchTotal.value}",
                               isComplete: SyncController.to.isWatchComplete,
@@ -466,7 +468,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             const SizedBox(height: 12),
                             _buildSyncPhaseRow(
                               context,
-                              title: "Accuracy Records",
+                              title: l.accuracyRecords,
                               progress: SyncController.to.accuracyProgress,
                               countText: "${SyncController.to.accuracySynced.value}/${SyncController.to.accuracyTotal.value}",
                               isComplete: SyncController.to.isAccuracyComplete,
@@ -474,7 +476,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             const SizedBox(height: 12),
                             _buildSyncPhaseRow(
                               context,
-                              title: "Watch Images",
+                              title: l.watchImages,
                               progress: SyncController.to.imageProgress,
                               countText: "${SyncController.to.imageSynced.value}/${SyncController.to.imageTotal.value}",
                               isComplete: SyncController.to.isImageComplete,

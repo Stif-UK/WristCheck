@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/sync/sync_service.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -37,25 +38,26 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
     _items = widget.conflicts;
   }
 
-  String _getLastWornString(Watches watch) {
-    if (watch.wearList.isEmpty) return "Never worn";
+  String _getLastWornString(Watches watch, AppLocalizations l) {
+    if (watch.wearList.isEmpty) return l.neverWorn;
     final sorted = List<DateTime>.from(watch.wearList)..sort();
     return WristCheckFormatter.getFormattedDate(sorted.last);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: const Text("Collection Conflicts Found"),
+      title: Text(l.collectionConflictsTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "We found watches on this device that match watches already saved in your cloud account. Please choose how to handle each potential duplicate:",
-              style: TextStyle(fontSize: 13),
+            Text(
+              l.collectionConflictsMessage,
+              style: const TextStyle(fontSize: 13),
             ),
             const SizedBox(height: 12),
             Expanded(
@@ -78,25 +80,25 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           const SizedBox(height: 4),
-                          Text("Local: Last Worn: ${_getLastWornString(item.localWatch)}"),
-                          Text("Cloud: Last Worn: ${_getLastWornString(item.remoteWatch)}"),
+                          Text(l.localLastWorn(_getLastWornString(item.localWatch, l))),
+                          Text(l.cloudLastWorn(_getLastWornString(item.remoteWatch, l))),
                           const SizedBox(height: 8),
                           DropdownButton<ConflictChoice>(
                             value: item.choice,
                             isDense: true,
                             isExpanded: true,
-                            items: const [
+                            items: [
                               DropdownMenuItem(
                                 value: ConflictChoice.prioritizeCloud,
-                                child: Text("Prioritize Cloud (Discard Local)"),
+                                child: Text(l.prioritizeCloudDiscardLocal),
                               ),
                               DropdownMenuItem(
                                 value: ConflictChoice.prioritizeLocal,
-                                child: Text("Prioritize Local (Overwrite Cloud)"),
+                                child: Text(l.prioritizeLocalOverwriteCloud),
                               ),
                               DropdownMenuItem(
                                 value: ConflictChoice.keepBoth,
-                                child: Text("Keep Both (Allow Duplicate)"),
+                                child: Text(l.keepBothAllowDuplicate),
                               ),
                             ],
                             onChanged: (val) {
@@ -123,14 +125,14 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
             Get.back(); // close conflict dialog
             SyncService.checkForConflictsAndSync(); // return to high-level warning dialog
           },
-          child: const Text("Cancel"),
+          child: Text(l.cancel),
         ),
         ElevatedButton(
           onPressed: () {
             Get.back();
             widget.resolvedCallback();
           },
-          child: const Text("Apply & Continue Sync"),
+          child: Text(l.applyAndContinueSync),
         ),
       ],
     );

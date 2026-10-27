@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/user/conflict_resolution_dialog.dart';
@@ -65,11 +66,12 @@ class SyncService {
       }
 
       // 1. Show high-level warning dialog first
+      final l = AppLocalizations.of(Get.context!)!;
       await Get.defaultDialog(
-        title: "Existing Cloud Data Found",
-        middleText: "We found existing watch data in your cloud account as well as on this device.\n\nWould you like to prioritize the Cloud collection (which will overwrite local data), or Merge collections?",
+        title: l.existingCloudDataTitle,
+        middleText: l.existingCloudDataMessage,
         barrierDismissible: false,
-        textConfirm: "Prioritize Cloud (Overwrite)",
+        textConfirm: l.prioritizeCloudOption,
         confirmTextColor: Colors.white,
         buttonColor: Colors.redAccent,
         onConfirm: () async {
@@ -81,7 +83,7 @@ class SyncService {
           await Boxes.getMeasurements().clear();
           await syncData();
         },
-        textCancel: "Merge Collections",
+        textCancel: l.mergeCollectionsOption,
         cancelTextColor: Colors.black,
         onCancel: () async {
           Get.back();
