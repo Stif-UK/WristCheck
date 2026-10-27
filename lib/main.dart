@@ -13,6 +13,7 @@ import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/measurement.dart';
+import 'package:wristcheck/model/wristtrack_timezone.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/privacy/biometric_lock_wrapper.dart';
 import 'package:wristcheck/privacy/initialise_screen.dart';
@@ -170,6 +171,8 @@ Future main() async{
   Hive.registerAdapter(MeasurementAdapter());
   await Hive.openBox<Measurement>("AccuracyBox");
   AccuracyMigrationUtil.migrateExistingMeasurements();
+  Hive.registerAdapter(WristTrackTimezoneAdapter());
+  await Hive.openBox<WristTrackTimezone>("wristtrack_timezones");
 
   // Initialize Supabase Sync Manager
   SyncManager.init();

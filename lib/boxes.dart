@@ -10,6 +10,7 @@ import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristtrack_timezone.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -42,6 +43,24 @@ class Boxes {
 
   static Iterable<Measurement> getMeasurementsForWatch(Watches watch){
     return getMeasurements().values.toList().where((measurement) => measurement.watchKey == watch.key);
+  }
+
+  /*
+  getTimezones() returns the database of user added saved timezones
+   */
+  static Box<WristTrackTimezone> getTimezones(){
+    return Hive.box<WristTrackTimezone>("wristtrack_timezones").isOpen
+        ? Hive.box<WristTrackTimezone>("wristtrack_timezones")
+        : openTimezonesAndReturn();
+  }
+
+  static Box<WristTrackTimezone> openTimezonesAndReturn(){
+    Hive.openBox<WristTrackTimezone>("wristtrack_timezones");
+    return Hive.box<WristTrackTimezone>("wristtrack_timezones");
+  }
+
+  static List<WristTrackTimezone> getAllTimezones(){
+    return getTimezones().values.toList();
   }
 
   static List<Watches> getWatchesByFilter(CollectionView collectionValue){
