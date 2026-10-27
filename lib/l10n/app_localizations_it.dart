@@ -2702,4 +2702,82 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Sblocca app';
+
+  @override
+  String get databaseSync => 'Sincronizzazione database';
+
+  @override
+  String get syncStatusUpToDate => 'Aggiornato';
+
+  @override
+  String get syncStatusInProgress => 'In corso';
+
+  @override
+  String get syncStatusWaitingForConnection => 'In attesa di connessione';
+
+  @override
+  String get syncStatusFailure => 'Errore di sincronizzazione';
+
+  @override
+  String get syncLastSyncNever => 'Ultima sincronizzazione: Mai';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Ultima sincronizzazione: $time';
+  }
+
+  @override
+  String get watchRecords => 'Registri orologi';
+
+  @override
+  String get accuracyRecords => 'Registri precisione';
+
+  @override
+  String get watchImages => 'Immagini orologi';
+
+  @override
+  String get existingCloudDataTitle => 'Trovati dati cloud esistenti';
+
+  @override
+  String get existingCloudDataMessage =>
+      'Abbiamo trovato dati di orologi nel tuo account cloud e su questo dispositivo.\n\nVuoi dare priorità alla collezione cloud (sovrascrivendo i dati locali) o unire le collezioni?';
+
+  @override
+  String get prioritizeCloudOption => 'Dai priorità al cloud (Sovrascrivi)';
+
+  @override
+  String get mergeCollectionsOption => 'Unisci collezioni';
+
+  @override
+  String get collectionConflictsTitle => 'Trovati conflitti nelle collezioni';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Abbiamo trovato orologi su questo dispositivo che corrispondono a quelli già salvati nel tuo account cloud. Scegli come gestire ciascun potenziale duplicato:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Locale: Ultimo utilizzo: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Cloud: Ultimo utilizzo: $date';
+  }
+
+  @override
+  String get neverWorn => 'Mai indossato';
+
+  @override
+  String get prioritizeCloudDiscardLocal => 'Priorità al cloud (Scarta locale)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Priorità al locale (Sovrascrivi cloud)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Mantieni entrambi (Consenti duplicati)';
+
+  @override
+  String get applyAndContinueSync => 'Applica e continua sincronizzazione';
 }

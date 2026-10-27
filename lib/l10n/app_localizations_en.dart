@@ -2689,4 +2689,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Unlock App';
+
+  @override
+  String get databaseSync => 'Database Sync';
+
+  @override
+  String get syncStatusUpToDate => 'Up to date';
+
+  @override
+  String get syncStatusInProgress => 'In Progress';
+
+  @override
+  String get syncStatusWaitingForConnection => 'Waiting for connection';
+
+  @override
+  String get syncStatusFailure => 'Sync Failure';
+
+  @override
+  String get syncLastSyncNever => 'Last Sync: Never';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Last Sync: $time';
+  }
+
+  @override
+  String get watchRecords => 'Watch Records';
+
+  @override
+  String get accuracyRecords => 'Accuracy Records';
+
+  @override
+  String get watchImages => 'Watch Images';
+
+  @override
+  String get existingCloudDataTitle => 'Existing Cloud Data Found';
+
+  @override
+  String get existingCloudDataMessage =>
+      'We found existing watch data in your cloud account as well as on this device.\n\nWould you like to prioritize the Cloud collection (which will overwrite local data), or Merge collections?';
+
+  @override
+  String get prioritizeCloudOption => 'Prioritize Cloud (Overwrite)';
+
+  @override
+  String get mergeCollectionsOption => 'Merge Collections';
+
+  @override
+  String get collectionConflictsTitle => 'Collection Conflicts Found';
+
+  @override
+  String get collectionConflictsMessage =>
+      'We found watches on this device that match watches already saved in your cloud account. Please choose how to handle each potential duplicate:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Local: Last Worn: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Cloud: Last Worn: $date';
+  }
+
+  @override
+  String get neverWorn => 'Never worn';
+
+  @override
+  String get prioritizeCloudDiscardLocal => 'Prioritize Cloud (Discard Local)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Prioritize Local (Overwrite Cloud)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Keep Both (Allow Duplicate)';
+
+  @override
+  String get applyAndContinueSync => 'Apply & Continue Sync';
 }

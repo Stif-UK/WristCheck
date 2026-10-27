@@ -2728,4 +2728,84 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Déverrouiller l\'application';
+
+  @override
+  String get databaseSync => 'Synchronisation de la base de données';
+
+  @override
+  String get syncStatusUpToDate => 'À jour';
+
+  @override
+  String get syncStatusInProgress => 'En cours';
+
+  @override
+  String get syncStatusWaitingForConnection => 'En attente de connexion';
+
+  @override
+  String get syncStatusFailure => 'Échec de synchronisation';
+
+  @override
+  String get syncLastSyncNever => 'Dernière synchro : Jamais';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Dernière synchro : $time';
+  }
+
+  @override
+  String get watchRecords => 'Enregistrements de montres';
+
+  @override
+  String get accuracyRecords => 'Enregistrements de précision';
+
+  @override
+  String get watchImages => 'Images de montres';
+
+  @override
+  String get existingCloudDataTitle => 'Données cloud existantes trouvées';
+
+  @override
+  String get existingCloudDataMessage =>
+      'Nous avons trouvé des données de montres dans votre compte cloud ainsi que sur cet appareil.\n\nSouhaitez-vous donner la priorité à la collection cloud (ce qui écrasera les données locales) ou fusionner les collections ?';
+
+  @override
+  String get prioritizeCloudOption => 'Prioriser le cloud (Remplacer)';
+
+  @override
+  String get mergeCollectionsOption => 'Fusionner les collections';
+
+  @override
+  String get collectionConflictsTitle => 'Conflits de collection trouvés';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Nous avons trouvé des montres sur cet appareil qui correspondent à des montres déjà enregistrées dans votre compte cloud. Veuillez choisir comment traiter chaque doublon potentiel :';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Local : Dernière portée : $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Cloud : Dernière portée : $date';
+  }
+
+  @override
+  String get neverWorn => 'Jamais portée';
+
+  @override
+  String get prioritizeCloudDiscardLocal =>
+      'Prioriser le cloud (Ignorer le local)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Prioriser le local (Écraser le cloud)';
+
+  @override
+  String get keepBothAllowDuplicate =>
+      'Conserver les deux (Autoriser les doublons)';
+
+  @override
+  String get applyAndContinueSync => 'Appliquer et continuer';
 }

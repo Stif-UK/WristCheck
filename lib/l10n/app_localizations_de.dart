@@ -2731,4 +2731,83 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'App entsperren';
+
+  @override
+  String get databaseSync => 'Datenbank-Synchronisierung';
+
+  @override
+  String get syncStatusUpToDate => 'Aktuell';
+
+  @override
+  String get syncStatusInProgress => 'Wird ausgeführt';
+
+  @override
+  String get syncStatusWaitingForConnection => 'Warte auf Verbindung';
+
+  @override
+  String get syncStatusFailure => 'Synchronisierungsfehler';
+
+  @override
+  String get syncLastSyncNever => 'Letzte Synchronisierung: Nie';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Letzte Synchronisierung: $time';
+  }
+
+  @override
+  String get watchRecords => 'Uhreneinträge';
+
+  @override
+  String get accuracyRecords => 'Ganggenauigkeits-Einträge';
+
+  @override
+  String get watchImages => 'Uhrenbilder';
+
+  @override
+  String get existingCloudDataTitle => 'Vorhandene Cloud-Daten gefunden';
+
+  @override
+  String get existingCloudDataMessage =>
+      'Wir haben Uhrendaten in Ihrem Cloud-Konto sowie auf diesem Gerät gefunden.\n\nMöchten Sie die Cloud-Sammlung priorisieren (wodurch lokale Daten überschrieben werden) oder die Sammlungen zusammenführen?';
+
+  @override
+  String get prioritizeCloudOption => 'Cloud priorisieren (Überschreiben)';
+
+  @override
+  String get mergeCollectionsOption => 'Sammlungen zusammenführen';
+
+  @override
+  String get collectionConflictsTitle => 'Sammlungskonflikte gefunden';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Wir haben auf diesem Gerät Uhren gefunden, die mit bereits in Ihrem Cloud-Konto gespeicherten Uhren übereinstimmen. Bitte wählen Sie aus, wie mit jedem potenziellen Duplikat verfahren werden soll:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Lokal: Zuletzt getragen: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Cloud: Zuletzt getragen: $date';
+  }
+
+  @override
+  String get neverWorn => 'Nie getragen';
+
+  @override
+  String get prioritizeCloudDiscardLocal =>
+      'Cloud priorisieren (Lokal verwerfen)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Lokal priorisieren (Cloud überschreiben)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Beide behalten (Duplikat zulassen)';
+
+  @override
+  String get applyAndContinueSync => 'Anwenden & Synchronisierung fortsetzen';
 }

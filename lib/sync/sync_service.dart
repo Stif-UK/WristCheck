@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,7 @@ class SyncService {
 
       // 1. Show high-level warning dialog first
       final l = AppLocalizations.of(Get.context!)!;
+      await FirebaseAnalytics.instance.logEvent(name: "existing_cloud_data_dialog_shown");
       await Get.defaultDialog(
         title: l.existingCloudDataTitle,
         middleText: l.existingCloudDataMessage,
@@ -75,6 +77,7 @@ class SyncService {
         confirmTextColor: Colors.white,
         buttonColor: Colors.redAccent,
         onConfirm: () async {
+          await FirebaseAnalytics.instance.logEvent(name: "existing_cloud_data_action", parameters: {"action": "prioritize_cloud"});
           Get.back();
           // Clean up local images to free up device space
           await ImagesUtil.deleteAllImages();
@@ -86,6 +89,7 @@ class SyncService {
         textCancel: l.mergeCollectionsOption,
         cancelTextColor: Colors.black,
         onCancel: () async {
+          await FirebaseAnalytics.instance.logEvent(name: "existing_cloud_data_action", parameters: {"action": "merge"});
           Get.back();
           await Future.delayed(const Duration(milliseconds: 100));
           // User chose to merge -> Proceed to detect individual duplicate conflicts

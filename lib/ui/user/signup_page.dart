@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/auth/auth_service.dart';
@@ -13,12 +14,19 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordVerifyController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    analytics.logScreenView(screenName: "signup_page");
+  }
 
   @override
   void dispose() {
@@ -37,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
       final email = _emailController.text.trim();
       final password = _passwordController.text;
       
+      await analytics.logEvent(name: "signup_attempted", parameters: {"method": "email"});
       final response = await AuthService().signUpWithEmailAndPassword(email, password);
       
       // If sign up was successful, but email verification is required, session will be null.
@@ -199,7 +208,10 @@ class _SignupPageState extends State<SignupPage> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await analytics.logEvent(name: "login_attempted", parameters: {"method": "google"});
+                          await AuthService().signInWithGoogle();
+                        },
                         iconSize: 30,
                         padding: EdgeInsets.zero,
                         icon: const GoogleLogo(size: 30),
@@ -214,7 +226,10 @@ class _SignupPageState extends State<SignupPage> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await analytics.logEvent(name: "login_attempted", parameters: {"method": "apple"});
+                          await AuthService().signInWithApple();
+                        },
                         iconSize: 30,
                         padding: EdgeInsets.zero,
                         icon: FaIcon(

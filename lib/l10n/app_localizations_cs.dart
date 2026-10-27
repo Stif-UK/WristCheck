@@ -2722,4 +2722,83 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Odemknout aplikaci';
+
+  @override
+  String get databaseSync => 'Synchronizace databáze';
+
+  @override
+  String get syncStatusUpToDate => 'Aktuální';
+
+  @override
+  String get syncStatusInProgress => 'Probíhá';
+
+  @override
+  String get syncStatusWaitingForConnection => 'Čeká se na připojení';
+
+  @override
+  String get syncStatusFailure => 'Chyba synchronizace';
+
+  @override
+  String get syncLastSyncNever => 'Poslední synchronizace: Nikdy';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Poslední synchronizace: $time';
+  }
+
+  @override
+  String get watchRecords => 'Záznamy hodinek';
+
+  @override
+  String get accuracyRecords => 'Záznamy přesnosti';
+
+  @override
+  String get watchImages => 'Obrázky hodinek';
+
+  @override
+  String get existingCloudDataTitle => 'Nalezena existující data v cloudu';
+
+  @override
+  String get existingCloudDataMessage =>
+      'V našem cloudovém účtu i v tomto zařízení byla nalezena data hodinek.\n\nChcete upřednostnit cloudovou kolekci (což přepíše místní data), nebo sloučit kolekce?';
+
+  @override
+  String get prioritizeCloudOption => 'Upřednostnit cloud (přepsat)';
+
+  @override
+  String get mergeCollectionsOption => 'Sloučit kolekce';
+
+  @override
+  String get collectionConflictsTitle => 'Nalezeny konflikty kolekcí';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Na tomto zařízení jsme našli hodinky, které se shodují s hodinkami již uloženými ve vašem cloudovém účtu. Zvolte, jak naložit s každým duplikátem:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Místní: Naposledy nošeno: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Cloud: Naposledy nošeno: $date';
+  }
+
+  @override
+  String get neverWorn => 'Nikdy nenošeno';
+
+  @override
+  String get prioritizeCloudDiscardLocal =>
+      'Upřednostnit cloud (zahodit místní)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Upřednostnit místní (přepsat cloud)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Ponechat obojí (povolit duplikát)';
+
+  @override
+  String get applyAndContinueSync => 'Použít a pokračovat v synchronizaci';
 }

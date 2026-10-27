@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,10 +16,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    analytics.logScreenView(screenName: "login");
+  }
 
   @override
   void dispose() {
@@ -36,6 +44,7 @@ class _LoginState extends State<Login> {
       final email = _emailController.text.trim();
       final password = _passwordController.text;
 
+      await analytics.logEvent(name: "login_attempted", parameters: {"method": "email"});
       await AuthService().signInWithEmailAndPassword(email, password);
 
       if (mounted) {
@@ -67,14 +76,6 @@ class _LoginState extends State<Login> {
                       "Creating an account and logging in is optional. \nIt allows your collection to backup to the cloud and sync with other devices,"
                       "as well as tracking WristTrack Pro purchases between devices."),]
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     TextButton(child:
-                //       Text("Learn more",),
-                //     onPressed: (){},),
-                //   ],
-                // ),
                 const Divider(thickness: 2,),
                 WatchFormField(
                   fieldTitle: 'Email',
@@ -178,19 +179,10 @@ class _LoginState extends State<Login> {
                     ),
                     child: IconButton(
                       onPressed: () async {
-                        setState(() {
-                          _isLoading = true;
-                        });
+                        await analytics.logEvent(name: "login_attempted", parameters: {"method": "google"});
                         await AuthService().signInWithGoogle();
-                        if (mounted) {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                        }
                       },
-                      iconSize: 30,
-                      padding: EdgeInsets.zero,
-                      icon: const GoogleLogo(size: 30),
+                      icon: const GoogleLogo(size: 24),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -203,21 +195,12 @@ class _LoginState extends State<Login> {
                     ),
                     child: IconButton(
                       onPressed: () async {
-                        setState(() {
-                          _isLoading = true;
-                        });
+                        await analytics.logEvent(name: "login_attempted", parameters: {"method": "apple"});
                         await AuthService().signInWithApple();
-                        if (mounted) {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                        }
                       },
-                      iconSize: 30,
-                      padding: EdgeInsets.zero,
                       icon: FaIcon(
                         FontAwesomeIcons.apple,
-                        size: 30,
+                        size: 24,
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
@@ -226,29 +209,22 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey,
-                          ),
-                    ),
-                    TextButton(
-                      child: const Text("Sign Up Here"),
-                      onPressed: (){
-                        Get.to(() => const SignupPage());
-                      },
-                    )
-                    ]
-                ),
-              )
-            ],
+              const SizedBox(height: 24.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?"),
+                  TextButton(
+                    onPressed: () {
+                      Get.to(() => const SignupPage());
+                    },
+                    child: const Text('Sign Up'),
+                  ),
+                ],
+              ),
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );

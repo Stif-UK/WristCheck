@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -21,12 +22,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   bool _isLoading = false;
   File? _localAvatar;
 
   @override
   void initState() {
     super.initState();
+    analytics.logScreenView(screenName: "profile_page");
     _loadAvatar();
   }
 
@@ -146,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
       confirmTextColor: Colors.white,
       buttonColor: Colors.redAccent,
       onConfirm: () async {
+        await analytics.logEvent(name: "sign_out");
         Get.back(); // close dialog
         
         setState(() {
@@ -531,7 +535,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void _showDeleteAccountConfirmationDialog() {
+  void _showDeleteAccountConfirmationDialog() async {
+    await analytics.logEvent(name: "delete_account_initiated");
     Get.dialog(
       AlertDialog(
         title: const Text("Delete Your Account?"),

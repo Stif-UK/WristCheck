@@ -2717,4 +2717,83 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Desbloquear aplicación';
+
+  @override
+  String get databaseSync => 'Sincronización de base de datos';
+
+  @override
+  String get syncStatusUpToDate => 'Actualizado';
+
+  @override
+  String get syncStatusInProgress => 'En curso';
+
+  @override
+  String get syncStatusWaitingForConnection => 'Esperando conexión';
+
+  @override
+  String get syncStatusFailure => 'Error de sincronización';
+
+  @override
+  String get syncLastSyncNever => 'Última sincronización: Nunca';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Última sincronización: $time';
+  }
+
+  @override
+  String get watchRecords => 'Registros de relojes';
+
+  @override
+  String get accuracyRecords => 'Registros de precisión';
+
+  @override
+  String get watchImages => 'Imágenes de relojes';
+
+  @override
+  String get existingCloudDataTitle =>
+      'Datos en la nube existentes encontrados';
+
+  @override
+  String get existingCloudDataMessage =>
+      'Hemos encontrado datos de relojes en tu cuenta en la nube así como en este dispositivo.\n\n¿Deseas dar prioridad a la colección en la nube (lo que sobrescribirá los datos locales) o fusionar las colecciones?';
+
+  @override
+  String get prioritizeCloudOption => 'Priorizar nube (Sobrescribir)';
+
+  @override
+  String get mergeCollectionsOption => 'Fusionar colecciones';
+
+  @override
+  String get collectionConflictsTitle => 'Conflictos de colección encontrados';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Hemos encontrado relojes en este dispositivo que coinciden con relojes ya guardados en tu cuenta en la nube. Por favor, elige cómo manejar cada duplicado potencial:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Local: Última vez puesto: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Nube: Última vez puesto: $date';
+  }
+
+  @override
+  String get neverWorn => 'Nunca usado';
+
+  @override
+  String get prioritizeCloudDiscardLocal => 'Priorizar nube (Descartar local)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Priorizar local (Sobrescribir nube)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Conservar ambos (Permitir duplicado)';
+
+  @override
+  String get applyAndContinueSync => 'Aplicar y continuar sincronización';
 }

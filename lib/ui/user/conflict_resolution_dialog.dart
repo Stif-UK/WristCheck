@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -30,12 +31,14 @@ class ConflictResolutionDialog extends StatefulWidget {
 }
 
 class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late List<ConflictItem> _items;
 
   @override
   void initState() {
     super.initState();
     _items = widget.conflicts;
+    analytics.logScreenView(screenName: "conflict_resolution_dialog");
   }
 
   String _getLastWornString(Watches watch, AppLocalizations l) {
@@ -128,7 +131,8 @@ class _ConflictResolutionDialogState extends State<ConflictResolutionDialog> {
           child: Text(l.cancel),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            await analytics.logEvent(name: "resolve_conflicts_applied");
             Get.back();
             widget.resolvedCallback();
           },

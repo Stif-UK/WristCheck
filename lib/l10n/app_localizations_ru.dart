@@ -2741,4 +2741,83 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get unlockAppButton => 'Разблокировать приложение';
+
+  @override
+  String get databaseSync => 'Synchronizace databáze';
+
+  @override
+  String get syncStatusUpToDate => 'Актуально';
+
+  @override
+  String get syncStatusInProgress => 'Выполняется';
+
+  @override
+  String get syncStatusWaitingForConnection => 'Ожидание подключения';
+
+  @override
+  String get syncStatusFailure => 'Ошибка синхронизации';
+
+  @override
+  String get syncLastSyncNever => 'Последняя синхронизация: Никогда';
+
+  @override
+  String syncLastSyncTime(Object time) {
+    return 'Последняя синхронизация: $time';
+  }
+
+  @override
+  String get watchRecords => 'Записи часов';
+
+  @override
+  String get accuracyRecords => 'Записи точности';
+
+  @override
+  String get watchImages => 'Изображения часов';
+
+  @override
+  String get existingCloudDataTitle => 'Найдены существующие облачные данные';
+
+  @override
+  String get existingCloudDataMessage =>
+      'Мы обнаружили данные часов в вашей облачной учетной записи, а также на этом устройстве.\n\nХотите отдать приоритет облачной коллекции (что перезапишет локальные данные) или объединить коллекции?';
+
+  @override
+  String get prioritizeCloudOption => 'Приоритет облака (Перезаписать)';
+
+  @override
+  String get mergeCollectionsOption => 'Объединить коллекции';
+
+  @override
+  String get collectionConflictsTitle => 'Обнаружены конфликты коллекций';
+
+  @override
+  String get collectionConflictsMessage =>
+      'Мы нашли часы на этом устройстве, которые совпадают с часами, уже сохраненными в вашей облачной учетной записи. Пожалуйста, выберите, как поступить с каждым потенциальным дубликатом:';
+
+  @override
+  String localLastWorn(Object date) {
+    return 'Локально: Последний надев: $date';
+  }
+
+  @override
+  String cloudLastWorn(Object date) {
+    return 'Облако: Последний надев: $date';
+  }
+
+  @override
+  String get neverWorn => 'Ни разу не надевались';
+
+  @override
+  String get prioritizeCloudDiscardLocal =>
+      'Приоритет облака (Отбросить локальные)';
+
+  @override
+  String get prioritizeLocalOverwriteCloud =>
+      'Приоритет локальных (Перезаписать облако)';
+
+  @override
+  String get keepBothAllowDuplicate => 'Сохранить оба (Разрешить дубликат)';
+
+  @override
+  String get applyAndContinueSync => 'Применить и продолжить синхронизацию';
 }

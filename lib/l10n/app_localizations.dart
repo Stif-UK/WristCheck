@@ -4841,6 +4841,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock App'**
   String get unlockAppButton;
+
+  /// No description provided for @databaseSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Database Sync'**
+  String get databaseSync;
+
+  /// No description provided for @syncStatusUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date'**
+  String get syncStatusUpToDate;
+
+  /// No description provided for @syncStatusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get syncStatusInProgress;
+
+  /// No description provided for @syncStatusWaitingForConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for connection'**
+  String get syncStatusWaitingForConnection;
+
+  /// No description provided for @syncStatusFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Failure'**
+  String get syncStatusFailure;
+
+  /// No description provided for @syncLastSyncNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Sync: Never'**
+  String get syncLastSyncNever;
+
+  /// No description provided for @syncLastSyncTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Sync: {time}'**
+  String syncLastSyncTime(Object time);
+
+  /// No description provided for @watchRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Records'**
+  String get watchRecords;
+
+  /// No description provided for @accuracyRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy Records'**
+  String get accuracyRecords;
+
+  /// No description provided for @watchImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Images'**
+  String get watchImages;
+
+  /// No description provided for @existingCloudDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Existing Cloud Data Found'**
+  String get existingCloudDataTitle;
+
+  /// No description provided for @existingCloudDataMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We found existing watch data in your cloud account as well as on this device.\n\nWould you like to prioritize the Cloud collection (which will overwrite local data), or Merge collections?'**
+  String get existingCloudDataMessage;
+
+  /// No description provided for @prioritizeCloudOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize Cloud (Overwrite)'**
+  String get prioritizeCloudOption;
+
+  /// No description provided for @mergeCollectionsOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge Collections'**
+  String get mergeCollectionsOption;
+
+  /// No description provided for @collectionConflictsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection Conflicts Found'**
+  String get collectionConflictsTitle;
+
+  /// No description provided for @collectionConflictsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We found watches on this device that match watches already saved in your cloud account. Please choose how to handle each potential duplicate:'**
+  String get collectionConflictsMessage;
+
+  /// No description provided for @localLastWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Local: Last Worn: {date}'**
+  String localLastWorn(Object date);
+
+  /// No description provided for @cloudLastWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud: Last Worn: {date}'**
+  String cloudLastWorn(Object date);
+
+  /// No description provided for @neverWorn.
+  ///
+  /// In en, this message translates to:
+  /// **'Never worn'**
+  String get neverWorn;
+
+  /// No description provided for @prioritizeCloudDiscardLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize Cloud (Discard Local)'**
+  String get prioritizeCloudDiscardLocal;
+
+  /// No description provided for @prioritizeLocalOverwriteCloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize Local (Overwrite Cloud)'**
+  String get prioritizeLocalOverwriteCloud;
+
+  /// No description provided for @keepBothAllowDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Both (Allow Duplicate)'**
+  String get keepBothAllowDuplicate;
+
+  /// No description provided for @applyAndContinueSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply & Continue Sync'**
+  String get applyAndContinueSync;
 }
 
 class _AppLocalizationsDelegate
