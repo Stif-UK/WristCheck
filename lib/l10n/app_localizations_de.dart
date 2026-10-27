@@ -2810,4 +2810,89 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Anwenden & Synchronisierung fortsetzen';
+
+  @override
+  String get loginTitle => 'Anmelden';
+
+  @override
+  String get loginButton => 'Anmelden';
+
+  @override
+  String get whySignInTitle => 'Warum anmelden?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack ist eine \'Local First\'-App – Ihre Daten befinden sich auf Ihrem Gerät, funktionieren offline und gehören Ihnen.\n\nDas Erstellen eines Kontos und die Anmeldung sind optional.\nEs ermöglicht das Sichern Ihrer Sammlung in der Cloud und die Synchronisierung mit anderen Geräten sowie das Verfolgen von WristTrack Pro-käufen.';
+
+  @override
+  String get emailLabel => 'E-Mail';
+
+  @override
+  String get emailHint => 'Geben Sie Ihre E-Mail-Adresse ein';
+
+  @override
+  String get emailRequired => 'E-Mail ist erforderlich';
+
+  @override
+  String get enterValidEmail => 'Geben Sie eine gültige E-Mail ein';
+
+  @override
+  String get passwordLabel => 'Passwort';
+
+  @override
+  String get passwordHint => 'Geben Sie Ihr Passwort ein';
+
+  @override
+  String get passwordRequired => 'Passwort ist erforderlich';
+
+  @override
+  String get forgotPassword => 'Passwort vergessen?';
+
+  @override
+  String get orLoginWith => 'oder anmelden mit';
+
+  @override
+  String get dontHaveAnAccount => 'Haben Sie kein Konto?';
+
+  @override
+  String get signUp => 'Registrieren';
+
+  @override
+  String get createAnAccount => 'Ein Konto erstellen';
+
+  @override
+  String get verifyPasswordLabel => 'Passwort bestätigen';
+
+  @override
+  String get verifyPasswordHint => 'Bestätigen Sie Ihr Passwort';
+
+  @override
+  String get verifyPasswordRequired => 'Bitte bestätigen Sie Ihr Passwort';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwörter stimmen nicht überein';
+
+  @override
+  String get orSignUpWith => 'oder registrieren mit';
+
+  @override
+  String get createAccountButton => 'Konto erstellen';
+
+  @override
+  String get resetPasswordTitle => 'Passwort zurücksetzen';
+
+  @override
+  String get resetPasswordDescription =>
+      'Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse ein. Wir senden Ihnen einen 6-stelligen Code zum Zurücksetzen Ihres Passworts.';
+
+  @override
+  String get requestResetButton => 'Zurücksetzen anfordern';
+
+  @override
+  String get checkYourEmailTitle => 'Überprüfen Sie Ihre E-Mail';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'Wenn ein Konto für $email existiert, erhalten Sie eine E-Mail mit einem 6-stelligen OTP-Code zum Zurücksetzen Ihres Passworts.';
+  }
 }

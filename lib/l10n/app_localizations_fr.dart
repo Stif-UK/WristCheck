@@ -2808,4 +2808,89 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Appliquer et continuer';
+
+  @override
+  String get loginTitle => 'Connexion';
+
+  @override
+  String get loginButton => 'Se connecter';
+
+  @override
+  String get whySignInTitle => 'Pourquoi se connecter ?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack est une application \'Local First\' : vos données résident sur votre appareil, fonctionnent hors ligne et vous appartiennent.\n\nLa création d\'un compte et la connexion sont facultatives.\nCela permet de sauvegarder votre collection dans le cloud et de la synchroniser avec d\'autres appareils, ainsi que de suivre vos achats WristTrack Pro.';
+
+  @override
+  String get emailLabel => 'E-mail';
+
+  @override
+  String get emailHint => 'Entrez votre adresse e-mail';
+
+  @override
+  String get emailRequired => 'L\'e-mail est requis';
+
+  @override
+  String get enterValidEmail => 'Entrez un e-mail valide';
+
+  @override
+  String get passwordLabel => 'Mot de passe';
+
+  @override
+  String get passwordHint => 'Entrez votre mot de passe';
+
+  @override
+  String get passwordRequired => 'Le mot de passe est requis';
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get orLoginWith => 'ou se connecter avec';
+
+  @override
+  String get dontHaveAnAccount => 'Vous n\'avez pas de compte ?';
+
+  @override
+  String get signUp => 'S\'inscrire';
+
+  @override
+  String get createAnAccount => 'Créer un compte';
+
+  @override
+  String get verifyPasswordLabel => 'Vérifier le mot de passe';
+
+  @override
+  String get verifyPasswordHint => 'Vérifiez votre mot de passe';
+
+  @override
+  String get verifyPasswordRequired => 'Veuillez vérifier votre mot de passe';
+
+  @override
+  String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
+
+  @override
+  String get orSignUpWith => 'ou s\'inscrire avec';
+
+  @override
+  String get createAccountButton => 'Créer un compte';
+
+  @override
+  String get resetPasswordTitle => 'Réinitialiser le mot de passe';
+
+  @override
+  String get resetPasswordDescription =>
+      'Entrez l\'adresse e-mail associée à votre compte. Nous vous enverrons un code à 6 chiffres pour réinitialiser votre mot de passe.';
+
+  @override
+  String get requestResetButton => 'Demander la réinitialisation';
+
+  @override
+  String get checkYourEmailTitle => 'Vérifiez vos e-mails';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'Si un compte existe pour $email, vous recevrez un e-mail contenant un code OTP à 6 chiffres pour réinitialiser votre mot de passe.';
+  }
 }

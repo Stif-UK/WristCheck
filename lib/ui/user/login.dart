@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/user/reset_password.dart';
 import 'package:wristcheck/ui/user/signup_page.dart';
 import 'package:wristcheck/ui/widgets/google_logo.dart';
@@ -57,9 +58,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(l.loginTitle),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -71,15 +73,13 @@ class _LoginState extends State<Login> {
               children: [
                 const Divider(thickness: 2,),
                 ExpansionTile(
-                  title: Text("Why sign in?", style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.start,),
-                  children: [Text("WristTrack is a 'Local First' app - your data lives on your device and works offline, owned by you.\n\n"
-                      "Creating an account and logging in is optional. \nIt allows your collection to backup to the cloud and sync with other devices,"
-                      "as well as tracking WristTrack Pro purchases between devices."),]
+                  title: Text(l.whySignInTitle, style: const TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.start,),
+                  children: [Text(l.whySignInDescription)]
                 ),
                 const Divider(thickness: 2,),
                 WatchFormField(
-                  fieldTitle: 'Email',
-                  hintText: 'Enter your email address',
+                  fieldTitle: l.emailLabel,
+                  hintText: l.emailHint,
                   icon: const FaIcon(FontAwesomeIcons.user),
                   controller: _emailController,
                   enabled: true,
@@ -87,18 +87,18 @@ class _LoginState extends State<Login> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
+                      return l.emailRequired;
                     }
                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value.trim())) {
-                      return 'Enter a valid email';
+                      return l.enterValidEmail;
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 12.0),
                 WatchFormField(
-                  fieldTitle: 'Password',
-                  hintText: 'Enter your password',
+                  fieldTitle: l.passwordLabel,
+                  hintText: l.passwordHint,
                   icon: const FaIcon(FontAwesomeIcons.lock),
                   controller: _passwordController,
                   enabled: true,
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Password is required';
+                      return l.passwordRequired;
                     }
                     return null;
                   },
@@ -117,9 +117,9 @@ class _LoginState extends State<Login> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      Get.to(()=>ResetPassword());
+                      Get.to(()=>const ResetPassword());
                     },
-                    child: const Text('Forgot Password?'),
+                    child: Text(l.forgotPassword),
                   ),
                 ),
                 const SizedBox(height: 24.0),
@@ -142,9 +142,9 @@ class _LoginState extends State<Login> {
                               strokeWidth: 3,
                             ),
                           )
-                        : const Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                        : Text(
+                            l.loginButton,
+                            style: const TextStyle(color: Colors.white, fontSize: 25),
                           ),
                   ),
                 ),
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
-                        "or login with",
+                        l.orLoginWith,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.grey,
                             ),
@@ -213,12 +213,12 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Don't have an account?"),
+                  Text(l.dontHaveAnAccount),
                   TextButton(
                     onPressed: () {
                       Get.to(() => const SignupPage());
                     },
-                    child: const Text('Sign Up'),
+                    child: Text(l.signUp),
                   ),
                 ],
               ),

@@ -2767,4 +2767,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Apply & Continue Sync';
+
+  @override
+  String get loginTitle => 'Login';
+
+  @override
+  String get loginButton => 'Login';
+
+  @override
+  String get whySignInTitle => 'Why sign in?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack is a \'Local First\' app - your data lives on your device and works offline, owned by you.\n\nCreating an account and logging in is optional. \nIt allows your collection to backup to the cloud and sync with other devices, as well as tracking WristTrack Pro purchases between devices.';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get emailHint => 'Enter your email address';
+
+  @override
+  String get emailRequired => 'Email is required';
+
+  @override
+  String get enterValidEmail => 'Enter a valid email';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordHint => 'Enter your password';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get orLoginWith => 'or login with';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account?';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get createAnAccount => 'Create an account';
+
+  @override
+  String get verifyPasswordLabel => 'Verify Password';
+
+  @override
+  String get verifyPasswordHint => 'Verify your password';
+
+  @override
+  String get verifyPasswordRequired => 'Please verify your password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get orSignUpWith => 'or sign-up with';
+
+  @override
+  String get createAccountButton => 'Create Account';
+
+  @override
+  String get resetPasswordTitle => 'Reset Password';
+
+  @override
+  String get resetPasswordDescription =>
+      'Enter the email address associated with your account. We will send you a 6-digit code to reset your password.';
+
+  @override
+  String get requestResetButton => 'Request Reset';
+
+  @override
+  String get checkYourEmailTitle => 'Check Your Email';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'If an account exists for $email, you will receive an email with a 6-digit OTP code to reset your password.';
+  }
 }

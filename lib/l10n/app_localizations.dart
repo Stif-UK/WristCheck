@@ -4979,6 +4979,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply & Continue Sync'**
   String get applyAndContinueSync;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginTitle;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginButton;
+
+  /// No description provided for @whySignInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why sign in?'**
+  String get whySignInTitle;
+
+  /// No description provided for @whySignInDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'WristTrack is a \'Local First\' app - your data lives on your device and works offline, owned by you.\n\nCreating an account and logging in is optional. \nIt allows your collection to backup to the cloud and sync with other devices, as well as tracking WristTrack Pro purchases between devices.'**
+  String get whySignInDescription;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address'**
+  String get emailHint;
+
+  /// No description provided for @emailRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get emailRequired;
+
+  /// No description provided for @enterValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email'**
+  String get enterValidEmail;
+
+  /// No description provided for @passwordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get passwordHint;
+
+  /// No description provided for @passwordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get passwordRequired;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @orLoginWith.
+  ///
+  /// In en, this message translates to:
+  /// **'or login with'**
+  String get orLoginWith;
+
+  /// No description provided for @dontHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAnAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @createAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create an account'**
+  String get createAnAccount;
+
+  /// No description provided for @verifyPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Password'**
+  String get verifyPasswordLabel;
+
+  /// No description provided for @verifyPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your password'**
+  String get verifyPasswordHint;
+
+  /// No description provided for @verifyPasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your password'**
+  String get verifyPasswordRequired;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @orSignUpWith.
+  ///
+  /// In en, this message translates to:
+  /// **'or sign-up with'**
+  String get orSignUpWith;
+
+  /// No description provided for @createAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccountButton;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the email address associated with your account. We will send you a 6-digit code to reset your password.'**
+  String get resetPasswordDescription;
+
+  /// No description provided for @requestResetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Reset'**
+  String get requestResetButton;
+
+  /// No description provided for @checkYourEmailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Your Email'**
+  String get checkYourEmailTitle;
+
+  /// No description provided for @checkYourEmailMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account exists for {email}, you will receive an email with a 6-digit OTP code to reset your password.'**
+  String checkYourEmailMessage(Object email);
 }
 
 class _AppLocalizationsDelegate

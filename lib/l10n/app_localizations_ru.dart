@@ -2820,4 +2820,89 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Применить и продолжить синхронизацию';
+
+  @override
+  String get loginTitle => 'Вход';
+
+  @override
+  String get loginButton => 'Войти';
+
+  @override
+  String get whySignInTitle => 'Зачем входить?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack — это приложение \'Local First\': ваши данные хранятся на вашем устройстве, работают офлайн и принадлежат вам.\n\nСоздание аккаунта и вход являются необязательными.\nЭто позволяет создавать резервные копии коллекции в облаке и синхронизировать ее с другими устройствами, а также отслеживать покупки WristTrack Pro.';
+
+  @override
+  String get emailLabel => 'Эл. почта';
+
+  @override
+  String get emailHint => 'Введите адрес эл. почты';
+
+  @override
+  String get emailRequired => 'Требуется эл. почта';
+
+  @override
+  String get enterValidEmail => 'Введите действительный адрес эл. почты';
+
+  @override
+  String get passwordLabel => 'Пароль';
+
+  @override
+  String get passwordHint => 'Введите пароль';
+
+  @override
+  String get passwordRequired => 'Требуется пароль';
+
+  @override
+  String get forgotPassword => 'Забыли пароль?';
+
+  @override
+  String get orLoginWith => 'или войти через';
+
+  @override
+  String get dontHaveAnAccount => 'Нет аккаунта?';
+
+  @override
+  String get signUp => 'Зарегистрироваться';
+
+  @override
+  String get createAnAccount => 'Создать аккаунт';
+
+  @override
+  String get verifyPasswordLabel => 'Подтвердите пароль';
+
+  @override
+  String get verifyPasswordHint => 'Подтвердите ваш пароль';
+
+  @override
+  String get verifyPasswordRequired => 'Пожалуйста, подтвердите пароль';
+
+  @override
+  String get passwordsDoNotMatch => 'Пароли не совпадают';
+
+  @override
+  String get orSignUpWith => 'или зарегистрироваться через';
+
+  @override
+  String get createAccountButton => 'Создать аккаунт';
+
+  @override
+  String get resetPasswordTitle => 'Сброс пароля';
+
+  @override
+  String get resetPasswordDescription =>
+      'Введите адрес электронной почты, связанный с вашей учетной записью. Мы отправим вам 6-значный код для сброса пароля.';
+
+  @override
+  String get requestResetButton => 'Запросить сброс';
+
+  @override
+  String get checkYourEmailTitle => 'Проверьте вашу почту';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'Если учетная запись для $email существует, вы получите письмо с 6-значным OTP-кодом для сброса пароля.';
+  }
 }

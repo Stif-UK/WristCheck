@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/user/auth_gate.dart';
 import 'package:wristcheck/ui/widgets/google_logo.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
@@ -70,9 +71,10 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create an account'),
+        title: Text(l.createAnAccount),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -83,8 +85,8 @@ class _SignupPageState extends State<SignupPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 WatchFormField(
-                  fieldTitle: 'Email',
-                  hintText: 'Enter your email',
+                  fieldTitle: l.emailLabel,
+                  hintText: l.emailHint,
                   icon: const FaIcon(FontAwesomeIcons.user),
                   controller: _emailController,
                   enabled: true,
@@ -92,18 +94,18 @@ class _SignupPageState extends State<SignupPage> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
+                      return l.emailRequired;
                     }
                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value.trim())) {
-                      return 'Enter a valid email';
+                      return l.enterValidEmail;
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 12.0),
                 WatchFormField(
-                  fieldTitle: 'Password',
-                  hintText: 'Enter your password',
+                  fieldTitle: l.passwordLabel,
+                  hintText: l.passwordHint,
                   icon: const FaIcon(FontAwesomeIcons.lock),
                   controller: _passwordController,
                   enabled: true,
@@ -112,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Password is required';
+                      return l.passwordRequired;
                     }
                     if (value.length < 8) {
                       return 'Password must be at least 8 characters long';
@@ -131,8 +133,8 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 const SizedBox(height: 12.0),
                 WatchFormField(
-                  fieldTitle: 'Verify Password',
-                  hintText: 'Verify your password',
+                  fieldTitle: l.verifyPasswordLabel,
+                  hintText: l.verifyPasswordHint,
                   icon: const FaIcon(FontAwesomeIcons.key),
                   controller: _passwordVerifyController,
                   enabled: true,
@@ -141,10 +143,10 @@ class _SignupPageState extends State<SignupPage> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please verify your password';
+                      return l.verifyPasswordRequired;
                     }
                     if (value != _passwordController.text) {
-                      return 'Passwords do not match';
+                      return l.passwordsDoNotMatch;
                     }
                     return null;
                   },
@@ -169,9 +171,9 @@ class _SignupPageState extends State<SignupPage> {
                             strokeWidth: 3,
                           ),
                         )
-                      : const Text(
-                          'Create Account', 
-                          style: TextStyle(
+                      : Text(
+                          l.createAccountButton, 
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 25
                           ),
@@ -187,7 +189,7 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          "or sign-up with",
+                          l.orSignUpWith,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.grey,
                           ),

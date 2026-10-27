@@ -1,7 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/auth/auth_service.dart';
+import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/ui/user/reset_password_otp.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 
@@ -13,9 +15,16 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final TextEditingController _emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    analytics.logScreenView(screenName: "reset_password");
+  }
 
   @override
   void dispose() {
@@ -37,10 +46,10 @@ class _ResetPasswordState extends State<ResetPassword> {
           _isLoading = false;
         });
 
-        // Show confirmation alert
+        final l = AppLocalizations.of(context)!;
         Get.defaultDialog(
-          title: "Check Your Email",
-          middleText: "If an account exists for $email, you will receive an email with a 6-digit OTP code to reset your password.",
+          title: l.checkYourEmailTitle,
+          middleText: l.checkYourEmailMessage(email),
           textConfirm: "OK",
           confirmTextColor: Colors.white,
           onConfirm: () {
@@ -54,9 +63,10 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reset Password'),
+        title: Text(l.resetPasswordTitle),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -67,13 +77,13 @@ class _ResetPasswordState extends State<ResetPassword> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Enter the email address associated with your account. We will send you a 6-digit code to reset your password.",
+                  l.resetPasswordDescription,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 24.0),
                 WatchFormField(
-                  fieldTitle: 'Email',
-                  hintText: 'Enter your email address',
+                  fieldTitle: l.emailLabel,
+                  hintText: l.emailHint,
                   icon: const FaIcon(FontAwesomeIcons.user),
                   controller: _emailController,
                   enabled: true,
@@ -81,10 +91,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
+                      return l.emailRequired;
                     }
                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value.trim())) {
-                      return 'Enter a valid email';
+                      return l.enterValidEmail;
                     }
                     return null;
                   },
@@ -109,9 +119,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                               strokeWidth: 3,
                             ),
                           )
-                        : const Text(
-                            'Request Reset',
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                        : Text(
+                            l.requestResetButton,
+                            style: const TextStyle(color: Colors.white, fontSize: 25),
                           ),
                   ),
                 ),

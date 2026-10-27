@@ -2796,4 +2796,89 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Aplicar y continuar sincronización';
+
+  @override
+  String get loginTitle => 'Iniciar sesión';
+
+  @override
+  String get loginButton => 'Iniciar sesión';
+
+  @override
+  String get whySignInTitle => '¿Por qué iniciar sesión?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack es una aplicación \'Local First\': tus datos viven en tu dispositivo y funcionan sin conexión, de tu propiedad.\n\nCrear una cuenta e iniciar sesión es opcional.\nPermite respaldar tu colección en la nube y sincronizarla con otros dispositivos, así como rastrear las compras de WristTrack Pro.';
+
+  @override
+  String get emailLabel => 'Correo electrónico';
+
+  @override
+  String get emailHint => 'Introduce tu dirección de correo';
+
+  @override
+  String get emailRequired => 'El correo es obligatorio';
+
+  @override
+  String get enterValidEmail => 'Introduce un correo válido';
+
+  @override
+  String get passwordLabel => 'Contraseña';
+
+  @override
+  String get passwordHint => 'Introduce tu contraseña';
+
+  @override
+  String get passwordRequired => 'La contraseña es obligatoria';
+
+  @override
+  String get forgotPassword => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get orLoginWith => 'o iniciar sesión con';
+
+  @override
+  String get dontHaveAnAccount => '¿No tienes una cuenta?';
+
+  @override
+  String get signUp => 'Regístrate';
+
+  @override
+  String get createAnAccount => 'Crear una cuenta';
+
+  @override
+  String get verifyPasswordLabel => 'Verificar contraseña';
+
+  @override
+  String get verifyPasswordHint => 'Verifica tu contraseña';
+
+  @override
+  String get verifyPasswordRequired => 'Por favor verifica tu contraseña';
+
+  @override
+  String get passwordsDoNotMatch => 'Las contraseñas no coinciden';
+
+  @override
+  String get orSignUpWith => 'o regístrate con';
+
+  @override
+  String get createAccountButton => 'Crear cuenta';
+
+  @override
+  String get resetPasswordTitle => 'Restablecer contraseña';
+
+  @override
+  String get resetPasswordDescription =>
+      'Introduce la dirección de correo asociada a tu cuenta. Te enviaremos un código de 6 dígitos para restablecer tu contraseña.';
+
+  @override
+  String get requestResetButton => 'Solicitar restablecimiento';
+
+  @override
+  String get checkYourEmailTitle => 'Revisa tu correo electrónico';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'Si existe una cuenta para $email, recibirás un correo con un código OTP de 6 dígitos para restablecer tu contraseña.';
+  }
 }

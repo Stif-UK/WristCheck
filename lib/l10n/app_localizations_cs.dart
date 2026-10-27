@@ -2801,4 +2801,89 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get applyAndContinueSync => 'Použít a pokračovat v synchronizaci';
+
+  @override
+  String get loginTitle => 'Přihlášení';
+
+  @override
+  String get loginButton => 'Přihlásit se';
+
+  @override
+  String get whySignInTitle => 'Proč se přihlašovat?';
+
+  @override
+  String get whySignInDescription =>
+      'WristTrack je aplikace typu \'Local First\' – vaše data žijí ve vašem zařízení, fungují offline a jsou plně ve vašem vlastnictví.\n\nVytvoření účtu a přihlášení je volitelné.\nUmožňuje zálohovat vaši sbírku do cloudu a synchronizovat ji s ostatními zařízeními, a také sledovat nákupy WristTrack Pro napříč zařízeními.';
+
+  @override
+  String get emailLabel => 'E-mail';
+
+  @override
+  String get emailHint => 'Zadejte svou e-mailovou adresu';
+
+  @override
+  String get emailRequired => 'E-mail je povinný';
+
+  @override
+  String get enterValidEmail => 'Zadejte platný e-mail';
+
+  @override
+  String get passwordLabel => 'Heslo';
+
+  @override
+  String get passwordHint => 'Zadejte své heslo';
+
+  @override
+  String get passwordRequired => 'Heslo je povinné';
+
+  @override
+  String get forgotPassword => 'Zapomněli jste heslo?';
+
+  @override
+  String get orLoginWith => 'nebo se přihlaste pomocí';
+
+  @override
+  String get dontHaveAnAccount => 'Nemáte účet?';
+
+  @override
+  String get signUp => 'Zaregistrovat se';
+
+  @override
+  String get createAnAccount => 'Vytvořit účet';
+
+  @override
+  String get verifyPasswordLabel => 'Ověřit heslo';
+
+  @override
+  String get verifyPasswordHint => 'Zadejte heslo znovu pro ověření';
+
+  @override
+  String get verifyPasswordRequired => 'Ověřte prosím své heslo';
+
+  @override
+  String get passwordsDoNotMatch => 'Hesla se neshodují';
+
+  @override
+  String get orSignUpWith => 'nebo se zaregistrujte pomocí';
+
+  @override
+  String get createAccountButton => 'Vytvořit účet';
+
+  @override
+  String get resetPasswordTitle => 'Obnovení hesla';
+
+  @override
+  String get resetPasswordDescription =>
+      'Zadejte e-mailovou adresu přiřazenou k vašemu účtu. Zašleme vám 6místný kód pro obnovení hesla.';
+
+  @override
+  String get requestResetButton => 'Požádat o obnovení';
+
+  @override
+  String get checkYourEmailTitle => 'Zkontrolujte svůj e-mail';
+
+  @override
+  String checkYourEmailMessage(Object email) {
+    return 'Pokud pro $email existuje účet, obdržíte e-mail s 6místným OTP kódem pro obnovení hesla.';
+  }
 }
