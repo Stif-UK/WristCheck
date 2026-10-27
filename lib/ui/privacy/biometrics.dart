@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,6 +13,7 @@ class Biometrics extends StatefulWidget {
 }
 
 class _BiometricsState extends State<Biometrics> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final LocalAuthentication _auth = LocalAuthentication();
   bool _isBiometricsEnabled = false;
   bool _isProcessing = false;
@@ -20,6 +22,7 @@ class _BiometricsState extends State<Biometrics> {
   void initState() {
     super.initState();
     _isBiometricsEnabled = WristCheckPreferences.getEnableBiometrics();
+    analytics.logEvent(name: "biometrics_screen_viewed");
   }
 
   Future<void> _toggleBiometrics(bool value) async {
@@ -29,6 +32,11 @@ class _BiometricsState extends State<Biometrics> {
       _isProcessing = true;
     });
 
+    await analytics.logEvent(
+      name: "biometrics_toggle_pressed",
+      parameters: {"target_state": value ? "enable" : "disable"},
+    );
+
     try {
       if (value) {
         // User wants to enable biometrics
@@ -37,6 +45,7 @@ class _BiometricsState extends State<Biometrics> {
             canAuthenticateWithBiometrics || await _auth.isDeviceSupported();
 
         if (!canAuthenticate) {
+          await analytics.logEvent(name: "biometrics_not_supported");
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -60,6 +69,7 @@ class _BiometricsState extends State<Biometrics> {
 
         if (authenticated) {
           await WristCheckPreferences.setEnableBiometrics(true);
+          await analytics.logEvent(name: "biometrics_enable_success");
           if (mounted) {
             setState(() {
               _isBiometricsEnabled = true;
@@ -68,6 +78,8 @@ class _BiometricsState extends State<Biometrics> {
               const SnackBar(content: Text("Biometric lock enabled")),
             );
           }
+        } else {
+          await analytics.logEvent(name: "biometrics_enable_cancelled");
         }
       } else {
         // User wants to disable biometrics - authenticate first to verify identity
@@ -88,6 +100,7 @@ class _BiometricsState extends State<Biometrics> {
 
         if (authenticated) {
           await WristCheckPreferences.setEnableBiometrics(false);
+          await analytics.logEvent(name: "biometrics_disable_success");
           if (mounted) {
             setState(() {
               _isBiometricsEnabled = false;
@@ -96,10 +109,16 @@ class _BiometricsState extends State<Biometrics> {
               const SnackBar(content: Text("Biometric lock disabled")),
             );
           }
+        } else {
+          await analytics.logEvent(name: "biometrics_disable_cancelled");
         }
       }
     } on PlatformException catch (e) {
       debugPrint("Biometric settings error: $e");
+      await analytics.logEvent(
+        name: "biometrics_error",
+        parameters: {"error_code": e.code, "error_message": e.message ?? ""},
+      );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Biometric authentication error: ${e.message}")),
@@ -107,6 +126,10 @@ class _BiometricsState extends State<Biometrics> {
       }
     } catch (e) {
       debugPrint("Unexpected error: $e");
+      await analytics.logEvent(
+        name: "biometrics_unexpected_error",
+        parameters: {"error": e.toString()},
+      );
     } finally {
       if (mounted) {
         setState(() {

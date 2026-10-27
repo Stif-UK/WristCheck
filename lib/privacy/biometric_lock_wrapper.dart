@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,6 +39,7 @@ class BiometricLockWrapper extends StatefulWidget {
 
 class _BiometricLockWrapperState extends State<BiometricLockWrapper>
     with WidgetsBindingObserver {
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   final LocalAuthentication _auth = LocalAuthentication();
   bool _isLocked = false;
   bool _isAuthenticating = false;
@@ -137,6 +139,12 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
         ),
       );
 
+      if (authenticated) {
+        await _analytics.logEvent(name: "biometrics_unlock_success");
+      } else {
+        await _analytics.logEvent(name: "biometrics_unlock_failed");
+      }
+
       if (mounted) {
         setState(() {
           _isLocked = !authenticated;
@@ -145,6 +153,10 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
       }
     } on PlatformException catch (e) {
       debugPrint("Biometric auth error: $e");
+      await _analytics.logEvent(
+        name: "biometrics_unlock_error",
+        parameters: {"error_code": e.code, "error_message": e.message ?? ""},
+      );
       if (mounted) {
         setState(() {
           _isAuthenticating = false;
@@ -152,6 +164,10 @@ class _BiometricLockWrapperState extends State<BiometricLockWrapper>
       }
     } catch (e) {
       debugPrint("Unexpected biometric auth error: $e");
+      await _analytics.logEvent(
+        name: "biometrics_unlock_unexpected_error",
+        parameters: {"error": e.toString()},
+      );
       if (mounted) {
         setState(() {
           _isAuthenticating = false;
