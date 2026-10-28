@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -597,12 +598,10 @@ class SyncService {
         if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.frontImagePath}");
           if (!localFile.existsSync()) {
-            bool downloadSuccess = false;
             try {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
-              downloadSuccess = true;
             } catch (_) {
               // Image doesn't exist on server (e.g. legacy backup). Clear path to stop 400 Bad Request warnings.
               watch.frontImagePath = "";

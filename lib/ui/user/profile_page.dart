@@ -13,6 +13,7 @@ import 'package:wristcheck/ui/user/update_password_page.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -488,7 +489,22 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       )
-                    : const SizedBox.shrink())
+                    : const SizedBox.shrink()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(45),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    icon: const FaIcon(FontAwesomeIcons.rotate, size: 16),
+                    label: const Text("Sync Now"),
+                    onPressed: () {
+                      FirebaseAnalytics.instance.logEvent(name: "manual_sync_triggered");
+                      SyncService.checkForConflictsAndSync();
+                    },
+                  ),
+                ),
               ],),
             ),
             Card(
