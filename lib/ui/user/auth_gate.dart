@@ -54,6 +54,7 @@ class _AuthGateState extends State<AuthGate> {
           _currentScreen = AuthScreenState.profile;
         });
       } else {
+        PurchaseApi.logOut();
         setState(() {
           _currentScreen = AuthGate.pendingOtpEmail.value != null 
               ? AuthScreenState.otp 

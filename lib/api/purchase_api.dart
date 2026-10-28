@@ -100,7 +100,15 @@ class PurchaseApi{
 
   static Future<void> logIn(String appUserID) async {
     try {
-      await Purchases.logIn(appUserID);
+      LogInResult logInResult = await Purchases.logIn(appUserID);
+      bool isPro = logInResult.customerInfo.entitlements.all["WristCheck Pro"]?.isActive ?? false;
+
+      final wristCheckController = Get.isRegistered<WristCheckController>()
+          ? Get.find<WristCheckController>()
+          : Get.put(WristCheckController());
+
+      wristCheckController.isAppPro(isPro);
+      await WristCheckPreferences.setAppPurchasedStatus(isPro);
     } on PlatformException catch (e) {
       WristCheckErrorHandling.surfacePlatformError(e);
     } catch (e) {
@@ -110,7 +118,15 @@ class PurchaseApi{
 
   static Future<void> logOut() async {
     try {
-      await Purchases.logOut();
+      CustomerInfo customerInfo = await Purchases.logOut();
+      bool isPro = customerInfo.entitlements.all["WristCheck Pro"]?.isActive ?? false;
+
+      final wristCheckController = Get.isRegistered<WristCheckController>()
+          ? Get.find<WristCheckController>()
+          : Get.put(WristCheckController());
+
+      wristCheckController.isAppPro(isPro);
+      await WristCheckPreferences.setAppPurchasedStatus(isPro);
     } on PlatformException catch (e) {
       WristCheckErrorHandling.surfacePlatformError(e);
     } catch (e) {
