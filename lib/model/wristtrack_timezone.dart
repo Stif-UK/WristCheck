@@ -7,6 +7,7 @@ class WristTrackTimezone extends HiveObject {
   WristTrackTimezone({
     this.title = '',
     this.offset = 0.0,
+    this.timeZoneId,
   });
 
   @HiveField(0)
@@ -14,4 +15,7 @@ class WristTrackTimezone extends HiveObject {
 
   @HiveField(1)
   late double offset;
+
+  @HiveField(2)
+  String? timeZoneId;
 }

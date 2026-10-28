@@ -12,6 +12,7 @@ import 'package:wristcheck/api/keys.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/controllers/language_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:wristcheck/model/measurement.dart';
 import 'package:wristcheck/model/wristtrack_timezone.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
@@ -161,7 +162,8 @@ Future main() async{
     ),
   );
 
-  //Initialise Hive Database and open box
+  //Initialise TimeZone DB and Hive Database
+  tz.initializeTimeZones();
   await Hive.initFlutter();
   await ImagesUtil.init();
   Hive.registerAdapter(WatchesAdapter());

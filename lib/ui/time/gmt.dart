@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -28,15 +29,53 @@ class GMT extends StatelessWidget {
     }
   }
 
-  DateTime _calculateTimeForOffset(DateTime referenceTime, double offset) {
-    final offsetMinutes = (offset * 60).round();
+  List<String> _getIanaLocations() {
+    final locations = tz.timeZoneDatabase.locations.keys.toList();
+    locations.sort();
+    return locations;
+  }
+
+  DateTime _calculateTime(DateTime referenceTime, WristTrackTimezone item) {
+    if (item.timeZoneId != null && item.timeZoneId!.isNotEmpty) {
+      try {
+        final location = tz.getLocation(item.timeZoneId!);
+        return tz.TZDateTime.now(location);
+      } catch (_) {
+        // Fallback to manual offset if location lookup fails
+      }
+    }
+    final offsetMinutes = (item.offset * 60).round();
     return referenceTime.add(Duration(minutes: offsetMinutes));
+  }
+
+  String _getSubtitleText(WristTrackTimezone item) {
+    if (item.timeZoneId != null && item.timeZoneId!.isNotEmpty) {
+      try {
+        final location = tz.getLocation(item.timeZoneId!);
+        final nowInLoc = tz.TZDateTime.now(location);
+        final tzAbbr = nowInLoc.timeZoneName;
+        final offsetMinutes = nowInLoc.timeZoneOffset.inMinutes;
+        final sign = offsetMinutes >= 0 ? '+' : '-';
+        final absMins = offsetMinutes.abs();
+        final h = absMins ~/ 60;
+        final m = absMins % 60;
+        final offsetStr = m == 0 ? '$sign${h}h' : '$sign$h:${m.toString().padLeft(2, "0")}h';
+        return '$tzAbbr ($offsetStr) • ${item.timeZoneId}';
+      } catch (_) {
+        // Fallback to manual offset text
+      }
+    }
+    return formatOffset(item.offset);
   }
 
   void _showTimezoneDialog(BuildContext context, [WristTrackTimezone? timezoneToEdit]) {
     final titleController = TextEditingController(text: timezoneToEdit?.title ?? '');
     double selectedOffset = timezoneToEdit?.offset ?? 0.0;
+    String? selectedTimeZoneId = timezoneToEdit?.timeZoneId;
+    bool isCityMode = timezoneToEdit == null ? true : (timezoneToEdit.timeZoneId != null && timezoneToEdit.timeZoneId!.isNotEmpty);
+
     final formKey = GlobalKey<FormState>();
+    final allIanaLocations = _getIanaLocations();
 
     showDialog(
       context: context,
@@ -45,45 +84,130 @@ class GMT extends StatelessWidget {
           builder: (context, setDialogState) {
             return AlertDialog(
               title: Text(timezoneToEdit == null ? 'Add Timezone' : 'Edit Timezone'),
-              content: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextFormField(
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        labelText: 'Title / Location',
-                        hintText: 'e.g. New York, Tokyo',
+              content: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ChoiceChip(
+                              label: const Text('City Search'),
+                              selected: isCityMode,
+                              onSelected: (selected) {
+                                if (selected) {
+                                  setDialogState(() {
+                                    isCityMode = true;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ChoiceChip(
+                              label: const Text('Manual Offset'),
+                              selected: !isCityMode,
+                              onSelected: (selected) {
+                                if (selected) {
+                                  setDialogState(() {
+                                    isCityMode = false;
+                                    selectedTimeZoneId = null;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a title';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    DropdownButtonFormField<double>(
-                      initialValue: availableOffsets.contains(selectedOffset) ? selectedOffset : 0.0,
-                      decoration: const InputDecoration(
-                        labelText: 'Time Offset',
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: titleController,
+                        decoration: const InputDecoration(
+                          labelText: 'Title / Label',
+                          hintText: 'e.g. Home, Office, New York',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a title';
+                          }
+                          return null;
+                        },
                       ),
-                      items: availableOffsets.map((double offset) {
-                        return DropdownMenuItem<double>(
-                          value: offset,
-                          child: Text(formatOffset(offset)),
-                        );
-                      }).toList(),
-                      onChanged: (double? newValue) {
-                        if (newValue != null) {
-                          setDialogState(() {
-                            selectedOffset = newValue;
-                          });
-                        }
-                      },
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      if (isCityMode) ...[
+                        Autocomplete<String>(
+                          initialValue: TextEditingValue(text: selectedTimeZoneId ?? ''),
+                          optionsBuilder: (TextEditingValue textEditingValue) {
+                            if (textEditingValue.text.isEmpty) {
+                              return const Iterable<String>.empty();
+                            }
+                            final query = textEditingValue.text.toLowerCase().replaceAll(' ', '_');
+                            return allIanaLocations.where((location) {
+                              return location.toLowerCase().contains(query);
+                            }).take(20);
+                          },
+                          onSelected: (String selection) {
+                            setDialogState(() {
+                              selectedTimeZoneId = selection;
+                              if (titleController.text.trim().isEmpty) {
+                                final cityName = selection.split('/').last.replaceAll('_', ' ');
+                                titleController.text = cityName;
+                              }
+                            });
+                          },
+                          fieldViewBuilder: (context, autocompleteController, focusNode, onFieldSubmitted) {
+                            return TextFormField(
+                              controller: autocompleteController,
+                              focusNode: focusNode,
+                              decoration: const InputDecoration(
+                                labelText: 'Search City / IANA Zone',
+                                hintText: 'Type city (e.g. New York, London, Tokyo)',
+                                prefixIcon: Icon(Icons.search),
+                              ),
+                              validator: (value) {
+                                if (isCityMode && (selectedTimeZoneId == null || selectedTimeZoneId!.isEmpty)) {
+                                  return 'Please select a city from the list';
+                                }
+                                return null;
+                              },
+                            );
+                          },
+                        ),
+                        if (selectedTimeZoneId != null && selectedTimeZoneId!.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              'Selected: $selectedTimeZoneId',
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.green),
+                            ),
+                          ),
+                      ] else ...[
+                        DropdownButtonFormField<double>(
+                          initialValue: availableOffsets.contains(selectedOffset) ? selectedOffset : 0.0,
+                          decoration: const InputDecoration(
+                            labelText: 'Time Offset',
+                          ),
+                          items: availableOffsets.map((double offset) {
+                            return DropdownMenuItem<double>(
+                              value: offset,
+                              child: Text(formatOffset(offset)),
+                            );
+                          }).toList(),
+                          onChanged: (double? newValue) {
+                            if (newValue != null) {
+                              setDialogState(() {
+                                selectedOffset = newValue;
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
               actions: [
@@ -95,14 +219,18 @@ class GMT extends StatelessWidget {
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       final title = titleController.text.trim();
+                      final timeZoneIdToSave = isCityMode ? selectedTimeZoneId : null;
+
                       if (timezoneToEdit != null) {
                         timezoneToEdit.title = title;
                         timezoneToEdit.offset = selectedOffset;
+                        timezoneToEdit.timeZoneId = timeZoneIdToSave;
                         await timezoneToEdit.save();
                       } else {
                         final newTimezone = WristTrackTimezone(
                           title: title,
                           offset: selectedOffset,
+                          timeZoneId: timeZoneIdToSave,
                         );
                         await Boxes.getTimezones().add(newTimezone);
                       }
@@ -197,7 +325,7 @@ class GMT extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Tap "Add Location" to start tracking multiple timezones.',
+                        'Tap "Add Location" to search for a city or set a custom time offset.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -215,22 +343,23 @@ class GMT extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: timezones.length,
                   itemBuilder: (context, index) {
-                    final tz = timezones[index];
-                    final calculatedTime = _calculateTimeForOffset(referenceTime, tz.offset);
+                    final tzItem = timezones[index];
+                    final calculatedTime = _calculateTime(referenceTime, tzItem);
                     final formattedTime = WristCheckFormatter.getShortTime(calculatedTime, isMilitary);
+                    final subtitleText = _getSubtitleText(tzItem);
 
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
                       child: ListTile(
-                        onTap: () => _showTimezoneDialog(context, tz),
+                        onTap: () => _showTimezoneDialog(context, tzItem),
                         title: Text(
-                          tz.title,
+                          tzItem.title,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
                         ),
                         subtitle: Text(
-                          formatOffset(tz.offset),
+                          subtitleText,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         trailing: Row(
@@ -244,7 +373,7 @@ class GMT extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete_outline, color: Colors.grey),
-                              onPressed: () => _confirmDelete(context, tz),
+                              onPressed: () => _confirmDelete(context, tzItem),
                             ),
                           ],
                         ),
