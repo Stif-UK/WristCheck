@@ -26,6 +26,7 @@ class AuthGate extends StatefulWidget {
 class _AuthGateState extends State<AuthGate> {
   late StreamSubscription<AuthState> _authStateSubscription;
   AuthScreenState _currentScreen = AuthScreenState.login;
+  bool _wasLoggedIn = false;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _AuthGateState extends State<AuthGate> {
     // Check initial state
     final session = Supabase.instance.client.auth.currentSession;
     if (session != null) {
+      _wasLoggedIn = true;
       _currentScreen = AuthScreenState.profile;
     } else if (WristCheckPreferences.getPendingOtpEmail() != null) {
       _currentScreen = AuthScreenState.otp;
@@ -43,6 +45,7 @@ class _AuthGateState extends State<AuthGate> {
     _authStateSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final session = data.session;
       if (session != null) {
+        _wasLoggedIn = true;
         // Clear pending OTP on successful login
         WristCheckPreferences.setPendingOtpEmail(null);
         AuthGate.pendingOtpEmail.value = null;
@@ -54,7 +57,10 @@ class _AuthGateState extends State<AuthGate> {
           _currentScreen = AuthScreenState.profile;
         });
       } else {
-        PurchaseApi.logOut();
+        if (_wasLoggedIn) {
+          _wasLoggedIn = false;
+          PurchaseApi.logOut();
+        }
         setState(() {
           _currentScreen = AuthGate.pendingOtpEmail.value != null 
               ? AuthScreenState.otp 

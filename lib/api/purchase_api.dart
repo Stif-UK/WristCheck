@@ -128,6 +128,15 @@ class PurchaseApi{
       wristCheckController.isAppPro(isPro);
       await WristCheckPreferences.setAppPurchasedStatus(isPro);
     } on PlatformException catch (e) {
+      if (e.code == '30081' || (e.message?.contains('anonymous') ?? false)) {
+        return;
+      }
+      try {
+        var errorCode = PurchasesErrorHelper.getErrorCode(e);
+        if (errorCode.name == 'logOutWithAnonymousUserError') {
+          return;
+        }
+      } catch (_) {}
       WristCheckErrorHandling.surfacePlatformError(e);
     } catch (e) {
       print('Error logging out of RevenueCat: $e');
