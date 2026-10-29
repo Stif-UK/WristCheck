@@ -5,18 +5,22 @@ class WhatsNewCopy{
 
   static String getLatestVersionCopy(){
     return
-        "### Version 1.20.0 \n"
+        "### Version 2.0.0 \n"
         "\n"
-            "* New Data fields & Charts - Primary & Secondary colour, watch value, year of manufacture and [Pro only] power reserve.\n"
-            "* New case material option - white gold\n"
-            "* New date complication options - Pointer day-date & Subdial day-date\n"
-            "* [Pro] Moonphase calculator updated with more information and future milestone dates\n"
-            "* Data completeness view added (found in Sidebar > App Data) to help you plug data gaps\n"
-            "* Server driven banner notifications added to keep you updated\n"
-            "* Improvement: Database updated to latest library version\n"
-            "* Improvement: App startup sequence further reviewed to better support offline use\n"
-            "* Bug fix: Fixed memory leak issue on Time Setting screen\n"
-            "* Bug fix: Fixed issue with date handling when using the app in any language other than English";
+            "## Welcome to WristTrack 2.0!\n"
+            "This represents the biggest update to WristTrack since launching over three years ago.\n"
+            "* New account & cloud sync system - login to WristTrack to sync your watch data, images and accuracy measurements across devices.\n"
+            "* Data remains local-first (so your app will still work offline), but now updates data between devices automatically, in real time.\n"
+            "* Improved iPad and Tablet support\n"
+            "* Biometric Login added - off by default, but if you want to lock down the app you can enable fingerprint/face login via Privacy settings\n"
+            "* Image gallery view now shows all images, not just the primary image of each watch\n"
+            "* 'Luxury' added to Category list\n"
+            "* Slight animation added to the watchbox views (can be disabled in settings)\n"
+            "* [Pro] Moonphase calculator now shows days since last new moon\n"
+            "* [Pro] GMT system overhauled - search by location and save multiple timezones for reference\n"
+            "* Improvement: Charts in Wrist Recap show an 'expand' icon which increases the chart size when pressed\n"
+            "* Bug Fix: Colour charts now resize gracefully based on the number of data points\n"
+            "";
 
   }
 
@@ -30,6 +34,22 @@ class WhatsNewCopy{
             physics: ClampingScrollPhysics(),
               data:
                   "## Latest Version:\n"
+                      "### Version 2.0.0 \n"
+                      "\n"
+                      "This represents the biggest update to WristTrack since launching over three years ago.\n"
+                      "* New account & cloud sync system - login to WristTrack to sync your watch data, images and accuracy measurements across devices.\n"
+                      "* Data remains local-first (so your app will still work offline), but now updates data between devices automatically, in real time.\n"
+                      "* Improved iPad and Tablet support\n"
+                      "* Biometric Login added - off by default, but if you want to lock down the app you can enable fingerprint/face login via Privacy settings\n"
+                      "* Image gallery view now shows all images, not just the primary image of each watch\n"
+                      "* 'Luxury' added to Category list\n"
+                      "* Slight animation added to the watchbox views (can be disabled in settings)\n"
+                      "* [Pro] Moonphase calculator now shows days since last new moon\n"
+                      "* [Pro] GMT system overhauled - search by location and save multiple timezones for reference\n"
+                      "* Improvement: Charts in Wrist Recap show an 'expand' icon which increases the chart size when pressed\n"
+                      "* Bug Fix: Colour charts now resize gracefully based on the number of data points\n"
+                      "---\n\n"
+
                       "### Version 1.20.0 \n"
                       "\n"
                       "* New Data fields & Charts - Primary & Secondary colour, watch value, year of manufacture and [Pro only] power reserve.\n"

@@ -40,18 +40,9 @@ class WhatsNewBottomSheet extends StatelessWidget {
             ),
             const Divider(thickness: 2),
             Expanded(
-              child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Markdown(
-                      data: WhatsNewCopy.getLatestVersionCopy(),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+              child: Markdown(
+                data: WhatsNewCopy.getLatestVersionCopy(),
+                padding: const EdgeInsets.only(bottom: 20),
               ),
             ),
           ],
