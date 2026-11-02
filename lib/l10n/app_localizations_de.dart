@@ -1672,7 +1672,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get emptyWatchboxCopy =>
-      'Deine Uhrenbox ist aktuell leer.\n\nDrücke den roten Button, um Uhren zu deiner Sammlung hinzuzufügen.\n\nLege App-Einstellungen wie dein bevorzugtes Währungsformat fest, indem du auf das Zahnrad-Symbol oben rechts drückst.';
+      'Deine Uhrenbox ist aktuell leer.\n\nDrücke den roten Button, um Uhren zu deiner Sammlung hinzuzufügen, oder klicke auf das Profil-Symbol oben rechts, um dich einzuloggen.\n\nUm App-Einstellungen wie bevorzugte Sprache und Währungsformat festzulegen, öffne die Seitenleiste und wähle \'Einstellungen\'';
 
   @override
   String get emptySoldCopy =>

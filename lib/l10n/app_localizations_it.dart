@@ -1655,7 +1655,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get emptyWatchboxCopy =>
-      'La tua scatola degli orologi è vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione\n\nImposta le preferenze dell\'app, come il formato valuta, premendo l\'icona dell\'ingranaggio in alto a destra';
+      'La tua scatola degli orologi è attualmente vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione, o clicca sull\'icona del profilo in alto a destra per accedere.\n\nPer impostare le preferenze dell\'app, come la lingua e il formato valuta preferiti, apri la barra laterale e seleziona \'Impostazioni\'';
 
   @override
   String get emptySoldCopy =>

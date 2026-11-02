@@ -3135,7 +3135,7 @@ abstract class AppLocalizations {
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:
-  /// **'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection\n\nSet app preferences, such as preferred currency format, by pressing the cog icon in the top right'**
+  /// **'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection, or click the profile icon in the top right to log in\n\nTo set app preferences, such as preferred language and currency format open the sidebar and select \'Settings\''**
   String get emptyWatchboxCopy;
 
   /// No description provided for @emptySoldCopy.

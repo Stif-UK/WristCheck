@@ -1664,7 +1664,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get emptyWatchboxCopy =>
-      'Tu caja de relojes está actualmente vacía.\n\nPresiona el botón rojo para añadir relojes a tu colección.\n\nConfigura las preferencias de la aplicación, como el formato de moneda preferido, presionando el ícono de engranaje en la parte superior derecha.';
+      'Tu caja de relojes está actualmente vacía.\n\nPresiona el botón rojo para añadir relojes a tu colección, o haz clic en el ícono de perfil en la parte superior derecha para iniciar sesión.\n\nPara configurar las preferencias de la aplicación, como el idioma y el formato de moneda preferidos, abre la barra lateral y selecciona \'Ajustes\'';
 
   @override
   String get emptySoldCopy =>
