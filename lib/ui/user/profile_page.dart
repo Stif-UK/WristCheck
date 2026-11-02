@@ -590,6 +590,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final hasPassword = AuthService().hasPassword();
     final passwordController = TextEditingController();
     bool isReAuthenticating = false;
+    bool isObscured = true;
 
     if (hasPassword) {
       Get.dialog(
@@ -605,10 +606,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 12),
                   TextField(
                     controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
+                    obscureText: isObscured,
+                    decoration: InputDecoration(
                       labelText: "Current Password",
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: FaIcon(
+                          isObscured ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          setDialogState(() {
+                            isObscured = !isObscured;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],

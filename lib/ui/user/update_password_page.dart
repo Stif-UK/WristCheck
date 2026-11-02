@@ -20,6 +20,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   
   bool _isLoading = false;
+  bool _obscurePasswords = true;
 
   @override
   void dispose() {
@@ -79,7 +80,12 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                     controller: _currentPasswordController,
                     enabled: true,
                     maxLines: 1,
-                    obscureText: true,
+                    obscureText: _obscurePasswords,
+                    onObscureTextToggle: () {
+                      setState(() {
+                        _obscurePasswords = !_obscurePasswords;
+                      });
+                    },
                     textCapitalization: TextCapitalization.none,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -97,7 +103,12 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   controller: _newPasswordController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -126,7 +137,12 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   controller: _verifyPasswordController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

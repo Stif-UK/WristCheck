@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
-class WatchFormField extends StatelessWidget {
+class WatchFormField extends StatefulWidget {
   const WatchFormField({
     Key? key,
     required this.fieldTitle,
@@ -21,6 +22,7 @@ class WatchFormField extends StatelessWidget {
     this.focusNode,
     this.onFieldSubmitted,
     this.obscureText = false,
+    this.onObscureTextToggle,
   }) : super(key: key);
 
   final String fieldTitle;
@@ -38,30 +40,51 @@ class WatchFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final VoidCallback? onFieldSubmitted;
   final bool obscureText;
+  final VoidCallback? onObscureTextToggle;
 
+  @override
+  State<WatchFormField> createState() => _WatchFormFieldState();
+}
+
+class _WatchFormFieldState extends State<WatchFormField> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+  }
+
+  @override
+  void didUpdateWidget(covariant WatchFormField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.obscureText != oldWidget.obscureText) {
+      _obscureText = widget.obscureText;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var date = datePicker ?? false;
+    var date = widget.datePicker ?? false;
     return Padding(
       padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(fieldTitle,
+          Text(widget.fieldTitle,
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.bodyLarge,),
           TextFormField(
-            keyboardType: keyboardType,
-            enabled: enabled,
-            textCapitalization: textCapitalization,
-            controller: controller,
-            minLines: minLines,
-            maxLines: obscureText ? 1 : maxLines,
-            validator: validator,
-            focusNode: focusNode,
-            obscureText: obscureText,
-            onFieldSubmitted: onFieldSubmitted != null ? (_) => onFieldSubmitted!() : null,
+            keyboardType: widget.keyboardType,
+            enabled: widget.enabled,
+            textCapitalization: widget.textCapitalization,
+            controller: widget.controller,
+            minLines: widget.minLines,
+            maxLines: _obscureText ? 1 : widget.maxLines,
+            validator: widget.validator,
+            focusNode: widget.focusNode,
+            obscureText: _obscureText,
+            onFieldSubmitted: widget.onFieldSubmitted != null ? (_) => widget.onFieldSubmitted!() : null,
             //If datepicker is requested, show picker and add to controller
             onTap: date? () async {
               DateTime? pickedDate = await showDatePicker(
@@ -71,11 +94,32 @@ class WatchFormField extends StatelessWidget {
                   lastDate: DateTime(2100)
               );
               if(pickedDate != null){
-                controller.text = WristCheckFormatter.getFormattedDate(pickedDate);
+                widget.controller.text = WristCheckFormatter.getFormattedDate(pickedDate);
             }
             }
                 :null,
-            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(icon, context, hintText)
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+              widget.icon, 
+              context, 
+              widget.hintText,
+              widget.obscureText
+                  ? IconButton(
+                      icon: FaIcon(
+                        _obscureText ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+                        size: 20,
+                        color: Theme.of(context).hintColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                        if (widget.onObscureTextToggle != null) {
+                          widget.onObscureTextToggle!();
+                        }
+                      },
+                    )
+                  : null,
+            )
 
           ),
         ],

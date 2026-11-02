@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WristCheckFormFieldDecoration {
-  static InputDecoration getFormFieldDecoration(Widget? icon, BuildContext context, [String? hintText]) {
+  static InputDecoration getFormFieldDecoration(Widget? icon, BuildContext context, [String? hintText, Widget? suffixIcon]) {
     return InputDecoration(
         icon: icon,
+        suffixIcon: suffixIcon,
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 3, color: Theme.of(context).focusColor),
             borderRadius: BorderRadius.circular(20.0)

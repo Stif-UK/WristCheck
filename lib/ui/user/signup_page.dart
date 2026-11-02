@@ -22,6 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+  bool _obscurePasswords = true;
 
   @override
   void initState() {
@@ -110,7 +111,12 @@ class _SignupPageState extends State<SignupPage> {
                   controller: _passwordController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -139,7 +145,12 @@ class _SignupPageState extends State<SignupPage> {
                   controller: _passwordVerifyController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

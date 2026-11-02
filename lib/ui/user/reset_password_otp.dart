@@ -20,6 +20,7 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   
   bool _isLoading = false;
+  bool _obscurePasswords = true;
 
   @override
   void dispose() {
@@ -106,7 +107,12 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                   controller: _passwordController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -135,7 +141,12 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                   controller: _passwordVerifyController,
                   enabled: true,
                   maxLines: 1,
-                  obscureText: true,
+                  obscureText: _obscurePasswords,
+                  onObscureTextToggle: () {
+                    setState(() {
+                      _obscurePasswords = !_obscurePasswords;
+                    });
+                  },
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
