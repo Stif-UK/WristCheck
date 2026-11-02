@@ -567,7 +567,7 @@
   "dateComplicationsDigitalDate" : "Fecha Digital",
 
   "@_WATCHBOX" : {},
-  "emptyWatchboxCopy" : "Tu caja de relojes está actualmente vacía.\n\nPresiona el botón rojo para añadir relojes a tu colección.\n\nConfigura las preferencias de la aplicación, como el formato de moneda preferido, presionando el ícono de engranaje en la parte superior derecha.",
+  "emptyWatchboxCopy" : "Tu caja de relojes está actualmente vacía.\n\nPresiona el botón rojo para añadir relojes a tu colección, o haz clic en el ícono de perfil en la parte superior derecha para iniciar sesión.\n\nPara configurar las preferencias de la aplicación, como el idioma y el formato de moneda preferidos, abre la barra lateral y selecciona 'Ajustes'",
   "emptySoldCopy" : "No tienes ningún reloj vendido en tu colección.\n\nPuedes marcar un reloj como vendido editando su estado.\n",
   "emptyWishlistCopy" : "No estás realizando el seguimiento de ningún reloj en tu lista de deseos.\n\nPara añadir un reloj a tu lista de deseos, crea un nuevo registro de reloj y establece su estado en 'Lista de Deseos'.\n",
   "emptyFavouritesCopy" : "Aún no tienes ningún reloj marcado como 'favorito'.\n\nPara marcar un reloj como favorito, activa el interruptor en la pantalla de detalles del reloj.\n",

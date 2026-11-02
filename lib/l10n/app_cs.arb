@@ -567,7 +567,7 @@
   "dateComplicationsDigitalDate" : "Digitální datum",
 
   "@_WATCHBOX" : {},
-  "emptyWatchboxCopy" : "Vaše hodinkovnice je momentálně prázdná.\n\nStisknutím červeného tlačítka přidejte hodinky do své sbírky\n\nNastavte předvolby aplikace, jako je preferovaný formát měny, stisknutím ikony ozubeného kola v pravém horním rohu",
+  "emptyWatchboxCopy" : "Vaše hodinkovnice je momentálně prázdná.\n\nStisknutím červeného tlačítka přidejte hodinky do své sbírky, nebo kliknutím na ikonu profilu v pravém horním rohu se přihlaste.\n\nChcete-li nastavit předvolby aplikace, jako je preferovaný jazyk a formát měny, otevřete postranní panel a vyberte 'Nastavení'",
   "emptySoldCopy" : "Ve své sbírce nemáte žádné prodané hodinky.\n\nHodinky můžete označit jako prodané úpravou jejich stavu.\n",
   "emptyWishlistCopy" : "Ve svém seznamu přání nesledujete žádné hodinky.\n\nChcete-li přidat hodinky do seznamu přání, vytvořte nový záznam hodinek a nastavte jejich stav na 'Seznam přání'.\n",
   "emptyFavouritesCopy" : "Zatím nemáte žádné hodinky označené jako 'oblíbené'. \n\nChcete-li označit hodinky jako oblíbené, upravte přepínač na obrazovce podrobností o hodinkách.\n",

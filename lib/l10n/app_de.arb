@@ -567,7 +567,7 @@
   "dateComplicationsDigitalDate" : "Digitales Datum",
 
   "@_WATCHBOX" : {},
-  "emptyWatchboxCopy" : "Deine Uhrenbox ist aktuell leer.\n\nDrücke den roten Button, um Uhren zu deiner Sammlung hinzuzufügen.\n\nLege App-Einstellungen wie dein bevorzugtes Währungsformat fest, indem du auf das Zahnrad-Symbol oben rechts drückst.",
+  "emptyWatchboxCopy" : "Deine Uhrenbox ist aktuell leer.\n\nDrücke den roten Button, um Uhren zu deiner Sammlung hinzuzufügen, oder klicke auf das Profil-Symbol oben rechts, um dich einzuloggen.\n\nUm App-Einstellungen wie bevorzugte Sprache und Währungsformat festzulegen, öffne die Seitenleiste und wähle 'Einstellungen'",
   "emptySoldCopy" : "Du hast keine verkauften Uhren in deiner Sammlung.\n\nDu kannst eine Uhr als verkauft markieren, indem du ihren Status bearbeitest.\n",
   "emptyWishlistCopy" : "Du hast keine Uhren auf deiner Wunschliste.\n\nUm eine Uhr zur Wunschliste hinzuzufügen, erstelle einen neuen Uhreneintrag und setze den Status auf 'Wunschliste'.\n",
   "emptyFavouritesCopy" : "Du hast noch keine Uhren als 'Favorit' markiert.\n\nUm eine Uhr als Favorit zu markieren, aktiviere den Schalter auf der Detailseite der Uhr.\n",

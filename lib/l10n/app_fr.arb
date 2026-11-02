@@ -567,7 +567,7 @@
   "dateComplicationsDigitalDate" : "Date digitale",
 
   "@_WATCHBOX" : {},
-  "emptyWatchboxCopy" : "Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection.\n\nDéfinissez vos préférences, comme le format de devise, en appuyant sur l'icône d'engrenage en haut à droite.",
+  "emptyWatchboxCopy" : "Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection, ou cliquez sur l'icône de profil en haut à droite pour vous connecter.\n\nPour définir les préférences de l'application, comme la langue et le format de devise préférés, ouvrez la barre latérale et sélectionnez 'Paramètres'",
   "emptySoldCopy" : "Vous n'avez aucune montre vendue dans votre collection.\n\nVous pouvez marquer une montre comme vendue en modifiant son statut.\n",
   "emptyWishlistCopy" : "Votre liste de souhaits est vide.\n\nPour ajouter une montre à votre liste de souhaits, créez une nouvelle fiche et réglez son statut sur « Liste de souhaits ».\n",
   "emptyFavouritesCopy" : "Vous n'avez pas encore de montres marquées comme « favorite ».\n\nPour marquer une montre comme favorite, activez le bouton bascule sur l'écran de détails de la montre.\n",

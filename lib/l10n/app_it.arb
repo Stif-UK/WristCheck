@@ -570,7 +570,7 @@
   "dateComplicationsDigitalDate" : "Data Digitale",
 
   "@_WATCHBOX" : {},
-  "emptyWatchboxCopy" : "La tua scatola degli orologi è vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione\n\nImposta le preferenze dell'app, come il formato valuta, premendo l'icona dell'ingranaggio in alto a destra",
+  "emptyWatchboxCopy" : "La tua scatola degli orologi è attualmente vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione, o clicca sull'icona del profilo in alto a destra per accedere.\n\nPer impostare le preferenze dell'app, come la lingua e il formato valuta preferiti, apri la barra laterale e seleziona 'Impostazioni'",
   "emptySoldCopy" : "Non hai orologi venduti nella tua collezione.\n\nPuoi contrassegnare un orologio come venduto modificandone lo stato.\n",
   "emptyWishlistCopy" : "Non stai tracciando orologi nella tua lista dei desideri.\n\nPer aggiungere un orologio alla lista, crea un nuovo record e imposta lo stato su 'Lista dei desideri'.\n",
   "emptyFavouritesCopy" : "Non hai ancora orologi contrassegnati come 'preferiti'. \n\nPer farlo, usa l'interruttore nella schermata dei dettagli dell'orologio.\n",
