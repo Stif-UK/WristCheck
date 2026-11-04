@@ -45,11 +45,7 @@ class _BackupRestoreState extends State<BackupRestore> {
         setState(() {
           banner = BannerAd(
               adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.wishlistPageBannerAdUnitId,
-              // If the device screen is large enough and in portrait orientation, display a larger ad
-              size: MediaQuery.of(context).orientation == Orientation.portrait &&
-                      MediaQuery.of(context).size.height > 560.0
-                  ? AdSize.mediumRectangle
-                  : AdSize.largeBanner,
+              size: AdSize.largeBanner,
               request: const AdRequest(),
               listener: adState.adListener)
             ..load();
@@ -175,7 +171,7 @@ class _BackupRestoreState extends State<BackupRestore> {
               ],
             ),
           ),
-          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildRectangleSpace(banner, context),
+          purchaseStatus? const SizedBox(height: 0,) : AdWidgetHelper.buildLargeAdSpace(banner, context),
           const SizedBox(height: 50,)
         ],
       ),
