@@ -26,12 +26,20 @@ class Boxes {
    */
   static Box<Watches> getWatches() {
     //Check first that box is open, if it isn't re-open it before returning.
-    return Hive.box<Watches>("WatchBox").isOpen? Hive.box<Watches>("WatchBox") : openAndReturn();
+    if (!Hive.isBoxOpen("WatchBox")) {
+      return openAndReturn();
+    }
+    return Hive.box<Watches>("WatchBox");
   }
 
   static Box<Watches> openAndReturn(){
-    Hive.openBox<Watches>("WatchBox");
-    return Hive.box<Watches>("WatchBox");
+    // In Flutter Hive CE, openBox is asynchronous, but this method is synchronous.
+    // If the box isn't open, we should technically throw or make the caller await.
+    // However, Hive CE caches boxes in memory after the first open, 
+    // so this synchronous fallback should only hit if the box was never opened or was closed.
+    // We'll return it synchronously if we can, but since openBox is async, we can't await it here.
+    // The main.dart initialization should prevent this from ever happening unless a box is explicitly closed.
+    throw HiveError('WatchBox is not open. Ensure it is opened during initialization.');
   }
 
   /*

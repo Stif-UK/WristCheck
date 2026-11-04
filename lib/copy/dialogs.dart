@@ -234,8 +234,7 @@ class WristCheckDialogs {
         //Show snackbar before popping to ensure valid context
         Get.snackbar(AppLocalizations.of(Get.context!)!.deleteWatchSnackbarConfirmation, AppLocalizations.of(Get.context!)!.deleteWatchSnackbarText(currentWatch.toString()));
         Navigator.pop(context); //Close the dialog
-        Get.to(WristCheckHome());
-
+        Get.offAll(() => WristCheckHome()); // Clear the stack and return home
       },
     );
 

@@ -95,7 +95,9 @@ class DatesTab extends StatelessWidget {
 
   Widget _timeInCollectionRow(){
     if(currentWatch != null){
-      watchViewController.updateTimeInCollection(WatchMethods.calculateTimeInCollection(currentWatch!, watchViewController.showDays.value));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        watchViewController.updateTimeInCollection(WatchMethods.calculateTimeInCollection(currentWatch!, watchViewController.showDays.value));
+      });
     }
     timeInCollectionFieldController.value = TextEditingValue(text: watchViewController.timeInCollection.value);
     return Row(
