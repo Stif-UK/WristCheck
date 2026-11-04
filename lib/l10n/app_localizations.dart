@@ -3702,6 +3702,12 @@ abstract class AppLocalizations {
   /// **'Canadian Dollar'**
   String get currencyCanadianDollar;
 
+  /// No description provided for @currencyTurkishLira.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkish Lira'**
+  String get currencyTurkishLira;
+
   /// No description provided for @caseMaterialNotEntered.
   ///
   /// In en, this message translates to:

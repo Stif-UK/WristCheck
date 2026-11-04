@@ -1,4 +1,4 @@
-enum LocationEnum {us, uk, dut, ger, irl, ind, jap, swiss, hun, pol, thai, nor, czh, my, phi, kor, bra, den, swe, can}
+enum LocationEnum {us, uk, dut, ger, irl, ind, jap, swiss, hun, pol, thai, nor, czh, my, phi, kor, bra, den, swe, can, tur}
 
 
 

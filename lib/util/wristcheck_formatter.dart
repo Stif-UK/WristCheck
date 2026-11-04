@@ -247,6 +247,9 @@ class WristCheckFormatter{
       case LocationEnum.can:
         returnText = "en_CA";
         break;
+      case LocationEnum.tur:
+        returnText = "tr_TR";
+        break;
     }
     return returnText;
   }
@@ -314,6 +317,9 @@ class WristCheckFormatter{
         break;
       case "en_CA":
         returnNum = LocationEnum.can;
+        break;
+      case "tr_TR":
+        returnNum = LocationEnum.tur;
         break;
       default:
         returnNum = LocationEnum.us;
@@ -385,6 +391,9 @@ class WristCheckFormatter{
         break;
       case LocationEnum.can:
         returnString = AppLocalizations.of(Get.context!)!.currencyCanadianDollar;
+        break;
+      case LocationEnum.tur:
+        returnString = AppLocalizations.of(Get.context!)!.currencyTurkishLira;
         break;
     }
 

@@ -2000,6 +2000,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get currencyCanadianDollar => 'Kanadský dolar';
 
   @override
+  String get currencyTurkishLira => 'Turecká lira';
+
+  @override
   String get caseMaterialNotEntered => 'Nezadáno';
 
   @override

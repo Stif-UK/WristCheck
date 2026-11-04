@@ -1969,6 +1969,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currencyCanadianDollar => 'Canadian Dollar';
 
   @override
+  String get currencyTurkishLira => 'Turkish Lira';
+
+  @override
   String get caseMaterialNotEntered => 'Not Entered';
 
   @override

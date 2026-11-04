@@ -2008,6 +2008,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get currencyCanadianDollar => 'Канадский доллар';
 
   @override
+  String get currencyTurkishLira => 'Турецкая лира';
+
+  @override
   String get caseMaterialNotEntered => 'Не указан';
 
   @override

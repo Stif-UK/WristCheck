@@ -1989,6 +1989,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get currencyCanadianDollar => 'Dólar Canadiense';
 
   @override
+  String get currencyTurkishLira => 'Lira Turca';
+
+  @override
   String get caseMaterialNotEntered => 'No Introducido';
 
   @override
