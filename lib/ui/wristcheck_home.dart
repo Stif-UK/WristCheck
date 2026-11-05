@@ -21,6 +21,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
+import 'package:wristcheck/controllers/sync_controller.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
@@ -101,21 +102,23 @@ class _WristCheckHomeState extends State<WristCheckHome> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Theme.of(context).textTheme.headlineSmall!.color!, width: 1),
               ),
-              child: IconButton(
-                iconSize: _avatarFile != null ? 36 : 20,
-                padding: _avatarFile != null ? EdgeInsets.zero : const EdgeInsets.all(8.0),
-                icon: _avatarFile != null 
-                    ? CircleAvatar(
-                        backgroundImage: FileImage(_avatarFile!),
-                        backgroundColor: Colors.transparent,
-                      )
-                    : const FaIcon(FontAwesomeIcons.user),
-                onPressed: () async {
-                  await Get.to(()=> const AuthGate());
-                  // Refresh the avatar after returning from AuthGate, in case they logged in/out or updated it
-                  _loadAvatar();
-                },
-              ),
+              child: Obx(() {
+                final avatar = SyncController.to.userAvatarFile.value;
+                return IconButton(
+                  iconSize: avatar != null ? 36 : 20,
+                  padding: avatar != null ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+                  icon: avatar != null 
+                      ? CircleAvatar(
+                          backgroundImage: FileImage(avatar),
+                          backgroundColor: Colors.transparent,
+                        )
+                      : const FaIcon(FontAwesomeIcons.user),
+                  onPressed: () async {
+                    await Get.to(()=> const AuthGate());
+                    SyncController.to.loadUserAvatar();
+                  },
+                );
+              }),
             ),
           ):
           IconButton(

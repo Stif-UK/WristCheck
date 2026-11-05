@@ -12,6 +12,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/controllers/sync_controller.dart';
 import 'package:wristcheck/privacy/biometric_lock_wrapper.dart';
 import 'package:wristcheck/model/enums/gallery_selection_enum.dart';
 import 'package:wristcheck/model/enums/watchbox_ordering.dart';
@@ -548,8 +549,15 @@ class ImagesUtil {
         
         await response.pipe(file.openWrite());
         
+        // Evict from flutter cache explicitly
+        PaintingBinding.instance.imageCache.evict(FileImage(file));
+        
         // Save the new URL to preferences so we don't download it again
         await WristCheckPreferences.setLastAvatarUrl(remoteUrl);
+
+        if (Get.isRegistered<SyncController>()) {
+          SyncController.to.loadUserAvatar();
+        }
       }
     } catch (e) {
       print("Failed to sync avatar: $e");

@@ -191,6 +191,9 @@ class SyncService {
           }
           await _syncImages(user.id);
 
+          // Phase 4: Avatar Sync
+          await _syncAvatar(user.id);
+
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'done';
           }
@@ -207,6 +210,16 @@ class SyncService {
     } finally {
       _isSyncing = false;
     }
+  }
+
+  static Future<void> _syncAvatar(String userId) async {
+    try {
+      await _supabase.auth.refreshSession();
+      final freshSignedUrl = await _supabase.storage.from('avatars').createSignedUrl('$userId/avatar.jpg', 60);
+      if (freshSignedUrl.isNotEmpty) {
+        await ImagesUtil.syncAvatar(freshSignedUrl);
+      }
+    } catch (_) {}
   }
 
   /// 1. Push local dirty changes to Supabase in a single batch
@@ -358,6 +371,28 @@ class SyncService {
             await localWatch.delete();
             debugPrint('SyncService: Deleted local watch due to remote soft-delete: ${localWatch.manufacturer} ${localWatch.model}');
           } else if (remoteTime.isAfter(localTime)) {
+            // If remote image paths or primary image index changed, clear stale local image files so they get re-downloaded fresh
+            if (localWatch.frontImagePath != remoteWatch.frontImagePath ||
+                localWatch.backImagePath != remoteWatch.backImagePath ||
+                localWatch.lumeImagePath != remoteWatch.lumeImagePath ||
+                localWatch.primaryImageIndex != remoteWatch.primaryImageIndex) {
+              try {
+                final directory = await getApplicationDocumentsDirectory();
+                if (localWatch.frontImagePath != null && localWatch.frontImagePath!.isNotEmpty) {
+                  final f = File("${directory.path}${localWatch.frontImagePath}");
+                  if (await f.exists()) await f.delete();
+                }
+                if (localWatch.backImagePath != null && localWatch.backImagePath!.isNotEmpty) {
+                  final f = File("${directory.path}${localWatch.backImagePath}");
+                  if (await f.exists()) await f.delete();
+                }
+                if (localWatch.lumeImagePath != null && localWatch.lumeImagePath!.isNotEmpty) {
+                  final f = File("${directory.path}${localWatch.lumeImagePath}");
+                  if (await f.exists()) await f.delete();
+                }
+              } catch (_) {}
+            }
+
             // Remote is newer, update local record properties
             localWatch.manufacturer = remoteWatch.manufacturer;
             localWatch.model = remoteWatch.model;
@@ -555,7 +590,7 @@ class SyncService {
     }
   }
 
-  /// 3. Download missing remote images via Supabase Storage
+  /// 3. Download missing remote images via Supabase Storage and evict from ImageCache
   static Future<void> _syncImages(String userId) async {
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
@@ -602,8 +637,9 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              // Evict stale image from Flutter's cache so UI instantly displays new thumbnail
+              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
             } catch (_) {
-              // Image doesn't exist on server (e.g. legacy backup). Clear path to stop 400 Bad Request warnings.
               watch.frontImagePath = "";
               watch.isDirty = true;
               await watch.save();
@@ -622,6 +658,7 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/back.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
             } catch (_) {
               watch.backImagePath = "";
               watch.isDirty = true;
@@ -641,6 +678,7 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/lume.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
             } catch (_) {
               watch.lumeImagePath = "";
               watch.isDirty = true;

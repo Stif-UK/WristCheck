@@ -212,21 +212,22 @@ class _ProfilePageState extends State<ProfilePage> {
             Stack(
               alignment: Alignment.center,
               children: [
-                CircleAvatar(
-                  radius: 100,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: _localAvatar != null
-                      ? FileImage(
-                          _localAvatar!,
-                          // This forces the ImageProvider to invalidate the cache when the UI updates
-                          // We use the last modified timestamp to bust the internal memory cache
-                          scale: 1.0,
-                        )
+                Obx(() {
+                  final avatar = SyncController.to.userAvatarFile.value;
+                  return CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: avatar != null
+                        ? FileImage(
+                            avatar,
+                            scale: 1.0,
+                          )
+                        : null,
+                    child: avatar == null
+                      ? const Icon(Icons.account_circle, size: 120, color: Colors.grey)
                       : null,
-                  child: _localAvatar == null
-                    ? const Icon(Icons.account_circle, size: 120, color: Colors.grey)
-                    : null,
-                ),
+                  );
+                }),
                 if (_isLoading)
                   const CircularProgressIndicator(),
               ],

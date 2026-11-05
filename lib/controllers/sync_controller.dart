@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/util/images_util.dart';
 
 enum SyncStatusState {
   upToDate,
@@ -17,6 +19,22 @@ class SyncController extends GetxController {
   final Rx<SyncStatusState> status = SyncStatusState.upToDate.obs;
   final Rx<DateTime?> lastSyncTime = Rx<DateTime?>(null);
   final RxString errorMessage = ''.obs;
+  final Rx<File?> userAvatarFile = Rx<File?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadUserAvatar();
+  }
+
+  Future<void> loadUserAvatar() async {
+    final file = await ImagesUtil.getLocalAvatar();
+    if (file != null && file.existsSync()) {
+      PaintingBinding.instance.imageCache.evict(FileImage(file));
+    }
+    userAvatarFile.value = file;
+    userAvatarFile.refresh();
+  }
 
   // Phase tracking
   final RxString currentPhase = 'none'.obs; // 'watches', 'accuracy', 'images', 'done'
