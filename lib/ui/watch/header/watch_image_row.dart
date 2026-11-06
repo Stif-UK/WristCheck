@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -20,10 +22,24 @@ class _WatchImageRowState extends State<WatchImageRow> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      if (widget.currentWatch == null || widget.watchViewController.watchViewState.value == WatchViewEnum.add) {
+        return _buildImageRow(widget.currentWatch);
+      }
+      return ValueListenableBuilder<Box<Watches>>(
+        valueListenable: Boxes.getWatches().listenable(keys: [widget.currentWatch!.key]),
+        builder: (context, box, _) {
+          final currentWatch = box.get(widget.currentWatch!.key) ?? widget.currentWatch!;
+          return _buildImageRow(currentWatch);
+        },
+      );
+    });
+  }
+
+  Widget _buildImageRow(Watches? currentWatch) {
       File? image;
       if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
-        if (widget.currentWatch != null) {
-          image = ImagesUtil.getImageSync(widget.currentWatch!, 0);
+        if (currentWatch != null) {
+          image = ImagesUtil.getImageSync(currentWatch, 0);
         }
       } else {
         image = widget.watchViewController.front.value
@@ -83,10 +99,10 @@ class _WatchImageRowState extends State<WatchImageRow> {
                   child: const Icon(Icons.add_a_photo_outlined),
                   onTap: () async {
                     var imageSource = await ImagesUtil.imageSourcePopUp(context);
-                    if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
+                      if (widget.watchViewController.watchViewState.value != WatchViewEnum.add) {
                       await ImagesUtil.pickAndSaveImage(
                         source: imageSource!,
-                        currentWatch: widget.currentWatch!,
+                        currentWatch: currentWatch!,
                         index: 0,
                       );
                     } else {
@@ -117,6 +133,5 @@ class _WatchImageRowState extends State<WatchImageRow> {
           ),
         ],
       );
-    });
   }
 }

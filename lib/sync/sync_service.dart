@@ -639,6 +639,7 @@ class SyncService {
               await localFile.writeAsBytes(bytes);
               // Evict stale image from Flutter's cache so UI instantly displays new thumbnail
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
+              await watch.save();
             } catch (_) {
               watch.frontImagePath = "";
               watch.isDirty = true;
@@ -659,6 +660,7 @@ class SyncService {
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
+              await watch.save();
             } catch (_) {
               watch.backImagePath = "";
               watch.isDirty = true;
@@ -679,6 +681,7 @@ class SyncService {
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
+              await watch.save();
             } catch (_) {
               watch.lumeImagePath = "";
               watch.isDirty = true;

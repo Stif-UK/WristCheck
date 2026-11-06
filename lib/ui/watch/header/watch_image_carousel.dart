@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -50,9 +52,23 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.currentWatch == null || widget.watchViewController.watchViewState.value == WatchViewEnum.add) {
+      return _buildCarousel(widget.currentWatch);
+    }
+
+    return ValueListenableBuilder<Box<Watches>>(
+      valueListenable: Boxes.getWatches().listenable(keys: [widget.currentWatch!.key]),
+      builder: (context, box, _) {
+        final currentWatch = box.get(widget.currentWatch!.key) ?? widget.currentWatch!;
+        return _buildCarousel(currentWatch);
+      },
+    );
+  }
+
+  Widget _buildCarousel(Watches? currentWatch) {
     List<File?> images;
-    if (widget.watchViewController.watchViewState.value != WatchViewEnum.add && widget.currentWatch != null) {
-      images = ImagesUtil.getAllImagesSync(widget.currentWatch!);
+    if (widget.watchViewController.watchViewState.value != WatchViewEnum.add && currentWatch != null) {
+      images = ImagesUtil.getAllImagesSync(currentWatch);
     } else {
       images = <File?>[
         widget.watchViewController.frontImage.value,
@@ -87,8 +103,8 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
                         onTap: (index) async {
                           widget.watchViewController.imageList[index].image == null ||
                                   widget.watchViewController.watchViewState == WatchViewEnum.add
-                              ? await ImagesUtil.addImageViaController(index, context, widget.currentWatch)
-                              : Get.to(() => WatchImageGallery(watch: widget.currentWatch!, index: index));
+                              ? await ImagesUtil.addImageViaController(index, context, currentWatch)
+                              : Get.to(() => WatchImageGallery(watch: currentWatch!, index: index));
                         },
                         children: [
                           widget.watchViewController.imageList[0],
