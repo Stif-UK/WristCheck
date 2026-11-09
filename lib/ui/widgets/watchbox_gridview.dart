@@ -56,6 +56,14 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
       crossAxisCount = 3;
     }
 
+    double itemWidth = (screenWidth - 20 - (crossAxisCount - 1) * 10) / crossAxisCount;
+    // Base extra height needed for text and padding below the image
+    double extraHeight = 95.0; 
+    // Adjust for accessibility text scaling
+    double textScale = MediaQuery.textScalerOf(context).scale(1.0);
+    double childAspectRatio = itemWidth / (itemWidth + (extraHeight * textScale));
+
+
 
     return ValueListenableBuilder<Box<Watches>>(
         valueListenable: watchBox.listenable(),
@@ -76,7 +84,7 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
                     crossAxisCount: crossAxisCount,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 0.67,
+                  childAspectRatio: childAspectRatio,
                 ),
                 itemBuilder: (BuildContext context, int index){
                   var currentWatch = filteredList.elementAt(index);
