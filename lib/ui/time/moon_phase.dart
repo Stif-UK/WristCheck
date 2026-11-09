@@ -82,7 +82,6 @@ class MoonPhaseWidget extends StatelessWidget {
                   ),
                 );
               }),
-              const SizedBox(height: 80.0),
             ],
           ),
         ),

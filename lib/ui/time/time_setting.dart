@@ -164,7 +164,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     : GMT(),
               )
                 : const SizedBox(height: 0,),
-            const SizedBox(height: 20,)
+            const SizedBox(height: 110,)
 
           ],
         ),
