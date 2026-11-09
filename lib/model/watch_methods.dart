@@ -300,13 +300,13 @@ class WatchMethods {
 
   static Future<void> attemptToRecordWear(Watches watch, DateTime date, bool acceptDuplicate) async {
     if(acceptDuplicate){
-      _recordWear(watch, date);
+      await _recordWear(watch, date);
     } else {
       if(checkForDuplicateWear(watch, date)){
         //if there is a duplicate trigger a dialog
         await WristCheckDialogs.getDuplicateWearDialog(watch, date);
       } else {
-        _recordWear(watch, date);
+        await _recordWear(watch, date);
 
       }
     }

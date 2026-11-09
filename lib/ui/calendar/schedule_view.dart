@@ -255,7 +255,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         ),
         textConfirm: l.track,
         textCancel: l.cancel,
-        onConfirm: (){
+        onConfirm: () async {
           //Code to track wear
           if(widget.wristCheckController.selectedWatch.value == null){
             widget.wristCheckController.updateNullWatchMemo(true);
@@ -263,7 +263,7 @@ class _ScheduleViewState extends State<ScheduleView> {
           } else {
             widget.wristCheckController.updateNullWatchMemo(false);
             Get.back();//Navigator.of(context).pop;
-            WatchMethods.attemptToRecordWear(
+            await WatchMethods.attemptToRecordWear(
                 widget.wristCheckController
                     .selectedWatch.value!,
                 widget.wristCheckController
