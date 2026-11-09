@@ -175,15 +175,15 @@ class SyncService {
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'watches';
           }
-          await _pushLocalChanges(user.id);
           await _pullRemoteChanges(user.id);
+          await _pushLocalChanges(user.id);
 
           // Phase 2: Accuracy Records
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'accuracy';
           }
-          await _pushLocalMeasurements(user.id);
           await _pullRemoteMeasurements(user.id);
+          await _pushLocalMeasurements(user.id);
 
           // Phase 3: Images
           if (Get.isRegistered<SyncController>()) {
