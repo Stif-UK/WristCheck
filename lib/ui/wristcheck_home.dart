@@ -19,9 +19,12 @@ import 'package:wristcheck/ui/StatsWidget.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/ui/watch_home_drawer.dart';
 import 'package:wristcheck/ui/time/time_setting.dart';
 import 'package:wristcheck/controllers/sync_controller.dart';
+import 'package:wristcheck/sync/sync_service.dart';
 import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/startup_checks_util.dart';
 
@@ -95,6 +98,52 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
         actions: [
+          // Global Sync Indicator
+          Obx(() {
+            final isLoggedIn = Supabase.instance.client.auth.currentUser != null;
+            final isSyncing = SyncController.to.status.value == SyncStatusState.inProgress;
+            final isFailure = SyncController.to.status.value == SyncStatusState.syncFailure;
+            final anyDirty = Boxes.getWatches().values.any((w) => w.isDirty == true);
+
+            IconData iconData;
+            Color iconColor;
+            String tooltip;
+
+            if (!isLoggedIn) {
+              iconData = Icons.cloud_off;
+              iconColor = Colors.grey;
+              tooltip = "Not signed in";
+            } else if (isSyncing) {
+              iconData = Icons.cloud_sync;
+              iconColor = Colors.blue;
+              tooltip = "Syncing...";
+            } else if (isFailure) {
+              iconData = Icons.cloud_off;
+              iconColor = Colors.red;
+              tooltip = "Sync failed";
+            } else if (anyDirty) {
+              iconData = Icons.cloud_upload;
+              iconColor = Colors.orange;
+              tooltip = "Unsynced changes";
+            } else {
+              iconData = Icons.cloud_done;
+              iconColor = Colors.green;
+              tooltip = "Up to date";
+            }
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Tooltip(
+                message: tooltip,
+                child: IconButton(
+                  icon: Icon(iconData, color: iconColor),
+                  onPressed: isLoggedIn && !isSyncing
+                      ? () => SyncService.syncData()
+                      : null,
+                ),
+              ),
+            );
+          }),
           WristCheckConfig.enableLoginScreen? Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
