@@ -55,87 +55,96 @@ import 'package:wristcheck/util/images_util.dart';
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  //Initialise Firebase
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    ).timeout(const Duration(seconds: 10));
+  // 1. Start independent async tasks concurrently to improve startup speed
+  final firebaseFuture = Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ).timeout(const Duration(seconds: 10)).catchError((e) {
+    debugPrint('Firebase initialization failed: $e');
+    throw e;
+  });
 
-    // Set analytics user property for environment targeting (dev vs prod)
+  final supabaseFuture = Supabase.initialize(
+    url: WristCheckKeys.getSupabaseUrl(),
+    publishableKey: WristCheckKeys.getSupabaseAnonKey(),
+  ).timeout(const Duration(seconds: 10)).catchError((e) {
+    debugPrint('Supabase initialization failed: $e');
+    throw e;
+  });
+
+  final revenueCatFuture = PurchaseApi.init().timeout(const Duration(seconds: 10)).catchError((e) {
+    debugPrint('RevenueCat initialization failed: $e');
+  });
+
+  final riveFuture = RiveNative.init().catchError((e) {
+    debugPrint('Could not initialize RiveNative: $e');
+  });
+
+  final prefsFuture = WristCheckPreferences.init();
+  final hiveInitFuture = Hive.initFlutter();
+  final tzInitFuture = Future.microtask(() => tz.initializeTimeZones());
+  final imagesUtilFuture = ImagesUtil.init();
+
+  final themeDarkFuture = rootBundle.loadString('assets/theme/wc_theme_dark.json');
+  final themeLightFuture = rootBundle.loadString('assets/theme/wc_theme_light.json');
+
+  // Ads initialization (non-blocking for UI if we just pass the future)
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
+
+  // 2. Await the first batch of core futures
+  await Future.wait([
+    firebaseFuture,
+    supabaseFuture,
+    revenueCatFuture,
+    riveFuture,
+    prefsFuture,
+    hiveInitFuture,
+    tzInitFuture,
+    imagesUtilFuture,
+  ]);
+
+  // 3. Initialize Firebase dependents (Analytics, Crashlytics, RemoteConfig)
+  try {
     final analytics = FirebaseAnalytics.instance;
     if (kDebugMode) {
-      await analytics.setUserProperty(name: 'app_environment', value: 'dev');
+      analytics.setUserProperty(name: 'app_environment', value: 'dev');
     } else {
-      await analytics.setUserProperty(name: 'app_environment', value: 'prod');
+      analytics.setUserProperty(name: 'app_environment', value: 'prod');
     }
 
-    // Pass all uncaught "fatal" errors from the framework to Crashlytics
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
     };
-    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
     PlatformDispatcher.instance.onError = (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
 
-    //Initialise Remote Config
     final remoteConfig = FirebaseRemoteConfig.instance;
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10), // Reduced from 1 minute to prevent blocking on slow connections
+      fetchTimeout: const Duration(seconds: 10),
       minimumFetchInterval: const Duration(hours: 1),
     ));
     await remoteConfig.setDefaults(const {
-      "show_merch_link" : "true",
-      "merch_url" : "https://wristtrack.teemill.com/",
+      "show_merch_link": "true",
+      "merch_url": "https://wristtrack.teemill.com/",
       'global_banner_notice': '{}',
     });
     
-    // Fetch and activate with a short timeout. If it fails (e.g. no internet), 
-    // the app continues with default or cached values.
     await remoteConfig.fetchAndActivate().timeout(const Duration(seconds: 5));
 
-    // Listen for real-time updates to Remote Config in all environments
     remoteConfig.onConfigUpdated.listen((event) async {
       await remoteConfig.activate();
       if (event.updatedKeys.contains('global_banner_notice')) {
-        // Trigger a state refresh in your banner provider/notifier if needed
+        // Trigger a state refresh if needed
       }
     });
   } catch (e) {
-    debugPrint('Firebase/RemoteConfig initialization failed: $e');
+    debugPrint('Firebase/RemoteConfig dependents failed: $e');
   }
 
-  //Initialise Ads
-  final initFuture = MobileAds.instance.initialize();
-  final adState = AdState(initFuture);
-
-  //Initialise RevenueCat
-  try {
-    await PurchaseApi.init().timeout(const Duration(seconds: 10));
-  } catch (e) {
-    debugPrint('RevenueCat initialization failed: $e');
-  }
-
-  //Initialise Supabase
-  try {
-    await Supabase.initialize(
-      url: WristCheckKeys.getSupabaseUrl(),
-      publishableKey: WristCheckKeys.getSupabaseAnonKey(),
-    ).timeout(const Duration(seconds: 10));
-  } catch (e) {
-    debugPrint('Supabase initialization failed: $e');
-  }
-
-  // Pre-initialize Rive Native bindings
-  try {
-    await RiveNative.init();
-  } catch (e) {
-    debugPrint('Could not initialize RiveNative: $e');
-  }
-
-  //Load the theme from assets
-  final themeStrDark = await rootBundle.loadString('assets/theme/wc_theme_dark.json');
+  // 4. Await Theme JSONs and Parse
+  final themeStrDark = await themeDarkFuture;
   final themeJsonDark = jsonDecode(themeStrDark);
   final themeDark = ThemeDecoder.decodeThemeData(themeJsonDark)!.copyWith(
     appBarTheme: const AppBarTheme(
@@ -145,7 +154,7 @@ Future main() async{
     ),
   );
 
-  final themeStrLight = await rootBundle.loadString('assets/theme/wc_theme_light.json');
+  final themeStrLight = await themeLightFuture;
   final themeJsonLight = jsonDecode(themeStrLight);
   final themeLight = ThemeDecoder.decodeThemeData(themeJsonLight)!.copyWith(
     appBarTheme: const AppBarTheme(
@@ -162,19 +171,20 @@ Future main() async{
     ),
   );
 
-  //Initialise TimeZone DB and Hive Database
-  tz.initializeTimeZones();
-  await Hive.initFlutter();
-  await ImagesUtil.init();
+  // 5. Open Hive Boxes Concurrently
   Hive.registerAdapter(WatchesAdapter());
-  await Hive.openBox<Watches>("WatchBox");
-  // Run migration for existing local collections
-  CloudMigrationUtil.migrateExistingWatches();
   Hive.registerAdapter(MeasurementAdapter());
-  await Hive.openBox<Measurement>("AccuracyBox");
-  AccuracyMigrationUtil.migrateExistingMeasurements();
   Hive.registerAdapter(WristTrackTimezoneAdapter());
-  await Hive.openBox<WristTrackTimezone>("wristtrack_timezones");
+
+  await Future.wait([
+    Hive.openBox<Watches>("WatchBox"),
+    Hive.openBox<Measurement>("AccuracyBox"),
+    Hive.openBox<WristTrackTimezone>("wristtrack_timezones"),
+  ]);
+
+  // Run migrations
+  CloudMigrationUtil.migrateExistingWatches();
+  AccuracyMigrationUtil.migrateExistingMeasurements();
 
   // Initialize Supabase Sync Manager
   SyncManager.init();
