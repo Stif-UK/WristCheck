@@ -60,49 +60,47 @@ class _WatchViewState extends State<WatchView> {
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.watchViewController.updateOverrideBacknav(false);
+    widget.watchViewController.updateOverrideBacknav(false);
 
-      // Initialise watchViewController values only once on entry
-      widget.watchViewController.updateInEditState(widget.currentWatch == null);
-      widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
-      if (widget.currentWatch != null) {
-        widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
-        widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
-        widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
-        widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
-        widget.watchViewController.updateCurrentValue(widget.currentWatch?.value ?? 0);
-        widget.watchViewController.updateMovement(widget.currentWatch?.movement ?? "");
-        widget.watchViewController.updateCategory(widget.currentWatch?.category ?? "");
-        widget.watchViewController.updateCaseMaterial(widget.currentWatch?.caseMaterial ?? "");
-        widget.watchViewController.updateWinderDirection(widget.currentWatch?.winderDirection ?? "");
-        widget.watchViewController.updateDateComplication(widget.currentWatch?.dateComplication ?? "");
+    // Initialise watchViewController values synchronously on entry before build
+    widget.watchViewController.updateInEditState(widget.currentWatch == null);
+    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
+    if (widget.currentWatch != null) {
+      widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
+      widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
+      widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
+      widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
+      widget.watchViewController.updateCurrentValue(widget.currentWatch?.value ?? 0);
+      widget.watchViewController.updateMovement(widget.currentWatch?.movement ?? "");
+      widget.watchViewController.updateCategory(widget.currentWatch?.category ?? "");
+      widget.watchViewController.updateCaseMaterial(widget.currentWatch?.caseMaterial ?? "");
+      widget.watchViewController.updateWinderDirection(widget.currentWatch?.winderDirection ?? "");
+      widget.watchViewController.updateDateComplication(widget.currentWatch?.dateComplication ?? "");
 
-        _manufacturer = widget.currentWatch!.manufacturer;
-        _model = widget.currentWatch!.model;
-        _serviceInterval = widget.currentWatch!.serviceInterval;
-        _purchasedFrom = widget.currentWatch!.purchasedFrom;
-        _soldTo = widget.currentWatch!.soldTo;
-        _powerReserve = widget.currentWatch!.powerReserve;
-      } else {
-        widget.watchViewController.updatePurchasePrice(0);
-        widget.watchViewController.updateSoldPrice(0);
-        widget.watchViewController.updateCurrentValue(0);
-        widget.watchViewController.updateMovement("");
-        widget.watchViewController.updateCategory("");
-        widget.watchViewController.updateFavourite(false);
-        widget.watchViewController.updateCaseMaterial("");
-        widget.watchViewController.updateWinderDirection("");
-        widget.watchViewController.updateDateComplication("");
-      }
+      _manufacturer = widget.currentWatch!.manufacturer;
+      _model = widget.currentWatch!.model;
+      _serviceInterval = widget.currentWatch!.serviceInterval;
+      _purchasedFrom = widget.currentWatch!.purchasedFrom;
+      _soldTo = widget.currentWatch!.soldTo;
+      _powerReserve = widget.currentWatch!.powerReserve;
+    } else {
+      widget.watchViewController.updatePurchasePrice(0);
+      widget.watchViewController.updateSoldPrice(0);
+      widget.watchViewController.updateCurrentValue(0);
+      widget.watchViewController.updateMovement("");
+      widget.watchViewController.updateCategory("");
+      widget.watchViewController.updateFavourite(false);
+      widget.watchViewController.updateCaseMaterial("");
+      widget.watchViewController.updateWinderDirection("");
+      widget.watchViewController.updateDateComplication("");
+    }
 
-      widget.watchViewController.updateShowdays(false);
-      widget.watchViewController.updateSkipBackCheck(false);
+    widget.watchViewController.updateShowdays(false);
+    widget.watchViewController.updateSkipBackCheck(false);
 
-      // Determine the view state and pass to the controller
-      widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
-          widget.currentWatch, widget.watchViewController.inEditState.value));
-    });
+    // Determine the view state and pass to the controller
+    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
+        widget.currentWatch, widget.watchViewController.inEditState.value));
 
     super.initState();
   }
@@ -364,7 +362,7 @@ class _WatchViewState extends State<WatchView> {
       );
     }
 
-    if(widget.watchViewController.watchViewState.value != WatchViewEnum.add){
+    if(widget.currentWatch != null && widget.watchViewController.watchViewState.value != WatchViewEnum.add){
 
       //Load watch content, only if watch is not being edited
       if(!widget.watchViewController.inEditState.value) {
@@ -922,6 +920,8 @@ class _WatchViewState extends State<WatchView> {
 
   bool hasDataChanged(){
     bool returnValue = false;
+    
+    if (widget.currentWatch == null) return false;
 
     if(widget.currentWatch!.status != widget.watchViewController.selectedStatus.value ||
       widget.currentWatch!.manufacturer != manufacturerFieldController.value.text ||
