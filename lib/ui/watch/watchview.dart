@@ -56,33 +56,84 @@ class _WatchViewState extends State<WatchView> {
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  @override
-  void initState() {
-    analytics.setAnalyticsCollectionEnabled(true);
-    
+  bool _isWatchFieldsInitialized = false;
+
+  void _initWatchFields() {
+    if (_isWatchFieldsInitialized) return;
+    _isWatchFieldsInitialized = true;
+
     widget.watchViewController.updateOverrideBacknav(false);
-
-    // Initialise watchViewController values synchronously on entry before build
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
-    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(widget.currentWatch, widget.watchViewController.inEditState.value));
-    if (widget.currentWatch != null) {
-      widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
-      widget.watchViewController.updateFavourite(widget.currentWatch?.favourite ?? false);
-      widget.watchViewController.updatePurchasePrice(widget.currentWatch?.purchasePrice ?? 0);
-      widget.watchViewController.updateSoldPrice(widget.currentWatch?.soldPrice ?? 0);
-      widget.watchViewController.updateCurrentValue(widget.currentWatch?.value ?? 0);
-      widget.watchViewController.updateMovement(widget.currentWatch?.movement ?? "");
-      widget.watchViewController.updateCategory(widget.currentWatch?.category ?? "");
-      widget.watchViewController.updateCaseMaterial(widget.currentWatch?.caseMaterial ?? "");
-      widget.watchViewController.updateWinderDirection(widget.currentWatch?.winderDirection ?? "");
-      widget.watchViewController.updateDateComplication(widget.currentWatch?.dateComplication ?? "");
+    widget.watchViewController.updateShowdays(false);
+    widget.watchViewController.updateSkipBackCheck(false);
+    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
+        widget.currentWatch, widget.watchViewController.inEditState.value));
 
-      _manufacturer = widget.currentWatch!.manufacturer;
-      _model = widget.currentWatch!.model;
-      _serviceInterval = widget.currentWatch!.serviceInterval;
-      _purchasedFrom = widget.currentWatch!.purchasedFrom;
-      _soldTo = widget.currentWatch!.soldTo;
-      _powerReserve = widget.currentWatch!.powerReserve;
+    if (widget.currentWatch != null) {
+      final w = widget.currentWatch!;
+      final l10n = AppLocalizations.of(context)!;
+
+      _manufacturer = w.manufacturer;
+      _model = w.model;
+      _serviceInterval = w.serviceInterval;
+      _purchasedFrom = w.purchasedFrom;
+      _soldTo = w.soldTo;
+      _powerReserve = w.powerReserve;
+
+      widget.watchViewController.updateSelectedStatus(w.status ?? "");
+      widget.watchViewController.updateFavourite(w.favourite);
+      widget.watchViewController.updatePurchasePrice(w.purchasePrice ?? 0);
+      widget.watchViewController.updateSoldPrice(w.soldPrice ?? 0);
+      widget.watchViewController.updateCurrentValue(w.value ?? 0);
+      widget.watchViewController.updateMovement(w.movement);
+      widget.watchViewController.updateCategory(w.category);
+      widget.watchViewController.updateCaseMaterial(w.caseMaterial);
+      widget.watchViewController.updateWinderDirection(w.winderDirection);
+      widget.watchViewController.updateDateComplication(w.dateComplication);
+
+      manufacturerFieldController.text = w.manufacturer;
+      modelFieldController.text = w.model;
+      serialNumberFieldController.text = w.serialNumber ?? "";
+      referenceNumberFieldController.text = w.referenceNumber ?? "";
+      serviceIntervalFieldController.text = w.serviceInterval.toString();
+
+      purchaseDateFieldController.text = w.purchaseDate != null ? WristCheckFormatter.getFormattedDate(w.purchaseDate!) : l10n.notRecorded;
+      soldDateFieldController.text = w.soldDate != null ? WristCheckFormatter.getFormattedDate(w.soldDate!) : l10n.notRecorded;
+      deliveryDateFieldController.text = w.deliveryDate != null ? WristCheckFormatter.getFormattedDate(w.deliveryDate!) : l10n.notRecorded;
+      lastServicedDateFieldController.text = w.lastServicedDate != null ? WristCheckFormatter.getFormattedDate(w.lastServicedDate!) : l10n.na;
+      warrantyEndDateFieldController.text = w.warrantyEndDate != null ? WristCheckFormatter.getFormattedDate(w.warrantyEndDate!) : l10n.notRecorded;
+
+      widget.watchViewController.updateNextServiceDue(
+        WatchMethods.calculateNextService(w.purchaseDate, w.lastServicedDate, w.serviceInterval)
+      );
+      nextServiceDueFieldController.text = widget.watchViewController.nextServiceDue.value;
+      notesFieldController.text = w.notes ?? "";
+
+      movementFieldController.text = w.movement ?? WristCheckFormatter.getMovementText(MovementEnum.blank);
+      categoryFieldController.text = w.category ?? WristCheckFormatter.getCategoryText(CategoryEnum.blank);
+      purchasedFromFieldController.text = w.purchasedFrom ?? "";
+      soldToFieldController.text = w.soldTo ?? "";
+
+      var purchasePriceValue = w.purchasePrice;
+      purchasePriceFieldController.text = purchasePriceValue != null ? purchasePriceValue.toString() : "";
+      var soldPriceValue = w.soldPrice;
+      soldPriceFieldController.text = soldPriceValue != null ? soldPriceValue.toString() : "";
+      var currentValueValue = w.value;
+      currentValueFieldController.text = currentValueValue != null ? currentValueValue.toString() : "";
+
+      caseDiameterFieldController.text = WristCheckFormatter.getLocalizedDecimal(w.caseDiameter);
+      lugWidthFieldController.text = w.lugWidth != null ? w.lugWidth.toString() : "";
+      lug2lugFieldController.text = WristCheckFormatter.getLocalizedDecimal(w.lug2lug);
+      caseThicknessFieldController.text = WristCheckFormatter.getLocalizedDecimal(w.caseThickness);
+      waterResistanceFieldController.text = w.waterResistance != null ? "${w.waterResistance}" : "";
+      caseMaterialFieldController.text = w.caseMaterial ?? WristCheckFormatter.getCaseMaterialText(CaseMaterialEnum.blank);
+      winderTPDFieldController.text = w.winderTPD != null ? "${w.winderTPD}" : "";
+      winderDirectionFieldController.text = w.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank);
+      dateComplicationFieldController.text = w.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank);
+      modelYearFieldController.text = w.year != null ? "${w.year}" : "";
+      primaryColourFieldController.text = w.primaryColour ?? "";
+      secondaryColourFieldController.text = w.secondaryColour ?? "";
+      powerReserveFieldController.text = w.powerReserve != null ? "${w.powerReserve}" : "";
     } else {
       widget.watchViewController.updatePurchasePrice(0);
       widget.watchViewController.updateSoldPrice(0);
@@ -94,14 +145,11 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updateWinderDirection("");
       widget.watchViewController.updateDateComplication("");
     }
+  }
 
-    widget.watchViewController.updateShowdays(false);
-    widget.watchViewController.updateSkipBackCheck(false);
-
-    // Determine the view state and pass to the controller
-    widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
-        widget.currentWatch, widget.watchViewController.inEditState.value));
-
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
   }
 
@@ -112,6 +160,7 @@ class _WatchViewState extends State<WatchView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _initWatchFields();
     if(!purchaseStatus)
     {
       final adState = Provider.of<AdState>(context);
@@ -360,79 +409,6 @@ class _WatchViewState extends State<WatchView> {
             )
         ),
       );
-    }
-
-    if(widget.currentWatch != null && widget.watchViewController.watchViewState.value != WatchViewEnum.add){
-
-      //Load watch content, only if watch is not being edited
-      if(!widget.watchViewController.inEditState.value) {
-        _manufacturer = widget.currentWatch!.manufacturer;
-        _model = widget.currentWatch!.model;
-        _serviceInterval = widget.currentWatch!.serviceInterval;
-        _purchasedFrom = widget.currentWatch!.purchasedFrom;
-        _soldTo = widget.currentWatch!.soldTo;
-
-        final l10n = AppLocalizations.of(context)!;
-
-        // Defer GetX controller state and TextEditingController updates to prevent "setState called during build"
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (!mounted) return;
-
-          widget.watchViewController.updateSelectedStatus(widget.currentWatch!.status!);
-          widget.watchViewController.updateMovement(widget.currentWatch!.movement);
-          widget.watchViewController.updateCategory(widget.currentWatch!.category);
-          widget.watchViewController.updatePurchasePrice(widget.currentWatch!.purchasePrice ?? 0);
-          widget.watchViewController.updateSoldPrice(widget.currentWatch!.soldPrice ?? 0);
-          widget.watchViewController.updateCurrentValue(widget.currentWatch!.value ?? 0);
-          widget.watchViewController.updateCaseMaterial(widget.currentWatch!.caseMaterial);
-          widget.watchViewController.updateWinderDirection(widget.currentWatch!.winderDirection);
-          widget.watchViewController.updateDateComplication(widget.currentWatch!.dateComplication);
-
-          manufacturerFieldController.value =
-              TextEditingValue(text: widget.currentWatch!.manufacturer);
-          modelFieldController.value =
-              TextEditingValue(text: widget.currentWatch!.model);
-          serialNumberFieldController.value =
-              TextEditingValue(text: widget.currentWatch!.serialNumber ??"");
-          referenceNumberFieldController.value = TextEditingValue(text: widget.currentWatch!.referenceNumber ?? "");
-          serviceIntervalFieldController.value = TextEditingValue(text: widget.currentWatch!.serviceInterval.toString());
-          
-          purchaseDateFieldController.value = TextEditingValue(text: widget.currentWatch!.purchaseDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.purchaseDate!): l10n.notRecorded);
-          soldDateFieldController.value = TextEditingValue(text: widget.currentWatch!.soldDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.soldDate!): l10n.notRecorded);
-          deliveryDateFieldController.value = TextEditingValue(text: widget.currentWatch!.deliveryDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.deliveryDate!): l10n.notRecorded);
-          lastServicedDateFieldController.value = TextEditingValue(text: widget.currentWatch!.lastServicedDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.lastServicedDate!): l10n.na);
-          warrantyEndDateFieldController.value = TextEditingValue(text: widget.currentWatch!.warrantyEndDate != null? WristCheckFormatter.getFormattedDate(widget.currentWatch!.warrantyEndDate!): l10n.notRecorded);
-          widget.watchViewController.updateNextServiceDue(WatchMethods.calculateNextService(widget.currentWatch!.purchaseDate, widget.currentWatch!.lastServicedDate, widget.currentWatch!.serviceInterval));
-          nextServiceDueFieldController.value = TextEditingValue(text: widget.watchViewController.nextServiceDue.value);
-          notesFieldController.value =
-              TextEditingValue(text: widget.currentWatch!.notes ?? "");
-
-          movementFieldController.value = TextEditingValue(text: widget.currentWatch!.movement?? WristCheckFormatter.getMovementText(MovementEnum.blank));
-          categoryFieldController.value = TextEditingValue(text: widget.currentWatch!.category?? WristCheckFormatter.getCategoryText(CategoryEnum.blank));
-          purchasedFromFieldController.value = TextEditingValue(text: widget.currentWatch!.purchasedFrom ?? "");
-          soldToFieldController.value = TextEditingValue(text: widget.currentWatch!.soldTo ?? "");
-          //check if the purchaseprice associated with the watch is null - if so, return an empty string, otherwise return a string representation of the integer
-          var purchasePriceValue = widget.currentWatch!.purchasePrice;
-          purchasePriceFieldController.value = TextEditingValue(text: purchasePriceValue != null? purchasePriceValue.toString() : "" );
-          var soldPriceValue = widget.currentWatch!.soldPrice;
-          soldPriceFieldController.value = TextEditingValue(text: soldPriceValue != null? soldPriceValue.toString() : "");
-          var currentValueValue = widget.currentWatch!.value;
-          currentValueFieldController.value = TextEditingValue(text: currentValueValue != null? currentValueValue.toString() : "");
-          caseDiameterFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.caseDiameter));
-          lugWidthFieldController.value = TextEditingValue(text: widget.currentWatch!.lugWidth != null? widget.currentWatch!.lugWidth.toString() : "");
-          lug2lugFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.lug2lug));
-          caseThicknessFieldController.value = TextEditingValue(text: WristCheckFormatter.getLocalizedDecimal(widget.currentWatch!.caseThickness));
-          waterResistanceFieldController.value = TextEditingValue(text: widget.currentWatch!.waterResistance != null?"${widget.currentWatch!.waterResistance}" : "");
-          caseMaterialFieldController.value = TextEditingValue(text: widget.currentWatch!.caseMaterial?? WristCheckFormatter.getCaseMaterialText(CaseMaterialEnum.blank));
-          winderTPDFieldController.value = TextEditingValue(text: widget.currentWatch!.winderTPD != null? "${widget.currentWatch!.winderTPD}" : "");
-          winderDirectionFieldController.value = TextEditingValue(text: widget.currentWatch!.winderDirection ?? WristCheckFormatter.getWinderDirectionText(WinderDirectionEnum.blank));
-          dateComplicationFieldController.value = TextEditingValue(text: widget.currentWatch!.dateComplication ?? WristCheckFormatter.getDateComplicationName(DateComplicationEnum.blank));
-          modelYearFieldController.value = TextEditingValue(text: widget.currentWatch!.year != null ? "${widget.currentWatch!.year}" : "");
-          primaryColourFieldController.value = TextEditingValue(text: widget.currentWatch!.primaryColour ?? "");
-          secondaryColourFieldController.value = TextEditingValue(text: widget.currentWatch!.secondaryColour ?? "");
-          powerReserveFieldController.value = TextEditingValue(text: widget.currentWatch!.powerReserve != null ? "${widget.currentWatch!.powerReserve}" : "");
-        });
-      }
     }
 
     //Wrap page in PopScope to give control of back navigation, in the event changes have been made but not saved

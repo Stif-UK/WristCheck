@@ -56,7 +56,7 @@ class WatchMethods {
     int? powerReserve,
     String? crystal,
     String? crown,
-  }) {
+  }) async {
     String m = manufacturer;
     String mo = model;
     String? sn = serialNumber;
@@ -142,13 +142,17 @@ class WatchMethods {
 
 
     watch.ensureInitialized();
+    watch.isDirty = true;
     final box = Boxes.getWatches();
-    return box.add(watch);
+    final result = await box.add(watch);
+    unawaited(SyncService.syncData());
+    return result;
   }
 
   static Future<bool> archiveWatch(Watches watch) async{
     watch.ensureInitialized();
     watch.status = WatchStatusEnum.archived.toDbString();
+    watch.isDirty = true;
     watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
@@ -169,6 +173,7 @@ class WatchMethods {
     //3. Soft delete for cloud sync, then delete locally
     watch.ensureInitialized();
     watch.isDeleted = true;
+    watch.isDirty = true;
     watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     await SyncService.syncData();
@@ -180,6 +185,7 @@ class WatchMethods {
   static void updateStatus(Watches watch, String status) async {
     watch.ensureInitialized();
     watch.status = status;
+    watch.isDirty = true;
     watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
@@ -188,6 +194,7 @@ class WatchMethods {
   static void setPrimaryImage(Watches watch, int index) async {
     watch.ensureInitialized();
     watch.primaryImageIndex = index;
+    watch.isDirty = true;
     watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
