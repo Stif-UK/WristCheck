@@ -25,7 +25,6 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
 
   @override
   void initState() {
-    WidgetsFlutterBinding.ensureInitialized();
     try {
       _currentPage = widget.currentWatch?.primaryImageIndex ?? 0;
     } catch (_) {
@@ -33,14 +32,6 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
     }
     _watchCarouselController = CarouselController(initialItem: _currentPage);
     super.initState();
-    if (_currentPage > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && _watchCarouselController.hasClients) {
-          final double extent = MediaQuery.sizeOf(context).width * 0.8;
-          _watchCarouselController.jumpTo(_currentPage * extent);
-        }
-      });
-    }
   }
 
 
@@ -76,7 +67,8 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
         widget.watchViewController.lumeImage.value,
       ];
     }
-    _prepDataList(images);
+
+    final cardWidgets = images.map((image) => ImageCardWidget(image: image)).toList();
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -89,31 +81,23 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
               height: MediaQuery.sizeOf(context).width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                child: Obx(
-                  () {
-                    if (widget.watchViewController.imageList.length < 3) {
-                      return const SizedBox();
-                    }
-                    return Hero(
-                      tag: "ImageCarousel",
-                      child: CarouselView(
-                        itemExtent: MediaQuery.sizeOf(context).width * 0.8,
-                        controller: _watchCarouselController,
-                        itemSnapping: true,
-                        onTap: (index) async {
-                          widget.watchViewController.imageList[index].image == null ||
-                                  widget.watchViewController.watchViewState == WatchViewEnum.add
-                              ? await ImagesUtil.addImageViaController(index, context, currentWatch)
-                              : Get.to(() => WatchImageGallery(watch: currentWatch!, index: index));
-                        },
-                        children: [
-                          widget.watchViewController.imageList[0],
-                          widget.watchViewController.imageList[1],
-                          widget.watchViewController.imageList[2],
-                        ],
-                      ),
-                    );
-                  },
+                child: Hero(
+                  tag: "ImageCarousel",
+                  child: CarouselView(
+                    itemExtent: MediaQuery.sizeOf(context).width * 0.8,
+                    controller: _watchCarouselController,
+                    itemSnapping: true,
+                    onTap: (index) async {
+                      if (cardWidgets[index].image == null ||
+                          widget.watchViewController.watchViewState.value == WatchViewEnum.add) {
+                        await ImagesUtil.addImageViaController(index, context, currentWatch);
+                      } else {
+                        widget.watchViewController.imageList.assignAll(cardWidgets);
+                        Get.to(() => WatchImageGallery(watch: currentWatch!, index: index));
+                      }
+                    },
+                    children: cardWidgets,
+                  ),
                 ),
               ),
             ),

@@ -25,8 +25,6 @@ class AccuracyRow extends StatelessWidget {
     if (currentWatch == null) {
       return const SizedBox.shrink();
     }
-    //populate the required controller data
-    accuracyController.updateLastMeasurement(MeasurementMethods.getLatestMeasurementForWatch(currentWatch!));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -38,25 +36,21 @@ class AccuracyRow extends StatelessWidget {
               fit: BoxFit.scaleDown,
                 child: Text(AppLocalizations.of(Get.context!)!.accuracyRowTitle, textAlign: TextAlign.start, style: Theme.of(context).textTheme.bodyLarge,)),
           ),
-          Expanded(flex: 3, child: Obx(()=> Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,))),
+          Expanded(flex: 3, child: Text(_getAccuracyResult(), style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.start,)),
           ElevatedButton(
               child: FaIcon(FontAwesomeIcons.plus),
-          onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)),)
+          onPressed: ()=> Get.to(()=> Accuracy(currentWatch: currentWatch!,)))
         ],
       ),
     );
   }
 
-  //TODO: These two methods need to be tidied up into a single method to return the result text
   String _getAccuracyResult() {
-    Measurement? latest;
-    String returnText = AppLocalizations.of(Get.context!)!.noRecordsTracked;
-    //Get latest accuracy record for the watch
-    if(accuracyController.lastMeasurement.value != null){
-      returnText = accuracyController.lastMeasurement.value?.baseLine == null ? AppLocalizations.of(Get.context!)!.measurementInProgress : _getRateText(accuracyController.lastMeasurement.value!, RateUnit.day);
-    };
-
-    return returnText;
+    final latest = MeasurementMethods.getLatestMeasurementForWatch(currentWatch!);
+    if (latest == null) return AppLocalizations.of(Get.context!)!.noRecordsTracked;
+    return latest.baseLine == true
+        ? AppLocalizations.of(Get.context!)!.measurementInProgress
+        : _getRateText(latest, RateUnit.day);
   }
 
   String _getRateText(Measurement latest, RateUnit suffix) {

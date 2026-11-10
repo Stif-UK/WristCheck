@@ -39,15 +39,6 @@ class _WearRowState extends State<WearRow> {
       valueListenable: Boxes.getWatches().listenable(keys: [widget.currentWatch!.key]),
       builder: (context, box, _) {
         final currentWatch = box.get(widget.currentWatch!.key) ?? widget.currentWatch!;
-
-        //Default canRecordWear value
-        widget.watchViewController.updateCanRecordWear(false);
-
-        //Set to true only for watches in the collection or on loan
-        if (widget.watchViewController.watchViewState.value == WatchViewEnum.view) {
-          widget.watchViewController.canRecordWear(currentWatch.status == WatchStatusEnum.inCollection.toDbString() || currentWatch.status ==WatchStatusEnum.onLoan.toDbString());
-        }
-
         return _buildWearRow(currentWatch);
       },
     );
@@ -169,13 +160,14 @@ class _WearRowState extends State<WearRow> {
   }
 
   Widget _addWearButton(Watches currentWatch){
+    bool canRecordWear = currentWatch.status == WatchStatusEnum.inCollection.toDbString() || currentWatch.status == WatchStatusEnum.onLoan.toDbString();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
           child: Text(ViewWatchHelper.getWearButtonText(currentWatch), overflow: TextOverflow.ellipsis,),
           onPressed: () {
-            if(widget.watchViewController.canRecordWear.value) {
+            if(canRecordWear) {
               var wearDate = DateTime.now();
               WatchMethods.attemptToRecordWear(
                   currentWatch, wearDate, false).then((_) =>
