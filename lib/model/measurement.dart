@@ -58,7 +58,7 @@ class Measurement extends HiveObject {
       'atomic_time': atomicTime.toIso8601String(),
       'watch_time': watchTime.toIso8601String(),
       'raw_accuracy': rawAccuracy,
-      'updated_at': (updatedAt ?? DateTime.now()).toIso8601String(),
+      'updated_at': (updatedAt ?? DateTime.now().toUtc()).toIso8601String(),
       'is_deleted': isDeleted ?? false,
     };
   }

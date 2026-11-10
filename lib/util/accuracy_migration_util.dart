@@ -21,7 +21,7 @@ class AccuracyMigrationUtil {
       }
 
       if (measurement.updatedAt == null) {
-        measurement.updatedAt = DateTime.now();
+        measurement.updatedAt = DateTime.now().toUtc();
       }
 
       measurement.isDeleted ??= false;

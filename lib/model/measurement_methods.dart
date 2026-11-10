@@ -55,7 +55,7 @@ class MeasurementMethods{
       record.ensureInitialized(parentWatch?.id ?? record.watchId ?? '');
       record.rawAccuracy = rate;
       record.isDirty = true;
-      record.updatedAt = DateTime.now();
+      record.updatedAt = DateTime.now().toUtc();
       await record.save();
       unawaited(SyncService.syncData());
     }
@@ -69,7 +69,7 @@ class MeasurementMethods{
       record.ensureInitialized(parentWatch?.id ?? record.watchId ?? '');
       record.isDeleted = true;
       record.isDirty = true;
-      record.updatedAt = DateTime.now();
+      record.updatedAt = DateTime.now().toUtc();
       await record.save();
       await SyncService.syncData();
       await record.delete();

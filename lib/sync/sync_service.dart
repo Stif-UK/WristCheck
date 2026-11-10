@@ -363,8 +363,8 @@ class SyncService {
           }
         } else {
           // Conflict Resolution: Last-Write-Wins based on updatedAt
-          final localTime = localWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-          final remoteTime = remoteWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final localTime = (localWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0)).toUtc();
+          final remoteTime = (remoteWatch.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0)).toUtc();
 
           if (remoteWatch.isDeleted == true) {
             // If remote is marked deleted, delete locally
@@ -552,8 +552,8 @@ class SyncService {
             }
           }
         } else {
-          final localTime = localMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-          final remoteTime = remoteMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final localTime = (localMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0)).toUtc();
+          final remoteTime = (remoteMeasurement.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0)).toUtc();
 
           if (remoteMeasurement.isDeleted == true) {
             await localMeasurement.delete();

@@ -149,7 +149,7 @@ class WatchMethods {
   static Future<bool> archiveWatch(Watches watch) async{
     watch.ensureInitialized();
     watch.status = WatchStatusEnum.archived.toDbString();
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
     return true;
@@ -169,7 +169,7 @@ class WatchMethods {
     //3. Soft delete for cloud sync, then delete locally
     watch.ensureInitialized();
     watch.isDeleted = true;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     await SyncService.syncData();
 
@@ -180,7 +180,7 @@ class WatchMethods {
   static void updateStatus(Watches watch, String status) async {
     watch.ensureInitialized();
     watch.status = status;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
   }
@@ -188,7 +188,7 @@ class WatchMethods {
   static void setPrimaryImage(Watches watch, int index) async {
     watch.ensureInitialized();
     watch.primaryImageIndex = index;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
   }
@@ -221,7 +221,7 @@ class WatchMethods {
       DateTime removed = watch.wearList.removeAt(index);
       watch.ensureInitialized();
       watch.isDirty = true;
-      watch.updatedAt = DateTime.now();
+      watch.updatedAt = DateTime.now().toUtc();
       watch.save();
       unawaited(SyncService.syncData());
       WristCheckSnackBars.removeWearSnackbar(watch, removed);
@@ -251,7 +251,7 @@ class WatchMethods {
       watch.wearList.add(date);
       watch.ensureInitialized();
       watch.isDirty = true;
-      watch.updatedAt = DateTime.now();
+      watch.updatedAt = DateTime.now().toUtc();
       await watch.save();
       unawaited(SyncService.syncData());
       //increment the lifetime tracked wear count
@@ -291,7 +291,7 @@ class WatchMethods {
     }
     watch.ensureInitialized();
     watch.isDirty = true;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     await watch.save();
     unawaited(SyncService.syncData());
 

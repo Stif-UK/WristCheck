@@ -316,7 +316,7 @@ class ImagesUtil {
 
     currentWatch.ensureInitialized();
     currentWatch.isDirty = true;
-    currentWatch.updatedAt = DateTime.now();
+    currentWatch.updatedAt = DateTime.now().toUtc();
     currentWatch.save();
     unawaited(SyncService.syncData());
 
@@ -358,7 +358,7 @@ class ImagesUtil {
 
     watch.ensureInitialized();
     watch.isDirty = true;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     watch.save();
     unawaited(SyncService.syncData());
   }
@@ -389,7 +389,7 @@ class ImagesUtil {
     watch.lumeImageSynced = false;
     watch.ensureInitialized();
     watch.isDirty = true;
-    watch.updatedAt = DateTime.now();
+    watch.updatedAt = DateTime.now().toUtc();
     watch.save();
     unawaited(SyncService.syncData());
   }

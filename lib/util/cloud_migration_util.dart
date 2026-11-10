@@ -16,7 +16,7 @@ class CloudMigrationUtil {
 
       // 2. Assign updatedAt timestamp if missing
       if (watch.updatedAt == null) {
-        watch.updatedAt = DateTime.now();
+        watch.updatedAt = DateTime.now().toUtc();
       }
 
       // 3. Ensure sync flags and force isDirty = true so restored/migrated watches push to cloud

@@ -176,7 +176,7 @@ class Watches extends HiveObject {
   Future<void> saveModified() async {
     ensureInitialized();
     isDirty = true;
-    updatedAt = DateTime.now();
+    updatedAt = DateTime.now().toUtc();
     await save();
     unawaited(SyncService.syncData());
   }
@@ -228,7 +228,7 @@ class Watches extends HiveObject {
       'crystal': crystal,
       'crown': crown,
       'primary_image_index': primaryImageIndex,
-      'updated_at': (updatedAt ?? DateTime.now()).toIso8601String(),
+      'updated_at': (updatedAt ?? DateTime.now().toUtc()).toIso8601String(),
       'is_deleted': isDeleted ?? false,
       'front_image_synced': frontImageSynced ?? false,
       'back_image_synced': backImageSynced ?? false,
