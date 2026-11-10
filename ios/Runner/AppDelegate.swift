@@ -16,11 +16,13 @@ import rive_native
     // This prevents the linker from stripping the library when building for the App Store.
     let _ = RiveNativePlugin.self
 
+    let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
     GeneratedPluginRegistrant.register(with: self.flutterEngine)
+
     if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
     }
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    return result
   }
 
   // MARK: UISceneSession Lifecycle
