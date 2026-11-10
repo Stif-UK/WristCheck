@@ -48,7 +48,9 @@ class _WristCheckOnboardingState extends State<WristCheckOnboarding> {
     final l = AppLocalizations.of(context);
     //If first use, request app tracking transparency during onboarding slides
     if(Platform.isIOS) {
-      AppTrackingTransparency.requestTrackingAuthorization();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        AppTrackingTransparency.requestTrackingAuthorization();
+      });
     }
 
     return SafeArea(

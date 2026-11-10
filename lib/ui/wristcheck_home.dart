@@ -90,7 +90,9 @@ class _WristCheckHomeState extends State<WristCheckHome> {
     analytics.logScreenView(screenName: "watchbox_home");
     //If platform is iOS, request tracking permission for ads
     if(Platform.isIOS) {
-      AppTrackingTransparency.requestTrackingAuthorization();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        AppTrackingTransparency.requestTrackingAuthorization();
+      });
     }
 
     return Scaffold(
