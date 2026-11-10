@@ -56,27 +56,29 @@ Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   // 1. Start independent async tasks concurrently to improve startup speed
-  final firebaseFuture = Firebase.initializeApp(
+  final firebaseFuture = Firebase.apps.isEmpty ? Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).timeout(const Duration(seconds: 10)).catchError((e) {
     debugPrint('Firebase initialization failed: $e');
-    throw e;
-  });
+    return Firebase.app();
+  }) : Future.value(Firebase.app());
 
   final supabaseFuture = Supabase.initialize(
     url: WristCheckKeys.getSupabaseUrl(),
     publishableKey: WristCheckKeys.getSupabaseAnonKey(),
   ).timeout(const Duration(seconds: 10)).catchError((e) {
     debugPrint('Supabase initialization failed: $e');
-    throw e;
+    return Supabase.instance;
   });
 
   final revenueCatFuture = PurchaseApi.init().timeout(const Duration(seconds: 10)).catchError((e) {
     debugPrint('RevenueCat initialization failed: $e');
+    return null;
   });
 
   final riveFuture = RiveNative.init().catchError((e) {
     debugPrint('Could not initialize RiveNative: $e');
+    return null;
   });
 
   final prefsFuture = WristCheckPreferences.init();
