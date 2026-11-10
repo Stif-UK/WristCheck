@@ -107,6 +107,11 @@ class _WatchViewState extends State<WatchView> {
         WatchMethods.calculateNextService(w.purchaseDate, w.lastServicedDate, w.serviceInterval)
       );
       nextServiceDueFieldController.text = widget.watchViewController.nextServiceDue.value;
+
+      final timeInCollectionText = WatchMethods.calculateTimeInCollection(w, widget.watchViewController.showDays.value);
+      widget.watchViewController.updateTimeInCollection(timeInCollectionText);
+      timeInCollectionFieldController.text = timeInCollectionText;
+
       notesFieldController.text = w.notes ?? "";
 
       movementFieldController.text = w.movement ?? WristCheckFormatter.getMovementText(MovementEnum.blank);

@@ -94,12 +94,6 @@ class DatesTab extends StatelessWidget {
   }
 
   Widget _timeInCollectionRow(){
-    if(currentWatch != null){
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        watchViewController.updateTimeInCollection(WatchMethods.calculateTimeInCollection(currentWatch!, watchViewController.showDays.value));
-      });
-    }
-    timeInCollectionFieldController.value = TextEditingValue(text: watchViewController.timeInCollection.value);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -114,7 +108,15 @@ class DatesTab extends StatelessWidget {
         ),
         IconButton(
           icon: watchViewController.showDays.value? const FaIcon(FontAwesomeIcons.solidCalendarMinus): const FaIcon(FontAwesomeIcons.solidCalendarPlus),
-          onPressed: ()=> watchViewController.updateShowdays(!watchViewController.showDays.value),
+          onPressed: () {
+            final newShowDays = !watchViewController.showDays.value;
+            watchViewController.updateShowdays(newShowDays);
+            if (currentWatch != null) {
+              final newTime = WatchMethods.calculateTimeInCollection(currentWatch!, newShowDays);
+              watchViewController.updateTimeInCollection(newTime);
+              timeInCollectionFieldController.text = newTime;
+            }
+          },
         )
       ],
     );
@@ -139,7 +141,6 @@ class DatesTab extends StatelessWidget {
   }
 
   Widget _nextServiceDueRow(){
-    nextServiceDueFieldController.value = TextEditingValue(text: watchViewController.nextServiceDue.value);
     return WatchFormField(
       icon: const FaIcon(FontAwesomeIcons.calendarDays),
       //Always read only
