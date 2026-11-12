@@ -229,7 +229,7 @@ class _SearchFinderState extends State<SearchFinder> {
   }
 
   Widget _getWatchImage(Watches watch) {
-    File? imageFile = ImagesUtil.getImageSync(watch, watch.primaryImageIndex ?? 0);
+    File? imageFile = ImagesUtil.getThumbnailSync(watch, watch.primaryImageIndex ?? 0);
 
     return imageFile != null
         ? ClipRRect(

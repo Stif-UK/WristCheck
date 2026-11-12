@@ -21,7 +21,7 @@ class WatchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wristCheckController = Get.find<WristCheckController>();
-    final File? imageFile = ImagesUtil.getImageSync(watch, watch.primaryImageIndex ?? 0);
+    final File? imageFile = ImagesUtil.getThumbnailSync(watch, watch.primaryImageIndex ?? 0);
 
     return Card(
       elevation: 2,

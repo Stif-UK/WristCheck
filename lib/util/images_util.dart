@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wristcheck/sync/sync_service.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class ImagesUtil {
   static Future<void> init() async {
     final directory = await getApplicationDocumentsDirectory();
     appDocsPath = directory.path;
+    unawaited(ensureThumbnailsExist());
   }
 
   static void updateImageCache(String fullPath, File? file) {
@@ -59,6 +61,79 @@ class ImagesUtil {
     final result = exists ? file : null;
     _imageFileCache[cacheKey] = result;
     return result;
+  }
+
+  static File? getThumbnailSync(Watches currentWatch, int index) {
+    if (appDocsPath == null) return null;
+    final String name = getNamePath(currentWatch, index);
+    if (name.isEmpty) return null;
+
+    final String thumbName = name.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+    final String thumbKey = "$appDocsPath/$thumbName";
+
+    if (_imageFileCache.containsKey(thumbKey)) {
+      final cached = _imageFileCache[thumbKey];
+      if (cached != null) return cached;
+    }
+
+    final thumbFile = File(thumbKey);
+    if (thumbFile.existsSync()) {
+      _imageFileCache[thumbKey] = thumbFile;
+      return thumbFile;
+    }
+
+    // Fallback to full image
+    return getImageSync(currentWatch, index);
+  }
+
+  static Future<File?> generateThumbnailAsync(File sourceFile, String targetPath) async {
+    try {
+      if (!await sourceFile.exists()) return null;
+      final bytes = await sourceFile.readAsBytes();
+      final codec = await ui.instantiateImageCodec(
+        bytes,
+        targetWidth: 400,
+      );
+      final frame = await codec.getNextFrame();
+      final image = frame.image;
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      if (byteData == null) return null;
+
+      final thumbFile = File(targetPath);
+      await thumbFile.parent.create(recursive: true);
+      await thumbFile.writeAsBytes(byteData.buffer.asUint8List());
+      _imageFileCache[targetPath] = thumbFile;
+      return thumbFile;
+    } catch (e) {
+      debugPrint("Failed to generate thumbnail: $e");
+      return null;
+    }
+  }
+
+  static Future<void> ensureThumbnailsExist() async {
+    if (appDocsPath == null) return;
+    try {
+      final watchList = Boxes.getAllWatches();
+      for (var watch in watchList) {
+        for (int i = 0; i < 3; i++) {
+          final String name = getNamePath(watch, i);
+          if (name.isNotEmpty) {
+            final String sourcePath = "$appDocsPath/$name";
+            final String thumbName = name.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+            final String thumbPath = "$appDocsPath/$thumbName";
+            final thumbFile = File(thumbPath);
+            if (!thumbFile.existsSync()) {
+              final sourceFile = File(sourcePath);
+              if (sourceFile.existsSync()) {
+                await generateThumbnailAsync(sourceFile, thumbPath);
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint("Error generating background thumbnails: $e");
+    }
   }
 
   static List<File?> getAllImagesSync(Watches currentWatch) {
@@ -350,7 +425,10 @@ class ImagesUtil {
     currentWatch.save();
     unawaited(SyncService.syncData());
 
-    return File(imagePath).copy(image.path);
+    final copiedFile = await File(imagePath).copy(image.path);
+    final String thumbPath = imgPath.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+    unawaited(generateThumbnailAsync(copiedFile, thumbPath));
+    return copiedFile;
   }
 
   static deleteImageByIndex(Watches watch, int index) async {

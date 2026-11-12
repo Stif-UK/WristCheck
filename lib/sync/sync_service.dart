@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -638,6 +639,8 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
               ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
               watchModified = true;
@@ -660,6 +663,8 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/back.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
               ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
               watchModified = true;
@@ -682,6 +687,8 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/lume.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
+              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
               ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
               watchModified = true;

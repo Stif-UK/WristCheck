@@ -21,7 +21,7 @@ class WristTrackGridTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wristCheckController = Get.find<WristCheckController>();
-    final File? imageFile = ImagesUtil.getImageSync(currentWatch, currentWatch.primaryImageIndex ?? 0);
+    final File? imageFile = ImagesUtil.getThumbnailSync(currentWatch, currentWatch.primaryImageIndex ?? 0);
 
     return GestureDetector(
       onTap: () => Get.to(() => WatchView(currentWatch: currentWatch,)),
