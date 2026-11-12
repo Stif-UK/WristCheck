@@ -145,12 +145,9 @@ class _WearRowState extends State<WearRow> {
 
   Widget _displayWearFrequency(Watches? watch){
     //If wearlist is empty then exit
-    if(watch == null || watch.wearList.length == 0) return const SizedBox.shrink();
+    if(watch == null || watch.wearList.isEmpty) return const SizedBox.shrink();
 
-    DateTime firstWorn = watch.wearList.first;
-    DateTime now = DateTime.now();
-    int daysSinceFirstWear = now.difference(firstWorn).inDays + 1; //+1 so the count begins from 1, not 0.
-    var wearFrequency = (watch.wearList.length / daysSinceFirstWear)*100;
+    double wearFrequency = ViewWatchHelper.getWearFrequency(watch);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

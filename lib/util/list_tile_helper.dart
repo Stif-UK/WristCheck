@@ -125,10 +125,7 @@ class ListTileHelper {
         lines.add(AppLocalizations.of(Get.context!)!.wearCount(_wearCount));
       }
       if (wristCheckController.showWearFrequency.value) {
-        DateTime firstWorn = watch.wearList.first;
-        DateTime now = DateTime.now();
-        int daysSinceFirstWear = now.difference(firstWorn).inDays + 1;
-        var wearFrequency = (watch.wearList.length / daysSinceFirstWear) * 100;
+        double wearFrequency = ViewWatchHelper.getWearFrequency(watch);
         lines.add(AppLocalizations.of(Get.context!)!.wearFrequency(wearFrequency.toStringAsFixed(0)));
       }
       returnText = lines.join("\n");

@@ -140,4 +140,18 @@ class ViewWatchHelper{
     return returnString;
   }
 
+  static double getWearFrequency(Watches watch) {
+    if (watch.wearList.isEmpty) return 0.0;
+
+    List<DateTime> wearList = List<DateTime>.from(watch.wearList)..sort();
+    DateTime firstWorn = wearList.first;
+    DateTime now = DateTime.now();
+
+    DateTime firstWornDate = DateTime(firstWorn.year, firstWorn.month, firstWorn.day);
+    DateTime nowDate = DateTime(now.year, now.month, now.day);
+    int daysSinceFirstWear = nowDate.difference(firstWornDate).inDays + 1;
+
+    return ((watch.wearList.length / daysSinceFirstWear) * 100).clamp(0.0, 100.0);
+  }
+
 }
