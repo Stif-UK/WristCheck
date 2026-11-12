@@ -46,12 +46,24 @@ class ImagesUtil {
     }
   }
 
-  static File? getImageSync(Watches currentWatch, int index) {
-    if (appDocsPath == null) return null;
-    final String name = getNamePath(currentWatch, index);
-    if (name.isEmpty) return null;
+  static String getFullPath(String relativePath) {
+    if (appDocsPath == null || relativePath.trim().isEmpty) return "";
+    final cleanPath = relativePath.startsWith('/') ? relativePath : '/$relativePath';
+    return "$appDocsPath$cleanPath";
+  }
 
-    final String cacheKey = "$appDocsPath/$name";
+  static String getThumbPath(String relativePath) {
+    if (appDocsPath == null || relativePath.trim().isEmpty) return "";
+    final cleanPath = relativePath.startsWith('/') ? relativePath : '/$relativePath';
+    final thumbName = cleanPath.replaceAll(RegExp(r'\.(jpg|png|jpeg)$', caseSensitive: false), '_thumb.png');
+    return "$appDocsPath$thumbName";
+  }
+
+  static File? getImageSync(Watches currentWatch, int index) {
+    final String name = getNamePath(currentWatch, index);
+    final String cacheKey = getFullPath(name);
+    if (cacheKey.isEmpty) return null;
+
     if (_imageFileCache.containsKey(cacheKey)) {
       return _imageFileCache[cacheKey];
     }
@@ -64,12 +76,9 @@ class ImagesUtil {
   }
 
   static File? getThumbnailSync(Watches currentWatch, int index) {
-    if (appDocsPath == null) return null;
     final String name = getNamePath(currentWatch, index);
-    if (name.isEmpty) return null;
-
-    final String thumbName = name.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
-    final String thumbKey = "$appDocsPath/$thumbName";
+    final String thumbKey = getThumbPath(name);
+    if (thumbKey.isEmpty) return null;
 
     if (_imageFileCache.containsKey(thumbKey)) {
       final cached = _imageFileCache[thumbKey];
@@ -118,9 +127,8 @@ class ImagesUtil {
         for (int i = 0; i < 3; i++) {
           final String name = getNamePath(watch, i);
           if (name.isNotEmpty) {
-            final String sourcePath = "$appDocsPath/$name";
-            final String thumbName = name.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
-            final String thumbPath = "$appDocsPath/$thumbName";
+            final String sourcePath = getFullPath(name);
+            final String thumbPath = getThumbPath(name);
             final thumbFile = File(thumbPath);
             if (!thumbFile.existsSync()) {
               final sourceFile = File(sourcePath);
