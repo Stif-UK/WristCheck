@@ -165,26 +165,30 @@ class _WatchViewState extends State<WatchView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _initWatchFields();
-    if(!purchaseStatus)
-    {
-      final adState = Provider.of<AdState>(context);
-      adState.initialization.then((status) {
-        setState(() {
-          banner = BannerAd(
-              adUnitId: AdUnits.viewWatchBannerAdUnitId,
-              //If the device screen is large enough display a larger ad on this screen
-              size: AdSize.banner,
-              request: const AdRequest(),
-              listener: adState.adListener)
-            ..load();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _initWatchFields();
+      if (!purchaseStatus && banner == null) {
+        final adState = Provider.of<AdState>(context, listen: false);
+        adState.initialization.then((status) {
+          if (!mounted) return;
+          setState(() {
+            banner = BannerAd(
+                adUnitId: AdUnits.viewWatchBannerAdUnitId,
+                //If the device screen is large enough display a larger ad on this screen
+                size: AdSize.banner,
+                request: const AdRequest(),
+                listener: adState.adListener)
+              ..load();
+          });
         });
-      });
-    }
+      }
+    });
   }
 
 
   //Instance Variables
+  final Set<int> _visitedTabs = {0};
   final watchBox = Boxes.getWatches();
   String _manufacturer = "";
   String _model = "";
@@ -626,70 +630,79 @@ class _WatchViewState extends State<WatchView> {
                                       int index = widget.wristCheckController.isAppPro.value
                                           ? widget.watchViewController.tabIndex.value
                                           : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value);
+
+                                      _visitedTabs.add(index);
+                                      if (widget.watchViewController.inEditState.value) {
+                                        _visitedTabs.addAll([0, 1, 2, 3, 4]);
+                                      }
                                       
                                       return Column(
                                         children: [
-                                          Offstage(
-                                            offstage: index != 0,
-                                            child: InfoTab(
-                                                manufacturerFieldController: manufacturerFieldController,
-                                                modelFieldController: modelFieldController,
-                                                serialNumberFieldController: serialNumberFieldController,
-                                                referenceNumberFieldController: referenceNumberFieldController,
-                                                movementFieldController: movementFieldController,
-                                                categoryFieldController: categoryFieldController,
-                                                primaryColourFieldController: primaryColourFieldController,
-                                                secondaryColourFieldController: secondaryColourFieldController,
-                                                bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                                context: context),
-                                          ),
-                                          Offstage(
-                                            offstage: index != 1,
-                                            child: DatesTab(
-                                                modelYearFieldController: modelYearFieldController,
-                                                deliveryDateFieldController: deliveryDateFieldController,
-                                                purchaseDateFieldController: purchaseDateFieldController,
-                                                soldDateFieldController: soldDateFieldController,
-                                                timeInCollectionFieldController: timeInCollectionFieldController,
-                                                serviceIntervalFieldController: serviceIntervalFieldController,
-                                                warrantyEndDateFieldController: warrantyEndDateFieldController,
-                                                lastServicedDateFieldController: lastServicedDateFieldController,
-                                                nextServiceDueFieldController: nextServiceDueFieldController,
-                                                currentWatch: widget.currentWatch),
-                                          ),
-                                          Offstage(
-                                            offstage: index != 2,
-                                            child: ValueTab(
-                                                purchasePriceFieldController: purchasePriceFieldController,
-                                                purchasedFromFieldController: purchasedFromFieldController,
-                                                soldPriceFieldController: soldPriceFieldController,
-                                                soldToFieldController: soldToFieldController,
-                                                currentValueFieldController: currentValueFieldController,
-                                                currentWatch: widget.currentWatch,
-                                                bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                                headlineSmall: Theme.of(context).textTheme.headlineSmall,
-                                                locale: locale),
-                                          ),
+                                          if (_visitedTabs.contains(0))
+                                            Offstage(
+                                              offstage: index != 0,
+                                              child: InfoTab(
+                                                  manufacturerFieldController: manufacturerFieldController,
+                                                  modelFieldController: modelFieldController,
+                                                  serialNumberFieldController: serialNumberFieldController,
+                                                  referenceNumberFieldController: referenceNumberFieldController,
+                                                  movementFieldController: movementFieldController,
+                                                  categoryFieldController: categoryFieldController,
+                                                  primaryColourFieldController: primaryColourFieldController,
+                                                  secondaryColourFieldController: secondaryColourFieldController,
+                                                  bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                                  context: context),
+                                            ),
+                                          if (_visitedTabs.contains(1))
+                                            Offstage(
+                                              offstage: index != 1,
+                                              child: DatesTab(
+                                                  modelYearFieldController: modelYearFieldController,
+                                                  deliveryDateFieldController: deliveryDateFieldController,
+                                                  purchaseDateFieldController: purchaseDateFieldController,
+                                                  soldDateFieldController: soldDateFieldController,
+                                                  timeInCollectionFieldController: timeInCollectionFieldController,
+                                                  serviceIntervalFieldController: serviceIntervalFieldController,
+                                                  warrantyEndDateFieldController: warrantyEndDateFieldController,
+                                                  lastServicedDateFieldController: lastServicedDateFieldController,
+                                                  nextServiceDueFieldController: nextServiceDueFieldController,
+                                                  currentWatch: widget.currentWatch),
+                                            ),
+                                          if (_visitedTabs.contains(2))
+                                            Offstage(
+                                              offstage: index != 2,
+                                              child: ValueTab(
+                                                  purchasePriceFieldController: purchasePriceFieldController,
+                                                  purchasedFromFieldController: purchasedFromFieldController,
+                                                  soldPriceFieldController: soldPriceFieldController,
+                                                  soldToFieldController: soldToFieldController,
+                                                  currentValueFieldController: currentValueFieldController,
+                                                  currentWatch: widget.currentWatch,
+                                                  bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                                                  headlineSmall: Theme.of(context).textTheme.headlineSmall,
+                                                  locale: locale),
+                                            ),
                                           // Index 3: Pro Data OR Notes (if non-pro)
-                                          Offstage(
-                                            offstage: index != 3,
-                                            child: widget.wristCheckController.isAppPro.value
-                                                ? ProDataTab(
-                                              caseDiameterController: caseDiameterFieldController,
-                                              lugWidthController: lugWidthFieldController,
-                                              lug2lugController: lug2lugFieldController,
-                                              caseThicknessController: caseThicknessFieldController,
-                                              waterResistanceController: waterResistanceFieldController,
-                                              caseMaterialController: caseMaterialFieldController,
-                                              winderTPDController: winderTPDFieldController,
-                                              winderDirectionController: winderDirectionFieldController,
-                                              dateComplicationController: dateComplicationFieldController,
-                                              powerReserveController: powerReserveFieldController,
-                                            )
-                                                : NotesTab(notesFieldController: notesFieldController),
-                                          ),
+                                          if (_visitedTabs.contains(3))
+                                            Offstage(
+                                              offstage: index != 3,
+                                              child: widget.wristCheckController.isAppPro.value
+                                                  ? ProDataTab(
+                                                caseDiameterController: caseDiameterFieldController,
+                                                lugWidthController: lugWidthFieldController,
+                                                lug2lugController: lug2lugFieldController,
+                                                caseThicknessController: caseThicknessFieldController,
+                                                waterResistanceController: waterResistanceFieldController,
+                                                caseMaterialController: caseMaterialFieldController,
+                                                winderTPDController: winderTPDFieldController,
+                                                winderDirectionController: winderDirectionFieldController,
+                                                dateComplicationController: dateComplicationFieldController,
+                                                powerReserveController: powerReserveFieldController,
+                                              )
+                                                  : NotesTab(notesFieldController: notesFieldController),
+                                            ),
                                           // Index 4: Notes (only if pro)
-                                          if (widget.wristCheckController.isAppPro.value)
+                                          if (widget.wristCheckController.isAppPro.value && _visitedTabs.contains(4))
                                             Offstage(
                                               offstage: index != 4,
                                               child: NotesTab(notesFieldController: notesFieldController),

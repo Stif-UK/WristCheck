@@ -45,9 +45,6 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
-    List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
-
     final double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = 3;
     if (screenWidth >= 1200) {
@@ -61,6 +58,9 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
     return ValueListenableBuilder<Box<Watches>>(
       valueListenable: watchBox.listenable(),
       builder: (context, box, _) {
+        List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
+        List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
+
         if (filteredList.isEmpty) {
           return Container(
             alignment: Alignment.center,

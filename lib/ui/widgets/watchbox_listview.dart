@@ -43,14 +43,11 @@ class _WatchboxListViewState extends State<WatchboxListView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
-    List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
-
     return ValueListenableBuilder<Box<Watches>>(
         valueListenable: watchBox.listenable(),
         builder: (context, box, _){
-
-
+          List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
+          List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
           return filteredList.isEmpty?Container(
             alignment: Alignment.center,

@@ -8,15 +8,19 @@ class ImageCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final double devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
+    final int targetCacheWidth = (screenWidth * 0.9 * devicePixelRatio).round().clamp(400, 1200);
+
     return Container(
       color: Theme.of(context).colorScheme.inversePrimary,
       child: image == null
           ? const Icon(Icons.add_a_photo_outlined, size: 85)
           : Image.file(
               image!,
-              cacheWidth: 800,
+              cacheWidth: targetCacheWidth,
               fit: BoxFit.cover,
             ),
     );
   }
-  }
+}

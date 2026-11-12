@@ -43,9 +43,6 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
-    List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
-
     final double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = 2;
     if (screenWidth >= 1200) {
@@ -63,11 +60,11 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
     double textScale = MediaQuery.textScalerOf(context).scale(1.0);
     double childAspectRatio = itemWidth / (itemWidth + (extraHeight * textScale));
 
-
-
     return ValueListenableBuilder<Box<Watches>>(
         valueListenable: watchBox.listenable(),
         builder: (context, box, _){
+          List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
+          List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
 
           return filteredList.isEmpty?Container(

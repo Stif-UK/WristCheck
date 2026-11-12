@@ -629,6 +629,7 @@ class SyncService {
     int downloaded = 0;
     for (var watch in box.values) {
       if (watch.id != null) {
+        bool watchModified = false;
         // Front
         if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
           final localFile = File("${directory.path}${watch.frontImagePath}");
@@ -637,13 +638,13 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
-              // Evict stale image from Flutter's cache so UI instantly displays new thumbnail
+              ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              await watch.save();
+              watchModified = true;
             } catch (_) {
               watch.frontImagePath = "";
               watch.isDirty = true;
-              await watch.save();
+              watchModified = true;
             }
             downloaded++;
             if (Get.isRegistered<SyncController>()) {
@@ -659,12 +660,13 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/back.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              await watch.save();
+              watchModified = true;
             } catch (_) {
               watch.backImagePath = "";
               watch.isDirty = true;
-              await watch.save();
+              watchModified = true;
             }
             downloaded++;
             if (Get.isRegistered<SyncController>()) {
@@ -680,18 +682,22 @@ class SyncService {
               final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/lume.jpg');
               await localFile.parent.create(recursive: true);
               await localFile.writeAsBytes(bytes);
+              ImagesUtil.updateImageCache(localFile.path, localFile);
               PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              await watch.save();
+              watchModified = true;
             } catch (_) {
               watch.lumeImagePath = "";
               watch.isDirty = true;
-              await watch.save();
+              watchModified = true;
             }
             downloaded++;
             if (Get.isRegistered<SyncController>()) {
               SyncController.to.imageSynced.value = downloaded;
             }
           }
+        }
+        if (watchModified) {
+          await watch.save();
         }
       }
     }

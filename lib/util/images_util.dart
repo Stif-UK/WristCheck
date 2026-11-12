@@ -25,18 +25,40 @@ import 'package:wristcheck/ui/widgets/images/image_card_widget.dart';
 
 class ImagesUtil {
   static String? appDocsPath;
+  static final Map<String, File?> _imageFileCache = {};
 
   static Future<void> init() async {
     final directory = await getApplicationDocumentsDirectory();
     appDocsPath = directory.path;
   }
 
+  static void updateImageCache(String fullPath, File? file) {
+    _imageFileCache[fullPath] = file;
+  }
+
+  static void clearImageCache([String? fullPath]) {
+    if (fullPath != null) {
+      _imageFileCache.remove(fullPath);
+    } else {
+      _imageFileCache.clear();
+    }
+  }
+
   static File? getImageSync(Watches currentWatch, int index) {
     if (appDocsPath == null) return null;
     final String name = getNamePath(currentWatch, index);
     if (name.isEmpty) return null;
-    final file = File("$appDocsPath/$name");
-    return file.existsSync() ? file : null;
+
+    final String cacheKey = "$appDocsPath/$name";
+    if (_imageFileCache.containsKey(cacheKey)) {
+      return _imageFileCache[cacheKey];
+    }
+
+    final file = File(cacheKey);
+    final exists = file.existsSync();
+    final result = exists ? file : null;
+    _imageFileCache[cacheKey] = result;
+    return result;
   }
 
   static List<File?> getAllImagesSync(Watches currentWatch) {
@@ -52,8 +74,16 @@ class ImagesUtil {
       if (imagePath.isEmpty) {
         returnList.add(null);
       } else {
-        final file = File("$appDocsPath/$imagePath");
-        returnList.add(file.existsSync() ? file : null);
+        final String cacheKey = "$appDocsPath/$imagePath";
+        if (_imageFileCache.containsKey(cacheKey)) {
+          returnList.add(_imageFileCache[cacheKey]);
+        } else {
+          final file = File(cacheKey);
+          final exists = file.existsSync();
+          final result = exists ? file : null;
+          _imageFileCache[cacheKey] = result;
+          returnList.add(result);
+        }
       }
     }
     return returnList;
@@ -396,6 +426,7 @@ class ImagesUtil {
 
   ///deleteAllImages() iterates through the open watchbox and deletes all associated images
   static deleteAllImages() async{
+    _imageFileCache.clear();
     final watchList = Boxes.getAllWatches();
     for(var watch in watchList){
       ImagesUtil.deleteImages(watch);

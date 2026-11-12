@@ -80,7 +80,7 @@ class _ShrinkOnScrollItemState extends State<ShrinkOnScrollItem> {
           final renderBox = context.findRenderObject() as RenderBox?;
           if (renderBox != null && renderBox.hasSize && renderBox.attached) {
             final position = renderBox.localToGlobal(Offset.zero);
-            final screenHeight = MediaQuery.of(context).size.height;
+            final screenHeight = MediaQuery.sizeOf(context).height;
 
             final itemTop = position.dy;
             final itemHeight = renderBox.size.height;
@@ -107,6 +107,10 @@ class _ShrinkOnScrollItemState extends State<ShrinkOnScrollItem> {
                 dx = shiftDirection * curveProgress * widget.maxHorizontalShift;
               }
             }
+          }
+
+          if (scale == 1.0 && opacity == 1.0 && dx == 0.0) {
+            return child!;
           }
 
           return Transform.translate(
