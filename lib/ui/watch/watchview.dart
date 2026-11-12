@@ -165,10 +165,11 @@ class _WatchViewState extends State<WatchView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      _initWatchFields();
-      if (!purchaseStatus && banner == null) {
+    _initWatchFields();
+
+    if (!purchaseStatus && banner == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         final adState = Provider.of<AdState>(context, listen: false);
         adState.initialization.then((status) {
           if (!mounted) return;
@@ -182,8 +183,8 @@ class _WatchViewState extends State<WatchView> {
               ..load();
           });
         });
-      }
-    });
+      });
+    }
   }
 
 
