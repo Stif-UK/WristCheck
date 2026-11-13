@@ -458,6 +458,47 @@ class _ProfilePageState extends State<ProfilePage> {
                       subtitle: Text(SyncController.to.subtitleText),
                       trailing: SyncController.to.trailingIcon,
                     ))),
+                Obx(() {
+                  if (SyncController.to.status.value == SyncStatusState.syncFailure &&
+                      SyncController.to.errorMessage.value.isNotEmpty) {
+                    return Card(
+                      color: Theme.of(context).colorScheme.errorContainer.withOpacity(0.4),
+                      elevation: 2,
+                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.error_outline, color: Colors.redAccent),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l.syncStatusFailure,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  SelectableText(
+                                    SyncController.to.errorMessage.value,
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
                 Obx(() => SyncController.to.status.value == SyncStatusState.inProgress
                     ? Padding(
                         padding: const EdgeInsets.all(16.0),

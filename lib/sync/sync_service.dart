@@ -477,31 +477,70 @@ class SyncService {
       return;
     }
 
+    final List<Measurement> validMeasurements = [];
     final List<Map<String, dynamic>> batchPayload = [];
+
     for (var m in dirtyMeasurements) {
-      if (m.watchId == null || m.watchId!.isEmpty) {
-        Watches? parentWatch;
-        for (var w in watchBox.values) {
-          if (w.key == m.watchKey) {
-            parentWatch = w;
-            break;
-          }
+      Watches? parentWatch;
+      for (var w in watchBox.values) {
+        if (w.key == m.watchKey || (w.id != null && w.id == m.watchId)) {
+          parentWatch = w;
+          break;
         }
-        m.ensureInitialized(parentWatch?.id ?? '');
       }
+
+      if (parentWatch != null && parentWatch.id != null) {
+        m.ensureInitialized(parentWatch.id!);
+      } else {
+        m.ensureInitialized(m.watchId ?? '');
+      }
+
+      // Check if this measurement is orphaned or missing a valid watchId
+      if (m.watchId == null || m.watchId!.trim().isEmpty || parentWatch == null || parentWatch.isDeleted == true) {
+        debugPrint('SyncService: Cleaning orphaned measurement ${m.id} (watchId: ${m.watchId}) as parent watch does not exist.');
+        await m.delete();
+        continue;
+      }
+
+      validMeasurements.add(m);
       batchPayload.add(m.toJson(userId));
     }
 
-    await _supabase.from(_measurementsTable).upsert(batchPayload);
-
-    for (var m in dirtyMeasurements) {
-      if (m.isDeleted == true) {
-        await m.delete();
-      } else {
-        m.isDirty = false;
-        await m.save();
+    if (batchPayload.isNotEmpty) {
+      try {
+        await _supabase.from(_measurementsTable).upsert(batchPayload);
+        for (var m in validMeasurements) {
+          if (m.isDeleted == true) {
+            await m.delete();
+          } else {
+            m.isDirty = false;
+            await m.save();
+          }
+        }
+      } catch (e) {
+        debugPrint('SyncService: Batch upsert measurements failed: $e. Retrying individually to catch constraint issues safely.');
+        for (var m in validMeasurements) {
+          try {
+            final payload = m.toJson(userId);
+            await _supabase.from(_measurementsTable).upsert([payload]);
+            if (m.isDeleted == true) {
+              await m.delete();
+            } else {
+              m.isDirty = false;
+              await m.save();
+            }
+          } on PostgrestException catch (pe) {
+            debugPrint('SyncService: Skipping measurement ${m.id} due to Postgrest constraint error: ${pe.message}');
+            if (pe.code == '23503' || pe.message.contains('foreign key constraint') || pe.message.contains('measurements_watch_id_fkey')) {
+              await m.delete();
+            } else {
+              rethrow;
+            }
+          }
+        }
       }
     }
+
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
     }

@@ -126,8 +126,8 @@ class _DataLinksState extends State<DataLinks> {
                                   textCancel: l.cancel,
                                   confirmTextColor: Colors.white,
                                   buttonColor: Colors.redAccent,
-                                  onConfirm: (){
-                                    _deleteCollection();
+                                  onConfirm: () async {
+                                    await _deleteCollection();
                                     Get.back();
                                     WristCheckSnackBars.collectionDeletedSnackbar();
                                   }
@@ -148,9 +148,10 @@ class _DataLinksState extends State<DataLinks> {
     );
   }
 
-  void _deleteCollection(){
-    ImagesUtil.deleteAllImages();
-    watchBox.clear();
+  Future<void> _deleteCollection() async {
+    await ImagesUtil.deleteAllImages();
+    await watchBox.clear();
+    await Boxes.getMeasurements().clear();
   }
 }
 
