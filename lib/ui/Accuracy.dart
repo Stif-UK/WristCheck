@@ -74,6 +74,12 @@ class _AccuracyState extends State<Accuracy> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
+    if (WristCheckConfig.enableTimeOverride) {
+      widget.accuracyController.updateSyncTimestamp(WristCheckConfig.getNow());
+      if (!mounted) return;
+      return;
+    }
+
     // Platform messages may fail, so we use a try/catch PlatformException.
     FlutterKronos.sync();
     try {
@@ -94,7 +100,7 @@ class _AccuracyState extends State<Accuracy> {
     final l = AppLocalizations.of(context);
     //Initialise the page
     //Set the value of watch time to 1 minute ahead (ignore seconds)
-    var now = DateTime.now();
+    var now = WristCheckConfig.getNow();
     var nowPlus = now.add(Duration(minutes: 1));
     widget.accuracyController.updateWatchDateTime(DateTime(
         nowPlus.year, nowPlus.month, nowPlus.day, nowPlus.hour,
@@ -356,7 +362,9 @@ class _AccuracyState extends State<Accuracy> {
     if(widget.accuracyController.baseLine.value) calculateRate = false;
 
     //2. Get the atomic time from the server, or default to system time if not synced
-    DateTime timestamp = await FlutterKronos.getNtpDateTime ?? DateTime.now();
+    DateTime timestamp = WristCheckConfig.enableTimeOverride
+        ? WristCheckConfig.getNow()
+        : (await FlutterKronos.getNtpDateTime ?? DateTime.now());
 
     //3. Save the record (at this point rate is zero)
     index = await MeasurementMethods.addMeasurement(widget.currentWatch.key,

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wristcheck/config.dart';
 import 'package:wristcheck/model/enums/time_view_enum.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -10,7 +11,7 @@ class TimeController extends GetxController{
   final currentDate = "".obs;
   final currentTime = "".obs;
   final currentGMTtime = "".obs;
-  final currentDateTime = DateTime.now().obs;
+  final currentDateTime = WristCheckConfig.getNow().obs;
   final enableBeep = WristCheckPreferences.getEnableBeep().obs;
   final militaryTime = WristCheckPreferences.getMilitaryTime().obs;
   final realisticMoon = WristCheckPreferences.getRealisticMoon().obs;

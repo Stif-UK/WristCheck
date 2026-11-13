@@ -181,9 +181,11 @@ class _TimeSettingState extends State<TimeSetting> {
         t.cancel();
         return;
       }
-      var date = widget.timeController.timeSynced.value
-          ? DateTime.now().add(_ntpOffset)
-          : DateTime.now();
+      var date = WristCheckConfig.enableTimeOverride
+          ? WristCheckConfig.getNow()
+          : (widget.timeController.timeSynced.value
+              ? DateTime.now().add(_ntpOffset)
+              : DateTime.now());
 
       var gmt = date.add(Duration(hours: widget.timeController.timeOffset.value));
       triggerBeep(date.second);
@@ -233,6 +235,15 @@ class _TimeSettingState extends State<TimeSetting> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
+    if (WristCheckConfig.enableTimeOverride) {
+      _currentNTPDateTime = WristCheckConfig.getNow();
+      _ntpOffset = Duration.zero;
+      widget.timeController.updateTimeSynced(true);
+      widget.timeController.updateLastSyncTime(_currentNTPDateTime!);
+      widget.timeController.updateDeviation(_ntpOffset);
+      return;
+    }
+
     FlutterKronos.sync();
     await Future.delayed(const Duration(seconds: 2));
     try {

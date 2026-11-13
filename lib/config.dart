@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class WristCheckConfig{
@@ -10,8 +11,31 @@ class WristCheckConfig{
   /*
   To enable quickly and safely toggling between ad supported and Pro views in dev, this boolean can be toggled.
   When True the app acts as a prod app, acknowledging the set purchase status. If false the app is in a constant 'pro' state.
+  In Prod builds (non-debug builds), this is always true.
    */
-  static bool acknowledgePurchase = true;
+  static bool _acknowledgePurchase = true;
+  static bool get acknowledgePurchase => kDebugMode ? _acknowledgePurchase : true;
+  static set acknowledgePurchase(bool value) => _acknowledgePurchase = value;
+
+  /*
+  Time Override settings for debug builds (useful e.g. for taking screenshots):
+  When enableTimeOverride is set to true (only effective in debug builds),
+  the app will use customTime on the time setting page and throughout the app
+  rather than NTP or system time.
+   */
+  static bool _enableTimeOverride = true;
+  static bool get enableTimeOverride => kDebugMode ? _enableTimeOverride : false;
+  static set enableTimeOverride(bool value) => _enableTimeOverride = value;
+
+  static DateTime customTime = DateTime(2026, 10, 26, 10, 10, 10);
+
+  /// Returns current DateTime, respecting the custom debug time override if set.
+  static DateTime getNow() {
+    if (enableTimeOverride) {
+      return customTime;
+    }
+    return DateTime.now();
+  }
 
   /*
   Feature Flags: Setting to false disables the features for potential build/testing across multiple releases
