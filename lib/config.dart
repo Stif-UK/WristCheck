@@ -23,7 +23,7 @@ class WristCheckConfig{
   the app will use customTime on the time setting page and throughout the app
   rather than NTP or system time.
    */
-  static bool _enableTimeOverride = true;
+  static bool _enableTimeOverride = false;
   static bool get enableTimeOverride => kDebugMode ? _enableTimeOverride : false;
   static set enableTimeOverride(bool value) => _enableTimeOverride = value;
 
