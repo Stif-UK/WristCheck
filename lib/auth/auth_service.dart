@@ -26,10 +26,13 @@ class AuthService {
       final googleAuth = googleAccount.authentication;
       final idToken = googleAuth.idToken;
       
-      final googleAuthorization = await googleAccount.authorizationClient.authorizationForScopes([]);
+      final googleAuthorization = await googleAccount.authorizationClient.authorizationForScopes([
+        'email',
+        'profile',
+      ]);
       final accessToken = googleAuthorization?.accessToken;
 
-      if (idToken == null || accessToken == null) {
+      if (idToken == null) {
         throw 'Missing authentication tokens.';
       }
 
