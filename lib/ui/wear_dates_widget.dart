@@ -319,7 +319,8 @@ Widget _buildListView(Watches watch, BuildContext context) {
                 onDismissed: (direction){
                   watch.wearList.removeAt(index);
                   watch.ensureInitialized();
-                  watch.updatedAt = DateTime.now();
+                  watch.isDirty = true;
+                  watch.updatedAt = DateTime.now().toUtc();
                   watch.save();
                   unawaited(SyncService.syncData());
                   wristCheckController.updateDateListLength(watch.wearList.length);

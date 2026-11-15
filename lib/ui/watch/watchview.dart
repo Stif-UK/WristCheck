@@ -378,7 +378,8 @@ class _WatchViewState extends State<WatchView> {
                 ? null
                 : int.tryParse(modelYearFieldController.value.text);
             widget.currentWatch!.ensureInitialized();
-            widget.currentWatch!.updatedAt = DateTime.now();
+            widget.currentWatch!.isDirty = true;
+            widget.currentWatch!.updatedAt = DateTime.now().toUtc();
             widget.currentWatch!.save();
             unawaited(SyncService.syncData());
             //Update next service due in controller to refresh view

@@ -101,7 +101,8 @@ class WatchStatusHeader extends StatelessWidget {
               onChanged: (value){
                 watch.favourite = value;
                 watch.ensureInitialized();
-                watch.updatedAt = DateTime.now();
+                watch.isDirty = true;
+                watch.updatedAt = DateTime.now().toUtc();
                 watch.save();
                 unawaited(SyncService.syncData());
                 watchViewController.updateFavourite(watch.favourite);
