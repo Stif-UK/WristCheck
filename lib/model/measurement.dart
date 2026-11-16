@@ -43,7 +43,7 @@ class Measurement extends HiveObject {
   void ensureInitialized(String parentWatchUuid) {
     id ??= const Uuid().v4();
     watchId = parentWatchUuid;
-    updatedAt ??= DateTime.now();
+    updatedAt ??= DateTime.now().toUtc();
     isDeleted ??= false;
     isDirty ??= true;
   }

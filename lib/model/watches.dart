@@ -164,7 +164,7 @@ class Watches extends HiveObject {
   /// Ensure ID and sync metadata are initialized
   void ensureInitialized() {
     id ??= const Uuid().v4();
-    updatedAt ??= DateTime.now();
+    updatedAt ??= DateTime.now().toUtc();
     isDeleted ??= false;
     isDirty ??= true; // New or migrated watches start dirty
     frontImageSynced ??= frontImagePath == null || frontImagePath!.isEmpty;

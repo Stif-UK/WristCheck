@@ -25,6 +25,8 @@ class SyncService {
   static bool _isSyncing = false;
   static bool _syncRequestedAgain = false;
   static DateTime? lastLocalWriteTime;
+  static DateTime? lastWatchSyncTime;
+  static DateTime? lastMeasurementSyncTime;
 
   static void _safeSetStatus(SyncStatusState state, {String? error}) {
     if (Get.isRegistered<SyncController>()) {
@@ -42,10 +44,6 @@ class SyncService {
     }
 
     final box = Boxes.getWatches();
-    if (box.isEmpty) {
-      await syncData();
-      return;
-    }
 
     try {
       final response = await _supabase
@@ -54,8 +52,13 @@ class SyncService {
           .eq('user_id', user.id);
 
       final List<dynamic> remoteData = response as List<dynamic>;
+      if (box.isEmpty) {
+        await syncData(preFetchedWatches: remoteData);
+        return;
+      }
+
       if (remoteData.isEmpty) {
-        await syncData();
+        await syncData(preFetchedWatches: []);
         return;
       }
 
@@ -63,7 +66,7 @@ class SyncService {
       bool hasUnsyncedLocal = box.values.any((w) => w.id == null || !remoteIds.contains(w.id));
 
       if (!hasUnsyncedLocal) {
-        await syncData();
+        await syncData(preFetchedWatches: remoteData);
         return;
       }
 
@@ -85,6 +88,8 @@ class SyncService {
           // Clear local boxes and pull cloud data fresh
           await box.clear();
           await Boxes.getMeasurements().clear();
+          lastWatchSyncTime = null;
+          lastMeasurementSyncTime = null;
           await syncData();
         },
         textCancel: l.mergeCollectionsOption,
@@ -144,12 +149,12 @@ class SyncService {
         barrierDismissible: false,
       );
     } else {
-      await syncData();
+      await syncData(preFetchedWatches: remoteData);
     }
   }
 
   /// Performs a full bidirectional sync with automatic re-sync queuing if triggered during an active sync
-  static Future<void> syncData() async {
+  static Future<void> syncData({List<dynamic>? preFetchedWatches}) async {
     if (_isSyncing) {
       debugPrint('SyncService: Sync already in progress. Queuing re-sync request.');
       _syncRequestedAgain = true;
@@ -172,28 +177,31 @@ class SyncService {
         try {
           debugPrint('SyncService: Starting synchronization for user ${user.id}...');
           
-          // Phase 1: Watches
+          // Stage A: Watches (Sequential: Pull then Push)
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'watches';
           }
-          await _pullRemoteChanges(user.id);
+          await _pullRemoteChanges(user.id, preFetchedWatches: preFetchedWatches);
+          preFetchedWatches = null; // Clear pre-fetched payload after initial consumption
           await _pushLocalChanges(user.id);
 
-          // Phase 2: Accuracy Records
+          // Stage B: Sub-Entities & Media (Parallelized Branch Execution)
           if (Get.isRegistered<SyncController>()) {
-            SyncController.to.currentPhase.value = 'accuracy';
+            SyncController.to.currentPhase.value = 'accuracy_and_media';
           }
-          await _pullRemoteMeasurements(user.id);
-          await _pushLocalMeasurements(user.id);
 
-          // Phase 3: Images
-          if (Get.isRegistered<SyncController>()) {
-            SyncController.to.currentPhase.value = 'images';
-          }
-          await _syncImages(user.id);
-
-          // Phase 4: Avatar Sync
-          await _syncAvatar(user.id);
+          await Future.wait([
+            // Branch B1: Accuracy / Measurements
+            () async {
+              await _pullRemoteMeasurements(user.id);
+              await _pushLocalMeasurements(user.id);
+            }(),
+            // Branch B2: Images and User Avatar
+            () async {
+              await _syncImages(user.id);
+              await _syncAvatar(user.id);
+            }(),
+          ]);
 
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'done';
@@ -322,15 +330,23 @@ class SyncService {
   }
 
   /// 2. Pull remote changes from Supabase and apply Last-Write-Wins conflict resolution
-  static Future<void> _pullRemoteChanges(String userId) async {
+  static Future<void> _pullRemoteChanges(String userId, {List<dynamic>? preFetchedWatches}) async {
     debugPrint('SyncService: Pulling remote changes from Supabase for user $userId...');
-    final response = await _supabase
-        .from(_watchesTable)
-        .select()
-        .eq('user_id', userId);
+    List<dynamic> remoteData;
 
-    final List<dynamic> remoteData = response as List<dynamic>;
-    debugPrint('SyncService: Fetched ${remoteData.length} remote watches from Supabase.');
+    if (preFetchedWatches != null) {
+      remoteData = preFetchedWatches;
+      debugPrint('SyncService: Using ${remoteData.length} pre-fetched remote watches from conflict check.');
+    } else {
+      var query = _supabase.from(_watchesTable).select().eq('user_id', userId);
+      if (lastWatchSyncTime != null) {
+        query = query.gt('updated_at', lastWatchSyncTime!.toIso8601String());
+        debugPrint('SyncService: Fetching remote watches updated after $lastWatchSyncTime...');
+      }
+      final response = await query;
+      remoteData = response as List<dynamic>;
+      debugPrint('SyncService: Fetched ${remoteData.length} updated remote watches from Supabase.');
+    }
 
     final box = Boxes.getWatches();
     
@@ -338,6 +354,11 @@ class SyncService {
       SyncController.to.watchTotal.value = max(1, max(box.values.length, remoteData.length));
       SyncController.to.watchSynced.value = 0;
     }
+
+    final Map<String, Watches> localMap = {
+      for (var w in box.values)
+        if (w.id != null) w.id!: w
+    };
 
     int done = 0;
 
@@ -347,14 +368,7 @@ class SyncService {
       final remoteId = remoteWatch.id;
 
       if (remoteId != null) {
-        // Find matching local watch by UUID id
-        Watches? localWatch;
-        for (var w in box.values) {
-          if (w.id == remoteId) {
-            localWatch = w;
-            break;
-          }
-        }
+        final localWatch = localMap[remoteId];
 
         if (localWatch == null) {
           // If remote watch is not deleted and doesn't exist locally, insert it
@@ -454,6 +468,7 @@ class SyncService {
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
     }
+    lastWatchSyncTime = DateTime.now().toUtc();
     debugPrint('SyncService: Pulled and synced remote changes from Supabase.');
   }
 
@@ -548,12 +563,15 @@ class SyncService {
 
   /// Pull remote measurements
   static Future<void> _pullRemoteMeasurements(String userId) async {
-    final response = await _supabase
-        .from(_measurementsTable)
-        .select()
-        .eq('user_id', userId);
+    List<dynamic> remoteData;
+    var query = _supabase.from(_measurementsTable).select().eq('user_id', userId);
+    if (lastMeasurementSyncTime != null) {
+      query = query.gt('updated_at', lastMeasurementSyncTime!.toIso8601String());
+      debugPrint('SyncService: Fetching remote measurements updated after $lastMeasurementSyncTime...');
+    }
+    final response = await query;
+    remoteData = response as List<dynamic>;
 
-    final List<dynamic> remoteData = response as List<dynamic>;
     final box = Boxes.getMeasurements();
     final watchBox = Boxes.getWatches();
 
@@ -562,6 +580,15 @@ class SyncService {
       SyncController.to.accuracySynced.value = 0;
     }
 
+    final Map<String, Measurement> localMeasurementMap = {
+      for (var m in box.values)
+        if (m.id != null) m.id!: m
+    };
+    final Map<String, Watches> watchUuidMap = {
+      for (var w in watchBox.values)
+        if (w.id != null) w.id!: w
+    };
+
     int done = 0;
     for (var item in remoteData) {
       final remoteMap = item as Map<String, dynamic>;
@@ -569,23 +596,11 @@ class SyncService {
       final remoteId = remoteMeasurement.id;
 
       if (remoteId != null) {
-        Measurement? localMeasurement;
-        for (var m in box.values) {
-          if (m.id == remoteId) {
-            localMeasurement = m;
-            break;
-          }
-        }
+        final localMeasurement = localMeasurementMap[remoteId];
 
         if (localMeasurement == null) {
           if (remoteMeasurement.isDeleted != true) {
-            Watches? parentWatch;
-            for (var w in watchBox.values) {
-              if (w.id == remoteMeasurement.watchId) {
-                parentWatch = w;
-                break;
-              }
-            }
+            final parentWatch = watchUuidMap[remoteMeasurement.watchId];
             if (parentWatch != null) {
               remoteMeasurement.watchKey = parentWatch.key as int;
               await box.add(remoteMeasurement);
@@ -598,13 +613,7 @@ class SyncService {
           if (remoteMeasurement.isDeleted == true) {
             await localMeasurement.delete();
           } else if (remoteTime.isAfter(localTime)) {
-            Watches? parentWatch;
-            for (var w in watchBox.values) {
-              if (w.id == remoteMeasurement.watchId) {
-                parentWatch = w;
-                break;
-              }
-            }
+            final parentWatch = watchUuidMap[remoteMeasurement.watchId];
             if (parentWatch != null) {
               localMeasurement.watchKey = parentWatch.key as int;
             }
@@ -628,6 +637,7 @@ class SyncService {
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.accuracySynced.value = SyncController.to.accuracyTotal.value;
     }
+    lastMeasurementSyncTime = DateTime.now().toUtc();
   }
 
   /// 3. Download missing remote images via Supabase Storage and evict from ImageCache

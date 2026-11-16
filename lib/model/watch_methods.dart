@@ -142,6 +142,7 @@ class WatchMethods {
 
 
     watch.ensureInitialized();
+    watch.updatedAt = DateTime.now().toUtc();
     watch.isDirty = true;
     final box = Boxes.getWatches();
     final result = await box.add(watch);
