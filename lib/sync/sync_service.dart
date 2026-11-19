@@ -223,6 +223,23 @@ class SyncService {
 
   static Future<void> _syncAvatar(String userId) async {
     try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) return;
+
+      final String? avatarUrl = user.userMetadata?['avatar_url'];
+      if (avatarUrl == null || avatarUrl.trim().isEmpty) {
+        // User has no avatar set, skip signing request to avoid 404 in Supabase Storage logs
+        return;
+      }
+
+      final avatarUrlString = avatarUrl.trim();
+
+      // If it's an external URL (e.g. Google OAuth photo), sync directly from that URL
+      if (avatarUrlString.startsWith('http') && !avatarUrlString.contains('/avatars/')) {
+        await ImagesUtil.syncAvatar(avatarUrlString);
+        return;
+      }
+
       await _supabase.auth.refreshSession();
       final freshSignedUrl = await _supabase.storage.from('avatars').createSignedUrl('$userId/avatar.jpg', 60);
       if (freshSignedUrl.isNotEmpty) {

@@ -79,20 +79,35 @@ class _ProfilePageState extends State<ProfilePage> {
         return;
       }
 
-      // If it's a new file or missing locally, we need to request a fresh signed URL to download it
-      final userPath = Supabase.instance.client.auth.currentUser!.id;
-      final freshSignedUrl = await Supabase.instance.client.storage.from('avatars').createSignedUrl('$userPath/avatar.jpg', 60);
-
-      await ImagesUtil.syncAvatar(freshSignedUrl);
-      final newFile = await ImagesUtil.getLocalAvatar();
-      
-      if (newFile != null && mounted) {
-        // Evict the old file from Flutter's memory cache before setting state
-        await FileImage(newFile).evict();
-        setState(() {
-          _localAvatar = newFile;
-        });
+      // If it's an external URL (e.g. Google OAuth photo), sync directly from that URL
+      if (remoteUrlString.startsWith('http') && !remoteUrlString.contains('/avatars/')) {
+        await ImagesUtil.syncAvatar(remoteUrlString);
+        final newFile = await ImagesUtil.getLocalAvatar();
+        if (newFile != null && mounted) {
+          await FileImage(newFile).evict();
+          setState(() {
+            _localAvatar = newFile;
+          });
+        }
+        return;
       }
+
+      // If it's a Supabase storage avatar, request a fresh signed URL to download it
+      try {
+        final userPath = user.id;
+        final freshSignedUrl = await Supabase.instance.client.storage.from('avatars').createSignedUrl('$userPath/avatar.jpg', 60);
+
+        await ImagesUtil.syncAvatar(freshSignedUrl);
+        final newFile = await ImagesUtil.getLocalAvatar();
+        
+        if (newFile != null && mounted) {
+          // Evict the old file from Flutter's memory cache before setting state
+          await FileImage(newFile).evict();
+          setState(() {
+            _localAvatar = newFile;
+          });
+        }
+      } catch (_) {}
     }
   }
 
