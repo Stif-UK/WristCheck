@@ -8,6 +8,11 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
+    <!-- Mark portrait screen hardware as optional so Google Play permits installation on all form factors (Tablets, Chromebooks, Foldables, XR) -->
+    <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="false" />
+
    <application
         android:label="WristTrack"
         android:name="${applicationName}"
