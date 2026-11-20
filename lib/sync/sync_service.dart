@@ -240,7 +240,6 @@ class SyncService {
         return;
       }
 
-      await _supabase.auth.refreshSession();
       final freshSignedUrl = await _supabase.storage.from('avatars').createSignedUrl('$userId/avatar.jpg', 60);
       if (freshSignedUrl.isNotEmpty) {
         await ImagesUtil.syncAvatar(freshSignedUrl);
