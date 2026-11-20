@@ -129,7 +129,7 @@ Future main() async{
     ));
     await remoteConfig.setDefaults(const {
       "show_merch_link": "true",
-      "merch_url": "https://wristtrack.teemill.com/",
+      "merch_url": "https://merch.wristtrack.app/",
       'global_banner_notice': '{}',
     });
     
