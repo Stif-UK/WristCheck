@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -283,6 +284,21 @@ class GMT extends StatelessWidget {
       valueListenable: Boxes.getTimezones().listenable(),
       builder: (context, box, _) {
         final timezones = box.values.toList();
+        timezones.sort((a, b) {
+          final aPos = a.positionIndex;
+          final bPos = b.positionIndex;
+          final aKey = (a.key is int) ? a.key as int : 0;
+          final bKey = (b.key is int) ? b.key as int : 0;
+          if (aPos != null && bPos != null) {
+            return aPos.compareTo(bPos);
+          } else if (aPos != null) {
+            return aPos.compareTo(bKey);
+          } else if (bPos != null) {
+            return aKey.compareTo(bPos);
+          } else {
+            return aKey.compareTo(bKey);
+          }
+        });
 
         return Column(
           children: [
@@ -338,10 +354,22 @@ class GMT extends StatelessWidget {
                 final referenceTime = timeController.currentDateTime.value;
                 final isMilitary = timeController.militaryTime.value;
 
-                return ListView.builder(
+                return ReorderableListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
+                  buildDefaultDragHandles: false,
                   itemCount: timezones.length,
+                  onReorder: (oldIndex, newIndex) async {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    final item = timezones.removeAt(oldIndex);
+                    timezones.insert(newIndex, item);
+                    for (int i = 0; i < timezones.length; i++) {
+                      timezones[i].positionIndex = i;
+                      await timezones[i].save();
+                    }
+                  },
                   itemBuilder: (context, index) {
                     final tzItem = timezones[index];
                     final calculatedTime = _calculateTime(referenceTime, tzItem);
@@ -349,8 +377,13 @@ class GMT extends StatelessWidget {
                     final subtitleText = _getSubtitleText(tzItem);
 
                     return Card(
+                      key: ValueKey(tzItem.key ?? '${tzItem.title}_$index'),
                       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
                       child: ListTile(
+                        leading: ReorderableDragStartListener(
+                          index: index,
+                          child: const FaIcon(FontAwesomeIcons.gripLines, color: Colors.grey),
+                        ),
                         onTap: () => _showTimezoneDialog(context, tzItem),
                         title: Text(
                           tzItem.title,

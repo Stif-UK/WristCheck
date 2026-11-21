@@ -20,19 +20,22 @@ class WristTrackTimezoneAdapter extends TypeAdapter<WristTrackTimezone> {
       title: fields[0] as String? ?? '',
       offset: (fields[1] as num?)?.toDouble() ?? 0.0,
       timeZoneId: fields[2] as String?,
+      positionIndex: fields[3] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WristTrackTimezone obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.offset)
       ..writeByte(2)
-      ..write(obj.timeZoneId);
+      ..write(obj.timeZoneId)
+      ..writeByte(3)
+      ..write(obj.positionIndex);
   }
 
   @override

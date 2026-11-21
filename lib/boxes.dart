@@ -68,7 +68,23 @@ class Boxes {
   }
 
   static List<WristTrackTimezone> getAllTimezones(){
-    return getTimezones().values.toList();
+    final list = getTimezones().values.toList();
+    list.sort((a, b) {
+      final aPos = a.positionIndex;
+      final bPos = b.positionIndex;
+      final aKey = (a.key is int) ? a.key as int : 0;
+      final bKey = (b.key is int) ? b.key as int : 0;
+      if (aPos != null && bPos != null) {
+        return aPos.compareTo(bPos);
+      } else if (aPos != null) {
+        return aPos.compareTo(bKey);
+      } else if (bPos != null) {
+        return aKey.compareTo(bPos);
+      } else {
+        return aKey.compareTo(bKey);
+      }
+    });
+    return list;
   }
 
   static List<Watches> getWatchesByFilter(CollectionView collectionValue){
