@@ -71,9 +71,9 @@ class AboutAppCopy{
               "\nAvailable at pub.dev/packages/get \n"
               "Distributed under the MIT Licence."),
           Divider(thickness: 2),
-          Text("Hive has been utilised to provide the database underpinning the application."
-              "\nAvailable at pub.dev/packages/hive \n"
-              "Distributed under the Apache 2.0 Licence."),
+          Text("Hive CE has been utilised to provide the database underpinning the application."
+              "\nAvailable at pub.dev/packages/hive_ce \n"
+              "Distributed under the Apache 2.0, BSD-3-clause Licence."),
           Divider(thickness: 2),
           Text("Jiffy has been used to perform date based calculations."
               "\nAvailable at pub.dev/packages/jiffy \n"
