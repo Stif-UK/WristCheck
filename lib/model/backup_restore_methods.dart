@@ -142,11 +142,14 @@ class BackupRestoreMethods {
     for(Watches watch in box){
       var frontImage = "${directory.path}${watch.frontImagePath}";
       var backImage = "${directory.path}${watch.backImagePath}";
-      final frontExists = await File(frontImage).exists();
-      final backExists = await File(backImage).exists();
+      var lumeImage = "${directory.path}${watch.lumeImagePath}";
+      final frontExists = watch.frontImagePath != null && watch.frontImagePath!.isNotEmpty && await File(frontImage).exists();
+      final backExists = watch.backImagePath != null && watch.backImagePath!.isNotEmpty && await File(backImage).exists();
+      final lumeExists = watch.lumeImagePath != null && watch.lumeImagePath!.isNotEmpty && await File(lumeImage).exists();
 
       if(frontExists){ shareList.add(XFile(frontImage));}
       if(backExists){ shareList.add(XFile(backImage));}
+      if(lumeExists){ shareList.add(XFile(lumeImage));}
     }
 
 
