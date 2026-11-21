@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kronos/flutter_kronos.dart';
+import 'package:wristcheck/services/sntp_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -81,10 +81,10 @@ class _AccuracyState extends State<Accuracy> {
     }
 
     // Platform messages may fail, so we use a try/catch PlatformException.
-    FlutterKronos.sync();
+    SntpService.sync();
     try {
       //Try to get the date and capture sync timestamp
-      DateTime? _currentNTPDateTime = await FlutterKronos.getNtpDateTime;
+      DateTime? _currentNTPDateTime = await SntpService.getNtpDateTime;
       widget.accuracyController.updateSyncTimestamp(_currentNTPDateTime);
     } on PlatformException {}
 
@@ -364,7 +364,7 @@ class _AccuracyState extends State<Accuracy> {
     //2. Get the atomic time from the server, or default to system time if not synced
     DateTime timestamp = WristCheckConfig.enableTimeOverride
         ? WristCheckConfig.getNow()
-        : (await FlutterKronos.getNtpDateTime ?? DateTime.now());
+        : (await SntpService.getNtpDateTime ?? DateTime.now());
 
     //3. Save the record (at this point rate is zero)
     index = await MeasurementMethods.addMeasurement(widget.currentWatch.key,

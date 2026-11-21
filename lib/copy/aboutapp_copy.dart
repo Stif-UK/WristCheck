@@ -105,10 +105,6 @@ class AboutAppCopy{
               "\nAvailable at pub.dev/packages/Audioplayers - for more info visit blue-fire.xyz"
               "\nDistributed under the MIT licence"),
           Divider(thickness: 2),
-          Text("NTP Time synchronisation supported by the Flutter_Kronos library"
-              "\nAvailable at pub.dev/packages/flutter_kronos"
-              "\nDistributed under the Apache licence"),
-          Divider(thickness: 2),
           Text("Timeline_Tile library by Julio Bitencourt used to implement the timeline view."
               "\nAvailable at pub.dev/packages/timeline_tile"
               "\nDistributed under the MIT Licence"),

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kronos/flutter_kronos.dart';
+import 'package:wristcheck/services/sntp_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -244,12 +244,11 @@ class _TimeSettingState extends State<TimeSetting> {
       return;
     }
 
-    FlutterKronos.sync();
-    await Future.delayed(const Duration(seconds: 2));
+    await SntpService.sync();
     try {
-      _currentNTPDateTime = await FlutterKronos.getNtpDateTime;
+      _currentNTPDateTime = await SntpService.getNtpDateTime;
       if (_currentNTPDateTime != null && mounted) {
-        _ntpOffset = _currentNTPDateTime!.difference(DateTime.now());
+        _ntpOffset = SntpService.offset;
         widget.timeController.updateTimeSynced(true);
         widget.timeController.updateLastSyncTime(_currentNTPDateTime!);
         widget.timeController.updateDeviation(_ntpOffset);
