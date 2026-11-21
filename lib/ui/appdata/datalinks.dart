@@ -15,6 +15,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/backup/alternative_exports.dart';
 import 'package:wristcheck/ui/backup/backup_restore.dart';
 import 'package:wristcheck/ui/appdata/data_completeness.dart';
+import 'package:wristcheck/ui/appdata/sync_status_page.dart';
 import 'package:wristcheck/ui/uploads/uploads_landing.dart';
 import 'package:wristcheck/util/images_util.dart';
 
@@ -102,6 +103,17 @@ class _DataLinksState extends State<DataLinks> {
                         onTap: (){
                           Get.to(()=> DataCompleteness());
                         }
+                    ),
+                    const Divider(thickness: 2,),
+                    ListTile(
+                        title: const Text('Sync Status'),
+                        leading: Obx(() {
+                          final current = SyncStatusItem.getCurrentStatus();
+                          return Icon(current.iconData, color: current.iconColor);
+                        }),
+                        onTap: () {
+                          Get.to(() => const SyncStatusPage());
+                        },
                     ),
                     const Divider(thickness: 2,),
                     //TODO: Uncomment to re-enable data upload journey
