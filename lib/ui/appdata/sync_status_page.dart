@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -120,11 +121,25 @@ class SyncStatusItem {
   }
 }
 
-class SyncStatusPage extends StatelessWidget {
+class SyncStatusPage extends StatefulWidget {
   const SyncStatusPage({Key? key}) : super(key: key);
 
   @override
+  State<SyncStatusPage> createState() => _SyncStatusPageState();
+}
+
+class _SyncStatusPageState extends State<SyncStatusPage> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    analytics.logScreenView(screenName: "sync_status");
     final allStatuses = SyncStatusItem.getAllStatuses();
 
     return Scaffold(
@@ -248,7 +263,10 @@ class SyncStatusPage extends StatelessWidget {
                           : "Sync Now",
                 ),
                 onPressed: (isLoggedIn && !isSyncing)
-                    ? () => SyncService.syncData()
+                    ? () {
+                        analytics.logEvent(name: "sync_now_clicked");
+                        SyncService.syncData();
+                      }
                     : null,
               ),
             ),
