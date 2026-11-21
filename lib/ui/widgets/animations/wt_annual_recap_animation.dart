@@ -7,6 +7,29 @@ class WTAnnualRecapAnimation extends StatefulWidget {
   const WTAnnualRecapAnimation({
     super.key,
     required this.fallbackIconDimensions,
+    this.artboardName = 'MAIN',
+    this.daysTracked,
+    this.totalWearsTracked,
+    this.watchesWorn,
+    this.topWatchStyle,
+    this.top1Watch,
+    this.top1WatchWorn,
+    this.topWatch1ICON,
+    this.top2Watch,
+    this.top2WatchWorn,
+    this.topWatch2ICON,
+    this.top3Watch,
+    this.top3WatchWorn,
+    this.topWatch3ICON,
+    this.springWatchTEXT,
+    this.springWatch,
+    this.summerWatchTEXT,
+    this.summerWatch,
+    this.autumnWatchTEXT,
+    this.autumnWatch,
+    this.winterWatchTEXT,
+    this.winterWatch,
+    // Legacy / optional inputs
     this.watchStyle,
     this.timeSec,
     this.timeMin,
@@ -14,14 +37,35 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     this.timeHourDIG,
     this.timeDay,
     this.timeDate,
-    this.top1Watch,
-    this.top2Watch,
-    this.top3Watch,
     this.onControllerReady,
     this.fit = Fit.contain,
   });
 
   final double fallbackIconDimensions;
+  final String artboardName;
+  final double? daysTracked;
+  final double? totalWearsTracked;
+  final double? watchesWorn;
+  final String? topWatchStyle;
+  final String? top1Watch;
+  final double? top1WatchWorn;
+  final String? topWatch1ICON;
+  final String? top2Watch;
+  final double? top2WatchWorn;
+  final String? topWatch2ICON;
+  final String? top3Watch;
+  final double? top3WatchWorn;
+  final String? topWatch3ICON;
+  final String? springWatchTEXT;
+  final String? springWatch;
+  final String? summerWatchTEXT;
+  final String? summerWatch;
+  final String? autumnWatchTEXT;
+  final String? autumnWatch;
+  final String? winterWatchTEXT;
+  final String? winterWatch;
+
+  // Legacy / optional inputs
   final String? watchStyle;
   final double? timeSec;
   final double? timeMin;
@@ -29,9 +73,6 @@ class WTAnnualRecapAnimation extends StatefulWidget {
   final double? timeHourDIG;
   final String? timeDay;
   final double? timeDate;
-  final String? top1Watch;
-  final String? top2Watch;
-  final String? top3Watch;
   final ValueChanged<WTAnnualRecapAnimationController?>? onControllerReady;
   final Fit fit;
 
@@ -46,32 +87,71 @@ class WTAnnualRecapAnimationController {
   WTAnnualRecapAnimationController(this.controller) {
     try {
       _vmi = controller.dataBind(const AutoBind());
-    } catch (_) {}
+    } catch (e1) {
+      debugPrint("WTAnnualRecapAnimation: AutoBind failed ($e1). Trying BindByName('ViewModel1')...");
+      try {
+        _vmi = controller.dataBind(const BindByName('ViewModel1'));
+      } catch (e2) {
+        debugPrint("WTAnnualRecapAnimation: BindByName failed ($e2). Trying BindByIndex(0)...");
+        try {
+          _vmi = controller.dataBind(const BindByIndex(0));
+        } catch (e3) {
+          debugPrint("WTAnnualRecapAnimation: BindByIndex failed ($e3). Trying BindEmpty()...");
+          try {
+            _vmi = controller.dataBind(const BindEmpty());
+          } catch (e4) {
+            debugPrint("WTAnnualRecapAnimation: All dataBind attempts failed: $e4");
+          }
+        }
+      }
+    }
   }
 
   void setNumber(String name, double value) {
     try {
       _vmi?.number(name)?.value = value;
-    } catch (_) {}
+    } catch (e) {
+      debugPrint("Error setting number '$name': $e");
+    }
   }
 
   void setString(String name, String value) {
     try {
       _vmi?.string(name)?.value = value;
-    } catch (_) {}
+    } catch (e) {
+      debugPrint("Error setting string '$name': $e");
+    }
+  }
+
+  void setEnum(String name, String value) {
+    try {
+      _vmi?.enumerator(name)?.value = value;
+    } catch (e) {
+      debugPrint("Error setting enum '$name': $e");
+    }
   }
 
   void fireTrigger(String name) {
     try {
-      // Let's test if controller.stateMachine has input or trigger method
-      // controller.stateMachine.input(name);
-    } catch (_) {}
+      _vmi?.trigger(name)?.trigger();
+    } catch (e) {
+      debugPrint("Error firing trigger '$name': $e");
+    }
   }
 }
 
 class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
-  late final _fileLoader = FileLoader.fromAsset('assets/animation/annual_recap_demo.riv', riveFactory: Factory.flutter);
+  late final _fileLoader = FileLoader.fromAsset(
+    'assets/animation/wristtrack_recap_12_11 v2.riv',
+    riveFactory: Factory.flutter,
+  );
   WTAnnualRecapAnimationController? _animController;
+
+  @override
+  void dispose() {
+    _fileLoader.dispose();
+    super.dispose();
+  }
 
   @override
   void didUpdateWidget(covariant WTAnnualRecapAnimation oldWidget) {
@@ -82,15 +162,35 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
   }
 
   void _applyInputs(WTAnnualRecapAnimation w, WTAnnualRecapAnimationController ctrl) {
+    if (w.daysTracked != null) ctrl.setNumber('daysTracked', w.daysTracked!);
+    if (w.totalWearsTracked != null) ctrl.setNumber('totalWearsTracked', w.totalWearsTracked!);
+    if (w.watchesWorn != null) ctrl.setNumber('watchesWorn', w.watchesWorn!);
+    if (w.topWatchStyle != null) ctrl.setString('topWatchStyle', w.topWatchStyle!);
+    if (w.top1Watch != null) ctrl.setString('top1Watch', w.top1Watch!);
+    if (w.top1WatchWorn != null) ctrl.setNumber('top1WatchWorn', w.top1WatchWorn!);
+    if (w.topWatch1ICON != null) ctrl.setEnum('topWatch1ICON', w.topWatch1ICON!);
+    if (w.top2Watch != null) ctrl.setString('top2Watch', w.top2Watch!);
+    if (w.top2WatchWorn != null) ctrl.setNumber('top2WatchWorn', w.top2WatchWorn!);
+    if (w.topWatch2ICON != null) ctrl.setEnum('topWatch2ICON', w.topWatch2ICON!);
+    if (w.top3Watch != null) ctrl.setString('top3Watch', w.top3Watch!);
+    if (w.top3WatchWorn != null) ctrl.setNumber('top3WatchWorn', w.top3WatchWorn!);
+    if (w.topWatch3ICON != null) ctrl.setEnum('topWatch3ICON', w.topWatch3ICON!);
+    if (w.springWatchTEXT != null) ctrl.setString('springWatchTEXT', w.springWatchTEXT!);
+    if (w.springWatch != null) ctrl.setEnum('springWatch', w.springWatch!);
+    if (w.summerWatchTEXT != null) ctrl.setString('summerWatchTEXT', w.summerWatchTEXT!);
+    if (w.summerWatch != null) ctrl.setEnum('summerWatch', w.summerWatch!);
+    if (w.autumnWatchTEXT != null) ctrl.setString('autumnWatchTEXT', w.autumnWatchTEXT!);
+    if (w.autumnWatch != null) ctrl.setEnum('autumnWatch', w.autumnWatch!);
+    if (w.winterWatchTEXT != null) ctrl.setString('winterWatchTEXT', w.winterWatchTEXT!);
+    if (w.winterWatch != null) ctrl.setEnum('winterWatch', w.winterWatch!);
+
+    // Time & date inputs for "WristTrack rewind" clock physics animation
     if (w.timeSec != null) ctrl.setNumber('timeSec', w.timeSec!);
     if (w.timeMin != null) ctrl.setNumber('timeMin', w.timeMin!);
     if (w.timeHour != null) ctrl.setNumber('timeHour', w.timeHour!);
     if (w.timeHourDIG != null) ctrl.setNumber('timeHourDIG', w.timeHourDIG!);
     if (w.timeDate != null) ctrl.setNumber('timeDate', w.timeDate!);
     if (w.timeDay != null) ctrl.setString('timeDay', w.timeDay!);
-    if (w.top1Watch != null) ctrl.setString('top1Watch', w.top1Watch!);
-    if (w.top2Watch != null) ctrl.setString('top2Watch', w.top2Watch!);
-    if (w.top3Watch != null) ctrl.setString('top3Watch', w.top3Watch!);
     if (w.watchStyle != null) ctrl.setString('watchStyle', w.watchStyle!);
   }
 
@@ -100,21 +200,42 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
       color: WristCheckConfig.getWCColour(),
       child: RiveWidgetBuilder(
         fileLoader: _fileLoader,
+        artboardSelector: ArtboardNamed(widget.artboardName),
+        onLoaded: (state) {
+          final animCtrl = WTAnnualRecapAnimationController(state.controller);
+          _animController = animCtrl;
+          _applyInputs(widget, animCtrl);
+          widget.onControllerReady?.call(animCtrl);
+        },
+        onFailed: (error, stackTrace) {
+          debugPrint("WTAnnualRecapAnimation onFailed (${widget.artboardName}): $error\n$stackTrace");
+        },
         builder: (context, state) {
           return switch (state) {
             RiveLoading() => const Center(child: CircularProgressIndicator(color: Colors.white)),
-            RiveFailed() => Center(child: WtStaticIcon(dimensions: widget.fallbackIconDimensions)),
-            RiveLoaded(:final controller) => Builder(
-              builder: (context) {
-                final animCtrl = WTAnnualRecapAnimationController(controller);
-                _animController = animCtrl;
-                _applyInputs(widget, animCtrl);
-                widget.onControllerReady?.call(animCtrl);
-                return RiveWidget(
-                  controller: controller,
-                  fit: widget.fit,
-                );
-              },
+            RiveFailed(:final error) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    WtStaticIcon(dimensions: widget.fallbackIconDimensions),
+                    const SizedBox(height: 12),
+                    Text(
+                      "Animation failed to load: $error",
+                      style: const TextStyle(color: Colors.white70, fontSize: 13),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            RiveLoaded(:final controller) => RiveWidget(
+              controller: controller,
+              fit: widget.fit,
+              //fit: Fit.layout,
+              layoutScaleFactor: 2.0,
+              hitTestBehavior: RiveHitTestBehavior.opaque,
             ),
           };
         },
@@ -122,3 +243,4 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
     );
   }
 }
+

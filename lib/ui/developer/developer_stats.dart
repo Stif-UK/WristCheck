@@ -234,7 +234,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
       children: [
         ListTile(
           title: const Text("Preview Annual Recap Animation"),
-          subtitle: const Text("Tap to view annual_recap_demo.riv Rive animation"),
+          subtitle: const Text("Tap to view wristtrack_recap_12_11.riv Rive animation"),
           onTap: () {
             Get.to(() => const AnimatedRecapPreviewPage());
           },

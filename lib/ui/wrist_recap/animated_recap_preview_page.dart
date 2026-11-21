@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:wristcheck/config.dart';
@@ -14,52 +20,179 @@ class AnimatedRecapPreviewPage extends StatefulWidget {
 }
 
 class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
-  late String watchStyle;
+  final ScreenshotController _screenshotController = ScreenshotController();
+  final GlobalKey _shareButtonKey = GlobalKey();
+  bool _isSharing = false;
+
+  late double daysTracked;
+  late double totalWearsTracked;
+  late double watchesWorn;
+  late String topWatchStyle;
+
+  late String top1Watch;
+  late double top1WatchWorn;
+  late String topWatch1ICON;
+
+  late String top2Watch;
+  late double top2WatchWorn;
+  late String topWatch2ICON;
+
+  late String top3Watch;
+  late double top3WatchWorn;
+  late String topWatch3ICON;
+
+  late String springWatchTEXT;
+  late String springWatch;
+
+  late String summerWatchTEXT;
+  late String summerWatch;
+
+  late String autumnWatchTEXT;
+  late String autumnWatch;
+
+  late String winterWatchTEXT;
+  late String winterWatch;
+
   late double timeSec;
   late double timeMin;
   late double timeHour;
   late double timeHourDIG;
   late String timeDay;
   late double timeDate;
-  late String top1Watch;
-  late String top2Watch;
-  late String top3Watch;
 
   @override
   void initState() {
     super.initState();
-    _loadDataAndCalculateTime();
+    _load2026Data();
   }
 
-  void _loadDataAndCalculateTime() {
-    // 1. Calculate date and time using DateTime.now() at load point
+  void _load2026Data() {
+    const year = 2026;
+    final allWatches = Boxes.getAllNonArchivedWatches();
+
+    // 0. Time & date inputs for "WristTrack rewind" clock physics animation
     final now = DateTime.now();
     timeSec = now.second.toDouble();
     timeMin = now.minute.toDouble();
     timeHour = now.hour.toDouble();
     timeHourDIG = (now.hour * 60 + now.minute).toDouble();
-    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     timeDay = days[now.weekday - 1];
     timeDate = now.day.toDouble();
 
-    // 2. Fetch watches worn in 2026 from WatchBox database
-    try {
-      List<WornWatchesClass> worn2026 = Boxes.getWatchesWornFilter(Boxes.getAllNonArchivedWatches(), null, 2026);
-      worn2026.sort((a, b) => b.count.compareTo(a.count));
+    // 1. Calculate daysTracked and totalWearsTracked for 2026
+    int totalWears = 0;
+    final Set<String> daysSet = {};
 
-      top1Watch = worn2026.isNotEmpty ? worn2026[0].watch.toString() : "Not Found";
-      top2Watch = worn2026.length > 1 ? worn2026[1].watch.toString() : "Not Found";
-      top3Watch = worn2026.length > 2 ? worn2026[2].watch.toString() : "Not Found";
-
-      watchStyle = worn2026.isNotEmpty
-          ? _mapCategoryToAnimationStyle(worn2026[0].watch.category)
-          : "DIVER";
-    } catch (_) {
-      top1Watch = "Not Found";
-      top2Watch = "Not Found";
-      top3Watch = "Not Found";
-      watchStyle = "DIVER";
+    for (final watch in allWatches) {
+      for (final date in watch.wearList) {
+        if (date.year == year) {
+          totalWears++;
+          daysSet.add("${date.year}-${date.month}-${date.day}");
+        }
+      }
     }
+
+    daysTracked = daysSet.length.toDouble();
+    totalWearsTracked = totalWears.toDouble();
+
+    // 2. Fetch watches worn in 2026 from WatchBox database (fallback to all-time if 2026 has no wears yet)
+    List<WornWatchesClass> worn2026 = [];
+    try {
+      worn2026 = Boxes.getWatchesWornFilter(allWatches, null, year);
+      if (worn2026.isEmpty) {
+        worn2026 = Boxes.getWatchesWornFilter(allWatches, null, null);
+      }
+      worn2026.sort((a, b) => b.count.compareTo(a.count));
+    } catch (_) {}
+
+    watchesWorn = worn2026.length.toDouble();
+
+    // Top 1 Watch
+    if (worn2026.isNotEmpty) {
+      top1Watch = worn2026[0].watch.toString();
+      top1WatchWorn = worn2026[0].count.toDouble();
+      topWatch1ICON = _mapCategoryToAnimationStyle(worn2026[0].watch.category);
+      topWatchStyle = CategoryEnumLocalization.fromDbString(worn2026[0].watch.category).toDbString();
+    } else {
+      top1Watch = "N/A";
+      top1WatchWorn = 0;
+      topWatch1ICON = "DIVER";
+      topWatchStyle = "Diver";
+    }
+
+    // Top 2 Watch
+    if (worn2026.length > 1) {
+      top2Watch = worn2026[1].watch.toString();
+      top2WatchWorn = worn2026[1].count.toDouble();
+      topWatch2ICON = _mapCategoryToAnimationStyle(worn2026[1].watch.category);
+    } else {
+      top2Watch = "N/A";
+      top2WatchWorn = 0;
+      topWatch2ICON = "DIVER";
+    }
+
+    // Top 3 Watch
+    if (worn2026.length > 2) {
+      top3Watch = worn2026[2].watch.toString();
+      top3WatchWorn = worn2026[2].count.toDouble();
+      topWatch3ICON = _mapCategoryToAnimationStyle(worn2026[2].watch.category);
+    } else {
+      top3Watch = "N/A";
+      top3WatchWorn = 0;
+      topWatch3ICON = "DIVER";
+    }
+
+    // 3. Seasonal Top Watches for 2026
+    final spring = _getSeasonalTop(allWatches, [3, 4, 5], year);
+    springWatchTEXT = spring.$1;
+    springWatch = spring.$2;
+
+    final summer = _getSeasonalTop(allWatches, [6, 7, 8], year);
+    summerWatchTEXT = summer.$1;
+    summerWatch = summer.$2;
+
+    final autumn = _getSeasonalTop(allWatches, [9, 10, 11], year);
+    autumnWatchTEXT = autumn.$1;
+    autumnWatch = autumn.$2;
+
+    final winter = _getSeasonalTop(allWatches, [12, 1, 2], year);
+    winterWatchTEXT = winter.$1;
+    winterWatch = winter.$2;
+  }
+
+  (String text, String icon) _getSeasonalTop(List<Watches> watches, List<int> months, int targetYear) {
+    final Map<Watches, int> watchCounts = {};
+    for (final watch in watches) {
+      final c = watch.wearList.where((d) {
+        if (months.contains(12) && d.month == 12) {
+          return (d.year == targetYear - 1 || d.year == targetYear) && months.contains(d.month);
+        }
+        return d.year == targetYear && months.contains(d.month);
+      }).length;
+      if (c > 0) {
+        watchCounts[watch] = c;
+      }
+    }
+    // If no seasonal wears in 2026, fallback to all-time seasonal wears
+    if (watchCounts.isEmpty) {
+      for (final watch in watches) {
+        final c = watch.wearList.where((d) => months.contains(d.month)).length;
+        if (c > 0) watchCounts[watch] = c;
+      }
+    }
+    if (watchCounts.isEmpty) {
+      return ("N/A", "DIVER");
+    }
+    Watches? topWatch;
+    int maxC = -1;
+    watchCounts.forEach((watch, count) {
+      if (count > maxC) {
+        maxC = count;
+        topWatch = watch;
+      }
+    });
+    return (topWatch!.toString(), _mapCategoryToAnimationStyle(topWatch!.category));
   }
 
   String _mapCategoryToAnimationStyle(String? categoryStr) {
@@ -70,6 +203,7 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       case CategoryEnum.dive:
         return 'DIVER';
       case CategoryEnum.dress:
+        return 'DRESS';
       case CategoryEnum.luxury:
         return 'DRESS';
       case CategoryEnum.field:
@@ -77,8 +211,9 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       case CategoryEnum.flight:
         return 'PILOT';
       case CategoryEnum.sports:
-      case CategoryEnum.chronograph:
         return 'SPORTS';
+      case CategoryEnum.chronograph:
+        return 'PILOT';
       case CategoryEnum.smartWatch:
         return 'SMART';
       case CategoryEnum.casual:
@@ -90,28 +225,118 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
     }
   }
 
+  Future<void> _shareRecap() async {
+    if (_isSharing) return;
+    _isSharing = true;
+    try {
+      final bytes = await _screenshotController.capture();
+      if (bytes == null) return;
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/wristtrack_rewind_2026.png');
+      await file.writeAsBytes(bytes);
+
+      Rect? sharePositionOrigin;
+      final renderBox = _shareButtonKey.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        sharePositionOrigin = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          text: 'WristTrack Rewind 2026',
+          sharePositionOrigin: sharePositionOrigin,
+        ),
+      );
+    } catch (e) {
+      debugPrint('Error sharing WristTrack Rewind: $e');
+    } finally {
+      _isSharing = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: WristCheckConfig.getWCColour(),
       appBar: AppBar(
-        title: const Text("Your animated recap"),
-        backgroundColor: WristCheckConfig.getWCColour(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        leadingWidth: 64,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Center(
+            child: Material(
+              color: Colors.black.withValues(alpha: 0.35),
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                onPressed: () => Navigator.of(context).maybePop(),
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Center(
+              child: Material(
+                key: _shareButtonKey,
+                color: Colors.black.withValues(alpha: 0.35),
+                shape: const CircleBorder(),
+                clipBehavior: Clip.antiAlias,
+                child: IconButton(
+                  icon: Icon(Icons.adaptive.share, color: Colors.white),
+                  tooltip: 'Share',
+                  onPressed: _shareRecap,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: SizedBox.expand(
-        child: WTAnnualRecapAnimation(
-          fallbackIconDimensions: 200,
-          watchStyle: watchStyle,
-          timeSec: timeSec,
-          timeMin: timeMin,
-          timeHour: timeHour,
-          timeHourDIG: timeHourDIG,
-          timeDay: timeDay,
-          timeDate: timeDate,
-          top1Watch: top1Watch,
-          top2Watch: top2Watch,
-          top3Watch: top3Watch,
+        child: Screenshot(
+          controller: _screenshotController,
+          child: WTAnnualRecapAnimation(
+            fallbackIconDimensions: 200,
+            daysTracked: daysTracked,
+            totalWearsTracked: totalWearsTracked,
+            watchesWorn: watchesWorn,
+            topWatchStyle: topWatchStyle,
+            top1Watch: top1Watch,
+            top1WatchWorn: top1WatchWorn,
+            topWatch1ICON: topWatch1ICON,
+            top2Watch: top2Watch,
+            top2WatchWorn: top2WatchWorn,
+            topWatch2ICON: topWatch2ICON,
+            top3Watch: top3Watch,
+            top3WatchWorn: top3WatchWorn,
+            topWatch3ICON: topWatch3ICON,
+            springWatchTEXT: springWatchTEXT,
+            springWatch: springWatch,
+            summerWatchTEXT: summerWatchTEXT,
+            summerWatch: summerWatch,
+            autumnWatchTEXT: autumnWatchTEXT,
+            autumnWatch: autumnWatch,
+            winterWatchTEXT: winterWatchTEXT,
+            winterWatch: winterWatch,
+            timeSec: timeSec,
+            timeMin: timeMin,
+            timeHour: timeHour,
+            timeHourDIG: timeHourDIG,
+            timeDay: timeDay,
+            timeDate: timeDate,
+          ),
         ),
       ),
     );
   }
 }
+
