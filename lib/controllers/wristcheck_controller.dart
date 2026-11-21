@@ -334,6 +334,13 @@ class WristCheckController extends GetxController {
     calendarOrService(cal);
   }
 
+  //Determine if the calendar layout is expanded (unsquashed) or squashed to fit the screen
+  final isCalendarExpanded = false.obs;
+
+  toggleCalendarExpanded(){
+    isCalendarExpanded(!isCalendarExpanded.value);
+  }
+
   //Track last opened servicing/warranty tab
   final lastServicingTabIndex = 0.obs;
 

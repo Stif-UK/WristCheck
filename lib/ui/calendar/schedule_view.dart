@@ -73,135 +73,192 @@ class _ScheduleViewState extends State<ScheduleView> {
     bool _pageLoaded = false;
 
     return Obx(() {
-      final double screenHeight = MediaQuery.of(context).size.height;
-      // Estimate non-calendar elements height (Ad, Buttons, padding) to calculate remaining space.
-      double calendarHeight = screenHeight - 250;
-      if (calendarHeight < 550) {
-        calendarHeight = 550; // Minimum height to prevent vertical compression on small screens
-      }
+      final bool isExpanded = widget.wristCheckController.isCalendarExpanded.value;
 
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-            SizedBox(
-              height: calendarHeight,
-              child: ValueListenableBuilder(
-                valueListenable: watchBox.listenable(),
-                builder: (context, box, _) {
-                  return Obx(()=> SfCalendar(
-                      firstDayOfWeek: widget.wristCheckController.firstDayOfWeek.value,
-                      view: CalendarView.month,
-                      dataSource: _getCalendarDataSource(),
-                      monthViewSettings: MonthViewSettings(showAgenda: true,
-                          showTrailingAndLeadingDates: false,
-                          agendaStyle: AgendaStyle(
-                              appointmentTextStyle: Theme.of(context).textTheme.bodyLarge)),
-                      initialSelectedDate: DateTime.now(),
-                      onTap: (CalendarTapDetails details){
-                        //if date cell is tapped on, we set the current selected date
-                        widget.wristCheckController.updateSelectedDate(details.date);
-                        //if an "appointment" is tapped on, show the details of the event
-                        if(details.targetElement == CalendarElement.appointment){
-                          Appointment currentAppointment = details.appointments!.first;
-                          String summary = currentAppointment.subject;
-                          Get.defaultDialog(
-                              title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
-                              content: Column(
-                                children: [
-                                  Text(summary),
-                                ],
-                              )
-                          );
-                        }
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          double calendarHeight;
+          if (isExpanded) {
+            calendarHeight = constraints.maxHeight - 250;
+            if (calendarHeight < 550) {
+              calendarHeight = 550;
+            }
+          } else {
+            calendarHeight = constraints.maxHeight - 250;
+            if (calendarHeight < 200) {
+              calendarHeight = 200;
+            }
+          }
 
-                      },
-                      onViewChanged: (ViewChangedDetails details) {
-                        //use pageLoaded to ensure this is not run on first load of the page
-                        if(_pageLoaded){
-                          widget.wristCheckController.updateSelectedDate(null);
-                        }
-                        _pageLoaded = true;
-                      },
-                    ),
-                  );
-
-                },
-              )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          return SingleChildScrollView(
+            physics: isExpanded ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
+            child: Column(
               children: [
-                Expanded(
-                  flex: 3,
-                    child: const SizedBox(width: 0,)),
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    children: [
-
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(l!.trackWear,
-                                    textAlign: TextAlign.center),
-                              ),
-                            onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()? null: () async {
-                                widget.wristCheckController.updateSelectedWatch(null);
-                                _generateTrackDialog();
-                                await analytics.logEvent(name: "calendar_wear");
-                            },
+                widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value
+                    ? const SizedBox(height: 0)
+                    : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                SizedBox(
+                  height: calendarHeight,
+                  child: ValueListenableBuilder(
+                    valueListenable: watchBox.listenable(),
+                    builder: (context, box, _) {
+                      return Obx(
+                        () => SfCalendar(
+                          key: const ValueKey('schedule_sf_calendar'),
+                          firstDayOfWeek: widget.wristCheckController.firstDayOfWeek.value,
+                          view: CalendarView.month,
+                          dataSource: _getCalendarDataSource(),
+                          monthViewSettings: MonthViewSettings(
+                            showAgenda: true,
+                            showTrailingAndLeadingDates: false,
+                            agendaStyle: AgendaStyle(
+                              appointmentTextStyle: Theme.of(context).textTheme.bodyLarge,
+                            ),
                           ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 25.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(l.removeWear, style: TextStyle(
-                              fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
-                            ), textAlign: TextAlign.center,),
-                          ),
-                          onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()? null: () async {
-                            widget.wristCheckController.updateSelectedWatch(null);
-                            _generateDeleteDialog();
-                            await analytics.logEvent(name: "calendar_remove_wear");
+                          initialSelectedDate: DateTime.now(),
+                          onTap: (CalendarTapDetails details) {
+                            //if date cell is tapped on, we set the current selected date
+                            widget.wristCheckController.updateSelectedDate(details.date);
+                            //if an "appointment" is tapped on, show the details of the event
+                            if (details.targetElement == CalendarElement.appointment) {
+                              Appointment currentAppointment = details.appointments!.first;
+                              String summary = currentAppointment.subject;
+                              Get.defaultDialog(
+                                title: WristCheckFormatter.getFormattedDateWithDay(details.date!),
+                                content: Column(
+                                  children: [
+                                    Text(summary),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                          onViewChanged: (ViewChangedDetails details) {
+                            //use pageLoaded to ensure this is not run on first load of the page
+                            if (_pageLoaded) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                if (mounted) {
+                                  widget.wristCheckController.updateSelectedDate(null);
+                                }
+                              });
+                            }
+                            _pageLoaded = true;
                           },
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          //: Border.all(color: Colors.blue, width: 4),
-                          color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                          shape: BoxShape.circle,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: FaIcon(
+                              isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            onPressed: () async {
+                              widget.wristCheckController.toggleCalendarExpanded();
+                              await analytics.logEvent(
+                                name: "toggle_calendar_expand",
+                                parameters: {
+                                  "expanded": widget.wristCheckController.isCalendarExpanded.value ? "true" : "false",
+                                },
+                              );
+                            },
+                          ),
                         ),
-                        child: IconButton(icon: FaIcon(FontAwesomeIcons.businessTime,
-                        color: Colors.white,size: 20),
-                          onPressed: () async {
-                          widget.wristCheckController.updateCalendarOrService(false);
-                          await analytics.logEvent(name: "change_cal_view",
-                          parameters: {
-                            "open_cal": false
-                          });
-                          },)),
-                  ),
-                )
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(l!.trackWear, textAlign: TextAlign.center),
+                              ),
+                              onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()
+                                  ? null
+                                  : () async {
+                                      widget.wristCheckController.updateSelectedWatch(null);
+                                      _generateTrackDialog();
+                                      await analytics.logEvent(name: "calendar_wear");
+                                    },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 25.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  l.removeWear,
+                                  style: TextStyle(
+                                    fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()
+                                  ? null
+                                  : () async {
+                                      widget.wristCheckController.updateSelectedWatch(null);
+                                      _generateDeleteDialog();
+                                      await analytics.logEvent(name: "calendar_remove_wear");
+                                    },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 25.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: FaIcon(
+                              FontAwesomeIcons.businessTime,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            onPressed: () async {
+                              widget.wristCheckController.updateCalendarOrService(false);
+                              await analytics.logEvent(
+                                name: "change_cal_view",
+                                parameters: {"open_cal": false},
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 90),
               ],
             ),
-            const SizedBox(height: 90,)
-
-          ],
-        )
+          );
+        },
       );
     });
   }
