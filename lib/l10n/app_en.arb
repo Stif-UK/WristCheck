@@ -68,6 +68,12 @@
   "lightTheme" : "Light Theme",
   "darkTheme" : "Dark Theme",
   "wrUnitsSectionTitle" : "WR Units",
+  "largeScreenOptionsSectionTitle" : "Large Screen Options",
+  "navBarAlignmentTitle" : "Navigation Bar Alignment",
+  "navBarAlignmentDescription" : "Choose where the navigation bar appears on tablets and unfolded foldables",
+  "navBarAlignLeft" : "Left",
+  "navBarAlignCenter" : "Center",
+  "navBarAlignRight" : "Right",
 
 
   "@_SETTINGS_LINKS": {},

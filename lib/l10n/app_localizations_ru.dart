@@ -174,6 +174,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Ед. водонепроницаемости';
 
   @override
+  String get largeScreenOptionsSectionTitle => 'Параметры большого экрана';
+
+  @override
+  String get navBarAlignmentTitle => 'Выравнивание панели навигации';
+
+  @override
+  String get navBarAlignmentDescription =>
+      'Выберите расположение панели навигации на планшетах и раскрытых складных устройствах';
+
+  @override
+  String get navBarAlignLeft => 'Слева';
+
+  @override
+  String get navBarAlignCenter => 'По центру';
+
+  @override
+  String get navBarAlignRight => 'Справа';
+
+  @override
   String get accountAndCloudSyncLink => 'Аккаунт и облачная синхронизация';
 
   @override

@@ -10,6 +10,7 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/errors/error_handling.dart';
 import 'package:wristcheck/model/enums/location.dart';
+import 'package:wristcheck/model/enums/navbar_alignment.dart';
 import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_filter_enum.dart';
@@ -432,6 +433,14 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
   updateWaterResistanceUnit(WRUnitsEnum units) async {
     await WristCheckPreferences.setWaterResistancePreference(units);
     waterResistanceUnit(units);
+  }
+
+  //Large screen navigation bar alignment
+  final navBarAlignment = WristCheckPreferences.getNavBarAlignment().obs;
+
+  updateNavBarAlignment(NavBarAlignment alignment) async {
+    await WristCheckPreferences.setNavBarAlignment(alignment);
+    navBarAlignment(alignment);
   }
 
   refreshShowMerchStore() async {

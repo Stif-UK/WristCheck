@@ -174,6 +174,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wrUnitsSectionTitle => 'WR Units';
 
   @override
+  String get largeScreenOptionsSectionTitle => 'Large Screen Options';
+
+  @override
+  String get navBarAlignmentTitle => 'Navigation Bar Alignment';
+
+  @override
+  String get navBarAlignmentDescription =>
+      'Choose where the navigation bar appears on tablets and unfolded foldables';
+
+  @override
+  String get navBarAlignLeft => 'Left';
+
+  @override
+  String get navBarAlignCenter => 'Center';
+
+  @override
+  String get navBarAlignRight => 'Right';
+
+  @override
   String get accountAndCloudSyncLink => 'Account & Cloud Sync';
 
   @override

@@ -68,6 +68,12 @@
   "lightTheme" : "Světlý režim",
   "darkTheme" : "Tmavý režim",
   "wrUnitsSectionTitle" : "Jednotky vodotěsnosti",
+  "largeScreenOptionsSectionTitle" : "Možnosti velké obrazovky",
+  "navBarAlignmentTitle" : "Zarovnání navigační lišty",
+  "navBarAlignmentDescription" : "Vyberte umístění navigační lišty na tabletech a rozložených skládacích zařízeních",
+  "navBarAlignLeft" : "Vlevo",
+  "navBarAlignCenter" : "Na střed",
+  "navBarAlignRight" : "Vpravo",
 
 
   "@_SETTINGS_LINKS": {},

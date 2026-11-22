@@ -176,6 +176,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Unités d\'étanchéité';
 
   @override
+  String get largeScreenOptionsSectionTitle => 'Options grand écran';
+
+  @override
+  String get navBarAlignmentTitle => 'Alignement de la barre de navigation';
+
+  @override
+  String get navBarAlignmentDescription =>
+      'Choisissez l\'emplacement de la barre de navigation sur tablettes et écrans pliables dépliés';
+
+  @override
+  String get navBarAlignLeft => 'Gauche';
+
+  @override
+  String get navBarAlignCenter => 'Centrée';
+
+  @override
+  String get navBarAlignRight => 'Droite';
+
+  @override
   String get accountAndCloudSyncLink => 'Compte et synchronisation cloud';
 
   @override

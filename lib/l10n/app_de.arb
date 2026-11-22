@@ -68,6 +68,12 @@
   "lightTheme" : "Helles Design",
   "darkTheme" : "Dunkles Design",
   "wrUnitsSectionTitle" : "Wasserdichtigkeitseinheiten",
+  "largeScreenOptionsSectionTitle" : "Optionen für große Bildschirme",
+  "navBarAlignmentTitle" : "Ausrichtung der Navigationsleiste",
+  "navBarAlignmentDescription" : "Wählen Sie aus, wo die Navigationsleiste auf Tablets und aufgeklappten Foldables angezeigt wird",
+  "navBarAlignLeft" : "Links",
+  "navBarAlignCenter" : "Zentriert",
+  "navBarAlignRight" : "Rechts",
 
 
   "@_SETTINGS_LINKS": {},

@@ -175,6 +175,25 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Wasserdichtigkeitseinheiten';
 
   @override
+  String get largeScreenOptionsSectionTitle => 'Optionen für große Bildschirme';
+
+  @override
+  String get navBarAlignmentTitle => 'Ausrichtung der Navigationsleiste';
+
+  @override
+  String get navBarAlignmentDescription =>
+      'Wählen Sie aus, wo die Navigationsleiste auf Tablets und aufgeklappten Foldables angezeigt wird';
+
+  @override
+  String get navBarAlignLeft => 'Links';
+
+  @override
+  String get navBarAlignCenter => 'Zentriert';
+
+  @override
+  String get navBarAlignRight => 'Rechts';
+
+  @override
   String get accountAndCloudSyncLink => 'Konto & Cloud-Synchronisierung';
 
   @override

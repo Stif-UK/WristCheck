@@ -438,6 +438,42 @@ abstract class AppLocalizations {
   /// **'WR Units'**
   String get wrUnitsSectionTitle;
 
+  /// No description provided for @largeScreenOptionsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Large Screen Options'**
+  String get largeScreenOptionsSectionTitle;
+
+  /// No description provided for @navBarAlignmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigation Bar Alignment'**
+  String get navBarAlignmentTitle;
+
+  /// No description provided for @navBarAlignmentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose where the navigation bar appears on tablets and unfolded foldables'**
+  String get navBarAlignmentDescription;
+
+  /// No description provided for @navBarAlignLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get navBarAlignLeft;
+
+  /// No description provided for @navBarAlignCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Center'**
+  String get navBarAlignCenter;
+
+  /// No description provided for @navBarAlignRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Right'**
+  String get navBarAlignRight;
+
   /// No description provided for @accountAndCloudSyncLink.
   ///
   /// In en, this message translates to:

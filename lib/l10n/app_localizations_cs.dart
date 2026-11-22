@@ -174,6 +174,25 @@ class AppLocalizationsCs extends AppLocalizations {
   String get wrUnitsSectionTitle => 'Jednotky vodotěsnosti';
 
   @override
+  String get largeScreenOptionsSectionTitle => 'Možnosti velké obrazovky';
+
+  @override
+  String get navBarAlignmentTitle => 'Zarovnání navigační lišty';
+
+  @override
+  String get navBarAlignmentDescription =>
+      'Vyberte umístění navigační lišty na tabletech a rozložených skládacích zařízeních';
+
+  @override
+  String get navBarAlignLeft => 'Vlevo';
+
+  @override
+  String get navBarAlignCenter => 'Na střed';
+
+  @override
+  String get navBarAlignRight => 'Vpravo';
+
+  @override
   String get accountAndCloudSyncLink => 'Účet a cloudová synchronizace';
 
   @override

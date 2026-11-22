@@ -68,6 +68,12 @@
   "lightTheme" : "Tema Claro",
   "darkTheme" : "Tema Oscuro",
   "wrUnitsSectionTitle" : "Unidades de WR",
+  "largeScreenOptionsSectionTitle" : "Opciones de pantalla grande",
+  "navBarAlignmentTitle" : "Alineación de la barra de navegación",
+  "navBarAlignmentDescription" : "Elige dónde aparece la barra de navegación en tabletas y dispositivos plegables desplegados",
+  "navBarAlignLeft" : "Izquierda",
+  "navBarAlignCenter" : "Centro",
+  "navBarAlignRight" : "Derecha",
 
 
   "@_SETTINGS_LINKS": {},

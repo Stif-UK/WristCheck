@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/default_chart_type.dart';
+import 'package:wristcheck/model/enums/navbar_alignment.dart';
 import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/enums/watch_day_chart_enum.dart';
 import 'package:wristcheck/model/enums/watch_month_chart_enum.dart';
@@ -94,6 +95,9 @@ class WristCheckPreferences {
 
   //Biometrics lock
   static const _keyEnableBiometrics = 'enableBiometrics';
+
+  //Large screen navigation bar alignment
+  static const _keyNavBarAlignment = 'navBarAlignment';
 
 
 
@@ -783,5 +787,24 @@ class WristCheckPreferences {
       await _preferences.setBool(_keyEnableBiometrics, enable);
 
   static bool getEnableBiometrics() => _preferences.getBool(_keyEnableBiometrics) ?? false;
+
+  //Getter and Setter for large screen navigation bar alignment
+  static NavBarAlignment getNavBarAlignment() {
+    String? value = _preferences.getString(_keyNavBarAlignment);
+    switch (value) {
+      case "NavBarAlignment.left":
+        return NavBarAlignment.left;
+      case "NavBarAlignment.center":
+        return NavBarAlignment.center;
+      case "NavBarAlignment.right":
+        return NavBarAlignment.right;
+      default:
+        return NavBarAlignment.right;
+    }
+  }
+
+  static Future setNavBarAlignment(NavBarAlignment alignment) async {
+    await _preferences.setString(_keyNavBarAlignment, alignment.toString());
+  }
 
 }

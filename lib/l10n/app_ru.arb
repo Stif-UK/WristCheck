@@ -68,6 +68,12 @@
   "lightTheme" : "Светлая тема",
   "darkTheme" : "Темная тема",
   "wrUnitsSectionTitle" : "Ед. водонепроницаемости",
+  "largeScreenOptionsSectionTitle" : "Параметры большого экрана",
+  "navBarAlignmentTitle" : "Выравнивание панели навигации",
+  "navBarAlignmentDescription" : "Выберите расположение панели навигации на планшетах и раскрытых складных устройствах",
+  "navBarAlignLeft" : "Слева",
+  "navBarAlignCenter" : "По центру",
+  "navBarAlignRight" : "Справа",
 
 
   "@_SETTINGS_LINKS": {},

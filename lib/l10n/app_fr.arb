@@ -68,6 +68,12 @@
   "lightTheme" : "Thème clair",
   "darkTheme" : "Thème sombre",
   "wrUnitsSectionTitle" : "Unités d'étanchéité",
+  "largeScreenOptionsSectionTitle" : "Options grand écran",
+  "navBarAlignmentTitle" : "Alignement de la barre de navigation",
+  "navBarAlignmentDescription" : "Choisissez l'emplacement de la barre de navigation sur tablettes et écrans pliables dépliés",
+  "navBarAlignLeft" : "Gauche",
+  "navBarAlignCenter" : "Centrée",
+  "navBarAlignRight" : "Droite",
 
   "@_SETTINGS_LINKS": {},
   "accountAndCloudSyncLink" : "Compte et synchronisation cloud",
