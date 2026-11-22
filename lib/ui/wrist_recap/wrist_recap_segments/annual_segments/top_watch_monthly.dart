@@ -53,9 +53,12 @@ class _TopWatchMonthlyState extends State<TopWatchMonthly> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.topWatchMonthlyTitle,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context)!.topWatchMonthlyTitle,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   IconButton(
                     icon: FaIcon(

@@ -31,8 +31,13 @@ class _StatusWearChartState extends State<StatusWearChart> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(AppLocalizations.of(context)!.statusChartTitle,
-                    style: Theme.of(context).textTheme.bodyLarge),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.statusChartTitle,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

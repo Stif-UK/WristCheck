@@ -30,7 +30,13 @@ class _CategoryChartState extends State<CategoryChart> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(AppLocalizations.of(context)!.categoryChartTitle, style: Theme.of(context).textTheme.bodyLarge),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.categoryChartTitle,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 IconButton(
                   icon: FaIcon(
                     isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,

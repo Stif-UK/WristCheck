@@ -9,6 +9,7 @@ import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/appdata/data_watchlist.dart';
 import 'package:wristcheck/ui/remove_ads.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 
 class DataCompleteness extends StatelessWidget {
   DataCompleteness({super.key});
@@ -126,200 +127,249 @@ class DataCompleteness extends StatelessWidget {
 
           return Obx(() {
             final isAppPro = wristCheckController.isAppPro.value;
+            final bool isLargeScreen = WristTrackBottomNavBar.isLargeScreen(context);
 
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Watches in collection:',
-                        style: headerStyle,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '$count',
-                        style: headerStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(thickness: 2),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      // --- Standard (Non-Pro) Fields ---
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.serialNumberRowHintText ?? 'Serial Number',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.serialNumber,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.purchaseDateRowHintText ?? 'Purchase Date',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.purchaseDate,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.lastServicedDateRowHintText ?? 'Last Serviced Date',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.lastServicedDate,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.referenceNumberRowHelpText ?? 'Reference Number',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.referenceNumber,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.movement ?? 'Movement',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.movement,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.category ?? 'Category',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.category,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.purchasedFromHintText ?? 'Purchased From',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.purchasedFrom,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.purchasePriceRowHintText ?? 'Purchase Price',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.purchasePrice,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.modelYearRowHintText ?? 'Model Year',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.year,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.primaryColourHintText ?? 'Colour',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.primaryColour,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.secondaryColourHintText ?? 'Secondary Colour',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.secondaryColour,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
+            final List<Widget> standardTiles = [
+              _buildFieldTile(
+                context: context,
+                title: l?.serialNumberRowHintText ?? 'Serial Number',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.serialNumber,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.purchaseDateRowHintText ?? 'Purchase Date',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.purchaseDate,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.lastServicedDateRowHintText ?? 'Last Serviced Date',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.lastServicedDate,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.referenceNumberRowHelpText ?? 'Reference Number',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.referenceNumber,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.movement ?? 'Movement',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.movement,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.category ?? 'Category',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.category,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.purchasedFromHintText ?? 'Purchased From',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.purchasedFrom,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.purchasePriceRowHintText ?? 'Purchase Price',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.purchasePrice,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.modelYearRowHintText ?? 'Model Year',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.year,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.primaryColourHintText ?? 'Colour',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.primaryColour,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.secondaryColourHintText ?? 'Secondary Colour',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.secondaryColour,
+                isAppPro: isAppPro,
+              ),
+            ];
 
-                      // --- Pro Fields (Grouped together at the bottom) ---
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.caseDiameterRowHintText ?? 'Case Diameter',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.caseDiameter,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.lugWidthHintText ?? 'Lug Width',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.lugWidth,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.lug2lugRowHintText ?? 'Lug to Lug',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.lug2lug,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.caseThicknessRowHintText ?? 'Case Thickness',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.caseThickness,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.waterResistanceRowHintText ?? 'Water Resistance',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.waterResistance,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.caseMaterial ?? 'Case Material',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.caseMaterial,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.dateComplication ?? 'Date Complication',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.dateComplication,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                      _buildFieldTile(
-                        context: context,
-                        title: l?.powerReserveRowHintText ?? 'Power Reserve',
-                        collectionWatches: collectionWatches,
-                        fieldExtractor: (w) => w.powerReserve,
-                        isProField: true,
-                        isAppPro: isAppPro,
-                      ),
-                      const Divider(thickness: 2),
-                    ],
-                  ),
+            final List<Widget> proTiles = [
+              _buildFieldTile(
+                context: context,
+                title: l?.caseDiameterRowHintText ?? 'Case Diameter',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.caseDiameter,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.lugWidthHintText ?? 'Lug Width',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.lugWidth,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.lug2lugRowHintText ?? 'Lug to Lug',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.lug2lug,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.caseThicknessRowHintText ?? 'Case Thickness',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.caseThickness,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.waterResistanceRowHintText ?? 'Water Resistance',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.waterResistance,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.caseMaterial ?? 'Case Material',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.caseMaterial,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.dateComplication ?? 'Date Complication',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.dateComplication,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+              _buildFieldTile(
+                context: context,
+                title: l?.powerReserveRowHintText ?? 'Power Reserve',
+                collectionWatches: collectionWatches,
+                fieldExtractor: (w) => w.powerReserve,
+                isProField: true,
+                isAppPro: isAppPro,
+              ),
+            ];
+
+            return Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: isLargeScreen ? 1100.0 : double.infinity,
                 ),
-              ],
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Watches in collection:',
+                            style: headerStyle,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '$count',
+                            style: headerStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(thickness: 2),
+                    Expanded(
+                      child: ResponsiveDataCompletenessList(
+                        standardTiles: standardTiles,
+                        proTiles: proTiles,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
           });
         },
       ),
     );
+  }
+}
+
+class ResponsiveDataCompletenessList extends StatelessWidget {
+  const ResponsiveDataCompletenessList({
+    super.key,
+    required this.standardTiles,
+    required this.proTiles,
+  });
+
+  final List<Widget> standardTiles;
+  final List<Widget> proTiles;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isLargeScreen = WristTrackBottomNavBar.isLargeScreen(context);
+
+    if (!isLargeScreen) {
+      final allTiles = [...standardTiles, ...proTiles];
+      return ListView.separated(
+        itemCount: allTiles.length,
+        separatorBuilder: (_, _) => const Divider(thickness: 2),
+        itemBuilder: (_, index) => allTiles[index],
+      );
+    }
+
+    final List<Widget> rows = [
+      ..._buildPairedRows(standardTiles),
+      ..._buildPairedRows(proTiles),
+    ];
+
+    return ListView(
+      children: rows,
+    );
+  }
+
+  List<Widget> _buildPairedRows(List<Widget> tiles) {
+    final List<Widget> rows = [];
+    for (int i = 0; i < tiles.length; i += 2) {
+      final Widget left = tiles[i];
+      final Widget right = i + 1 < tiles.length ? tiles[i + 1] : const SizedBox.shrink();
+
+      rows.add(
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(child: left),
+              const VerticalDivider(width: 16, thickness: 1),
+              Expanded(child: right),
+            ],
+          ),
+        ),
+      );
+      rows.add(const Divider(thickness: 2));
+    }
+    return rows;
   }
 }

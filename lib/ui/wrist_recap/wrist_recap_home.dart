@@ -6,6 +6,8 @@ import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/wrist_recap_bottomsheet.dart';
+import 'package:wristcheck/ui/widgets/responsive_two_column_grid.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_brand_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_category_monthly.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/top_watch_monthly.dart';
@@ -106,54 +108,62 @@ class WristRecapHome extends StatelessWidget {
             thickness: 2,
           ),
           Expanded(
-            child: Obx(() => _dataExists(recapController.watchesWorn.isNotEmpty,
+            child: Obx(() {
+              final hasWorn = recapController.watchesWorn.isNotEmpty;
+              final hasMovement = recapController.watchesBought.isNotEmpty ||
+                  recapController.watchesSold.isNotEmpty;
+
+              if (!_dataExists(
+                hasWorn,
                 recapController.watchesBought.isNotEmpty,
-                recapController.watchesSold.isNotEmpty)
-                ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //For non-pro users show a pro / ad prompt at the top
-                    Obx(() => wristCheckController.isAppPro.value
-                        ? const SizedBox(height: 0)
-                        : (recapController.showOptionalAdCard.value
-                            ? WristRecapAdprompt()
-                            : const SizedBox(height: 0))),
-                    Obx(() => recapController.watchesWorn.isEmpty
-                        ? const SizedBox(height: 0)
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              WatchesWornCarousel(),
-                              WearChart(),
-                              TopWatchMonthly(),
-                            ],
-                          )),
-                    //Show bought/sold section if any movement in the collection
-                    Obx(() => recapController.watchesBought.isNotEmpty || recapController.watchesSold.isNotEmpty ? CollectionMovement() : const SizedBox(height: 0)),
-                    //Show insights if watches have been worn
-                    Obx(() => recapController.watchesWorn.isNotEmpty ? WristRecapInsights() : const SizedBox(height: 0)),
-                    Obx(() => recapController.duplicateBrand.value ? BrandChart() : const SizedBox(height: 0,)),
-                    TopBrandMonthly(),
-                    Obx(() => recapController.categoriesWorn.length > 1 ? CategoryChart() : const SizedBox(height: 0)),
-                    TopCategoryMonthly(),
-                    Obx(() => recapController.statusWorn.length > 1 ? StatusWearChart() : const SizedBox(height: 0)),
-                    //For non-pro users show thanks at bottom after watching ad
-                    Obx(() => wristCheckController.isAppPro.value
-                        ? const SizedBox(height: 0)
-                        : (recapController.showOptionalAdCard.value
-                            ? const SizedBox(height: 0)
-                            : WristRecapThanks())),
-                    //Space at bottom of page
-                    const SizedBox(
-                      height: 50,
-                    ),
-                  ],
-                ),
-                //If the _dataExists check is false show a 'no data' placeholder
-              ) : WristRecapEmptyData(),
-            ),
+                recapController.watchesSold.isNotEmpty,
+              )) {
+                return WristRecapEmptyData();
+              }
+
+              final bool isAnnual =
+                  recapController.selectedRecapOption.value == WristRecapEnums.annually;
+              final bool showTopWatchMonthly = isAnnual &&
+                  recapController.topWatchMonthly.any((element) => element.count > 0);
+              final bool showBrandChart = recapController.duplicateBrand.value;
+              final bool showTopBrandMonthly = isAnnual &&
+                  showBrandChart &&
+                  recapController.topBrandMonthly.any((element) => element.count > 0);
+              final bool showCategoryChart = recapController.categoriesWorn.length > 1;
+              final bool showTopCategoryMonthly = isAnnual &&
+                  showCategoryChart &&
+                  recapController.topCategoryMonthly.any((element) => element.count > 0);
+              final bool showStatusChart = recapController.statusWorn.length > 1;
+
+              final Widget? adPrompt = !wristCheckController.isAppPro.value &&
+                      recapController.showOptionalAdCard.value
+                  ? WristRecapAdprompt()
+                  : null;
+
+              final Widget? thanksCard = !wristCheckController.isAppPro.value &&
+                      !recapController.showOptionalAdCard.value
+                  ? WristRecapThanks()
+                  : null;
+
+              final List<Widget> cards = [
+                if (hasWorn) WearChart(),
+                if (hasWorn) WristRecapInsights(),
+                if (showTopWatchMonthly) const TopWatchMonthly(),
+                if (hasMovement) CollectionMovement(),
+                if (showBrandChart) const BrandChart(),
+                if (showTopBrandMonthly) const TopBrandMonthly(),
+                if (showCategoryChart) CategoryChart(),
+                if (showTopCategoryMonthly) const TopCategoryMonthly(),
+                if (showStatusChart) StatusWearChart(),
+              ];
+
+              return ResponsiveWristRecapBody(
+                adPrompt: adPrompt,
+                watchesWornCarousel: hasWorn ? WatchesWornCarousel() : null,
+                cards: cards,
+                thanksCard: thanksCard,
+              );
+            }),
           ),
         ],
       ),
@@ -164,4 +174,50 @@ class WristRecapHome extends StatelessWidget {
     return watchesWorn || watchesBought || watchesSold;
   }
 
+}
+
+class ResponsiveWristRecapBody extends StatelessWidget {
+  const ResponsiveWristRecapBody({
+    super.key,
+    this.adPrompt,
+    this.watchesWornCarousel,
+    required this.cards,
+    this.thanksCard,
+    this.breakpoint = WristTrackBottomNavBar.largeScreenBreakpoint,
+    this.maxWidth = 1200.0,
+  });
+
+  final Widget? adPrompt;
+  final Widget? watchesWornCarousel;
+  final List<Widget> cards;
+  final Widget? thanksCard;
+  final double breakpoint;
+  final double maxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (adPrompt != null) adPrompt!,
+              if (watchesWornCarousel != null) watchesWornCarousel!,
+              if (cards.isNotEmpty)
+                ResponsiveTwoColumnGrid(
+                  breakpoint: breakpoint,
+                  horizontalSpacing: 0.0,
+                  maxWidth: maxWidth,
+                  children: cards,
+                ),
+              if (thanksCard != null) thanksCard!,
+              const SizedBox(height: 50),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -55,9 +55,12 @@ class _TopCategoryMonthlyState extends State<TopCategoryMonthly> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.topCategoryMonthlyTitle,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context)!.topCategoryMonthlyTitle,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   IconButton(
                     icon: FaIcon(
