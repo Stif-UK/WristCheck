@@ -117,6 +117,28 @@ void main() {
       await tester.pump();
       expect(tappedIndex, 1);
     });
+
+    testWidgets('isLargeScreen returns false below 600dp and true at/above 600dp', (tester) async {
+      await pumpNavBar(
+        tester,
+        screenSize: const Size(599, 800),
+        alignment: NavBarAlignment.right,
+      );
+      expect(
+        WristTrackBottomNavBar.isLargeScreen(tester.element(find.byType(WristTrackBottomNavBar))),
+        isFalse,
+      );
+
+      await pumpNavBar(
+        tester,
+        screenSize: const Size(600, 800),
+        alignment: NavBarAlignment.right,
+      );
+      expect(
+        WristTrackBottomNavBar.isLargeScreen(tester.element(find.byType(WristTrackBottomNavBar))),
+        isTrue,
+      );
+    });
   });
 
   group('NavBarAlignment localization & preferences', () {

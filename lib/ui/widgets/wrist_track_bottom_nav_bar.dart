@@ -13,6 +13,9 @@ class WristTrackBottomNavBar extends StatelessWidget {
   static const double largeScreenBreakpoint = 600.0;
   static const double largeScreenMaxWidth = 420.0;
 
+  static bool isLargeScreen(BuildContext context) =>
+      MediaQuery.sizeOf(context).width >= largeScreenBreakpoint;
+
   final int currentIndex;
   final ValueChanged<int> onTap;
   final List<BottomNavigationBarItem> items;
@@ -20,7 +23,7 @@ class WristTrackBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLargeScreen = MediaQuery.sizeOf(context).width >= largeScreenBreakpoint;
+    final bool largeScreen = isLargeScreen(context);
 
     final Widget navContainer = Container(
       width: double.infinity,
@@ -62,7 +65,7 @@ class WristTrackBottomNavBar extends StatelessWidget {
       top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
-        child: isLargeScreen
+        child: largeScreen
             ? Align(
                 alignment: navBarAlignment.toAlignment(),
                 heightFactor: 1.0,

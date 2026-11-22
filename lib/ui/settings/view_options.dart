@@ -14,6 +14,7 @@ import 'package:wristcheck/model/enums/watchbox_ordering.dart';
 import 'package:wristcheck/model/enums/watchbox_view.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 
@@ -304,47 +305,49 @@ class _ViewOptionsState extends State<ViewOptions> {
                     ],),
                   ),
                   const Divider(thickness: 2,),
-                  Obx(() => ExpansionTile(
-                    title: Text(
-                      AppLocalizations.of(context)!.largeScreenOptionsSectionTitle,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    leading: const Icon(Icons.tablet_mac),
-                    children: [
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.navBarAlignmentTitle),
-                        subtitle: Text(AppLocalizations.of(context)!.navBarAlignmentDescription),
+                  if (WristTrackBottomNavBar.isLargeScreen(context)) ...[
+                    Obx(() => ExpansionTile(
+                      title: Text(
+                        AppLocalizations.of(context)!.largeScreenOptionsSectionTitle,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      RadioGroup<NavBarAlignment>(
-                        groupValue: widget.wristCheckController.navBarAlignment.value,
-                        onChanged: (NavBarAlignment? value) {
-                          if (value != null) {
-                            widget.wristCheckController.updateNavBarAlignment(value);
-                          }
-                        },
-                        child: Column(
-                          children: [
-                            RadioListTile<NavBarAlignment>(
-                              title: Text(NavBarAlignment.left.toLocalizedString(context)),
-                              secondary: const Icon(Icons.align_horizontal_left),
-                              value: NavBarAlignment.left,
-                            ),
-                            RadioListTile<NavBarAlignment>(
-                              title: Text(NavBarAlignment.center.toLocalizedString(context)),
-                              secondary: const Icon(Icons.align_horizontal_center),
-                              value: NavBarAlignment.center,
-                            ),
-                            RadioListTile<NavBarAlignment>(
-                              title: Text(NavBarAlignment.right.toLocalizedString(context)),
-                              secondary: const Icon(Icons.align_horizontal_right),
-                              value: NavBarAlignment.right,
-                            ),
-                          ],
+                      leading: const Icon(Icons.tablet_mac),
+                      children: [
+                        ListTile(
+                          title: Text(AppLocalizations.of(context)!.navBarAlignmentTitle),
+                          subtitle: Text(AppLocalizations.of(context)!.navBarAlignmentDescription),
                         ),
-                      ),
-                    ],
-                  )),
-                  const Divider(thickness: 2,)
+                        RadioGroup<NavBarAlignment>(
+                          groupValue: widget.wristCheckController.navBarAlignment.value,
+                          onChanged: (NavBarAlignment? value) {
+                            if (value != null) {
+                              widget.wristCheckController.updateNavBarAlignment(value);
+                            }
+                          },
+                          child: Column(
+                            children: [
+                              RadioListTile<NavBarAlignment>(
+                                title: Text(NavBarAlignment.left.toLocalizedString(context)),
+                                secondary: const Icon(Icons.align_horizontal_left),
+                                value: NavBarAlignment.left,
+                              ),
+                              RadioListTile<NavBarAlignment>(
+                                title: Text(NavBarAlignment.center.toLocalizedString(context)),
+                                secondary: const Icon(Icons.align_horizontal_center),
+                                value: NavBarAlignment.center,
+                              ),
+                              RadioListTile<NavBarAlignment>(
+                                title: Text(NavBarAlignment.right.toLocalizedString(context)),
+                                secondary: const Icon(Icons.align_horizontal_right),
+                                value: NavBarAlignment.right,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                    const Divider(thickness: 2,),
+                  ]
                 ],
               ),
             ),
