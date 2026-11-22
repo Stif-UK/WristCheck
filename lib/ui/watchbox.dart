@@ -61,10 +61,19 @@ class _WatchBoxState extends State<Watchbox> {
   }
 
 
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    _scrollController = ScrollController();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   final watchBox = Boxes.getWatches();
@@ -78,92 +87,107 @@ class _WatchBoxState extends State<Watchbox> {
         children: [
           //Insert Ad Widget into tree
           widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-          //Create drop down and search button
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(0,10.0,10.0,10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        FittedBox(
-                          child: DropdownButton<CollectionView>(
-                            icon: FaIcon(FontAwesomeIcons.angleDown),
-                            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                            items: items.map(buildMenuItem).toList(),
-                            value: collectionValue,
-                            onChanged: (value) async {
-                              analytics.logEvent(name: "change_watchbox_view",
-                                  parameters: {
-                                    "view" : collectionValue.toString()
-                                  });
-                              setState(() {
-                                collectionValue = value;
-                              });
-                            },),
-                        ),
-                      ],
+          Expanded(
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                //Create drop down and search button
+                SliverFloatingHeader(
+                  child: Material(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.fromLTRB(0,10.0,10.0,10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  FittedBox(
+                                    child: DropdownButton<CollectionView>(
+                                      icon: FaIcon(FontAwesomeIcons.angleDown),
+                                      dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+                                      items: items.map(buildMenuItem).toList(),
+                                      value: collectionValue,
+                                      onChanged: (value) async {
+                                        analytics.logEvent(name: "change_watchbox_view",
+                                            parameters: {
+                                              "view" : collectionValue.toString()
+                                            });
+                                        setState(() {
+                                          collectionValue = value;
+                                        });
+                                      },),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                              icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
+                              onPressed: () async {
+                                analytics.logEvent(name: "search_called");
+                                showSearch(
+                                  context: context,
+                                  delegate: SearchWidget(),
+                                );
+                              },
+                            ),
+                          ),
+                          IconButton(
+                              icon: FaIcon(FontAwesomeIcons.ellipsisVertical),
+                              onPressed: (){
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context){
+                                      return WatchOrderBottomSheet();
+                                    }
+                                );
+                              }
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-                    onPressed: () async {
-                      analytics.logEvent(name: "search_called");
-                      showSearch(
-                        context: context,
-                        delegate: SearchWidget(),
-                      );
-                    },
-                  ),
-                ),
-          IconButton(
-              icon: FaIcon(FontAwesomeIcons.ellipsisVertical),
-              onPressed: (){
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                                context: context,
-                                builder: (context){
-                      return WatchOrderBottomSheet();
+                //Implement the watchbox view
+                ValueListenableBuilder(
+                  valueListenable: watchBox.listenable(),
+                  builder: (context, box, _) {
+                    return Obx(() {
+                      final view = widget.wristCheckController.watchBoxView.value;
+                      final order = widget.wristCheckController.watchboxOrder.value!;
+
+                      if (view == WatchBoxView.list) {
+                        return WatchboxListView(
+                          collectionValue: collectionValue!,
+                          watchOrder: order,
+                          scrollController: _scrollController,
+                        );
+                      } else if (view == WatchBoxView.grid) {
+                        return WatchboxGridView(
+                          collectionValue: collectionValue!,
+                          watchOrder: order,
+                          scrollController: _scrollController,
+                        );
+                      } else {
+                        return WatchboxGalleryView(
+                          collectionValue: collectionValue!,
+                          watchOrder: order,
+                          scrollController: _scrollController,
+                        );
                       }
-                             );
-                              }
-                            ),
+                    });
+                  },
+                ),
               ],
             ),
           ),
-          //Implement the watchbox view
-          ValueListenableBuilder(
-            valueListenable: watchBox.listenable(),
-            builder: (context, box, _) {
-              return Obx(() {
-                final view = widget.wristCheckController.watchBoxView.value;
-                final order = widget.wristCheckController.watchboxOrder.value!;
-                
-                if (view == WatchBoxView.list) {
-                  return WatchboxListView(
-                    collectionValue: collectionValue!,
-                    watchOrder: order,
-                  );
-                } else if (view == WatchBoxView.grid) {
-                  return WatchboxGridView(
-                    collectionValue: collectionValue!,
-                    watchOrder: order,
-                  );
-                } else {
-                  return WatchboxGalleryView(
-                    collectionValue: collectionValue!,
-                    watchOrder: order,
-                  );
-                }
-              });
-            },
-          )
 
         ]
 

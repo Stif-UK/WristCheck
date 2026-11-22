@@ -13,13 +13,14 @@ import 'package:wristcheck/ui/widgets/wrist_track_grid_tab.dart';
 class WatchboxGridView extends StatefulWidget {
   WatchboxGridView({
     Key? key,
-    required this.collectionValue, required this.watchOrder}) : super(key: key);
+    required this.collectionValue,
+    required this.watchOrder,
+    required this.scrollController,
+  }) : super(key: key);
   final CollectionView collectionValue;
   final WatchOrder watchOrder;
+  final ScrollController scrollController;
   final wristCheckController = Get.put(WristCheckController());
-
-
-
 
   @override
   State<WatchboxGridView> createState() => _WatchboxGridViewState();
@@ -27,19 +28,6 @@ class WatchboxGridView extends StatefulWidget {
 
 class _WatchboxGridViewState extends State<WatchboxGridView> {
   final watchBox = Boxes.getWatches();
-  late final ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,37 +54,40 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
           List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
           List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
+          if (filteredList.isEmpty) {
+            return SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
+              ),
+            );
+          }
 
-          return filteredList.isEmpty?Container(
-            alignment: Alignment.center,
-            child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context)
-          ):
-
-          Expanded(
-            child: GridView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
+          return SliverPadding(
+            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
+            sliver: SliverGrid.builder(
               itemCount: filteredList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: childAspectRatio,
-                ),
-                itemBuilder: (BuildContext context, int index){
-                  var currentWatch = filteredList.elementAt(index);
-                  return ShrinkOnScrollItem(
-                    scrollController: _scrollController,
-                    maxShrink: 0.30,
-                    maxHorizontalShift: 20.0,
-                    columnIndex: index % crossAxisCount,
-                    totalColumns: crossAxisCount,
-                    child: WristTrackGridTab(
-                      currentWatch: currentWatch,
-                      collectionValue: widget.collectionValue,
-                    ),
-                  );
-                })
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: childAspectRatio,
+              ),
+              itemBuilder: (BuildContext context, int index){
+                var currentWatch = filteredList.elementAt(index);
+                return ShrinkOnScrollItem(
+                  scrollController: widget.scrollController,
+                  maxShrink: 0.30,
+                  maxHorizontalShift: 20.0,
+                  columnIndex: index % crossAxisCount,
+                  totalColumns: crossAxisCount,
+                  child: WristTrackGridTab(
+                    currentWatch: currentWatch,
+                    collectionValue: widget.collectionValue,
+                  ),
+                );
+              },
+            ),
           );
         }
 

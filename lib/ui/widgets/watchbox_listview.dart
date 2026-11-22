@@ -13,13 +13,14 @@ import 'package:wristcheck/ui/widgets/watch_card.dart';
 class WatchboxListView extends StatefulWidget {
   WatchboxListView({
     Key? key,
-    required this.collectionValue, required this.watchOrder}) : super(key: key);
+    required this.collectionValue,
+    required this.watchOrder,
+    required this.scrollController,
+  }) : super(key: key);
   final CollectionView collectionValue;
   final WatchOrder watchOrder;
+  final ScrollController scrollController;
   final wristCheckController = Get.put(WristCheckController());
-
-
-
 
   @override
   State<WatchboxListView> createState() => _WatchboxListViewState();
@@ -27,19 +28,6 @@ class WatchboxListView extends StatefulWidget {
 
 class _WatchboxListViewState extends State<WatchboxListView> {
   final watchBox = Boxes.getWatches();
-  late final ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +37,30 @@ class _WatchboxListViewState extends State<WatchboxListView> {
           List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
           List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
-          return filteredList.isEmpty?Container(
-            alignment: Alignment.center,
-            child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context)
-          ):
+          if (filteredList.isEmpty) {
+            return SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
+              ),
+            );
+          }
 
-          Expanded(
-            child: ListView.separated(
-              controller: _scrollController,
-              padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 110.0),
+          return SliverPadding(
+            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 110.0),
+            sliver: SliverList.separated(
               itemCount: filteredList.length,
               separatorBuilder: (context, index){
-                  return const SizedBox(height: 5,);
-                  },
+                return const SizedBox(height: 5,);
+              },
               itemBuilder: (BuildContext context, int index) {
                 return ShrinkOnScrollItem(
-                  scrollController: _scrollController,
+                  scrollController: widget.scrollController,
                   child: WatchCard(watch: filteredList.elementAt(index), collectionView: widget.collectionValue),
                 );
               },
-                )
-    );
+            ),
+          );
         }
 
 

@@ -17,10 +17,12 @@ class WatchboxGalleryView extends StatefulWidget {
     Key? key,
     required this.collectionValue,
     required this.watchOrder,
+    required this.scrollController,
   }) : super(key: key);
   
   final CollectionView collectionValue;
   final WatchOrder watchOrder;
+  final ScrollController scrollController;
   final wristCheckController = Get.find<WristCheckController>();
 
   @override
@@ -29,19 +31,6 @@ class WatchboxGalleryView extends StatefulWidget {
 
 class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
   final watchBox = Boxes.getWatches();
-  late final ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +51,17 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
         List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
 
         if (filteredList.isEmpty) {
-          return Container(
-            alignment: Alignment.center,
-            child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
+          return SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
+            ),
           );
         }
 
-        return Expanded(
-          child: GridView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 110.0),
+        return SliverPadding(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 110.0),
+          sliver: SliverGrid.builder(
             itemCount: filteredList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
@@ -82,7 +72,7 @@ class _WatchboxGalleryViewState extends State<WatchboxGalleryView> {
             itemBuilder: (BuildContext context, int index) {
               var currentWatch = filteredList.elementAt(index);
               return ShrinkOnScrollItem(
-                scrollController: _scrollController,
+                scrollController: widget.scrollController,
                 maxShrink: 0.38,
                 maxHorizontalShift: 18.0,
                 columnIndex: index % crossAxisCount,
