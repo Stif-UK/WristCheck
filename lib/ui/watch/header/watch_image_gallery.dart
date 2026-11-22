@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
@@ -41,6 +42,12 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
   late CarouselController _watchCarouselController;
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.sizeOf(context);
+    final bool isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final double galleryHeight = isLandscape
+        ? math.min(screenSize.width * 0.90, screenSize.height * 0.65)
+        : screenSize.width * 0.90;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(Get.context!)!.watchGallery(widget.watch.toString())),
@@ -49,7 +56,7 @@ class _WatchImageGalleryState extends State<WatchImageGallery> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.width*0.90,
+            height: galleryHeight,
             child: Obx(()=> Hero(
               tag: "ImageCarousel",
               child: CarouselView.weighted(

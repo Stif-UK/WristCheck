@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
@@ -69,6 +70,16 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
     }
 
     final cardWidgets = images.map((image) => ImageCardWidget(image: image)).toList();
+    final Size screenSize = MediaQuery.sizeOf(context);
+    final bool isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final double defaultDimension = screenSize.width * 0.8;
+    final double carouselHeight = isLandscape
+        ? math.min(defaultDimension, screenSize.height * 0.5)
+        : defaultDimension;
+    final double carouselWidth = math.min(
+      screenSize.width * 0.95,
+      carouselHeight * cardWidgets.length,
+    );
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -77,14 +88,14 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
         Column(
           children: [
             SizedBox(
-              width: MediaQuery.sizeOf(context).width * 0.95,
-              height: MediaQuery.sizeOf(context).width * 0.8,
+              width: carouselWidth,
+              height: carouselHeight,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                 child: Hero(
                   tag: "ImageCarousel",
                   child: CarouselView(
-                    itemExtent: MediaQuery.sizeOf(context).width * 0.8,
+                    itemExtent: carouselHeight,
                     controller: _watchCarouselController,
                     itemSnapping: true,
                     onTap: (index) async {
