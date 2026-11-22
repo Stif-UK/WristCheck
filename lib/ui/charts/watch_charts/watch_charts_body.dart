@@ -27,97 +27,129 @@ class WatchChartsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    return currentWatch.wearList.isNotEmpty ? SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+    final l = AppLocalizations.of(context)!;
+    if (currentWatch.wearList.isEmpty) {
+      return Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ListTile(
+                title: Text(
+                  l.noDataRecorded,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: FaIcon(FontAwesomeIcons.folderOpen, size: 50.0),
+              ),
+              WristCheckCopy.getEmptyWearListWatchChartsCopy(),
+            ],
+          ),
+        ),
+      );
+    }
 
-          ListTile(
-              title: Text(l!.wearsByMonth,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineSmall,
-                textAlign: TextAlign.start,),
-              leading: FaIcon(FontAwesomeIcons.calendarDays),
-              trailing: Obx(() =>
-                  IconButton(
-                    icon: ChartHelper.getWatchMonthChartIcon(
-                        wristCheckController.monthChartPreference.value),
-                    onPressed: () {
-                      ChartHelper.getNextMonthChart(
-                          wristCheckController.monthChartPreference.value);
-                    },
-                  ),
-              )
-          ),
-          _buildMonthFilterToggleRow(),
-          WatchMonthChart(currentWatch: currentWatch),
-          const Divider(thickness: 2,),
-          ListTile(
-              title: Text(l.wearsByDay,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineSmall,
-                textAlign: TextAlign.start,),
-              leading: FaIcon(FontAwesomeIcons.calendarDay),
-              trailing: Obx(() =>
-                  IconButton(
-                    icon: ChartHelper.getWatchDayChartIcon(
-                        wristCheckController.dayChartPreference.value),
-                    onPressed: () {
-                      ChartHelper.getNextDayChart(
-                          wristCheckController.dayChartPreference.value);
-                    },
-                  ),
-              )
-          ),
-          _buildDayFilterToggleRow(),
-          WatchDayChart(currentWatch: currentWatch),
-          const Divider(thickness: 2,),
-          ListTile(title: Text(l.wearsByYear,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headlineSmall,
-                    textAlign: TextAlign.start,),
-                    leading: FaIcon(FontAwesomeIcons.calendarWeek),
-                    trailing: Obx(() =>
-                    IconButton(
-                    icon: wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
-                    FaIcon(FontAwesomeIcons.chartBar):
-                      FaIcon(FontAwesomeIcons.chartPie),
-                    onPressed: () {
-                    wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar ?
-                        wristCheckController.updateYearChartPreference(WatchYearChartEnum.pie) :
-                        wristCheckController.updateYearChartPreference(WatchYearChartEnum.bar);
-                    },
-                    ),
-                    )
-          ),
-          WatchYearChart(currentWatch: currentWatch),
-          SizedBox(height: 50,), //Add some space at the bottom of the page
-        ],
+    return SingleChildScrollView(
+      child: ResponsiveWatchChartsLayout(
+        monthSection: _buildMonthSection(context, l),
+        daySection: _buildDaySection(context, l),
+        yearSection: _buildYearSection(context, l),
       ),
-    ) :
-    //Wearlist is empty
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
+
+  Widget _buildMonthSection(BuildContext context, AppLocalizations l) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ListTile(
-          title: Text(l!.noDataRecorded, style: Theme
-              .of(context)
-              .textTheme
-              .headlineSmall, textAlign: TextAlign.center,),
+          title: Text(
+            l.wearsByMonth,
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.start,
+          ),
+          leading: const FaIcon(FontAwesomeIcons.calendarDays),
+          trailing: Obx(
+            () => IconButton(
+              icon: ChartHelper.getWatchMonthChartIcon(
+                wristCheckController.monthChartPreference.value,
+              ),
+              onPressed: () {
+                ChartHelper.getNextMonthChart(
+                  wristCheckController.monthChartPreference.value,
+                );
+              },
+            ),
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FaIcon(FontAwesomeIcons.folderOpen, size: 50.0,),
+        _buildMonthFilterToggleRow(),
+        WatchMonthChart(currentWatch: currentWatch),
+      ],
+    );
+  }
+
+  Widget _buildDaySection(BuildContext context, AppLocalizations l) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ListTile(
+          title: Text(
+            l.wearsByDay,
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.start,
+          ),
+          leading: const FaIcon(FontAwesomeIcons.calendarDay),
+          trailing: Obx(
+            () => IconButton(
+              icon: ChartHelper.getWatchDayChartIcon(
+                wristCheckController.dayChartPreference.value,
+              ),
+              onPressed: () {
+                ChartHelper.getNextDayChart(
+                  wristCheckController.dayChartPreference.value,
+                );
+              },
+            ),
+          ),
         ),
-        WristCheckCopy.getEmptyWearListWatchChartsCopy(),
+        _buildDayFilterToggleRow(),
+        WatchDayChart(currentWatch: currentWatch),
+      ],
+    );
+  }
+
+  Widget _buildYearSection(BuildContext context, AppLocalizations l) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ListTile(
+          title: Text(
+            l.wearsByYear,
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.start,
+          ),
+          leading: const FaIcon(FontAwesomeIcons.calendarWeek),
+          trailing: Obx(
+            () => IconButton(
+              icon: wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar
+                  ? const FaIcon(FontAwesomeIcons.chartBar)
+                  : const FaIcon(FontAwesomeIcons.chartPie),
+              onPressed: () {
+                wristCheckController.yearChartPreference.value == WatchYearChartEnum.bar
+                    ? wristCheckController.updateYearChartPreference(WatchYearChartEnum.pie)
+                    : wristCheckController.updateYearChartPreference(WatchYearChartEnum.bar);
+              },
+            ),
+          ),
+        ),
+        WatchYearChart(currentWatch: currentWatch),
       ],
     );
   }
@@ -207,4 +239,87 @@ class WatchChartsBody extends StatelessWidget {
     );
   }
 
+}
+
+class ResponsiveWatchChartsLayout extends StatelessWidget {
+  const ResponsiveWatchChartsLayout({
+    super.key,
+    required this.monthSection,
+    required this.daySection,
+    required this.yearSection,
+    this.portraitMaxWidth = 720.0,
+    this.landscapeBreakpoint = 900.0,
+    this.landscapeMaxWidth = 1200.0,
+    this.landscapeThirdChartMaxWidth = 600.0,
+  });
+
+  final Widget monthSection;
+  final Widget daySection;
+  final Widget yearSection;
+  final double portraitMaxWidth;
+  final double landscapeBreakpoint;
+  final double landscapeMaxWidth;
+  final double landscapeThirdChartMaxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double availableWidth = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : MediaQuery.sizeOf(context).width;
+        final bool useTwoColumns = isLandscape && availableWidth >= landscapeBreakpoint;
+
+        if (useTwoColumns) {
+          return Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: landscapeMaxWidth),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: monthSection),
+                      const SizedBox(width: 24),
+                      Expanded(child: daySection),
+                    ],
+                  ),
+                  const Divider(thickness: 2),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: landscapeThirdChartMaxWidth),
+                      child: yearSection,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: portraitMaxWidth),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                monthSection,
+                const Divider(thickness: 2),
+                daySection,
+                const Divider(thickness: 2),
+                yearSection,
+                const SizedBox(height: 50),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
