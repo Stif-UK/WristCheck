@@ -12,6 +12,7 @@ import 'package:wristcheck/ui/watch/rows/primary_colour_row.dart';
 import 'package:wristcheck/ui/watch/rows/reference_number_row.dart';
 import 'package:wristcheck/ui/watch/rows/secondary_colour_row.dart';
 import 'package:wristcheck/ui/watch/rows/serial_number_row.dart';
+import 'package:wristcheck/ui/widgets/responsive_two_column_grid.dart';
 import 'package:wristcheck/util/list_tile_helper.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -41,83 +42,135 @@ class InfoTab extends StatelessWidget {
   final TextStyle? bodyLarge;
   final BuildContext context; //Passing context is bad practice! Only used to determine app theme
 
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ManufacturerRow(enabled: watchViewController.inEditState.value, manufacturerFieldController: manufacturerFieldController),
-        ModelRow(enabled: watchViewController.inEditState.value, modelFieldController: modelFieldController),
-        _buildCategoryField(),
-        PrimaryColourRow(enabled: watchViewController.inEditState.value, primaryColourFieldController: primaryColourFieldController),
-        SecondaryColourRow(enabled: watchViewController.inEditState.value, secondaryColourFieldController: secondaryColourFieldController),
-        SerialNumberRow(serialNumberFieldController: serialNumberFieldController, enabled: watchViewController.inEditState.value, viewState: watchViewController.watchViewState.value),
-        ReferenceNumberRow(enabled: watchViewController.inEditState.value, referenceNumberFieldController: referenceNumberFieldController, viewState: watchViewController.watchViewState.value),
-        _buildMovementField()
-      ],
+    return Obx(
+      () => ResponsiveTwoColumnGrid(
+        children: [
+          ManufacturerRow(
+            enabled: watchViewController.inEditState.value,
+            manufacturerFieldController: manufacturerFieldController,
+          ),
+          ModelRow(
+            enabled: watchViewController.inEditState.value,
+            modelFieldController: modelFieldController,
+          ),
+          _buildCategoryField(context),
+          _buildMovementField(context),
+          PrimaryColourRow(
+            enabled: watchViewController.inEditState.value,
+            primaryColourFieldController: primaryColourFieldController,
+          ),
+          SecondaryColourRow(
+            enabled: watchViewController.inEditState.value,
+            secondaryColourFieldController: secondaryColourFieldController,
+          ),
+          ReferenceNumberRow(
+            enabled: watchViewController.inEditState.value,
+            referenceNumberFieldController: referenceNumberFieldController,
+            viewState: watchViewController.watchViewState.value,
+          ),
+          SerialNumberRow(
+            serialNumberFieldController: serialNumberFieldController,
+            enabled: watchViewController.inEditState.value,
+            viewState: watchViewController.watchViewState.value,
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildMovementField(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(AppLocalizations.of(Get.context!)!.movementRowTitle,
-          textAlign: TextAlign.start,
-          style: bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: DropdownButtonFormField<MovementEnum>(
+  Widget _buildMovementField(BuildContext fieldContext) {
+    final l10n = AppLocalizations.of(fieldContext) ?? AppLocalizations.of(Get.context!)!;
+    return Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.movementRowTitle,
+            textAlign: TextAlign.start,
+            style: bodyLarge,
+          ),
+          DropdownButtonFormField<MovementEnum>(
+            isExpanded: true,
+            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+            borderRadius: BorderRadius.circular(24),
+            menuMaxHeight: 300,
+            value: WristCheckFormatter.getMovementEnum(watchViewController.movement.value),
+            iconSize: watchViewController.inEditState.value ? 24.0 : 0.0,
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+              const FaIcon(FontAwesomeIcons.gears),
+              context,
+            ),
+            items: MovementEnum.values.map((movement) {
+              return DropdownMenuItem<MovementEnum>(
+                value: movement,
+                child: Text(movement.toLocalizedString(context)),
+              );
+            }).toList(),
+            onChanged: watchViewController.inEditState.value
+                ? (movement) {
+                    watchViewController.updateMovement(
+                      WristCheckFormatter.getMovementText(movement!),
+                    );
+                    movementFieldController.value = TextEditingValue(
+                      text: WristCheckFormatter.getMovementText(movement),
+                    );
+                  }
+                : null,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryField(BuildContext fieldContext) {
+    final l10n = AppLocalizations.of(fieldContext) ?? AppLocalizations.of(Get.context!)!;
+    return Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.categoryRowTitle,
+            textAlign: TextAlign.start,
+            style: bodyLarge,
+          ),
+          Obx(
+            () => DropdownButtonFormField<CategoryEnum>(
+              isExpanded: true,
               dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
               borderRadius: BorderRadius.circular(24),
               menuMaxHeight: 300,
-              value: WristCheckFormatter.getMovementEnum(watchViewController.movement.value),
-              iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const FaIcon(FontAwesomeIcons.gears,), context),
-              items: MovementEnum.values.map((movement) {
-                return DropdownMenuItem<MovementEnum>(
-                    value: movement,
-                    child: Text(movement.toLocalizedString(context)));
+              value: WristCheckFormatter.getCategoryEnum(watchViewController.category.value),
+              iconSize: watchViewController.inEditState.value ? 24.0 : 0.0,
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+                ListTileHelper.getCategoryIcon(
+                  WristCheckFormatter.getCategoryEnum(categoryFieldController.value.text),
+                ),
+                context,
+              ),
+              items: CategoryEnum.values.map((category) {
+                return DropdownMenuItem<CategoryEnum>(
+                  value: category,
+                  child: Text(category.toLocalizedString(context)),
+                );
               }).toList(),
-              onChanged: watchViewController.inEditState.value? (movement){
-                watchViewController.updateMovement(WristCheckFormatter.getMovementText(movement!));
-                movementFieldController.value = TextEditingValue(text:WristCheckFormatter.getMovementText(movement!));
-              } : null ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCategoryField(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(AppLocalizations.of(Get.context!)!.categoryRowTitle,
-          textAlign: TextAlign.start,
-          style: bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: Obx(()=> DropdownButtonFormField<CategoryEnum>(
-                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                borderRadius: BorderRadius.circular(24),
-                menuMaxHeight: 300,
-                value: WristCheckFormatter.getCategoryEnum(watchViewController.category.value),
-                iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-                decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(ListTileHelper.getCategoryIcon(WristCheckFormatter.getCategoryEnum(categoryFieldController.value.text)), context),
-                items: CategoryEnum.values.map((category) {
-                  return DropdownMenuItem<CategoryEnum>(
-                      value: category,
-                      child: Text(category.toLocalizedString(context)));
-                }).toList(),
-                onChanged: watchViewController.inEditState.value? (category){
-                  watchViewController.updateCategory(WristCheckFormatter.getCategoryText(category!));
-                  categoryFieldController.value = TextEditingValue(text:WristCheckFormatter.getCategoryText(category!));
-                } : null ),
+              onChanged: watchViewController.inEditState.value
+                  ? (category) {
+                      watchViewController.updateCategory(
+                        WristCheckFormatter.getCategoryText(category!),
+                      );
+                      categoryFieldController.value = TextEditingValue(
+                        text: WristCheckFormatter.getCategoryText(category),
+                      );
+                    }
+                  : null,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
-
 }

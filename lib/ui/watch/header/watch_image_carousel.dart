@@ -72,49 +72,56 @@ class _WatchImageCarouselState extends State<WatchImageCarousel> {
     final cardWidgets = images.map((image) => ImageCardWidget(image: image)).toList();
     final Size screenSize = MediaQuery.sizeOf(context);
     final bool isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
-    final double defaultDimension = screenSize.width * 0.8;
-    final double carouselHeight = isLandscape
-        ? math.min(defaultDimension, screenSize.height * 0.5)
-        : defaultDimension;
-    final double carouselWidth = math.min(
-      screenSize.width * 0.95,
-      carouselHeight * cardWidgets.length,
-    );
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double availableWidth =
+            constraints.hasBoundedWidth ? constraints.maxWidth : screenSize.width;
+        final double defaultDimension = availableWidth * 0.8;
+        final double carouselHeight = isLandscape
+            ? math.min(defaultDimension, screenSize.height * 0.5)
+            : defaultDimension;
+        final double carouselWidth = math.min(
+          availableWidth * 0.95,
+          carouselHeight * cardWidgets.length,
+        );
+
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: carouselWidth,
-              height: carouselHeight,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                child: Hero(
-                  tag: "ImageCarousel",
-                  child: CarouselView(
-                    itemExtent: carouselHeight,
-                    controller: _watchCarouselController,
-                    itemSnapping: true,
-                    onTap: (index) async {
-                      if (cardWidgets[index].image == null ||
-                          widget.watchViewController.watchViewState.value == WatchViewEnum.add) {
-                        await ImagesUtil.addImageViaController(index, context, currentWatch);
-                      } else {
-                        widget.watchViewController.imageList.assignAll(cardWidgets);
-                        Get.to(() => WatchImageGallery(watch: currentWatch!, index: index));
-                      }
-                    },
-                    children: cardWidgets,
+            Column(
+              children: [
+                SizedBox(
+                  width: carouselWidth,
+                  height: carouselHeight,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                    child: Hero(
+                      tag: "ImageCarousel",
+                      child: CarouselView(
+                        itemExtent: carouselHeight,
+                        controller: _watchCarouselController,
+                        itemSnapping: true,
+                        onTap: (index) async {
+                          if (cardWidgets[index].image == null ||
+                              widget.watchViewController.watchViewState.value == WatchViewEnum.add) {
+                            await ImagesUtil.addImageViaController(index, context, currentWatch);
+                          } else {
+                            widget.watchViewController.imageList.assignAll(cardWidgets);
+                            Get.to(() => WatchImageGallery(watch: currentWatch!, index: index));
+                          }
+                        },
+                        children: cardWidgets,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 

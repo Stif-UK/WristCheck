@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
+import 'package:wristcheck/ui/decoration/formfield_decoration.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
@@ -19,29 +20,33 @@ class PurchasePriceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
-      return viewState != WatchViewEnum.view
-          ? WatchFormField(
-            icon: const FaIcon(FontAwesomeIcons.moneyBill1),
-            enabled: enabled,
-            fieldTitle: AppLocalizations.of(Get.context!)!.purchasePriceRowTitle,
-            hintText: AppLocalizations.of(Get.context!)!.purchasePriceRowHintText,
-            maxLines: 1,
-            controller: purchasePriceFieldController,
-            keyboardType: TextInputType.number,
-            textCapitalization: TextCapitalization.none,
-            validator: (String? val) {
-              if (!val!.isWcCurrency) {
-                return AppLocalizations.of(Get.context!)!.digitsNoDecimalsError;
-              }
-            },
-          )
-          :
-      //Alternate return view
-      Column(
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
+    //if state is add or edit, return a formfield to take an integer input otherwise return a field returning a view of the price
+    return viewState != WatchViewEnum.view
+        ? WatchFormField(
+          icon: const FaIcon(FontAwesomeIcons.moneyBill1),
+          enabled: enabled,
+          fieldTitle: l10n.purchasePriceRowTitle,
+          hintText: l10n.purchasePriceRowHintText,
+          maxLines: 1,
+          controller: purchasePriceFieldController,
+          keyboardType: TextInputType.number,
+          textCapitalization: TextCapitalization.none,
+          validator: (String? val) {
+            if (!val!.isWcCurrency) {
+              return l10n.digitsNoDecimalsError;
+            }
+            return null;
+          },
+        )
+        :
+    //Alternate return view
+    Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(Get.context!)!.purchasePriceRowTitle,
+          Text(l10n.purchasePriceRowTitle,
             textAlign: TextAlign.start,
             style: bodyLarge,),
           Row(
@@ -51,16 +56,18 @@ class PurchasePriceRow extends StatelessWidget {
                 padding: EdgeInsets.all(10.0),
                 child: FaIcon(FontAwesomeIcons.moneyBill1),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  WristCheckFormatter.getCurrencyValue(locale, price, 0), //watchViewController.purchasePrice.value
-                  style: headlineSmall,),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    WristCheckFormatter.getCurrencyValue(locale, price, 0), //watchViewController.purchasePrice.value
+                    style: headlineSmall,),
+                ),
               ),
             ],
           )
         ],
-      )
-      ;
-    }
+      ),
+    );
+  }
 }

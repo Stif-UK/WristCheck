@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -14,8 +15,8 @@ import 'package:wristcheck/ui/watch/rows/lug_to_lug_row.dart';
 import 'package:wristcheck/ui/watch/rows/lug_width_row.dart';
 import 'package:wristcheck/ui/watch/rows/power_reserve_row.dart';
 import 'package:wristcheck/ui/watch/rows/water_resistance_row.dart';
+import 'package:wristcheck/ui/widgets/responsive_two_column_grid.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
-import 'package:get/get.dart';
 import 'package:wristcheck/util/string_extension.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -49,153 +50,240 @@ class ProDataTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=> Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildCaseDetailsSection(),
-        const Divider(thickness: 2,),
-        _buildWinderSettingsRow(),
-
-      ],
-    ),
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildCaseDetailsSection(context),
+          const Divider(thickness: 2),
+          _buildWinderSettingsRow(context),
+        ],
+      ),
     );
   }
 
-  Widget _buildCaseDetailsSection(){
+  Widget _buildCaseDetailsSection(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return ExpansionTile(
       initiallyExpanded: true,
-      title: Text(AppLocalizations.of(Get.context!)!.watchDetailsSectionTitle,
-          textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.headlineSmall,),
+      title: Text(
+        l10n.watchDetailsSectionTitle,
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
       children: [
-        CaseDiameterRow(enabled: watchViewController.inEditState.value, caseDiameterController: caseDiameterController),
-        LugWidthRow(enabled: watchViewController.inEditState.value, lugWidthController: lugWidthController),
-        LugToLugRow(enabled: watchViewController.inEditState.value, lug2lugController: lug2lugController),
-        CaseThicknessRow(enabled: watchViewController.inEditState.value, caseThicknessController: caseThicknessController),
-        WaterResistanceRow(enabled: watchViewController.inEditState.value, waterResistanceController: waterResistanceController, units: wristCheckController.waterResistanceUnit.value.toLocalizedString(Get.context!)),
-        _buildCaseMaterialField(),
-        _buildDateComplicationField(),
-        PowerReserveRow(enabled: watchViewController.inEditState.value, powerReserveController: powerReserveController),
-      ],
-    );
-  }
-
-  Widget _buildCaseMaterialField(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(AppLocalizations.of(Get.context!)!.caseMaterialRowTitle,
-          textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: DropdownButtonFormField<CaseMaterialEnum>(
-              dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-              borderRadius: BorderRadius.circular(24),
-              menuMaxHeight: 300,
-              value: WristCheckFormatter.getCaseMaterialEnum(watchViewController.caseMaterial.value),
-              iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const Icon(Icons.watch), Get.context!),
-              items: CaseMaterialEnum.values.map((material) {
-                return DropdownMenuItem<CaseMaterialEnum>(
-                    value: material,
-                    child: Text(material.toLocalizedString(Get.context!)));
-              }).toList(),
-              onChanged: watchViewController.inEditState.value? (material){
-                watchViewController.updateCaseMaterial(WristCheckFormatter.getCaseMaterialText(material!));
-                caseMaterialController.value = TextEditingValue(text:WristCheckFormatter.getCaseMaterialText(material!));
-              } : null ),
+        ResponsiveTwoColumnGrid(
+          children: [
+            CaseDiameterRow(
+              enabled: watchViewController.inEditState.value,
+              caseDiameterController: caseDiameterController,
+            ),
+            LugToLugRow(
+              enabled: watchViewController.inEditState.value,
+              lug2lugController: lug2lugController,
+            ),
+            CaseThicknessRow(
+              enabled: watchViewController.inEditState.value,
+              caseThicknessController: caseThicknessController,
+            ),
+            LugWidthRow(
+              enabled: watchViewController.inEditState.value,
+              lugWidthController: lugWidthController,
+            ),
+            WaterResistanceRow(
+              enabled: watchViewController.inEditState.value,
+              waterResistanceController: waterResistanceController,
+              units: wristCheckController.waterResistanceUnit.value.toLocalizedString(context),
+            ),
+            _buildCaseMaterialField(context),
+            _buildDateComplicationField(context),
+            PowerReserveRow(
+              enabled: watchViewController.inEditState.value,
+              powerReserveController: powerReserveController,
+            ),
+          ],
         ),
       ],
     );
   }
 
-  Widget _buildWinderSettingsRow(){
-    return ExpansionTile(
-      initiallyExpanded: true,
-        title: Text(AppLocalizations.of(Get.context!)!.winderSettingsSectionTitle,
-          textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.headlineSmall,),
-      children: [
-        WatchFormField(
-          keyboardType: TextInputType.number,
-          icon: const FaIcon(FontAwesomeIcons.gaugeHigh),
-          enabled: watchViewController.inEditState.value,
-          fieldTitle: AppLocalizations.of(Get.context!)!.tpdRowTitle,
-          hintText: AppLocalizations.of(Get.context!)!.tpdRowTitle,
-          maxLines: 1,
-          controller: winderTPDController,
-          textCapitalization: TextCapitalization.none,
-          validator: (String? val) {
-            if(!val!.isUnboundPositiveInteger) {
-              return AppLocalizations.of(Get.context!)!.mustBeAValidWholeNumber;
-            }
-          },
-        ),
-        _buildWinderDirectionField(),
-      ],
-    );
-
-  }
-
-  Widget _buildWinderDirectionField(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(AppLocalizations.of(Get.context!)!.winderDirectionRowTitle,
-          textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: Obx(()=> DropdownButtonFormField<WinderDirectionEnum>(
-                dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
-                borderRadius: BorderRadius.circular(24),
-                menuMaxHeight: 300,
-                value: WristCheckFormatter.getWinderDirectionEnum(watchViewController.winderDirection.value),
-                iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-                decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(WristCheckFormatter.getWinderDirectionIcon(WristCheckFormatter.getWinderDirectionEnum(watchViewController.winderDirection.value)), Get.context!),
-                items: WinderDirectionEnum.values.map((direction) {
-                  return DropdownMenuItem<WinderDirectionEnum>(
-                      value: direction,
-                      child: Text(direction.toLocalizedString(Get.context!)));
-                }).toList(),
-                onChanged: watchViewController.inEditState.value? (direction){
-                  watchViewController.updateWinderDirection(WristCheckFormatter.getWinderDirectionText(direction!));
-                  winderDirectionController.value = TextEditingValue(text:WristCheckFormatter.getWinderDirectionText(direction!));
-                } : null ),
+  Widget _buildCaseMaterialField(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
+    return Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.caseMaterialRowTitle,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
+          DropdownButtonFormField<CaseMaterialEnum>(
+            isExpanded: true,
+            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+            borderRadius: BorderRadius.circular(24),
+            menuMaxHeight: 300,
+            value: WristCheckFormatter.getCaseMaterialEnum(watchViewController.caseMaterial.value),
+            iconSize: watchViewController.inEditState.value ? 24.0 : 0.0,
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+              const Icon(Icons.watch),
+              context,
+            ),
+            items: CaseMaterialEnum.values.map((material) {
+              return DropdownMenuItem<CaseMaterialEnum>(
+                value: material,
+                child: Text(material.toLocalizedString(context)),
+              );
+            }).toList(),
+            onChanged: watchViewController.inEditState.value
+                ? (material) {
+                    watchViewController.updateCaseMaterial(
+                      WristCheckFormatter.getCaseMaterialText(material!),
+                    );
+                    caseMaterialController.value = TextEditingValue(
+                      text: WristCheckFormatter.getCaseMaterialText(material),
+                    );
+                  }
+                : null,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWinderSettingsRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
+    return ExpansionTile(
+      initiallyExpanded: true,
+      title: Text(
+        l10n.winderSettingsSectionTitle,
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      children: [
+        ResponsiveTwoColumnGrid(
+          children: [
+            WatchFormField(
+              keyboardType: TextInputType.number,
+              icon: const FaIcon(FontAwesomeIcons.gaugeHigh),
+              enabled: watchViewController.inEditState.value,
+              fieldTitle: l10n.tpdRowTitle,
+              hintText: l10n.tpdRowTitle,
+              maxLines: 1,
+              controller: winderTPDController,
+              textCapitalization: TextCapitalization.none,
+              validator: (String? val) {
+                if (!val!.isUnboundPositiveInteger) {
+                  return l10n.mustBeAValidWholeNumber;
+                }
+                return null;
+              },
+            ),
+            _buildWinderDirectionField(context),
+          ],
         ),
       ],
     );
   }
 
-  Widget _buildDateComplicationField(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(AppLocalizations.of(Get.context!)!.dateComplicationRowTitle,
-          textAlign: TextAlign.start,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,),
-        Padding(
-          padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
-          child: DropdownButtonFormField<DateComplicationEnum>(
+  Widget _buildWinderDirectionField(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
+    return Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.winderDirectionRowTitle,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Obx(
+            () => DropdownButtonFormField<WinderDirectionEnum>(
+              isExpanded: true,
               dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
               borderRadius: BorderRadius.circular(24),
               menuMaxHeight: 300,
-              value: WristCheckFormatter.getDateComplicationEnum(watchViewController.dateComplication.value),
-              iconSize: watchViewController.inEditState.value? 24.0: 0.0,
-              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(const FaIcon(FontAwesomeIcons.calendarDay), Get.context!),
-              items: DateComplicationEnum.values.map((dateType) {
-                return DropdownMenuItem<DateComplicationEnum>(
-                    value: dateType,
-                    child: Text(dateType.toLocalizedString(Get.context!)));
+              value: WristCheckFormatter.getWinderDirectionEnum(
+                watchViewController.winderDirection.value,
+              ),
+              iconSize: watchViewController.inEditState.value ? 24.0 : 0.0,
+              decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+                WristCheckFormatter.getWinderDirectionIcon(
+                  WristCheckFormatter.getWinderDirectionEnum(
+                    watchViewController.winderDirection.value,
+                  ),
+                ),
+                context,
+              ),
+              items: WinderDirectionEnum.values.map((direction) {
+                return DropdownMenuItem<WinderDirectionEnum>(
+                  value: direction,
+                  child: Text(direction.toLocalizedString(context)),
+                );
               }).toList(),
-              onChanged: watchViewController.inEditState.value? (dateType){
-                watchViewController.updateDateComplication(WristCheckFormatter.getDateComplicationName(dateType!));
-                dateComplicationController.value = TextEditingValue(text:WristCheckFormatter.getDateComplicationName(dateType));
-              } : null ),
-        ),
-      ],
+              onChanged: watchViewController.inEditState.value
+                  ? (direction) {
+                      watchViewController.updateWinderDirection(
+                        WristCheckFormatter.getWinderDirectionText(direction!),
+                      );
+                      winderDirectionController.value = TextEditingValue(
+                        text: WristCheckFormatter.getWinderDirectionText(direction),
+                      );
+                    }
+                  : null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateComplicationField(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
+    return Padding(
+      padding: WristCheckFormFieldDecoration.getFormFieldPadding(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.dateComplicationRowTitle,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          DropdownButtonFormField<DateComplicationEnum>(
+            isExpanded: true,
+            dropdownColor: WristCheckFormFieldDecoration.getDropDownBackground(),
+            borderRadius: BorderRadius.circular(24),
+            menuMaxHeight: 300,
+            value: WristCheckFormatter.getDateComplicationEnum(
+              watchViewController.dateComplication.value,
+            ),
+            iconSize: watchViewController.inEditState.value ? 24.0 : 0.0,
+            decoration: WristCheckFormFieldDecoration.getFormFieldDecoration(
+              const FaIcon(FontAwesomeIcons.calendarDay),
+              context,
+            ),
+            items: DateComplicationEnum.values.map((dateType) {
+              return DropdownMenuItem<DateComplicationEnum>(
+                value: dateType,
+                child: Text(dateType.toLocalizedString(context)),
+              );
+            }).toList(),
+            onChanged: watchViewController.inEditState.value
+                ? (dateType) {
+                    watchViewController.updateDateComplication(
+                      WristCheckFormatter.getDateComplicationName(dateType!),
+                    );
+                    dateComplicationController.value = TextEditingValue(
+                      text: WristCheckFormatter.getDateComplicationName(dateType),
+                    );
+                  }
+                : null,
+          ),
+        ],
+      ),
     );
   }
 }

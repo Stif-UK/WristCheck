@@ -692,141 +692,204 @@ class _WatchViewState extends State<WatchView> {
                     widget.wristCheckController.isAppPro.value ? const SizedBox(height: 0,) : AdWidgetHelper
                         .buildSmallAdSpace(banner, context),
                     Expanded(
-                        child: SingleChildScrollView(
-                            child: Form(
-                              key: _formKey,
-                              child: Obx(()=> Column(
-                                  children: [
-                                    //Build the UI from components
-                                    //Watch Images
-                                    // WatchImageRow(currentWatch: widget.currentWatch),
-                                    WatchImageCarousel(currentWatch: widget.currentWatch),
-                                    // _displayWatchImageViewEdit(),
-                                    widget.watchViewController.watchViewState.value == WatchViewEnum.view
-                                        ? WearRow(currentWatch: widget.currentWatch,)
-                                        : const SizedBox(height: 0,),
-                                    const Divider(thickness: 2,),
-                                    widget.watchViewController.watchViewState.value == WatchViewEnum.view
-                                        ? AccuracyRow(currentWatch: widget.currentWatch,)
-                                        : const SizedBox(height: 0,),
-                                    const Divider(thickness: 2,),
-                                    WatchStatusHeader(currentWatch: widget.currentWatch),
-                                    const Divider(thickness: 2,),
-                                    Obx(() {
-                                      int index = widget.wristCheckController.isAppPro.value
-                                          ? widget.watchViewController.tabIndex.value
-                                          : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value);
+                      child: Form(
+                        key: _formKey,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            final bool isLandscapeTwoPane =
+                                MediaQuery.orientationOf(context) == Orientation.landscape &&
+                                    MediaQuery.sizeOf(context).width >= 900.0;
 
-                                      _visitedTabs.add(index);
-                                      if (widget.watchViewController.inEditState.value) {
-                                        _visitedTabs.addAll([0, 1, 2, 3, 4]);
-                                      }
-                                      
-                                      return Column(
-                                        children: [
-                                          if (_visitedTabs.contains(0))
-                                            Offstage(
-                                              offstage: index != 0,
-                                              child: InfoTab(
-                                                  manufacturerFieldController: manufacturerFieldController,
-                                                  modelFieldController: modelFieldController,
-                                                  serialNumberFieldController: serialNumberFieldController,
-                                                  referenceNumberFieldController: referenceNumberFieldController,
-                                                  movementFieldController: movementFieldController,
-                                                  categoryFieldController: categoryFieldController,
-                                                  primaryColourFieldController: primaryColourFieldController,
-                                                  secondaryColourFieldController: secondaryColourFieldController,
-                                                  bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                                  context: context),
-                                            ),
-                                          if (_visitedTabs.contains(1))
-                                            Offstage(
-                                              offstage: index != 1,
-                                              child: DatesTab(
-                                                  modelYearFieldController: modelYearFieldController,
-                                                  deliveryDateFieldController: deliveryDateFieldController,
-                                                  purchaseDateFieldController: purchaseDateFieldController,
-                                                  soldDateFieldController: soldDateFieldController,
-                                                  timeInCollectionFieldController: timeInCollectionFieldController,
-                                                  serviceIntervalFieldController: serviceIntervalFieldController,
-                                                  warrantyEndDateFieldController: warrantyEndDateFieldController,
-                                                  lastServicedDateFieldController: lastServicedDateFieldController,
-                                                  nextServiceDueFieldController: nextServiceDueFieldController,
-                                                  currentWatch: widget.currentWatch),
-                                            ),
-                                          if (_visitedTabs.contains(2))
-                                            Offstage(
-                                              offstage: index != 2,
-                                              child: ValueTab(
-                                                  purchasePriceFieldController: purchasePriceFieldController,
-                                                  purchasedFromFieldController: purchasedFromFieldController,
-                                                  soldPriceFieldController: soldPriceFieldController,
-                                                  soldToFieldController: soldToFieldController,
-                                                  currentValueFieldController: currentValueFieldController,
-                                                  currentWatch: widget.currentWatch,
-                                                  bodyLarge: Theme.of(context).textTheme.bodyLarge,
-                                                  headlineSmall: Theme.of(context).textTheme.headlineSmall,
-                                                  locale: locale),
-                                            ),
-                                          // Index 3: Pro Data OR Notes (if non-pro)
-                                          if (_visitedTabs.contains(3))
-                                            Offstage(
-                                              offstage: index != 3,
-                                              child: widget.wristCheckController.isAppPro.value
-                                                  ? ProDataTab(
-                                                caseDiameterController: caseDiameterFieldController,
-                                                lugWidthController: lugWidthFieldController,
-                                                lug2lugController: lug2lugFieldController,
-                                                caseThicknessController: caseThicknessFieldController,
-                                                waterResistanceController: waterResistanceFieldController,
-                                                caseMaterialController: caseMaterialFieldController,
-                                                winderTPDController: winderTPDFieldController,
-                                                winderDirectionController: winderDirectionFieldController,
-                                                dateComplicationController: dateComplicationFieldController,
-                                                powerReserveController: powerReserveFieldController,
-                                              )
-                                                  : NotesTab(notesFieldController: notesFieldController),
-                                            ),
-                                          // Index 4: Notes (only if pro)
-                                          if (widget.wristCheckController.isAppPro.value && _visitedTabs.contains(4))
-                                            Offstage(
-                                              offstage: index != 4,
-                                              child: NotesTab(notesFieldController: notesFieldController),
-                                            ),
+                            if (isLandscapeTwoPane) {
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: SingleChildScrollView(
+                                      padding: const EdgeInsets.only(bottom: 100.0),
+                                      child: _buildOverviewSection(),
+                                    ),
+                                  ),
+                                  const VerticalDivider(width: 1, thickness: 1),
+                                  Expanded(
+                                    flex: 6,
+                                    child: SingleChildScrollView(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                      child: _buildDetailsSection(
+                                        context,
+                                        locale: locale,
+                                        finalTabIndex: finalTabIndex,
+                                        saveWatchUpdateButton: _saveWatchUpdateButton,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
 
-                                          const Divider(thickness: 2,),
-
-                                          // Actions Column directly beneath the active tab
-                                          Column(
-                                            children: [
-                                              widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
-                                                  widget.watchViewController.tabIndex.value < finalTabIndex
-                                                  ? _nextTabButton()
-                                                  : const SizedBox(height: 10,),
-                                              widget.watchViewController.watchViewState.value == WatchViewEnum.add
-                                                  ? _addWatchButton()
-                                                  : const SizedBox(height: 0,),
-
-                                              widget.watchViewController.watchViewState.value == WatchViewEnum.edit
-                                                  ?  _saveWatchUpdateButton()
-                                                  : const SizedBox(height: 0,),
-
-                                              // Responsive bottom spacing
-                                              widget.watchViewController.watchViewState.value == WatchViewEnum.view ?
-                                              const SizedBox(height: 90,) : const SizedBox(height: 110,),
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                                  ],
-                                ),
+                            return SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  _buildOverviewSection(),
+                                  const Divider(thickness: 2),
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints(maxWidth: 960.0),
+                                    child: _buildDetailsSection(
+                                      context,
+                                      locale: locale,
+                                      finalTabIndex: finalTabIndex,
+                                      saveWatchUpdateButton: _saveWatchUpdateButton,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            )
-                        ))
+                            );
+                          },
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
+      );
+    });
+  }
+
+  Widget _buildOverviewSection() {
+    return Obx(
+      () => Column(
+        children: [
+          WatchImageCarousel(currentWatch: widget.currentWatch),
+          widget.watchViewController.watchViewState.value == WatchViewEnum.view
+              ? WearRow(currentWatch: widget.currentWatch)
+              : const SizedBox(height: 0),
+          const Divider(thickness: 2),
+          widget.watchViewController.watchViewState.value == WatchViewEnum.view
+              ? AccuracyRow(currentWatch: widget.currentWatch)
+              : const SizedBox(height: 0),
+          const Divider(thickness: 2),
+          WatchStatusHeader(currentWatch: widget.currentWatch),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailsSection(
+    BuildContext context, {
+    required String locale,
+    required int finalTabIndex,
+    required Widget Function() saveWatchUpdateButton,
+  }) {
+    return Obx(() {
+      int index = widget.wristCheckController.isAppPro.value
+          ? widget.watchViewController.tabIndex.value
+          : (widget.watchViewController.tabIndex.value > 2 ? 3 : widget.watchViewController.tabIndex.value);
+
+      _visitedTabs.add(index);
+      if (widget.watchViewController.inEditState.value) {
+        _visitedTabs.addAll([0, 1, 2, 3, 4]);
+      }
+
+      return Column(
+        children: [
+          if (_visitedTabs.contains(0))
+            Offstage(
+              offstage: index != 0,
+              child: InfoTab(
+                manufacturerFieldController: manufacturerFieldController,
+                modelFieldController: modelFieldController,
+                serialNumberFieldController: serialNumberFieldController,
+                referenceNumberFieldController: referenceNumberFieldController,
+                movementFieldController: movementFieldController,
+                categoryFieldController: categoryFieldController,
+                primaryColourFieldController: primaryColourFieldController,
+                secondaryColourFieldController: secondaryColourFieldController,
+                bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                context: context,
+              ),
+            ),
+          if (_visitedTabs.contains(1))
+            Offstage(
+              offstage: index != 1,
+              child: DatesTab(
+                modelYearFieldController: modelYearFieldController,
+                deliveryDateFieldController: deliveryDateFieldController,
+                purchaseDateFieldController: purchaseDateFieldController,
+                soldDateFieldController: soldDateFieldController,
+                timeInCollectionFieldController: timeInCollectionFieldController,
+                serviceIntervalFieldController: serviceIntervalFieldController,
+                warrantyEndDateFieldController: warrantyEndDateFieldController,
+                lastServicedDateFieldController: lastServicedDateFieldController,
+                nextServiceDueFieldController: nextServiceDueFieldController,
+                currentWatch: widget.currentWatch,
+              ),
+            ),
+          if (_visitedTabs.contains(2))
+            Offstage(
+              offstage: index != 2,
+              child: ValueTab(
+                purchasePriceFieldController: purchasePriceFieldController,
+                purchasedFromFieldController: purchasedFromFieldController,
+                soldPriceFieldController: soldPriceFieldController,
+                soldToFieldController: soldToFieldController,
+                currentValueFieldController: currentValueFieldController,
+                currentWatch: widget.currentWatch,
+                bodyLarge: Theme.of(context).textTheme.bodyLarge,
+                headlineSmall: Theme.of(context).textTheme.headlineSmall,
+                locale: locale,
+              ),
+            ),
+          // Index 3: Pro Data OR Notes (if non-pro)
+          if (_visitedTabs.contains(3))
+            Offstage(
+              offstage: index != 3,
+              child: widget.wristCheckController.isAppPro.value
+                  ? ProDataTab(
+                      caseDiameterController: caseDiameterFieldController,
+                      lugWidthController: lugWidthFieldController,
+                      lug2lugController: lug2lugFieldController,
+                      caseThicknessController: caseThicknessFieldController,
+                      waterResistanceController: waterResistanceFieldController,
+                      caseMaterialController: caseMaterialFieldController,
+                      winderTPDController: winderTPDFieldController,
+                      winderDirectionController: winderDirectionFieldController,
+                      dateComplicationController: dateComplicationFieldController,
+                      powerReserveController: powerReserveFieldController,
+                    )
+                  : NotesTab(notesFieldController: notesFieldController),
+            ),
+          // Index 4: Notes (only if pro)
+          if (widget.wristCheckController.isAppPro.value && _visitedTabs.contains(4))
+            Offstage(
+              offstage: index != 4,
+              child: NotesTab(notesFieldController: notesFieldController),
+            ),
+
+          const Divider(thickness: 2),
+
+          // Actions Column directly beneath the active tab
+          Column(
+            children: [
+              widget.watchViewController.watchViewState.value == WatchViewEnum.add &&
+                      widget.watchViewController.tabIndex.value < finalTabIndex
+                  ? _nextTabButton()
+                  : const SizedBox(height: 10),
+              widget.watchViewController.watchViewState.value == WatchViewEnum.add
+                  ? _addWatchButton()
+                  : const SizedBox(height: 0),
+
+              widget.watchViewController.watchViewState.value == WatchViewEnum.edit
+                  ? saveWatchUpdateButton()
+                  : const SizedBox(height: 0),
+
+              // Responsive bottom spacing
+              widget.watchViewController.watchViewState.value == WatchViewEnum.view
+                  ? const SizedBox(height: 90)
+                  : const SizedBox(height: 110),
+            ],
+          ),
+        ],
       );
     });
   }

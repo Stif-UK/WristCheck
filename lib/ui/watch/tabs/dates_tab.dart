@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -10,10 +11,9 @@ import 'package:wristcheck/ui/watch/rows/last_serviced_row.dart';
 import 'package:wristcheck/ui/watch/rows/purchase_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/sold_date_row.dart';
 import 'package:wristcheck/ui/watch/rows/warranty_end_row.dart';
+import 'package:wristcheck/ui/widgets/responsive_two_column_grid.dart';
 import 'package:wristcheck/ui/widgets/watch_formfield.dart';
 import 'package:wristcheck/util/string_extension.dart';
-
-import 'package:wristcheck/model/enums/watch_status_enum.dart';
 
 class DatesTab extends StatelessWidget {
   DatesTab({super.key,
@@ -43,57 +43,78 @@ class DatesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=> Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Obx(() {
+      final isPreOrder =
+          watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString();
+      final isSold =
+          watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString();
+      final isView = watchViewController.watchViewState.value == WatchViewEnum.view;
+
+      return ResponsiveTwoColumnGrid(
         children: [
-          watchViewController.selectedStatus.value == WatchStatusEnum.preOrder.toDbString()? Obx(()=> _deliveryDateRow()): const SizedBox(height: 0,),
-          _modelYearRow(),
-          PurchaseDateRow(enabled: watchViewController.inEditState.value, purchaseDateFieldController: purchaseDateFieldController),
-          watchViewController.selectedStatus.value == WatchStatusEnum.sold.toDbString()? Obx(()=> SoldDateRow(enabled: watchViewController.inEditState.value, soldDateFieldController: soldDateFieldController)): const SizedBox(height: 0,),
-          watchViewController.watchViewState.value == WatchViewEnum.view? _timeInCollectionRow() : const SizedBox(height: 0,),
-          _serviceIntervalRow(),
-          WarrantyEndRow(enabled: watchViewController.inEditState.value, warrantyEndDateFieldController: warrantyEndDateFieldController),
-          LastServicedRow(enabled: watchViewController.inEditState.value, lastServicedDateFieldController: lastServicedDateFieldController),
-          watchViewController.watchViewState.value == WatchViewEnum.view? _nextServiceDueRow(): const SizedBox(height: 0,)
+          if (isPreOrder) _deliveryDateRow(context),
+          _modelYearRow(context),
+          PurchaseDateRow(
+            enabled: watchViewController.inEditState.value,
+            purchaseDateFieldController: purchaseDateFieldController,
+          ),
+          if (isSold)
+            SoldDateRow(
+              enabled: watchViewController.inEditState.value,
+              soldDateFieldController: soldDateFieldController,
+            ),
+          if (isView) _timeInCollectionRow(context),
+          WarrantyEndRow(
+            enabled: watchViewController.inEditState.value,
+            warrantyEndDateFieldController: warrantyEndDateFieldController,
+          ),
+          LastServicedRow(
+            enabled: watchViewController.inEditState.value,
+            lastServicedDateFieldController: lastServicedDateFieldController,
+          ),
+          _serviceIntervalRow(context),
+          if (isView) _nextServiceDueRow(context),
         ],
-      ),
-    );
+      );
+    });
   }
 
-  Widget _modelYearRow(){
+  Widget _modelYearRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return WatchFormField(
       keyboardType: TextInputType.number,
       icon: const FaIcon(FontAwesomeIcons.calendar),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: AppLocalizations.of(Get.context!)!.modelYearRowTitle,
-      hintText: AppLocalizations.of(Get.context!)!.modelYearRowHintText,
+      fieldTitle: l10n.modelYearRowTitle,
+      hintText: l10n.modelYearRowHintText,
       maxLines: 1,
       controller: modelYearFieldController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
         if (val != null && !val.isFourDigitYear) {
-          return AppLocalizations.of(Get.context!)!.mustBe4DigitYearOrBlank;
+          return l10n.mustBe4DigitYearOrBlank;
         }
         return null;
       },
     );
   }
 
-  Widget _deliveryDateRow(){
+  Widget _deliveryDateRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return WatchFormField(
       icon: const FaIcon(FontAwesomeIcons.calendar),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: AppLocalizations.of(Get.context!)!.preOrderDueDateRowTitle,
-      hintText: AppLocalizations.of(Get.context!)!.preOrderDueDateRowHintText,
+      fieldTitle: l10n.preOrderDueDateRowTitle,
+      hintText: l10n.preOrderDueDateRowHintText,
       maxLines: 1,
       datePicker: true,
       controller: deliveryDateFieldController,
       textCapitalization: TextCapitalization.none,
-
     );
   }
 
-  Widget _timeInCollectionRow(){
+  Widget _timeInCollectionRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -101,13 +122,16 @@ class DatesTab extends StatelessWidget {
           child: WatchFormField(
             icon: const FaIcon(FontAwesomeIcons.hourglass),
             enabled: false,
-            fieldTitle: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
-            hintText: AppLocalizations.of(Get.context!)!.timeInCollectionRowTitle,
+            fieldTitle: l10n.timeInCollectionRowTitle,
+            hintText: l10n.timeInCollectionRowTitle,
             textCapitalization: TextCapitalization.none,
-            controller: timeInCollectionFieldController, ),
+            controller: timeInCollectionFieldController,
+          ),
         ),
         IconButton(
-          icon: watchViewController.showDays.value? const FaIcon(FontAwesomeIcons.solidCalendarMinus): const FaIcon(FontAwesomeIcons.solidCalendarPlus),
+          icon: watchViewController.showDays.value
+              ? const FaIcon(FontAwesomeIcons.solidCalendarMinus)
+              : const FaIcon(FontAwesomeIcons.solidCalendarPlus),
           onPressed: () {
             final newShowDays = !watchViewController.showDays.value;
             watchViewController.updateShowdays(newShowDays);
@@ -122,31 +146,34 @@ class DatesTab extends StatelessWidget {
     );
   }
 
-  Widget _serviceIntervalRow(){
+  Widget _serviceIntervalRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return WatchFormField(
       keyboardType: TextInputType.number,
       icon: const FaIcon(FontAwesomeIcons.arrowsSpin),
       enabled: watchViewController.inEditState.value,
-      fieldTitle: AppLocalizations.of(Get.context!)!.serviceIntervalRowTitle,
-      hintText: AppLocalizations.of(Get.context!)!.serviceIntervalRowHintText,
+      fieldTitle: l10n.serviceIntervalRowTitle,
+      hintText: l10n.serviceIntervalRowHintText,
       maxLines: 1,
       controller: serviceIntervalFieldController,
       textCapitalization: TextCapitalization.none,
       validator: (String? val) {
-        if(!val!.isServiceNumber) {
-          return AppLocalizations.of(Get.context!)!.mustBe099orBlank;
+        if (!val!.isServiceNumber) {
+          return l10n.mustBe099orBlank;
         }
+        return null;
       },
     );
   }
 
-  Widget _nextServiceDueRow(){
+  Widget _nextServiceDueRow(BuildContext context) {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizations.of(Get.context!)!;
     return WatchFormField(
       icon: const FaIcon(FontAwesomeIcons.calendarDays),
       //Always read only
       enabled: false,
-      fieldTitle: AppLocalizations.of(Get.context!)!.nextServiceDueRowTitle,
-      hintText: AppLocalizations.of(Get.context!)!.nextServiceDueRowHintText,
+      fieldTitle: l10n.nextServiceDueRowTitle,
+      hintText: l10n.nextServiceDueRowHintText,
       maxLines: 1,
       controller: nextServiceDueFieldController,
       textCapitalization: TextCapitalization.none,
