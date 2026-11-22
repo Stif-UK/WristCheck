@@ -193,10 +193,11 @@ class _WristCheckHomeState extends State<WristCheckHome> {
 
       body: Column(
         children: [
-          //Only show NBA if on collection screen and not on clock screen
-          Obx(() => widget.wristCheckController.homePageIndex.value != 3 ? 
-            (widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink()) : 
-            const SizedBox.shrink()),
+          //Only show static NBA here when not on collection screen (handled in Watchbox) and not on clock screen
+          Obx(() => widget.wristCheckController.homePageIndex.value != 0 &&
+                  widget.wristCheckController.homePageIndex.value != 3
+              ? (widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink())
+              : const SizedBox.shrink()),
           Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
         ],
       ),

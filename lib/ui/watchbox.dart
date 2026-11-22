@@ -91,6 +91,10 @@ class _WatchBoxState extends State<Watchbox> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
+                //Show NBA banner inside Watchbox scroll view so it hides on scroll
+                SliverToBoxAdapter(
+                  child: widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink(),
+                ),
                 //Create drop down and search button
                 SliverFloatingHeader(
                   child: Material(
