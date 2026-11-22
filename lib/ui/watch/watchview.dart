@@ -19,6 +19,7 @@ import 'package:wristcheck/model/enums/complication_enums/date_complication_enum
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/winder_direction_enum.dart';
+import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:wristcheck/model/enums/watchviewEnum.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -57,15 +58,94 @@ class _WatchViewState extends State<WatchView> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   bool _isWatchFieldsInitialized = false;
+  List<String> _initialFieldValues = [];
+  String _initialSelectedStatus = "";
+  final List<Worker> _workers = [];
+
+  List<TextEditingController> get _editableControllers => [
+    manufacturerFieldController,
+    modelFieldController,
+    serialNumberFieldController,
+    referenceNumberFieldController,
+    serviceIntervalFieldController,
+    modelYearFieldController,
+    notesFieldController,
+    purchaseDateFieldController,
+    lastServicedDateFieldController,
+    movementFieldController,
+    categoryFieldController,
+    purchasedFromFieldController,
+    soldToFieldController,
+    purchasePriceFieldController,
+    soldPriceFieldController,
+    currentValueFieldController,
+    soldDateFieldController,
+    deliveryDateFieldController,
+    warrantyEndDateFieldController,
+    caseDiameterFieldController,
+    lugWidthFieldController,
+    lug2lugFieldController,
+    caseThicknessFieldController,
+    waterResistanceFieldController,
+    caseMaterialFieldController,
+    winderTPDFieldController,
+    winderDirectionFieldController,
+    dateComplicationFieldController,
+    primaryColourFieldController,
+    secondaryColourFieldController,
+    powerReserveFieldController,
+  ];
+
+  void _captureInitialSnapshot() {
+    _initialFieldValues = _editableControllers.map((c) => c.text).toList(growable: false);
+    _initialSelectedStatus = widget.watchViewController.selectedStatus.value;
+  }
+
+  bool _hasFieldChanges() {
+    if (_initialFieldValues.length != _editableControllers.length) return false;
+    if (_initialSelectedStatus != widget.watchViewController.selectedStatus.value) {
+      return true;
+    }
+    for (int i = 0; i < _editableControllers.length; i++) {
+      if (_editableControllers[i].text != _initialFieldValues[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void _updateDirtyState() {
+    if (!_isWatchFieldsInitialized) return;
+    if (widget.watchViewController.skipBackCheck.value) {
+      if (widget.watchViewController.isDirty.value) {
+        widget.watchViewController.updateIsDirty(false);
+      }
+      return;
+    }
+
+    final state = widget.watchViewController.watchViewState.value;
+    final bool dirty;
+    if (state == WatchViewEnum.edit) {
+      dirty = _hasFieldChanges();
+    } else if (state == WatchViewEnum.add) {
+      dirty = newDataInput();
+    } else {
+      dirty = false;
+    }
+
+    if (widget.watchViewController.isDirty.value != dirty) {
+      widget.watchViewController.updateIsDirty(dirty);
+    }
+  }
 
   void _initWatchFields() {
     if (_isWatchFieldsInitialized) return;
-    _isWatchFieldsInitialized = true;
 
     widget.watchViewController.updateOverrideBacknav(false);
     widget.watchViewController.updateInEditState(widget.currentWatch == null);
     widget.watchViewController.updateShowdays(false);
     widget.watchViewController.updateSkipBackCheck(false);
+    widget.watchViewController.updateIsDirty(false);
     widget.watchViewController.updateViewState(ViewWatchHelper.getWatchViewState(
         widget.currentWatch, widget.watchViewController.inEditState.value));
 
@@ -140,6 +220,10 @@ class _WatchViewState extends State<WatchView> {
       secondaryColourFieldController.text = w.secondaryColour ?? "";
       powerReserveFieldController.text = w.powerReserve != null ? "${w.powerReserve}" : "";
     } else {
+      widget.watchViewController.updateSelectedStatus(WatchStatusEnum.inCollection.toDbString());
+      widget.watchViewController.updateFrontImage(null);
+      widget.watchViewController.updateBackImage(null);
+      widget.watchViewController.updateLumeImage(null);
       widget.watchViewController.updatePurchasePrice(0);
       widget.watchViewController.updateSoldPrice(0);
       widget.watchViewController.updateCurrentValue(0);
@@ -150,12 +234,27 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updateWinderDirection("");
       widget.watchViewController.updateDateComplication("");
     }
+
+    _captureInitialSnapshot();
+    _isWatchFieldsInitialized = true;
+    widget.watchViewController.updateIsDirty(false);
   }
 
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
     super.initState();
+    for (final controller in _editableControllers) {
+      controller.addListener(_updateDirtyState);
+    }
+    _workers.addAll([
+      ever(widget.watchViewController.watchViewState, (_) => _updateDirtyState()),
+      ever(widget.watchViewController.selectedStatus, (_) => _updateDirtyState()),
+      ever(widget.watchViewController.frontImage, (_) => _updateDirtyState()),
+      ever(widget.watchViewController.backImage, (_) => _updateDirtyState()),
+      ever(widget.watchViewController.lumeImage, (_) => _updateDirtyState()),
+      ever(widget.watchViewController.skipBackCheck, (_) => _updateDirtyState()),
+    ]);
   }
 
   //Setup Ads
@@ -252,6 +351,12 @@ class _WatchViewState extends State<WatchView> {
 
   @override
   void dispose(){
+    for (final worker in _workers) {
+      worker.dispose();
+    }
+    for (final controller in _editableControllers) {
+      controller.removeListener(_updateDirtyState);
+    }
     //clean up the controller when the widget is disposed
     manufacturerFieldController.dispose();
     modelFieldController.dispose();
@@ -391,8 +496,10 @@ class _WatchViewState extends State<WatchView> {
           );
 
         }
+        _captureInitialSnapshot();
         widget.watchViewController.updateInEditState(false);
         widget.watchViewController.updateViewState(WatchViewEnum.view);
+        widget.watchViewController.updateIsDirty(false);
 
       }
     }
@@ -423,20 +530,26 @@ class _WatchViewState extends State<WatchView> {
     }
 
     //Wrap page in PopScope to give control of back navigation, in the event changes have been made but not saved
-    return Obx(() => PopScope(
-      canPop: widget.watchViewController.overrideBackNav.value,
-      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+    return Obx(() {
+      final isDirty = widget.watchViewController.isDirty.value;
+      final overrideBackNav = widget.watchViewController.overrideBackNav.value;
+      return PopScope(
+        canPop: !isDirty || overrideBackNav,
+        onPopInvokedWithResult: (bool didPop, dynamic result) async {
           if (didPop) return;
 
           // Check if changes have been made to the data on the page
           final backNavigationAllowed = await isBackNavigationAllowed();
 
           if (backNavigationAllowed) {
+            widget.watchViewController.updateIsDirty(false);
             widget.watchViewController.updateOverrideBacknav(true);
             // Use a microtask to allow the Obx/PopScope to rebuild with canPop: true
             // before the next pop attempt. This fixes the issue where back navigation
             // would fail on the first attempt after a state change.
-            Future.microtask(() => Navigator.of(context).pop());
+            Future.microtask(() {
+              if (mounted) Navigator.of(context).pop();
+            });
           } else {
             Get.defaultDialog(
                 title: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesTitle,
@@ -444,15 +557,18 @@ class _WatchViewState extends State<WatchView> {
                 textConfirm: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesExitOption,
                 textCancel: AppLocalizations.of(Get.context!)!.editWatchUnsavedChangesContinueEditingOption,
                 onConfirm: (){
+                  widget.watchViewController.updateIsDirty(false);
                   widget.watchViewController.updateOverrideBacknav(true);
                   Get.back(); // Close dialog
-                  Future.microtask(() => Navigator.of(context).pop()); // Close page
+                  Future.microtask(() {
+                    if (mounted) Navigator.of(context).pop(); // Close page
+                  });
                 },
                 onCancel: (){}
             );
           }
-      },
-      child: Scaffold(
+        },
+        child: Scaffold(
                 extendBody: true,
                 appBar: AppBar(
                     title: Obx(()=> ViewWatchHelper.getTitle(
@@ -742,8 +858,10 @@ class _WatchViewState extends State<WatchView> {
                         ))
                   ],
                 ),
-              )));
-            }
+              ),
+      );
+    });
+  }
 
   Widget _nextTabButton(){
     return Center(
@@ -857,7 +975,11 @@ class _WatchViewState extends State<WatchView> {
       }
       //Before Navigating back, clear the form, to prevent the back navigation being stopped
       _formKey.currentState!.reset();
+      widget.watchViewController.updateFrontImage(null);
+      widget.watchViewController.updateBackImage(null);
+      widget.watchViewController.updateLumeImage(null);
       widget.watchViewController.updateSkipBackCheck(true);
+      widget.watchViewController.updateIsDirty(false);
       widget.watchViewController.updateOverrideBacknav(true);
 
       Get.snackbar(
@@ -897,7 +1019,7 @@ class _WatchViewState extends State<WatchView> {
 
   Future<bool> isBackNavigationAllowed() async {
     bool allowed = true;
-    bool editChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.edit && hasDataChanged());
+    bool editChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.edit && _hasFieldChanges());
     bool addChanges = (widget.watchViewController.watchViewState.value == WatchViewEnum.add && newDataInput());
 
     if (!widget.watchViewController.skipBackCheck.value) {
@@ -958,23 +1080,11 @@ class _WatchViewState extends State<WatchView> {
   }
 
   bool newDataInput(){
-    /*
-    For new watch entries we currently only need to check for changes on the first info tab as
-    the user is prevented from changing tabs without entering data on this one
-     */
     bool returnValue = false;
     if(widget.watchViewController.frontImage.value != null ||
         widget.watchViewController.backImage.value != null ||
-        manufacturerFieldController.value.text.isNotEmpty ||
-        modelFieldController.value.text.isNotEmpty ||
-        categoryFieldController.value.text.isNotEmpty ||
-        serialNumberFieldController.value.text.isNotEmpty ||
-        referenceNumberFieldController.value.text.isNotEmpty ||
-        movementFieldController.value.text.isNotEmpty ||
-        dateComplicationFieldController.value.text.isNotEmpty ||
-        primaryColourFieldController.value.text.isNotEmpty ||
-        secondaryColourFieldController.value.text.isNotEmpty ||
-        powerReserveFieldController.value.text.isNotEmpty
+        widget.watchViewController.lumeImage.value != null ||
+        _hasFieldChanges()
     ){
       returnValue = true;
     }

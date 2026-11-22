@@ -30,6 +30,7 @@ class WatchViewController extends GetxController{
   final canRecordWear = false.obs;
   final skipBackCheck = false.obs;
   final overrideBackNav = false.obs;
+  final isDirty = false.obs;
   //TODO: Refactor to change this to a cycling index count rather than a bool
   final front = true.obs;
   final frontImage = Rxn<File>();
@@ -123,6 +124,10 @@ class WatchViewController extends GetxController{
 
   updateOverrideBacknav(bool value){
     overrideBackNav(value);
+  }
+
+  updateIsDirty(bool value){
+    isDirty(value);
   }
 
   updateFrontValue(bool value){
