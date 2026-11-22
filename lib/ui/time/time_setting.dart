@@ -18,6 +18,7 @@ import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/time/gmt.dart';
 import 'package:wristcheck/ui/time/moon_phase.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/time_settings_bottomsheet.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -120,50 +121,64 @@ class _TimeSettingState extends State<TimeSetting> {
                     Text("${AppLocalizations.of(context)!.deviation} ${widget.timeController.deviation.value}", style: Theme.of(context).textTheme.bodySmall,) :
                     Text(AppLocalizations.of(context)!.inProgress, style: Theme.of(context).textTheme.bodySmall))),
                 const Divider(thickness: 2,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Obx(() => widget.wristCheckController.isAppPro.value
-                          ? Wrap(
-                              spacing: 8.0,
-                              children: TimeViewEnum.values.map((option) {
-                                return ChoiceChip(
-                                  label: Text(option.toLocalizedString(context)),
-                                  selected: widget.timeController.timeView.value == option,
-                                  onSelected: (bool selected) {
-                                    if (selected) {
-                                      widget.timeController.updateTimeView(option);
-                                    }
-                                  },
-                                );
-                              }).toList(),
-                            )
-                          : const SizedBox.shrink()),
-                    ),
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.sliders),
-                      onPressed: () {
-                        Get.bottomSheet(
-                          TimeSettingsBottomSheet(),
-                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                        );
-                      },
-                    ),
-                  ],
+                Builder(
+                  builder: (context) {
+                    final bool showCombinedTabletLayout =
+                        WristTrackBottomNavBar.isLargeScreen(context);
+                    return Row(
+                      mainAxisAlignment: showCombinedTabletLayout
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (!showCombinedTabletLayout)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Obx(
+                              () => widget.wristCheckController.isAppPro.value
+                                  ? Wrap(
+                                      spacing: 8.0,
+                                      children: TimeViewEnum.values.map((option) {
+                                        return ChoiceChip(
+                                          label: Text(option.toLocalizedString(context)),
+                                          selected: widget.timeController.timeView.value == option,
+                                          onSelected: (bool selected) {
+                                            if (selected) {
+                                              widget.timeController.updateTimeView(option);
+                                            }
+                                          },
+                                        );
+                                      }).toList(),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                          ),
+                        IconButton(
+                          icon: const FaIcon(FontAwesomeIcons.sliders),
+                          onPressed: () {
+                            Get.bottomSheet(
+                              TimeSettingsBottomSheet(),
+                              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
             const SizedBox(height: 20,),
             widget.wristCheckController.isAppPro.value || widget.wristCheckController.isDrawerOpen.value? const SizedBox(height: 0,) : _buildAdSpace(banner, context),
-            //TODO: Finish moonphase implementation
-            widget.wristCheckController.isAppPro.value 
-                ? Obx(() => widget.timeController.timeView.value == TimeViewEnum.moonphase 
-                    ? MoonPhaseWidget() 
-                    : GMT(),
-              )
-                : const SizedBox(height: 0,),
+            Obx(
+              () => ResponsiveTimeProContent(
+                isPro: widget.wristCheckController.isAppPro.value,
+                selectedView: widget.timeController.timeView.value,
+                moonPhaseBuilder: (expandUpcomingPhases) =>
+                    MoonPhaseWidget(expandUpcomingPhases: expandUpcomingPhases),
+                gmtBuilder: (showEarthHeader) =>
+                    GMT(showEarthHeader: showEarthHeader),
+              ),
+            ),
             const SizedBox(height: 110,)
 
           ],
@@ -270,4 +285,51 @@ Widget _buildAdSpace(BannerAd? banner, BuildContext context){
     height: MediaQuery.of(context).size.height > 500.0? 250: 100,
     child: AdWidget(ad: banner),
   );
+}
+
+class ResponsiveTimeProContent extends StatelessWidget {
+  const ResponsiveTimeProContent({
+    super.key,
+    required this.isPro,
+    required this.selectedView,
+    required this.moonPhaseBuilder,
+    required this.gmtBuilder,
+    this.maxWidth = 1200.0,
+    this.columnSpacing = 24.0,
+  });
+
+  final bool isPro;
+  final TimeViewEnum selectedView;
+  final Widget Function(bool expandUpcomingPhases) moonPhaseBuilder;
+  final Widget Function(bool showEarthHeader) gmtBuilder;
+  final double maxWidth;
+  final double columnSpacing;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isPro) {
+      return const SizedBox(height: 0);
+    }
+
+    final bool isLargeScreen = WristTrackBottomNavBar.isLargeScreen(context);
+    if (!isLargeScreen) {
+      return selectedView == TimeViewEnum.moonphase
+          ? moonPhaseBuilder(false)
+          : gmtBuilder(false);
+    }
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: moonPhaseBuilder(true)),
+            SizedBox(width: columnSpacing),
+            Expanded(child: gmtBuilder(true)),
+          ],
+        ),
+      ),
+    );
+  }
 }

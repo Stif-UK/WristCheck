@@ -7,10 +7,13 @@ import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/time_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/wristtrack_timezone.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class GMT extends StatelessWidget {
-  const GMT({super.key});
+  const GMT({super.key, this.showEarthHeader});
+
+  final bool? showEarthHeader;
 
   static final List<double> availableOffsets = List<double>.generate(
     57,
@@ -279,6 +282,8 @@ class GMT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timeController = Get.find<TimeController>();
+    final bool displayEarthHeader =
+        showEarthHeader ?? WristTrackBottomNavBar.isLargeScreen(context);
 
     return ValueListenableBuilder<Box<WristTrackTimezone>>(
       valueListenable: Boxes.getTimezones().listenable(),
@@ -302,17 +307,22 @@ class GMT extends StatelessWidget {
 
         return Column(
           children: [
+            if (displayEarthHeader) const TabletEarthHeader(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Tracked Timezones',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Flexible(
+                    child: Text(
+                      'Tracked Timezones',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+                  const SizedBox(width: 8),
                   FloatingActionButton.extended(
                     heroTag: 'add_timezone_fab',
                     onPressed: () => _showTimezoneDialog(context),
@@ -418,6 +428,70 @@ class GMT extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class TabletEarthHeader extends StatelessWidget {
+  const TabletEarthHeader({super.key, this.size = 150.0});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            AppLocalizations.of(context)!.timeViewGMT,
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: EarthGlobeWidget(size: size),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class EarthGlobeWidget extends StatelessWidget {
+  const EarthGlobeWidget({super.key, this.size = 150.0});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.lightBlue.withValues(alpha: 0.35),
+            blurRadius: 15,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: ClipOval(
+        child: Image.asset(
+          'assets/img/earth.png',
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
