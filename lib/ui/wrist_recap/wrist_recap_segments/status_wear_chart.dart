@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_completeness_indicator.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
@@ -15,7 +15,7 @@ class StatusWearChart extends StatefulWidget {
 }
 
 class _StatusWearChartState extends State<StatusWearChart> {
-  bool isDonut = false;
+  RecapCategoryChartType _chartType = RecapCategoryChartType.bar;
   bool isExpanded = false;
 
   @override
@@ -54,8 +54,11 @@ class _StatusWearChartState extends State<StatusWearChart> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
+                      key: const Key('status_chart_expand_button'),
                       icon: FaIcon(
-                        isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
+                        isExpanded
+                            ? FontAwesomeIcons.compress
+                            : FontAwesomeIcons.expand,
                         size: 16,
                       ),
                       onPressed: () {
@@ -65,13 +68,14 @@ class _StatusWearChartState extends State<StatusWearChart> {
                       },
                     ),
                     IconButton(
-                      icon: FaIcon(
-                        isDonut ? FontAwesomeIcons.chartSimple : FontAwesomeIcons.chartPie,
-                        size: 16,
-                      ),
+                      key: const Key('status_chart_type_button'),
+                      icon: buildCategoryChartTypeIcon(_chartType),
                       onPressed: () {
                         setState(() {
-                          isDonut = !isDonut;
+                          _chartType = nextCategoryChartType(
+                            _chartType,
+                            includeRadialBar: true,
+                          );
                         });
                       },
                     ),
@@ -93,55 +97,27 @@ class _StatusWearChartState extends State<StatusWearChart> {
 
               return SizedBox(
                 height: chartHeight,
-                child: isDonut
-                    ? SfCircularChart(
-                        legend: Legend(
-                            isVisible: true,
-                            overflowMode: LegendItemOverflowMode.wrap),
-                        series: _getDonutSeries(),
-                      )
-                    : SfCartesianChart(
-                        primaryXAxis: CategoryAxis(
-                          isVisible: false,
-                        ),
-                        primaryYAxis: NumericAxis(),
-                        series: _getBarSeries()),
+                child: buildRecapCategoricalChart<StatusWornClass>(
+                  chartType: _chartType,
+                  items: recapController.statusWorn.toList(),
+                  labelOf: (StatusWornClass item) => item.status,
+                  countOf: (StatusWornClass item) => item.count,
+                  barDataLabelOf: (StatusWornClass item) =>
+                      item.percentage != null
+                          ? "${item.status} : ${item.count} (${item.percentage})"
+                          : "${item.status} : ${item.count}",
+                  circularDataLabelOf: (StatusWornClass item) =>
+                      item.percentage != null
+                          ? "${item.status}: ${item.percentage}"
+                          : "${item.status}: ${item.count}",
+                  radialDataLabelOf: (StatusWornClass item) =>
+                      item.percentage ?? "${item.count}",
+                ),
               );
             }),
           ],
         ),
       ),
     );
-  }
-
-  List<BarSeries<StatusWornClass, String>> _getBarSeries() {
-    final recapController = Get.find<WristRecapController>();
-
-    return <BarSeries<StatusWornClass, String>>[
-      BarSeries(
-        dataSource: recapController.statusWorn.reversed.toList(),
-        xValueMapper: (StatusWornClass series, _) => series.status,
-        yValueMapper: (StatusWornClass series, _) => series.count,
-        dataLabelMapper: (series, _) =>
-            "${series.status} : ${series.count} (${series.percentage})",
-        dataLabelSettings: const DataLabelSettings(isVisible: true),
-      )
-    ];
-  }
-
-  List<DoughnutSeries<StatusWornClass, String>> _getDonutSeries() {
-    final recapController = Get.find<WristRecapController>();
-
-    return <DoughnutSeries<StatusWornClass, String>>[
-      DoughnutSeries<StatusWornClass, String>(
-        dataSource: recapController.statusWorn.toList(),
-        xValueMapper: (StatusWornClass series, _) => series.status,
-        yValueMapper: (StatusWornClass series, _) => series.count,
-        dataLabelMapper: (series, _) => "${series.percentage}",
-        dataLabelSettings: const DataLabelSettings(
-            isVisible: true, labelPosition: ChartDataLabelPosition.outside),
-        enableTooltip: true,
-      )
-    ];
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class BrandChart extends StatefulWidget {
@@ -15,6 +15,7 @@ class BrandChart extends StatefulWidget {
 
 class _BrandChartState extends State<BrandChart> {
   bool isExpanded = false;
+  RecapCategoryChartType _chartType = RecapCategoryChartType.bar;
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +38,33 @@ class _BrandChartState extends State<BrandChart> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                IconButton(
-                  icon: FaIcon(
-                    isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
-                    size: 16,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      key: const Key('brand_chart_expand_button'),
+                      icon: FaIcon(
+                        isExpanded
+                            ? FontAwesomeIcons.compress
+                            : FontAwesomeIcons.expand,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      key: const Key('brand_chart_type_button'),
+                      icon: buildCategoryChartTypeIcon(_chartType),
+                      onPressed: () {
+                        setState(() {
+                          _chartType = nextCategoryChartType(_chartType);
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -65,12 +83,17 @@ class _BrandChartState extends State<BrandChart> {
 
               return SizedBox(
                 height: chartHeight,
-                child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(
-                    isVisible: false,
-                  ),
-                  primaryYAxis: NumericAxis(),
-                  series: _getBarSeries(),
+                child: buildRecapCategoricalChart<ManufacturersWornClass>(
+                  chartType: _chartType,
+                  items: recapController.brandsWorn.toList(),
+                  labelOf: (ManufacturersWornClass item) => item.manufacturer,
+                  countOf: (ManufacturersWornClass item) => item.count,
+                  barDataLabelOf: (ManufacturersWornClass item) =>
+                      item.percentage != null
+                          ? "${item.manufacturer} : ${item.count} (${item.percentage})"
+                          : "${item.manufacturer} : ${item.count}",
+                  circularDataLabelOf: (ManufacturersWornClass item) =>
+                      "${item.manufacturer}: ${item.count}",
                 ),
               );
             }),
@@ -78,19 +101,5 @@ class _BrandChartState extends State<BrandChart> {
         ),
       ),
     );
-  }
-
-  List<BarSeries<dynamic, dynamic>> _getBarSeries() {
-    final recapController = Get.put(WristRecapController());
-
-    return <BarSeries<ManufacturersWornClass, String>>[
-      BarSeries(
-        dataSource: recapController.brandsWorn.reversed.toList(),
-        xValueMapper: (ManufacturersWornClass series, _) => series.manufacturer,
-        yValueMapper: (ManufacturersWornClass series, _) => series.count,
-        dataLabelMapper: (series, _) => "${series.manufacturer} : ${series.count} (${series.percentage})",
-        dataLabelSettings: const DataLabelSettings(isVisible: true),
-      )
-    ];
   }
 }

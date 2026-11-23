@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_completeness_indicator.dart';
 import 'package:wristcheck/util/helper_classes.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class TopCategoryMonthly extends StatefulWidget {
   const TopCategoryMonthly({super.key});
@@ -18,20 +17,25 @@ class TopCategoryMonthly extends StatefulWidget {
 
 class _TopCategoryMonthlyState extends State<TopCategoryMonthly> {
   bool isExpanded = false;
+  RecapMonthlyChartType _chartType = RecapMonthlyChartType.bar;
 
   @override
   Widget build(BuildContext context) {
     final recapController = Get.find<WristRecapController>();
 
     return Obx(() {
-      if (recapController.selectedRecapOption.value != WristRecapEnums.annually || recapController.topCategoryMonthly.isEmpty) {
+      if (recapController.selectedRecapOption.value != WristRecapEnums.annually ||
+          recapController.topCategoryMonthly.isEmpty) {
         return const SizedBox.shrink();
       }
 
-      if (recapController.categoriesWorn.length <= 1) return const SizedBox.shrink();
+      if (recapController.categoriesWorn.length <= 1) {
+        return const SizedBox.shrink();
+      }
 
       // Check if there are actually any categories worn in any month
-      bool hasData = recapController.topCategoryMonthly.any((element) => element.count > 0);
+      bool hasData = recapController.topCategoryMonthly
+          .any((element) => element.count > 0);
       if (!hasData) return const SizedBox.shrink();
 
       double baseHeight = MediaQuery.of(context).size.height * 0.35;
@@ -64,7 +68,8 @@ class _TopCategoryMonthlyState extends State<TopCategoryMonthly> {
                         ),
                         Expanded(
                           child: Text(
-                            AppLocalizations.of(context)!.topCategoryMonthlyTitle,
+                            AppLocalizations.of(context)!
+                                .topCategoryMonthlyTitle,
                             style: Theme.of(context).textTheme.bodyLarge,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -72,48 +77,47 @@ class _TopCategoryMonthlyState extends State<TopCategoryMonthly> {
                       ],
                     ),
                   ),
-                  IconButton(
-                    icon: FaIcon(
-                      isExpanded ? FontAwesomeIcons.compress : FontAwesomeIcons.expand,
-                      size: 16,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        key: const Key('top_category_monthly_expand_button'),
+                        icon: FaIcon(
+                          isExpanded
+                              ? FontAwesomeIcons.compress
+                              : FontAwesomeIcons.expand,
+                          size: 16,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
+                        },
+                      ),
+                      IconButton(
+                        key:
+                            const Key('top_category_monthly_chart_type_button'),
+                        icon: buildMonthlyChartTypeIcon(_chartType),
+                        onPressed: () {
+                          setState(() {
+                            _chartType = nextMonthlyChartType(_chartType);
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
               const SizedBox(height: 10),
               SizedBox(
                 height: chartHeight,
-                child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(
-                    interval: 1,
-                    // Reverse to show Jan at the top
-                    isInversed: true,
-                  ),
-                  primaryYAxis: NumericAxis(
-                    isVisible: true,
-                    interval: 5,
-                  ),
-                  series: <CartesianSeries<TopCategoryMonthlyClass, String>>[
-                    BarSeries<TopCategoryMonthlyClass, String>(
-                      dataSource: recapController.topCategoryMonthly,
-                      xValueMapper: (TopCategoryMonthlyClass data, _) =>
-                          WristCheckFormatter.getMonthName(data.month),
-                      yValueMapper: (TopCategoryMonthlyClass data, _) => data.count,
-                      dataLabelMapper: (TopCategoryMonthlyClass data, _) =>
-                          data.category ?? "",
-                      dataLabelSettings: const DataLabelSettings(
-                        isVisible: true,
-                        labelAlignment: ChartDataLabelAlignment.outer,
-                        overflowMode: OverflowMode.none,
-                        textStyle: TextStyle(fontSize: 10),
-                      ),
-                    )
-                  ],
+                child: buildRecapMonthlyChart<TopCategoryMonthlyClass>(
+                  context: context,
+                  chartType: _chartType,
+                  items: recapController.topCategoryMonthly.toList(),
+                  monthOf: (TopCategoryMonthlyClass data) => data.month,
+                  countOf: (TopCategoryMonthlyClass data) => data.count,
+                  nameOf: (TopCategoryMonthlyClass data) => data.category ?? "",
                 ),
               ),
             ],

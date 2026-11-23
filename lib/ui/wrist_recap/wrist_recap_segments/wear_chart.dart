@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:wristcheck/config.dart';
@@ -10,26 +9,32 @@ import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/adunits.dart';
 import 'package:wristcheck/provider/adstate.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
 
 class WearChart extends StatefulWidget {
-  WearChart({super.key});
+  WearChart({super.key, this.isAppProOverride});
+
+  final bool? isAppProOverride;
 
   @override
   State<WearChart> createState() => _WearChartState();
 }
 
 class _WearChartState extends State<WearChart> {
-  final wristCheckController = Get.find<WristCheckController>();
   BannerAd? banner;
   bool isExpanded = false;
+  RecapCategoryChartType _chartType = RecapCategoryChartType.bar;
+
+  bool get _isAppPro =>
+      widget.isAppProOverride ?? Get.find<WristCheckController>().isAppPro.value;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!wristCheckController.isAppPro.value) {
+    if (!_isAppPro) {
       final adState = Provider.of<AdState>(context);
       adState.initialization.then((status) {
         if (!mounted) return;
@@ -73,18 +78,33 @@ class _WearChartState extends State<WearChart> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    IconButton(
-                      icon: FaIcon(
-                        isExpanded
-                            ? FontAwesomeIcons.compress
-                            : FontAwesomeIcons.expand,
-                        size: 16,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isExpanded = !isExpanded;
-                        });
-                      },
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          key: const Key('wear_chart_expand_button'),
+                          icon: FaIcon(
+                            isExpanded
+                                ? FontAwesomeIcons.compress
+                                : FontAwesomeIcons.expand,
+                            size: 16,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                        ),
+                        IconButton(
+                          key: const Key('wear_chart_type_button'),
+                          icon: buildCategoryChartTypeIcon(_chartType),
+                          onPressed: () {
+                            setState(() {
+                              _chartType = nextCategoryChartType(_chartType);
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -103,12 +123,27 @@ class _WearChartState extends State<WearChart> {
 
                   return SizedBox(
                     height: chartHeight,
-                    child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(
-                        isVisible: false,
-                      ),
-                      primaryYAxis: NumericAxis(),
-                      series: _getBarSeries(),
+                    child: buildRecapCategoricalChart<WornWatchesClass>(
+                      chartType: _chartType,
+                      items: recapController.watchesWorn.toList(),
+                      labelOf: (WornWatchesClass item) {
+                        final suffix =
+                            WearChartsHelper.getLabelSuffix(item.watch);
+                        return suffix.isEmpty
+                            ? item.watch.toString()
+                            : '${item.watch} $suffix';
+                      },
+                      countOf: (WornWatchesClass item) => item.count,
+                      barDataLabelOf: (WornWatchesClass item) =>
+                          "${item.watch.toString()} ${WearChartsHelper.getLabelSuffix(item.watch)}: ${item.count}",
+                      circularDataLabelOf: (WornWatchesClass item) {
+                        final suffix =
+                            WearChartsHelper.getLabelSuffix(item.watch);
+                        final name = suffix.isEmpty
+                            ? item.watch.toString()
+                            : '${item.watch} $suffix';
+                        return '$name: ${item.count}';
+                      },
                     ),
                   );
                 }),
@@ -116,31 +151,13 @@ class _WearChartState extends State<WearChart> {
             ),
           ),
         ),
-        Obx(() => wristCheckController.isAppPro.value
-            ? const SizedBox(height: 0)
-            : AdWidgetHelper.buildSmallAdSpace(banner, context)),
+        if (widget.isAppProOverride != null)
+          const SizedBox(height: 0)
+        else
+          Obx(() => Get.find<WristCheckController>().isAppPro.value
+              ? const SizedBox(height: 0)
+              : AdWidgetHelper.buildSmallAdSpace(banner, context)),
       ],
     );
-  }
-
-  List<BarSeries<dynamic, dynamic>> _getBarSeries() {
-    List<BarSeries<dynamic, dynamic>> returnSeries = [];
-    final recapController = Get.put(WristRecapController());
-
-    returnSeries = <BarSeries<WornWatchesClass, String>>[
-      BarSeries(
-        dataSource: recapController.watchesWorn.reversed.toList(),
-        xValueMapper: (WornWatchesClass series, _) => (series.watch.toString()),
-        yValueMapper: (WornWatchesClass series, _) => series.count,
-        dataLabelMapper: (wornWatch, _) =>
-            "${wornWatch.watch.toString()} ${WearChartsHelper.getLabelSuffix(wornWatch.watch)}: ${wornWatch.count}",
-        dataLabelSettings: const DataLabelSettings(
-            isVisible:
-                true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-        // animationDuration: 0 Set to zero to stop it animating!
-      )
-    ];
-
-    return returnSeries;
   }
 }
