@@ -1127,5 +1127,10 @@
   "resetPasswordDescription": "Introduce la dirección de correo asociada a tu cuenta. Te enviaremos un código de 6 dígitos para restablecer tu contraseña.",
   "requestResetButton": "Solicitar restablecimiento",
   "checkYourEmailTitle": "Revisa tu correo electrónico",
-  "checkYourEmailMessage": "Si existe una cuenta para {email}, recibirás un correo con un código OTP de 6 dígitos para restablecer tu contraseña."
+  "checkYourEmailMessage": "Si existe una cuenta para {email}, recibirás un correo con un código OTP de 6 dígitos para restablecer tu contraseña.",
+  "recapDataIncompleteTooltip": "Los datos de este período están incompletos; no todos los relojes usados registran este campo.",
+  "recapDataCompleteTooltip": "Todos los datos están disponibles para los relojes usados en este período.",
+  "recapDataIncompleteDialogTitle": "Datos incompletos",
+  "recapDataCompleteDialogTitle": "Datos completos",
+  "viewDataCompleteness": "Integridad de datos"
 }

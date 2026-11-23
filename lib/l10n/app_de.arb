@@ -1132,5 +1132,10 @@
   "resetPasswordDescription": "Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse ein. Wir senden Ihnen einen 6-stelligen Code zum Zurücksetzen Ihres Passworts.",
   "requestResetButton": "Zurücksetzen anfordern",
   "checkYourEmailTitle": "Überprüfen Sie Ihre E-Mail",
-  "checkYourEmailMessage": "Wenn ein Konto für {email} existiert, erhalten Sie eine E-Mail mit einem 6-stelligen OTP-Code zum Zurücksetzen Ihres Passworts."
+  "checkYourEmailMessage": "Wenn ein Konto für {email} existiert, erhalten Sie eine E-Mail mit einem 6-stelligen OTP-Code zum Zurücksetzen Ihres Passworts.",
+  "recapDataIncompleteTooltip": "Die Daten für diesen Zeitraum sind unvollständig; nicht alle getragenen Uhren erfassen dieses Feld.",
+  "recapDataCompleteTooltip": "Für alle getragenen Uhren in diesem Zeitraum sind vollständige Daten verfügbar.",
+  "recapDataIncompleteDialogTitle": "Unvollständige Daten",
+  "recapDataCompleteDialogTitle": "Vollständige Daten",
+  "viewDataCompleteness": "Datenvollständigkeit"
 }

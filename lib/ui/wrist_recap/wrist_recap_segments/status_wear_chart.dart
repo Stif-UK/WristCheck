@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_completeness_indicator.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class StatusWearChart extends StatefulWidget {
@@ -32,10 +33,21 @@ class _StatusWearChartState extends State<StatusWearChart> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!.statusChartTitle,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    overflow: TextOverflow.ellipsis,
+                  child: Row(
+                    children: [
+                      Obx(() => RecapCompletenessIndicator(
+                            isComplete: Get.find<WristRecapController>()
+                                .statusComplete
+                                .value,
+                          )),
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.statusChartTitle,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Row(

@@ -2908,4 +2908,21 @@ class AppLocalizationsCs extends AppLocalizations {
   String checkYourEmailMessage(Object email) {
     return 'Pokud pro $email existuje účet, obdržíte e-mail s 6místným OTP kódem pro obnovení hesla.';
   }
+
+  @override
+  String get recapDataIncompleteTooltip =>
+      'Údaje za toto období jsou neúplné; ne všechny nošené hodinky toto pole sledují.';
+
+  @override
+  String get recapDataCompleteTooltip =>
+      'Pro všechny nošené hodinky v tomto období jsou dostupné všechny údaje.';
+
+  @override
+  String get recapDataIncompleteDialogTitle => 'Neúplné údaje';
+
+  @override
+  String get recapDataCompleteDialogTitle => 'Úplné údaje';
+
+  @override
+  String get viewDataCompleteness => 'Úplnost dat';
 }

@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/wrist_recap_enums.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_completeness_indicator.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
@@ -56,10 +57,19 @@ class _TopCategoryMonthlyState extends State<TopCategoryMonthly> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Text(
-                      AppLocalizations.of(context)!.topCategoryMonthlyTitle,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      overflow: TextOverflow.ellipsis,
+                    child: Row(
+                      children: [
+                        RecapCompletenessIndicator(
+                          isComplete: recapController.categoriesComplete.value,
+                        ),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.topCategoryMonthlyTitle,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(

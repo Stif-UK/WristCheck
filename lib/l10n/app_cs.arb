@@ -1132,5 +1132,10 @@
   "resetPasswordDescription": "Zadejte e-mailovou adresu přiřazenou k vašemu účtu. Zašleme vám 6místný kód pro obnovení hesla.",
   "requestResetButton": "Požádat o obnovení",
   "checkYourEmailTitle": "Zkontrolujte svůj e-mail",
-  "checkYourEmailMessage": "Pokud pro {email} existuje účet, obdržíte e-mail s 6místným OTP kódem pro obnovení hesla."
+  "checkYourEmailMessage": "Pokud pro {email} existuje účet, obdržíte e-mail s 6místným OTP kódem pro obnovení hesla.",
+  "recapDataIncompleteTooltip": "Údaje za toto období jsou neúplné; ne všechny nošené hodinky toto pole sledují.",
+  "recapDataCompleteTooltip": "Pro všechny nošené hodinky v tomto období jsou dostupné všechny údaje.",
+  "recapDataIncompleteDialogTitle": "Neúplné údaje",
+  "recapDataCompleteDialogTitle": "Úplné údaje",
+  "viewDataCompleteness": "Úplnost dat"
 }

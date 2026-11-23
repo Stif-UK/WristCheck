@@ -1131,5 +1131,10 @@
   "resetPasswordDescription": "Entrez l'adresse e-mail associée à votre compte. Nous vous enverrons un code à 6 chiffres pour réinitialiser votre mot de passe.",
   "requestResetButton": "Demander la réinitialisation",
   "checkYourEmailTitle": "Vérifiez vos e-mails",
-  "checkYourEmailMessage": "Si un compte existe pour {email}, vous recevrez un e-mail contenant un code OTP à 6 chiffres pour réinitialiser votre mot de passe."
+  "checkYourEmailMessage": "Si un compte existe pour {email}, vous recevrez un e-mail contenant un code OTP à 6 chiffres pour réinitialiser votre mot de passe.",
+  "recapDataIncompleteTooltip": "Les données pour cette période sont incomplètes ; toutes les montres portées ne renseignent pas ce champ.",
+  "recapDataCompleteTooltip": "Toutes les données sont disponibles pour les montres portées durant cette période.",
+  "recapDataIncompleteDialogTitle": "Données incomplètes",
+  "recapDataCompleteDialogTitle": "Données complètes",
+  "viewDataCompleteness": "Complétude des données"
 }

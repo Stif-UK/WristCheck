@@ -2915,4 +2915,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String checkYourEmailMessage(Object email) {
     return 'Si un compte existe pour $email, vous recevrez un e-mail contenant un code OTP à 6 chiffres pour réinitialiser votre mot de passe.';
   }
+
+  @override
+  String get recapDataIncompleteTooltip =>
+      'Les données pour cette période sont incomplètes ; toutes les montres portées ne renseignent pas ce champ.';
+
+  @override
+  String get recapDataCompleteTooltip =>
+      'Toutes les données sont disponibles pour les montres portées durant cette période.';
+
+  @override
+  String get recapDataIncompleteDialogTitle => 'Données incomplètes';
+
+  @override
+  String get recapDataCompleteDialogTitle => 'Données complètes';
+
+  @override
+  String get viewDataCompleteness => 'Complétude des données';
 }

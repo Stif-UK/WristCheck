@@ -1134,5 +1134,10 @@
   "resetPasswordDescription": "Inserisci l'indirizzo email associato al tuo account. Ti invieremo un codice a 6 cifre per reimpostare la password.",
   "requestResetButton": "Richiedi reset",
   "checkYourEmailTitle": "Controlla la tua email",
-  "checkYourEmailMessage": "Se esiste un account per {email}, riceverai un'email con un codice OTP a 6 cifre per reimpostare la password."
+  "checkYourEmailMessage": "Se esiste un account per {email}, riceverai un'email con un codice OTP a 6 cifre per reimpostare la password.",
+  "recapDataIncompleteTooltip": "I dati per questo periodo sono incompleti; non tutti gli orologi indossati tracciano questo campo.",
+  "recapDataCompleteTooltip": "Tutti i dati sono disponibili per gli orologi indossati in questo periodo.",
+  "recapDataIncompleteDialogTitle": "Dati incompleti",
+  "recapDataCompleteDialogTitle": "Dati completi",
+  "viewDataCompleteness": "Completezza dei dati"
 }

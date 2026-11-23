@@ -1193,5 +1193,10 @@
   "resetPasswordDescription": "Enter the email address associated with your account. We will send you a 6-digit code to reset your password.",
   "requestResetButton": "Request Reset",
   "checkYourEmailTitle": "Check Your Email",
-  "checkYourEmailMessage": "If an account exists for {email}, you will receive an email with a 6-digit OTP code to reset your password."
+  "checkYourEmailMessage": "If an account exists for {email}, you will receive an email with a 6-digit OTP code to reset your password.",
+  "recapDataIncompleteTooltip": "Data for this period is incomplete; not all worn watches track this field.",
+  "recapDataCompleteTooltip": "All data is available for worn watches in this period.",
+  "recapDataIncompleteDialogTitle": "Incomplete Data",
+  "recapDataCompleteDialogTitle": "Complete Data",
+  "viewDataCompleteness": "Data Completeness"
 }

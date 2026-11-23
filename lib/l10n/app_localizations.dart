@@ -5183,6 +5183,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If an account exists for {email}, you will receive an email with a 6-digit OTP code to reset your password.'**
   String checkYourEmailMessage(Object email);
+
+  /// No description provided for @recapDataIncompleteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Data for this period is incomplete; not all worn watches track this field.'**
+  String get recapDataIncompleteTooltip;
+
+  /// No description provided for @recapDataCompleteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'All data is available for worn watches in this period.'**
+  String get recapDataCompleteTooltip;
+
+  /// No description provided for @recapDataIncompleteDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete Data'**
+  String get recapDataIncompleteDialogTitle;
+
+  /// No description provided for @recapDataCompleteDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Data'**
+  String get recapDataCompleteDialogTitle;
+
+  /// No description provided for @viewDataCompleteness.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Completeness'**
+  String get viewDataCompleteness;
 }
 
 class _AppLocalizationsDelegate

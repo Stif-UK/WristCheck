@@ -2927,4 +2927,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String checkYourEmailMessage(Object email) {
     return 'Если учетная запись для $email существует, вы получите письмо с 6-значным OTP-кодом для сброса пароля.';
   }
+
+  @override
+  String get recapDataIncompleteTooltip =>
+      'Данные за этот период неполны; не все надетые часы отслеживают это поле.';
+
+  @override
+  String get recapDataCompleteTooltip =>
+      'Для всех часов, надетых за этот период, доступны полные данные.';
+
+  @override
+  String get recapDataIncompleteDialogTitle => 'Неполные данные';
+
+  @override
+  String get recapDataCompleteDialogTitle => 'Полные данные';
+
+  @override
+  String get viewDataCompleteness => 'Полнота данных';
 }

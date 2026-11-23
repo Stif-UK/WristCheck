@@ -2917,4 +2917,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String checkYourEmailMessage(Object email) {
     return 'Wenn ein Konto für $email existiert, erhalten Sie eine E-Mail mit einem 6-stelligen OTP-Code zum Zurücksetzen Ihres Passworts.';
   }
+
+  @override
+  String get recapDataIncompleteTooltip =>
+      'Die Daten für diesen Zeitraum sind unvollständig; nicht alle getragenen Uhren erfassen dieses Feld.';
+
+  @override
+  String get recapDataCompleteTooltip =>
+      'Für alle getragenen Uhren in diesem Zeitraum sind vollständige Daten verfügbar.';
+
+  @override
+  String get recapDataIncompleteDialogTitle => 'Unvollständige Daten';
+
+  @override
+  String get recapDataCompleteDialogTitle => 'Vollständige Daten';
+
+  @override
+  String get viewDataCompleteness => 'Datenvollständigkeit';
 }

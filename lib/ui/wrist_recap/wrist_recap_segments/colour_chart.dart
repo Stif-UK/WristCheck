@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_completeness_indicator.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class WristRecapColourChart extends StatefulWidget {
@@ -65,10 +66,21 @@ class _WristRecapColourChartState extends State<WristRecapColourChart> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        l.colourChartTitle,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                        overflow: TextOverflow.ellipsis,
+                      Row(
+                        children: [
+                          Obx(() => RecapCompletenessIndicator(
+                                isComplete: Get.find<WristRecapController>()
+                                    .coloursComplete
+                                    .value,
+                              )),
+                          Expanded(
+                            child: Text(
+                              l.colourChartTitle,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
                       if (_chartType == ColourChartEnum.pie ||
                           _chartType == ColourChartEnum.donut)

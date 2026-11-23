@@ -1132,5 +1132,10 @@
   "resetPasswordDescription": "Введите адрес электронной почты, связанный с вашей учетной записью. Мы отправим вам 6-значный код для сброса пароля.",
   "requestResetButton": "Запросить сброс",
   "checkYourEmailTitle": "Проверьте вашу почту",
-  "checkYourEmailMessage": "Если учетная запись для {email} существует, вы получите письмо с 6-значным OTP-кодом для сброса пароля."
+  "checkYourEmailMessage": "Если учетная запись для {email} существует, вы получите письмо с 6-значным OTP-кодом для сброса пароля.",
+  "recapDataIncompleteTooltip": "Данные за этот период неполны; не все надетые часы отслеживают это поле.",
+  "recapDataCompleteTooltip": "Для всех часов, надетых за этот период, доступны полные данные.",
+  "recapDataIncompleteDialogTitle": "Неполные данные",
+  "recapDataCompleteDialogTitle": "Полные данные",
+  "viewDataCompleteness": "Полнота данных"
 }

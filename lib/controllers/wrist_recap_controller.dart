@@ -22,6 +22,8 @@ class WristRecapController extends GetxController{
   final statusWorn = <StatusWornClass>[].obs;
   final coloursWorn = <ColourData>[].obs;
   final categoriesComplete = true.obs;
+  final coloursComplete = true.obs;
+  final statusComplete = true.obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
   final topWatchMonthly = <TopWatchMonthlyClass>[].obs;
@@ -177,6 +179,33 @@ class WristRecapController extends GetxController{
     brandsWorn(brandList);
   }
   
+  static bool isFieldPopulated(String? value) {
+    if (value == null) return false;
+    final trimmed = value.trim();
+    return trimmed.isNotEmpty &&
+        trimmed != "Not Entered" &&
+        trimmed != "Not Selected";
+  }
+
+  static bool isStatusComplete(List<WornWatchesClass> wornList) {
+    if (wornList.isEmpty) return true;
+    return wornList.every((worn) => isFieldPopulated(worn.watch.status));
+  }
+
+  static bool areCategoriesComplete(List<WornWatchesClass> wornList) {
+    if (wornList.isEmpty) return true;
+    return wornList.every((worn) => isFieldPopulated(worn.watch.category));
+  }
+
+  static bool areColoursComplete(List<WornWatchesClass> wornList) {
+    if (wornList.isEmpty) return true;
+    return wornList.every(
+      (worn) =>
+          isFieldPopulated(worn.watch.primaryColour) ||
+          isFieldPopulated(worn.watch.secondaryColour),
+    );
+  }
+
   generateStatusWornData(int wearMonth, int wearYear){
     Map<String, int> statusMap = {};
     List<WornWatchesClass> wornList = _getWornList();
@@ -201,6 +230,7 @@ class WristRecapController extends GetxController{
       statusData.setPercentage("${((statusData.count / totalCount)*100).toStringAsFixed(1)} %");
     }
 
+    statusComplete(isStatusComplete(wornList));
     statusWorn(statusList);
   }
   
@@ -208,14 +238,12 @@ class WristRecapController extends GetxController{
   generateCategoriesWornData(int wearMonth, int wearYear){
     Map<String, int> categoryMap = {};
     List<WornWatchesClass> wornList = _getWornList();
-    bool complete = true;
 
     for(WornWatchesClass worn in wornList){
         String categoryDb = worn.watch.category ?? "";
         String category;
-        if (categoryDb.isEmpty) {
+        if (categoryDb.trim().isEmpty) {
           category = AppLocalizations.of(Get.context!)!.unknown;
-          complete = false;
         } else {
           category = CategoryEnumLocalization.fromDbString(categoryDb).toLocalizedString(Get.context!);
         }
@@ -237,7 +265,7 @@ class WristRecapController extends GetxController{
       categoryData.setPercentage("${((categoryData.count / totalCount)*100).toStringAsFixed(1)} %");
     }
 
-    categoriesComplete(complete);
+    categoriesComplete(areCategoriesComplete(wornList));
     categoriesWorn(categoryList);
   }
 
@@ -245,13 +273,13 @@ class WristRecapController extends GetxController{
     final Map<String, _RecapColourCounts> colourCounts = {};
 
     for (final worn in wornList) {
-      final pCol = worn.watch.primaryColour?.trim();
-      if (pCol != null && pCol.isNotEmpty && pCol != "Not Entered") {
+      if (isFieldPopulated(worn.watch.primaryColour)) {
+        final pCol = worn.watch.primaryColour!.trim();
         colourCounts.putIfAbsent(pCol, () => _RecapColourCounts());
         colourCounts[pCol]!.primaryCount += worn.count;
       }
-      final sCol = worn.watch.secondaryColour?.trim();
-      if (sCol != null && sCol.isNotEmpty && sCol != "Not Entered") {
+      if (isFieldPopulated(worn.watch.secondaryColour)) {
+        final sCol = worn.watch.secondaryColour!.trim();
         colourCounts.putIfAbsent(sCol, () => _RecapColourCounts());
         colourCounts[sCol]!.secondaryCount += worn.count;
       }
@@ -266,7 +294,9 @@ class WristRecapController extends GetxController{
   }
 
   generateColoursWornData() {
-    coloursWorn(buildColourData(_getWornList()));
+    final wornList = _getWornList();
+    coloursWorn(buildColourData(wornList));
+    coloursComplete(areColoursComplete(wornList));
   }
 
   generateTopWatchMonthlyData() {
