@@ -21,7 +21,7 @@ class AnimatedRecapPreviewPage extends StatefulWidget {
 
 class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
   final ScreenshotController _screenshotController = ScreenshotController();
-  final GlobalKey _shareButtonKey = GlobalKey();
+  final GlobalKey _screenshotKey = GlobalKey();
   bool _isSharing = false;
 
   late double daysTracked;
@@ -236,9 +236,14 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       await file.writeAsBytes(bytes);
 
       Rect? sharePositionOrigin;
-      final renderBox = _shareButtonKey.currentContext?.findRenderObject() as RenderBox?;
+      final renderBox = _screenshotKey.currentContext?.findRenderObject() as RenderBox?;
       if (renderBox != null) {
-        sharePositionOrigin = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        final origin = renderBox.localToGlobal(Offset.zero);
+        sharePositionOrigin = Rect.fromCenter(
+          center: origin + renderBox.size.center(Offset.zero),
+          width: 1,
+          height: 1,
+        );
       }
 
       await SharePlus.instance.share(
@@ -282,30 +287,14 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
             ),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Center(
-              child: Material(
-                key: _shareButtonKey,
-                color: Colors.black.withValues(alpha: 0.35),
-                shape: const CircleBorder(),
-                clipBehavior: Clip.antiAlias,
-                child: IconButton(
-                  icon: Icon(Icons.adaptive.share, color: Colors.white),
-                  tooltip: 'Share',
-                  onPressed: _shareRecap,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SizedBox.expand(
         child: Screenshot(
+          key: _screenshotKey,
           controller: _screenshotController,
           child: WTAnnualRecapAnimation(
             fallbackIconDimensions: 200,
+            onScreenshotTrigger: _shareRecap,
             daysTracked: daysTracked,
             totalWearsTracked: totalWearsTracked,
             watchesWorn: watchesWorn,

@@ -38,6 +38,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     this.timeDay,
     this.timeDate,
     this.onControllerReady,
+    this.onScreenshotTrigger,
     this.fit = Fit.contain,
   });
 
@@ -74,6 +75,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
   final String? timeDay;
   final double? timeDate;
   final ValueChanged<WTAnnualRecapAnimationController?>? onControllerReady;
+  final VoidCallback? onScreenshotTrigger;
   final Fit fit;
 
   @override
@@ -138,17 +140,50 @@ class WTAnnualRecapAnimationController {
       debugPrint("Error firing trigger '$name': $e");
     }
   }
+
+  final Map<String, List<void Function(bool)>> _triggerListeners = {};
+
+  void addTriggerListener(String name, void Function(bool) listener) {
+    try {
+      final triggerProp = _vmi?.trigger(name);
+      if (triggerProp == null) {
+        debugPrint("WTAnnualRecapAnimation: trigger '$name' not found on ViewModel");
+        return;
+      }
+      triggerProp.addListener(listener);
+      _triggerListeners.putIfAbsent(name, () => []).add(listener);
+    } catch (e) {
+      debugPrint("Error adding trigger listener '$name': $e");
+    }
+  }
+
+  void dispose() {
+    for (final entry in _triggerListeners.entries) {
+      final triggerProp = _vmi?.trigger(entry.key);
+      if (triggerProp != null) {
+        for (final listener in entry.value) {
+          triggerProp.removeListener(listener);
+        }
+      }
+    }
+    _triggerListeners.clear();
+  }
 }
 
 class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
   late final _fileLoader = FileLoader.fromAsset(
-    'assets/animation/wristtrack_recap_12_11 v2.riv',
+    'assets/animation/wristtrack_recap_23_11.riv',
     riveFactory: Factory.flutter,
   );
   WTAnnualRecapAnimationController? _animController;
 
+  void _onScreenshotTrigger(bool _) {
+    widget.onScreenshotTrigger?.call();
+  }
+
   @override
   void dispose() {
+    _animController?.dispose();
     _fileLoader.dispose();
     super.dispose();
   }
@@ -165,24 +200,24 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
     if (w.daysTracked != null) ctrl.setNumber('daysTracked', w.daysTracked!);
     if (w.totalWearsTracked != null) ctrl.setNumber('totalWearsTracked', w.totalWearsTracked!);
     if (w.watchesWorn != null) ctrl.setNumber('watchesWorn', w.watchesWorn!);
-    if (w.topWatchStyle != null) ctrl.setString('topWatchStyle', w.topWatchStyle!);
-    if (w.top1Watch != null) ctrl.setString('top1Watch', w.top1Watch!);
+    if (w.topWatchStyle != null) ctrl.setString('topStyleTEXT', w.topWatchStyle!);
+    if (w.top1Watch != null) ctrl.setString('top1WatchTEXT', w.top1Watch!);
     if (w.top1WatchWorn != null) ctrl.setNumber('top1WatchWorn', w.top1WatchWorn!);
     if (w.topWatch1ICON != null) ctrl.setEnum('topWatch1ICON', w.topWatch1ICON!);
-    if (w.top2Watch != null) ctrl.setString('top2Watch', w.top2Watch!);
+    if (w.top2Watch != null) ctrl.setString('top2WatchTEXT', w.top2Watch!);
     if (w.top2WatchWorn != null) ctrl.setNumber('top2WatchWorn', w.top2WatchWorn!);
     if (w.topWatch2ICON != null) ctrl.setEnum('topWatch2ICON', w.topWatch2ICON!);
-    if (w.top3Watch != null) ctrl.setString('top3Watch', w.top3Watch!);
+    if (w.top3Watch != null) ctrl.setString('top3WatchTEXT', w.top3Watch!);
     if (w.top3WatchWorn != null) ctrl.setNumber('top3WatchWorn', w.top3WatchWorn!);
     if (w.topWatch3ICON != null) ctrl.setEnum('topWatch3ICON', w.topWatch3ICON!);
     if (w.springWatchTEXT != null) ctrl.setString('springWatchTEXT', w.springWatchTEXT!);
-    if (w.springWatch != null) ctrl.setEnum('springWatch', w.springWatch!);
+    if (w.springWatch != null) ctrl.setEnum('springWatchICON', w.springWatch!);
     if (w.summerWatchTEXT != null) ctrl.setString('summerWatchTEXT', w.summerWatchTEXT!);
-    if (w.summerWatch != null) ctrl.setEnum('summerWatch', w.summerWatch!);
+    if (w.summerWatch != null) ctrl.setEnum('summerWatchICON', w.summerWatch!);
     if (w.autumnWatchTEXT != null) ctrl.setString('autumnWatchTEXT', w.autumnWatchTEXT!);
-    if (w.autumnWatch != null) ctrl.setEnum('autumnWatch', w.autumnWatch!);
+    if (w.autumnWatch != null) ctrl.setEnum('autumnWatchICON', w.autumnWatch!);
     if (w.winterWatchTEXT != null) ctrl.setString('winterWatchTEXT', w.winterWatchTEXT!);
-    if (w.winterWatch != null) ctrl.setEnum('winterWatch', w.winterWatch!);
+    if (w.winterWatch != null) ctrl.setEnum('winterWatchICON', w.winterWatch!);
 
     // Time & date inputs for "WristTrack rewind" clock physics animation
     if (w.timeSec != null) ctrl.setNumber('timeSec', w.timeSec!);
@@ -202,9 +237,11 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
         fileLoader: _fileLoader,
         artboardSelector: ArtboardNamed(widget.artboardName),
         onLoaded: (state) {
+          _animController?.dispose();
           final animCtrl = WTAnnualRecapAnimationController(state.controller);
           _animController = animCtrl;
           _applyInputs(widget, animCtrl);
+          animCtrl.addTriggerListener('screenShotTrigger', _onScreenshotTrigger);
           widget.onControllerReady?.call(animCtrl);
         },
         onFailed: (error, stackTrace) {
