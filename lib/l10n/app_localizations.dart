@@ -5225,6 +5225,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fill available space across columns on large screens instead of aligning rows'**
   String get recapPackChartsSubtitle;
+
+  /// No description provided for @collectionDataIncompleteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection data is incomplete; not all watches in your collection track this field.'**
+  String get collectionDataIncompleteTooltip;
+
+  /// No description provided for @collectionDataCompleteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'All data is available for watches in your collection.'**
+  String get collectionDataCompleteTooltip;
 }
 
 class _AppLocalizationsDelegate

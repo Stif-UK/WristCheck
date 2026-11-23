@@ -8,11 +8,24 @@ class RecapCompletenessIndicator extends StatelessWidget {
   const RecapCompletenessIndicator({
     super.key,
     required this.isComplete,
+    this.useCollectionCopy = false,
     this.onNavigateToDataCompleteness,
   });
 
   final bool isComplete;
+  final bool useCollectionCopy;
   final VoidCallback? onNavigateToDataCompleteness;
+
+  String _message(AppLocalizations l) {
+    if (useCollectionCopy) {
+      return isComplete
+          ? l.collectionDataCompleteTooltip
+          : l.collectionDataIncompleteTooltip;
+    }
+    return isComplete
+        ? l.recapDataCompleteTooltip
+        : l.recapDataIncompleteTooltip;
+  }
 
   Widget _buildIcon({required double circleSize, required double warningSize}) {
     return isComplete
@@ -30,8 +43,7 @@ class RecapCompletenessIndicator extends StatelessWidget {
 
   void _showCompletenessDialog(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final String message =
-        isComplete ? l.recapDataCompleteTooltip : l.recapDataIncompleteTooltip;
+    final String message = _message(l);
 
     showDialog<void>(
       context: context,
@@ -68,8 +80,7 @@ class RecapCompletenessIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final String message =
-        isComplete ? l.recapDataCompleteTooltip : l.recapDataIncompleteTooltip;
+    final String message = _message(l);
 
     return Tooltip(
       message: message,

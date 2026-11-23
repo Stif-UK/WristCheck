@@ -2898,4 +2898,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get recapPackChartsSubtitle =>
       'Fill available space across columns on large screens instead of aligning rows';
+
+  @override
+  String get collectionDataIncompleteTooltip =>
+      'Collection data is incomplete; not all watches in your collection track this field.';
+
+  @override
+  String get collectionDataCompleteTooltip =>
+      'All data is available for watches in your collection.';
 }

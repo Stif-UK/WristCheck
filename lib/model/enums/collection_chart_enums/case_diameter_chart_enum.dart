@@ -1,0 +1,1 @@
+enum CaseDiameterChartEnum { bar, line }

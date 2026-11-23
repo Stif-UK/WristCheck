@@ -1,69 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class DateComplicationChart extends StatefulWidget {
-  const DateComplicationChart({Key? key}) : super(key: key);
+  const DateComplicationChart({Key? key, this.watchesOverride})
+      : super(key: key);
+
+  final List<Watches>? watchesOverride;
 
   @override
   State<DateComplicationChart> createState() => _DateComplicationChartState();
 }
 
 class _DateComplicationChartState extends State<DateComplicationChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
+    final collectionStatsController = Get.put(CollectionStatsController());
+    final List<Watches> data =
+        widget.watchesOverride ?? Boxes.getCollectionWatches();
 
-    //Calculate the chart data - generate a map of date complications and counts
-    Map<DateComplicationEnum,int> chartData = <DateComplicationEnum,int>{};
-    for(var watch in data){
-      if(watch.dateComplication != null){
-        DateComplicationEnum complication = WristCheckFormatter.getDateComplicationEnum(watch.dateComplication);
+    // Calculate the chart data - generate a map of date complications and counts
+    final Map<DateComplicationEnum, int> chartData =
+        <DateComplicationEnum, int>{};
+    for (var watch in data) {
+      if (watch.dateComplication != null) {
+        final DateComplicationEnum complication =
+            WristCheckFormatter.getDateComplicationEnum(watch.dateComplication);
         chartData.update(
           complication,
-              (value) => ++value,
+          (value) => ++value,
           ifAbsent: () => 1,
         );
       }
     }
-    
-    //remove blank entries
-    if (chartData.containsKey(DateComplicationEnum.blank)){
-      chartData.remove(DateComplicationEnum.blank);
-    }
 
-    //sort map
-    var sortedChartData = Map.fromEntries(
-        chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
+    // Remove blank entries
+    chartData.remove(DateComplicationEnum.blank);
 
+    // Sort descending by count
+    final sortedEntries = chartData.entries.toList()
+      ..sort((e1, e2) => e2.value.compareTo(e1.value));
 
-    List<DateComplicationData> getChartData = [];
+    final List<DateComplicationData> getChartData = sortedEntries
+        .map((item) => DateComplicationData(item.key, item.value))
+        .toList();
 
-    for(var item in sortedChartData.entries){
-      getChartData.add(DateComplicationData(item.key, item.value));
-    }
-
-    return SfCartesianChart(
-      series: <CartesianSeries>[
-        BarSeries<DateComplicationData, String>(
-          dataSource: getChartData,
-          xValueMapper: (DateComplicationData dcd, _) => dcd.dateComplication.toLocalizedString(context),
-          yValueMapper: (DateComplicationData dcd, _) => dcd.count,
-          dataLabelMapper: (dcd, _)=> "${dcd.dateComplication.toLocalizedString(context)}: ${dcd.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
-        )
-      ],
-      primaryXAxis: CategoryAxis(isVisible: false),
+    return Obx(
+      () => buildRecapCategoricalChart<DateComplicationData>(
+        chartType: collectionStatsController.dateComplicationChartType.value,
+        items: getChartData,
+        labelOf: (DateComplicationData item) =>
+            item.dateComplication.toLocalizedString(context),
+        countOf: (DateComplicationData item) => item.count,
+        barDataLabelOf: (DateComplicationData item) =>
+            "${item.dateComplication.toLocalizedString(context)}: ${item.count}",
+        circularDataLabelOf: (DateComplicationData item) =>
+            "${item.dateComplication.toLocalizedString(context)}: ${item.count}",
+        radialDataLabelOf: (DateComplicationData item) => "${item.count}",
+      ),
     );
   }
 }
 
-class DateComplicationData{
+class DateComplicationData {
   DateComplicationData(this.dateComplication, this.count);
   final DateComplicationEnum dateComplication;
   final int count;

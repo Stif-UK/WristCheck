@@ -2951,4 +2951,12 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get recapPackChartsSubtitle =>
       'Заполнять свободное место в столбцах на больших экранах вместо выравнивания по строкам';
+
+  @override
+  String get collectionDataIncompleteTooltip =>
+      'Данные коллекции неполны; не все часы в вашей коллекции отслеживают это поле.';
+
+  @override
+  String get collectionDataCompleteTooltip =>
+      'Для всех часов в вашей коллекции доступны полные данные.';
 }

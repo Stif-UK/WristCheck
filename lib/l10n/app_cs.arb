@@ -1139,5 +1139,7 @@
   "recapDataCompleteDialogTitle": "Úplné údaje",
   "viewDataCompleteness": "Úplnost dat",
   "recapPackChartsTitle": "Kompaktní zarovnání grafů",
-  "recapPackChartsSubtitle": "Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků"
+  "recapPackChartsSubtitle": "Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků",
+  "collectionDataIncompleteTooltip": "Údaje sbírky jsou neúplné; ne všechny hodinky ve vaší sbírce toto pole sledují.",
+  "collectionDataCompleteTooltip": "Pro všechny hodinky ve vaší sbírce jsou dostupné všechny údaje."
 }

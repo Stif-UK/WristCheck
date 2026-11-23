@@ -10,19 +10,20 @@ import 'package:collection/collection.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class L2LChart extends StatefulWidget {
-  L2LChart({Key? key}) : super(key: key);
+  L2LChart({Key? key, this.watchesOverride}) : super(key: key);
   final collectionStatsController = Get.put(CollectionStatsController());
+  final List<Watches>? watchesOverride;
 
   @override
   State<L2LChart> createState() => _L2LChartState();
 }
 
 class _L2LChartState extends State<L2LChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
+    final List<Watches> data = List<Watches>.from(
+      widget.watchesOverride ?? Boxes.getCollectionWatches(),
+    );
 
     //Calculate the chart data - generate a list of all lug2lug values
     data.removeWhere((watch) => watch.lug2lug == null);

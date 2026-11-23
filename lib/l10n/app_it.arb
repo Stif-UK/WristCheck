@@ -1141,5 +1141,7 @@
   "recapDataCompleteDialogTitle": "Dati completi",
   "viewDataCompleteness": "Completezza dei dati",
   "recapPackChartsTitle": "Allineamento compatto dei grafici",
-  "recapPackChartsSubtitle": "Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe"
+  "recapPackChartsSubtitle": "Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe",
+  "collectionDataIncompleteTooltip": "I dati della collezione sono incompleti; non tutti gli orologi della tua collezione tracciano questo campo.",
+  "collectionDataCompleteTooltip": "Tutti i dati sono disponibili per gli orologi della tua collezione."
 }

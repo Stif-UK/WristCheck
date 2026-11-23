@@ -2941,4 +2941,12 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get recapPackChartsSubtitle =>
       'Verfügbaren Platz auf großen Bildschirmen spaltenweise füllen statt Zeilen auszurichten';
+
+  @override
+  String get collectionDataIncompleteTooltip =>
+      'Die Sammlungsdaten sind unvollständig; nicht alle Uhren in Ihrer Sammlung erfassen dieses Feld.';
+
+  @override
+  String get collectionDataCompleteTooltip =>
+      'Für alle Uhren in Ihrer Sammlung sind vollständige Daten verfügbar.';
 }

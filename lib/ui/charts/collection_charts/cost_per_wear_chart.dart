@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
+import 'package:wristcheck/model/enums/location.dart';
 import 'package:wristcheck/model/watch_methods.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -10,22 +11,29 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 import 'package:get/get.dart';
 
 class CostPerWearChart extends StatefulWidget {
-  CostPerWearChart({Key? key, required this.showData}) : super(key: key);
+  CostPerWearChart({
+    Key? key,
+    required this.showData,
+    this.watchesOverride,
+    this.localeOverride,
+  }) : super(key: key);
   final collectionController = Get.put(CollectionStatsController());
   final showData;
+  final List<Watches>? watchesOverride;
+  final LocationEnum? localeOverride;
 
   @override
   State<CostPerWearChart> createState() => _CostPerWearChartState();
 }
 
 class _CostPerWearChartState extends State<CostPerWearChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
-    final wristCheckController = Get.put(WristCheckController());
-    String locale = WristCheckFormatter.getLocaleString(wristCheckController.locale.value);
+    final List<Watches> data =
+        widget.watchesOverride ?? Boxes.getCollectionWatches();
+    final LocationEnum effectiveLocale = widget.localeOverride ??
+        Get.put(WristCheckController()).locale.value;
+    String locale = WristCheckFormatter.getLocaleString(effectiveLocale);
     //Calculate the chart data - generate a map of movements and counts
     Map<dynamic,Map<String,double>> chartData = {};
 

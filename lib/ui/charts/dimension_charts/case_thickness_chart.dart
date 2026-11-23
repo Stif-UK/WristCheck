@@ -10,21 +10,22 @@ import 'package:collection/collection.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class CaseThicknessChart extends StatefulWidget {
-  CaseThicknessChart({Key? key}) : super(key: key);
+  CaseThicknessChart({Key? key, this.watchesOverride}) : super(key: key);
   final collectionStatsController = Get.put(CollectionStatsController());
+  final List<Watches>? watchesOverride;
 
   @override
   State<CaseThicknessChart> createState() => _CaseThicknessChartState();
 }
 
 class _CaseThicknessChartState extends State<CaseThicknessChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
+    final List<Watches> data = List<Watches>.from(
+      widget.watchesOverride ?? Boxes.getCollectionWatches(),
+    );
 
-    //Calculate the chart data - generate a list of all lug2lug values
+    //Calculate the chart data - generate a list of all case thickness values
     data.removeWhere((watch) => watch.caseThickness == null);
     data.removeWhere((watch) => watch.caseThickness == 0.0);
 

@@ -2911,4 +2911,12 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get recapPackChartsSubtitle =>
       'Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe';
+
+  @override
+  String get collectionDataIncompleteTooltip =>
+      'I dati della collezione sono incompleti; non tutti gli orologi della tua collezione tracciano questo campo.';
+
+  @override
+  String get collectionDataCompleteTooltip =>
+      'Tutti i dati sono disponibili per gli orologi della tua collezione.';
 }

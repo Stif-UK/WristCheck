@@ -1139,5 +1139,7 @@
   "recapDataCompleteDialogTitle": "Полные данные",
   "viewDataCompleteness": "Полнота данных",
   "recapPackChartsTitle": "Компактное выравнивание графиков",
-  "recapPackChartsSubtitle": "Заполнять свободное место в столбцах на больших экранах вместо выравнивания по строкам"
+  "recapPackChartsSubtitle": "Заполнять свободное место в столбцах на больших экранах вместо выравнивания по строкам",
+  "collectionDataIncompleteTooltip": "Данные коллекции неполны; не все часы в вашей коллекции отслеживают это поле.",
+  "collectionDataCompleteTooltip": "Для всех часов в вашей коллекции доступны полные данные."
 }

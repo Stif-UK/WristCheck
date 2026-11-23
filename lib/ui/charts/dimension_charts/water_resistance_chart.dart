@@ -1,96 +1,105 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:collection/collection.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 
 class WaterResistanceChart extends StatefulWidget {
-  WaterResistanceChart({Key? key}) : super(key: key);
-  final wristCheckController = Get.put(WristCheckController());
+  WaterResistanceChart({
+    Key? key,
+    this.watchesOverride,
+    this.unitOverride,
+  }) : super(key: key);
+
+  final List<Watches>? watchesOverride;
+  final WRUnitsEnum? unitOverride;
 
   @override
   State<WaterResistanceChart> createState() => _WaterResistanceChartState();
 }
 
 class _WaterResistanceChartState extends State<WaterResistanceChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
+  WRUnitsEnum get _unit =>
+      widget.unitOverride ??
+      Get.put(WristCheckController()).waterResistanceUnit.value;
 
   @override
   Widget build(BuildContext context) {
+    final collectionStatsController = Get.put(CollectionStatsController());
+    final List<Watches> data = List<Watches>.from(
+      widget.watchesOverride ?? Boxes.getCollectionWatches(),
+    );
 
-    //Calculate the chart data - generate a map of case diameters and counts
-    Map<String,int> chartData = <String,int>{};
+    // Remove nulls and zeros and sort descending based on water resistance
+    data.removeWhere(
+      (watch) => watch.waterResistance == null || watch.waterResistance == 0,
+    );
+    data.sort((a, b) => b.waterResistance!.compareTo(a.waterResistance!));
 
-    //Remove nulls and sort the input data based on water resistance
-    data.removeWhere((watch) => watch.waterResistance == null);
-    data.sort((a,b) => b.waterResistance!.compareTo(a.waterResistance!));
-
-    for(var watch in data){
-      if(watch.waterResistance != null){
-        chartData.update(
-          watch.waterResistance.toString(),
-              (value) => ++value,
-          ifAbsent: () => 1,
-        );
-      }
-    }
-    //TODO: Consider adding an optional count of zero values
-    //remove zero values and empty strings
-    if(chartData.containsKey("0")){
-      chartData.remove("0");
-    }
-    if(chartData.containsKey("")){
-      chartData.remove("");
+    final Map<String, int> chartData = <String, int>{};
+    for (var watch in data) {
+      chartData.update(
+        watch.waterResistance.toString(),
+        (value) => ++value,
+        ifAbsent: () => 1,
+      );
     }
 
+    chartData.remove("0");
+    chartData.remove("");
 
-    List<WaterResistanceData> getChartData = [];
+    final List<WaterResistanceData> getChartData = chartData.entries
+        .map((item) => WaterResistanceData(item.key, item.value))
+        .toList();
 
-    for(var item in chartData.entries){
-      getChartData.add(WaterResistanceData(item.key, item.value));
-    }
+    final String unitLabel = _unit.toLocalizedString(context);
 
     return Column(
       children: [
-        SfCartesianChart(
-          series: <CartesianSeries>[
-            BarSeries<WaterResistanceData, String>(
-              dataSource: getChartData,
-              xValueMapper: (WaterResistanceData mvmt, _) => mvmt.waterResistance,
-              yValueMapper: (WaterResistanceData mvmt, _) => mvmt.count,
-              dataLabelMapper: (moov, _)=> "${moov.waterResistance} ${widget.wristCheckController.waterResistanceUnit.value.toLocalizedString(context)}: ${moov.count}",
-              dataLabelSettings: const DataLabelSettings(isVisible: true),
-            )
-          ],
-          primaryXAxis: CategoryAxis(isVisible: false),
+        Obx(
+          () => buildRecapCategoricalChart<WaterResistanceData>(
+            chartType: collectionStatsController.waterResistanceChartType.value,
+            items: getChartData,
+            labelOf: (WaterResistanceData item) =>
+                "${item.waterResistance} $unitLabel",
+            countOf: (WaterResistanceData item) => item.count,
+            barDataLabelOf: (WaterResistanceData item) =>
+                "${item.waterResistance} $unitLabel: ${item.count}",
+            circularDataLabelOf: (WaterResistanceData item) =>
+                "${item.waterResistance} $unitLabel: ${item.count}",
+            reverseForBar: false,
+          ),
         ),
-        Text(_calculateAverageWaterResistance(context, data)),
+        Text(_calculateAverageWaterResistance(context, data, unitLabel)),
       ],
     );
   }
 }
 
-String _calculateAverageWaterResistance(BuildContext context, List<Watches> data) {
-  final wristcheckController = Get.put(WristCheckController());
+String _calculateAverageWaterResistance(
+  BuildContext context,
+  List<Watches> data,
+  String unitStr,
+) {
   String returnString = "";
 
   if (data.isNotEmpty) {
-    double average = data.map((watch) => watch.waterResistance!).average;
-    String valueStr = double.parse(average.toStringAsFixed(2)).round().toString();
-    String unitStr = wristcheckController.waterResistanceUnit.value.toLocalizedString(context);
-    returnString = AppLocalizations.of(context)!.averageWaterResistance(valueStr, unitStr);
+    final double average = data.map((watch) => watch.waterResistance!).average;
+    final String valueStr =
+        double.parse(average.toStringAsFixed(2)).round().toString();
+    returnString =
+        AppLocalizations.of(context)!.averageWaterResistance(valueStr, unitStr);
   }
 
   return returnString;
-
 }
 
-class WaterResistanceData{
+class WaterResistanceData {
   WaterResistanceData(this.waterResistance, this.count);
   final String waterResistance;
   final int count;

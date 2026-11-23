@@ -1,70 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
-import 'package:wristcheck/model/watches.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
+import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class CaseMaterialChart extends StatefulWidget {
-  const CaseMaterialChart({Key? key}) : super(key: key);
+  const CaseMaterialChart({Key? key, this.watchesOverride}) : super(key: key);
+
+  final List<Watches>? watchesOverride;
 
   @override
   State<CaseMaterialChart> createState() => _CaseMaterialChartState();
 }
 
 class _CaseMaterialChartState extends State<CaseMaterialChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
+    final collectionStatsController = Get.put(CollectionStatsController());
+    final List<Watches> data =
+        widget.watchesOverride ?? Boxes.getCollectionWatches();
 
-    //Calculate the chart data - generate a map of case materials and counts
-    Map<CaseMaterialEnum,int> chartData = <CaseMaterialEnum,int>{};
-    for(var watch in data){
-      if(watch.caseMaterial != null){
-        CaseMaterialEnum material = WristCheckFormatter.getCaseMaterialEnum(watch.caseMaterial);
+    // Calculate the chart data - generate a map of case materials and counts
+    final Map<CaseMaterialEnum, int> chartData = <CaseMaterialEnum, int>{};
+    for (var watch in data) {
+      if (watch.caseMaterial != null) {
+        final CaseMaterialEnum material =
+            WristCheckFormatter.getCaseMaterialEnum(watch.caseMaterial);
         chartData.update(
           material,
-              (value) => ++value,
+          (value) => ++value,
           ifAbsent: () => 1,
         );
       }
     }
-    
-    //remove blank entries
-    if (chartData.containsKey(CaseMaterialEnum.blank)){
-      chartData.remove(CaseMaterialEnum.blank);
-    }
 
-    //sort map
-    var sortedChartData = Map.fromEntries(
-        chartData.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
+    // Remove blank entries
+    chartData.remove(CaseMaterialEnum.blank);
 
+    // Sort descending by count
+    final sortedEntries = chartData.entries.toList()
+      ..sort((e1, e2) => e2.value.compareTo(e1.value));
 
-    List<CaseMaterialData> getChartData = [];
+    final List<CaseMaterialData> getChartData = sortedEntries
+        .map((item) => CaseMaterialData(item.key, item.value))
+        .toList();
 
-    for(var item in sortedChartData.entries){
-      getChartData.add(CaseMaterialData(item.key, item.value));
-    }
-
-    return SfCartesianChart(
-      series: <CartesianSeries>[
-        BarSeries<CaseMaterialData, String>(
-          dataSource: getChartData,
-          xValueMapper: (CaseMaterialData mvmt, _) => mvmt.caseMaterial.toLocalizedString(context),
-          yValueMapper: (CaseMaterialData mvmt, _) => mvmt.count,
-          dataLabelMapper: (moov, _)=> "${moov.caseMaterial.toLocalizedString(context)}: ${moov.count}",
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
-        )
-      ],
-      primaryXAxis: CategoryAxis(isVisible: false),
+    return Obx(
+      () => buildRecapCategoricalChart<CaseMaterialData>(
+        chartType: collectionStatsController.caseMaterialChartType.value,
+        items: getChartData,
+        labelOf: (CaseMaterialData item) =>
+            item.caseMaterial.toLocalizedString(context),
+        countOf: (CaseMaterialData item) => item.count,
+        barDataLabelOf: (CaseMaterialData item) =>
+            "${item.caseMaterial.toLocalizedString(context)}: ${item.count}",
+        circularDataLabelOf: (CaseMaterialData item) =>
+            "${item.caseMaterial.toLocalizedString(context)}: ${item.count}",
+        radialDataLabelOf: (CaseMaterialData item) => "${item.count}",
+      ),
     );
   }
 }
 
-class CaseMaterialData{
+class CaseMaterialData {
   CaseMaterialData(this.caseMaterial, this.count);
   final CaseMaterialEnum caseMaterial;
   final int count;

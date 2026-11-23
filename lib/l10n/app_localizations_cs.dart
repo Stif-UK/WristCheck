@@ -2932,4 +2932,12 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get recapPackChartsSubtitle =>
       'Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků';
+
+  @override
+  String get collectionDataIncompleteTooltip =>
+      'Údaje sbírky jsou neúplné; ne všechny hodinky ve vaší sbírce toto pole sledují.';
+
+  @override
+  String get collectionDataCompleteTooltip =>
+      'Pro všechny hodinky ve vaší sbírce jsou dostupné všechny údaje.';
 }

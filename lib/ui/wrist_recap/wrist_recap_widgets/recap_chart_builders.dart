@@ -69,6 +69,7 @@ Widget buildRecapCategoricalChart<T>({
   required String Function(T) barDataLabelOf,
   required String Function(T) circularDataLabelOf,
   String Function(T)? radialDataLabelOf,
+  bool reverseForBar = true,
 }) {
   switch (chartType) {
     case RecapCategoryChartType.bar:
@@ -77,7 +78,7 @@ Widget buildRecapCategoricalChart<T>({
         primaryYAxis: NumericAxis(),
         series: <BarSeries<T, String>>[
           BarSeries<T, String>(
-            dataSource: items.reversed.toList(),
+            dataSource: reverseForBar ? items.reversed.toList() : items,
             xValueMapper: (T item, _) => labelOf(item),
             yValueMapper: (T item, _) => countOf(item),
             dataLabelMapper: (T item, _) => barDataLabelOf(item),

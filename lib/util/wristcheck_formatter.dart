@@ -498,8 +498,10 @@ static int? getMonthInt(MonthList month){
 
 static String getLocalizedDecimal(double? value, [int? fixedDigits]){
     if (value == null) return "";
-    final wristCheckController = Get.find<WristCheckController>();
-    String locale = getLocaleString(wristCheckController.locale.value);
+    final LocationEnum location = Get.isRegistered<WristCheckController>()
+        ? Get.find<WristCheckController>().locale.value
+        : LocationEnum.us;
+    String locale = getLocaleString(location);
 
     final formatter = NumberFormat.decimalPattern(locale);
     if (fixedDigits != null) {

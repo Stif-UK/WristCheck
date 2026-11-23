@@ -9,7 +9,9 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class ColourChart extends StatefulWidget {
-  const ColourChart({Key? key}) : super(key: key);
+  const ColourChart({Key? key, this.watchesOverride}) : super(key: key);
+
+  final List<Watches>? watchesOverride;
 
   @override
   State<ColourChart> createState() => _ColourChartState();
@@ -19,7 +21,8 @@ class _ColourChartState extends State<ColourChart> {
   @override
   Widget build(BuildContext context) {
     final collectionStatsController = Get.find<CollectionStatsController>();
-    final List<Watches> data = Boxes.getCollectionWatches();
+    final List<Watches> data =
+        widget.watchesOverride ?? Boxes.getCollectionWatches();
 
     Map<String, _ColourCounts> colourCounts = {};
 

@@ -1,66 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wristcheck/boxes.dart';
+import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/recap_chart_builders.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 
 class LugWidthChart extends StatefulWidget {
-  const LugWidthChart({Key? key}) : super(key: key);
+  const LugWidthChart({Key? key, this.watchesOverride}) : super(key: key);
+
+  final List<Watches>? watchesOverride;
 
   @override
   State<LugWidthChart> createState() => _LugWidthChartState();
 }
 
 class _LugWidthChartState extends State<LugWidthChart> {
-  final List<Watches> data = Boxes.getCollectionWatches();
-
-
   @override
   Widget build(BuildContext context) {
+    final collectionStatsController = Get.put(CollectionStatsController());
+    final List<Watches> data = List<Watches>.from(
+      widget.watchesOverride ?? Boxes.getCollectionWatches(),
+    );
 
-    //Calculate the chart data - generate a map of case diameters and counts
-    Map<String,int> chartData = <String,int>{};
+    // Remove nulls and zeros, and sort based on lug width descending
+    data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
+    data.sort((a, b) => b.lugWidth!.compareTo(a.lugWidth!));
 
-    //Remove nulls and sort the input data based on lug width
-    data.removeWhere((watch) => watch.lugWidth == null);
-    data.sort((a,b) => b.lugWidth!.compareTo(a.lugWidth!));
-
-    for(var watch in data){
-      if(watch.lugWidth != null){
-        chartData.update(
-          watch.lugWidth.toString(),
-              (value) => ++value,
-          ifAbsent: () => 1,
-        );
-      }
-    }
-    //TODO: Consider adding an optional count of zero values
-    //remove zero values
-    if(chartData.containsKey("0")){
-      chartData.remove("0");
+    final Map<String, int> chartData = <String, int>{};
+    for (var watch in data) {
+      chartData.update(
+        watch.lugWidth.toString(),
+        (value) => ++value,
+        ifAbsent: () => 1,
+      );
     }
 
-
-    List<LugWidthData> getChartData = [];
-
-    for(var item in chartData.entries){
-      getChartData.add(LugWidthData(item.key, item.value));
-    }
+    final List<LugWidthData> getChartData = chartData.entries
+        .map((item) => LugWidthData(item.key, item.value))
+        .toList();
 
     return Column(
       children: [
-        SfCartesianChart(
-          series: <CartesianSeries>[
-            BarSeries<LugWidthData, String>(
-              dataSource: getChartData,
-              xValueMapper: (LugWidthData mvmt, _) => mvmt.lugwidth,
-              yValueMapper: (LugWidthData mvmt, _) => mvmt.count,
-              dataLabelMapper: (moov, _)=> "${moov.lugwidth}mm: ${moov.count}",
-              dataLabelSettings: const DataLabelSettings(isVisible: true),
-            )
-          ],
-          primaryXAxis: CategoryAxis(isVisible: false),
+        Obx(
+          () => buildRecapCategoricalChart<LugWidthData>(
+            chartType: collectionStatsController.lugWidthChartType.value,
+            items: getChartData,
+            labelOf: (LugWidthData item) => "${item.lugwidth}mm",
+            countOf: (LugWidthData item) => item.count,
+            barDataLabelOf: (LugWidthData item) =>
+                "${item.lugwidth}mm: ${item.count}",
+            circularDataLabelOf: (LugWidthData item) =>
+                "${item.lugwidth}mm: ${item.count}",
+            reverseForBar: false,
+          ),
         ),
         Text(_getMedianLugWidth(context, data)),
       ],
@@ -72,11 +66,11 @@ String _getMedianLugWidth(BuildContext context, List<Watches> data) {
   String returnString = "";
 
   if (data.isNotEmpty) {
-    //remove nulls and zeros
-    data.removeWhere((watch) => watch.lugWidth == null || watch.lugWidth == 0);
-    List<int> lugWidthList = data.map((obj) => obj.lugWidth!).toList();
+    final valid =
+        data.where((watch) => watch.lugWidth != null && watch.lugWidth != 0);
+    final List<int> lugWidthList = valid.map((obj) => obj.lugWidth!).toList();
 
-    String median = ChartHelper.getMedianAsString(lugWidthList, "mm");
+    final String median = ChartHelper.getMedianAsString(lugWidthList, "mm");
     if (median.length > 1) {
       returnString = AppLocalizations.of(context)!.medianLugWidth(median);
     }
@@ -84,7 +78,7 @@ String _getMedianLugWidth(BuildContext context, List<Watches> data) {
   return returnString;
 }
 
-class LugWidthData{
+class LugWidthData {
   LugWidthData(this.lugwidth, this.count);
   final String lugwidth;
   final int count;
