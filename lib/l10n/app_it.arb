@@ -1139,5 +1139,7 @@
   "recapDataCompleteTooltip": "Tutti i dati sono disponibili per gli orologi indossati in questo periodo.",
   "recapDataIncompleteDialogTitle": "Dati incompleti",
   "recapDataCompleteDialogTitle": "Dati completi",
-  "viewDataCompleteness": "Completezza dei dati"
+  "viewDataCompleteness": "Completezza dei dati",
+  "recapPackChartsTitle": "Allineamento compatto dei grafici",
+  "recapPackChartsSubtitle": "Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe"
 }

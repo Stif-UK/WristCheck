@@ -1137,5 +1137,7 @@
   "recapDataCompleteTooltip": "Для всех часов, надетых за этот период, доступны полные данные.",
   "recapDataIncompleteDialogTitle": "Неполные данные",
   "recapDataCompleteDialogTitle": "Полные данные",
-  "viewDataCompleteness": "Полнота данных"
+  "viewDataCompleteness": "Полнота данных",
+  "recapPackChartsTitle": "Компактное выравнивание графиков",
+  "recapPackChartsSubtitle": "Заполнять свободное место в столбцах на больших экранах вместо выравнивания по строкам"
 }

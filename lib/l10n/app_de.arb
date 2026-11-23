@@ -1137,5 +1137,7 @@
   "recapDataCompleteTooltip": "Für alle getragenen Uhren in diesem Zeitraum sind vollständige Daten verfügbar.",
   "recapDataIncompleteDialogTitle": "Unvollständige Daten",
   "recapDataCompleteDialogTitle": "Vollständige Daten",
-  "viewDataCompleteness": "Datenvollständigkeit"
+  "viewDataCompleteness": "Datenvollständigkeit",
+  "recapPackChartsTitle": "Kompakte Diagrammausrichtung",
+  "recapPackChartsSubtitle": "Verfügbaren Platz auf großen Bildschirmen spaltenweise füllen statt Zeilen auszurichten"
 }

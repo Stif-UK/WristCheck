@@ -2904,4 +2904,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get viewDataCompleteness => 'Completezza dei dati';
+
+  @override
+  String get recapPackChartsTitle => 'Allineamento compatto dei grafici';
+
+  @override
+  String get recapPackChartsSubtitle =>
+      'Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe';
 }

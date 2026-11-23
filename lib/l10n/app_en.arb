@@ -1198,5 +1198,7 @@
   "recapDataCompleteTooltip": "All data is available for worn watches in this period.",
   "recapDataIncompleteDialogTitle": "Incomplete Data",
   "recapDataCompleteDialogTitle": "Complete Data",
-  "viewDataCompleteness": "Data Completeness"
+  "viewDataCompleteness": "Data Completeness",
+  "recapPackChartsTitle": "Compact chart alignment",
+  "recapPackChartsSubtitle": "Fill available space across columns on large screens instead of aligning rows"
 }

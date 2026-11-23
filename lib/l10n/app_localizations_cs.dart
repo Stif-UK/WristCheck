@@ -2925,4 +2925,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get viewDataCompleteness => 'Úplnost dat';
+
+  @override
+  String get recapPackChartsTitle => 'Kompaktní zarovnání grafů';
+
+  @override
+  String get recapPackChartsSubtitle =>
+      'Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků';
 }

@@ -2932,4 +2932,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get viewDataCompleteness => 'Complétude des données';
+
+  @override
+  String get recapPackChartsTitle => 'Alignement compact des graphiques';
+
+  @override
+  String get recapPackChartsSubtitle =>
+      'Remplir l\'espace disponible entre les colonnes sur grand écran au lieu d\'aligner les lignes';
 }

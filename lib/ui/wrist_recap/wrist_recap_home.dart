@@ -165,6 +165,7 @@ class WristRecapHome extends StatelessWidget {
                 watchesWornCarousel: hasWorn ? WatchesWornCarousel() : null,
                 cards: cards,
                 thanksCard: thanksCard,
+                packColumns: recapController.packCharts.value,
               );
             }),
           ),
@@ -188,6 +189,7 @@ class ResponsiveWristRecapBody extends StatelessWidget {
     this.thanksCard,
     this.breakpoint = WristTrackBottomNavBar.largeScreenBreakpoint,
     this.maxWidth = 1200.0,
+    this.packColumns = true,
   });
 
   final Widget? adPrompt;
@@ -196,6 +198,7 @@ class ResponsiveWristRecapBody extends StatelessWidget {
   final Widget? thanksCard;
   final double breakpoint;
   final double maxWidth;
+  final bool packColumns;
 
   @override
   Widget build(BuildContext context) {
@@ -213,6 +216,7 @@ class ResponsiveWristRecapBody extends StatelessWidget {
                   breakpoint: breakpoint,
                   horizontalSpacing: 0.0,
                   maxWidth: maxWidth,
+                  packColumns: packColumns,
                   children: cards,
                 ),
               if (thanksCard != null) thanksCard!,

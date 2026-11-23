@@ -1137,5 +1137,7 @@
   "recapDataCompleteTooltip": "Pro všechny nošené hodinky v tomto období jsou dostupné všechny údaje.",
   "recapDataIncompleteDialogTitle": "Neúplné údaje",
   "recapDataCompleteDialogTitle": "Úplné údaje",
-  "viewDataCompleteness": "Úplnost dat"
+  "viewDataCompleteness": "Úplnost dat",
+  "recapPackChartsTitle": "Kompaktní zarovnání grafů",
+  "recapPackChartsSubtitle": "Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků"
 }

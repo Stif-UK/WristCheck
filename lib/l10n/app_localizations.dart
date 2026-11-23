@@ -5213,6 +5213,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Data Completeness'**
   String get viewDataCompleteness;
+
+  /// No description provided for @recapPackChartsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact chart alignment'**
+  String get recapPackChartsTitle;
+
+  /// No description provided for @recapPackChartsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill available space across columns on large screens instead of aligning rows'**
+  String get recapPackChartsSubtitle;
 }
 
 class _AppLocalizationsDelegate

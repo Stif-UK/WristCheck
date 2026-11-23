@@ -14,6 +14,7 @@ import 'package:wristcheck/model/enums/wear_chart_options.dart';
 
 class WristCheckPreferences {
   static late SharedPreferences _preferences;
+  static bool _isInitialized = false;
 
   static const _keyAppPurchased = 'appPurchased';
   static const _keyPendingOtpEmail = 'pendingOtpEmail';
@@ -99,11 +100,13 @@ class WristCheckPreferences {
   //Large screen navigation bar alignment
   static const _keyNavBarAlignment = 'navBarAlignment';
 
+  //Wrist Recap split-view chart packing
+  static const _keyRecapPackCharts = 'recapPackCharts';
 
-
-
-  static Future init() async =>
-      _preferences = await SharedPreferences.getInstance();
+  static Future init() async {
+    _preferences = await SharedPreferences.getInstance();
+    _isInitialized = true;
+  }
 
   // Pending OTP
   static Future setPendingOtpEmail(String? email) async {
@@ -805,6 +808,17 @@ class WristCheckPreferences {
 
   static Future setNavBarAlignment(NavBarAlignment alignment) async {
     await _preferences.setString(_keyNavBarAlignment, alignment.toString());
+  }
+
+  //Getter and Setter for Wrist Recap compact chart alignment
+  static bool getRecapPackCharts() {
+    if (!_isInitialized) return true;
+    return _preferences.getBool(_keyRecapPackCharts) ?? true;
+  }
+
+  static Future setRecapPackCharts(bool packCharts) async {
+    if (!_isInitialized) return;
+    await _preferences.setBool(_keyRecapPackCharts, packCharts);
   }
 
 }

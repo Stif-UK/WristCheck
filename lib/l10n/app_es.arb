@@ -1132,5 +1132,7 @@
   "recapDataCompleteTooltip": "Todos los datos están disponibles para los relojes usados en este período.",
   "recapDataIncompleteDialogTitle": "Datos incompletos",
   "recapDataCompleteDialogTitle": "Datos completos",
-  "viewDataCompleteness": "Integridad de datos"
+  "viewDataCompleteness": "Integridad de datos",
+  "recapPackChartsTitle": "Alineación compacta de gráficos",
+  "recapPackChartsSubtitle": "Rellenar el espacio disponible entre columnas en pantallas grandes en lugar de alinear filas"
 }

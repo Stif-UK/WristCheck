@@ -34,6 +34,7 @@ class WristRecapController extends GetxController{
   final showOptionalAdCard = true.obs;
   final startDate = DateTime(DateTime.now().year, 1, 1).obs;
   final endDate = DateTime(DateTime.now().year, 12, 31).obs;
+  final packCharts = WristCheckPreferences.getRecapPackCharts().obs;
 
   
   updateMonth(int monthInt) async {
@@ -98,6 +99,11 @@ class WristRecapController extends GetxController{
 
   toggleAdCard(){
     expandAdCard(!expandAdCard.value);
+  }
+
+  Future<void> updatePackCharts(bool value) async {
+    packCharts(value);
+    await WristCheckPreferences.setRecapPackCharts(value);
   }
 
   List<WornWatchesClass> _getWornList() {

@@ -1136,5 +1136,7 @@
   "recapDataCompleteTooltip": "Toutes les données sont disponibles pour les montres portées durant cette période.",
   "recapDataIncompleteDialogTitle": "Données incomplètes",
   "recapDataCompleteDialogTitle": "Données complètes",
-  "viewDataCompleteness": "Complétude des données"
+  "viewDataCompleteness": "Complétude des données",
+  "recapPackChartsTitle": "Alignement compact des graphiques",
+  "recapPackChartsSubtitle": "Remplir l'espace disponible entre les colonnes sur grand écran au lieu d'aligner les lignes"
 }

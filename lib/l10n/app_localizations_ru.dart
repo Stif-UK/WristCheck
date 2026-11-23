@@ -2944,4 +2944,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get viewDataCompleteness => 'Полнота данных';
+
+  @override
+  String get recapPackChartsTitle => 'Компактное выравнивание графиков';
+
+  @override
+  String get recapPackChartsSubtitle =>
+      'Заполнять свободное место в столбцах на больших экранах вместо выравнивания по строкам';
 }

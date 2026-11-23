@@ -2934,4 +2934,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get viewDataCompleteness => 'Datenvollständigkeit';
+
+  @override
+  String get recapPackChartsTitle => 'Kompakte Diagrammausrichtung';
+
+  @override
+  String get recapPackChartsSubtitle =>
+      'Verfügbaren Platz auf großen Bildschirmen spaltenweise füllen statt Zeilen auszurichten';
 }

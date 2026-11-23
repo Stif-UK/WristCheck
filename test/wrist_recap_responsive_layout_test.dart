@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/controllers/watchview_controller.dart';
+import 'package:wristcheck/controllers/wrist_recap_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/watch/header/watch_image_gallery.dart';
+import 'package:wristcheck/ui/widgets/bottomsheets/wrist_recap_bottomsheet.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_home.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_widgets/worn_watch_card.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/images_util.dart';
 
 void main() {
-  setUp(() {
+  setUp(() async {
     Get.reset();
+    SharedPreferences.setMockInitialValues({});
+    await WristCheckPreferences.init();
     ImagesUtil.appDocsPath = '/tmp';
   });
 
@@ -94,6 +100,94 @@ void main() {
       expect(c1.top, c2.top);
       expect(c1.left, lessThan(c2.left));
       expect(c3.top, greaterThanOrEqualTo(c1.bottom));
+    });
+
+    testWidgets('packColumns=true places next card in shorter column B without blank gap',
+        (tester) async {
+      await pumpWithSize(
+        tester,
+        screenSize: const Size(1000, 1200),
+        child: ResponsiveWristRecapBody(
+          packColumns: true,
+          cards: [
+            Container(key: const Key('card1'), height: 500),
+            Container(key: const Key('card2'), height: 150),
+            Container(key: const Key('card3'), height: 150),
+          ],
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      final c1 = tester.getRect(find.byKey(const Key('card1')));
+      final c2 = tester.getRect(find.byKey(const Key('card2')));
+      final c3 = tester.getRect(find.byKey(const Key('card3')));
+
+      expect(c1.top, c2.top);
+      expect(c3.left, c2.left);
+      expect(c3.top, c2.bottom);
+      expect(c3.bottom, lessThan(c1.bottom));
+    });
+
+    testWidgets('packColumns=false aligns pairs row-by-row when user opts out of compact packing',
+        (tester) async {
+      await pumpWithSize(
+        tester,
+        screenSize: const Size(1000, 1200),
+        child: ResponsiveWristRecapBody(
+          packColumns: false,
+          cards: [
+            Container(key: const Key('card1'), height: 500),
+            Container(key: const Key('card2'), height: 150),
+            Container(key: const Key('card3'), height: 150),
+          ],
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      final c1 = tester.getRect(find.byKey(const Key('card1')));
+      final c2 = tester.getRect(find.byKey(const Key('card2')));
+      final c3 = tester.getRect(find.byKey(const Key('card3')));
+
+      expect(c1.top, c2.top);
+      expect(c3.left, c1.left);
+      expect(c3.top, greaterThanOrEqualTo(c1.bottom));
+    });
+  });
+
+  group('WristRecapBottomsheet alignment toggle', () {
+    testWidgets('hides compact alignment toggle on small screens (< 600dp)', (tester) async {
+      await pumpWithSize(
+        tester,
+        screenSize: const Size(400, 800),
+        child: WristRecapBottomsheet(),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(find.text('Compact chart alignment'), findsNothing);
+    });
+
+    testWidgets('shows and persists compact alignment toggle on large screens (>= 600dp)',
+        (tester) async {
+      await pumpWithSize(
+        tester,
+        screenSize: const Size(1000, 800),
+        child: WristRecapBottomsheet(),
+      );
+
+      expect(tester.takeException(), isNull);
+      final toggleFinder = find.byType(SwitchListTile);
+      await tester.ensureVisible(toggleFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Compact chart alignment'), findsOneWidget);
+      final controller = Get.find<WristRecapController>();
+      expect(controller.packCharts.value, isTrue);
+
+      await tester.tap(toggleFinder);
+      await tester.pumpAndSettle();
+
+      expect(controller.packCharts.value, isFalse);
+      expect(WristCheckPreferences.getRecapPackCharts(), isFalse);
     });
   });
 
