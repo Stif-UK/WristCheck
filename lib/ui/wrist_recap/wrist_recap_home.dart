@@ -14,6 +14,7 @@ import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/annual_segments/t
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/collection_movement.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/brand_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/category_chart.dart';
+import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/colour_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/status_wear_chart.dart';
 import 'package:wristcheck/ui/wrist_recap/wrist_recap_segments/watches_worn_carousel.dart';
@@ -134,6 +135,7 @@ class WristRecapHome extends StatelessWidget {
                   showCategoryChart &&
                   recapController.topCategoryMonthly.any((element) => element.count > 0);
               final bool showStatusChart = recapController.statusWorn.length > 1;
+              final bool showColourChart = recapController.coloursWorn.isNotEmpty;
 
               final Widget? adPrompt = !wristCheckController.isAppPro.value &&
                       recapController.showOptionalAdCard.value
@@ -155,6 +157,7 @@ class WristRecapHome extends StatelessWidget {
                 if (showCategoryChart) CategoryChart(),
                 if (showTopCategoryMonthly) const TopCategoryMonthly(),
                 if (showStatusChart) StatusWearChart(),
+                if (showColourChart) const WristRecapColourChart(),
               ];
 
               return ResponsiveWristRecapBody(

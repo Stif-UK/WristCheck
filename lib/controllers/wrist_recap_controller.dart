@@ -20,6 +20,7 @@ class WristRecapController extends GetxController{
   final duplicateBrand = false.obs;
   final categoriesWorn = <CategoriesWornClass>[].obs;
   final statusWorn = <StatusWornClass>[].obs;
+  final coloursWorn = <ColourData>[].obs;
   final categoriesComplete = true.obs;
   final watchesBought = <Watches>[].obs;
   final watchesSold = <Watches>[].obs;
@@ -238,6 +239,34 @@ class WristRecapController extends GetxController{
 
     categoriesComplete(complete);
     categoriesWorn(categoryList);
+  }
+
+  static List<ColourData> buildColourData(List<WornWatchesClass> wornList) {
+    final Map<String, _RecapColourCounts> colourCounts = {};
+
+    for (final worn in wornList) {
+      final pCol = worn.watch.primaryColour?.trim();
+      if (pCol != null && pCol.isNotEmpty && pCol != "Not Entered") {
+        colourCounts.putIfAbsent(pCol, () => _RecapColourCounts());
+        colourCounts[pCol]!.primaryCount += worn.count;
+      }
+      final sCol = worn.watch.secondaryColour?.trim();
+      if (sCol != null && sCol.isNotEmpty && sCol != "Not Entered") {
+        colourCounts.putIfAbsent(sCol, () => _RecapColourCounts());
+        colourCounts[sCol]!.secondaryCount += worn.count;
+      }
+    }
+
+    final List<ColourData> colourList = colourCounts.entries.map((e) {
+      return ColourData(e.key, e.value.primaryCount, e.value.secondaryCount);
+    }).toList();
+
+    colourList.sort((a, b) => a.totalCount.compareTo(b.totalCount));
+    return colourList;
+  }
+
+  generateColoursWornData() {
+    coloursWorn(buildColourData(_getWornList()));
   }
 
   generateTopWatchMonthlyData() {
@@ -492,6 +521,7 @@ class WristRecapController extends GetxController{
     await generateBrandsWornData(month.value, year.value);
     await generateCategoriesWornData(month.value, year.value);
     await generateStatusWornData(month.value, year.value);
+    await generateColoursWornData();
     await generateTopWatchMonthlyData();
     await generateTopBrandMonthlyData();
     await generateTopCategoryMonthlyData();
@@ -501,4 +531,9 @@ class WristRecapController extends GetxController{
     await decideShowOptionalAdSpace();
   }
 
+}
+
+class _RecapColourCounts {
+  int primaryCount = 0;
+  int secondaryCount = 0;
 }

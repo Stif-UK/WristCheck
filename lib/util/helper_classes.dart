@@ -77,3 +77,12 @@ class TopCategoryMonthlyClass {
   final int count;
 }
 
+class ColourData {
+  ColourData(this.colour, this.primaryCount, this.secondaryCount);
+  final String colour;
+  final int primaryCount;
+  final int secondaryCount;
+  int get totalCount => primaryCount + secondaryCount;
+}
+
+

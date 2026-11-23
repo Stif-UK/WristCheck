@@ -6,6 +6,7 @@ import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/helper_classes.dart';
 
 class ColourChart extends StatefulWidget {
   const ColourChart({Key? key}) : super(key: key);
@@ -137,12 +138,4 @@ class _ColourChartState extends State<ColourChart> {
 class _ColourCounts {
   int primaryCount = 0;
   int secondaryCount = 0;
-}
-
-class ColourData {
-  ColourData(this.colour, this.primaryCount, this.secondaryCount);
-  final String colour;
-  final int primaryCount;
-  final int secondaryCount;
-  int get totalCount => primaryCount + secondaryCount;
 }
