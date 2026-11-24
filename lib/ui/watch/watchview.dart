@@ -603,12 +603,40 @@ class _WatchViewState extends State<WatchView> {
               }
             }
 
+            final double leftSafePadding = MediaQuery.paddingOf(context).left;
+            final double rightRailReservedWidth =
+                showRightRail ? WristTrackRightNavRail.reservedContentRightWidth(context) : 0.0;
+
+            Widget withSafeHorizontalPadding(Widget child) {
+              if (showRightRail) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: leftSafePadding,
+                    right: rightRailReservedWidth,
+                  ),
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    removeLeft: true,
+                    removeRight: true,
+                    child: child,
+                  ),
+                );
+              }
+              return SafeArea(
+                top: false,
+                bottom: false,
+                child: child,
+              );
+            }
+
             final Widget watchBodyContent = Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 widget.wristCheckController.isAppPro.value
                     ? const SizedBox(height: 0)
-                    : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                    : withSafeHorizontalPadding(
+                        AdWidgetHelper.buildSmallAdSpace(banner, context),
+                      ),
                 Expanded(
                   child: Form(
                     key: _formKey,
@@ -619,45 +647,51 @@ class _WatchViewState extends State<WatchView> {
                                 MediaQuery.sizeOf(context).width >= 900.0;
 
                         if (isLandscapeTwoPane) {
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                flex: 4,
-                                child: SingleChildScrollView(
-                                  padding: const EdgeInsets.only(bottom: 100.0),
-                                  child: _buildOverviewSection(),
-                                ),
-                              ),
-                              const VerticalDivider(width: 1, thickness: 1),
-                              Expanded(
-                                flex: 6,
-                                child: SingleChildScrollView(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                  child: _buildDetailsSection(
-                                    context,
-                                    locale: locale,
-                                    finalTabIndex: finalTabIndex,
-                                    saveWatchUpdateButton: _saveWatchUpdateButton,
+                          return withSafeHorizontalPadding(
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: SingleChildScrollView(
+                                    padding: const EdgeInsets.only(bottom: 100.0),
+                                    child: _buildOverviewSection(),
                                   ),
                                 ),
-                              ),
-                            ],
+                                const VerticalDivider(width: 1, thickness: 1),
+                                Expanded(
+                                  flex: 6,
+                                  child: SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                    child: _buildDetailsSection(
+                                      context,
+                                      locale: locale,
+                                      finalTabIndex: finalTabIndex,
+                                      saveWatchUpdateButton: _saveWatchUpdateButton,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         }
 
                         return SingleChildScrollView(
                           child: Column(
                             children: [
-                              _buildOverviewSection(),
-                              const Divider(thickness: 2),
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 960.0),
-                                child: _buildDetailsSection(
-                                  context,
-                                  locale: locale,
-                                  finalTabIndex: finalTabIndex,
-                                  saveWatchUpdateButton: _saveWatchUpdateButton,
+                              _buildOverviewSection(
+                                horizontalSafePaddingWrapper: withSafeHorizontalPadding,
+                              ),
+                              withSafeHorizontalPadding(const Divider(thickness: 2)),
+                              withSafeHorizontalPadding(
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 960.0),
+                                  child: _buildDetailsSection(
+                                    context,
+                                    locale: locale,
+                                    finalTabIndex: finalTabIndex,
+                                    saveWatchUpdateButton: _saveWatchUpdateButton,
+                                  ),
                                 ),
                               ),
                             ],
@@ -765,6 +799,7 @@ class _WatchViewState extends State<WatchView> {
                         )),
                 body: showRightRail
                     ? WristTrackRightRailBody(
+                        applyHorizontalPadding: false,
                         rightRail: Obx(() => WristTrackRightNavRail(
                               currentIndex: widget.watchViewController.tabIndex.value,
                               onTap: onNavItemTap,
@@ -772,11 +807,7 @@ class _WatchViewState extends State<WatchView> {
                             )),
                         child: watchBodyContent,
                       )
-                    : SafeArea(
-                        top: false,
-                        bottom: false,
-                        child: watchBodyContent,
-                      ),
+                    : watchBodyContent,
               );
           },
         ),
@@ -784,20 +815,30 @@ class _WatchViewState extends State<WatchView> {
     });
   }
 
-  Widget _buildOverviewSection() {
+  Widget _buildOverviewSection({
+    Widget Function(Widget child)? horizontalSafePaddingWrapper,
+  }) {
+    Widget wrap(Widget child) =>
+        horizontalSafePaddingWrapper != null ? horizontalSafePaddingWrapper(child) : child;
+
     return Obx(
       () => Column(
         children: [
-          WatchImageCarousel(currentWatch: widget.currentWatch),
+          SafeArea(
+            top: false,
+            bottom: false,
+            right: false,
+            child: WatchImageCarousel(currentWatch: widget.currentWatch),
+          ),
           widget.watchViewController.watchViewState.value == WatchViewEnum.view
-              ? WearRow(currentWatch: widget.currentWatch)
+              ? wrap(WearRow(currentWatch: widget.currentWatch))
               : const SizedBox(height: 0),
-          const Divider(thickness: 2),
+          wrap(const Divider(thickness: 2)),
           widget.watchViewController.watchViewState.value == WatchViewEnum.view
-              ? AccuracyRow(currentWatch: widget.currentWatch)
+              ? wrap(AccuracyRow(currentWatch: widget.currentWatch))
               : const SizedBox(height: 0),
-          const Divider(thickness: 2),
-          WatchStatusHeader(currentWatch: widget.currentWatch),
+          wrap(const Divider(thickness: 2)),
+          wrap(WatchStatusHeader(currentWatch: widget.currentWatch)),
         ],
       ),
     );

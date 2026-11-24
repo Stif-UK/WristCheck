@@ -217,19 +217,22 @@ class WristTrackRightRailBody extends StatelessWidget {
     required this.rightRail,
     this.floatingActionButton,
     this.applyBottomSafeArea = false,
+    this.applyHorizontalPadding = true,
   }) : super(key: key);
 
   final Widget child;
   final Widget rightRail;
   final Widget? floatingActionButton;
   final bool applyBottomSafeArea;
+  final bool applyHorizontalPadding;
 
   @override
   Widget build(BuildContext context) {
-    final double leftSafePadding = MediaQuery.paddingOf(context).left;
+    final double leftSafePadding = applyHorizontalPadding ? MediaQuery.paddingOf(context).left : 0.0;
     final double bottomSafePadding = MediaQuery.viewPaddingOf(context).bottom;
-    final double rightRailReservedWidth =
-        WristTrackRightNavRail.reservedContentRightWidth(context);
+    final double rightRailReservedWidth = applyHorizontalPadding
+        ? WristTrackRightNavRail.reservedContentRightWidth(context)
+        : 0.0;
 
     return Stack(
       children: [
@@ -241,8 +244,8 @@ class WristTrackRightRailBody extends StatelessWidget {
           ),
           child: MediaQuery.removePadding(
             context: context,
-            removeLeft: true,
-            removeRight: true,
+            removeLeft: applyHorizontalPadding,
+            removeRight: applyHorizontalPadding,
             removeBottom: applyBottomSafeArea,
             child: floatingActionButton == null
                 ? child

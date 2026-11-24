@@ -62,56 +62,61 @@ class WristRecapHome extends StatelessWidget {
            )),
         ],
       ),
-      body: SafeArea(
-        top: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Obx(() {
-            bool showNavigation = recapController.selectedRecapOption.value == WristRecapEnums.monthly ||
-                recapController.selectedRecapOption.value == WristRecapEnums.annually;
-            return Row(
-              children: [
-                if (showNavigation)
-                  IconButton(
-                    icon: FaIcon(FontAwesomeIcons.chevronLeft),
-                    onPressed: () => recapController.decrementMonth(),
-                  ),
-                Expanded(
-                  child: Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Obx(() => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                recapController.getRecapHeaderText(context),
-                                style: Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )),
-                      ],
+          SafeArea(
+            top: false,
+            bottom: false,
+            child: Obx(() {
+              bool showNavigation = recapController.selectedRecapOption.value == WristRecapEnums.monthly ||
+                  recapController.selectedRecapOption.value == WristRecapEnums.annually;
+              return Row(
+                children: [
+                  if (showNavigation)
+                    IconButton(
+                      icon: FaIcon(FontAwesomeIcons.chevronLeft),
+                      onPressed: () => recapController.decrementMonth(),
+                    ),
+                  Expanded(
+                    child: Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.all(8.0),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Obx(() => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  recapController.getRecapHeaderText(context),
+                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                if (showNavigation)
-                  IconButton(
-                    icon: FaIcon(FontAwesomeIcons.chevronRight),
-                    onPressed: () => recapController.incrementMonth(),
-                  ),
-              ],
-            );
-          }),
+                  if (showNavigation)
+                    IconButton(
+                      icon: FaIcon(FontAwesomeIcons.chevronRight),
+                      onPressed: () => recapController.incrementMonth(),
+                    ),
+                ],
+              );
+            }),
+          ),
           const Divider(
             thickness: 2,
           ),
           Expanded(
-            child: Obx(() {
+            child: SafeArea(
+              top: false,
+              right: false,
+              child: Obx(() {
               final hasWorn = recapController.watchesWorn.isNotEmpty;
               final hasMovement = recapController.watchesBought.isNotEmpty ||
                   recapController.watchesSold.isNotEmpty;
@@ -170,9 +175,9 @@ class WristRecapHome extends StatelessWidget {
                 packColumns: recapController.packCharts.value,
               );
             }),
+            ),
           ),
         ],
-      ),
       ),
     );
   }
