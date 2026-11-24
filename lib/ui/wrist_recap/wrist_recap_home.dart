@@ -62,8 +62,10 @@ class WristRecapHome extends StatelessWidget {
            )),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        top: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Obx(() {
             bool showNavigation = recapController.selectedRecapOption.value == WristRecapEnums.monthly ||
@@ -170,6 +172,7 @@ class WristRecapHome extends StatelessWidget {
             }),
           ),
         ],
+      ),
       ),
     );
   }

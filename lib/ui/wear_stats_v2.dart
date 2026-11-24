@@ -90,27 +90,30 @@ class _WearStatsState extends State<WearStatsV2> {
               ),)
           ],
         ),
-        body: SingleChildScrollView(
-          child: Screenshot(
-            controller: screenshotController,
-            child: Container(
-              color: Theme.of(context).canvasColor,
-              child: Obx(()=> Column(
+        body: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Screenshot(
+              controller: screenshotController,
+              child: Container(
+                color: Theme.of(context).canvasColor,
+                child: Obx(()=> Column(
 
-                  children: [
-                    _buildFilterRow(context),
-                    SizedBox(
-                            height: _calculateChartSpace(barChart, context),
-                            child: _drawCharts(barChart)),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 10),
-                        widget.wristCheckController.isAppPro.value? Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrackPro) : Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrack),
-                        const SizedBox(height: 20,)
+                    children: [
+                      _buildFilterRow(context),
+                      SizedBox(
+                              height: _calculateChartSpace(barChart, context),
+                              child: _drawCharts(barChart)),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 10),
+                          widget.wristCheckController.isAppPro.value? Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrackPro) : Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrack),
+                          const SizedBox(height: 20,)
                       ],
                     )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

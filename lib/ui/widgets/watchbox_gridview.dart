@@ -31,67 +31,68 @@ class _WatchboxGridViewState extends State<WatchboxGridView> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = 2;
-    if (screenWidth >= 1200) {
-      crossAxisCount = 5;
-    } else if (screenWidth >= 900) {
-      crossAxisCount = 4;
-    } else if (screenWidth >= 600) {
-      crossAxisCount = 3;
-    }
-
-    double itemWidth = (screenWidth - 20 - (crossAxisCount - 1) * 10) / crossAxisCount;
-    // Base extra height needed for text and padding below the image
-    double extraHeight = 95.0; 
-    // Adjust for accessibility text scaling
-    double textScale = MediaQuery.textScalerOf(context).scale(1.0);
-    double childAspectRatio = itemWidth / (itemWidth + (extraHeight * textScale));
-
-    return ValueListenableBuilder<Box<Watches>>(
-        valueListenable: watchBox.listenable(),
-        builder: (context, box, _){
-          List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
-          List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
-
-          if (filteredList.isEmpty) {
-            return SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
-              ),
-            );
-          }
-
-          return SliverPadding(
-            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
-            sliver: SliverGrid.builder(
-              itemCount: filteredList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: childAspectRatio,
-              ),
-              itemBuilder: (BuildContext context, int index){
-                var currentWatch = filteredList.elementAt(index);
-                return ShrinkOnScrollItem(
-                  scrollController: widget.scrollController,
-                  maxShrink: 0.30,
-                  maxHorizontalShift: 20.0,
-                  columnIndex: index % crossAxisCount,
-                  totalColumns: crossAxisCount,
-                  child: WristTrackGridTab(
-                    currentWatch: currentWatch,
-                    collectionValue: widget.collectionValue,
-                  ),
-                );
-              },
-            ),
-          );
+    return SliverLayoutBuilder(
+      builder: (context, constraints) {
+        final double availableWidth = constraints.crossAxisExtent;
+        int crossAxisCount = 2;
+        if (availableWidth >= 1200) {
+          crossAxisCount = 5;
+        } else if (availableWidth >= 900) {
+          crossAxisCount = 4;
+        } else if (availableWidth >= 600) {
+          crossAxisCount = 3;
         }
 
+        double itemWidth = (availableWidth - 20 - (crossAxisCount - 1) * 10) / crossAxisCount;
+        // Base extra height needed for text and padding below the image
+        double extraHeight = 95.0;
+        // Adjust for accessibility text scaling
+        double textScale = MediaQuery.textScalerOf(context).scale(1.0);
+        double childAspectRatio = itemWidth / (itemWidth + (extraHeight * textScale));
 
+        return ValueListenableBuilder<Box<Watches>>(
+            valueListenable: watchBox.listenable(),
+            builder: (context, box, _) {
+              List<Watches> unsortedList = Boxes.getWatchesByFilter(widget.collectionValue);
+              List<Watches> filteredList = Boxes.sortWatchBox(unsortedList, widget.wristCheckController.watchboxOrder.value!);
+
+              if (filteredList.isEmpty) {
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: DynamicCopyHelper.getEmptyBoxCopy(widget.collectionValue, context),
+                  ),
+                );
+              }
+
+              return SliverPadding(
+                padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 110.0),
+                sliver: SliverGrid.builder(
+                  itemCount: filteredList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: childAspectRatio,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    var currentWatch = filteredList.elementAt(index);
+                    return ShrinkOnScrollItem(
+                      scrollController: widget.scrollController,
+                      maxShrink: 0.30,
+                      maxHorizontalShift: 20.0,
+                      columnIndex: index % crossAxisCount,
+                      totalColumns: crossAxisCount,
+                      child: WristTrackGridTab(
+                        currentWatch: currentWatch,
+                        collectionValue: widget.collectionValue,
+                      ),
+                    );
+                  },
+                ),
+              );
+            });
+      },
     );
   }
 }

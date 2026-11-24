@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -169,6 +170,200 @@ void main() {
 
       await WristCheckPreferences.setNavBarAlignment(NavBarAlignment.right);
       expect(WristCheckPreferences.getNavBarAlignment(), NavBarAlignment.right);
+    });
+  });
+
+  group('isRightCutoutPortraitDevice & WristTrackRightNavRail', () {
+    Future<bool> checkIsRightCutoutPortrait(
+      WidgetTester tester, {
+      required Size size,
+      required EdgeInsets viewPadding,
+      required TargetPlatform platform,
+    }) async {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      debugDefaultTargetPlatformOverride = platform;
+      try {
+        late bool result;
+        await tester.pumpWidget(
+          MaterialApp(
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                size: size,
+                padding: viewPadding,
+                viewPadding: viewPadding,
+              ),
+              child: child!,
+            ),
+            home: Builder(
+              builder: (context) {
+                result = WristTrackBottomNavBar.isRightCutoutPortraitDevice(context);
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
+        );
+        return result;
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
+    }
+
+    testWidgets('returns true only for iOS portrait < 600dp with right viewPadding', (tester) async {
+      expect(
+        await checkIsRightCutoutPortrait(
+          tester,
+          size: const Size(420, 720),
+          viewPadding: const EdgeInsets.only(top: 44, right: 60, bottom: 20),
+          platform: TargetPlatform.iOS,
+        ),
+        isTrue,
+      );
+
+      expect(
+        await checkIsRightCutoutPortrait(
+          tester,
+          size: const Size(420, 720),
+          viewPadding: const EdgeInsets.only(top: 44, bottom: 20),
+          platform: TargetPlatform.iOS,
+        ),
+        isFalse,
+      );
+
+      expect(
+        await checkIsRightCutoutPortrait(
+          tester,
+          size: const Size(800, 400),
+          viewPadding: const EdgeInsets.only(right: 44, bottom: 20),
+          platform: TargetPlatform.iOS,
+        ),
+        isFalse,
+      );
+
+      expect(
+        await checkIsRightCutoutPortrait(
+          tester,
+          size: const Size(640, 800),
+          viewPadding: const EdgeInsets.only(top: 24, right: 44, bottom: 20),
+          platform: TargetPlatform.iOS,
+        ),
+        isFalse,
+      );
+
+      expect(
+        await checkIsRightCutoutPortrait(
+          tester,
+          size: const Size(420, 720),
+          viewPadding: const EdgeInsets.only(top: 44, right: 60, bottom: 20),
+          platform: TargetPlatform.android,
+        ),
+        isFalse,
+      );
+    });
+
+    testWidgets('WristTrackRightNavRail fills forced right space and forwards taps', (tester) async {
+      tester.view.physicalSize = const Size(420, 720);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      int tappedIndex = -1;
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              size: const Size(420, 720),
+              padding: const EdgeInsets.only(top: 44, right: 68, bottom: 20),
+              viewPadding: const EdgeInsets.only(top: 44, right: 68, bottom: 20),
+            ),
+            child: child!,
+          ),
+          home: Scaffold(
+            body: Stack(
+              children: [
+                Positioned(
+                  right: WristTrackRightNavRail.outerRightMargin,
+                  bottom: 20,
+                  child: WristTrackRightNavRail(
+                    currentIndex: 0,
+                    onTap: (index) => tappedIndex = index,
+                    items: const [
+                      BottomNavigationBarItem(icon: Icon(Icons.watch), label: 'Collection'),
+                      BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+                      BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'Calendar'),
+                      BottomNavigationBarItem(icon: Icon(Icons.access_time), label: 'Time'),
+                      BottomNavigationBarItem(icon: Icon(Icons.chevron_right), label: 'More'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final railContext = tester.element(find.byType(WristTrackRightNavRail));
+      expect(WristTrackRightNavRail.railWidthForContext(railContext), 56.0);
+      expect(WristTrackRightNavRail.reservedContentRightWidth(railContext), 68.0);
+
+      final railRect = tester.getRect(find.byType(WristTrackRightNavRail));
+      expect(railRect.right, 420.0 - WristTrackRightNavRail.outerRightMargin);
+      expect(railRect.width, 56.0);
+      expect(railRect.top, greaterThan(300.0));
+
+      await tester.tap(find.text('Calendar'));
+      await tester.pump();
+      expect(tappedIndex, 2);
+    });
+
+    testWidgets('WristTrackRightRailBody insets child, positions rail, and keeps FAB clear of rail', (tester) async {
+      tester.view.physicalSize = const Size(420, 720);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              size: const Size(420, 720),
+              padding: const EdgeInsets.only(top: 44, right: 68, bottom: 20),
+              viewPadding: const EdgeInsets.only(top: 44, right: 68, bottom: 20),
+            ),
+            child: child!,
+          ),
+          home: Scaffold(
+            body: WristTrackRightRailBody(
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(Icons.add),
+              ),
+              rightRail: WristTrackRightNavRail(
+                currentIndex: 0,
+                onTap: (_) {},
+                items: const [
+                  BottomNavigationBarItem(icon: Icon(Icons.watch), label: 'Collection'),
+                  BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+                  BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'Calendar'),
+                ],
+              ),
+              child: const SizedBox.expand(key: ValueKey('body_content')),
+            ),
+          ),
+        ),
+      );
+
+      final contentRect = tester.getRect(find.byKey(const ValueKey('body_content')));
+      final railRect = tester.getRect(find.byType(WristTrackRightNavRail));
+      final fabRect = tester.getRect(find.byType(FloatingActionButton));
+
+      expect(contentRect.right, 420.0 - 68.0);
+      expect(railRect.right, 420.0 - WristTrackRightNavRail.outerRightMargin);
+      expect(fabRect.right, lessThanOrEqualTo(contentRect.right));
+      expect(fabRect.right, lessThan(railRect.left));
     });
   });
 }

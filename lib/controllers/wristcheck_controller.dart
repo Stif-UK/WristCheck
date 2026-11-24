@@ -303,22 +303,14 @@ class WristCheckController extends GetxController {
   final selectedDate = Rxn<DateTime>();
 
   updateSelectedDate(DateTime? date){
-    //allow a null value to be passed
-    if(date == null){
-      selectedDate(selectedDate.value = null);
-    }
-    selectedDate(date);
+    selectedDate.value = date;
   }
 
   //Track the current watch selection - this should be instantiated when used, and nulled when not in use.
   final selectedWatch = Rxn<Watches>();
 
   updateSelectedWatch(Watches? watch){
-    //allow a null value to be passed
-    if(watch == null){
-      selectedWatch(selectedWatch.value = null);
-    }
-    selectedWatch(watch);
+    selectedWatch.value = watch;
   }
 
   //Track if a null watch error should show

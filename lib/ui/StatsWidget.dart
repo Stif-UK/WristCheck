@@ -65,30 +65,32 @@ class _StatsWidgetState extends State<StatsWidget> {
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
-                  child: SizedBox(
-                    width: (MediaQuery.of(context).size.width)*0.8,
-                    height: (MediaQuery.of(context).size.height)*0.1,
-                    child: ElevatedButton(
-                      child: Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: FittedBox(
-                          child: Text(AppLocalizations.of(context)!.wearStatsButton, textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 25, overflow: TextOverflow.fade,
-                          ),),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: SizedBox(
+                      height: (MediaQuery.of(context).size.height)*0.1,
+                      child: ElevatedButton(
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: FittedBox(
+                            child: Text(AppLocalizations.of(context)!.wearStatsButton, textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 25, overflow: TextOverflow.fade,
+                            ),),
+                          ),
                         ),
-                      ),
-                      onPressed: (){ Get.to(() => WearStatsV2());},
-                      style: ButtonStyle(
-                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    side: const BorderSide(color: Colors.black)
-                                )
+                        onPressed: (){ Get.to(() => WearStatsV2());},
+                        style: ButtonStyle(
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: const BorderSide(color: Colors.black)
+                                  )
 
-            )
-            )
-            ),
+              )
+              )
+              ),
+                    ),
                   ),
                   ),
 
@@ -97,30 +99,32 @@ class _StatsWidgetState extends State<StatsWidget> {
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
-                  child: SizedBox(
-                    width: (MediaQuery.of(context).size.width)*0.8,
-                    height: (MediaQuery.of(context).size.height)*0.1,
-                    child: ElevatedButton(
-                        child: Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: FittedBox(
-                            child: Text(AppLocalizations.of(context)!.collectionStatsButton, textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 25, overflow: TextOverflow.fade,
-                              ),),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: SizedBox(
+                      height: (MediaQuery.of(context).size.height)*0.1,
+                      child: ElevatedButton(
+                          child: Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: FittedBox(
+                              child: Text(AppLocalizations.of(context)!.collectionStatsButton, textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 25, overflow: TextOverflow.fade,
+                                ),),
+                            ),
                           ),
-                        ),
-                        onPressed: (){
-                          Get.to(()=>const CollectionStats());
-                        },
-                        style: ButtonStyle(
-                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    side: const BorderSide(color: Colors.black)
-                                )
-                            )
-                        )
+                          onPressed: (){
+                            Get.to(()=>const CollectionStats());
+                          },
+                          style: ButtonStyle(
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: const BorderSide(color: Colors.black)
+                                  )
+                              )
+                          )
+                      ),
                     ),
                   ),
                 ),
@@ -129,33 +133,35 @@ class _StatsWidgetState extends State<StatsWidget> {
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
-                  child: SizedBox(
-                    width: (MediaQuery.of(context).size.width)*0.8,
-                    height: (MediaQuery.of(context).size.height)*0.1,
-                    child: ElevatedButton(
-                        child: const Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: FittedBox(
-                            child: Text("Wrist Recap",
-                              style: TextStyle(
-                                fontSize: 30,
-                              ),),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: SizedBox(
+                      height: (MediaQuery.of(context).size.height)*0.1,
+                      child: ElevatedButton(
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: FittedBox(
+                              child: Text("Wrist Recap",
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),),
+                            ),
                           ),
-                        ),
-                        onPressed: (){
-                          //Default to opening WristRecap at last month
-                          DateTime now = DateTime.now();
-                          DateTime lastMonth = DateTime(now.year, now.month-1);
-                          Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year, selectedOption: WristRecapEnums.monthly));
-                        },
-                        style: ButtonStyle(
-                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    side: const BorderSide(color: Colors.black)
-                                )
-                            )
-                        )
+                          onPressed: (){
+                            //Default to opening WristRecap at last month
+                            DateTime now = DateTime.now();
+                            DateTime lastMonth = DateTime(now.year, now.month-1);
+                            Get.to(()=> WristRecapHome(month: lastMonth.month, year: lastMonth.year, selectedOption: WristRecapEnums.monthly));
+                          },
+                          style: ButtonStyle(
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: const BorderSide(color: Colors.black)
+                                  )
+                              )
+                          )
+                      ),
                     ),
                   ),
                 ),

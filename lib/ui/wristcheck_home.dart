@@ -1,8 +1,8 @@
+import 'dart:io';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:io';
 import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/config.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
@@ -96,8 +96,54 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       });
     }
 
+    final bool showRightRail = WristTrackBottomNavBar.isRightCutoutPortraitDevice(context);
+    final List<BottomNavigationBarItem> navItems = [
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.watch),
+        label: AppLocalizations.of(context)!.collection,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.bar_chart),
+        label: AppLocalizations.of(context)!.stats,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.calendar_month_sharp),
+        label: AppLocalizations.of(context)!.calendar,
+      ),
+      BottomNavigationBarItem(
+        icon: const FaIcon(FontAwesomeIcons.clock),
+        label: AppLocalizations.of(context)!.time,
+      ),
+      BottomNavigationBarItem(
+        icon: const FaIcon(FontAwesomeIcons.chevronRight),
+        label: AppLocalizations.of(context)!.more,
+      ),
+    ];
+
+    Widget buildAddWatchFab() {
+      return FloatingActionButton(
+        child: const Icon(Icons.add_rounded),
+        backgroundColor: Colors.red,
+        onPressed: () async {
+          await analytics.logEvent(name: "add_watch_fab_pressed");
+          Get.to(() => WatchView());
+        },
+      );
+    }
+
+    final Widget pageContent = Column(
+      children: [
+        //Only show static NBA here when not on collection screen (handled in Watchbox) and not on clock screen
+        Obx(() => widget.wristCheckController.homePageIndex.value != 0 &&
+                widget.wristCheckController.homePageIndex.value != 3
+            ? (widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink())
+            : const SizedBox.shrink()),
+        Expanded(child: Obx(() => _children[widget.wristCheckController.homePageIndex.value])),
+      ],
+    );
+
     return Scaffold(
-      extendBody: true,
+      extendBody: !showRightRail,
       appBar: AppBar(
         title: Obx(() => getHeaderText()),
         actions: [
@@ -192,66 +238,47 @@ class _WristCheckHomeState extends State<WristCheckHome> {
       ),
 
 
-      body: Column(
-        children: [
-          //Only show static NBA here when not on collection screen (handled in Watchbox) and not on clock screen
-          Obx(() => widget.wristCheckController.homePageIndex.value != 0 &&
-                  widget.wristCheckController.homePageIndex.value != 3
-              ? (widget.wristCheckController.activeNBA.value ?? const SizedBox.shrink())
-              : const SizedBox.shrink()),
-          Expanded(child: Obx(()=> _children[widget.wristCheckController.homePageIndex.value])),
-        ],
-      ),
+      body: showRightRail
+          ? WristTrackRightRailBody(
+              rightRail: Obx(() => WristTrackRightNavRail(
+                currentIndex: widget.wristCheckController.homePageIndex.value,
+                onTap: _onTabTapped,
+                items: navItems,
+              )),
+              floatingActionButton: Obx(() => widget.wristCheckController.homePageIndex.value == 0
+                  ? buildAddWatchFab()
+                  : const SizedBox.shrink()),
+              child: pageContent,
+            )
+          : SafeArea(
+              top: false,
+              bottom: false,
+              child: pageContent,
+            ),
       drawer: WatchHomeDrawer(),
       onDrawerChanged: (isOpen){
         widget.wristCheckController.updateIsDrawerOpen(isOpen);
       },
 
       //hide FAB except on collection screen
-      floatingActionButton: Obx(() => Container(
-          child: widget.wristCheckController.homePageIndex.value == 0 ? FloatingActionButton(
-            child: const Icon(Icons.add_rounded),
-            backgroundColor: Colors.red,
-            onPressed: () async {
-              await analytics.logEvent(name: "add_watch_fab_pressed");
-              Get.to(() => WatchView());},
-          ): null,
-        ),
-      ),
+      floatingActionButton: showRightRail
+          ? null
+          : Obx(() => Container(
+              child: widget.wristCheckController.homePageIndex.value == 0
+                  ? buildAddWatchFab()
+                  : null,
+            )),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
-
-
-
-
-      bottomNavigationBar: Obx(() => WristTrackBottomNavBar(
-        currentIndex: widget.wristCheckController.homePageIndex.value,
-        onTap: _onTabTapped,
-        navBarAlignment: widget.wristCheckController.navBarAlignment.value,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.watch),
-            label: AppLocalizations.of(context)!.collection,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: AppLocalizations.of(context)!.stats,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_sharp),
-            label: AppLocalizations.of(context)!.calendar,
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.clock),
-            label: AppLocalizations.of(context)!.time,
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.chevronRight),
-            label: AppLocalizations.of(context)!.more,
-          ),
-        ],
-      )),
+      bottomNavigationBar: showRightRail
+          ? null
+          : Obx(() => WristTrackBottomNavBar(
+              currentIndex: widget.wristCheckController.homePageIndex.value,
+              onTap: _onTabTapped,
+              navBarAlignment: widget.wristCheckController.navBarAlignment.value,
+              items: navItems,
+            )),
     );
 
   }

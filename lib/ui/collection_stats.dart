@@ -14,6 +14,7 @@ import 'package:wristcheck/ui/collection_stats/collection_charts.dart';
 import 'package:wristcheck/ui/collection_stats/collection_info.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/ui/collection_stats/value_data.dart';
+import 'package:wristcheck/ui/widgets/wrist_track_bottom_nav_bar.dart';
 import 'package:wristcheck/util/ad_widget_helper.dart';
 
 
@@ -69,41 +70,60 @@ class _CollectionStatsState extends State<CollectionStats> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "collection_stats");
     final l = AppLocalizations.of(context);
+    final bool showRightRail = WristTrackBottomNavBar.isRightCutoutPortraitDevice(context);
+    final List<BottomNavigationBarItem> navItems = [
+      BottomNavigationBarItem(
+        icon: const FaIcon(FontAwesomeIcons.chartBar),
+        label: l!.labelCharts,
+      ),
+      BottomNavigationBarItem(
+        icon: const FaIcon(FontAwesomeIcons.clipboardList),
+        label: l.labelInfo,
+      ),
+      BottomNavigationBarItem(
+        icon: const FaIcon(FontAwesomeIcons.moneyBillTrendUp),
+        label: l.labelValue,
+      ),
+    ];
+
+    final Widget statsBodyContent = Obx(() => Column(
+      children: [
+        //Insert Ad Widget into tree
+        wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
+        Expanded(child: _children[_currentIndex]),
+      ],
+    ));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l!.pageTitleCollectionStats),
+        title: Text(l.pageTitleCollectionStats),
         actions: [
           IconButton(onPressed: (){WristCheckDialogs.getCollectionStatsDialog();}, icon: const Icon(Icons.help_outline))
         ],
       ),
       //Return children wrapped in a column to allow adspace to be included
-      body: Obx(() => Column(
-          children: [
-            //Insert Ad Widget into tree
-            wristCheckController.isAppPro.value? const SizedBox(height: 0,) : AdWidgetHelper.buildSmallAdSpace(banner, context),
-            Expanded(child: _children[_currentIndex]),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon:  FaIcon(FontAwesomeIcons.chartBar),
-            label: l.labelCharts,
-          ),
-          BottomNavigationBarItem(
-            icon:  FaIcon(FontAwesomeIcons.clipboardList),
-            label: l.labelInfo,
-          ),
-          BottomNavigationBarItem(
-            icon:  FaIcon(FontAwesomeIcons.moneyBillTrendUp),
-            label: l.labelValue,
-          ),
-        ],
-      ),
+      body: showRightRail
+          ? WristTrackRightRailBody(
+              applyBottomSafeArea: true,
+              rightRail: WristTrackRightNavRail(
+                currentIndex: _currentIndex,
+                onTap: _onTabTapped,
+                items: navItems,
+              ),
+              child: statsBodyContent,
+            )
+          : SafeArea(
+              top: false,
+              bottom: false,
+              child: statsBodyContent,
+            ),
+      bottomNavigationBar: showRightRail
+          ? null
+          : BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: _onTabTapped,
+              items: navItems,
+            ),
     );
   }
 

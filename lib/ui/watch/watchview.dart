@@ -569,8 +569,109 @@ class _WatchViewState extends State<WatchView> {
             );
           }
         },
-        child: Scaffold(
-                extendBody: true,
+        child: Builder(
+          builder: (context) {
+            final bool showRightRail =
+                WristTrackBottomNavBar.isRightCutoutPortraitDevice(context);
+            final List<BottomNavigationBarItem> navItems = [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.watch),
+                label: AppLocalizations.of(Get.context!)!.infoTabLabel,
+              ),
+              BottomNavigationBarItem(
+                icon: const FaIcon(FontAwesomeIcons.calendar),
+                label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
+              ),
+              BottomNavigationBarItem(
+                icon: const FaIcon(FontAwesomeIcons.dollarSign),
+                label: AppLocalizations.of(Get.context!)!.valueTabLabel,
+              ),
+              if (widget.wristCheckController.isAppPro.value)
+                BottomNavigationBarItem(
+                  icon: const FaIcon(FontAwesomeIcons.glasses),
+                  label: AppLocalizations.of(Get.context!)!.proDataTabLabel,
+                ),
+              BottomNavigationBarItem(
+                icon: const FaIcon(FontAwesomeIcons.book),
+                label: AppLocalizations.of(Get.context!)!.notesTabLabel,
+              ),
+            ];
+
+            void onNavItemTap(int index) {
+              if (_formKey.currentState!.validate()) {
+                widget.watchViewController.updateTabIndex(index);
+              }
+            }
+
+            final Widget watchBodyContent = Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                widget.wristCheckController.isAppPro.value
+                    ? const SizedBox(height: 0)
+                    : AdWidgetHelper.buildSmallAdSpace(banner, context),
+                Expanded(
+                  child: Form(
+                    key: _formKey,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final bool isLandscapeTwoPane =
+                            MediaQuery.orientationOf(context) == Orientation.landscape &&
+                                MediaQuery.sizeOf(context).width >= 900.0;
+
+                        if (isLandscapeTwoPane) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: SingleChildScrollView(
+                                  padding: const EdgeInsets.only(bottom: 100.0),
+                                  child: _buildOverviewSection(),
+                                ),
+                              ),
+                              const VerticalDivider(width: 1, thickness: 1),
+                              Expanded(
+                                flex: 6,
+                                child: SingleChildScrollView(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                  child: _buildDetailsSection(
+                                    context,
+                                    locale: locale,
+                                    finalTabIndex: finalTabIndex,
+                                    saveWatchUpdateButton: _saveWatchUpdateButton,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildOverviewSection(),
+                              const Divider(thickness: 2),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 960.0),
+                                child: _buildDetailsSection(
+                                  context,
+                                  locale: locale,
+                                  finalTabIndex: finalTabIndex,
+                                  saveWatchUpdateButton: _saveWatchUpdateButton,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+
+            return Scaffold(
+                extendBody: !showRightRail,
                 appBar: AppBar(
                     title: Obx(()=> ViewWatchHelper.getTitle(
                         widget.watchViewController.watchViewState.value, widget.currentWatch)),
@@ -654,104 +755,31 @@ class _WatchViewState extends State<WatchView> {
                     ],
 
                 ),
-                bottomNavigationBar: Obx(() => WristTrackBottomNavBar(
-                  currentIndex: widget.watchViewController.tabIndex.value,
-                  navBarAlignment: widget.wristCheckController.navBarAlignment.value,
-                  onTap: (index) {
-                    if (_formKey.currentState!.validate()) {
-                      widget.watchViewController.updateTabIndex(index);
-                    }
-                  },
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.watch),
-                      label: AppLocalizations.of(Get.context!)!.infoTabLabel,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: FaIcon(FontAwesomeIcons.calendar),
-                      label: AppLocalizations.of(Get.context!)!.scheduleTabLabel,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: FaIcon(FontAwesomeIcons.dollarSign),
-                      label: AppLocalizations.of(Get.context!)!.valueTabLabel,
-                    ),
-                    if (widget.wristCheckController.isAppPro.value)
-                      BottomNavigationBarItem(
-                        icon: FaIcon(FontAwesomeIcons.glasses),
-                        label: AppLocalizations.of(Get.context!)!.proDataTabLabel,
+                bottomNavigationBar: showRightRail
+                    ? null
+                    : Obx(() => WristTrackBottomNavBar(
+                          currentIndex: widget.watchViewController.tabIndex.value,
+                          navBarAlignment: widget.wristCheckController.navBarAlignment.value,
+                          onTap: onNavItemTap,
+                          items: navItems,
+                        )),
+                body: showRightRail
+                    ? WristTrackRightRailBody(
+                        rightRail: Obx(() => WristTrackRightNavRail(
+                              currentIndex: widget.watchViewController.tabIndex.value,
+                              onTap: onNavItemTap,
+                              items: navItems,
+                            )),
+                        child: watchBodyContent,
+                      )
+                    : SafeArea(
+                        top: false,
+                        bottom: false,
+                        child: watchBodyContent,
                       ),
-                    BottomNavigationBarItem(
-                      icon: FaIcon(FontAwesomeIcons.book),
-                      label: AppLocalizations.of(Get.context!)!.notesTabLabel,
-                    ),
-                  ],
-                )),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    widget.wristCheckController.isAppPro.value ? const SizedBox(height: 0,) : AdWidgetHelper
-                        .buildSmallAdSpace(banner, context),
-                    Expanded(
-                      child: Form(
-                        key: _formKey,
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final bool isLandscapeTwoPane =
-                                MediaQuery.orientationOf(context) == Orientation.landscape &&
-                                    MediaQuery.sizeOf(context).width >= 900.0;
-
-                            if (isLandscapeTwoPane) {
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Expanded(
-                                    flex: 4,
-                                    child: SingleChildScrollView(
-                                      padding: const EdgeInsets.only(bottom: 100.0),
-                                      child: _buildOverviewSection(),
-                                    ),
-                                  ),
-                                  const VerticalDivider(width: 1, thickness: 1),
-                                  Expanded(
-                                    flex: 6,
-                                    child: SingleChildScrollView(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                      child: _buildDetailsSection(
-                                        context,
-                                        locale: locale,
-                                        finalTabIndex: finalTabIndex,
-                                        saveWatchUpdateButton: _saveWatchUpdateButton,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }
-
-                            return SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  _buildOverviewSection(),
-                                  const Divider(thickness: 2),
-                                  ConstrainedBox(
-                                    constraints: const BoxConstraints(maxWidth: 960.0),
-                                    child: _buildDetailsSection(
-                                      context,
-                                      locale: locale,
-                                      finalTabIndex: finalTabIndex,
-                                      saveWatchUpdateButton: _saveWatchUpdateButton,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              );
+          },
+        ),
       );
     });
   }

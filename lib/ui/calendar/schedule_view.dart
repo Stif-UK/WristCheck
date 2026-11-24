@@ -32,14 +32,16 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
+  //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
+  bool _pageLoaded = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(!purchaseStatus)
-    {
+    if (!purchaseStatus && banner == null) {
       final adState = Provider.of<AdState>(context);
       adState.initialization.then((status) {
+        if (!mounted || banner != null) return;
         setState(() {
           banner = BannerAd(
               adUnitId: WristCheckConfig.prodBuild == false? adState.getTestAds : AdUnits.calendarAdUnitID,
@@ -56,21 +58,24 @@ class _ScheduleViewState extends State<ScheduleView> {
   @override
   void initState() {
     analytics.setAnalyticsCollectionEnabled(true);
+    analytics.logScreenView(screenName: "calendar_view");
+    widget.wristCheckController.updateSelectedDate(DateTime.now());
+    widget.wristCheckController.updateSelectedWatch(null);
+    widget.wristCheckController.updateNullWatchMemo(false);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    banner?.dispose();
+    super.dispose();
   }
 
   final watchBox = Boxes.getWatches();
 
   @override
   Widget build(BuildContext context) {
-    analytics.logScreenView(screenName: "calendar_view");
     final l = AppLocalizations.of(context);
-
-    //initialise date and watch values
-    widget.wristCheckController.updateSelectedDate(DateTime.now());
-    widget.wristCheckController.updateSelectedWatch(null);
-    //Initialise a bool on load - this can be checked in the onViewChanged callback to ensure it is not triggered on first load
-    bool _pageLoaded = false;
 
     return Obx(() {
       final bool isExpanded = widget.wristCheckController.isCalendarExpanded.value;
@@ -194,8 +199,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                               onPressed: widget.wristCheckController.selectedDate.value == null || isDateInFuture()
                                   ? null
                                   : () async {
-                                      widget.wristCheckController.updateSelectedWatch(null);
-                                      _generateTrackDialog();
+                                      final DateTime? targetDate = widget.wristCheckController.selectedDate.value;
+                                      if (targetDate == null) return;
+                                      _generateTrackDialog(targetDate);
                                       await analytics.logEvent(name: "calendar_wear");
                                     },
                             ),
@@ -217,8 +223,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                               onPressed: widget.wristCheckController.selectedDate.value == null || areWearsEmpty()
                                   ? null
                                   : () async {
-                                      widget.wristCheckController.updateSelectedWatch(null);
-                                      _generateDeleteDialog();
+                                      final DateTime? targetDate = widget.wristCheckController.selectedDate.value;
+                                      if (targetDate == null) return;
+                                      _generateDeleteDialog(targetDate);
                                       await analytics.logEvent(name: "calendar_remove_wear");
                                     },
                             ),
@@ -264,154 +271,169 @@ class _ScheduleViewState extends State<ScheduleView> {
   }
 
   //Tracking dialog pop-up
-  _generateTrackDialog(){
-    final l = AppLocalizations.of(context);
+  void _generateTrackDialog(DateTime selectedDate) {
+    final l = AppLocalizations.of(context)!;
+    Watches? dialogSelectedWatch;
+    bool showNullWatchError = false;
+    StateSetter? dialogSetState;
+
     Get.defaultDialog(
-        title: l!.trackWear,
-        barrierDismissible: false,
-        content: Obx(
-              ()=>Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+      title: l.trackWear,
+      barrierDismissible: false,
+      content: StatefulBuilder(
+        builder: (context, setDialogState) {
+          dialogSetState = setDialogState;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(selectedDate)}"),
+              ),
+              if (showNullWatchError)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
-                ),
-                widget.wristCheckController.nullWatchMemo.value ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(l.pleaseSelectAWatch,
-                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
-                )
-                    : SizedBox(height: 0,),
-                //Implement watch picker
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownSearch<Watches>(
-                    compareFn: (watch1, watch2) => watch1.key == watch2.key,
-                    popupProps: PopupProps.menu(
-                      showSearchBox: true,
-                    ),
-                    decoratorProps: DropDownDecoratorProps(
-                        decoration: InputDecoration(
-                            labelText: l.pickWatch,
-                            hintText: l.searchByName,
-                        )
-                    ),
-
-                    items: (filter, infiniteScrollProps) =>  Boxes.sortWatchBox(Boxes.getCollectionAndOnLoanWatches(), widget.wristCheckController.watchboxOrder.value!),
-                    onChanged: (watch){
-                      widget.wristCheckController.updateNullWatchMemo(false);
-                      widget.wristCheckController.updateSelectedWatch(watch);
-                      print(widget.wristCheckController.selectedWatch.value);
-                    },
-
-
+                  child: Text(
+                    l.pleaseSelectAWatch,
+                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
                   ),
                 )
-              ]),
-        ),
-        textConfirm: l.track,
-        textCancel: l.cancel,
-        onConfirm: () async {
-          //Code to track wear
-          if(widget.wristCheckController.selectedWatch.value == null){
-            widget.wristCheckController.updateNullWatchMemo(true);
-            //Please select a watch
-          } else {
-            widget.wristCheckController.updateNullWatchMemo(false);
-            Get.back();//Navigator.of(context).pop;
-            await WatchMethods.attemptToRecordWear(
-                widget.wristCheckController
-                    .selectedWatch.value!,
-                widget.wristCheckController
-                    .selectedDate.value!,
-                false);
-
-          }
+              else
+                const SizedBox(height: 0),
+              //Implement watch picker
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownSearch<Watches>(
+                  selectedItem: dialogSelectedWatch,
+                  compareFn: (watch1, watch2) => watch1.key == watch2.key,
+                  popupProps: PopupProps.menu(
+                    showSearchBox: true,
+                  ),
+                  decoratorProps: DropDownDecoratorProps(
+                    decoration: InputDecoration(
+                      labelText: l.pickWatch,
+                      hintText: l.searchByName,
+                    ),
+                  ),
+                  items: (filter, infiniteScrollProps) => Boxes.sortWatchBox(
+                    Boxes.getCollectionAndOnLoanWatches(),
+                    widget.wristCheckController.watchboxOrder.value!,
+                  ),
+                  onChanged: (watch) {
+                    setDialogState(() {
+                      showNullWatchError = false;
+                      dialogSelectedWatch = watch;
+                    });
+                  },
+                ),
+              ),
+            ],
+          );
         },
-        onCancel: () async {
-          //Delay prevents the view changing to show the button before the dialog exits
-          Navigator.of(context).pop();
-          await Future.delayed(const Duration(milliseconds: 1000));
-          widget.wristCheckController.updateNullWatchMemo(false);
-          widget.wristCheckController.updateSelectedWatch(null);
+      ),
+      textConfirm: l.track,
+      textCancel: l.cancel,
+      onConfirm: () async {
+        //Code to track wear
+        if (dialogSelectedWatch == null) {
+          dialogSetState?.call(() {
+            showNullWatchError = true;
+          });
+          //Please select a watch
+        } else {
+          final chosenWatch = dialogSelectedWatch!;
+          Get.back();
+          await WatchMethods.attemptToRecordWear(
+            chosenWatch,
+            selectedDate,
+            false,
+          );
         }
-
+      },
+      onCancel: () {},
     );
   }
 
   //Tracking dialog pop-up
-   _generateDeleteDialog(){
-     final l = AppLocalizations.of(context);
+  void _generateDeleteDialog(DateTime selectedDate) {
+    final l = AppLocalizations.of(context)!;
+    Watches? dialogSelectedWatch;
+    bool showNullWatchError = false;
+    StateSetter? dialogSetState;
+
     Get.defaultDialog(
-        title: l!.deleteWear,
-        barrierDismissible: false,
-        content: Obx(
-              ()=>Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+      title: l.deleteWear,
+      barrierDismissible: false,
+      content: StatefulBuilder(
+        builder: (context, setDialogState) {
+          dialogSetState = setDialogState;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(selectedDate)}"),
+              ),
+              if (showNullWatchError)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("${l.date} ${WristCheckFormatter.getFormattedDateWithDay(widget.wristCheckController.selectedDate.value!)}"),
-                ),
-                widget.wristCheckController.nullWatchMemo.value ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(l.pleaseSelectAWatch,
-                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
-                )
-                    : SizedBox(height: 0,),
-                //Implement watch picker
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownSearch<Watches>(
-                    compareFn: (watch1, watch2) => watch1.key == watch2.key,
-                    popupProps: PopupProps.menu(
-                      showSearchBox: true,
-                    ),
-                    decoratorProps: DropDownDecoratorProps(
-                        decoration: InputDecoration(
-                            labelText: l.pickWatch,
-                            hintText: l.searchByName
-                        )
-                    ),
-                    //Only display watches with a date that matches
-                    items: (filter, infiniteScrollProps) => Boxes.getWatchesWornOnDate(Boxes.getValidToHaveWornWatches(),
-                        widget.wristCheckController.selectedDate.value!.year,
-                        widget.wristCheckController.selectedDate.value!.month,
-                        widget.wristCheckController.selectedDate.value!.day),
-                    onChanged: (watch){
-                      widget.wristCheckController.updateNullWatchMemo(false);
-                      widget.wristCheckController.updateSelectedWatch(watch);
-                      print(widget.wristCheckController.selectedWatch.value);
-                    },
-
-
+                  child: Text(
+                    l.pleaseSelectAWatch,
+                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
                   ),
                 )
-              ]),
-        ),
-        textConfirm: l.removeDate,
-        textCancel: l.cancel,
-        onConfirm: (){
-          //Code to delete wear
-          if(widget.wristCheckController.selectedWatch.value == null){
-            widget.wristCheckController.updateNullWatchMemo(true);
-            //Please select a watch
-          } else {
-            widget.wristCheckController.updateNullWatchMemo(false);
-            Get.back();//Navigator.of(context).pop;
-            WatchMethods.removeWearDate(widget.wristCheckController.selectedDate.value!, widget.wristCheckController.selectedWatch.value!);
-
-          }
+              else
+                const SizedBox(height: 0),
+              //Implement watch picker
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownSearch<Watches>(
+                  selectedItem: dialogSelectedWatch,
+                  compareFn: (watch1, watch2) => watch1.key == watch2.key,
+                  popupProps: PopupProps.menu(
+                    showSearchBox: true,
+                  ),
+                  decoratorProps: DropDownDecoratorProps(
+                    decoration: InputDecoration(
+                      labelText: l.pickWatch,
+                      hintText: l.searchByName,
+                    ),
+                  ),
+                  //Only display watches with a date that matches
+                  items: (filter, infiniteScrollProps) => Boxes.getWatchesWornOnDate(
+                    Boxes.getValidToHaveWornWatches(),
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                  ),
+                  onChanged: (watch) {
+                    setDialogState(() {
+                      showNullWatchError = false;
+                      dialogSelectedWatch = watch;
+                    });
+                  },
+                ),
+              ),
+            ],
+          );
         },
-        onCancel: () async {
-          //Delay prevents the view changing to show the button before the dialog exits
-          Navigator.of(context).pop;
-          await Future.delayed(const Duration(milliseconds: 1000));
-          widget.wristCheckController.updateNullWatchMemo(false);
-          widget.wristCheckController.updateSelectedWatch(null);
+      ),
+      textConfirm: l.removeDate,
+      textCancel: l.cancel,
+      onConfirm: () {
+        //Code to delete wear
+        if (dialogSelectedWatch == null) {
+          dialogSetState?.call(() {
+            showNullWatchError = true;
+          });
+          //Please select a watch
+        } else {
+          final chosenWatch = dialogSelectedWatch!;
+          Get.back();
+          WatchMethods.removeWearDate(selectedDate, chosenWatch);
         }
-
+      },
+      onCancel: () {},
     );
   }
 

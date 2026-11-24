@@ -98,7 +98,9 @@ final watchBox = Boxes.getWatches();
           child: widget.wristCheckController.showDateList.value? FaIcon(FontAwesomeIcons.calendarDay) : FaIcon(FontAwesomeIcons.list),
           onPressed: () => widget.wristCheckController.updateShowCalendar(!widget.wristCheckController.showDateList.value),
         ),
-        body: widget.wristCheckController.showDateList.value?
+        body: SafeArea(
+          top: false,
+          child: widget.wristCheckController.showDateList.value?
           _buildListView(widget.currentWatch, context)
 
             : Column(
@@ -229,6 +231,7 @@ final watchBox = Boxes.getWatches();
 
           ],
         )
+        ),
       ),
     );
 

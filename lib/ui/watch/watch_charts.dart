@@ -39,13 +39,16 @@ class _WatchChartsState extends State<WatchCharts> {
         title: Text("${widget.currentWatch.manufacturer} ${widget.currentWatch.model}"),
       ),
       //Check if there is data available
-      body: Obx(()=> SingleChildScrollView(
-          child:
-          widget.wristCheckController.isAppPro.value?
-              WatchChartsBody(currentWatch: widget.currentWatch)
-              :
-              WristcheckProPrompt(textWidget: WristCheckCopy.getWatchWearChartsUpgradeCopy())
+      body: SafeArea(
+        top: false,
+        child: Obx(()=> SingleChildScrollView(
+            child:
+            widget.wristCheckController.isAppPro.value?
+                WatchChartsBody(currentWatch: widget.currentWatch)
+                :
+                WristcheckProPrompt(textWidget: WristCheckCopy.getWatchWearChartsUpgradeCopy())
 
+          ),
         ),
       ),
     );

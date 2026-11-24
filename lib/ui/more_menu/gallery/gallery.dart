@@ -63,21 +63,25 @@ class _GalleryV2State extends State<GalleryV2> {
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "gallery");
 
-    final double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = 3;
-    if (screenWidth >= 1200) {
-      crossAxisCount = 6;
-    } else if (screenWidth >= 900) {
-      crossAxisCount = 5;
-    } else if (screenWidth >= 600) {
-      crossAxisCount = 4;
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(Get.context!)!.galleryTitle),
       ),
-      body:  Obx(()=> Column(
+      body: SafeArea(
+        top: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final double screenWidth = constraints.maxWidth;
+            int crossAxisCount = 3;
+            if (screenWidth >= 1200) {
+              crossAxisCount = 6;
+            } else if (screenWidth >= 900) {
+              crossAxisCount = 5;
+            } else if (screenWidth >= 600) {
+              crossAxisCount = 4;
+            }
+
+            return Obx(()=> Column(
         children: [
           _getCollectionPickerRow(),
           Expanded(
@@ -162,7 +166,10 @@ class _GalleryV2State extends State<GalleryV2> {
           const SizedBox(height: 75,)
         ],
       ),
-      )
+            );
+          },
+        ),
+      ),
     );
   }
 }

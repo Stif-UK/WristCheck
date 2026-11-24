@@ -61,9 +61,13 @@ class _DeveloperStatsState extends State<DeveloperStats> {
       ],
 
       ),
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: _buildCurrentTab(wristCheckController, context),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: _buildCurrentTab(wristCheckController, context),
+        ),
       ),
     );
   }

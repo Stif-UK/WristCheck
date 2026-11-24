@@ -29,7 +29,10 @@ class _PeriodReviewHomeState extends State<PeriodReviewHome> {
       appBar: AppBar(
         title: Text("Wrist Recap [BETA]"),
       ),
-      body: calculateEnoughData()? PeriodReviewBody() : notEnoughData(),
+      body: SafeArea(
+        top: false,
+        child: calculateEnoughData()? PeriodReviewBody() : notEnoughData(),
+      ),
     );
   }
 
