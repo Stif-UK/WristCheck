@@ -1,204 +1,401 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/category.dart';
+import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/chart_ordering.dart';
 import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
+import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/movement_enum.dart';
 import 'package:wristcheck/model/enums/stats_enums/case_material_enum.dart';
-import 'package:wristcheck/model/watches.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:wristcheck/model/enums/chart_grouping.dart';
+import 'package:wristcheck/model/enums/stats_enums/wr_units_enum.dart';
+import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 import 'package:wristcheck/util/wear_charts_helper.dart';
-import 'package:wristcheck/util/wristcheck_formatter.dart';
-
 
 class WearChart extends StatefulWidget {
-
-  //Create data for the chart - we need a list of watch objects and wear counts
+  // Create data for the chart - we need a list of watch objects and wear counts
   final List<WornWatchesClass> data;
   final bool animate;
   final ChartGrouping grouping;
-  final wristCheckController = Get.put(WristCheckController());
+  final DefaultChartType chartType;
+  final WRUnitsEnum? wrUnitOverride;
 
-
-
-  WearChart({required this.data, required this.animate, required this.grouping});
+  const WearChart({
+    Key? key,
+    required this.data,
+    required this.animate,
+    required this.grouping,
+    this.chartType = DefaultChartType.bar,
+    this.wrUnitOverride,
+  }) : super(key: key);
 
   @override
   State<WearChart> createState() => _WearChartState();
 }
 
 class _WearChartState extends State<WearChart> {
+  WRUnitsEnum _resolveWrUnit() {
+    if (widget.wrUnitOverride != null) {
+      return widget.wrUnitOverride!;
+    }
+    if (Get.isRegistered<WristCheckController>()) {
+      return Get.find<WristCheckController>().waterResistanceUnit.value;
+    }
+    return WRUnitsEnum.metres;
+  }
+
   @override
   Widget build(BuildContext context) {
-    int dataSize = widget.data.length;
+    final effectiveType = widget.chartType.resolveForGrouping(widget.grouping);
+    final points = _buildChartPoints(context, effectiveType);
 
-
-    return dataSize == 0? Center(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Text(AppLocalizations.of(context)!.chartsEmptyBackgroundText,
-          style: Theme.of(context).textTheme.titleLarge,
-        textAlign: TextAlign.center,),
-      ),
-    ): SfCartesianChart(
-      primaryXAxis: CategoryAxis(
-        isVisible: false,
-      ),
-      primaryYAxis: NumericAxis(),
-      series: _getBarSeries(widget.grouping)
-    );
-  }
-  
-  List<BarSeries<dynamic, dynamic>> _getBarSeries(ChartGrouping grouping){
-    
-    List<BarSeries<dynamic, dynamic>> returnSeries = [];
-    
-    switch(grouping) {
-      case ChartGrouping.watch:
-        returnSeries =  <BarSeries<WornWatchesClass, String>>[
-          BarSeries(
-            dataSource: widget.data,
-            xValueMapper: (WornWatchesClass series, _) => series.count == 0? null: (series.watch.manufacturer + series.watch.model),
-            yValueMapper: (WornWatchesClass series, _) => series.count,
-            dataLabelMapper: (worn, _) => "${worn.watch.toString()} ${WearChartsHelper.getLabelSuffix(worn.watch)}: ${worn.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
-        break;
-      case ChartGrouping.movement:
-        List<MovementClass> movementList = ChartHelper.calculateMovementList(widget.data);
-        returnSeries =  <BarSeries<MovementClass, String>>[
-          BarSeries(
-            dataSource: movementList,
-            xValueMapper: (MovementClass series, _) =>  series.count == 0? null: (series.movement.toLocalizedString(context)),
-            yValueMapper: (MovementClass series, _) => series.count == 0? null: series.count,
-            dataLabelMapper: (mvmt, _) => "${mvmt.movement.toLocalizedString(context)}: ${mvmt.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
-        break;
-      case ChartGrouping.category:
-        List<CategoryClass> categoryList = ChartHelper.calculateCategoryList(widget.data);
-        returnSeries =  <BarSeries<CategoryClass, String>>[
-          BarSeries(
-            dataSource: categoryList,
-            xValueMapper: (CategoryClass series, _) =>  series.count == 0? null: (series.category.toLocalizedString(context)),
-            yValueMapper: (CategoryClass series, _) => series.count == 0? null: series.count,
-            dataLabelMapper: (category, _) => "${category.category.toLocalizedString(context)}: ${category.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-
-        ];
-        break;
-      case ChartGrouping.manufacturer:
-        returnSeries =  <BarSeries<ManufacturerClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateManufacturerList(widget.data),
-            xValueMapper: (ManufacturerClass series, _) => series.count == 0? null: series.manufacturer,
-            yValueMapper: (ManufacturerClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (manu, _) => manu.count == 0? "":"${manu.manufacturer}: ${manu.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
-        break;
-      case ChartGrouping.colour:
-        returnSeries = <BarSeries<ColourClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateColourList(widget.data),
-            xValueMapper: (ColourClass series, _) => series.count == 0? null: series.colour,
-            yValueMapper: (ColourClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (col, _) => col.count == 0? "":"${col.colour}: ${col.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
-          )
-        ];
-        break;
-      case ChartGrouping.caseDiameter:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(widget.data), "mm");
-        break;
-      case ChartGrouping.lugWidth:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugWidthList(widget.data), "mm");
-        break;
-      case ChartGrouping.lug2lug:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateLugToLugList(widget.data), "mm");
-        break;
-      case ChartGrouping.caseThickness:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(widget.data), "mm");
-        break;
-      case ChartGrouping.waterResistance:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateWaterResistanceList(widget.data), widget.wristCheckController.waterResistanceUnit.value.name);
-        break;
-      case ChartGrouping.caseMaterial:
-        returnSeries =  <BarSeries<MaterialClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateCaseMaterialList(widget.data),
-            xValueMapper: (MaterialClass series, _) => series.count == 0? null: series.material.toLocalizedString(context),
-            yValueMapper: (MaterialClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (watch, _) => watch.count == 0? "":"${watch.material.toLocalizedString(context)}: ${watch.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
-        break;
-      case ChartGrouping.dateComplication:
-        returnSeries =  <BarSeries<DateComplicationClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateDateComplicationList(widget.data),
-            xValueMapper: (DateComplicationClass series, _) => series.count == 0? null: series.dateComplication.toLocalizedString(context),
-            yValueMapper: (DateComplicationClass series, _) => series.count == 0? null : series.count,
-            dataLabelMapper: (watch, _) => watch.count == 0? "":"${watch.dateComplication.toLocalizedString(context)}: ${watch.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-            // animationDuration: 0 Set to zero to stop it animating!
-          )
-        ];
-        break;
-      case ChartGrouping.year:
-        returnSeries = <BarSeries<YearGroupClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateYearList(widget.data),
-            xValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.yearLabel,
-            yValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.count,
-            dataLabelMapper: (item, _) => item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
-          )
-        ];
-        break;
-      case ChartGrouping.decade:
-        returnSeries = <BarSeries<YearGroupClass, String>>[
-          BarSeries(
-            dataSource: ChartHelper.calculateDecadeList(widget.data),
-            xValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.yearLabel,
-            yValueMapper: (YearGroupClass series, _) => series.count == 0 ? null : series.count,
-            dataLabelMapper: (item, _) => item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
-          )
-        ];
-        break;
-      default:
-        break;
+    if (points.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Text(
+            AppLocalizations.of(context)!.chartsEmptyBackgroundText,
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
-    return returnSeries;
+
+    final double animDuration = widget.animate ? 1500 : 0;
+
+    switch (effectiveType) {
+      case DefaultChartType.bar:
+        return SfCartesianChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.bar),
+          primaryXAxis: CategoryAxis(isVisible: false),
+          primaryYAxis: NumericAxis(),
+          series: <BarSeries<_WearChartPoint, String>>[
+            BarSeries<_WearChartPoint, String>(
+              dataSource: points,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.label}: ${point.count}',
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+
+      case DefaultChartType.column:
+        return SfCartesianChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.column),
+          tooltipBehavior: TooltipBehavior(enable: true),
+          primaryXAxis: CategoryAxis(
+            isVisible: true,
+            labelIntersectAction: AxisLabelIntersectAction.rotate45,
+          ),
+          primaryYAxis: NumericAxis(),
+          series: <ColumnSeries<_WearChartPoint, String>>[
+            ColumnSeries<_WearChartPoint, String>(
+              dataSource: points,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.count}',
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+              enableTooltip: true,
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+
+      case DefaultChartType.pie:
+        return SfCircularChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.pie),
+          legend: const Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+          ),
+          series: <CircularSeries<_WearChartPoint, String>>[
+            PieSeries<_WearChartPoint, String>(
+              dataSource: points,
+              explode: true,
+              explodeIndex: 0,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.label}: ${point.count}',
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                showZeroValue: false,
+                labelPosition: ChartDataLabelPosition.outside,
+              ),
+              enableTooltip: true,
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+
+      case DefaultChartType.donut:
+        return SfCircularChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.donut),
+          legend: const Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+          ),
+          series: <CircularSeries<_WearChartPoint, String>>[
+            DoughnutSeries<_WearChartPoint, String>(
+              dataSource: points,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.label}: ${point.count}',
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                showZeroValue: false,
+                labelPosition: ChartDataLabelPosition.outside,
+              ),
+              enableTooltip: true,
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+
+      case DefaultChartType.line:
+        return SfCartesianChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.line),
+          tooltipBehavior: TooltipBehavior(enable: true),
+          primaryXAxis: CategoryAxis(
+            interval: 1,
+            labelIntersectAction: AxisLabelIntersectAction.rotate45,
+          ),
+          primaryYAxis: NumericAxis(),
+          series: <CartesianSeries<_WearChartPoint, String>>[
+            LineSeries<_WearChartPoint, String>(
+              dataSource: points,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.count}',
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                labelAlignment: ChartDataLabelAlignment.top,
+              ),
+              markerSettings: const MarkerSettings(isVisible: true),
+              enableTooltip: true,
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+
+      case DefaultChartType.splineArea:
+        final Color primaryColor = Theme.of(context).colorScheme.primary;
+        return SfCartesianChart(
+          key: const ValueKey<DefaultChartType>(DefaultChartType.splineArea),
+          tooltipBehavior: TooltipBehavior(enable: true),
+          primaryXAxis: CategoryAxis(
+            interval: 1,
+            labelIntersectAction: AxisLabelIntersectAction.rotate45,
+          ),
+          primaryYAxis: NumericAxis(),
+          series: <CartesianSeries<_WearChartPoint, String>>[
+            SplineAreaSeries<_WearChartPoint, String>(
+              dataSource: points,
+              xValueMapper: (point, _) => point.label,
+              yValueMapper: (point, _) => point.count,
+              dataLabelMapper: (point, _) => '${point.count}',
+              dataLabelSettings: const DataLabelSettings(
+                isVisible: true,
+                labelAlignment: ChartDataLabelAlignment.top,
+              ),
+              splineType: SplineType.monotonic,
+              color: primaryColor.withValues(alpha: 0.3),
+              borderColor: primaryColor,
+              borderWidth: 2,
+              markerSettings: const MarkerSettings(isVisible: true),
+              enableTooltip: true,
+              animationDuration: animDuration,
+            ),
+          ],
+        );
+    }
+  }
+
+  List<_WearChartPoint> _buildChartPoints(
+    BuildContext context,
+    DefaultChartType effectiveType,
+  ) {
+    switch (widget.grouping) {
+      case ChartGrouping.watch:
+        return widget.data
+            .where((worn) => worn.count > 0)
+            .map((worn) {
+              final suffix = WearChartsHelper.getLabelSuffix(
+                worn.watch,
+                context: context,
+              );
+              final label = suffix.isEmpty
+                  ? worn.watch.toString()
+                  : '${worn.watch.toString()} $suffix';
+              return _WearChartPoint(label: label, count: worn.count);
+            })
+            .toList();
+
+      case ChartGrouping.movement:
+        return ChartHelper.calculateMovementList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.movement.toLocalizedString(context),
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.category:
+        return ChartHelper.calculateCategoryList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.category.toLocalizedString(context),
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.manufacturer:
+        return ChartHelper.calculateManufacturerList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.manufacturer,
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.colour:
+        return ChartHelper.calculateColourList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.colour,
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.caseDiameter:
+        return _dimensionPoints(
+          ChartHelper.calculateCaseDiameterList(widget.data),
+          'mm',
+        );
+
+      case ChartGrouping.lugWidth:
+        return _dimensionPoints(
+          ChartHelper.calculateLugWidthList(widget.data),
+          'mm',
+        );
+
+      case ChartGrouping.lug2lug:
+        return _dimensionPoints(
+          ChartHelper.calculateLugToLugList(widget.data),
+          'mm',
+        );
+
+      case ChartGrouping.caseThickness:
+        return _dimensionPoints(
+          ChartHelper.calculateCaseThicknessList(widget.data),
+          'mm',
+        );
+
+      case ChartGrouping.waterResistance:
+        return _dimensionPoints(
+          ChartHelper.calculateWaterResistanceList(widget.data),
+          ' ${_resolveWrUnit().name}',
+        );
+
+      case ChartGrouping.caseMaterial:
+        return ChartHelper.calculateCaseMaterialList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.material.toLocalizedString(context),
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.dateComplication:
+        return ChartHelper.calculateDateComplicationList(widget.data)
+            .where((item) => item.count > 0)
+            .map(
+              (item) => _WearChartPoint(
+                label: item.dateComplication.toLocalizedString(context),
+                count: item.count,
+              ),
+            )
+            .toList();
+
+      case ChartGrouping.year:
+        return _yearOrDecadePoints(
+          ChartHelper.calculateYearList(widget.data),
+          effectiveType,
+        );
+
+      case ChartGrouping.decade:
+        return _yearOrDecadePoints(
+          ChartHelper.calculateDecadeList(widget.data),
+          effectiveType,
+        );
+    }
+  }
+
+  List<_WearChartPoint> _dimensionPoints(
+    List<DimensionsClass> items,
+    String unitSuffix,
+  ) {
+    return items
+        .where((item) => item.count > 0)
+        .map(
+          (item) => _WearChartPoint(
+            label: '${item.dimension}$unitSuffix',
+            count: item.count,
+          ),
+        )
+        .toList();
+  }
+
+  List<_WearChartPoint> _yearOrDecadePoints(
+    List<YearGroupClass> items,
+    DefaultChartType effectiveType,
+  ) {
+    final filtered = items.where((item) => item.count > 0).toList();
+    final order = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
+    final bool sortChronologically = effectiveType == DefaultChartType.line ||
+        effectiveType == DefaultChartType.splineArea ||
+        (effectiveType == DefaultChartType.column &&
+            order == ChartOrdering.watchbox);
+    if (sortChronologically) {
+      filtered.sort((a, b) {
+        final int aVal = int.tryParse(a.yearLabel.replaceAll('s', '')) ?? 0;
+        final int bVal = int.tryParse(b.yearLabel.replaceAll('s', '')) ?? 0;
+        return aVal.compareTo(bVal);
+      });
+    }
+    return filtered
+        .map(
+          (item) => _WearChartPoint(
+            label: item.yearLabel,
+            count: item.count,
+          ),
+        )
+        .toList();
   }
 }
 
-List<BarSeries> _calculateDimensionReturn(List<DimensionsClass> dataSource, String units) {
-  return  <BarSeries<DimensionsClass, String>>[
-    BarSeries(
-      dataSource: dataSource,
-      xValueMapper: (DimensionsClass series, _) => series.count == 0? null: series.dimension,
-      yValueMapper: (DimensionsClass series, _) => series.count == 0? null : series.count,
-      dataLabelMapper: (caseDiameter, _) => caseDiameter.count == 0? "":"${caseDiameter.dimension}$units: ${caseDiameter.count}",
-      dataLabelSettings: const DataLabelSettings(isVisible: true), //can add showZero = false here, however it just makes the labels invisible, it doesn't remove the line itself
-      // animationDuration: 0 Set to zero to stop it animating!
-    )
-  ];
-}
+class _WearChartPoint {
+  final String label;
+  final int count;
 
+  const _WearChartPoint({
+    required this.label,
+    required this.count,
+  });
+}

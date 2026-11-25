@@ -2947,4 +2947,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'Toutes les données sont disponibles pour les montres de votre collection.';
+
+  @override
+  String get donutChart => 'Diagramme en anneau';
+
+  @override
+  String get columnChart => 'Diagramme en colonnes';
+
+  @override
+  String get lineChart => 'Graphique en courbes';
+
+  @override
+  String get splineAreaChart => 'Graphique en aires lissées';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Regroupement par année ou décennie uniquement (utilise l\'histogramme sinon)';
 }

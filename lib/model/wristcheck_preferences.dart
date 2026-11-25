@@ -29,6 +29,7 @@ class WristCheckPreferences {
   static const _keyWearChartOptions = 'wearChartOptions';
   static const _keyWearChartOrder = 'wearChartOrder';
   static const _keyDefaultChartType = 'defaultChartType';
+  static const _keyDefaultChartTypeV2 = 'defaultChartTypeV2';
   static const _keyDefaultMonthChartType = 'defaultMonthChartType'; //TODO: Remove in future release - last used in v1.10.3
   static const _keyDefaultMonthChartTypeV2 = 'defaultMonthChartTypev2';
   static const _keyDefaultDayChartType = 'defaultDayChartType'; //TODO: Remove in future release - last used in v1.10.3
@@ -360,20 +361,24 @@ class WristCheckPreferences {
   }
 
   //Getter and setter for default chart type
-  //A value of true represents a user preferring bar charts over pie charts
-  static DefaultChartType? getDefaultChartType()  {
-    if(_preferences.getBool(_keyDefaultChartType) == null){
+  static DefaultChartType getDefaultChartType() {
+    final String? savedV2 = _preferences.getString(_keyDefaultChartTypeV2);
+    if (savedV2 != null) {
+      return DefaultChartType.values.firstWhere(
+        (e) => e.name == savedV2,
+        orElse: () => DefaultChartType.bar,
+      );
+    }
+    if (_preferences.getBool(_keyDefaultChartType) == null) {
       return DefaultChartType.bar;
-    } else{
-      bool _prefersBarCharts =  _preferences.getBool(_keyDefaultChartType)!;
-      return _prefersBarCharts? DefaultChartType.bar : DefaultChartType.pie;
+    } else {
+      bool _prefersBarCharts = _preferences.getBool(_keyDefaultChartType)!;
+      return _prefersBarCharts ? DefaultChartType.bar : DefaultChartType.pie;
     }
   }
 
   static Future setDefaultChartType(DefaultChartType preferredType) async {
-    bool _prefersBarCharts;
-    preferredType == DefaultChartType.bar ? _prefersBarCharts = true : _prefersBarCharts = false;
-    await _preferences.setBool(_keyDefaultChartType, _prefersBarCharts);
+    await _preferences.setString(_keyDefaultChartTypeV2, preferredType.name);
   }
 
   //Month charts: DEPRECATED //TODO: Remove in future release - last valid version v1.10.3 & replaced by v2

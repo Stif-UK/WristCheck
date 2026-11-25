@@ -5237,6 +5237,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All data is available for watches in your collection.'**
   String get collectionDataCompleteTooltip;
+
+  /// No description provided for @donutChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Donut Chart'**
+  String get donutChart;
+
+  /// No description provided for @columnChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Column Chart'**
+  String get columnChart;
+
+  /// No description provided for @lineChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Line Chart'**
+  String get lineChart;
+
+  /// No description provided for @splineAreaChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Spline Area Chart'**
+  String get splineAreaChart;
+
+  /// No description provided for @yearDecadeOnlyChartHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Year or Decade grouping only (uses Bar Chart otherwise)'**
+  String get yearDecadeOnlyChartHint;
 }
 
 class _AppLocalizationsDelegate

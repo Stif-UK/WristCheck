@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:wristcheck/controllers/filter_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
@@ -126,21 +127,22 @@ class WearChartsHelper {
     return returnText;
   }
 
-  static String getLabelSuffix(Watches watch){
+  static String getLabelSuffix(Watches watch, {BuildContext? context}) {
+    final l10n = AppLocalizations.of(context ?? Get.context!)!;
     String returnString = "";
 
-    switch(watch.status){
+    switch (watch.status) {
       case "Sold":
-        returnString = AppLocalizations.of(Get.context!)!.soldSuffix;
+        returnString = l10n.soldSuffix;
         break;
       case "Retired":
-        returnString = AppLocalizations.of(Get.context!)!.retiredSuffix;
+        returnString = l10n.retiredSuffix;
         break;
       case "Archived":
-        returnString = AppLocalizations.of(Get.context!)!.archivedSuffix;
+        returnString = l10n.archivedSuffix;
         break;
       case "On Loan":
-        returnString = AppLocalizations.of(Get.context!)!.onLoanSuffix;
+        returnString = l10n.onLoanSuffix;
         break;
       default:
         returnString = "";

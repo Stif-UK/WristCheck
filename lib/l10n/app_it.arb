@@ -1143,5 +1143,10 @@
   "recapPackChartsTitle": "Allineamento compatto dei grafici",
   "recapPackChartsSubtitle": "Riempi lo spazio disponibile tra le colonne su schermi grandi invece di allineare le righe",
   "collectionDataIncompleteTooltip": "I dati della collezione sono incompleti; non tutti gli orologi della tua collezione tracciano questo campo.",
-  "collectionDataCompleteTooltip": "Tutti i dati sono disponibili per gli orologi della tua collezione."
+  "collectionDataCompleteTooltip": "Tutti i dati sono disponibili per gli orologi della tua collezione.",
+  "donutChart": "Grafico ad anello",
+  "columnChart": "Grafico a colonne",
+  "lineChart": "Grafico a linee",
+  "splineAreaChart": "Grafico ad area smussata",
+  "yearDecadeOnlyChartHint": "Solo per raggruppamento per anno o decennio (altrimenti usa grafico a barre)"
 }

@@ -1202,5 +1202,10 @@
   "recapPackChartsTitle": "Compact chart alignment",
   "recapPackChartsSubtitle": "Fill available space across columns on large screens instead of aligning rows",
   "collectionDataIncompleteTooltip": "Collection data is incomplete; not all watches in your collection track this field.",
-  "collectionDataCompleteTooltip": "All data is available for watches in your collection."
+  "collectionDataCompleteTooltip": "All data is available for watches in your collection.",
+  "donutChart": "Donut Chart",
+  "columnChart": "Column Chart",
+  "lineChart": "Line Chart",
+  "splineAreaChart": "Spline Area Chart",
+  "yearDecadeOnlyChartHint": "Year or Decade grouping only (uses Bar Chart otherwise)"
 }

@@ -1140,5 +1140,10 @@
   "recapPackChartsTitle": "Alignement compact des graphiques",
   "recapPackChartsSubtitle": "Remplir l'espace disponible entre les colonnes sur grand écran au lieu d'aligner les lignes",
   "collectionDataIncompleteTooltip": "Les données de la collection sont incomplètes ; toutes les montres de votre collection ne renseignent pas ce champ.",
-  "collectionDataCompleteTooltip": "Toutes les données sont disponibles pour les montres de votre collection."
+  "collectionDataCompleteTooltip": "Toutes les données sont disponibles pour les montres de votre collection.",
+  "donutChart": "Diagramme en anneau",
+  "columnChart": "Diagramme en colonnes",
+  "lineChart": "Graphique en courbes",
+  "splineAreaChart": "Graphique en aires lissées",
+  "yearDecadeOnlyChartHint": "Regroupement par année ou décennie uniquement (utilise l'histogramme sinon)"
 }

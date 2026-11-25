@@ -23,9 +23,9 @@ class ChartOptions extends StatefulWidget {
 
 class _ChartOptionsState extends State<ChartOptions> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  WearChartOptions _chartOption = WristCheckPreferences.getWearChartOptions() ?? WearChartOptions.all;
+  WearChartOptions _chartOption = WristCheckPreferences.getWearChartOptions();
   ChartOrdering _chartOrder = WristCheckPreferences.getWearChartOrder() ?? ChartOrdering.watchbox;
-  DefaultChartType _chartType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
+  DefaultChartType _chartType = WristCheckPreferences.getDefaultChartType();
 
   BannerAd? banner;
   bool purchaseStatus = WristCheckPreferences.getAppPurchasedStatus() ?? false;
@@ -249,41 +249,32 @@ class _ChartOptionsState extends State<ChartOptions> {
                   ),
                   const Divider(thickness: 2,),
                   ExpansionTile(
-                      title: Text(AppLocalizations.of(Get.context!)!.defaultChartTypeSectionTitle),
+                    title: Text(AppLocalizations.of(context)!.defaultChartTypeSectionTitle),
                     leading: const Icon(Icons.pie_chart),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text(AppLocalizations.of(Get.context!)!.defaultChartTypeGuidanceText),
+                        child: Text(AppLocalizations.of(context)!.defaultChartTypeGuidanceText),
                       ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(Get.context!)!.barChart),
-                        leading: Radio<DefaultChartType>(
-                          value: DefaultChartType.bar,
-                          groupValue: _chartType ,
-                          onChanged: (DefaultChartType? value) async {
-                            await WristCheckPreferences.setDefaultChartType(value!);
-                            setState(() {
-                              _chartType = value;
-                            });
-
-                          },
+                      for (final type in DefaultChartType.values)
+                        ListTile(
+                          title: Text(type.toLocalizedString(context)),
+                          subtitle: type.isYearOrDecadeOnly
+                              ? Text(AppLocalizations.of(context)!.yearDecadeOnlyChartHint)
+                              : null,
+                          trailing: type.toIcon(),
+                          leading: Radio<DefaultChartType>(
+                            value: type,
+                            groupValue: _chartType,
+                            onChanged: (DefaultChartType? value) async {
+                              if (value == null) return;
+                              await WristCheckPreferences.setDefaultChartType(value);
+                              setState(() {
+                                _chartType = value;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(Get.context!)!.pieChart),
-                        leading: Radio<DefaultChartType>(
-                          value: DefaultChartType.pie,
-                          groupValue: _chartType ,
-                          onChanged: (DefaultChartType? value) async {
-                            await WristCheckPreferences.setDefaultChartType(value!);
-                            setState(() {
-                              _chartType = value;
-                            });
-
-                          },
-                        ),
-                      ),
                     ],
                   ),
                   const Divider(thickness: 2,)

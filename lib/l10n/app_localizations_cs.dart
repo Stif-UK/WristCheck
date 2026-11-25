@@ -2940,4 +2940,20 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'Pro všechny hodinky ve vaší sbírce jsou dostupné všechny údaje.';
+
+  @override
+  String get donutChart => 'Prstencový graf';
+
+  @override
+  String get columnChart => 'Svislý sloupcový graf';
+
+  @override
+  String get lineChart => 'Čárový graf';
+
+  @override
+  String get splineAreaChart => 'Vyhlazený plošný graf';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Pouze seskupení podle roku nebo dekády (jinak použije sloupcový graf)';
 }

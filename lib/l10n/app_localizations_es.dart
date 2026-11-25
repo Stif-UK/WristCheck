@@ -2935,4 +2935,20 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'Todos los datos están disponibles para los relojes de tu colección.';
+
+  @override
+  String get donutChart => 'Gráfico de Anillo';
+
+  @override
+  String get columnChart => 'Gráfico de Columnas';
+
+  @override
+  String get lineChart => 'Gráfico de Líneas';
+
+  @override
+  String get splineAreaChart => 'Gráfico de Área Suavizada';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Solo para agrupación por año o década (de lo contrario usa gráfico de barras)';
 }

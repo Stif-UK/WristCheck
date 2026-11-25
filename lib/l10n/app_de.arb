@@ -1141,5 +1141,10 @@
   "recapPackChartsTitle": "Kompakte Diagrammausrichtung",
   "recapPackChartsSubtitle": "Verfügbaren Platz auf großen Bildschirmen spaltenweise füllen statt Zeilen auszurichten",
   "collectionDataIncompleteTooltip": "Die Sammlungsdaten sind unvollständig; nicht alle Uhren in Ihrer Sammlung erfassen dieses Feld.",
-  "collectionDataCompleteTooltip": "Für alle Uhren in Ihrer Sammlung sind vollständige Daten verfügbar."
+  "collectionDataCompleteTooltip": "Für alle Uhren in Ihrer Sammlung sind vollständige Daten verfügbar.",
+  "donutChart": "Ringdiagramm",
+  "columnChart": "Säulendiagramm",
+  "lineChart": "Liniendiagramm",
+  "splineAreaChart": "Spline-Flächendiagramm",
+  "yearDecadeOnlyChartHint": "Nur für Jahr- oder Jahrzehnt-Gruppierung (sonst Balkendiagramm)"
 }

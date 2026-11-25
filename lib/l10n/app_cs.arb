@@ -1141,5 +1141,10 @@
   "recapPackChartsTitle": "Kompaktní zarovnání grafů",
   "recapPackChartsSubtitle": "Vyplnit dostupné místo ve sloupcích na velkých obrazovkách místo zarovnání řádků",
   "collectionDataIncompleteTooltip": "Údaje sbírky jsou neúplné; ne všechny hodinky ve vaší sbírce toto pole sledují.",
-  "collectionDataCompleteTooltip": "Pro všechny hodinky ve vaší sbírce jsou dostupné všechny údaje."
+  "collectionDataCompleteTooltip": "Pro všechny hodinky ve vaší sbírce jsou dostupné všechny údaje.",
+  "donutChart": "Prstencový graf",
+  "columnChart": "Svislý sloupcový graf",
+  "lineChart": "Čárový graf",
+  "splineAreaChart": "Vyhlazený plošný graf",
+  "yearDecadeOnlyChartHint": "Pouze seskupení podle roku nebo dekády (jinak použije sloupcový graf)"
 }

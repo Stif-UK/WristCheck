@@ -2949,4 +2949,20 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'Für alle Uhren in Ihrer Sammlung sind vollständige Daten verfügbar.';
+
+  @override
+  String get donutChart => 'Ringdiagramm';
+
+  @override
+  String get columnChart => 'Säulendiagramm';
+
+  @override
+  String get lineChart => 'Liniendiagramm';
+
+  @override
+  String get splineAreaChart => 'Spline-Flächendiagramm';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Nur für Jahr- oder Jahrzehnt-Gruppierung (sonst Balkendiagramm)';
 }

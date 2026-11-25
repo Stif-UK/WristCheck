@@ -2906,4 +2906,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'All data is available for watches in your collection.';
+
+  @override
+  String get donutChart => 'Donut Chart';
+
+  @override
+  String get columnChart => 'Column Chart';
+
+  @override
+  String get lineChart => 'Line Chart';
+
+  @override
+  String get splineAreaChart => 'Spline Area Chart';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Year or Decade grouping only (uses Bar Chart otherwise)';
 }

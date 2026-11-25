@@ -2959,4 +2959,20 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get collectionDataCompleteTooltip =>
       'Для всех часов в вашей коллекции доступны полные данные.';
+
+  @override
+  String get donutChart => 'Кольцевая диаграмма';
+
+  @override
+  String get columnChart => 'Вертикальная столбчатая диаграмма';
+
+  @override
+  String get lineChart => 'Линейный график';
+
+  @override
+  String get splineAreaChart => 'Сглаженная диаграмма с областями';
+
+  @override
+  String get yearDecadeOnlyChartHint =>
+      'Только для группировки по году или десятилетию (иначе используется столбчатая)';
 }

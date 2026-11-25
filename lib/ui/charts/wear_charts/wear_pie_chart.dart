@@ -31,16 +31,16 @@ class WearPieChart extends StatelessWidget {
     return dataSize == 0? Center(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Text(AppLocalizations.of(Get.context!)!.chartsEmptyBackgroundText,
+        child: Text(AppLocalizations.of(context)!.chartsEmptyBackgroundText,
           style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,),
       ),
     ): SfCircularChart(
-        series: _getChartData(grouping)
+        series: _getChartData(context, grouping)
     );
   }
 
-  List<PieSeries<dynamic, dynamic>> _getChartData(ChartGrouping grouping) {
+  List<PieSeries<dynamic, dynamic>> _getChartData(BuildContext context, ChartGrouping grouping) {
 
     List<PieSeries<dynamic, dynamic>> returnSeries = [];
 
@@ -53,7 +53,7 @@ class WearPieChart extends StatelessWidget {
             xValueMapper: (WornWatchesClass series, _) =>
             (series.watch.manufacturer + series.watch.model),
             yValueMapper: (WornWatchesClass series, _) => series.count,
-            dataLabelMapper: (worn, _) => "${worn.watch.manufacturer} ${worn.watch.model} ${WearChartsHelper.getLabelSuffix(worn.watch)}: ${worn.count}",
+            dataLabelMapper: (worn, _) => "${worn.watch.manufacturer} ${worn.watch.model} ${WearChartsHelper.getLabelSuffix(worn.watch, context: context)}: ${worn.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -63,13 +63,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (MovementClass series, _) =>
-            (series.movement.toLocalizedString(Get.context!)),
+            (series.movement.toLocalizedString(context)),
             yValueMapper: (MovementClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (mvmt, _) =>
-            mvmt.count == 0 ? "" : "${mvmt.movement.toLocalizedString(Get.context!)}: ${mvmt.count}",
+            mvmt.count == 0 ? "" : "${mvmt.movement.toLocalizedString(context)}: ${mvmt.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
 
@@ -80,13 +80,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (CategoryClass series, _) =>
-            (series.category.toLocalizedString(Get.context!)),
+            (series.category.toLocalizedString(context)),
             yValueMapper: (CategoryClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${cat.category.toLocalizedString(Get.context!)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.category.toLocalizedString(context)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -148,7 +148,7 @@ class WearPieChart extends StatelessWidget {
         returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseThicknessList(data), "mm");
         break;
       case ChartGrouping.waterResistance:
-        returnSeries = _calculateDimensionReturn(ChartHelper.calculateCaseDiameterList(data), wristCheckController.waterResistanceUnit.value.name);
+        returnSeries = _calculateDimensionReturn(ChartHelper.calculateWaterResistanceList(data), wristCheckController.waterResistanceUnit.value.name);
         break;
       case ChartGrouping.caseMaterial:
         //TODO: Remove "Not Entered" and "" values
@@ -157,13 +157,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (MaterialClass series, _) =>
-            (series.material.toLocalizedString(Get.context!)),
+            (series.material.toLocalizedString(context)),
             yValueMapper: (MaterialClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${cat.material.toLocalizedString(Get.context!)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.material.toLocalizedString(context)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -173,13 +173,13 @@ class WearPieChart extends StatelessWidget {
             explode: true,
             explodeIndex: 0,
             xValueMapper: (DateComplicationClass series, _) =>
-            (series.dateComplication.toLocalizedString(Get.context!)),
+            (series.dateComplication.toLocalizedString(context)),
             yValueMapper: (DateComplicationClass series, _) =>
             series.count == 0
                 ? null
                 : series.count,
             dataLabelMapper: (cat, _) =>
-            cat.count == 0 ? "" : "${cat.dateComplication.toLocalizedString(Get.context!)}: ${cat.count}",
+            cat.count == 0 ? "" : "${cat.dateComplication.toLocalizedString(context)}: ${cat.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
         break;
@@ -208,8 +208,6 @@ class WearPieChart extends StatelessWidget {
             item.count == 0 ? "" : "${item.yearLabel}: ${item.count}",
             dataLabelSettings: const DataLabelSettings(
                 isVisible: true, showZeroValue: false))];
-        break;
-      default:
         break;
     }
 

@@ -1136,5 +1136,10 @@
   "recapPackChartsTitle": "Alineación compacta de gráficos",
   "recapPackChartsSubtitle": "Rellenar el espacio disponible entre columnas en pantallas grandes en lugar de alinear filas",
   "collectionDataIncompleteTooltip": "Los datos de la colección están incompletos; no todos los relojes de tu colección registran este campo.",
-  "collectionDataCompleteTooltip": "Todos los datos están disponibles para los relojes de tu colección."
+  "collectionDataCompleteTooltip": "Todos los datos están disponibles para los relojes de tu colección.",
+  "donutChart": "Gráfico de Anillo",
+  "columnChart": "Gráfico de Columnas",
+  "lineChart": "Gráfico de Líneas",
+  "splineAreaChart": "Gráfico de Área Suavizada",
+  "yearDecadeOnlyChartHint": "Solo para agrupación por año o década (de lo contrario usa gráfico de barras)"
 }

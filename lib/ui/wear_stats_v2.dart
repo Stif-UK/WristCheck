@@ -12,9 +12,7 @@ import 'package:wristcheck/model/enums/default_chart_type.dart';
 import 'package:wristcheck/model/enums/wear_chart_options.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/charts/wear_charts/wear_chart.dart';
-import 'package:wristcheck/ui/charts/wear_charts/wear_pie_chart.dart';
 import 'package:wristcheck/boxes.dart';
-import 'package:wristcheck/model/watches.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/ui/widgets/bottomsheets/wearfilter_bottomsheet.dart';
@@ -51,33 +49,32 @@ class _WearStatsState extends State<WearStatsV2> {
   @override
   Widget build(BuildContext context) {
     analytics.logScreenView(screenName: "wear_charts_v2");
-    DefaultChartType _preferredType = WristCheckPreferences.getDefaultChartType() ?? DefaultChartType.bar;
-    bool barChart = _preferredType == DefaultChartType.bar? true: false;
 
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.wearStatsButton),
           actions: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,0,4,0),
-              child: IconButton(
-                icon: barChart? const Icon(Icons.pie_chart) : const Icon(Icons.bar_chart),
-                onPressed: () async {
-                  DefaultChartType _newPreferredType;
-                  if(_preferredType == DefaultChartType.bar){
-                    _newPreferredType = DefaultChartType.pie;
-                  }else{
-                    _newPreferredType = DefaultChartType.bar;
-                  }
-                  await WristCheckPreferences.setDefaultChartType(_newPreferredType);
-                  await analytics.logEvent(name: "chart_type_change",
-                      parameters: {
-                        "chart_type" : _newPreferredType.toString()
-                      });
-
-                  setState(() {
-                  });
-                },),
+              padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+              child: Obx(() {
+                final grouping = widget.filterController.chartGrouping.value;
+                final savedType = WristCheckPreferences.getDefaultChartType();
+                final effectiveType = savedType.resolveForGrouping(grouping);
+                return IconButton(
+                  key: const Key('wear_stats_chart_type_button'),
+                  tooltip: effectiveType.toLocalizedString(context),
+                  icon: effectiveType.toIcon(),
+                  onPressed: () async {
+                    final nextType = effectiveType.nextForGrouping(grouping);
+                    await WristCheckPreferences.setDefaultChartType(nextType);
+                    await analytics.logEvent(
+                      name: "chart_type_change",
+                      parameters: {"chart_type": nextType.name},
+                    );
+                    setState(() {});
+                  },
+                );
+              }),
             ),
             Padding(padding: const EdgeInsets.fromLTRB(0,0,4,0),
               child: IconButton(
@@ -97,24 +94,30 @@ class _WearStatsState extends State<WearStatsV2> {
               controller: screenshotController,
               child: Container(
                 color: Theme.of(context).canvasColor,
-                child: Obx(()=> Column(
-
+                child: Obx(() {
+                  final grouping = widget.filterController.chartGrouping.value;
+                  final effectiveType = WristCheckPreferences.getDefaultChartType()
+                      .resolveForGrouping(grouping);
+                  return Column(
                     children: [
                       _buildFilterRow(context),
                       SizedBox(
-                              height: _calculateChartSpace(barChart, context),
-                              child: _drawCharts(barChart)),
+                        height: _calculateChartSpace(effectiveType, context),
+                        child: _drawCharts(effectiveType),
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const SizedBox(height: 10),
-                          widget.wristCheckController.isAppPro.value? Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrackPro) : Text(AppLocalizations.of(Get.context!)!.generatedWithWristTrack),
-                          const SizedBox(height: 20,)
-                      ],
-                    )
+                          widget.wristCheckController.isAppPro.value
+                              ? Text(AppLocalizations.of(context)!.generatedWithWristTrackPro)
+                              : Text(AppLocalizations.of(context)!.generatedWithWristTrack),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ],
-                  ),
-                ),
+                  );
+                }),
               ),
             ),
           ),
@@ -248,9 +251,13 @@ class _WearStatsState extends State<WearStatsV2> {
         widget.filterController.selectedMovements);
   }
 
-  Widget _drawCharts(bool barChart){
-    return barChart? WearChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value,) :
-    WearPieChart(data: _getLoadData(), animate: true, grouping: widget.filterController.chartGrouping.value);
+  Widget _drawCharts(DefaultChartType chartType) {
+    return WearChart(
+      data: _getLoadData(),
+      animate: true,
+      grouping: widget.filterController.chartGrouping.value,
+      chartType: chartType,
+    );
   }
 
   int _getGroupedDataCount(ChartGrouping grouping, List<WornWatchesClass> data) {
@@ -286,9 +293,9 @@ class _WearStatsState extends State<WearStatsV2> {
     }
   }
 
-  double _calculateChartSpace(bool barChart, BuildContext context){
-    double baseSize = MediaQuery.of(context).size.height*0.7;
-    if(barChart){
+  double _calculateChartSpace(DefaultChartType chartType, BuildContext context) {
+    double baseSize = MediaQuery.of(context).size.height * 0.7;
+    if (chartType == DefaultChartType.bar) {
       final loadData = _getLoadData();
       final grouping = widget.filterController.chartGrouping.value;
       int displayRowCount = _getGroupedDataCount(grouping, loadData);
