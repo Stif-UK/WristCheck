@@ -1020,6 +1020,11 @@ class _WatchViewState extends State<WatchView> {
       widget.watchViewController.updateSoldPrice(ViewWatchHelper.getPrice(soldPriceFieldController.value.text));
       widget.watchViewController.updateCurrentValue(ViewWatchHelper.getPrice(currentValueFieldController.value.text));
 
+      final bool hasPendingImages =
+          widget.watchViewController.frontImage.value != null ||
+          widget.watchViewController.backImage.value != null ||
+          widget.watchViewController.lumeImage.value != null;
+
       watchKey = await WatchMethods.addWatch(
         manufacturerFieldController.value.text,
         modelFieldController.value.text,
@@ -1056,22 +1061,39 @@ class _WatchViewState extends State<WatchView> {
         year: modelYearFieldController.value.text.isEmpty
             ? null
             : int.tryParse(modelYearFieldController.value.text),
+        triggerSync: !hasPendingImages,
       );
 
-      //if a front image has been set, we add this to the newly created watch before exiting
+      // Save all selected images to disk before triggering sync so none are skipped
       if (widget.watchViewController.frontImage.value != null) {
         tempWatch = watchBox.get(watchKey);
-        ImagesUtil.saveImage(widget.watchViewController.frontImage.value!.path, tempWatch!, 0);
+        await ImagesUtil.saveImage(
+          widget.watchViewController.frontImage.value!.path,
+          tempWatch!,
+          0,
+          triggerSync: false,
+        );
       }
-      //and repeat for the back image
       if (widget.watchViewController.backImage.value != null) {
         tempWatch = watchBox.get(watchKey);
-        ImagesUtil.saveImage(widget.watchViewController.backImage.value!.path, tempWatch!, 1);
+        await ImagesUtil.saveImage(
+          widget.watchViewController.backImage.value!.path,
+          tempWatch!,
+          1,
+          triggerSync: false,
+        );
       }
-      //and for the lume image
       if (widget.watchViewController.lumeImage.value != null) {
         tempWatch = watchBox.get(watchKey);
-        ImagesUtil.saveImage(widget.watchViewController.lumeImage.value!.path, tempWatch!, 2);
+        await ImagesUtil.saveImage(
+          widget.watchViewController.lumeImage.value!.path,
+          tempWatch!,
+          2,
+          triggerSync: false,
+        );
+      }
+      if (hasPendingImages) {
+        unawaited(SyncService.syncData());
       }
       //Before Navigating back, clear the form, to prevent the back navigation being stopped
       _formKey.currentState!.reset();

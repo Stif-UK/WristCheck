@@ -558,7 +558,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     label: const Text("Sync Now"),
                     onPressed: () {
                       FirebaseAnalytics.instance.logEvent(name: "manual_sync_triggered");
-                      SyncService.checkForConflictsAndSync();
+                      SyncService.checkForConflictsAndSync(manualSync: true);
                     },
                   ),
                 ),

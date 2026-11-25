@@ -98,11 +98,11 @@ class BackupRestoreMethods {
         await Hive.openBox<Watches>("WatchBox");
 
         // 4. Run migration to assign UUIDs and mark all restored watches and measurements as dirty
-        CloudMigrationUtil.migrateExistingWatches();
+        CloudMigrationUtil.migrateExistingWatches(forceDirty: true);
         AccuracyMigrationUtil.migrateExistingMeasurements();
 
         // 5. Trigger database sync to push restored collection to Supabase
-        unawaited(SyncService.syncData());
+        unawaited(SyncService.syncData(manualSync: true));
 
         WristCheckDialogs.getRestoreSuccessDialog();
       }

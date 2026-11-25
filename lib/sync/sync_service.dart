@@ -17,6 +17,12 @@ import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/ui/user/conflict_resolution_dialog.dart';
 import 'package:wristcheck/util/images_util.dart';
 
+class _ImageDownloadRetryState {
+  int consecutive404s = 0;
+  DateTime? lastAttempt;
+  DateTime? lastWatchUpdatedAt;
+}
+
 class SyncService {
   static final SupabaseClient _supabase = Supabase.instance.client;
   static const String _watchesTable = 'watches';
@@ -24,9 +30,46 @@ class SyncService {
   static const String _storageBucket = 'watch_images';
   static bool _isSyncing = false;
   static bool _syncRequestedAgain = false;
+  static bool _manualSyncRequested = false;
   static DateTime? lastLocalWriteTime;
   static DateTime? lastWatchSyncTime;
   static DateTime? lastMeasurementSyncTime;
+
+  static final Map<String, _ImageDownloadRetryState> _downloadRetryStates = {};
+  static const int _maxAutomatic404Retries = 3;
+  static const Duration _missingImageRetryCooldown = Duration(minutes: 15);
+
+  static String _normalizeRelativePath(String path) {
+    final trimmed = path.trim();
+    return trimmed.startsWith('/') ? trimmed : '/$trimmed';
+  }
+
+  static bool _hasPendingImageUpload(Watches watch) {
+    if (watch.isDeleted == true) return false;
+    final hasUnsyncedFront = watch.frontImagePath != null &&
+        watch.frontImagePath!.trim().isNotEmpty &&
+        watch.frontImageSynced != true;
+    final hasUnsyncedBack = watch.backImagePath != null &&
+        watch.backImagePath!.trim().isNotEmpty &&
+        watch.backImageSynced != true;
+    final hasUnsyncedLume = watch.lumeImagePath != null &&
+        watch.lumeImagePath!.trim().isNotEmpty &&
+        watch.lumeImageSynced != true;
+    return hasUnsyncedFront || hasUnsyncedBack || hasUnsyncedLume;
+  }
+
+  static bool _isNotFoundStorageError(Object error) {
+    if (error is StorageException) {
+      final code = error.statusCode?.trim();
+      final err = error.error?.toLowerCase() ?? '';
+      final msg = error.message.toLowerCase();
+      return code == '404' ||
+          err.contains('not found') ||
+          msg.contains('not found') ||
+          msg.contains('object not found');
+    }
+    return false;
+  }
 
   static void _safeSetStatus(SyncStatusState state, {String? error}) {
     if (Get.isRegistered<SyncController>()) {
@@ -35,7 +78,7 @@ class SyncService {
   }
 
   /// Entry point for syncing that first warns if cloud data exists, giving option to prioritize cloud or merge
-  static Future<void> checkForConflictsAndSync() async {
+  static Future<void> checkForConflictsAndSync({bool manualSync = false}) async {
     final user = _supabase.auth.currentUser;
     if (user == null) {
       _safeSetStatus(SyncStatusState.waitingForConnection);
@@ -53,12 +96,12 @@ class SyncService {
 
       final List<dynamic> remoteData = response as List<dynamic>;
       if (box.isEmpty) {
-        await syncData(preFetchedWatches: remoteData);
+        await syncData(preFetchedWatches: remoteData, manualSync: manualSync);
         return;
       }
 
       if (remoteData.isEmpty) {
-        await syncData(preFetchedWatches: []);
+        await syncData(preFetchedWatches: [], manualSync: manualSync);
         return;
       }
 
@@ -66,7 +109,7 @@ class SyncService {
       bool hasUnsyncedLocal = box.values.any((w) => w.id == null || !remoteIds.contains(w.id));
 
       if (!hasUnsyncedLocal) {
-        await syncData(preFetchedWatches: remoteData);
+        await syncData(preFetchedWatches: remoteData, manualSync: manualSync);
         return;
       }
 
@@ -90,7 +133,8 @@ class SyncService {
           await Boxes.getMeasurements().clear();
           lastWatchSyncTime = null;
           lastMeasurementSyncTime = null;
-          await syncData();
+          _downloadRetryStates.clear();
+          await syncData(manualSync: true);
         },
         textCancel: l.mergeCollectionsOption,
         cancelTextColor: Colors.black,
@@ -104,7 +148,7 @@ class SyncService {
       );
     } catch (e) {
       debugPrint('SyncService: Error checking conflicts: $e');
-      await syncData();
+      await syncData(manualSync: manualSync);
     }
   }
 
@@ -154,9 +198,12 @@ class SyncService {
   }
 
   /// Performs a full bidirectional sync with automatic re-sync queuing if triggered during an active sync
-  static Future<void> syncData({List<dynamic>? preFetchedWatches}) async {
+  static Future<void> syncData({List<dynamic>? preFetchedWatches, bool manualSync = false}) async {
     if (_isSyncing) {
       debugPrint('SyncService: Sync already in progress. Queuing re-sync request.');
+      if (manualSync) {
+        _manualSyncRequested = true;
+      }
       _syncRequestedAgain = true;
       return;
     }
@@ -173,23 +220,28 @@ class SyncService {
 
     try {
       do {
+        final bool isManualRun = manualSync || _manualSyncRequested;
+        manualSync = false;
+        _manualSyncRequested = false;
         _syncRequestedAgain = false;
+
         try {
           debugPrint('SyncService: Starting synchronization for user ${user.id}...');
-          
+
           // Stage A: Watches (Sequential: Pull then Push)
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'watches';
           }
           await _pullRemoteChanges(user.id, preFetchedWatches: preFetchedWatches);
           preFetchedWatches = null; // Clear pre-fetched payload after initial consumption
-          await _pushLocalChanges(user.id);
+          final bool pushComplete = await _pushLocalChanges(user.id);
 
           // Stage B: Sub-Entities & Media (Parallelized Branch Execution)
           if (Get.isRegistered<SyncController>()) {
             SyncController.to.currentPhase.value = 'accuracy_and_media';
           }
 
+          bool downloadComplete = true;
           await Future.wait([
             // Branch B1: Accuracy / Measurements
             () async {
@@ -198,7 +250,7 @@ class SyncService {
             }(),
             // Branch B2: Images and User Avatar
             () async {
-              await _syncImages(user.id);
+              downloadComplete = await _syncImages(user.id, bypassRetryCooldown: isManualRun);
               await _syncAvatar(user.id);
             }(),
           ]);
@@ -208,8 +260,16 @@ class SyncService {
           }
 
           lastLocalWriteTime = DateTime.now();
-          _safeSetStatus(SyncStatusState.upToDate);
-          debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
+          if (!pushComplete || !downloadComplete) {
+            _safeSetStatus(
+              SyncStatusState.syncFailure,
+              error: 'Some watch images could not be synced. Please try again.',
+            );
+            debugPrint('SyncService: Synchronization finished with image sync errors.');
+          } else {
+            _safeSetStatus(SyncStatusState.upToDate);
+            debugPrint('SyncService: Synchronization completed successfully at $lastLocalWriteTime.');
+          }
         } catch (e, stackTrace) {
           _safeSetStatus(SyncStatusState.syncFailure, error: e.toString());
           debugPrint('SyncService: Error during synchronization: $e');
@@ -247,17 +307,45 @@ class SyncService {
     } catch (_) {}
   }
 
-  /// 1. Push local dirty changes to Supabase in a single batch
-  static Future<void> _pushLocalChanges(String userId) async {
+  static Future<bool> _uploadWatchImage({
+    required String userId,
+    required String watchId,
+    required String storageFileName,
+    required File localFile,
+  }) async {
+    final storagePath = '$userId/$watchId/$storageFileName';
+    const int maxAttempts = 2;
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        await _supabase.storage.from(_storageBucket).upload(
+              storagePath,
+              localFile,
+              fileOptions: const FileOptions(upsert: true),
+            );
+        return true;
+      } catch (e) {
+        debugPrint(
+          'SyncService: Failed to upload $storagePath (attempt $attempt/$maxAttempts): $e',
+        );
+        if (attempt < maxAttempts) {
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+      }
+    }
+    return false;
+  }
+
+  /// 1. Push local dirty changes and unsynced images to Supabase
+  static Future<bool> _pushLocalChanges(String userId) async {
     final box = Boxes.getWatches();
     final dirtyWatches = box.values
-        .where((w) => (w.isDirty == true || w.isDeleted == true))
+        .where((w) => w.isDirty == true || w.isDeleted == true || _hasPendingImageUpload(w))
         .toList();
 
-    debugPrint('SyncService: Found ${dirtyWatches.length} dirty/deleted local watches to push.');
-    
+    debugPrint('SyncService: Found ${dirtyWatches.length} dirty/deleted/unsynced-image local watches to push.');
+
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.watchTotal.value = max(1, box.values.length);
+      SyncController.to.watchTotal.value = max(1, dirtyWatches.length);
       SyncController.to.watchSynced.value = 0;
     }
 
@@ -265,23 +353,36 @@ class SyncService {
       if (Get.isRegistered<SyncController>()) {
         SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
       }
-      return;
+      return true;
     }
 
     final List<Map<String, dynamic>> batchPayload = [];
 
     for (var watch in dirtyWatches) {
       watch.ensureInitialized();
-      final data = watch.toJson();
-      data['user_id'] = userId;
-      batchPayload.add(data);
+      if (watch.isDirty == true || watch.isDeleted == true) {
+        final data = watch.toJson();
+        data['user_id'] = userId;
+        batchPayload.add(data);
+      }
     }
 
-    // Perform a single batch upsert request to Supabase
-    await _supabase.from(_watchesTable).upsert(batchPayload);
+    // Perform batch upsert requests to Supabase (updating lastLocalWriteTime first to suppress Realtime echoes)
+    if (batchPayload.isNotEmpty) {
+      const int chunkSize = 100;
+      for (int i = 0; i < batchPayload.length; i += chunkSize) {
+        final chunk = batchPayload.sublist(i, min(i + chunkSize, batchPayload.length));
+        lastLocalWriteTime = DateTime.now();
+        await _supabase.from(_watchesTable).upsert(chunk);
+      }
+    }
 
-    // Upload local images for dirty watches
+    // Upload local images for watches that still have unsynced images, checkpointing per watch
     final directory = await getApplicationDocumentsDirectory();
+    final List<Map<String, dynamic>> syncedFlagUpdates = [];
+    bool allSucceeded = true;
+    int done = 0;
+
     for (var watch in dirtyWatches) {
       if (watch.id != null) {
         if (watch.isDeleted == true) {
@@ -291,58 +392,121 @@ class SyncService {
               '$userId/${watch.id}/back.jpg',
               '$userId/${watch.id}/lume.jpg',
             ]);
-          } catch (_) {}
+          } catch (e) {
+            debugPrint('SyncService: Error removing deleted watch images for ${watch.id}: $e');
+          }
           await watch.delete();
         } else {
-          // Upload local images to Supabase storage if files exist
-          if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
-            final f = File("${directory.path}${watch.frontImagePath}");
-            if (f.existsSync()) {
-              try {
-                await _supabase.storage.from(_storageBucket).upload(
-                      '$userId/${watch.id}/front.jpg',
-                      f,
-                      fileOptions: const FileOptions(upsert: true),
-                    );
-              } catch (_) {}
+          Future<bool> syncImageSlot({
+            required String? relativePath,
+            required bool? alreadySynced,
+            required String storageFileName,
+          }) async {
+            if (relativePath == null || relativePath.trim().isEmpty) {
+              return true;
             }
-          }
-          if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
-            final f = File("${directory.path}${watch.backImagePath}");
-            if (f.existsSync()) {
-              try {
-                await _supabase.storage.from(_storageBucket).upload(
-                      '$userId/${watch.id}/back.jpg',
-                      f,
-                      fileOptions: const FileOptions(upsert: true),
-                    );
-              } catch (_) {}
+            if (alreadySynced == true) {
+              return true;
             }
-          }
-          if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
-            final f = File("${directory.path}${watch.lumeImagePath}");
-            if (f.existsSync()) {
-              try {
-                await _supabase.storage.from(_storageBucket).upload(
-                      '$userId/${watch.id}/lume.jpg',
-                      f,
-                      fileOptions: const FileOptions(upsert: true),
-                    );
-              } catch (_) {}
+            final f = File("${directory.path}${_normalizeRelativePath(relativePath)}");
+            if (!f.existsSync()) {
+              debugPrint(
+                'SyncService: Local file missing for watch ${watch.id} ($storageFileName at ${f.path}); skipping upload.',
+              );
+              return false;
             }
+            return _uploadWatchImage(
+              userId: userId,
+              watchId: watch.id!,
+              storageFileName: storageFileName,
+              localFile: f,
+            );
           }
 
-          watch.isDirty = false;
+          final results = await Future.wait([
+            syncImageSlot(
+              relativePath: watch.frontImagePath,
+              alreadySynced: watch.frontImageSynced,
+              storageFileName: 'front.jpg',
+            ),
+            syncImageSlot(
+              relativePath: watch.backImagePath,
+              alreadySynced: watch.backImageSynced,
+              storageFileName: 'back.jpg',
+            ),
+            syncImageSlot(
+              relativePath: watch.lumeImagePath,
+              alreadySynced: watch.lumeImageSynced,
+              storageFileName: 'lume.jpg',
+            ),
+          ]);
+
+          final bool frontOk = results[0];
+          final bool backOk = results[1];
+          final bool lumeOk = results[2];
+          bool flagsChanged = false;
+
+          final bool desiredFrontSynced =
+              (watch.frontImagePath == null || watch.frontImagePath!.trim().isEmpty) || frontOk;
+          final bool desiredBackSynced =
+              (watch.backImagePath == null || watch.backImagePath!.trim().isEmpty) || backOk;
+          final bool desiredLumeSynced =
+              (watch.lumeImagePath == null || watch.lumeImagePath!.trim().isEmpty) || lumeOk;
+
+          if (watch.frontImageSynced != desiredFrontSynced) {
+            watch.frontImageSynced = desiredFrontSynced;
+            flagsChanged = true;
+          }
+          if (watch.backImageSynced != desiredBackSynced) {
+            watch.backImageSynced = desiredBackSynced;
+            flagsChanged = true;
+          }
+          if (watch.lumeImageSynced != desiredLumeSynced) {
+            watch.lumeImageSynced = desiredLumeSynced;
+            flagsChanged = true;
+          }
+
+          if (frontOk && backOk && lumeOk) {
+            watch.isDirty = false;
+          } else {
+            watch.isDirty = true;
+            allSucceeded = false;
+          }
+
+          if (flagsChanged) {
+            watch.updatedAt = DateTime.now().toUtc();
+            final updatedData = watch.toJson();
+            updatedData['user_id'] = userId;
+            syncedFlagUpdates.add(updatedData);
+          }
+
           await watch.save();
+
+          if (syncedFlagUpdates.length >= 10) {
+            lastLocalWriteTime = DateTime.now();
+            await _supabase.from(_watchesTable).upsert(syncedFlagUpdates);
+            syncedFlagUpdates.clear();
+          }
         }
       }
+
+      done++;
+      if (Get.isRegistered<SyncController>()) {
+        SyncController.to.watchSynced.value = done;
+      }
+    }
+
+    if (syncedFlagUpdates.isNotEmpty) {
+      lastLocalWriteTime = DateTime.now();
+      await _supabase.from(_watchesTable).upsert(syncedFlagUpdates);
     }
 
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.watchSynced.value = SyncController.to.watchTotal.value;
     }
 
-    debugPrint('SyncService: Successfully pushed batch of ${batchPayload.length} dirty watches.');
+    debugPrint('SyncService: Completed push for ${dirtyWatches.length} watches (allSucceeded: $allSucceeded).');
+    return allSucceeded;
   }
 
   /// 2. Pull remote changes from Supabase and apply Last-Write-Wins conflict resolution
@@ -410,15 +574,15 @@ class SyncService {
               try {
                 final directory = await getApplicationDocumentsDirectory();
                 if (localWatch.frontImagePath != null && localWatch.frontImagePath!.isNotEmpty) {
-                  final f = File("${directory.path}${localWatch.frontImagePath}");
+                  final f = File("${directory.path}${_normalizeRelativePath(localWatch.frontImagePath!)}");
                   if (await f.exists()) await f.delete();
                 }
                 if (localWatch.backImagePath != null && localWatch.backImagePath!.isNotEmpty) {
-                  final f = File("${directory.path}${localWatch.backImagePath}");
+                  final f = File("${directory.path}${_normalizeRelativePath(localWatch.backImagePath!)}");
                   if (await f.exists()) await f.delete();
                 }
                 if (localWatch.lumeImagePath != null && localWatch.lumeImagePath!.isNotEmpty) {
-                  final f = File("${directory.path}${localWatch.lumeImagePath}");
+                  final f = File("${directory.path}${_normalizeRelativePath(localWatch.lumeImagePath!)}");
                   if (await f.exists()) await f.delete();
                 }
               } catch (_) {}
@@ -468,6 +632,9 @@ class SyncService {
             localWatch.crystal = remoteWatch.crystal;
             localWatch.crown = remoteWatch.crown;
             localWatch.primaryImageIndex = remoteWatch.primaryImageIndex;
+            localWatch.frontImageSynced = remoteWatch.frontImageSynced;
+            localWatch.backImageSynced = remoteWatch.backImageSynced;
+            localWatch.lumeImageSynced = remoteWatch.lumeImageSynced;
             localWatch.updatedAt = remoteWatch.updatedAt;
             localWatch.isDeleted = remoteWatch.isDeleted;
             localWatch.isDirty = false; // Clean after pulling remote winner
@@ -656,126 +823,214 @@ class SyncService {
     lastMeasurementSyncTime = DateTime.now().toUtc();
   }
 
-  /// 3. Download missing remote images via Supabase Storage and evict from ImageCache
-  static Future<void> _syncImages(String userId) async {
+  static bool _shouldAttemptDownload(
+    Watches watch,
+    String slotName,
+    bool bypassRetryCooldown,
+  ) {
+    final key = '${watch.id}/$slotName';
+    final state = _downloadRetryStates[key];
+    if (state == null) return true;
+
+    if (state.lastWatchUpdatedAt != watch.updatedAt) {
+      state.consecutive404s = 0;
+      state.lastAttempt = null;
+      state.lastWatchUpdatedAt = watch.updatedAt;
+      return true;
+    }
+
+    if (bypassRetryCooldown) {
+      return true;
+    }
+
+    if (state.consecutive404s >= _maxAutomatic404Retries && state.lastAttempt != null) {
+      final elapsed = DateTime.now().toUtc().difference(state.lastAttempt!);
+      if (elapsed < _missingImageRetryCooldown) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// 3. Download missing remote images via Supabase Storage and evict from ImageCache.
+  /// Never erases image paths on download failure; uses bounded retries for 404s and surfaces transient errors.
+  static Future<bool> _syncImages(String userId, {bool bypassRetryCooldown = false}) async {
+    if (bypassRetryCooldown) {
+      _downloadRetryStates.clear();
+    }
+
     final box = Boxes.getWatches();
     final directory = await getApplicationDocumentsDirectory();
 
-    int missingImagesCount = 0;
+    int pendingDownloadCount = 0;
     for (var watch in box.values) {
-      if (watch.id != null) {
-        if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
-          final f = File("${directory.path}${watch.frontImagePath}");
-          if (!f.existsSync()) missingImagesCount++;
+      if (watch.id == null || watch.isDeleted == true) continue;
+
+      if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
+        final f = File("${directory.path}${_normalizeRelativePath(watch.frontImagePath!)}");
+        if (!f.existsSync() && _shouldAttemptDownload(watch, 'front.jpg', bypassRetryCooldown)) {
+          pendingDownloadCount++;
         }
-        if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
-          final f = File("${directory.path}${watch.backImagePath}");
-          if (!f.existsSync()) missingImagesCount++;
+      }
+      if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
+        final f = File("${directory.path}${_normalizeRelativePath(watch.backImagePath!)}");
+        if (!f.existsSync() && _shouldAttemptDownload(watch, 'back.jpg', bypassRetryCooldown)) {
+          pendingDownloadCount++;
         }
-        if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
-          final f = File("${directory.path}${watch.lumeImagePath}");
-          if (!f.existsSync()) missingImagesCount++;
+      }
+      if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
+        final f = File("${directory.path}${_normalizeRelativePath(watch.lumeImagePath!)}");
+        if (!f.existsSync() && _shouldAttemptDownload(watch, 'lume.jpg', bypassRetryCooldown)) {
+          pendingDownloadCount++;
         }
       }
     }
 
-    if (missingImagesCount == 0) {
+    if (pendingDownloadCount == 0) {
       if (Get.isRegistered<SyncController>()) {
         SyncController.to.imageTotal.value = 1;
         SyncController.to.imageSynced.value = 1;
       }
-      return;
+      return true;
     }
 
     if (Get.isRegistered<SyncController>()) {
-      SyncController.to.imageTotal.value = missingImagesCount;
+      SyncController.to.imageTotal.value = pendingDownloadCount;
       SyncController.to.imageSynced.value = 0;
     }
 
     int downloaded = 0;
+    bool hasTransientError = false;
+
+    Future<bool> downloadSlot({
+      required Watches watch,
+      required String? relativePath,
+      required String slotName,
+    }) async {
+      if (relativePath == null || relativePath.trim().isEmpty) {
+        return false;
+      }
+
+      final normalizedPath = _normalizeRelativePath(relativePath);
+      final localFile = File("${directory.path}$normalizedPath");
+      if (localFile.existsSync()) {
+        return false;
+      }
+      if (!_shouldAttemptDownload(watch, slotName, bypassRetryCooldown)) {
+        return false;
+      }
+
+      final retryKey = '${watch.id}/$slotName';
+      final remoteStoragePath = '$userId/${watch.id}/$slotName';
+      const int maxTransientAttempts = 2;
+
+      for (int attempt = 1; attempt <= maxTransientAttempts; attempt++) {
+        try {
+          final Uint8List bytes =
+              await _supabase.storage.from(_storageBucket).download(remoteStoragePath);
+          await localFile.parent.create(recursive: true);
+          await localFile.writeAsBytes(bytes);
+          final String thumbPath =
+              localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$', caseSensitive: false), '_thumb.png');
+          unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
+          final cacheKey = ImagesUtil.getFullPath(normalizedPath);
+          if (cacheKey.isNotEmpty) {
+            ImagesUtil.updateImageCache(cacheKey, localFile);
+          } else {
+            ImagesUtil.updateImageCache(localFile.path, localFile);
+          }
+          PaintingBinding.instance.imageCache.evict(FileImage(localFile));
+          _downloadRetryStates.remove(retryKey);
+          downloaded++;
+          if (Get.isRegistered<SyncController>()) {
+            SyncController.to.imageSynced.value = downloaded;
+          }
+          return true;
+        } catch (e) {
+          if (_isNotFoundStorageError(e)) {
+            final state = _downloadRetryStates.putIfAbsent(
+              retryKey,
+              () => _ImageDownloadRetryState(),
+            );
+            state.consecutive404s++;
+            state.lastAttempt = DateTime.now().toUtc();
+            state.lastWatchUpdatedAt = watch.updatedAt;
+            debugPrint(
+              'SyncService: Remote image not found (404) for $remoteStoragePath '
+              '(attempt ${state.consecutive404s}/$_maxAutomatic404Retries). Keeping local path intact.',
+            );
+            downloaded++;
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageSynced.value = downloaded;
+            }
+            return false;
+          }
+
+          debugPrint(
+            'SyncService: Transient download error for $remoteStoragePath '
+            '(attempt $attempt/$maxTransientAttempts): $e',
+          );
+          if (attempt < maxTransientAttempts) {
+            await Future.delayed(const Duration(milliseconds: 500));
+          } else {
+            hasTransientError = true;
+            downloaded++;
+            if (Get.isRegistered<SyncController>()) {
+              SyncController.to.imageSynced.value = downloaded;
+            }
+            return false;
+          }
+        }
+      }
+      return false;
+    }
+
     for (var watch in box.values) {
-      if (watch.id != null) {
-        bool watchModified = false;
-        // Front
-        if (watch.frontImagePath != null && watch.frontImagePath!.trim().isNotEmpty) {
-          final localFile = File("${directory.path}${watch.frontImagePath}");
-          if (!localFile.existsSync()) {
-            try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/front.jpg');
-              await localFile.parent.create(recursive: true);
-              await localFile.writeAsBytes(bytes);
-              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
-              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
-              ImagesUtil.updateImageCache(localFile.path, localFile);
-              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              watchModified = true;
-            } catch (_) {
-              watch.frontImagePath = "";
-              watch.isDirty = true;
-              watchModified = true;
-            }
-            downloaded++;
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.imageSynced.value = downloaded;
-            }
-          }
+      if (watch.id == null || watch.isDeleted == true) continue;
+
+      bool watchModified = false;
+
+      if (await downloadSlot(
+        watch: watch,
+        relativePath: watch.frontImagePath,
+        slotName: 'front.jpg',
+      )) {
+        if (watch.frontImageSynced != true) {
+          watch.frontImageSynced = true;
+          watchModified = true;
         }
-        // Back
-        if (watch.backImagePath != null && watch.backImagePath!.trim().isNotEmpty) {
-          final localFile = File("${directory.path}${watch.backImagePath}");
-          if (!localFile.existsSync()) {
-            try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/back.jpg');
-              await localFile.parent.create(recursive: true);
-              await localFile.writeAsBytes(bytes);
-              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
-              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
-              ImagesUtil.updateImageCache(localFile.path, localFile);
-              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              watchModified = true;
-            } catch (_) {
-              watch.backImagePath = "";
-              watch.isDirty = true;
-              watchModified = true;
-            }
-            downloaded++;
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.imageSynced.value = downloaded;
-            }
-          }
+      }
+
+      if (await downloadSlot(
+        watch: watch,
+        relativePath: watch.backImagePath,
+        slotName: 'back.jpg',
+      )) {
+        if (watch.backImageSynced != true) {
+          watch.backImageSynced = true;
+          watchModified = true;
         }
-        // Lume
-        if (watch.lumeImagePath != null && watch.lumeImagePath!.trim().isNotEmpty) {
-          final localFile = File("${directory.path}${watch.lumeImagePath}");
-          if (!localFile.existsSync()) {
-            try {
-              final Uint8List bytes = await _supabase.storage.from(_storageBucket).download('$userId/${watch.id}/lume.jpg');
-              await localFile.parent.create(recursive: true);
-              await localFile.writeAsBytes(bytes);
-              final String thumbPath = localFile.path.replaceAll(RegExp(r'\.(jpg|png|jpeg)$'), '_thumb.png');
-              unawaited(ImagesUtil.generateThumbnailAsync(localFile, thumbPath));
-              ImagesUtil.updateImageCache(localFile.path, localFile);
-              PaintingBinding.instance.imageCache.evict(FileImage(localFile));
-              watchModified = true;
-            } catch (_) {
-              watch.lumeImagePath = "";
-              watch.isDirty = true;
-              watchModified = true;
-            }
-            downloaded++;
-            if (Get.isRegistered<SyncController>()) {
-              SyncController.to.imageSynced.value = downloaded;
-            }
-          }
+      }
+
+      if (await downloadSlot(
+        watch: watch,
+        relativePath: watch.lumeImagePath,
+        slotName: 'lume.jpg',
+      )) {
+        if (watch.lumeImageSynced != true) {
+          watch.lumeImageSynced = true;
+          watchModified = true;
         }
-        if (watchModified) {
-          await watch.save();
-        }
+      }
+
+      if (watchModified) {
+        await watch.save();
       }
     }
 
     if (Get.isRegistered<SyncController>()) {
       SyncController.to.imageSynced.value = SyncController.to.imageTotal.value;
     }
+    return !hasTransientError;
   }
 }

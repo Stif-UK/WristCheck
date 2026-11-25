@@ -187,7 +187,7 @@ class _WristCheckHomeState extends State<WristCheckHome> {
                 child: IconButton(
                   icon: Icon(iconData, color: iconColor),
                   onPressed: isLoggedIn && !isSyncing
-                      ? () => SyncService.syncData()
+                      ? () => SyncService.syncData(manualSync: true)
                       : null,
                 ),
               ),

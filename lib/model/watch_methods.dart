@@ -56,6 +56,7 @@ class WatchMethods {
     int? powerReserve,
     String? crystal,
     String? crown,
+    bool triggerSync = true,
   }) async {
     String m = manufacturer;
     String mo = model;
@@ -146,7 +147,9 @@ class WatchMethods {
     watch.isDirty = true;
     final box = Boxes.getWatches();
     final result = await box.add(watch);
-    unawaited(SyncService.syncData());
+    if (triggerSync) {
+      unawaited(SyncService.syncData());
+    }
     return result;
   }
 

@@ -265,7 +265,7 @@ class _SyncStatusPageState extends State<SyncStatusPage> {
                 onPressed: (isLoggedIn && !isSyncing)
                     ? () {
                         analytics.logEvent(name: "sync_now_clicked");
-                        SyncService.syncData();
+                        SyncService.syncData(manualSync: true);
                       }
                     : null,
               ),

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,11 +8,13 @@ import 'package:wristcheck/api/purchase_api.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/wristcheck_preferences.dart';
+import 'package:wristcheck/privacy/biometric_lock_wrapper.dart';
 import 'package:wristcheck/ui/developer/developer_accuracy_view.dart';
 import 'package:wristcheck/ui/developer/raw_data_view.dart';
 import 'package:wristcheck/ui/onboarding.dart';
 import 'package:wristcheck/ui/wrist_recap/animated_recap_preview_page.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/wristtrack_global_banner.dart';
+import 'package:wristcheck/util/images_util.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
@@ -359,7 +362,112 @@ class _DeveloperStatsState extends State<DeveloperStats> {
           onTap: () => Get.to(()=> RawDataView()),
         ),
         const Divider(thickness: 2,),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.folderOpen),
+          title: const Text("Export All /img Files to Folder"),
+          subtitle: const Text(
+            "Scans local /img storage directly (ignoring database paths) and copies all full images plus any fallback thumbnails into a folder you pick.",
+          ),
+          onTap: _exportAllImgFilesToFolder,
+        ),
+        const Divider(thickness: 2,),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.link),
+          title: const Text("Recover & Re-link Orphaned Images"),
+          subtitle: const Text(
+            "Matches unreferenced /img files back to watches missing image paths and triggers a cloud sync.",
+          ),
+          onTap: _confirmAndRelinkOrphanedImages,
+        ),
+        const Divider(thickness: 2,),
       ],
+    );
+  }
+
+  Future<void> _exportAllImgFilesToFolder() async {
+    final String? selectedDir = await BiometricLockWrapper.suppressLockDuring(
+      () => FilePicker.getDirectoryPath(),
+    );
+    if (selectedDir == null || selectedDir.trim().isEmpty) return;
+
+    Get.dialog(
+      const PopScope(
+        canPop: false,
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      barrierDismissible: false,
+    );
+
+    try {
+      final result = await ImagesUtil.exportAllImgDirectoryFiles(selectedDir);
+      if (Get.isDialogOpen ?? false) Get.back();
+
+      final String summary = result.totalExported == 0
+          ? "No image files were found in the local /img directory (scanned ${result.totalFilesScanned} files)."
+          : "Exported ${result.fullImagesExported} full image(s) and ${result.thumbnailFallbacksExported} fallback thumbnail(s)"
+              "${result.failedCount > 0 ? ' (${result.failedCount} failed)' : ''}.\n\nSaved to:\n${result.exportDirectoryPath}";
+
+      await Get.defaultDialog(
+        title: "Image Export Complete",
+        middleText: summary,
+        textConfirm: "OK",
+        confirmTextColor: Colors.white,
+        onConfirm: () => Get.back(),
+      );
+    } catch (e) {
+      if (Get.isDialogOpen ?? false) Get.back();
+      await Get.defaultDialog(
+        title: "Image Export Failed",
+        middleText: e.toString(),
+        textConfirm: "OK",
+        confirmTextColor: Colors.white,
+        onConfirm: () => Get.back(),
+      );
+    }
+  }
+
+  Future<void> _confirmAndRelinkOrphanedImages() async {
+    await Get.defaultDialog(
+      title: "Recover Orphaned Images",
+      middleText:
+          "This will scan local /img files and re-attach any unreferenced images to watches that currently have empty image paths, then queue a sync.",
+      textConfirm: "Recover",
+      textCancel: "Cancel",
+      confirmTextColor: Colors.white,
+      onConfirm: () async {
+        Get.back();
+        Get.dialog(
+          const PopScope(
+            canPop: false,
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          barrierDismissible: false,
+        );
+
+        try {
+          final result = await ImagesUtil.relinkOrphanedImages();
+          if (Get.isDialogOpen ?? false) Get.back();
+
+          await Get.defaultDialog(
+            title: "Recovery Complete",
+            middleText:
+                "Found ${result.orphanedFilesFound} unreferenced image file(s).\n\n"
+                "Restored ${result.slotsRestored} image slot(s) across ${result.watchesUpdated} watch(es).",
+            textConfirm: "OK",
+            confirmTextColor: Colors.white,
+            onConfirm: () => Get.back(),
+          );
+        } catch (e) {
+          if (Get.isDialogOpen ?? false) Get.back();
+          await Get.defaultDialog(
+            title: "Recovery Failed",
+            middleText: e.toString(),
+            textConfirm: "OK",
+            confirmTextColor: Colors.white,
+            onConfirm: () => Get.back(),
+          );
+        }
+      },
     );
   }
 
