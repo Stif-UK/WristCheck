@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,14 +20,33 @@ import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 
 class DeveloperStats extends StatefulWidget {
-  const DeveloperStats({Key? key}) : super(key: key);
+  const DeveloperStats({
+    Key? key,
+    this.initialTabIndex = 0,
+    this.wristRewindEnabledOverride,
+  }) : super(key: key);
+
+  final int initialTabIndex;
+  final bool? wristRewindEnabledOverride;
 
   @override
   State<DeveloperStats> createState() => _DeveloperStatsState();
 }
 
 class _DeveloperStatsState extends State<DeveloperStats> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialTabIndex;
+    final controller = Get.put(WristCheckController());
+    if (widget.wristRewindEnabledOverride != null || Firebase.apps.isNotEmpty) {
+      controller.refreshWristRewind2026(
+        enabledOverride: widget.wristRewindEnabledOverride,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +104,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
       case 2:
         return _buildDatabaseTab();
       case 3:
-        return _buildNotificationsTab();
+        return _buildNotificationsTab(wristCheckController);
       default:
         return const SizedBox.shrink();
     }
@@ -471,9 +491,75 @@ class _DeveloperStatsState extends State<DeveloperStats> {
     );
   }
 
-  Widget _buildNotificationsTab() {
+  Widget _buildNotificationsTab(WristCheckController wristCheckController) {
     return Column(
       children: [
+        Obx(() {
+          final _ = wristCheckController.activeNBA.value;
+          final status = wristCheckController.getWristRewind2026CountdownStatus();
+          final String statusText;
+          if (status.isDismissed) {
+            statusText = 'Dismissed / Followed';
+          } else if (status.firstShown == null) {
+            statusText = status.remoteConfigEnabled
+                ? 'Pending first display'
+                : 'Inactive (Remote Config false)';
+          } else if (status.isExpired) {
+            statusText = 'Expired';
+          } else if (status.remoteConfigEnabled) {
+            statusText = 'Active';
+          } else {
+            statusText = 'Paused (Remote Config false)';
+          }
+
+          final String firstShownText = status.firstShown != null
+              ? WristCheckFormatter.getFormattedDateAndTime(status.firstShown!)
+              : 'Not started';
+
+          final String countdownText;
+          if (status.firstShown == null) {
+            countdownText = 'Not started';
+          } else if (status.isExpired) {
+            countdownText =
+                '0d 0h 0m remaining (ended ${WristCheckFormatter.getFormattedDateAndTime(status.expiresAt!)})';
+          } else {
+            final remaining = status.remaining!;
+            final days = remaining.inDays;
+            final hours = remaining.inHours.remainder(24);
+            final minutes = remaining.inMinutes.remainder(60);
+            countdownText =
+                '${days}d ${hours}h ${minutes}m remaining (ends ${WristCheckFormatter.getFormattedDateAndTime(status.expiresAt!)})';
+          }
+
+          return ListTile(
+            title: const Text('2026 Wrist Rewind 7-Day Countdown'),
+            subtitle: Text(
+              'Status: $statusText\n'
+              'Remote Config (wrist_rewind_2026): ${status.remoteConfigEnabled}\n'
+              'First Shown: $firstShownText\n'
+              'Countdown: $countdownText\n'
+              'Dismissed: ${status.isDismissed}\n'
+              'Tap to refresh, tap reset icon or long press to reset.',
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Reset 7-day countdown',
+              onPressed: () => _resetWristRewind2026Countdown(wristCheckController),
+            ),
+            onTap: () async {
+              if (widget.wristRewindEnabledOverride != null || Firebase.apps.isNotEmpty) {
+                await wristCheckController.refreshWristRewind2026(
+                  enabledOverride: widget.wristRewindEnabledOverride,
+                );
+              }
+              if (mounted) {
+                setState(() {});
+              }
+            },
+            onLongPress: () => _resetWristRewind2026Countdown(wristCheckController),
+          );
+        }),
+        const Divider(thickness: 2,),
         ListTile(
           title: const Text("Show notification JSON"),
           subtitle: const Text("Tap to view current Remote Config banner payload"),
@@ -558,6 +644,21 @@ class _DeveloperStatsState extends State<DeveloperStats> {
         ),
         const Divider(thickness: 2,),
       ],
+    );
+  }
+
+  Future<void> _resetWristRewind2026Countdown(WristCheckController wristCheckController) async {
+    await wristCheckController.resetWristRewind2026Notification(
+      enabledOverride: widget.wristRewindEnabledOverride,
+    );
+    if (mounted) {
+      setState(() {});
+    }
+    Get.snackbar(
+      'Countdown Reset',
+      '2026 Wrist Rewind 7-day countdown and dismissal state reset',
+      icon: const Icon(Icons.refresh),
+      snackPosition: SnackPosition.BOTTOM,
     );
   }
 

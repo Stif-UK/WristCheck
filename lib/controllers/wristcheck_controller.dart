@@ -24,11 +24,12 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/donation_notification.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/go_pro_notification.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/wrist_recap_notification.dart';
+import 'package:wristcheck/ui/widgets/nba_notifications/wrist_rewind_2026_notification.dart';
 import 'package:wristcheck/ui/widgets/nba_notifications/wristtrack_global_banner.dart';
 import 'package:wristcheck/util/wristcheck_formatter.dart';
 
 class WristCheckController extends GetxController {
-  final remoteConfig = FirebaseRemoteConfig.instance;
+  FirebaseRemoteConfig get remoteConfig => FirebaseRemoteConfig.instance;
 
   //Manage app purchase status
   final isAppPro = (kDebugMode && !WristCheckConfig.acknowledgePurchase)
@@ -62,6 +63,9 @@ class WristCheckController extends GetxController {
   //Merch Store
   final showMerchStore = false.obs;
   final merchStoreUrl = "".obs;
+  //2026 Wrist Rewind
+  static const Duration wristRewind2026ActiveDuration = Duration(days: 7);
+  final showWristRewind2026 = false.obs;
 
   // Global Banner Notification
   final showGlobalBanner = false.obs;
@@ -114,9 +118,24 @@ class WristCheckController extends GetxController {
    * checkForNotifications runs each of the checkers for homepage notifications
    * setting the boolean values to true if a notification is available.
    */
-  checkForNotifications() async {
+  checkForNotifications({DateTime? nowOverride, bool? wristRewindEnabledOverride}) async {
+    DateTime now = nowOverride ?? DateTime.now();
+
+    // Check 2026 Wrist Rewind banner first: it stays active for 7 days across app sessions
+    // (rather than single-day dismissal) until dismissed, followed, or expired.
+    if (await checkForWristRewind2026Notification(
+      enabledOverride: wristRewindEnabledOverride,
+      nowOverride: now,
+    )) {
+      if (activeNBA.value is! WristRewind2026Notification) {
+        activeNBA(WristRewind2026Notification());
+      }
+      return;
+    } else if (activeNBA.value is WristRewind2026Notification) {
+      activeNBA(const SizedBox.shrink());
+    }
+
     //Only proceed if we haven't already shown a notification today
-    DateTime now = DateTime.now();
     DateTime lastShown = WristCheckPreferences.getLastNBADate();
 
     // Check if it's a new day (ignoring time)
@@ -436,17 +455,103 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
   }
 
   refreshShowMerchStore() async {
-    bool showMerch = await remoteConfig.getBool("show_merch_link");
-    String merchUrl = await remoteConfig.getString("merch_url");
-    showMerchStore(showMerch);
-    merchStoreUrl(merchUrl);
+    try {
+      bool showMerch = remoteConfig.getBool("show_merch_link");
+      String merchUrl = remoteConfig.getString("merch_url");
+      showMerchStore(showMerch);
+      merchStoreUrl(merchUrl);
+    } catch (e) {
+      debugPrint('Failed to refresh merch store config: $e');
+    }
+  }
+
+  Future<void> refreshWristRewind2026({bool? enabledOverride}) async {
+    try {
+      final bool enabled = enabledOverride ?? remoteConfig.getBool('wrist_rewind_2026');
+      showWristRewind2026(enabled);
+    } catch (e) {
+      debugPrint('Failed to refresh wrist_rewind_2026 config: $e');
+      showWristRewind2026(false);
+    }
+  }
+
+  Future<bool> checkForWristRewind2026Notification({
+    bool? enabledOverride,
+    DateTime? nowOverride,
+  }) async {
+    await refreshWristRewind2026(enabledOverride: enabledOverride);
+
+    if (!showWristRewind2026.value) {
+      return false;
+    }
+
+    if (WristCheckPreferences.getWristRewind2026Dismissed()) {
+      return false;
+    }
+
+    final DateTime now = nowOverride ?? DateTime.now();
+    DateTime? firstShown = WristCheckPreferences.getWristRewind2026FirstShown();
+    if (firstShown == null) {
+      firstShown = now;
+      await WristCheckPreferences.setWristRewind2026FirstShown(firstShown);
+    }
+
+    return now.isBefore(firstShown.add(wristRewind2026ActiveDuration));
+  }
+
+  Future<void> dismissWristRewind2026Notification() async {
+    await WristCheckPreferences.setWristRewind2026Dismissed(true);
+    Future.microtask(() => activeNBA(const SizedBox.shrink()));
+  }
+
+  WristRewind2026CountdownStatus getWristRewind2026CountdownStatus({
+    DateTime? nowOverride,
+  }) {
+    final DateTime now = nowOverride ?? DateTime.now();
+    final bool enabled = showWristRewind2026.value;
+    final bool dismissed = WristCheckPreferences.getWristRewind2026Dismissed();
+    final DateTime? firstShown = WristCheckPreferences.getWristRewind2026FirstShown();
+    final DateTime? expiresAt = firstShown?.add(wristRewind2026ActiveDuration);
+    final bool expired = expiresAt != null && !now.isBefore(expiresAt);
+    final Duration? rawRemaining = expiresAt?.difference(now);
+    final Duration? remaining = rawRemaining == null
+        ? null
+        : (rawRemaining.isNegative ? Duration.zero : rawRemaining);
+
+    return WristRewind2026CountdownStatus(
+      remoteConfigEnabled: enabled,
+      firstShown: firstShown,
+      expiresAt: expiresAt,
+      isDismissed: dismissed,
+      remaining: remaining,
+      isExpired: expired,
+      isActive: enabled && !dismissed && firstShown != null && !expired,
+    );
+  }
+
+  Future<void> resetWristRewind2026Notification({
+    bool? enabledOverride,
+    DateTime? nowOverride,
+  }) async {
+    await WristCheckPreferences.clearWristRewind2026State();
+    await checkForNotifications(
+      nowOverride: nowOverride,
+      wristRewindEnabledOverride: enabledOverride,
+    );
   }
 
   checkForGlobalBannerNotification() async {
     // Parse global banner notification from Remote Config
-    String bannerJsonStr = remoteConfig.getString('global_banner_notice');
-    if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
-      bannerJsonStr = remoteConfig.getString('global_banner_notification');
+    String bannerJsonStr = '';
+    try {
+      bannerJsonStr = remoteConfig.getString('global_banner_notice');
+      if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
+        bannerJsonStr = remoteConfig.getString('global_banner_notification');
+      }
+    } catch (e) {
+      debugPrint('Failed to read global banner config: $e');
+      showGlobalBanner(false);
+      return;
     }
 
     if (bannerJsonStr.isEmpty || bannerJsonStr == '{}') {
@@ -497,4 +602,24 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
     globalBannerExpanded(!globalBannerExpanded.value);
   }
 
+}
+
+class WristRewind2026CountdownStatus {
+  const WristRewind2026CountdownStatus({
+    required this.remoteConfigEnabled,
+    required this.firstShown,
+    required this.expiresAt,
+    required this.isDismissed,
+    required this.remaining,
+    required this.isExpired,
+    required this.isActive,
+  });
+
+  final bool remoteConfigEnabled;
+  final DateTime? firstShown;
+  final DateTime? expiresAt;
+  final bool isDismissed;
+  final Duration? remaining;
+  final bool isExpired;
+  final bool isActive;
 }

@@ -82,6 +82,8 @@ class WristCheckPreferences {
   static const _keyRewardedAdCount = 'rewardedAdCount';
   static const _keyLastRecordedAdTimestamp = 'lastRecordedAdTimestamp';
   static const _keyDismissedBannerIds = 'dismissedBannerIds';
+  static const _keyWristRewind2026FirstShown = 'wristRewind2026FirstShown';
+  static const _keyWristRewind2026Dismissed = 'wristRewind2026Dismissed';
 
   //Visibility preferences
   static const _keyShowLastWornDate = 'showLastWornDate';
@@ -824,6 +826,34 @@ class WristCheckPreferences {
   static Future setRecapPackCharts(bool packCharts) async {
     if (!_isInitialized) return;
     await _preferences.setBool(_keyRecapPackCharts, packCharts);
+  }
+
+  // Getter and Setter for 2026 Wrist Rewind NBA banner state
+  static DateTime? getWristRewind2026FirstShown() {
+    if (!_isInitialized) return null;
+    final raw = _preferences.getString(_keyWristRewind2026FirstShown);
+    return raw == null ? null : DateTime.tryParse(raw);
+  }
+
+  static Future setWristRewind2026FirstShown(DateTime timestamp) async {
+    if (!_isInitialized) return;
+    await _preferences.setString(_keyWristRewind2026FirstShown, timestamp.toIso8601String());
+  }
+
+  static bool getWristRewind2026Dismissed() {
+    if (!_isInitialized) return false;
+    return _preferences.getBool(_keyWristRewind2026Dismissed) ?? false;
+  }
+
+  static Future setWristRewind2026Dismissed(bool dismissed) async {
+    if (!_isInitialized) return;
+    await _preferences.setBool(_keyWristRewind2026Dismissed, dismissed);
+  }
+
+  static Future clearWristRewind2026State() async {
+    if (!_isInitialized) return;
+    await _preferences.remove(_keyWristRewind2026FirstShown);
+    await _preferences.remove(_keyWristRewind2026Dismissed);
   }
 
 }
