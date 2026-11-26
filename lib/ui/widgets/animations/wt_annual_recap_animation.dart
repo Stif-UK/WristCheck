@@ -39,6 +39,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     this.timeDate,
     this.onControllerReady,
     this.onScreenshotTrigger,
+    this.onFinalSlide,
     this.fit = Fit.contain,
   });
 
@@ -76,6 +77,7 @@ class WTAnnualRecapAnimation extends StatefulWidget {
   final double? timeDate;
   final ValueChanged<WTAnnualRecapAnimationController?>? onControllerReady;
   final VoidCallback? onScreenshotTrigger;
+  final VoidCallback? onFinalSlide;
   final Fit fit;
 
   @override
@@ -141,7 +143,7 @@ class WTAnnualRecapAnimationController {
     }
   }
 
-  final Map<String, List<void Function(bool)>> _triggerListeners = {};
+  final List<(ViewModelInstanceObservableValue<bool>, void Function(bool))> _boolSubscriptions = [];
 
   void addTriggerListener(String name, void Function(bool) listener) {
     try {
@@ -151,22 +153,39 @@ class WTAnnualRecapAnimationController {
         return;
       }
       triggerProp.addListener(listener);
-      _triggerListeners.putIfAbsent(name, () => []).add(listener);
+      _boolSubscriptions.add((triggerProp, listener));
     } catch (e) {
       debugPrint("Error adding trigger listener '$name': $e");
     }
   }
 
-  void dispose() {
-    for (final entry in _triggerListeners.entries) {
-      final triggerProp = _vmi?.trigger(entry.key);
-      if (triggerProp != null) {
-        for (final listener in entry.value) {
-          triggerProp.removeListener(listener);
-        }
+  void addBooleanListener(
+    String name,
+    void Function(bool) listener, {
+    bool notifyInitial = false,
+  }) {
+    try {
+      final boolProp = _vmi?.boolean(name);
+      if (boolProp == null) {
+        debugPrint("WTAnnualRecapAnimation: boolean '$name' not found on ViewModel");
+        return;
       }
+      boolProp.addListener(listener);
+      _boolSubscriptions.add((boolProp, listener));
+      if (notifyInitial) {
+        listener(boolProp.value);
+      }
+    } catch (e) {
+      debugPrint("Error adding boolean listener '$name': $e");
     }
-    _triggerListeners.clear();
+  }
+
+  void dispose() {
+    for (final (prop, listener) in _boolSubscriptions) {
+      prop.removeListener(listener);
+      prop.dispose();
+    }
+    _boolSubscriptions.clear();
   }
 }
 
@@ -179,6 +198,12 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
 
   void _onScreenshotTrigger(bool _) {
     widget.onScreenshotTrigger?.call();
+  }
+
+  void _onFinalSlideChanged(bool isFinalSlide) {
+    if (isFinalSlide) {
+      widget.onFinalSlide?.call();
+    }
   }
 
   @override
@@ -242,6 +267,7 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
           _animController = animCtrl;
           _applyInputs(widget, animCtrl);
           animCtrl.addTriggerListener('screenShotTrigger', _onScreenshotTrigger);
+          animCtrl.addBooleanListener('isFinalSlide', _onFinalSlideChanged);
           widget.onControllerReady?.call(animCtrl);
         },
         onFailed: (error, stackTrace) {
@@ -270,7 +296,7 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
             RiveLoaded(:final controller) => RiveWidget(
               controller: controller,
               fit: widget.fit,
-              //fit: Fit.layout,
+              //Fit.layout,
               layoutScaleFactor: 2.0,
               hitTestBehavior: RiveHitTestBehavior.opaque,
             ),

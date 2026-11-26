@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -15,14 +16,36 @@ import 'package:wristcheck/ui/widgets/animations/wt_annual_recap_animation.dart'
 class AnimatedRecapPreviewPage extends StatefulWidget {
   const AnimatedRecapPreviewPage({super.key});
 
+  /// Returns the DB string of the watch category with the highest total wear count.
+  /// Prefers non-blank categories if any worn watch has a category assigned.
+  @visibleForTesting
+  static String computeTopWatchStyle(List<WornWatchesClass> wornWatches) {
+    if (wornWatches.isEmpty) {
+      return 'Diver';
+    }
+
+    final Map<CategoryEnum, int> categoryCounts = {};
+    for (final worn in wornWatches) {
+      final category = CategoryEnumLocalization.fromDbString(worn.watch.category);
+      categoryCounts[category] = (categoryCounts[category] ?? 0) + worn.count;
+    }
+
+    final nonBlankEntries = categoryCounts.entries.where((e) => e.key != CategoryEnum.blank);
+    final candidates = nonBlankEntries.isNotEmpty ? nonBlankEntries : categoryCounts.entries;
+    final topEntry = candidates.reduce((a, b) => a.value >= b.value ? a : b);
+    return topEntry.key.toDbString();
+  }
+
   @override
   State<AnimatedRecapPreviewPage> createState() => _AnimatedRecapPreviewPageState();
 }
 
 class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final ScreenshotController _screenshotController = ScreenshotController();
   final GlobalKey _screenshotKey = GlobalKey();
   bool _isSharing = false;
+  bool _hasLoggedFinalSlide = false;
 
   late double daysTracked;
   late double totalWearsTracked;
@@ -63,6 +86,9 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
   @override
   void initState() {
     super.initState();
+    analytics.setAnalyticsCollectionEnabled(true);
+    analytics.logScreenView(screenName: 'animated_wrist_rewind');
+    analytics.logEvent(name: 'animated_rewind_entered');
     _load2026Data();
   }
 
@@ -108,17 +134,17 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
 
     watchesWorn = worn2026.length.toDouble();
 
+    topWatchStyle = AnimatedRecapPreviewPage.computeTopWatchStyle(worn2026);
+
     // Top 1 Watch
     if (worn2026.isNotEmpty) {
       top1Watch = worn2026[0].watch.toString();
       top1WatchWorn = worn2026[0].count.toDouble();
       topWatch1ICON = _mapCategoryToAnimationStyle(worn2026[0].watch.category);
-      topWatchStyle = CategoryEnumLocalization.fromDbString(worn2026[0].watch.category).toDbString();
     } else {
       top1Watch = "N/A";
       top1WatchWorn = 0;
       topWatch1ICON = "DIVER";
-      topWatchStyle = "Diver";
     }
 
     // Top 2 Watch
@@ -217,17 +243,28 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       case CategoryEnum.smartWatch:
         return 'SMART';
       case CategoryEnum.casual:
+        return 'DIGITAL';
       case CategoryEnum.tool:
+        return 'FIELD';
       case CategoryEnum.travel:
+        return 'PILOT';
       case CategoryEnum.general:
+        return 'DIVER';
       case CategoryEnum.blank:
         return 'DIVER';
     }
   }
 
+  void _onFinalSlide() {
+    if (_hasLoggedFinalSlide) return;
+    _hasLoggedFinalSlide = true;
+    analytics.logEvent(name: 'animated_rewind_final_page');
+  }
+
   Future<void> _shareRecap() async {
     if (_isSharing) return;
     _isSharing = true;
+    analytics.logEvent(name: 'animated_rewind_share_pressed');
     try {
       final bytes = await _screenshotController.capture();
       if (bytes == null) return;
@@ -249,7 +286,7 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
-          text: 'WristTrack Rewind 2026',
+          text: 'My WristTrack Rewind 2026',
           sharePositionOrigin: sharePositionOrigin,
         ),
       );
@@ -295,6 +332,7 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
           child: WTAnnualRecapAnimation(
             fallbackIconDimensions: 200,
             onScreenshotTrigger: _shareRecap,
+            onFinalSlide: _onFinalSlide,
             daysTracked: daysTracked,
             totalWearsTracked: totalWearsTracked,
             watchesWorn: watchesWorn,
