@@ -134,10 +134,15 @@ void main() {
       expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
     });
 
-    testWidgets('WristRewind2026Notification displays expected copy, icon, and dismiss button', (tester) async {
+    testWidgets('WristRewind2026Notification displays animation inside a padded Card with chevron and without legacy text or dismiss button', (tester) async {
       final controller = Get.put(WristCheckController());
-      const placeholderIcon = SizedBox(key: Key('banner_icon_placeholder'));
-      controller.activeNBA(WristRewind2026Notification(iconOverride: placeholderIcon));
+      const placeholderAnimation = SizedBox(
+        key: Key('banner_animation_placeholder'),
+        height: 120,
+      );
+      controller.activeNBA(const WristRewind2026Notification(
+        animationOverride: placeholderAnimation,
+      ));
 
       await tester.pumpWidget(
         GetMaterialApp(
@@ -147,15 +152,11 @@ void main() {
         ),
       );
 
-      expect(find.text('Your 2026 Wrist Rewind is here!'), findsOneWidget);
-      expect(find.text('Click here to see your animated year in review!'), findsOneWidget);
-      expect(find.byKey(const Key('banner_icon_placeholder')), findsOneWidget);
-
-      await tester.tap(find.byType(IconButton).first);
-      await tester.pump();
-
-      expect(WristCheckPreferences.getWristRewind2026Dismissed(), isTrue);
+      expect(find.byType(Card), findsOneWidget);
+      expect(find.byKey(const Key('banner_animation_placeholder')), findsOneWidget);
+      expect(find.byType(IconButton), findsOneWidget);
       expect(find.text('Your 2026 Wrist Rewind is here!'), findsNothing);
+      expect(find.text('Click here to see your animated year in review!'), findsNothing);
     });
 
     test('getWristRewind2026CountdownStatus and resetWristRewind2026Notification track and reset countdown', () async {

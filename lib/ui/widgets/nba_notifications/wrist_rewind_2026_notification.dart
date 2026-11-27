@@ -1,75 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
-import 'package:wristcheck/ui/widgets/animations/wt_banner_icon.dart';
+import 'package:wristcheck/ui/widgets/icons/wt_static_icon.dart';
 import 'package:wristcheck/ui/wrist_recap/animated_recap_preview_page.dart';
 
-class WristRewind2026Notification extends StatelessWidget {
-  WristRewind2026Notification({super.key, this.iconOverride});
-  final wristCheckController = Get.find<WristCheckController>();
-  final Widget? iconOverride;
+class WristRewind2026Notification extends StatefulWidget {
+  const WristRewind2026Notification({
+    super.key,
+    this.animationOverride,
+  });
+
+  final Widget? animationOverride;
+
+  @override
+  State<WristRewind2026Notification> createState() =>
+      _WristRewind2026NotificationState();
+}
+
+class _WristRewind2026NotificationState
+    extends State<WristRewind2026Notification> {
+  final WristCheckController wristCheckController =
+      Get.find<WristCheckController>();
+  FileLoader? _fileLoader;
+  ViewModelInstance? _vmi;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.animationOverride == null) {
+      _fileLoader = FileLoader.fromAsset(
+        'assets/animation/wristtrack_rewind_notification.riv',
+        riveFactory: Factory.flutter,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _vmi?.dispose();
+    _fileLoader?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: _navigateAndDismiss,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            // SizedBox to give card height
-            SizedBox(
-              height: 80,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4.0, 4.0, 0.0, 0.0),
-                    child: IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.xmark),
-                      onPressed: () => wristCheckController.dismissWristRewind2026Notification(),
-                    ),
-                  ),
-                ],
+        clipBehavior: Clip.antiAlias,
+        child: Padding(
+          //padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsetsGeometry.fromLTRB(8.0, 2.0, 2.0, 2.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: widget.animationOverride ?? _buildRiveAnimation(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 8.0),
-              child: SizedBox(
-                width: 40,
-                height: 40,
-                child: iconOverride ?? const WTBannerIcon(fallbackIconDimensions: 40),
+              IconButton(
+                icon: const FaIcon(FontAwesomeIcons.chevronRight),
+                onPressed: _navigateAndDismiss,
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRiveAnimation() {
+    return RiveWidgetBuilder(
+      fileLoader: _fileLoader!,
+      onLoaded: (state) {
+        _vmi?.dispose();
+        _vmi = null;
+        try {
+          _vmi = state.controller.dataBind(const AutoBind());
+        } catch (e) {
+          debugPrint('WristRewind2026Notification AutoBind skipped: $e');
+        }
+      },
+      builder: (context, state) {
+        return switch (state) {
+          RiveLoading() => const SizedBox(
+              height: 120,
+              child: Center(child: CircularProgressIndicator()),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Your 2026 Wrist Rewind is here!',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      'Click here to see your animated year in review!',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ),
+          RiveFailed() => const SizedBox(
+              height: 120,
+              child: Center(child: WtStaticIcon(dimensions: 48)),
             ),
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.chevronRight),
-              onPressed: _navigateAndDismiss,
-            ),
-          ],
+          RiveLoaded(:final controller) => _buildLoadedAnimation(controller),
+        };
+      },
+    );
+  }
+
+  Widget _buildLoadedAnimation(RiveWidgetController controller) {
+    final bounds = controller.artboard.bounds;
+    final double aspectRatio =
+        (bounds.width > 0 && bounds.height > 0)
+            ? bounds.width / bounds.height
+            : 3.0;
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 40, maxHeight: 120),
+      child: AspectRatio(
+        aspectRatio: aspectRatio,
+        child: RiveWidget(
+          controller: controller,
+          fit: Fit.fitWidth,
+          hitTestBehavior: RiveHitTestBehavior.translucent,
         ),
       ),
     );
