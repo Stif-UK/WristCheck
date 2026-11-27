@@ -134,7 +134,7 @@ void main() {
       expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
     });
 
-    testWidgets('WristRewind2026Notification displays animation inside a padded Card with chevron and without legacy text or dismiss button', (tester) async {
+    testWidgets('WristRewind2026Notification displays animation directly inside GestureDetector without Card or buttons', (tester) async {
       final controller = Get.put(WristCheckController());
       const placeholderAnimation = SizedBox(
         key: Key('banner_animation_placeholder'),
@@ -152,9 +152,10 @@ void main() {
         ),
       );
 
-      expect(find.byType(Card), findsOneWidget);
+      expect(find.byType(GestureDetector), findsOneWidget);
+      expect(find.byType(Card), findsNothing);
       expect(find.byKey(const Key('banner_animation_placeholder')), findsOneWidget);
-      expect(find.byType(IconButton), findsOneWidget);
+      expect(find.byType(IconButton), findsNothing);
       expect(find.text('Your 2026 Wrist Rewind is here!'), findsNothing);
       expect(find.text('Click here to see your animated year in review!'), findsNothing);
     });

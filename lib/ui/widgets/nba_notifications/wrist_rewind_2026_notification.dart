@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
@@ -49,28 +48,7 @@ class _WristRewind2026NotificationState
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _navigateAndDismiss,
-      child: Card(
-        elevation: 4,
-        margin: const EdgeInsets.all(8.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          //padding: const EdgeInsets.all(8.0),
-          padding: const EdgeInsetsGeometry.fromLTRB(8.0, 2.0, 2.0, 2.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: widget.animationOverride ?? _buildRiveAnimation(),
-              ),
-              IconButton(
-                icon: const FaIcon(FontAwesomeIcons.chevronRight),
-                onPressed: _navigateAndDismiss,
-              ),
-            ],
-          ),
-        ),
-      ),
+      child: widget.animationOverride ?? _buildRiveAnimation(),
     );
   }
 
@@ -89,10 +67,12 @@ class _WristRewind2026NotificationState
       builder: (context, state) {
         return switch (state) {
           RiveLoading() => const SizedBox(
+              width: double.infinity,
               height: 120,
               child: Center(child: CircularProgressIndicator()),
             ),
           RiveFailed() => const SizedBox(
+              width: double.infinity,
               height: 120,
               child: Center(child: WtStaticIcon(dimensions: 48)),
             ),
@@ -109,14 +89,17 @@ class _WristRewind2026NotificationState
             ? bounds.width / bounds.height
             : 3.0;
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 40, maxHeight: 120),
-      child: AspectRatio(
-        aspectRatio: aspectRatio,
-        child: RiveWidget(
-          controller: controller,
-          fit: Fit.fitWidth,
-          hitTestBehavior: RiveHitTestBehavior.translucent,
+    return SizedBox(
+      width: double.infinity,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 50, maxHeight: 120),
+        child: AspectRatio(
+          aspectRatio: aspectRatio,
+          child: RiveWidget(
+            controller: controller,
+            fit: Fit.contain,
+            hitTestBehavior: RiveHitTestBehavior.translucent,
+          ),
         ),
       ),
     );
