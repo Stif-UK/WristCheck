@@ -1613,6 +1613,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get duplicateFound => 'Duplicate Found';
 
   @override
+  String get uploadSkipped => 'Skipped';
+
+  @override
   String get successSubtitle => 'All Watch fields successfully validated';
 
   @override
@@ -1625,7 +1628,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get duplicateFoundSubtitle =>
-      'A record already exists in the app with this make and model. Please ensure this is unique';
+      'A matching Make & Model already exists in your collection. Choose whether to merge or create a new watch.';
+
+  @override
+  String get uploadSkippedSubtitle =>
+      'This watch will be skipped and not imported';
 
   @override
   String get clockwise => 'Clockwise';

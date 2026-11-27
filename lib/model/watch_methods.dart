@@ -6,6 +6,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/measurement.dart';
+import 'package:wristcheck/model/upload_models.dart';
 import 'package:wristcheck/model/watches.dart';
 import 'package:wristcheck/model/enums/watch_status_enum.dart';
 import 'package:jiffy/jiffy.dart';
@@ -56,6 +57,7 @@ class WatchMethods {
     int? powerReserve,
     String? crystal,
     String? crown,
+    List<DateTime>? wearList,
     bool triggerSync = true,
   }) async {
     String m = manufacturer;
@@ -107,7 +109,7 @@ class WatchMethods {
       ..serviceInterval = si
       ..nextServiceDue = calculateNextService(pd, ls, si)
       ..notes = n
-      ..wearList = <DateTime>[]
+      ..wearList = wearList != null ? List<DateTime>.from(wearList) : <DateTime>[]
       ..frontImagePath = ""
       ..backImagePath = ""
       ..referenceNumber = rn
@@ -205,21 +207,125 @@ class WatchMethods {
   }
 
   /*
+  Returns all non-archived watches matching the given Manufacturer and Model (case-insensitive, trimmed).
+   */
+  static List<Watches> findDuplicateWatches(String manufacturer, String model) {
+    final normMake = manufacturer.trim().toLowerCase();
+    final normModel = model.trim().toLowerCase();
+    if (normMake.isEmpty || normModel.isEmpty) return [];
+
+    final List<Watches> collection = Boxes.getAllNonArchivedWatches();
+    return collection.where((c) {
+      return c.manufacturer.trim().toLowerCase() == normMake &&
+          c.model.trim().toLowerCase() == normModel;
+    }).toList();
+  }
+
+  /*
   Returns true if a watch already exists with the same values for Manufacturer and Model
    */
-  static bool checkForDuplicate(String manufacturer, String model){
-    manufacturer = manufacturer.toLowerCase();
-    model = model.toLowerCase();
-    List<Watches> collection = Boxes.getAllNonArchivedWatches();
-    //Check if the given manufacturer is already in the collection
-    List<Watches> manufacturerResult = collection.where((c) => c.manufacturer.toLowerCase() == manufacturer).toList();
-    //If the manufacturer is found, check if the same model exists already in the collection
-    if(manufacturerResult.isNotEmpty){
-      List<Watches> modelResult = manufacturerResult.where((c) => c.model.toLowerCase() == model).toList();
-      return modelResult.isNotEmpty;
-    }
-    return false;
+  static bool checkForDuplicate(String manufacturer, String model) {
+    return findDuplicateWatches(manufacturer, model).isNotEmpty;
+  }
 
+  static bool _isEmptyStringField(String? value) {
+    if (value == null) return true;
+    final trimmed = value.trim();
+    return trimmed.isEmpty ||
+        trimmed == 'Not Selected' ||
+        trimmed == 'Not Entered';
+  }
+
+  /// Merges an [ImportWatchCandidate] into an [existing] watch record.
+  /// When [overwriteExisting] is false, only blank/missing fields are filled.
+  /// Wear dates are always appended without creating same-day duplicates or future dates.
+  /// Returns the number of newly added wear dates.
+  static Future<int> mergeWatchFromImport(
+    Watches existing,
+    ImportWatchCandidate candidate, {
+    required bool overwriteExisting,
+    bool triggerSync = false,
+  }) async {
+    String? pickString(String? current, String? incoming) {
+      if (incoming == null || _isEmptyStringField(incoming)) return current;
+      if (overwriteExisting || _isEmptyStringField(current)) {
+        return incoming.trim();
+      }
+      return current;
+    }
+
+    T? pickValue<T>(T? current, T? incoming) {
+      if (incoming == null) return current;
+      if (overwriteExisting || current == null) return incoming;
+      return current;
+    }
+
+    int? pickPositiveInt(int? current, int? incoming) {
+      if (incoming == null) return current;
+      if (overwriteExisting || current == null || current == 0) return incoming;
+      return current;
+    }
+
+    existing.status = pickString(existing.status, candidate.status);
+    existing.category = pickString(existing.category, candidate.category);
+    existing.movement = pickString(existing.movement, candidate.movement);
+    existing.primaryColour = pickString(existing.primaryColour, candidate.primaryColour);
+    existing.secondaryColour = pickString(existing.secondaryColour, candidate.secondaryColour);
+    existing.serialNumber = pickString(existing.serialNumber, candidate.serialNumber);
+    existing.referenceNumber = pickString(existing.referenceNumber, candidate.referenceNumber);
+    existing.dateComplication = pickString(existing.dateComplication, candidate.dateComplication);
+    existing.year = pickValue<int>(existing.year, candidate.year);
+    existing.warrantyEndDate = pickValue<DateTime>(existing.warrantyEndDate, candidate.warrantyEndDate);
+    existing.lastServicedDate = pickValue<DateTime>(existing.lastServicedDate, candidate.lastServicedDate);
+    if (candidate.serviceInterval != null &&
+        (overwriteExisting || existing.serviceInterval == 0)) {
+      existing.serviceInterval = candidate.serviceInterval!;
+    }
+    existing.purchaseDate = pickValue<DateTime>(existing.purchaseDate, candidate.purchaseDate);
+    existing.deliveryDate = pickValue<DateTime>(existing.deliveryDate, candidate.deliveryDate);
+    existing.purchasePrice = pickPositiveInt(existing.purchasePrice, candidate.purchasePrice);
+    existing.purchasedFrom = pickString(existing.purchasedFrom, candidate.purchasedFrom);
+    existing.soldDate = pickValue<DateTime>(existing.soldDate, candidate.soldDate);
+    existing.soldPrice = pickPositiveInt(existing.soldPrice, candidate.soldPrice);
+    existing.soldTo = pickString(existing.soldTo, candidate.soldTo);
+    existing.value = pickPositiveInt(existing.value, candidate.value);
+    existing.caseDiameter = pickValue<double>(existing.caseDiameter, candidate.caseDiameter);
+    existing.caseThickness = pickValue<double>(existing.caseThickness, candidate.caseThickness);
+    existing.caseMaterial = pickString(existing.caseMaterial, candidate.caseMaterial);
+    existing.lugWidth = pickValue<int>(existing.lugWidth, candidate.lugWidth);
+    existing.lug2lug = pickValue<double>(existing.lug2lug, candidate.lug2lug);
+    existing.waterResistance = pickValue<int>(existing.waterResistance, candidate.waterResistance);
+    existing.powerReserve = pickValue<int>(existing.powerReserve, candidate.powerReserve);
+    existing.winderTPD = pickValue<int>(existing.winderTPD, candidate.winderTPD);
+    existing.winderDirection = pickString(existing.winderDirection, candidate.winderDirection);
+    existing.notes = pickString(existing.notes, candidate.notes);
+    if (candidate.favourite != null && (overwriteExisting || !existing.favourite)) {
+      existing.favourite = candidate.favourite!;
+    }
+
+    existing.nextServiceDue = calculateNextService(
+      existing.purchaseDate,
+      existing.lastServicedDate,
+      existing.serviceInterval,
+    );
+
+    int addedWearCount = 0;
+    final now = DateTime.now();
+    for (final date in candidate.wearDates) {
+      if (!date.isAfter(now) && !checkForDuplicateWear(existing, date)) {
+        existing.wearList.add(date);
+        addedWearCount++;
+      }
+    }
+
+    existing.ensureInitialized();
+    existing.isDirty = true;
+    existing.updatedAt = DateTime.now().toUtc();
+    await existing.save();
+    if (triggerSync) {
+      unawaited(SyncService.syncData());
+    }
+    return addedWearCount;
   }
 
   static void removeWearDate(DateTime dateToRemove, Watches watch){

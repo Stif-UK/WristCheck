@@ -554,10 +554,12 @@
   "fail" : "Fail",
   "partialPass" : "Partial Pass",
   "duplicateFound" : "Duplicate Found",
+  "uploadSkipped" : "Skipped",
   "successSubtitle" : "All Watch fields successfully validated",
   "failureSubtitle" : "This watch record cannot be uploaded. The Watch manufacturer or model cannot be determined.",
   "partialPassSubtitle" : "Some fields are failing validation and will be ignored if not corrected",
-  "duplicateFoundSubtitle" : "A record already exists in the app with this make and model. Please ensure this is unique",
+  "duplicateFoundSubtitle" : "A matching Make & Model already exists in your collection. Choose whether to merge or create a new watch.",
+  "uploadSkippedSubtitle" : "This watch will be skipped and not imported",
 
   "@_WINDER_DIRECTIONS" : {},
   "clockwise" : "Clockwise",

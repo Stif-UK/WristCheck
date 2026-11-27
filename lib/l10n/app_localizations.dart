@@ -3072,6 +3072,12 @@ abstract class AppLocalizations {
   /// **'Duplicate Found'**
   String get duplicateFound;
 
+  /// No description provided for @uploadSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get uploadSkipped;
+
   /// No description provided for @successSubtitle.
   ///
   /// In en, this message translates to:
@@ -3093,8 +3099,14 @@ abstract class AppLocalizations {
   /// No description provided for @duplicateFoundSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'A record already exists in the app with this make and model. Please ensure this is unique'**
+  /// **'A matching Make & Model already exists in your collection. Choose whether to merge or create a new watch.'**
   String get duplicateFoundSubtitle;
+
+  /// No description provided for @uploadSkippedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This watch will be skipped and not imported'**
+  String get uploadSkippedSubtitle;
 
   /// No description provided for @clockwise.
   ///

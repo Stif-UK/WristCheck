@@ -1621,6 +1621,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get duplicateFound => 'Duplicato Trovato';
 
   @override
+  String get uploadSkipped => 'Skipped';
+
+  @override
   String get successSubtitle =>
       'Tutti i campi dell\'orologio validati con successo';
 
@@ -1635,6 +1638,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get duplicateFoundSubtitle =>
       'Esiste già un record nell\'app con questa marca e modello. Assicurati che sia univoco';
+
+  @override
+  String get uploadSkippedSubtitle =>
+      'This watch will be skipped and not imported';
 
   @override
   String get clockwise => 'Orario';

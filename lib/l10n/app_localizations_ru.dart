@@ -1647,6 +1647,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get duplicateFound => 'Найдено дублирование';
 
   @override
+  String get uploadSkipped => 'Skipped';
+
+  @override
   String get successSubtitle => 'Все поля часов успешно прошли валидацию';
 
   @override
@@ -1660,6 +1663,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get duplicateFoundSubtitle =>
       'В приложении уже есть запись с такой маркой и моделью. Пожалуйста, убедитесь в уникальности данных';
+
+  @override
+  String get uploadSkippedSubtitle =>
+      'This watch will be skipped and not imported';
 
   @override
   String get clockwise => 'По часовой';

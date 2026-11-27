@@ -1641,6 +1641,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get duplicateFound => 'Nalezen duplikát';
 
   @override
+  String get uploadSkipped => 'Skipped';
+
+  @override
   String get successSubtitle => 'Všechna pole hodinek byla úspěšně validována';
 
   @override
@@ -1654,6 +1657,10 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get duplicateFoundSubtitle =>
       'Záznam s touto značkou a modelem již v aplikaci existuje. Uistěte se, že je tento záznam jedinečný';
+
+  @override
+  String get uploadSkippedSubtitle =>
+      'This watch will be skipped and not imported';
 
   @override
   String get clockwise => 'Po směru hod. ručiček';

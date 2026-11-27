@@ -1,26 +1,38 @@
 {
   "cs": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll"
   ],
 
   "de": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll"
   ],
 
   "es": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll",
     "categoriseAndCaptureTheDetails"
   ],
 
   "fr": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll"
   ],
 
   "it": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll"
   ],
 
   "ru": [
+    "uploadSkipped",
+    "uploadSkippedSubtitle",
     "enableShrinkOnScroll"
   ]
 }

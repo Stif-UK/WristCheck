@@ -40,7 +40,7 @@ class WristCheckConfig{
   /*
   Feature Flags: Setting to false disables the features for potential build/testing across multiple releases
    */
-  static bool enableCSVUploads = false; //CSV Uploading
+  static bool enableCSVUploads = true; //CSV Uploading
   static bool enableMultiDateWatchCalendar = true; //Multi-date picker on watch calendar view
   static bool enableLanguagePicker = true; //Language selection in Settings
   static bool enableMonthlyRecap = true; //Enable the monthly view for Wrist Recap

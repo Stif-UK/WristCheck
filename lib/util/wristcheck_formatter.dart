@@ -690,6 +690,9 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case UploadStatusEnum.duplicate:
         returnString = AppLocalizations.of(Get.context!)!.duplicateFound;
         break;
+      case UploadStatusEnum.skipped:
+        returnString = AppLocalizations.of(Get.context!)!.uploadSkipped;
+        break;
     }
     return returnString;
   }
@@ -711,8 +714,8 @@ static String getDayFilterName(WatchDayChartFilterEnum filter){
       case UploadStatusEnum.duplicate:
         returnString = AppLocalizations.of(Get.context!)!.duplicateFoundSubtitle;
         break;
-      default:
-        returnString = "";
+      case UploadStatusEnum.skipped:
+        returnString = AppLocalizations.of(Get.context!)!.uploadSkippedSubtitle;
         break;
     }
     return returnString;
