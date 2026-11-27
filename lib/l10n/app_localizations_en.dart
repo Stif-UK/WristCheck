@@ -1671,6 +1671,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Digital Date';
 
   @override
+  String get dateComplicationsBigDate => 'Big Date';
+
+  @override
   String get emptyWatchboxCopy =>
       'Your watch-box is currently empty.\n\nPress the red button to add watches to your collection, or click the profile icon in the top right to log in\n\nTo set app preferences, such as preferred language and currency format open the sidebar and select \'Settings\'';
 

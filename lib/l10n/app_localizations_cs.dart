@@ -1700,6 +1700,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Digitální datum';
 
   @override
+  String get dateComplicationsBigDate => 'Velké datum';
+
+  @override
   String get emptyWatchboxCopy =>
       'Vaše hodinkovnice je momentálně prázdná.\n\nStisknutím červeného tlačítka přidejte hodinky do své sbírky, nebo kliknutím na ikonu profilu v pravém horním rohu se přihlaste.\n\nChcete-li nastavit předvolby aplikace, jako je preferovaný jazyk a formát měny, otevřete postranní panel a vyberte \'Nastavení\'';
 

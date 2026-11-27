@@ -574,6 +574,7 @@
   "dateComplicationsSubDialDayDate": "Sotto-quadrante Giorno-Data",
   "dateComplicationsPerpetualDate" : "Calendario Perpetuo",
   "dateComplicationsDigitalDate" : "Data Digitale",
+  "dateComplicationsBigDate" : "Gran Data",
 
   "@_WATCHBOX" : {},
   "emptyWatchboxCopy" : "La tua scatola degli orologi è attualmente vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione, o clicca sull'icona del profilo in alto a destra per accedere.\n\nPer impostare le preferenze dell'app, come la lingua e il formato valuta preferiti, apri la barra laterale e seleziona 'Impostazioni'",

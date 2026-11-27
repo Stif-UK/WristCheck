@@ -3180,6 +3180,12 @@ abstract class AppLocalizations {
   /// **'Digital Date'**
   String get dateComplicationsDigitalDate;
 
+  /// No description provided for @dateComplicationsBigDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Big Date'**
+  String get dateComplicationsBigDate;
+
   /// No description provided for @emptyWatchboxCopy.
   ///
   /// In en, this message translates to:

@@ -1680,6 +1680,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Data Digitale';
 
   @override
+  String get dateComplicationsBigDate => 'Gran Data';
+
+  @override
   String get emptyWatchboxCopy =>
       'La tua scatola degli orologi è attualmente vuota.\n\nPremi il pulsante rosso per aggiungere orologi alla tua collezione, o clicca sull\'icona del profilo in alto a destra per accedere.\n\nPer impostare le preferenze dell\'app, come la lingua e il formato valuta preferiti, apri la barra laterale e seleziona \'Impostazioni\'';
 

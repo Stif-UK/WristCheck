@@ -206,6 +206,7 @@ class CsvColumnRegistry {
         'Sub-Dial Day-Date',
         'Perpetual Date',
         'Digital Date',
+        'Big Date',
       ],
       valueAliases: ['None', 'No', 'Day Date'],
       validationNote:

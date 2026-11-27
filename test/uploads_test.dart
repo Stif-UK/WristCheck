@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
+import 'package:wristcheck/model/enums/complication_enums/date_complication_enum.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
 import 'package:wristcheck/model/extract_methods.dart';
 import 'package:wristcheck/model/upload_methods.dart';
@@ -415,6 +416,17 @@ void main() {
       expect(prompt, contains('In Collection'));
       expect(prompt, contains('PVD/DLC Steel'));
       expect(prompt, contains('Counter-Clockwise'));
+      expect(prompt, contains('Big Date'));
+    });
+
+    test('DateComplicationEnum and parseDateComplication support Big Date', () {
+      expect(DateComplicationEnum.bigdate.toDbString(), 'Big Date');
+      expect(
+        DateComplicationEnumLocalization.fromDbString('Big Date'),
+        DateComplicationEnum.bigdate,
+      );
+      expect(UploadMethods.parseDateComplication('Big Date'), 'Big Date');
+      expect(UploadMethods.parseDateComplication('big date'), 'Big Date');
     });
 
     testWidgets('UploadsLanding AI assistant card copies prompt to clipboard', (tester) async {

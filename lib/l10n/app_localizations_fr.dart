@@ -1695,6 +1695,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Date digitale';
 
   @override
+  String get dateComplicationsBigDate => 'Grande Date';
+
+  @override
   String get emptyWatchboxCopy =>
       'Votre boîte à montres est actuellement vide.\n\nAppuyez sur le bouton rouge pour ajouter des montres à votre collection, ou cliquez sur l\'icône de profil en haut à droite pour vous connecter.\n\nPour définir les préférences de l\'application, comme la langue et le format de devise préférés, ouvrez la barre latérale et sélectionnez \'Paramètres\'';
 

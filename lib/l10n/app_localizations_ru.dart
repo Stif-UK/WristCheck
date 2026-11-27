@@ -1707,6 +1707,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Цифровая дата';
 
   @override
+  String get dateComplicationsBigDate => 'Большая дата';
+
+  @override
   String get emptyWatchboxCopy =>
       'Ваша шкатулка в данный момент пуста.\n\nНажмите красную кнопку, чтобы добавить часы в коллекцию, или нажмите на иконку профиля в правом верхнем углу, чтобы войти в систему.\n\nЧтобы задать настройки приложения, такие как предпочтительный язык и формат валюты, откройте боковую панель и выберите \'Настройки\'';
 

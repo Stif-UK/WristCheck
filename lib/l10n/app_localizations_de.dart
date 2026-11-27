@@ -1697,6 +1697,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dateComplicationsDigitalDate => 'Digitales Datum';
 
   @override
+  String get dateComplicationsBigDate => 'Großdatum';
+
+  @override
   String get emptyWatchboxCopy =>
       'Deine Uhrenbox ist aktuell leer.\n\nDrücke den roten Button, um Uhren zu deiner Sammlung hinzuzufügen, oder klicke auf das Profil-Symbol oben rechts, um dich einzuloggen.\n\nUm App-Einstellungen wie bevorzugte Sprache und Währungsformat festzulegen, öffne die Seitenleiste und wähle \'Einstellungen\'';
 

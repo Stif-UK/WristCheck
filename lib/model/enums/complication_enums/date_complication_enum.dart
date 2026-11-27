@@ -11,6 +11,7 @@ enum DateComplicationEnum {
   subdialdaydate,
   perpetualdate,
   digitaldate,
+  bigdate,
   blank
 }
 
@@ -37,6 +38,8 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return localizations.dateComplicationsPerpetualDate;
       case DateComplicationEnum.digitaldate:
         return localizations.dateComplicationsDigitalDate;
+      case DateComplicationEnum.bigdate:
+        return localizations.dateComplicationsBigDate;
       case DateComplicationEnum.blank:
         return localizations.notRecorded;
     }
@@ -63,6 +66,8 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return "Perpetual Date";
       case DateComplicationEnum.digitaldate:
         return "Digital Date";
+      case DateComplicationEnum.bigdate:
+        return "Big Date";
       case DateComplicationEnum.blank:
         return "Not Entered";
     }
@@ -89,6 +94,8 @@ extension DateComplicationEnumLocalization on DateComplicationEnum {
         return DateComplicationEnum.perpetualdate;
       case "Digital Date":
         return DateComplicationEnum.digitaldate;
+      case "Big Date":
+        return DateComplicationEnum.bigdate;
       case "Not Entered":
       case "":
       case null:
