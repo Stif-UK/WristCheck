@@ -6,12 +6,17 @@ import 'package:wristcheck/controllers/collection_stats_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/collection_chart_enums/colour_chart_enum.dart';
 import 'package:wristcheck/model/watches.dart';
+import 'package:wristcheck/util/chart_helper_classes.dart';
 import 'package:wristcheck/util/helper_classes.dart';
 
 class ColourChart extends StatefulWidget {
   const ColourChart({Key? key, this.watchesOverride}) : super(key: key);
 
   final List<Watches>? watchesOverride;
+
+  static int getLinesToDraw(ColourChartEnum chartType, int colourCount) {
+    return chartType == ColourChartEnum.stackedBar ? colourCount : 0;
+  }
 
   @override
   State<ColourChart> createState() => _ColourChartState();
@@ -20,7 +25,7 @@ class ColourChart extends StatefulWidget {
 class _ColourChartState extends State<ColourChart> {
   @override
   Widget build(BuildContext context) {
-    final collectionStatsController = Get.find<CollectionStatsController>();
+    final collectionStatsController = Get.put(CollectionStatsController());
     final List<Watches> data =
         widget.watchesOverride ?? Boxes.getCollectionWatches();
 
@@ -61,8 +66,16 @@ class _ColourChartState extends State<ColourChart> {
 
     return Obx(() {
       final chartType = collectionStatsController.colourChartType.value;
+      final int linesToDraw = ColourChart.getLinesToDraw(
+        chartType,
+        getChartData.length,
+      );
+      final double chartHeight =
+          ChartHelper.calculateChartSpace(context, linesToDraw);
+
+      Widget chartWidget;
       if (chartType == ColourChartEnum.pie) {
-        return SfCircularChart(
+        chartWidget = SfCircularChart(
           legend: const Legend(
             isVisible: true,
             overflowMode: LegendItemOverflowMode.wrap,
@@ -83,7 +96,7 @@ class _ColourChartState extends State<ColourChart> {
           ],
         );
       } else if (chartType == ColourChartEnum.donut) {
-        return SfCircularChart(
+        chartWidget = SfCircularChart(
           legend: const Legend(
             isVisible: true,
             overflowMode: LegendItemOverflowMode.wrap,
@@ -104,7 +117,7 @@ class _ColourChartState extends State<ColourChart> {
           ],
         );
       } else {
-        return SfCartesianChart(
+        chartWidget = SfCartesianChart(
           legend: const Legend(
             isVisible: true,
             position: LegendPosition.top,
@@ -134,6 +147,12 @@ class _ColourChartState extends State<ColourChart> {
           ],
         );
       }
+
+      return SizedBox(
+        key: const Key('colour_chart_sized_box'),
+        height: chartHeight,
+        child: chartWidget,
+      );
     });
   }
 }

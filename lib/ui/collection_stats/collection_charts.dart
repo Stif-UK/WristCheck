@@ -608,11 +608,5 @@ class ResponsiveCollectionChartsLayout extends StatelessWidget {
 }
 
 double _calculateChartSpace(BuildContext context, int dataSize) {
-  double baseSize = MediaQuery.of(context).size.height * 0.45;
-
-  if (dataSize > 10) {
-    baseSize = baseSize * (dataSize / 10);
-  }
-
-  return baseSize;
+  return ChartHelper.calculateChartSpace(context, dataSize);
 }

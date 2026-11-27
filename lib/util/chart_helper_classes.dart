@@ -412,6 +412,16 @@ class ChartHelper{
     return returnSize;
   }
 
+  static double calculateChartSpace(BuildContext context, int dataSize) {
+    double baseSize = MediaQuery.of(context).size.height * 0.45;
+
+    if (dataSize > 10) {
+      baseSize = baseSize * (dataSize / 10);
+    }
+
+    return baseSize;
+  }
+
   static Widget getWatchMonthChartIcon(WatchMonthChartEnum type){
     Widget returnIcon;
 
