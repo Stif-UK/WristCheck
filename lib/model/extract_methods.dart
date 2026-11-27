@@ -1,67 +1,233 @@
 import 'dart:io';
 import 'package:csv/csv.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:wristcheck/boxes.dart';
 import 'package:wristcheck/copy/dialogs.dart';
 import 'package:wristcheck/model/watches.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:path_provider/path_provider.dart';
 
-class ExtractMethods{
+class ExtractMethods {
+  static final DateFormat _isoDateFormat = DateFormat('yyyy-MM-dd');
 
-  /**
-   * The generateSimpleExtract() method iterates over the users collection and generates a CSV String containing all key watch details
-   * with a count of total times worn. It then internally calls the shareExtract() method to trigger the generation and sharing of a CSV file
-   * which the user can then access as required.
-   */
-  static generateSimpleExtract() async {
-    List<Watches> watchbox = Boxes.getAllWatches();
-
-    //Produce a list of Rows to convert
-    List<List<String?>> csvList = [];
-    //Create Header Row
-    csvList.add(["Status", "Manufacturer", "Model", "Category", "Serial Number", "Reference Number", "Movement", "Date Complication", "Warranty Expiry Date", "Last Serviced Date","Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price", "Sold To", "Case Diameter", "Case Thickness", "Case Material", "Lug Width", "Lug to Lug", "Water Resistance", "Winder TPD", "Winder Direction", "Notes", "Tracked Wear Count"]);
-    //Add additional rows per watch
-    for(Watches watch in watchbox){
-      csvList.add([watch.status!, watch.manufacturer, watch.model, watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.dateComplication,  watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchaseDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldDate.toString(), watch.soldPrice.toString(), watch.soldTo, watch.caseDiameter.toString(), watch.caseThickness.toString(), watch.caseMaterial, watch.lugWidth.toString(), watch.lug2lug.toString(), watch.waterResistance.toString(), watch.winderTPD.toString(), watch.winderDirection, watch.notes, watch.wearList.length.toString()]);
-    }
-    String csv = const ListToCsvConverter().convert(csvList);
-    await shareExtract(csv);
-
+  static String _formatDate(DateTime? date) {
+    if (date == null) return '';
+    return _isoDateFormat.format(date);
   }
 
-  /**
-   * the generateComplexExtract() method iterates over the users collection and produces a CSV string containing a line for every
-   * wear record (so multiple lines per watch) but it does not include notes. It then calls the shareExtract() method to convert to
-   * a CSV file and make this available for the user to access.
-   */
-  static generateComplexExtract() async {
-    List<Watches> watchbox = Boxes.getAllWatches();
+  static String _formatValue(Object? value) {
+    if (value == null) return '';
+    return value.toString();
+  }
 
-    //Produce a list of Rows to convert
-    List<List<String?>> csvList = [];
-    //Create Header Row
-    csvList.add(["Status", "Manufacturer", "Model", "Date Worn", "Category", "Serial Number", "Reference Number", "Movement", "Date Complication", "Warranty Expiry Date", "Last Serviced Date", "Purchase Date", "Purchase Price", "Purchased From", "Sold Date", "Sold Price", "Sold To", "Case Diameter", "Case Thickness", "Case Material", "Lug Width", "Lug to Lug", "Water Resistance", "Winder TPD", "Winder Direction",]);
-    //Add additional rows per watch
-    for(Watches watch in watchbox){
-      for(DateTime date in watch.wearList){
-        csvList.add([watch.status, watch.manufacturer, watch.model, date.toString(), watch.category, watch.serialNumber, watch.referenceNumber, watch.movement, watch.dateComplication, watch.warrantyEndDate.toString(), watch.lastServicedDate.toString(), watch.purchaseDate.toString(), watch.purchasePrice.toString(), watch.purchasedFrom, watch.soldDate.toString(), watch.soldPrice.toString(), watch.soldTo, watch.caseDiameter.toString(), watch.caseThickness.toString(), watch.caseMaterial, watch.lugWidth.toString(), watch.lug2lug.toString(), watch.waterResistance.toString(), watch.winderTPD.toString(), watch.winderDirection,]);
+  static List<Watches> _getExportableWatches([List<Watches>? watchesOverride]) {
+    final source = watchesOverride ?? Boxes.getAllWatches();
+    return source.where((watch) => watch.isDeleted != true).toList();
+  }
+
+  /// Builds the CSV string for the Simple Extract (one row per watch, including Notes and Tracked Wear Count).
+  static String buildSimpleExtractCsv([List<Watches>? watchesOverride]) {
+    final watchbox = _getExportableWatches(watchesOverride);
+
+    final List<List<String>> csvList = [
+      [
+        'Status',
+        'Manufacturer',
+        'Model',
+        'Favourite',
+        'Category',
+        'Movement',
+        'Primary Colour',
+        'Secondary Colour',
+        'Serial Number',
+        'Reference Number',
+        'Date Complication',
+        'Model Year',
+        'Warranty Expiry Date',
+        'Last Serviced Date',
+        'Service Interval',
+        'Next Service Due',
+        'Purchase Date',
+        'Delivery Date',
+        'Purchase Price',
+        'Purchased From',
+        'Sold Date',
+        'Sold Price',
+        'Sold To',
+        'Current Value',
+        'Case Diameter',
+        'Case Thickness',
+        'Case Material',
+        'Lug Width',
+        'Lug to Lug',
+        'Water Resistance',
+        'Power Reserve',
+        'Winder TPD',
+        'Winder Direction',
+        'Notes',
+        'Tracked Wear Count',
+      ],
+    ];
+
+    for (final watch in watchbox) {
+      csvList.add([
+        _formatValue(watch.status),
+        watch.manufacturer,
+        watch.model,
+        watch.favourite.toString(),
+        _formatValue(watch.category),
+        _formatValue(watch.movement),
+        _formatValue(watch.primaryColour),
+        _formatValue(watch.secondaryColour),
+        _formatValue(watch.serialNumber),
+        _formatValue(watch.referenceNumber),
+        _formatValue(watch.dateComplication),
+        _formatValue(watch.year),
+        _formatDate(watch.warrantyEndDate),
+        _formatDate(watch.lastServicedDate),
+        watch.serviceInterval > 0 ? watch.serviceInterval.toString() : '',
+        _formatDate(watch.nextServiceDue),
+        _formatDate(watch.purchaseDate),
+        _formatDate(watch.deliveryDate),
+        _formatValue(watch.purchasePrice),
+        _formatValue(watch.purchasedFrom),
+        _formatDate(watch.soldDate),
+        _formatValue(watch.soldPrice),
+        _formatValue(watch.soldTo),
+        _formatValue(watch.value),
+        _formatValue(watch.caseDiameter),
+        _formatValue(watch.caseThickness),
+        _formatValue(watch.caseMaterial),
+        _formatValue(watch.lugWidth),
+        _formatValue(watch.lug2lug),
+        _formatValue(watch.waterResistance),
+        _formatValue(watch.powerReserve),
+        _formatValue(watch.winderTPD),
+        _formatValue(watch.winderDirection),
+        _formatValue(watch.notes),
+        watch.wearList.length.toString(),
+      ]);
+    }
+
+    return const ListToCsvConverter().convert(csvList);
+  }
+
+  /// Builds the CSV string for the Detailed/Complex Extract (one row per wear date, plus a single row for unworn watches; excludes Notes).
+  static String buildComplexExtractCsv([List<Watches>? watchesOverride]) {
+    final watchbox = _getExportableWatches(watchesOverride);
+
+    final List<List<String>> csvList = [
+      [
+        'Status',
+        'Manufacturer',
+        'Model',
+        'Date Worn',
+        'Favourite',
+        'Category',
+        'Movement',
+        'Primary Colour',
+        'Secondary Colour',
+        'Serial Number',
+        'Reference Number',
+        'Date Complication',
+        'Model Year',
+        'Warranty Expiry Date',
+        'Last Serviced Date',
+        'Service Interval',
+        'Next Service Due',
+        'Purchase Date',
+        'Delivery Date',
+        'Purchase Price',
+        'Purchased From',
+        'Sold Date',
+        'Sold Price',
+        'Sold To',
+        'Current Value',
+        'Case Diameter',
+        'Case Thickness',
+        'Case Material',
+        'Lug Width',
+        'Lug to Lug',
+        'Water Resistance',
+        'Power Reserve',
+        'Winder TPD',
+        'Winder Direction',
+      ],
+    ];
+
+    List<String> rowForWatch(Watches watch, DateTime? wearDate) {
+      return [
+        _formatValue(watch.status),
+        watch.manufacturer,
+        watch.model,
+        _formatDate(wearDate),
+        watch.favourite.toString(),
+        _formatValue(watch.category),
+        _formatValue(watch.movement),
+        _formatValue(watch.primaryColour),
+        _formatValue(watch.secondaryColour),
+        _formatValue(watch.serialNumber),
+        _formatValue(watch.referenceNumber),
+        _formatValue(watch.dateComplication),
+        _formatValue(watch.year),
+        _formatDate(watch.warrantyEndDate),
+        _formatDate(watch.lastServicedDate),
+        watch.serviceInterval > 0 ? watch.serviceInterval.toString() : '',
+        _formatDate(watch.nextServiceDue),
+        _formatDate(watch.purchaseDate),
+        _formatDate(watch.deliveryDate),
+        _formatValue(watch.purchasePrice),
+        _formatValue(watch.purchasedFrom),
+        _formatDate(watch.soldDate),
+        _formatValue(watch.soldPrice),
+        _formatValue(watch.soldTo),
+        _formatValue(watch.value),
+        _formatValue(watch.caseDiameter),
+        _formatValue(watch.caseThickness),
+        _formatValue(watch.caseMaterial),
+        _formatValue(watch.lugWidth),
+        _formatValue(watch.lug2lug),
+        _formatValue(watch.waterResistance),
+        _formatValue(watch.powerReserve),
+        _formatValue(watch.winderTPD),
+        _formatValue(watch.winderDirection),
+      ];
+    }
+
+    for (final watch in watchbox) {
+      if (watch.wearList.isEmpty) {
+        csvList.add(rowForWatch(watch, null));
+      } else {
+        for (final date in watch.wearList) {
+          csvList.add(rowForWatch(watch, date));
+        }
       }
     }
-    String csv = const ListToCsvConverter().convert(csvList);
-    await shareExtract(csv);
+
+    return const ListToCsvConverter().convert(csvList);
   }
 
-  /**
-   * The shareExtract() method takes a csv in the form of a String, generates a file called 'wristcheck_extract.csv'
-   * and passes this to the OS share dialog, allowing the user to then save or transfer the file as required.
-   */
+  /// Generates the Simple Extract CSV and opens the OS share sheet.
+  static Future<ShareResult> generateSimpleExtract() async {
+    final csv = buildSimpleExtractCsv();
+    return shareExtract(csv);
+  }
+
+  /// Generates the Detailed/Complex Extract CSV and opens the OS share sheet.
+  static Future<ShareResult> generateComplexExtract() async {
+    final csv = buildComplexExtractCsv();
+    return shareExtract(csv);
+  }
+
+  /// Writes [csv] to 'wristcheck_extract.csv' and passes it to the OS share dialog.
   static Future<ShareResult> shareExtract(String csv) async {
     final directory = await getApplicationDocumentsDirectory();
     final File file = File('${directory.path}/wristcheck_extract.csv');
     await file.writeAsString(csv);
 
-
-    var result = await Share.shareXFiles([XFile(file.path)]);
+    final result = await SharePlus.instance.share(
+      ShareParams(files: [XFile(file.path)]),
+    );
 
     if (result.status == ShareResultStatus.success) {
       WristCheckDialogs.getExtractSuccessDialog();
@@ -69,5 +235,4 @@ class ExtractMethods{
 
     return result;
   }
-
 }

@@ -12,6 +12,7 @@ import 'package:wristcheck/controllers/uploads_controller.dart';
 import 'package:wristcheck/controllers/wristcheck_controller.dart';
 import 'package:wristcheck/l10n/app_localizations.dart';
 import 'package:wristcheck/model/enums/upload_status_enum.dart';
+import 'package:wristcheck/model/extract_methods.dart';
 import 'package:wristcheck/model/upload_methods.dart';
 import 'package:wristcheck/model/upload_models.dart';
 import 'package:wristcheck/model/watches.dart';
@@ -451,6 +452,92 @@ void main() {
       expect(copiedText, isNotNull);
       expect(copiedText, contains('WristTrack'));
       expect(find.text('AI prompt copied to clipboard'), findsOneWidget);
+    });
+  });
+
+  group('ExtractMethods CSV export & round-trip compatibility', () {
+    test('buildSimpleExtractCsv includes new fields, omits null strings and deleted watches', () {
+      final active = Watches.fromJson({
+        'manufacturer': 'Omega',
+        'model': 'Speedmaster',
+        'favourite': true,
+        'status': 'In Collection',
+        'primary_colour': 'Black',
+        'secondary_colour': 'Silver',
+        'year': 2023,
+        'service_interval': 5,
+        'next_service_due': '2028-01-10T00:00:00.000',
+        'purchase_date': '2023-01-10T00:00:00.000',
+        'value': 6800,
+        'power_reserve': 50,
+        'notes': 'Moonwatch',
+        'wear_list': ['2025-01-05T00:00:00.000'],
+      });
+      final deleted = Watches.fromJson({
+        'manufacturer': 'DeletedBrand',
+        'model': 'DeletedModel',
+        'is_deleted': true,
+        'wear_list': <String>[],
+      });
+
+      final csv = ExtractMethods.buildSimpleExtractCsv([active, deleted]);
+      final rows = UploadMethods.parseCsvString(csv);
+
+      expect(rows.length, 2);
+      expect(rows.first, containsAll(['Favourite', 'Primary Colour', 'Secondary Colour', 'Model Year', 'Delivery Date', 'Service Interval', 'Next Service Due', 'Current Value', 'Power Reserve', 'Notes', 'Tracked Wear Count']));
+      expect(csv, isNot(contains('DeletedBrand')));
+      expect(csv, isNot(contains(',null,')));
+      expect(csv, contains('2023-01-10'));
+      expect(csv, contains('Moonwatch'));
+    });
+
+    test('buildComplexExtractCsv preserves unworn watches and round-trips through UploadMethods', () {
+      final worn = Watches.fromJson({
+        'manufacturer': 'Seiko',
+        'model': 'SPB143',
+        'favourite': true,
+        'status': 'In Collection',
+        'primary_colour': 'Grey',
+        'year': 2022,
+        'power_reserve': 70,
+        'value': 1100,
+        'notes': 'Should stay out of complex extract',
+        'wear_list': ['2025-01-10T00:00:00.000', '2025-01-15T00:00:00.000'],
+      });
+      final unworn = Watches.fromJson({
+        'manufacturer': 'Nomos',
+        'model': 'Tangente',
+        'status': 'Wishlist',
+        'wear_list': <String>[],
+      });
+
+      final csv = ExtractMethods.buildComplexExtractCsv([worn, unworn]);
+      final rows = UploadMethods.parseCsvString(csv);
+
+      // Header + 2 rows for worn watch + 1 row for unworn watch
+      expect(rows.length, 4);
+      expect(rows.first, isNot(contains('Notes')));
+      expect(csv, isNot(contains('Should stay out of complex extract')));
+
+      final header = UploadMethods.analyzeHeader(rows.first);
+      expect(header.isValid, isTrue);
+
+      final candidates = UploadMethods.parseAndGroupRows(
+        rows,
+        header,
+        nowOverride: DateTime(2026, 1, 1),
+      );
+      expect(candidates.length, 2);
+      expect(candidates[0].manufacturer, 'Seiko');
+      expect(candidates[0].wearDates.length, 2);
+      expect(candidates[0].favourite, isTrue);
+      expect(candidates[0].primaryColour, 'Grey');
+      expect(candidates[0].year, 2022);
+      expect(candidates[0].powerReserve, 70);
+      expect(candidates[0].value, 1100);
+      expect(candidates[1].manufacturer, 'Nomos');
+      expect(candidates[1].wearDates, isEmpty);
+      expect(candidates[1].status, 'Wishlist');
     });
   });
 }
