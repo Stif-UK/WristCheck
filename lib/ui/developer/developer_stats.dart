@@ -24,10 +24,12 @@ class DeveloperStats extends StatefulWidget {
     Key? key,
     this.initialTabIndex = 0,
     this.wristRewindEnabledOverride,
+    this.wristRewindNotificationEnabledOverride,
   }) : super(key: key);
 
   final int initialTabIndex;
   final bool? wristRewindEnabledOverride;
+  final bool? wristRewindNotificationEnabledOverride;
 
   @override
   State<DeveloperStats> createState() => _DeveloperStatsState();
@@ -44,6 +46,12 @@ class _DeveloperStatsState extends State<DeveloperStats> {
     if (widget.wristRewindEnabledOverride != null || Firebase.apps.isNotEmpty) {
       controller.refreshWristRewind2026(
         enabledOverride: widget.wristRewindEnabledOverride,
+      );
+    }
+    if (widget.wristRewindNotificationEnabledOverride != null ||
+        Firebase.apps.isNotEmpty) {
+      controller.refreshWristRewind2026Notification(
+        enabledOverride: widget.wristRewindNotificationEnabledOverride,
       );
     }
   }
@@ -535,7 +543,8 @@ class _DeveloperStatsState extends State<DeveloperStats> {
             title: const Text('2026 Wrist Rewind 7-Day Countdown'),
             subtitle: Text(
               'Status: $statusText\n'
-              'Remote Config (wrist_rewind_2026): ${status.remoteConfigEnabled}\n'
+              'Banner Config (wrist_rewind_2026_notification): ${status.remoteConfigEnabled}\n'
+              'More Menu Config (wrist_rewind_2026): ${wristCheckController.showWristRewind2026.value}\n'
               'First Shown: $firstShownText\n'
               'Countdown: $countdownText\n'
               'Dismissed: ${status.isDismissed}\n'
@@ -550,6 +559,12 @@ class _DeveloperStatsState extends State<DeveloperStats> {
               if (widget.wristRewindEnabledOverride != null || Firebase.apps.isNotEmpty) {
                 await wristCheckController.refreshWristRewind2026(
                   enabledOverride: widget.wristRewindEnabledOverride,
+                );
+              }
+              if (widget.wristRewindNotificationEnabledOverride != null ||
+                  Firebase.apps.isNotEmpty) {
+                await wristCheckController.refreshWristRewind2026Notification(
+                  enabledOverride: widget.wristRewindNotificationEnabledOverride,
                 );
               }
               if (mounted) {
@@ -649,7 +664,7 @@ class _DeveloperStatsState extends State<DeveloperStats> {
 
   Future<void> _resetWristRewind2026Countdown(WristCheckController wristCheckController) async {
     await wristCheckController.resetWristRewind2026Notification(
-      enabledOverride: widget.wristRewindEnabledOverride,
+      enabledOverride: widget.wristRewindNotificationEnabledOverride,
     );
     if (mounted) {
       setState(() {});

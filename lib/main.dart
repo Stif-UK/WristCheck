@@ -132,6 +132,7 @@ Future main() async{
       "merch_url": "https://merch.wristtrack.app/",
       'global_banner_notice': '{}',
       'wrist_rewind_2026': false,
+      'wrist_rewind_2026_notification': false,
     });
     
     await remoteConfig.fetchAndActivate().timeout(const Duration(seconds: 5));
@@ -141,6 +142,9 @@ Future main() async{
       if (Get.isRegistered<WristCheckController>()) {
         final controller = Get.find<WristCheckController>();
         if (event.updatedKeys.contains('wrist_rewind_2026')) {
+          await controller.refreshWristRewind2026();
+        }
+        if (event.updatedKeys.contains('wrist_rewind_2026_notification')) {
           await controller.checkForNotifications();
         }
         if (event.updatedKeys.contains('global_banner_notice')) {

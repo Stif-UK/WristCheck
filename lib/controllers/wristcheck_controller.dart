@@ -66,6 +66,7 @@ class WristCheckController extends GetxController {
   //2026 Wrist Rewind
   static const Duration wristRewind2026ActiveDuration = Duration(days: 7);
   final showWristRewind2026 = false.obs;
+  final showWristRewind2026Notification = false.obs;
 
   // Global Banner Notification
   final showGlobalBanner = false.obs;
@@ -118,13 +119,21 @@ class WristCheckController extends GetxController {
    * checkForNotifications runs each of the checkers for homepage notifications
    * setting the boolean values to true if a notification is available.
    */
-  checkForNotifications({DateTime? nowOverride, bool? wristRewindEnabledOverride}) async {
+  checkForNotifications({
+    DateTime? nowOverride,
+    bool? wristRewindEnabledOverride,
+    bool? wristRewindNotificationEnabledOverride,
+  }) async {
     DateTime now = nowOverride ?? DateTime.now();
+
+    if (wristRewindEnabledOverride != null) {
+      await refreshWristRewind2026(enabledOverride: wristRewindEnabledOverride);
+    }
 
     // Check 2026 Wrist Rewind banner first: it stays active for 7 days across app sessions
     // (rather than single-day dismissal) until dismissed, followed, or expired.
     if (await checkForWristRewind2026Notification(
-      enabledOverride: wristRewindEnabledOverride,
+      enabledOverride: wristRewindNotificationEnabledOverride,
       nowOverride: now,
     )) {
       if (activeNBA.value is! WristRewind2026Notification) {
@@ -475,13 +484,24 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
     }
   }
 
+  Future<void> refreshWristRewind2026Notification({bool? enabledOverride}) async {
+    try {
+      final bool enabled =
+          enabledOverride ?? remoteConfig.getBool('wrist_rewind_2026_notification');
+      showWristRewind2026Notification(enabled);
+    } catch (e) {
+      debugPrint('Failed to refresh wrist_rewind_2026_notification config: $e');
+      showWristRewind2026Notification(false);
+    }
+  }
+
   Future<bool> checkForWristRewind2026Notification({
     bool? enabledOverride,
     DateTime? nowOverride,
   }) async {
-    await refreshWristRewind2026(enabledOverride: enabledOverride);
+    await refreshWristRewind2026Notification(enabledOverride: enabledOverride);
 
-    if (!showWristRewind2026.value) {
+    if (!showWristRewind2026Notification.value) {
       return false;
     }
 
@@ -508,7 +528,7 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
     DateTime? nowOverride,
   }) {
     final DateTime now = nowOverride ?? DateTime.now();
-    final bool enabled = showWristRewind2026.value;
+    final bool enabled = showWristRewind2026Notification.value;
     final bool dismissed = WristCheckPreferences.getWristRewind2026Dismissed();
     final DateTime? firstShown = WristCheckPreferences.getWristRewind2026FirstShown();
     final DateTime? expiresAt = firstShown?.add(wristRewind2026ActiveDuration);
@@ -536,7 +556,7 @@ final waterResistanceUnit = WristCheckPreferences.getWaterResistancePreference()
     await WristCheckPreferences.clearWristRewind2026State();
     await checkForNotifications(
       nowOverride: nowOverride,
-      wristRewindEnabledOverride: enabledOverride,
+      wristRewindNotificationEnabledOverride: enabledOverride,
     );
   }
 

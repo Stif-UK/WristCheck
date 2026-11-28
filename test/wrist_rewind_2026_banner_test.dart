@@ -50,7 +50,24 @@ void main() {
   });
 
   group('2026 Wrist Rewind NBA banner lifecycle', () {
-    test('does not show or start 7-day window when remote config is false', () async {
+    test('does not show or start 7-day window when notification remote config is false even if more menu config is true', () async {
+      final day1 = DateTime(2026, 12, 1, 10, 0);
+      await WristCheckPreferences.setLastNBADate(day1);
+      final controller = Get.put(WristCheckController());
+
+      await controller.checkForNotifications(
+        nowOverride: day1,
+        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: false,
+      );
+
+      expect(controller.showWristRewind2026.value, isTrue);
+      expect(controller.showWristRewind2026Notification.value, isFalse);
+      expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
+      expect(WristCheckPreferences.getWristRewind2026FirstShown(), isNull);
+    });
+
+    test('shows notification banner independently when wrist_rewind_2026 is false and wrist_rewind_2026_notification is true', () async {
       final day1 = DateTime(2026, 12, 1, 10, 0);
       await WristCheckPreferences.setLastNBADate(day1);
       final controller = Get.put(WristCheckController());
@@ -58,11 +75,13 @@ void main() {
       await controller.checkForNotifications(
         nowOverride: day1,
         wristRewindEnabledOverride: false,
+        wristRewindNotificationEnabledOverride: true,
       );
 
       expect(controller.showWristRewind2026.value, isFalse);
-      expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
-      expect(WristCheckPreferences.getWristRewind2026FirstShown(), isNull);
+      expect(controller.showWristRewind2026Notification.value, isTrue);
+      expect(controller.activeNBA.value, isA<WristRewind2026Notification>());
+      expect(WristCheckPreferences.getWristRewind2026FirstShown(), day1);
     });
 
     test('stays active for 7 days across sessions and same-day restarts until expired', () async {
@@ -73,9 +92,9 @@ void main() {
       var controller = Get.put(WristCheckController());
       await controller.checkForNotifications(
         nowOverride: day1,
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
-      expect(controller.showWristRewind2026.value, isTrue);
+      expect(controller.showWristRewind2026Notification.value, isTrue);
       expect(controller.activeNBA.value, isA<WristRewind2026Notification>());
       expect(WristCheckPreferences.getWristRewind2026FirstShown(), day1);
 
@@ -84,7 +103,7 @@ void main() {
       controller = Get.put(WristCheckController());
       await controller.checkForNotifications(
         nowOverride: day1.add(const Duration(hours: 4)),
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       expect(controller.activeNBA.value, isA<WristRewind2026Notification>());
 
@@ -93,7 +112,7 @@ void main() {
       controller = Get.put(WristCheckController());
       await controller.checkForNotifications(
         nowOverride: day1.add(const Duration(days: 6, hours: 23)),
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       expect(controller.activeNBA.value, isA<WristRewind2026Notification>());
 
@@ -102,7 +121,7 @@ void main() {
       await WristCheckPreferences.setLastNBADate(day7);
       await controller.checkForNotifications(
         nowOverride: day7,
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
       expect(controller.activeNBA.value, isA<SizedBox>());
@@ -114,7 +133,7 @@ void main() {
 
       await controller.checkForNotifications(
         nowOverride: day1,
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       expect(controller.activeNBA.value, isA<WristRewind2026Notification>());
 
@@ -129,7 +148,7 @@ void main() {
       await WristCheckPreferences.setLastNBADate(day2);
       await controller.checkForNotifications(
         nowOverride: day2,
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       expect(controller.activeNBA.value, isNot(isA<WristRewind2026Notification>()));
     });
@@ -172,7 +191,7 @@ void main() {
       // Start countdown
       await controller.checkForNotifications(
         nowOverride: day1,
-        wristRewindEnabledOverride: true,
+        wristRewindNotificationEnabledOverride: true,
       );
       status = controller.getWristRewind2026CountdownStatus(
         nowOverride: day1.add(const Duration(days: 2, hours: 3)),
@@ -209,7 +228,8 @@ void main() {
         const GetMaterialApp(
           home: DeveloperStats(
             initialTabIndex: 3,
-            wristRewindEnabledOverride: true,
+            wristRewindEnabledOverride: false,
+            wristRewindNotificationEnabledOverride: true,
           ),
         ),
       );
@@ -217,6 +237,8 @@ void main() {
 
       expect(find.text('2026 Wrist Rewind 7-Day Countdown'), findsOneWidget);
       expect(find.textContaining('Status: Dismissed / Followed'), findsOneWidget);
+      expect(find.textContaining('Banner Config (wrist_rewind_2026_notification): true'), findsOneWidget);
+      expect(find.textContaining('More Menu Config (wrist_rewind_2026): false'), findsOneWidget);
       expect(find.textContaining('Dismissed: true'), findsOneWidget);
 
       await tester.tap(find.byTooltip('Reset 7-day countdown'));
