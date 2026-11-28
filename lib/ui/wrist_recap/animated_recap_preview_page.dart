@@ -16,6 +16,42 @@ import 'package:wristcheck/ui/widgets/animations/wt_annual_recap_animation.dart'
 class AnimatedRecapPreviewPage extends StatefulWidget {
   const AnimatedRecapPreviewPage({super.key});
 
+  static const int minWearsForRewind = 30;
+
+  @visibleForTesting
+  static bool hasEnoughDataForRewind(int totalWears2026) {
+    return totalWears2026 >= minWearsForRewind;
+  }
+
+  /// Counts how many non-deleted watches have [purchaseDate] or [soldDate] in [year],
+  /// regardless of whether they were worn during [year].
+  @visibleForTesting
+  static ({int bought, int sold}) computeBoughtAndSoldForYear(
+    List<Watches> watches, {
+    int year = 2026,
+  }) {
+    int bought = 0;
+    int sold = 0;
+    for (final watch in watches) {
+      if (watch.isDeleted == true) continue;
+      DateTime? purchaseDate;
+      DateTime? soldDate;
+      try {
+        purchaseDate = watch.purchaseDate;
+      } catch (_) {}
+      try {
+        soldDate = watch.soldDate;
+      } catch (_) {}
+      if (purchaseDate?.year == year) {
+        bought++;
+      }
+      if (soldDate?.year == year) {
+        sold++;
+      }
+    }
+    return (bought: bought, sold: sold);
+  }
+
   /// Returns the DB string of the watch category with the highest total wear count.
   /// Prefers non-blank categories if any worn watch has a category assigned.
   @visibleForTesting
@@ -47,9 +83,12 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
   bool _isSharing = false;
   bool _hasLoggedFinalSlide = false;
 
+  late bool enoughData;
   late double daysTracked;
   late double totalWearsTracked;
   late double watchesWorn;
+  late double totalBought;
+  late double totalSold;
   late String topWatchStyle;
 
   late String top1Watch;
@@ -121,6 +160,19 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
 
     daysTracked = daysSet.length.toDouble();
     totalWearsTracked = totalWears.toDouble();
+    enoughData = AnimatedRecapPreviewPage.hasEnoughDataForRewind(totalWears);
+
+    // Count all non-deleted watches bought or sold in 2026 (including archived/sold watches,
+    // regardless of whether they have wears recorded in 2026).
+    final nonDeletedWatches = Boxes.getAllWatches()
+        .where((watch) => watch.isDeleted != true)
+        .toList();
+    final boughtAndSold = AnimatedRecapPreviewPage.computeBoughtAndSoldForYear(
+      nonDeletedWatches,
+      year: year,
+    );
+    totalBought = boughtAndSold.bought.toDouble();
+    totalSold = boughtAndSold.sold.toDouble();
 
     // 2. Fetch watches worn in 2026 from WatchBox database (fallback to all-time if 2026 has no wears yet)
     List<WornWatchesClass> worn2026 = [];
@@ -333,9 +385,12 @@ class _AnimatedRecapPreviewPageState extends State<AnimatedRecapPreviewPage> {
             fallbackIconDimensions: 200,
             onScreenshotTrigger: _shareRecap,
             onFinalSlide: _onFinalSlide,
+            enoughData: enoughData,
             daysTracked: daysTracked,
             totalWearsTracked: totalWearsTracked,
             watchesWorn: watchesWorn,
+            totalBought: totalBought,
+            totalSold: totalSold,
             topWatchStyle: topWatchStyle,
             top1Watch: top1Watch,
             top1WatchWorn: top1WatchWorn,

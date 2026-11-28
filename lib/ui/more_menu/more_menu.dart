@@ -12,6 +12,7 @@ import 'package:wristcheck/model/wristcheck_preferences.dart';
 import 'package:wristcheck/provider/adstate.dart';
 import 'package:wristcheck/ui/more_menu/gallery/gallery.dart';
 import 'package:wristcheck/ui/more_menu/timeline/timeline.dart';
+import 'package:wristcheck/ui/widgets/animations/wt_banner_icon.dart';
 import 'package:wristcheck/ui/wrist_recap/animated_recap_preview_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -82,6 +83,28 @@ class _MoreMenuState extends State<MoreMenu> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    if (widget.wristCheckController.showWristRewind2026.value) ...[
+                      Padding(
+                        padding: pagePadding,
+                        child: ListTile(
+                          title: Text(
+                            '2026 WristTrack Rewind',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            textAlign: TextAlign.center,
+                          ),
+                          trailing: const SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: WTBannerIcon(fallbackIconDimensions: 40),
+                          ),
+                          onTap: () async {
+                            await analytics.logEvent(name: 'more_menu_wrist_rewind_clicked');
+                            Get.to(() => const AnimatedRecapPreviewPage());
+                          },
+                        ),
+                      ),
+                      const Divider(thickness: 2,),
+                    ],
                     Padding(
                       padding: pagePadding,
                       child: ListTile(
@@ -99,29 +122,12 @@ class _MoreMenuState extends State<MoreMenu> {
                         title: Text(AppLocalizations.of(context)!.timeline,
                           style: Theme.of(context).textTheme.headlineSmall,
                           textAlign: TextAlign.center,),
-                        trailing: FaIcon(FontAwesomeIcons.timeline),
+                        trailing: Icon(Icons.timeline_rounded),//FaIcon(FontAwesomeIcons.timeline),
                         onTap: ()=> Get.to(() => WristCheckTimeline()),
                       ),
                     ),
                     const Divider(thickness: 2,),
-                    if (widget.wristCheckController.showWristRewind2026.value) ...[
-                      Padding(
-                        padding: pagePadding,
-                        child: ListTile(
-                          title: Text(
-                            '2026 Wrist Rewind',
-                            style: Theme.of(context).textTheme.headlineSmall,
-                            textAlign: TextAlign.center,
-                          ),
-                          trailing: const FaIcon(FontAwesomeIcons.clockRotateLeft),
-                          onTap: () async {
-                            await analytics.logEvent(name: 'more_menu_wrist_rewind_clicked');
-                            Get.to(() => const AnimatedRecapPreviewPage());
-                          },
-                        ),
-                      ),
-                      const Divider(thickness: 2,),
-                    ],
+
                     widget.wristCheckController.showMerchStore.value ? Padding(
                       padding: pagePadding,
                       child: ListTile(

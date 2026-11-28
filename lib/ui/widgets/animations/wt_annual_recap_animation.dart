@@ -8,9 +8,12 @@ class WTAnnualRecapAnimation extends StatefulWidget {
     super.key,
     required this.fallbackIconDimensions,
     this.artboardName = 'MAIN',
+    this.enoughData,
     this.daysTracked,
     this.totalWearsTracked,
     this.watchesWorn,
+    this.totalBought,
+    this.totalSold,
     this.topWatchStyle,
     this.top1Watch,
     this.top1WatchWorn,
@@ -45,9 +48,12 @@ class WTAnnualRecapAnimation extends StatefulWidget {
 
   final double fallbackIconDimensions;
   final String artboardName;
+  final bool? enoughData;
   final double? daysTracked;
   final double? totalWearsTracked;
   final double? watchesWorn;
+  final double? totalBought;
+  final double? totalSold;
   final String? topWatchStyle;
   final String? top1Watch;
   final double? top1WatchWorn;
@@ -132,6 +138,14 @@ class WTAnnualRecapAnimationController {
       _vmi?.enumerator(name)?.value = value;
     } catch (e) {
       debugPrint("Error setting enum '$name': $e");
+    }
+  }
+
+  void setBoolean(String name, bool value) {
+    try {
+      _vmi?.boolean(name)?.value = value;
+    } catch (e) {
+      debugPrint("Error setting boolean '$name': $e");
     }
   }
 
@@ -222,9 +236,12 @@ class WTAnnualRecapAnimationState extends State<WTAnnualRecapAnimation> {
   }
 
   void _applyInputs(WTAnnualRecapAnimation w, WTAnnualRecapAnimationController ctrl) {
+    if (w.enoughData != null) ctrl.setBoolean('enoughData', w.enoughData!);
     if (w.daysTracked != null) ctrl.setNumber('daysTracked', w.daysTracked!);
     if (w.totalWearsTracked != null) ctrl.setNumber('totalWearsTracked', w.totalWearsTracked!);
     if (w.watchesWorn != null) ctrl.setNumber('watchesWorn', w.watchesWorn!);
+    if (w.totalBought != null) ctrl.setNumber('totalBought', w.totalBought!);
+    if (w.totalSold != null) ctrl.setNumber('totalSold', w.totalSold!);
     if (w.topWatchStyle != null) ctrl.setString('topStyleTEXT', w.topWatchStyle!);
     if (w.top1Watch != null) ctrl.setString('top1WatchTEXT', w.top1Watch!);
     if (w.top1WatchWorn != null) ctrl.setNumber('top1WatchWorn', w.top1WatchWorn!);
