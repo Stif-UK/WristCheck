@@ -64,6 +64,11 @@ class _WristRewind2026NotificationState
           debugPrint('WristRewind2026Notification AutoBind skipped: $e');
         }
       },
+      onFailed: (error, stackTrace) {
+        debugPrint(
+          'WristRewind2026Notification failed to load Rive animation: $error\n$stackTrace',
+        );
+      },
       builder: (context, state) {
         return switch (state) {
           RiveLoading() => const SizedBox(
@@ -92,7 +97,7 @@ class _WristRewind2026NotificationState
     return SizedBox(
       width: double.infinity,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 50, maxHeight: 120),
+        constraints: const BoxConstraints(minHeight: 40, maxHeight: 120),
         child: AspectRatio(
           aspectRatio: aspectRatio,
           child: RiveWidget(
